@@ -14,3 +14,6 @@ build:
 	dart fix --apply
 	dart format lib/*
 	dart pub get
+
+docs:
+	dart doc --validate-links

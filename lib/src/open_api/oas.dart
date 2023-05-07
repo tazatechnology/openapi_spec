@@ -4,16 +4,18 @@ part of openapi_models;
 // CLASS: OpenApiSpec
 // ==========================================
 
-/// Text
+/// The [OpenAPI Specification](https://swagger.io/specification/) (OAS) defines a standard, language-agnostic interface to RESTful APIs
+/// This Dart class is a container around the spec in order to parse and generate clients, servers, component schemas, and documentation
 @freezed
 class OpenApiSpec with _$OpenApiSpec {
   const OpenApiSpec._();
 
   const factory OpenApiSpec({
-    /// This string MUST be the version number of the
-    /// OpenAPI Specificationthat the OpenAPI document uses.
+    /// This string must be the version number of the
+    /// OpenAPI Specification that the OpenAPI document uses.
     /// This is not related to the API [OpenApiInfo.version] string.
-    @Default('3.1.0') String openapi = '3.1.0',
+    /// By default, this generator uses `3.1.0`.
+    @Default('3.1.0') String openapi,
 
     /// Provides metadata about the API.
     /// The metadata MAY be used by tooling as required.

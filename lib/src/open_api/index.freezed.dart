@@ -777,7 +777,7 @@ mixin _$OpenApiInfo {
   /// The license information for the exposed API.
   OpenApiLicense? get license => throw _privateConstructorUsedError;
 
-  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.openapi].
   String get version => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -999,7 +999,7 @@ class _$_OpenApiInfo implements _OpenApiInfo {
   @override
   final OpenApiLicense? license;
 
-  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.openapi].
   @override
   final String version;
 
@@ -1084,7 +1084,7 @@ abstract class _OpenApiInfo implements OpenApiInfo {
   OpenApiLicense? get license;
   @override
 
-  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.openapi].
   String get version;
   @override
   @JsonKey(ignore: true)
@@ -3423,9 +3423,10 @@ OpenApiSpec _$OpenApiSpecFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpenApiSpec {
-  /// This string MUST be the version number of the
-  /// OpenAPI Specificationthat the OpenAPI document uses.
+  /// This string must be the version number of the
+  /// OpenAPI Specification that the OpenAPI document uses.
   /// This is not related to the API [OpenApiInfo.version] string.
+  /// By default, this generator uses `3.1.0`.
   String get openapi => throw _privateConstructorUsedError;
 
   /// Provides metadata about the API.
@@ -3717,9 +3718,10 @@ class _$_OpenApiSpec extends _OpenApiSpec {
   factory _$_OpenApiSpec.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiSpecFromJson(json);
 
-  /// This string MUST be the version number of the
-  /// OpenAPI Specificationthat the OpenAPI document uses.
+  /// This string must be the version number of the
+  /// OpenAPI Specification that the OpenAPI document uses.
   /// This is not related to the API [OpenApiInfo.version] string.
+  /// By default, this generator uses `3.1.0`.
   @override
   @JsonKey()
   final String openapi;
@@ -3903,9 +3905,10 @@ abstract class _OpenApiSpec extends OpenApiSpec {
 
   @override
 
-  /// This string MUST be the version number of the
-  /// OpenAPI Specificationthat the OpenAPI document uses.
+  /// This string must be the version number of the
+  /// OpenAPI Specification that the OpenAPI document uses.
   /// This is not related to the API [OpenApiInfo.version] string.
+  /// By default, this generator uses `3.1.0`.
   String get openapi;
   @override
 
