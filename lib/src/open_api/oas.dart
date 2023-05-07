@@ -13,7 +13,7 @@ class OpenApiSpec with _$OpenApiSpec {
     /// This string MUST be the version number of the
     /// OpenAPI Specificationthat the OpenAPI document uses.
     /// This is not related to the API [OpenApiInfo.version] string.
-    @Default('3.1.0') String openapi,
+    @Default('3.1.0') String openapi = '3.1.0',
 
     /// Provides metadata about the API.
     /// The metadata MAY be used by tooling as required.
@@ -71,13 +71,17 @@ class OpenApiSpec with _$OpenApiSpec {
   }
 
   /// Create an [OpenApiSpec] object from an existing JSON spec file
-  factory OpenApiSpec.fromJsonSpecFile(File file) {
-    return _fromRawMapSpec(json.decode((file.readAsStringSync())));
+  factory OpenApiSpec.fromJsonSpecFile({
+    required File source,
+  }) {
+    return _fromRawMapSpec(json.decode((source.readAsStringSync())));
   }
 
   /// Create an [OpenApiSpec] object from an existing YAML spec file
-  factory OpenApiSpec.fromYamlSpecFile(File file) {
-    return _fromRawMapSpec(yaml.loadYaml((file.readAsStringSync())));
+  factory OpenApiSpec.fromYamlSpecFile({
+    required File source,
+  }) {
+    return _fromRawMapSpec(yaml.loadYaml((source.readAsStringSync())));
   }
 
   /// Helper method to create an [OpenApiSpec] object from a raw JSON OpenAPI spec
@@ -108,7 +112,90 @@ class OpenApiSpec with _$OpenApiSpec {
   }
 
   /// Convert the [OpenApiSpec] object to a JSON spec file
-  void toJsonSpecFile(File file) {
-    file.writeAsStringSync(_encoder.convert(toJsonSpec()));
+  /// Will overwrite the existing file if it exists
+  void toJsonSpecFile({
+    required File destination,
+  }) {
+    destination.writeAsStringSync(_encoder.convert(toJsonSpec()));
+  }
+
+  /// Generate a static Swagger UI website from [OpenApiSpec] object
+  ///
+  /// title: Will override the title of the Swagger UI HTML page.
+  /// By default, this is set to the [OpenApiInfo.title] value
+  ///
+  /// replace: Will delete the destination directory if it already exists
+  ///
+  /// Set a custom favicon by defining paths to the following files:
+  ///
+  /// favicon16x16: The path to a 16x16 PNG favicon image
+  ///
+  /// favicon32x32: The path to a 32x32 PNG favicon image
+  Future<void> toSwaggerUI({
+    required String destination,
+    String? title,
+    bool replace = false,
+    String? favicon16x16,
+    String? favicon32x32,
+  }) async {
+    final dir = Directory(destination);
+    final dirPath = p.normalize(dir.absolute.path);
+
+    // https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configuration.md
+    if (dir.existsSync()) {
+      if (replace) {
+        await dir.delete(recursive: true);
+      } else {
+        throw Exception(
+          'Destination directory already exists: $dirPath\n\nEither remove it or set the "replace" option to true to delete the existing destination\n',
+        );
+      }
+    }
+
+    // Get the path to the swagger-ui static content
+    final packageUri = Uri.parse('package:openapi_spec/static/swagger-ui');
+    final path = (await Isolate.resolvePackageUri(packageUri))?.path;
+    if (path == null) {
+      throw Exception('Could not resolve package URI: $packageUri');
+    }
+
+    // Copy the source to the destination
+    final source = Directory(path);
+    await Process.run('cp', ['-r', source.path, dirPath]);
+
+    // Generate the spec file in the destination
+    toJsonSpecFile(
+      destination: File(p.join(dirPath, 'openapi.json')),
+    );
+
+    // Create a Javascript object for local parsing
+    // Avoids the need to spin up a server to simply view the Swagger UI output
+    final init = File(p.join(dirPath, 'swagger-initializer.js'));
+    init.writeAsStringSync(
+      'let spec = ${_encoder.convert(toJsonSpec())}',
+      mode: FileMode.append,
+    );
+
+    // Apply the index.html customizations
+    final index = File(p.join(dirPath, 'index.html'));
+    var indexText =
+        index.readAsStringSync().replaceAll('OAS_HTML_TITLE', info.title);
+    index.writeAsStringSync(indexText);
+
+    // Replace the favicons
+    for (final favicon in [favicon16x16, favicon32x32]) {
+      if (favicon == null) {
+        continue;
+      }
+      final f = File(favicon);
+      final faviconPath = p.normalize(f.absolute.path);
+      if (f.existsSync()) {
+        await Process.run('cp', [faviconPath, dir.absolute.path]);
+      } else {
+        throw Exception(
+          'Could not find favicon at defined path: \n\n$faviconPath\n',
+        );
+      }
+    }
   }
 }

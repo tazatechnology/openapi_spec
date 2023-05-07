@@ -1,0 +1,40 @@
+# https://github.com/dart-lang/ecosystem/blob/main/.github/workflows/publish.yaml
+# https://github.com/dart-lang/ecosystem/tree/main/pkgs/firehose
+# A CI configuration to auto-publish pub packages.
+
+name: Publish
+
+on:
+  push:
+    tags: [ 'v[0-9]+.[0-9]+.[0-9]+' ]
+
+jobs:
+  Publish:
+    permissions:
+      id-token: write
+      pull-requests: write
+
+    name: 'Publish package'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install firehose
+        run: dart pub global activate firehose
+  
+      - name: Validate packages
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.number }}
+          PR_LABELS: "${{ join(github.event.pull_request.labels.*.name) }}"
+        run: dart pub global run firehose --validate
+      
+      - name: Publish packages
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: dart pub global run firehose --publish
