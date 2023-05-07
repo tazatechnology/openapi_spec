@@ -83,11 +83,13 @@ Map<String, dynamic> _$$_OpenApiParameterToJson(_$_OpenApiParameter instance) =>
 
 _$_OpenApiPath _$$_OpenApiPathFromJson(Map<String, dynamic> json) =>
     _$_OpenApiPath(
+      path: json['path'] as String,
       description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPathToJson(_$_OpenApiPath instance) =>
     <String, dynamic>{
+      'path': instance.path,
       'description': instance.description,
     };
 

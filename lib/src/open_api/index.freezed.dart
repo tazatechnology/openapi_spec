@@ -1041,6 +1041,9 @@ OpenApiPath _$OpenApiPathFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OpenApiPath {
   /// Text
+  String get path => throw _privateConstructorUsedError;
+
+  /// Text
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1055,7 +1058,7 @@ abstract class $OpenApiPathCopyWith<$Res> {
           OpenApiPath value, $Res Function(OpenApiPath) then) =
       _$OpenApiPathCopyWithImpl<$Res, OpenApiPath>;
   @useResult
-  $Res call({String? description});
+  $Res call({String path, String? description});
 }
 
 /// @nodoc
@@ -1071,9 +1074,14 @@ class _$OpenApiPathCopyWithImpl<$Res, $Val extends OpenApiPath>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? path = null,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -1090,7 +1098,7 @@ abstract class _$$_OpenApiPathCopyWith<$Res>
       __$$_OpenApiPathCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call({String path, String? description});
 }
 
 /// @nodoc
@@ -1104,9 +1112,14 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? path = null,
     Object? description = freezed,
   }) {
     return _then(_$_OpenApiPath(
+      path: null == path
+          ? _value.path
+          : path // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -1118,10 +1131,14 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiPath implements _OpenApiPath {
-  const _$_OpenApiPath({this.description});
+  const _$_OpenApiPath({required this.path, this.description});
 
   factory _$_OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPathFromJson(json);
+
+  /// Text
+  @override
+  final String path;
 
   /// Text
   @override
@@ -1129,7 +1146,7 @@ class _$_OpenApiPath implements _OpenApiPath {
 
   @override
   String toString() {
-    return 'OpenApiPath(description: $description)';
+    return 'OpenApiPath(path: $path, description: $description)';
   }
 
   @override
@@ -1137,13 +1154,14 @@ class _$_OpenApiPath implements _OpenApiPath {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPath &&
+            (identical(other.path, path) || other.path == path) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, path, description);
 
   @JsonKey(ignore: true)
   @override
@@ -1160,11 +1178,16 @@ class _$_OpenApiPath implements _OpenApiPath {
 }
 
 abstract class _OpenApiPath implements OpenApiPath {
-  const factory _OpenApiPath({final String? description}) = _$_OpenApiPath;
+  const factory _OpenApiPath(
+      {required final String path, final String? description}) = _$_OpenApiPath;
 
   factory _OpenApiPath.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPath.fromJson;
 
+  @override
+
+  /// Text
+  String get path;
   @override
 
   /// Text

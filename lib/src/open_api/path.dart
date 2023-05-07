@@ -9,6 +9,9 @@ part of openapi_models;
 class OpenApiPath with _$OpenApiPath {
   const factory OpenApiPath({
     /// Text
+    required String path,
+
+    /// Text
     String? description,
   }) = _OpenApiPath;
 

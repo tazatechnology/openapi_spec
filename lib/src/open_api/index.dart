@@ -1,5 +1,9 @@
 library openapi_models;
 
+import 'dart:convert';
+import 'dart:io';
+import 'package:yaml/yaml.dart' as yaml;
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'index.g.dart';
@@ -25,3 +29,5 @@ part 'responses.dart';
 part 'operation.dart';
 part 'callback.dart';
 part 'media_type.dart';
+part 'spec.dart';
+part 'from_json.dart';
