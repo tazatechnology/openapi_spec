@@ -1240,7 +1240,9 @@ OpenApiPath _$OpenApiPathFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpenApiPath {
-  /// Text
+  /// A relative path to an individual endpoint. The path is appended
+  /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
+  /// object's url field in order to construct the full URL.
   String get path => throw _privateConstructorUsedError;
 
   /// Text
@@ -1336,7 +1338,9 @@ class _$_OpenApiPath implements _OpenApiPath {
   factory _$_OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPathFromJson(json);
 
-  /// Text
+  /// A relative path to an individual endpoint. The path is appended
+  /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
+  /// object's url field in order to construct the full URL.
   @override
   final String path;
 
@@ -1386,7 +1390,9 @@ abstract class _OpenApiPath implements OpenApiPath {
 
   @override
 
-  /// Text
+  /// A relative path to an individual endpoint. The path is appended
+  /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
+  /// object's url field in order to construct the full URL.
   String get path;
   @override
 
@@ -1830,8 +1836,20 @@ OpenApiServer _$OpenApiServerFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpenApiServer {
-  /// Text
+  /// A URL to the target host. This URL supports Server Variables and may
+  /// be relative, to indicate that the host location is relative to the
+  /// location where the OpenAPI document is being served. Variable
+  /// substitutions will be made when a variable is named in {brackets}.
+  String? get url => throw _privateConstructorUsedError;
+
+  /// An optional string describing the host designated by the URL.
+  /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
   String? get description => throw _privateConstructorUsedError;
+
+  /// A map between a variable name and its value.
+  /// The value is used for substitution in the server's URL template.
+  Map<String, OpenApiServerVariable>? get variables =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1845,7 +1863,10 @@ abstract class $OpenApiServerCopyWith<$Res> {
           OpenApiServer value, $Res Function(OpenApiServer) then) =
       _$OpenApiServerCopyWithImpl<$Res, OpenApiServer>;
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? url,
+      String? description,
+      Map<String, OpenApiServerVariable>? variables});
 }
 
 /// @nodoc
@@ -1861,13 +1882,23 @@ class _$OpenApiServerCopyWithImpl<$Res, $Val extends OpenApiServer>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? url = freezed,
     Object? description = freezed,
+    Object? variables = freezed,
   }) {
     return _then(_value.copyWith(
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      variables: freezed == variables
+          ? _value.variables
+          : variables // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiServerVariable>?,
     ) as $Val);
   }
 }
@@ -1880,7 +1911,10 @@ abstract class _$$_OpenApiServerCopyWith<$Res>
       __$$_OpenApiServerCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? url,
+      String? description,
+      Map<String, OpenApiServerVariable>? variables});
 }
 
 /// @nodoc
@@ -1894,13 +1928,23 @@ class __$$_OpenApiServerCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? url = freezed,
     Object? description = freezed,
+    Object? variables = freezed,
   }) {
     return _then(_$_OpenApiServer(
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      variables: freezed == variables
+          ? _value._variables
+          : variables // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiServerVariable>?,
     ));
   }
 }
@@ -1908,18 +1952,45 @@ class __$$_OpenApiServerCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiServer implements _OpenApiServer {
-  const _$_OpenApiServer({this.description});
+  const _$_OpenApiServer(
+      {this.url,
+      this.description,
+      final Map<String, OpenApiServerVariable>? variables})
+      : _variables = variables;
 
   factory _$_OpenApiServer.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiServerFromJson(json);
 
-  /// Text
+  /// A URL to the target host. This URL supports Server Variables and may
+  /// be relative, to indicate that the host location is relative to the
+  /// location where the OpenAPI document is being served. Variable
+  /// substitutions will be made when a variable is named in {brackets}.
+  @override
+  final String? url;
+
+  /// An optional string describing the host designated by the URL.
+  /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
   @override
   final String? description;
 
+  /// A map between a variable name and its value.
+  /// The value is used for substitution in the server's URL template.
+  final Map<String, OpenApiServerVariable>? _variables;
+
+  /// A map between a variable name and its value.
+  /// The value is used for substitution in the server's URL template.
+  @override
+  Map<String, OpenApiServerVariable>? get variables {
+    final value = _variables;
+    if (value == null) return null;
+    if (_variables is EqualUnmodifiableMapView) return _variables;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   String toString() {
-    return 'OpenApiServer(description: $description)';
+    return 'OpenApiServer(url: $url, description: $description, variables: $variables)';
   }
 
   @override
@@ -1927,13 +1998,17 @@ class _$_OpenApiServer implements _OpenApiServer {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiServer &&
+            (identical(other.url, url) || other.url == url) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            const DeepCollectionEquality()
+                .equals(other._variables, _variables));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, url, description,
+      const DeepCollectionEquality().hash(_variables));
 
   @JsonKey(ignore: true)
   @override
@@ -1950,18 +2025,258 @@ class _$_OpenApiServer implements _OpenApiServer {
 }
 
 abstract class _OpenApiServer implements OpenApiServer {
-  const factory _OpenApiServer({final String? description}) = _$_OpenApiServer;
+  const factory _OpenApiServer(
+      {final String? url,
+      final String? description,
+      final Map<String, OpenApiServerVariable>? variables}) = _$_OpenApiServer;
 
   factory _OpenApiServer.fromJson(Map<String, dynamic> json) =
       _$_OpenApiServer.fromJson;
 
   @override
 
-  /// Text
+  /// A URL to the target host. This URL supports Server Variables and may
+  /// be relative, to indicate that the host location is relative to the
+  /// location where the OpenAPI document is being served. Variable
+  /// substitutions will be made when a variable is named in {brackets}.
+  String? get url;
+  @override
+
+  /// An optional string describing the host designated by the URL.
+  /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
   String? get description;
+  @override
+
+  /// A map between a variable name and its value.
+  /// The value is used for substitution in the server's URL template.
+  Map<String, OpenApiServerVariable>? get variables;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiServerCopyWith<_$_OpenApiServer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OpenApiServerVariable _$OpenApiServerVariableFromJson(
+    Map<String, dynamic> json) {
+  return _OpenApiServerVariable.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenApiServerVariable {
+  /// An enumeration of string values to be used if the substitution
+  /// options are from a limited set. The array must not be empty.
+  List<String> get enumValue => throw _privateConstructorUsedError;
+
+  /// The default value to use for substitution, which SHALL be sent if an alternate
+  /// value is not supplied. Note this behavior is different than the Schema Object's
+  /// treatment of default values, because in those cases parameter values are optional.
+  /// If the enum is defined, the value must exist in the enum's values.
+  String get defaultValue => throw _privateConstructorUsedError;
+
+  /// An optional string describing the host designated by the URL.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
+  String? get description => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OpenApiServerVariableCopyWith<OpenApiServerVariable> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenApiServerVariableCopyWith<$Res> {
+  factory $OpenApiServerVariableCopyWith(OpenApiServerVariable value,
+          $Res Function(OpenApiServerVariable) then) =
+      _$OpenApiServerVariableCopyWithImpl<$Res, OpenApiServerVariable>;
+  @useResult
+  $Res call({List<String> enumValue, String defaultValue, String? description});
+}
+
+/// @nodoc
+class _$OpenApiServerVariableCopyWithImpl<$Res,
+        $Val extends OpenApiServerVariable>
+    implements $OpenApiServerVariableCopyWith<$Res> {
+  _$OpenApiServerVariableCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? enumValue = null,
+    Object? defaultValue = null,
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      enumValue: null == enumValue
+          ? _value.enumValue
+          : enumValue // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      defaultValue: null == defaultValue
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_OpenApiServerVariableCopyWith<$Res>
+    implements $OpenApiServerVariableCopyWith<$Res> {
+  factory _$$_OpenApiServerVariableCopyWith(_$_OpenApiServerVariable value,
+          $Res Function(_$_OpenApiServerVariable) then) =
+      __$$_OpenApiServerVariableCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<String> enumValue, String defaultValue, String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiServerVariableCopyWithImpl<$Res>
+    extends _$OpenApiServerVariableCopyWithImpl<$Res, _$_OpenApiServerVariable>
+    implements _$$_OpenApiServerVariableCopyWith<$Res> {
+  __$$_OpenApiServerVariableCopyWithImpl(_$_OpenApiServerVariable _value,
+      $Res Function(_$_OpenApiServerVariable) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? enumValue = null,
+    Object? defaultValue = null,
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiServerVariable(
+      enumValue: null == enumValue
+          ? _value._enumValue
+          : enumValue // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      defaultValue: null == defaultValue
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiServerVariable implements _OpenApiServerVariable {
+  const _$_OpenApiServerVariable(
+      {required final List<String> enumValue,
+      required this.defaultValue,
+      this.description})
+      : _enumValue = enumValue;
+
+  factory _$_OpenApiServerVariable.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiServerVariableFromJson(json);
+
+  /// An enumeration of string values to be used if the substitution
+  /// options are from a limited set. The array must not be empty.
+  final List<String> _enumValue;
+
+  /// An enumeration of string values to be used if the substitution
+  /// options are from a limited set. The array must not be empty.
+  @override
+  List<String> get enumValue {
+    if (_enumValue is EqualUnmodifiableListView) return _enumValue;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_enumValue);
+  }
+
+  /// The default value to use for substitution, which SHALL be sent if an alternate
+  /// value is not supplied. Note this behavior is different than the Schema Object's
+  /// treatment of default values, because in those cases parameter values are optional.
+  /// If the enum is defined, the value must exist in the enum's values.
+  @override
+  final String defaultValue;
+
+  /// An optional string describing the host designated by the URL.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
+  @override
+  final String? description;
+
+  @override
+  String toString() {
+    return 'OpenApiServerVariable(enumValue: $enumValue, defaultValue: $defaultValue, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiServerVariable &&
+            const DeepCollectionEquality()
+                .equals(other._enumValue, _enumValue) &&
+            (identical(other.defaultValue, defaultValue) ||
+                other.defaultValue == defaultValue) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_enumValue),
+      defaultValue,
+      description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiServerVariableCopyWith<_$_OpenApiServerVariable> get copyWith =>
+      __$$_OpenApiServerVariableCopyWithImpl<_$_OpenApiServerVariable>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiServerVariableToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiServerVariable implements OpenApiServerVariable {
+  const factory _OpenApiServerVariable(
+      {required final List<String> enumValue,
+      required final String defaultValue,
+      final String? description}) = _$_OpenApiServerVariable;
+
+  factory _OpenApiServerVariable.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiServerVariable.fromJson;
+
+  @override
+
+  /// An enumeration of string values to be used if the substitution
+  /// options are from a limited set. The array must not be empty.
+  List<String> get enumValue;
+  @override
+
+  /// The default value to use for substitution, which SHALL be sent if an alternate
+  /// value is not supplied. Note this behavior is different than the Schema Object's
+  /// treatment of default values, because in those cases parameter values are optional.
+  /// If the enum is defined, the value must exist in the enum's values.
+  String get defaultValue;
+  @override
+
+  /// An optional string describing the host designated by the URL.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiServerVariableCopyWith<_$_OpenApiServerVariable> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -3102,14 +3417,570 @@ abstract class _OpenApiMediaType implements OpenApiMediaType {
       throw _privateConstructorUsedError;
 }
 
+OpenApiSpec _$OpenApiSpecFromJson(Map<String, dynamic> json) {
+  return _OpenApiSpec.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenApiSpec {
+  /// This string MUST be the version number of the
+  /// OpenAPI Specificationthat the OpenAPI document uses.
+  /// This is not related to the API [OpenApiInfo.version] string.
+  String get openapi => throw _privateConstructorUsedError;
+
+  /// Provides metadata about the API.
+  /// The metadata MAY be used by tooling as required.
+  OpenApiInfo get info => throw _privateConstructorUsedError;
+
+  /// The default value for the $schema keyword within
+  /// Schema Objects contained within this OAS document
+  /// This must be in the form of a URI.
+  String? get jsonSchemaDialect => throw _privateConstructorUsedError;
+
+  /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
+  /// If the servers property is not provided, or is an empty array,
+  /// the default value would be a [OpenApiServer] object with a url value of `/`.
+  List<OpenApiServer> get servers => throw _privateConstructorUsedError;
+
+  /// The available paths and operations for the API.
+  List<OpenApiPath> get paths => throw _privateConstructorUsedError;
+
+  /// The incoming webhooks that may be received as part of this
+  /// API and that the API consumer MAY choose to implement.
+  /// Closely related to the callbacks feature, this section describes
+  /// requests initiated other than by an API call, for example by an out of
+  /// band registration. The key name is a unique string to refer to each
+  /// webhook, while the (optionally referenced) Path Item Object describes a
+  /// request that may be initiated by the API provider and the expected responses.
+  Map<String, OpenApiReference> get webhooks =>
+      throw _privateConstructorUsedError;
+
+  /// An element to hold various schemas for the document.
+  OpenApiComponents get components => throw _privateConstructorUsedError;
+
+  /// A declaration of which security mechanisms can be used across the API.
+  /// The list of values includes alternative security requirement objects
+  /// that can be used. Only one of the security requirement objects need
+  /// to be satisfied to authorize a request. Individual operations can override
+  /// this definition. To make security optional, an empty security requirement ({})
+  /// can be included in the array.
+  List<OpenApiSecurity> get security => throw _privateConstructorUsedError;
+
+  /// can be included in the array.
+  List<OpenApiTag> get tags => throw _privateConstructorUsedError;
+
+  /// Additional external documentation.
+  OpenApiExternalDocs? get externalDocs => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OpenApiSpecCopyWith<OpenApiSpec> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenApiSpecCopyWith<$Res> {
+  factory $OpenApiSpecCopyWith(
+          OpenApiSpec value, $Res Function(OpenApiSpec) then) =
+      _$OpenApiSpecCopyWithImpl<$Res, OpenApiSpec>;
+  @useResult
+  $Res call(
+      {String openapi,
+      OpenApiInfo info,
+      String? jsonSchemaDialect,
+      List<OpenApiServer> servers,
+      List<OpenApiPath> paths,
+      Map<String, OpenApiReference> webhooks,
+      OpenApiComponents components,
+      List<OpenApiSecurity> security,
+      List<OpenApiTag> tags,
+      OpenApiExternalDocs? externalDocs});
+
+  $OpenApiInfoCopyWith<$Res> get info;
+  $OpenApiComponentsCopyWith<$Res> get components;
+  $OpenApiExternalDocsCopyWith<$Res>? get externalDocs;
+}
+
+/// @nodoc
+class _$OpenApiSpecCopyWithImpl<$Res, $Val extends OpenApiSpec>
+    implements $OpenApiSpecCopyWith<$Res> {
+  _$OpenApiSpecCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? openapi = null,
+    Object? info = null,
+    Object? jsonSchemaDialect = freezed,
+    Object? servers = null,
+    Object? paths = null,
+    Object? webhooks = null,
+    Object? components = null,
+    Object? security = null,
+    Object? tags = null,
+    Object? externalDocs = freezed,
+  }) {
+    return _then(_value.copyWith(
+      openapi: null == openapi
+          ? _value.openapi
+          : openapi // ignore: cast_nullable_to_non_nullable
+              as String,
+      info: null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as OpenApiInfo,
+      jsonSchemaDialect: freezed == jsonSchemaDialect
+          ? _value.jsonSchemaDialect
+          : jsonSchemaDialect // ignore: cast_nullable_to_non_nullable
+              as String?,
+      servers: null == servers
+          ? _value.servers
+          : servers // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiServer>,
+      paths: null == paths
+          ? _value.paths
+          : paths // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiPath>,
+      webhooks: null == webhooks
+          ? _value.webhooks
+          : webhooks // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiReference>,
+      components: null == components
+          ? _value.components
+          : components // ignore: cast_nullable_to_non_nullable
+              as OpenApiComponents,
+      security: null == security
+          ? _value.security
+          : security // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiSecurity>,
+      tags: null == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiTag>,
+      externalDocs: freezed == externalDocs
+          ? _value.externalDocs
+          : externalDocs // ignore: cast_nullable_to_non_nullable
+              as OpenApiExternalDocs?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiInfoCopyWith<$Res> get info {
+    return $OpenApiInfoCopyWith<$Res>(_value.info, (value) {
+      return _then(_value.copyWith(info: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiComponentsCopyWith<$Res> get components {
+    return $OpenApiComponentsCopyWith<$Res>(_value.components, (value) {
+      return _then(_value.copyWith(components: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiExternalDocsCopyWith<$Res>? get externalDocs {
+    if (_value.externalDocs == null) {
+      return null;
+    }
+
+    return $OpenApiExternalDocsCopyWith<$Res>(_value.externalDocs!, (value) {
+      return _then(_value.copyWith(externalDocs: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSpecCopyWith<$Res>
+    implements $OpenApiSpecCopyWith<$Res> {
+  factory _$$_OpenApiSpecCopyWith(
+          _$_OpenApiSpec value, $Res Function(_$_OpenApiSpec) then) =
+      __$$_OpenApiSpecCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String openapi,
+      OpenApiInfo info,
+      String? jsonSchemaDialect,
+      List<OpenApiServer> servers,
+      List<OpenApiPath> paths,
+      Map<String, OpenApiReference> webhooks,
+      OpenApiComponents components,
+      List<OpenApiSecurity> security,
+      List<OpenApiTag> tags,
+      OpenApiExternalDocs? externalDocs});
+
+  @override
+  $OpenApiInfoCopyWith<$Res> get info;
+  @override
+  $OpenApiComponentsCopyWith<$Res> get components;
+  @override
+  $OpenApiExternalDocsCopyWith<$Res>? get externalDocs;
+}
+
+/// @nodoc
+class __$$_OpenApiSpecCopyWithImpl<$Res>
+    extends _$OpenApiSpecCopyWithImpl<$Res, _$_OpenApiSpec>
+    implements _$$_OpenApiSpecCopyWith<$Res> {
+  __$$_OpenApiSpecCopyWithImpl(
+      _$_OpenApiSpec _value, $Res Function(_$_OpenApiSpec) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? openapi = null,
+    Object? info = null,
+    Object? jsonSchemaDialect = freezed,
+    Object? servers = null,
+    Object? paths = null,
+    Object? webhooks = null,
+    Object? components = null,
+    Object? security = null,
+    Object? tags = null,
+    Object? externalDocs = freezed,
+  }) {
+    return _then(_$_OpenApiSpec(
+      openapi: null == openapi
+          ? _value.openapi
+          : openapi // ignore: cast_nullable_to_non_nullable
+              as String,
+      info: null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as OpenApiInfo,
+      jsonSchemaDialect: freezed == jsonSchemaDialect
+          ? _value.jsonSchemaDialect
+          : jsonSchemaDialect // ignore: cast_nullable_to_non_nullable
+              as String?,
+      servers: null == servers
+          ? _value._servers
+          : servers // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiServer>,
+      paths: null == paths
+          ? _value._paths
+          : paths // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiPath>,
+      webhooks: null == webhooks
+          ? _value._webhooks
+          : webhooks // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiReference>,
+      components: null == components
+          ? _value.components
+          : components // ignore: cast_nullable_to_non_nullable
+              as OpenApiComponents,
+      security: null == security
+          ? _value._security
+          : security // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiSecurity>,
+      tags: null == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiTag>,
+      externalDocs: freezed == externalDocs
+          ? _value.externalDocs
+          : externalDocs // ignore: cast_nullable_to_non_nullable
+              as OpenApiExternalDocs?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSpec extends _OpenApiSpec {
+  const _$_OpenApiSpec(
+      {this.openapi = '3.1.0',
+      required this.info,
+      this.jsonSchemaDialect,
+      final List<OpenApiServer> servers = const [],
+      final List<OpenApiPath> paths = const [],
+      final Map<String, OpenApiReference> webhooks = const {},
+      this.components = const OpenApiComponents(),
+      final List<OpenApiSecurity> security = const [],
+      final List<OpenApiTag> tags = const [],
+      this.externalDocs})
+      : _servers = servers,
+        _paths = paths,
+        _webhooks = webhooks,
+        _security = security,
+        _tags = tags,
+        super._();
+
+  factory _$_OpenApiSpec.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSpecFromJson(json);
+
+  /// This string MUST be the version number of the
+  /// OpenAPI Specificationthat the OpenAPI document uses.
+  /// This is not related to the API [OpenApiInfo.version] string.
+  @override
+  @JsonKey()
+  final String openapi;
+
+  /// Provides metadata about the API.
+  /// The metadata MAY be used by tooling as required.
+  @override
+  final OpenApiInfo info;
+
+  /// The default value for the $schema keyword within
+  /// Schema Objects contained within this OAS document
+  /// This must be in the form of a URI.
+  @override
+  final String? jsonSchemaDialect;
+
+  /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
+  /// If the servers property is not provided, or is an empty array,
+  /// the default value would be a [OpenApiServer] object with a url value of `/`.
+  final List<OpenApiServer> _servers;
+
+  /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
+  /// If the servers property is not provided, or is an empty array,
+  /// the default value would be a [OpenApiServer] object with a url value of `/`.
+  @override
+  @JsonKey()
+  List<OpenApiServer> get servers {
+    if (_servers is EqualUnmodifiableListView) return _servers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_servers);
+  }
+
+  /// The available paths and operations for the API.
+  final List<OpenApiPath> _paths;
+
+  /// The available paths and operations for the API.
+  @override
+  @JsonKey()
+  List<OpenApiPath> get paths {
+    if (_paths is EqualUnmodifiableListView) return _paths;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_paths);
+  }
+
+  /// The incoming webhooks that may be received as part of this
+  /// API and that the API consumer MAY choose to implement.
+  /// Closely related to the callbacks feature, this section describes
+  /// requests initiated other than by an API call, for example by an out of
+  /// band registration. The key name is a unique string to refer to each
+  /// webhook, while the (optionally referenced) Path Item Object describes a
+  /// request that may be initiated by the API provider and the expected responses.
+  final Map<String, OpenApiReference> _webhooks;
+
+  /// The incoming webhooks that may be received as part of this
+  /// API and that the API consumer MAY choose to implement.
+  /// Closely related to the callbacks feature, this section describes
+  /// requests initiated other than by an API call, for example by an out of
+  /// band registration. The key name is a unique string to refer to each
+  /// webhook, while the (optionally referenced) Path Item Object describes a
+  /// request that may be initiated by the API provider and the expected responses.
+  @override
+  @JsonKey()
+  Map<String, OpenApiReference> get webhooks {
+    if (_webhooks is EqualUnmodifiableMapView) return _webhooks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_webhooks);
+  }
+
+  /// An element to hold various schemas for the document.
+  @override
+  @JsonKey()
+  final OpenApiComponents components;
+
+  /// A declaration of which security mechanisms can be used across the API.
+  /// The list of values includes alternative security requirement objects
+  /// that can be used. Only one of the security requirement objects need
+  /// to be satisfied to authorize a request. Individual operations can override
+  /// this definition. To make security optional, an empty security requirement ({})
+  /// can be included in the array.
+  final List<OpenApiSecurity> _security;
+
+  /// A declaration of which security mechanisms can be used across the API.
+  /// The list of values includes alternative security requirement objects
+  /// that can be used. Only one of the security requirement objects need
+  /// to be satisfied to authorize a request. Individual operations can override
+  /// this definition. To make security optional, an empty security requirement ({})
+  /// can be included in the array.
+  @override
+  @JsonKey()
+  List<OpenApiSecurity> get security {
+    if (_security is EqualUnmodifiableListView) return _security;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_security);
+  }
+
+  /// can be included in the array.
+  final List<OpenApiTag> _tags;
+
+  /// can be included in the array.
+  @override
+  @JsonKey()
+  List<OpenApiTag> get tags {
+    if (_tags is EqualUnmodifiableListView) return _tags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tags);
+  }
+
+  /// Additional external documentation.
+  @override
+  final OpenApiExternalDocs? externalDocs;
+
+  @override
+  String toString() {
+    return 'OpenApiSpec(openapi: $openapi, info: $info, jsonSchemaDialect: $jsonSchemaDialect, servers: $servers, paths: $paths, webhooks: $webhooks, components: $components, security: $security, tags: $tags, externalDocs: $externalDocs)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSpec &&
+            (identical(other.openapi, openapi) || other.openapi == openapi) &&
+            (identical(other.info, info) || other.info == info) &&
+            (identical(other.jsonSchemaDialect, jsonSchemaDialect) ||
+                other.jsonSchemaDialect == jsonSchemaDialect) &&
+            const DeepCollectionEquality().equals(other._servers, _servers) &&
+            const DeepCollectionEquality().equals(other._paths, _paths) &&
+            const DeepCollectionEquality().equals(other._webhooks, _webhooks) &&
+            (identical(other.components, components) ||
+                other.components == components) &&
+            const DeepCollectionEquality().equals(other._security, _security) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.externalDocs, externalDocs) ||
+                other.externalDocs == externalDocs));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      openapi,
+      info,
+      jsonSchemaDialect,
+      const DeepCollectionEquality().hash(_servers),
+      const DeepCollectionEquality().hash(_paths),
+      const DeepCollectionEquality().hash(_webhooks),
+      components,
+      const DeepCollectionEquality().hash(_security),
+      const DeepCollectionEquality().hash(_tags),
+      externalDocs);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSpecCopyWith<_$_OpenApiSpec> get copyWith =>
+      __$$_OpenApiSpecCopyWithImpl<_$_OpenApiSpec>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSpecToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSpec extends OpenApiSpec {
+  const factory _OpenApiSpec(
+      {final String openapi,
+      required final OpenApiInfo info,
+      final String? jsonSchemaDialect,
+      final List<OpenApiServer> servers,
+      final List<OpenApiPath> paths,
+      final Map<String, OpenApiReference> webhooks,
+      final OpenApiComponents components,
+      final List<OpenApiSecurity> security,
+      final List<OpenApiTag> tags,
+      final OpenApiExternalDocs? externalDocs}) = _$_OpenApiSpec;
+  const _OpenApiSpec._() : super._();
+
+  factory _OpenApiSpec.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSpec.fromJson;
+
+  @override
+
+  /// This string MUST be the version number of the
+  /// OpenAPI Specificationthat the OpenAPI document uses.
+  /// This is not related to the API [OpenApiInfo.version] string.
+  String get openapi;
+  @override
+
+  /// Provides metadata about the API.
+  /// The metadata MAY be used by tooling as required.
+  OpenApiInfo get info;
+  @override
+
+  /// The default value for the $schema keyword within
+  /// Schema Objects contained within this OAS document
+  /// This must be in the form of a URI.
+  String? get jsonSchemaDialect;
+  @override
+
+  /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
+  /// If the servers property is not provided, or is an empty array,
+  /// the default value would be a [OpenApiServer] object with a url value of `/`.
+  List<OpenApiServer> get servers;
+  @override
+
+  /// The available paths and operations for the API.
+  List<OpenApiPath> get paths;
+  @override
+
+  /// The incoming webhooks that may be received as part of this
+  /// API and that the API consumer MAY choose to implement.
+  /// Closely related to the callbacks feature, this section describes
+  /// requests initiated other than by an API call, for example by an out of
+  /// band registration. The key name is a unique string to refer to each
+  /// webhook, while the (optionally referenced) Path Item Object describes a
+  /// request that may be initiated by the API provider and the expected responses.
+  Map<String, OpenApiReference> get webhooks;
+  @override
+
+  /// An element to hold various schemas for the document.
+  OpenApiComponents get components;
+  @override
+
+  /// A declaration of which security mechanisms can be used across the API.
+  /// The list of values includes alternative security requirement objects
+  /// that can be used. Only one of the security requirement objects need
+  /// to be satisfied to authorize a request. Individual operations can override
+  /// this definition. To make security optional, an empty security requirement ({})
+  /// can be included in the array.
+  List<OpenApiSecurity> get security;
+  @override
+
+  /// can be included in the array.
+  List<OpenApiTag> get tags;
+  @override
+
+  /// Additional external documentation.
+  OpenApiExternalDocs? get externalDocs;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiSpecCopyWith<_$_OpenApiSpec> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 OpenApiContact _$OpenApiContactFromJson(Map<String, dynamic> json) {
   return _OpenApiContact.fromJson(json);
 }
 
 /// @nodoc
 mixin _$OpenApiContact {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
+  /// The identifying name of the contact person/organization.
+  String? get name => throw _privateConstructorUsedError;
+
+  /// The URL pointing to the contact information.
+  /// This must be in the form of a URL.
+  String? get url => throw _privateConstructorUsedError;
+
+  /// The email address of the contact person/organization.
+  /// This must be in the form of an email address.
+  String? get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3123,7 +3994,7 @@ abstract class $OpenApiContactCopyWith<$Res> {
           OpenApiContact value, $Res Function(OpenApiContact) then) =
       _$OpenApiContactCopyWithImpl<$Res, OpenApiContact>;
   @useResult
-  $Res call({String? description});
+  $Res call({String? name, String? url, String? email});
 }
 
 /// @nodoc
@@ -3139,12 +4010,22 @@ class _$OpenApiContactCopyWithImpl<$Res, $Val extends OpenApiContact>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = freezed,
+    Object? url = freezed,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -3158,7 +4039,7 @@ abstract class _$$_OpenApiContactCopyWith<$Res>
       __$$_OpenApiContactCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call({String? name, String? url, String? email});
 }
 
 /// @nodoc
@@ -3172,12 +4053,22 @@ class __$$_OpenApiContactCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = freezed,
+    Object? url = freezed,
+    Object? email = freezed,
   }) {
     return _then(_$_OpenApiContact(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -3186,18 +4077,28 @@ class __$$_OpenApiContactCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiContact implements _OpenApiContact {
-  const _$_OpenApiContact({this.description});
+  const _$_OpenApiContact({this.name, this.url, this.email});
 
   factory _$_OpenApiContact.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiContactFromJson(json);
 
-  /// Text
+  /// The identifying name of the contact person/organization.
   @override
-  final String? description;
+  final String? name;
+
+  /// The URL pointing to the contact information.
+  /// This must be in the form of a URL.
+  @override
+  final String? url;
+
+  /// The email address of the contact person/organization.
+  /// This must be in the form of an email address.
+  @override
+  final String? email;
 
   @override
   String toString() {
-    return 'OpenApiContact(description: $description)';
+    return 'OpenApiContact(name: $name, url: $url, email: $email)';
   }
 
   @override
@@ -3205,13 +4106,14 @@ class _$_OpenApiContact implements _OpenApiContact {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiContact &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, name, url, email);
 
   @JsonKey(ignore: true)
   @override
@@ -3228,16 +4130,28 @@ class _$_OpenApiContact implements _OpenApiContact {
 }
 
 abstract class _OpenApiContact implements OpenApiContact {
-  const factory _OpenApiContact({final String? description}) =
-      _$_OpenApiContact;
+  const factory _OpenApiContact(
+      {final String? name,
+      final String? url,
+      final String? email}) = _$_OpenApiContact;
 
   factory _OpenApiContact.fromJson(Map<String, dynamic> json) =
       _$_OpenApiContact.fromJson;
 
   @override
 
-  /// Text
-  String? get description;
+  /// The identifying name of the contact person/organization.
+  String? get name;
+  @override
+
+  /// The URL pointing to the contact information.
+  /// This must be in the form of a URL.
+  String? get url;
+  @override
+
+  /// The email address of the contact person/organization.
+  /// This must be in the form of an email address.
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiContactCopyWith<_$_OpenApiContact> get copyWith =>
@@ -3250,8 +4164,16 @@ OpenApiLicense _$OpenApiLicenseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpenApiLicense {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
+  /// The license name used for the API.
+  String get name => throw _privateConstructorUsedError;
+
+  /// An [SPDX](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) license expression for the API.
+  /// The identifier field is mutually exclusive of the url field.
+  String? get identifier => throw _privateConstructorUsedError;
+
+  /// A URL to the license used for the API. This must be in the form of a URL.
+  /// The [url] field is mutually exclusive of the [identifier] field.
+  String? get url => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -3265,7 +4187,7 @@ abstract class $OpenApiLicenseCopyWith<$Res> {
           OpenApiLicense value, $Res Function(OpenApiLicense) then) =
       _$OpenApiLicenseCopyWithImpl<$Res, OpenApiLicense>;
   @useResult
-  $Res call({String? description});
+  $Res call({String name, String? identifier, String? url});
 }
 
 /// @nodoc
@@ -3281,12 +4203,22 @@ class _$OpenApiLicenseCopyWithImpl<$Res, $Val extends OpenApiLicense>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = null,
+    Object? identifier = freezed,
+    Object? url = freezed,
   }) {
     return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      identifier: freezed == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -3300,7 +4232,7 @@ abstract class _$$_OpenApiLicenseCopyWith<$Res>
       __$$_OpenApiLicenseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call({String name, String? identifier, String? url});
 }
 
 /// @nodoc
@@ -3314,12 +4246,22 @@ class __$$_OpenApiLicenseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = null,
+    Object? identifier = freezed,
+    Object? url = freezed,
   }) {
     return _then(_$_OpenApiLicense(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      identifier: freezed == identifier
+          ? _value.identifier
+          : identifier // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -3328,18 +4270,28 @@ class __$$_OpenApiLicenseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiLicense implements _OpenApiLicense {
-  const _$_OpenApiLicense({this.description});
+  const _$_OpenApiLicense({required this.name, this.identifier, this.url});
 
   factory _$_OpenApiLicense.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiLicenseFromJson(json);
 
-  /// Text
+  /// The license name used for the API.
   @override
-  final String? description;
+  final String name;
+
+  /// An [SPDX](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) license expression for the API.
+  /// The identifier field is mutually exclusive of the url field.
+  @override
+  final String? identifier;
+
+  /// A URL to the license used for the API. This must be in the form of a URL.
+  /// The [url] field is mutually exclusive of the [identifier] field.
+  @override
+  final String? url;
 
   @override
   String toString() {
-    return 'OpenApiLicense(description: $description)';
+    return 'OpenApiLicense(name: $name, identifier: $identifier, url: $url)';
   }
 
   @override
@@ -3347,13 +4299,15 @@ class _$_OpenApiLicense implements _OpenApiLicense {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiLicense &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.identifier, identifier) ||
+                other.identifier == identifier) &&
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, name, identifier, url);
 
   @JsonKey(ignore: true)
   @override
@@ -3370,16 +4324,28 @@ class _$_OpenApiLicense implements _OpenApiLicense {
 }
 
 abstract class _OpenApiLicense implements OpenApiLicense {
-  const factory _OpenApiLicense({final String? description}) =
-      _$_OpenApiLicense;
+  const factory _OpenApiLicense(
+      {required final String name,
+      final String? identifier,
+      final String? url}) = _$_OpenApiLicense;
 
   factory _OpenApiLicense.fromJson(Map<String, dynamic> json) =
       _$_OpenApiLicense.fromJson;
 
   @override
 
-  /// Text
-  String? get description;
+  /// The license name used for the API.
+  String get name;
+  @override
+
+  /// An [SPDX](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) license expression for the API.
+  /// The identifier field is mutually exclusive of the url field.
+  String? get identifier;
+  @override
+
+  /// A URL to the license used for the API. This must be in the form of a URL.
+  /// The [url] field is mutually exclusive of the [identifier] field.
+  String? get url;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiLicenseCopyWith<_$_OpenApiLicense> get copyWith =>

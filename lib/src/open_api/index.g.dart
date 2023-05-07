@@ -143,11 +143,35 @@ Map<String, dynamic> _$$_OpenApiSchemaToJson(_$_OpenApiSchema instance) =>
 
 _$_OpenApiServer _$$_OpenApiServerFromJson(Map<String, dynamic> json) =>
     _$_OpenApiServer(
+      url: json['url'] as String?,
       description: json['description'] as String?,
+      variables: (json['variables'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, OpenApiServerVariable.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$_OpenApiServerToJson(_$_OpenApiServer instance) =>
     <String, dynamic>{
+      'url': instance.url,
+      'description': instance.description,
+      'variables': instance.variables,
+    };
+
+_$_OpenApiServerVariable _$$_OpenApiServerVariableFromJson(
+        Map<String, dynamic> json) =>
+    _$_OpenApiServerVariable(
+      enumValue:
+          (json['enumValue'] as List<dynamic>).map((e) => e as String).toList(),
+      defaultValue: json['defaultValue'] as String,
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$$_OpenApiServerVariableToJson(
+        _$_OpenApiServerVariable instance) =>
+    <String, dynamic>{
+      'enumValue': instance.enumValue,
+      'defaultValue': instance.defaultValue,
       'description': instance.description,
     };
 
@@ -233,22 +257,80 @@ Map<String, dynamic> _$$_OpenApiMediaTypeToJson(_$_OpenApiMediaType instance) =>
       'description': instance.description,
     };
 
+_$_OpenApiSpec _$$_OpenApiSpecFromJson(Map<String, dynamic> json) =>
+    _$_OpenApiSpec(
+      openapi: json['openapi'] as String? ?? '3.1.0',
+      info: OpenApiInfo.fromJson(json['info'] as Map<String, dynamic>),
+      jsonSchemaDialect: json['jsonSchemaDialect'] as String?,
+      servers: (json['servers'] as List<dynamic>?)
+              ?.map((e) => OpenApiServer.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      paths: (json['paths'] as List<dynamic>?)
+              ?.map((e) => OpenApiPath.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      webhooks: (json['webhooks'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                k, OpenApiReference.fromJson(e as Map<String, dynamic>)),
+          ) ??
+          const {},
+      components: json['components'] == null
+          ? const OpenApiComponents()
+          : OpenApiComponents.fromJson(
+              json['components'] as Map<String, dynamic>),
+      security: (json['security'] as List<dynamic>?)
+              ?.map((e) => OpenApiSecurity.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      tags: (json['tags'] as List<dynamic>?)
+              ?.map((e) => OpenApiTag.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      externalDocs: json['externalDocs'] == null
+          ? null
+          : OpenApiExternalDocs.fromJson(
+              json['externalDocs'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$_OpenApiSpecToJson(_$_OpenApiSpec instance) =>
+    <String, dynamic>{
+      'openapi': instance.openapi,
+      'info': instance.info,
+      'jsonSchemaDialect': instance.jsonSchemaDialect,
+      'servers': instance.servers,
+      'paths': instance.paths,
+      'webhooks': instance.webhooks,
+      'components': instance.components,
+      'security': instance.security,
+      'tags': instance.tags,
+      'externalDocs': instance.externalDocs,
+    };
+
 _$_OpenApiContact _$$_OpenApiContactFromJson(Map<String, dynamic> json) =>
     _$_OpenApiContact(
-      description: json['description'] as String?,
+      name: json['name'] as String?,
+      url: json['url'] as String?,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiContactToJson(_$_OpenApiContact instance) =>
     <String, dynamic>{
-      'description': instance.description,
+      'name': instance.name,
+      'url': instance.url,
+      'email': instance.email,
     };
 
 _$_OpenApiLicense _$$_OpenApiLicenseFromJson(Map<String, dynamic> json) =>
     _$_OpenApiLicense(
-      description: json['description'] as String?,
+      name: json['name'] as String,
+      identifier: json['identifier'] as String?,
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiLicenseToJson(_$_OpenApiLicense instance) =>
     <String, dynamic>{
-      'description': instance.description,
+      'name': instance.name,
+      'identifier': instance.identifier,
+      'url': instance.url,
     };

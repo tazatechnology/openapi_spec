@@ -1,0 +1,12 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Placeholder",
+    "description": "Placeholder",
+    "contact": {
+      "name": "Taza Technology LLC",
+      "url": "https://github.com/tazatechnology/openapi_spec"
+    },
+    "version": "1.0.0"
+  }
+}
