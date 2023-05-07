@@ -8,8 +8,28 @@ part of openapi_models;
 @freezed
 class OpenApiInfo with _$OpenApiInfo {
   const factory OpenApiInfo({
-    /// Text
+    /// The title of the API.
+    required String title,
+
+    /// A short summary of the API.
+    String? summary,
+
+    /// A description of the API. [CommonMark syntax](https://spec.commonmark.org/)
+    /// May be used for rich text representation.
     String? description,
+
+    /// A URL to the Terms of Service for the API.
+    /// This must be in the form of a URL.
+    String? termsOfService,
+
+    /// The contact information for the exposed API.
+    OpenApiContact? contact,
+
+    /// The license information for the exposed API.
+    OpenApiLicense? license,
+
+    /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+    required String version,
   }) = _OpenApiInfo;
 
   factory OpenApiInfo.fromJson(Map<String, dynamic> json) =>

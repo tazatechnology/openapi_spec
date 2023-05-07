@@ -63,12 +63,28 @@ Map<String, dynamic> _$$_OpenApiComponentsToJson(
 
 _$_OpenApiInfo _$$_OpenApiInfoFromJson(Map<String, dynamic> json) =>
     _$_OpenApiInfo(
+      title: json['title'] as String,
+      summary: json['summary'] as String?,
       description: json['description'] as String?,
+      termsOfService: json['termsOfService'] as String?,
+      contact: json['contact'] == null
+          ? null
+          : OpenApiContact.fromJson(json['contact'] as Map<String, dynamic>),
+      license: json['license'] == null
+          ? null
+          : OpenApiLicense.fromJson(json['license'] as Map<String, dynamic>),
+      version: json['version'] as String,
     );
 
 Map<String, dynamic> _$$_OpenApiInfoToJson(_$_OpenApiInfo instance) =>
     <String, dynamic>{
+      'title': instance.title,
+      'summary': instance.summary,
       'description': instance.description,
+      'termsOfService': instance.termsOfService,
+      'contact': instance.contact,
+      'license': instance.license,
+      'version': instance.version,
     };
 
 _$_OpenApiParameter _$$_OpenApiParameterFromJson(Map<String, dynamic> json) =>
@@ -213,6 +229,26 @@ _$_OpenApiMediaType _$$_OpenApiMediaTypeFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$_OpenApiMediaTypeToJson(_$_OpenApiMediaType instance) =>
+    <String, dynamic>{
+      'description': instance.description,
+    };
+
+_$_OpenApiContact _$$_OpenApiContactFromJson(Map<String, dynamic> json) =>
+    _$_OpenApiContact(
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$$_OpenApiContactToJson(_$_OpenApiContact instance) =>
+    <String, dynamic>{
+      'description': instance.description,
+    };
+
+_$_OpenApiLicense _$$_OpenApiLicenseFromJson(Map<String, dynamic> json) =>
+    _$_OpenApiLicense(
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$$_OpenApiLicenseToJson(_$_OpenApiLicense instance) =>
     <String, dynamic>{
       'description': instance.description,
     };

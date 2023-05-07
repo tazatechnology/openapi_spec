@@ -81,7 +81,7 @@ class OpenApiSpec {
   /// Additional external documentation.
   final OpenApiExternalDocs? externalDocs;
 
-  /// Convert to an [OpenApiSpec] instance to qualified a OpenAPI JSON specification
+  /// Convert an [OpenApiSpec] instance to qualified a OpenAPI JSON specification
   toJson() {
     return {
       'openapi': openapi,

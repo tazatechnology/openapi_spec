@@ -30,4 +30,7 @@ part 'operation.dart';
 part 'callback.dart';
 part 'media_type.dart';
 part 'spec.dart';
+part 'contact.dart';
+part 'license.dart';
+
 part 'from_json.dart';

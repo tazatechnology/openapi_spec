@@ -757,8 +757,28 @@ OpenApiInfo _$OpenApiInfoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpenApiInfo {
-  /// Text
+  /// The title of the API.
+  String get title => throw _privateConstructorUsedError;
+
+  /// A short summary of the API.
+  String? get summary => throw _privateConstructorUsedError;
+
+  /// A description of the API. [CommonMark syntax](https://spec.commonmark.org/)
+  /// May be used for rich text representation.
   String? get description => throw _privateConstructorUsedError;
+
+  /// A URL to the Terms of Service for the API.
+  /// This must be in the form of a URL.
+  String? get termsOfService => throw _privateConstructorUsedError;
+
+  /// The contact information for the exposed API.
+  OpenApiContact? get contact => throw _privateConstructorUsedError;
+
+  /// The license information for the exposed API.
+  OpenApiLicense? get license => throw _privateConstructorUsedError;
+
+  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+  String get version => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -772,7 +792,17 @@ abstract class $OpenApiInfoCopyWith<$Res> {
           OpenApiInfo value, $Res Function(OpenApiInfo) then) =
       _$OpenApiInfoCopyWithImpl<$Res, OpenApiInfo>;
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String title,
+      String? summary,
+      String? description,
+      String? termsOfService,
+      OpenApiContact? contact,
+      OpenApiLicense? license,
+      String version});
+
+  $OpenApiContactCopyWith<$Res>? get contact;
+  $OpenApiLicenseCopyWith<$Res>? get license;
 }
 
 /// @nodoc
@@ -788,14 +818,68 @@ class _$OpenApiInfoCopyWithImpl<$Res, $Val extends OpenApiInfo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
+    Object? summary = freezed,
     Object? description = freezed,
+    Object? termsOfService = freezed,
+    Object? contact = freezed,
+    Object? license = freezed,
+    Object? version = null,
   }) {
     return _then(_value.copyWith(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      termsOfService: freezed == termsOfService
+          ? _value.termsOfService
+          : termsOfService // ignore: cast_nullable_to_non_nullable
+              as String?,
+      contact: freezed == contact
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as OpenApiContact?,
+      license: freezed == license
+          ? _value.license
+          : license // ignore: cast_nullable_to_non_nullable
+              as OpenApiLicense?,
+      version: null == version
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiContactCopyWith<$Res>? get contact {
+    if (_value.contact == null) {
+      return null;
+    }
+
+    return $OpenApiContactCopyWith<$Res>(_value.contact!, (value) {
+      return _then(_value.copyWith(contact: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiLicenseCopyWith<$Res>? get license {
+    if (_value.license == null) {
+      return null;
+    }
+
+    return $OpenApiLicenseCopyWith<$Res>(_value.license!, (value) {
+      return _then(_value.copyWith(license: value) as $Val);
+    });
   }
 }
 
@@ -807,7 +891,19 @@ abstract class _$$_OpenApiInfoCopyWith<$Res>
       __$$_OpenApiInfoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String title,
+      String? summary,
+      String? description,
+      String? termsOfService,
+      OpenApiContact? contact,
+      OpenApiLicense? license,
+      String version});
+
+  @override
+  $OpenApiContactCopyWith<$Res>? get contact;
+  @override
+  $OpenApiLicenseCopyWith<$Res>? get license;
 }
 
 /// @nodoc
@@ -821,13 +917,43 @@ class __$$_OpenApiInfoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
+    Object? summary = freezed,
     Object? description = freezed,
+    Object? termsOfService = freezed,
+    Object? contact = freezed,
+    Object? license = freezed,
+    Object? version = null,
   }) {
     return _then(_$_OpenApiInfo(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      termsOfService: freezed == termsOfService
+          ? _value.termsOfService
+          : termsOfService // ignore: cast_nullable_to_non_nullable
+              as String?,
+      contact: freezed == contact
+          ? _value.contact
+          : contact // ignore: cast_nullable_to_non_nullable
+              as OpenApiContact?,
+      license: freezed == license
+          ? _value.license
+          : license // ignore: cast_nullable_to_non_nullable
+              as OpenApiLicense?,
+      version: null == version
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -835,18 +961,51 @@ class __$$_OpenApiInfoCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiInfo implements _OpenApiInfo {
-  const _$_OpenApiInfo({this.description});
+  const _$_OpenApiInfo(
+      {required this.title,
+      this.summary,
+      this.description,
+      this.termsOfService,
+      this.contact,
+      this.license,
+      required this.version});
 
   factory _$_OpenApiInfo.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiInfoFromJson(json);
 
-  /// Text
+  /// The title of the API.
+  @override
+  final String title;
+
+  /// A short summary of the API.
+  @override
+  final String? summary;
+
+  /// A description of the API. [CommonMark syntax](https://spec.commonmark.org/)
+  /// May be used for rich text representation.
   @override
   final String? description;
 
+  /// A URL to the Terms of Service for the API.
+  /// This must be in the form of a URL.
+  @override
+  final String? termsOfService;
+
+  /// The contact information for the exposed API.
+  @override
+  final OpenApiContact? contact;
+
+  /// The license information for the exposed API.
+  @override
+  final OpenApiLicense? license;
+
+  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+  @override
+  final String version;
+
   @override
   String toString() {
-    return 'OpenApiInfo(description: $description)';
+    return 'OpenApiInfo(title: $title, summary: $summary, description: $description, termsOfService: $termsOfService, contact: $contact, license: $license, version: $version)';
   }
 
   @override
@@ -854,13 +1013,21 @@ class _$_OpenApiInfo implements _OpenApiInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiInfo &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.termsOfService, termsOfService) ||
+                other.termsOfService == termsOfService) &&
+            (identical(other.contact, contact) || other.contact == contact) &&
+            (identical(other.license, license) || other.license == license) &&
+            (identical(other.version, version) || other.version == version));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, title, summary, description,
+      termsOfService, contact, license, version);
 
   @JsonKey(ignore: true)
   @override
@@ -877,15 +1044,48 @@ class _$_OpenApiInfo implements _OpenApiInfo {
 }
 
 abstract class _OpenApiInfo implements OpenApiInfo {
-  const factory _OpenApiInfo({final String? description}) = _$_OpenApiInfo;
+  const factory _OpenApiInfo(
+      {required final String title,
+      final String? summary,
+      final String? description,
+      final String? termsOfService,
+      final OpenApiContact? contact,
+      final OpenApiLicense? license,
+      required final String version}) = _$_OpenApiInfo;
 
   factory _OpenApiInfo.fromJson(Map<String, dynamic> json) =
       _$_OpenApiInfo.fromJson;
 
   @override
 
-  /// Text
+  /// The title of the API.
+  String get title;
+  @override
+
+  /// A short summary of the API.
+  String? get summary;
+  @override
+
+  /// A description of the API. [CommonMark syntax](https://spec.commonmark.org/)
+  /// May be used for rich text representation.
   String? get description;
+  @override
+
+  /// A URL to the Terms of Service for the API.
+  /// This must be in the form of a URL.
+  String? get termsOfService;
+  @override
+
+  /// The contact information for the exposed API.
+  OpenApiContact? get contact;
+  @override
+
+  /// The license information for the exposed API.
+  OpenApiLicense? get license;
+  @override
+
+  /// The version of the OpenAPI document. Distinct from [OpenApiSpec.version].
+  String get version;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiInfoCopyWith<_$_OpenApiInfo> get copyWith =>
@@ -2899,5 +3099,289 @@ abstract class _OpenApiMediaType implements OpenApiMediaType {
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiMediaTypeCopyWith<_$_OpenApiMediaType> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OpenApiContact _$OpenApiContactFromJson(Map<String, dynamic> json) {
+  return _OpenApiContact.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenApiContact {
+  /// Text
+  String? get description => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OpenApiContactCopyWith<OpenApiContact> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenApiContactCopyWith<$Res> {
+  factory $OpenApiContactCopyWith(
+          OpenApiContact value, $Res Function(OpenApiContact) then) =
+      _$OpenApiContactCopyWithImpl<$Res, OpenApiContact>;
+  @useResult
+  $Res call({String? description});
+}
+
+/// @nodoc
+class _$OpenApiContactCopyWithImpl<$Res, $Val extends OpenApiContact>
+    implements $OpenApiContactCopyWith<$Res> {
+  _$OpenApiContactCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_OpenApiContactCopyWith<$Res>
+    implements $OpenApiContactCopyWith<$Res> {
+  factory _$$_OpenApiContactCopyWith(
+          _$_OpenApiContact value, $Res Function(_$_OpenApiContact) then) =
+      __$$_OpenApiContactCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiContactCopyWithImpl<$Res>
+    extends _$OpenApiContactCopyWithImpl<$Res, _$_OpenApiContact>
+    implements _$$_OpenApiContactCopyWith<$Res> {
+  __$$_OpenApiContactCopyWithImpl(
+      _$_OpenApiContact _value, $Res Function(_$_OpenApiContact) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiContact(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiContact implements _OpenApiContact {
+  const _$_OpenApiContact({this.description});
+
+  factory _$_OpenApiContact.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiContactFromJson(json);
+
+  /// Text
+  @override
+  final String? description;
+
+  @override
+  String toString() {
+    return 'OpenApiContact(description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiContact &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiContactCopyWith<_$_OpenApiContact> get copyWith =>
+      __$$_OpenApiContactCopyWithImpl<_$_OpenApiContact>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiContactToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiContact implements OpenApiContact {
+  const factory _OpenApiContact({final String? description}) =
+      _$_OpenApiContact;
+
+  factory _OpenApiContact.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiContact.fromJson;
+
+  @override
+
+  /// Text
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiContactCopyWith<_$_OpenApiContact> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OpenApiLicense _$OpenApiLicenseFromJson(Map<String, dynamic> json) {
+  return _OpenApiLicense.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenApiLicense {
+  /// Text
+  String? get description => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OpenApiLicenseCopyWith<OpenApiLicense> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenApiLicenseCopyWith<$Res> {
+  factory $OpenApiLicenseCopyWith(
+          OpenApiLicense value, $Res Function(OpenApiLicense) then) =
+      _$OpenApiLicenseCopyWithImpl<$Res, OpenApiLicense>;
+  @useResult
+  $Res call({String? description});
+}
+
+/// @nodoc
+class _$OpenApiLicenseCopyWithImpl<$Res, $Val extends OpenApiLicense>
+    implements $OpenApiLicenseCopyWith<$Res> {
+  _$OpenApiLicenseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_OpenApiLicenseCopyWith<$Res>
+    implements $OpenApiLicenseCopyWith<$Res> {
+  factory _$$_OpenApiLicenseCopyWith(
+          _$_OpenApiLicense value, $Res Function(_$_OpenApiLicense) then) =
+      __$$_OpenApiLicenseCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiLicenseCopyWithImpl<$Res>
+    extends _$OpenApiLicenseCopyWithImpl<$Res, _$_OpenApiLicense>
+    implements _$$_OpenApiLicenseCopyWith<$Res> {
+  __$$_OpenApiLicenseCopyWithImpl(
+      _$_OpenApiLicense _value, $Res Function(_$_OpenApiLicense) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiLicense(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiLicense implements _OpenApiLicense {
+  const _$_OpenApiLicense({this.description});
+
+  factory _$_OpenApiLicense.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiLicenseFromJson(json);
+
+  /// Text
+  @override
+  final String? description;
+
+  @override
+  String toString() {
+    return 'OpenApiLicense(description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiLicense &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiLicenseCopyWith<_$_OpenApiLicense> get copyWith =>
+      __$$_OpenApiLicenseCopyWithImpl<_$_OpenApiLicense>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiLicenseToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiLicense implements OpenApiLicense {
+  const factory _OpenApiLicense({final String? description}) =
+      _$_OpenApiLicense;
+
+  factory _OpenApiLicense.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiLicense.fromJson;
+
+  @override
+
+  /// Text
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiLicenseCopyWith<_$_OpenApiLicense> get copyWith =>
       throw _privateConstructorUsedError;
 }
