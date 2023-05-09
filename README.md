@@ -17,4 +17,4 @@
 
 Yes! This package is used in production applications and is actively maintained!
 
-An example client that was generated using `openapi_spec` is the [pinecone](https://pub.dev/packages/openapi_spec) Dart package on pub.dev.
+An example client that was generated using `openapi_spec` is the [pinecone](https://pub.dev/packages/pinecone) Dart package on pub.dev.

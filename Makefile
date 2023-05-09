@@ -1,4 +1,5 @@
 .DEFAULT_TARGET: help
+.PHONY: build docs example
 
 help:
 	@echo "Package Makefile"
@@ -17,3 +18,7 @@ build:
 
 docs:
 	dart doc --validate-links
+
+example:
+	rm -rf build
+	dart run example/openapi_spec_example.dart

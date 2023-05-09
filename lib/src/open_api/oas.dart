@@ -123,6 +123,8 @@ class OpenApiSpec with _$OpenApiSpec {
 
   /// Generate a static Swagger UI website from [OpenApiSpec] object
   ///
+  /// These assets utilize the latest [Swagger UI release](https://github.com/swagger-api/swagger-ui/releases)
+  ///
   /// title: Will override the title of the Swagger UI HTML page.
   /// By default, this is set to the [OpenApiInfo.title] value
   ///
@@ -139,6 +141,7 @@ class OpenApiSpec with _$OpenApiSpec {
     bool replace = false,
     String? favicon16x16,
     String? favicon32x32,
+    bool quiet = false,
   }) async {
     final dir = Directory(destination);
     final dirPath = p.normalize(dir.absolute.path);
@@ -154,21 +157,24 @@ class OpenApiSpec with _$OpenApiSpec {
       }
     }
 
+    // Ensure that the directory exists
+    Directory(p.dirname(dirPath)).createSync(recursive: true);
+
     // Get the path to the swagger-ui static content
     final packageUri = Uri.parse('package:openapi_spec/static/swagger-ui');
-    final path = (await Isolate.resolvePackageUri(packageUri))?.path;
-    if (path == null) {
+    final packagePath = (await Isolate.resolvePackageUri(packageUri))?.path;
+    if (packagePath == null) {
       throw Exception('Could not resolve package URI: $packageUri');
     }
 
     // Copy the source to the destination
-    final source = Directory(path);
+    final source = Directory(packagePath);
     await Process.run('cp', ['-r', source.path, dirPath]);
 
     // Generate the spec file in the destination
-    toJsonSpecFile(
-      destination: File(p.join(dirPath, 'openapi.json')),
-    );
+    final oasFile = File(p.join(dirPath, 'openapi.json'));
+    toJsonSpecFile(destination: oasFile);
+    if (!quiet) print('Created OpenAPI spec file:\n  - ${oasFile.path}');
 
     // Create a Javascript object for local parsing
     // Avoids the need to spin up a server to simply view the Swagger UI output
@@ -193,11 +199,14 @@ class OpenApiSpec with _$OpenApiSpec {
       final faviconPath = p.normalize(f.absolute.path);
       if (f.existsSync()) {
         await Process.run('cp', [faviconPath, dir.absolute.path]);
+        if (!quiet) print('Copied favicon16x16:\n  - $faviconPath');
       } else {
         throw Exception(
           'Could not find favicon at defined path: \n\n$faviconPath\n',
         );
       }
     }
+
+    if (!quiet) print('Static HTML generated in:\n  - $dirPath');
   }
 }

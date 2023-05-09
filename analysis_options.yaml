@@ -4,3 +4,5 @@ analyzer:
   exclude:
     - lib/src/**/*.freezed.dart
     - lib/src/**/*.g.dart
+  errors:
+    invalid_annotation_target: ignore

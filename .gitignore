@@ -7,5 +7,8 @@ doc/
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
 
+# Ignore build artifacts
+build/
+
 # MacOS
 .DS_Store
