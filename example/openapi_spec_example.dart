@@ -91,14 +91,10 @@ void main() async {
   );
 
   // ==========================================
-  // Define paths
-  // ==========================================
-
-  // ==========================================
   // Define the full spec
   // ==========================================
 
-  final spec = OpenApiSpec(
+  final spec = OpenApi(
     info: OpenApiInfo(
       title: 'Swagger Petstore - OpenAPI 3.1',
       description:
@@ -121,6 +117,11 @@ void main() async {
       OpenApiServer(
         url: 'https://petstore3.swagger.io/api/v3',
       ),
+    ],
+    paths: [
+      OpenApiPath(
+        path: '/pet',
+      )
     ],
     tags: [petTag, storeTag, userTag],
   );

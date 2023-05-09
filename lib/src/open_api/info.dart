@@ -28,7 +28,7 @@ class OpenApiInfo with _$OpenApiInfo {
     /// The license information for the exposed API.
     OpenApiLicense? license,
 
-    /// The version of the OpenAPI document. Distinct from [OpenApiSpec.openapi].
+    /// The version of the OpenAPI document. Distinct from [OpenApi.openapi].
     required String version,
   }) = _OpenApiInfo;
 

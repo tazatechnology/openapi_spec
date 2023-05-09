@@ -6,6 +6,7 @@ part of openapi_models;
 
 /// The [OpenApiSchema] object allows the definition of input and output data types.
 /// These types can be objects, but also primitives and arrays
+///
 /// https://swagger.io/specification/#schema-object
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
 @freezed

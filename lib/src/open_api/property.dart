@@ -40,6 +40,8 @@ part of openapi_models;
 // multipleOf
 // not
 
+/// Property
+///
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#properties
 @freezed
 class OpenApiProperty with _$OpenApiProperty {
@@ -49,21 +51,21 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// A string schema property
   ///
-  /// isRequired: If the property is required in the parent object definition
+  /// `isRequired`: If the property is required in the parent object definition
   ///
-  /// name: The name of the property
+  /// `name`: The name of the property
   ///
-  /// title: A short explanation of this property
+  /// `title`: A short explanation of this property
   ///
-  /// description: A detailed explanation of this property
+  /// `description`: A detailed explanation of this property
   ///
-  /// default: The default value of the property
+  /// `default`: The default value of the property
   ///
-  /// minLength: The minimum string length
+  /// `minLength`: The minimum string length
   ///
-  /// maxLength: The maximum string length
+  /// `maxLength`: The maximum string length
   ///
-  /// xml: Adds additional metadata to describe the XML representation of this property.
+  /// `xml`: Adds additional metadata to describe the XML representation of this property.
   const factory OpenApiProperty.string({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
@@ -80,6 +82,7 @@ class OpenApiProperty with _$OpenApiProperty {
   // FACTORY: OpenApiProperty.integer
   // ------------------------------------------
 
+  /// An integer schema property
   const factory OpenApiProperty.integer({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
@@ -98,6 +101,7 @@ class OpenApiProperty with _$OpenApiProperty {
   // FACTORY: OpenApiProperty.double
   // ------------------------------------------
 
+  /// A double schema property
   const factory OpenApiProperty.double({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
@@ -116,7 +120,7 @@ class OpenApiProperty with _$OpenApiProperty {
   // FACTORY: OpenApiProperty.array
   // ------------------------------------------
 
-  /// Array property
+  /// An array schema property
   const factory OpenApiProperty.array({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
@@ -134,6 +138,7 @@ class OpenApiProperty with _$OpenApiProperty {
   // FACTORY: OpenApiProperty.enumeration
   // ------------------------------------------
 
+  /// Enumeration property
   const factory OpenApiProperty.enumeration({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
@@ -147,6 +152,7 @@ class OpenApiProperty with _$OpenApiProperty {
   // FACTORY: OpenApiProperty.reference
   // ------------------------------------------
 
+  /// a reference schema property
   const factory OpenApiProperty.reference({
     required OpenApiSchema reference,
   }) = OpenApiPropertyReference;

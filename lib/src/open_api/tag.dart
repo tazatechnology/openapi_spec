@@ -5,7 +5,9 @@ part of openapi_models;
 // ==========================================
 
 /// Adds metadata to a single tag that is used by the [OpenApiOperation] object.
-/// It is not mandatory to have a [OpenApiTag] object per tag defined in the [OpenApiOperation] object instances.
+/// It is not mandatory to have a [OpenApiTag] object per tag defined in
+/// the [OpenApiOperation] object instances.
+///
 /// https://swagger.io/specification/#tag-object
 @freezed
 class OpenApiTag with _$OpenApiTag {

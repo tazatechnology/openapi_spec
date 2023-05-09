@@ -17,7 +17,7 @@ build:
 	dart pub get
 
 docs:
-	dart doc --validate-links
+	dart doc --validate-links --output build/docs
 
 example:
 	rm -rf build
