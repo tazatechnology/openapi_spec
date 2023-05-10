@@ -645,7 +645,8 @@ _$_OpenApiPropertyArray _$$_OpenApiPropertyArrayFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyArray(
       name: json['name'] as String,
-      items: OpenApiArrayItems.fromJson(json['items'] as Map<String, dynamic>),
+      items: const _ArrayItemsConverter()
+          .fromJson(json['items'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
@@ -662,7 +663,7 @@ Map<String, dynamic> _$$_OpenApiPropertyArrayToJson(
     _$_OpenApiPropertyArray instance) {
   final val = <String, dynamic>{
     'name': instance.name,
-    'items': instance.items.toJson(),
+    'items': const _ArrayItemsConverter().toJson(instance.items),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -717,15 +718,14 @@ Map<String, dynamic> _$$_OpenApiPropertyEnumToJson(
 _$_OpenApiPropertyReference _$$_OpenApiPropertyReferenceFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyReference(
-      reference:
-          OpenApiSchema.fromJson(json['reference'] as Map<String, dynamic>),
+      ref: OpenApiSchema.fromJson(json['ref'] as Map<String, dynamic>),
       $type: json['unionType'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyReferenceToJson(
         _$_OpenApiPropertyReference instance) =>
     <String, dynamic>{
-      'reference': instance.reference.toJson(),
+      'ref': instance.ref.toJson(),
       'unionType': instance.$type,
     };
 
@@ -804,8 +804,7 @@ Map<String, dynamic> _$$_OpenApiArrayItemsDoubleToJson(
 _$_OpenApiArrayItemsReference _$$_OpenApiArrayItemsReferenceFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiArrayItemsReference(
-      reference:
-          OpenApiSchema.fromJson(json['reference'] as Map<String, dynamic>),
+      ref: OpenApiSchema.fromJson(json['ref'] as Map<String, dynamic>),
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -815,7 +814,7 @@ _$_OpenApiArrayItemsReference _$$_OpenApiArrayItemsReferenceFromJson(
 Map<String, dynamic> _$$_OpenApiArrayItemsReferenceToJson(
     _$_OpenApiArrayItemsReference instance) {
   final val = <String, dynamic>{
-    'reference': instance.reference.toJson(),
+    'ref': instance.ref.toJson(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -998,6 +997,46 @@ Map<String, dynamic> _$$_OpenApiSchemaReferenceToJson(
       'ref': instance.ref.toJson(),
       'unionType': instance.$type,
     };
+
+_$_OpenApiSchemaArray _$$_OpenApiSchemaArrayFromJson(
+        Map<String, dynamic> json) =>
+    _$_OpenApiSchemaArray(
+      items: const _ArrayItemsConverter()
+          .fromJson(json['items'] as Map<String, dynamic>),
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      defaultValue: json['default'] as List<dynamic>?,
+      example: json['example'] as List<dynamic>?,
+      minLength: json['minLength'] as int?,
+      maxLength: json['maxLength'] as int?,
+      xml: json['xml'] == null
+          ? null
+          : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
+      $type: json['unionType'] as String?,
+    );
+
+Map<String, dynamic> _$$_OpenApiSchemaArrayToJson(
+    _$_OpenApiSchemaArray instance) {
+  final val = <String, dynamic>{
+    'items': const _ArrayItemsConverter().toJson(instance.items),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('description', instance.description);
+  writeNotNull('default', instance.defaultValue);
+  writeNotNull('example', instance.example);
+  writeNotNull('minLength', instance.minLength);
+  writeNotNull('maxLength', instance.maxLength);
+  writeNotNull('xml', instance.xml?.toJson());
+  val['unionType'] = instance.$type;
+  return val;
+}
 
 _$_OpenApiSecurityScheme _$$_OpenApiSecuritySchemeFromJson(
         Map<String, dynamic> json) =>

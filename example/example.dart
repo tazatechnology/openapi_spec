@@ -70,7 +70,7 @@ void main() async {
         example: 'doggie',
       ),
       OpenApiProperty.reference(
-        reference: schemaCategory,
+        ref: schemaCategory,
       ),
       OpenApiProperty.array(
         isRequired: true,
@@ -83,7 +83,7 @@ void main() async {
       OpenApiProperty.array(
         name: 'tags',
         xml: OpenApiXml(wrapped: true),
-        items: OpenApiArrayItems.reference(reference: schemaTag),
+        items: OpenApiArrayItems.reference(ref: schemaTag),
       ),
       OpenApiProperty.enumeration(
         name: 'status',
@@ -122,6 +122,7 @@ void main() async {
       ),
     ],
     paths: [
+      /// PATH: /path
       OpenApiPath(
         path: '/pet',
         put: OpenApiOperation(
@@ -177,7 +178,98 @@ void main() async {
             ),
           ],
         ),
-      )
+        post: OpenApiOperation(
+          tags: [petTag],
+          summary: 'Add a new pet to the store',
+          description: 'Add a new pet to the store',
+          operationId: 'addPet',
+          requestBody: OpenApiRequestBody(
+            isRequired: true,
+            description: 'Create a new pet in the store',
+            content: {
+              'application/json': OpenApiMediaType(
+                schema: OpenApiSchema.reference(ref: schemaPet),
+              ),
+              'application/xml': OpenApiMediaType(
+                schema: OpenApiSchema.reference(ref: schemaPet),
+              ),
+              'application/x-www-form-urlencoded': OpenApiMediaType(
+                schema: OpenApiSchema.reference(ref: schemaPet),
+              ),
+            },
+          ),
+          responses: [
+            OpenApiResponse(
+              code: '200',
+              description: 'Successful operation',
+              content: {
+                'application/json': OpenApiMediaType(
+                  schema: OpenApiSchema.reference(ref: schemaPet),
+                ),
+                'application/xml': OpenApiMediaType(
+                  schema: OpenApiSchema.reference(ref: schemaPet),
+                ),
+              },
+            ),
+            OpenApiResponse(
+              code: '405',
+              description: 'Invalid input',
+            )
+          ],
+          security: [
+            OpenApiSecurity(
+              name: 'petstore_auth',
+              scopes: ['write:pets', 'read:pets'],
+            ),
+          ],
+        ),
+      ),
+
+      /// PATH: /pet/findByStatus
+      OpenApiPath(
+        path: '/pet/findByStatus',
+        get: OpenApiOperation(
+          tags: [petTag],
+          summary: 'Finds Pets by status',
+          description:
+              'Multiple status values can be provided with comma separated strings',
+          operationId: 'findPetsByStatus',
+          parameters: [
+            OpenApiParameter(
+              description:
+                  'Status values that need to be considered for filter',
+            ),
+          ],
+          responses: [
+            OpenApiResponse(
+              code: '200',
+              description: 'successful operation',
+              content: {
+                'application/json': OpenApiMediaType(
+                  schema: OpenApiSchema.array(
+                    items: OpenApiArrayItems.reference(ref: schemaPet),
+                  ),
+                ),
+                'application/xml': OpenApiMediaType(
+                  schema: OpenApiSchema.array(
+                    items: OpenApiArrayItems.reference(ref: schemaPet),
+                  ),
+                ),
+              },
+            ),
+            OpenApiResponse(
+              code: '400',
+              description: 'Invalid status value',
+            ),
+          ],
+          security: [
+            OpenApiSecurity(
+              name: 'petstore_auth',
+              scopes: ['write:pets', 'read:pets'],
+            ),
+          ],
+        ),
+      ),
     ],
     tags: [petTag, storeTag, userTag],
   );

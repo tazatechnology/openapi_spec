@@ -63,26 +63,6 @@ class OpenApiPath with _$OpenApiPath {
 }
 
 // ==========================================
-// PathConverter
-// ==========================================
-
-/// Custom converter [OpenApiPath] union type
-// class _PathConverter
-//     implements JsonConverter<OpenApiPath, Map<String, dynamic>> {
-//   const _PathConverter();
-
-//   @override
-//   OpenApiPath fromJson(Map<String, dynamic> json) {
-//     return OpenApiPath(path: '/');
-//   }
-
-//   @override
-//   Map<String, dynamic> toJson(OpenApiPath data) {
-//     return {};
-//   }
-// }
-
-// ==========================================
 // PathListConverter
 // ==========================================
 

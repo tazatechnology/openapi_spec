@@ -124,7 +124,7 @@ class OpenApiProperty with _$OpenApiProperty {
   const factory OpenApiProperty.array({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
-    required OpenApiArrayItems items,
+    @_ArrayItemsConverter() required OpenApiArrayItems items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
@@ -154,7 +154,7 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// a reference schema property
   const factory OpenApiProperty.reference({
-    required OpenApiSchema reference,
+    required OpenApiSchema ref,
   }) = _OpenApiPropertyReference;
 
   factory OpenApiProperty.fromJson(Map<String, dynamic> json) =>
@@ -184,10 +184,50 @@ class OpenApiArrayItems with _$OpenApiArrayItems {
 
   /// An array of [OpenApiSchema] object references
   const factory OpenApiArrayItems.reference({
-    required OpenApiSchema reference,
+    required OpenApiSchema ref,
     OpenApiXml? xml,
   }) = _OpenApiArrayItemsReference;
 
   factory OpenApiArrayItems.fromJson(Map<String, dynamic> json) =>
       _$OpenApiArrayItemsFromJson(json);
+}
+// ==========================================
+// ArrayItemsConverter
+// ==========================================
+
+/// Custom converter for the union type [OpenApiArrayItems]
+class _ArrayItemsConverter
+    implements JsonConverter<OpenApiArrayItems, Map<String, dynamic>> {
+  const _ArrayItemsConverter();
+
+  @override
+  OpenApiArrayItems fromJson(Map<String, dynamic> json) {
+    // TO be implemented
+    return OpenApiArrayItems.string();
+  }
+
+  @override
+  Map<String, dynamic> toJson(OpenApiArrayItems data) {
+    return data.map(
+      string: (v) {
+        return {};
+      },
+      integer: (v) {
+        return {};
+      },
+      double: (v) {
+        return {};
+      },
+      reference: (v) {
+        final r = v.ref;
+        if (r is _OpenApiSchema) {
+          return {'\$ref': '#/components/schemas/${r.name}'};
+        } else {
+          throw Exception(
+            '\n\nThe OpenApiArrayItems.reference() argument must not be another reference\n',
+          );
+        }
+      },
+    );
+  }
 }

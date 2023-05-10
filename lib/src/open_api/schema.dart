@@ -31,10 +31,28 @@ class OpenApiSchema with _$OpenApiSchema {
     OpenApiXml? xml,
   }) = _OpenApiSchema;
 
+  /// Reference to another [OpenApiSchema]
   const factory OpenApiSchema.reference({
     required OpenApiSchema ref,
   }) = _OpenApiSchemaReference;
 
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.array
+  // ------------------------------------------
+
+  /// A generic [OpenApiSchema] schema of array type
+  const factory OpenApiSchema.array({
+    @_ArrayItemsConverter() required OpenApiArrayItems items,
+    String? title,
+    String? description,
+    @JsonKey(name: 'default') List? defaultValue,
+    List? example,
+    int? minLength,
+    int? maxLength,
+    OpenApiXml? xml,
+  }) = _OpenApiSchemaArray;
+
+  /// Convert from JSON representation
   factory OpenApiSchema.fromJson(Map<String, dynamic> json) =>
       _$OpenApiSchemaFromJson(json);
 }
@@ -57,9 +75,17 @@ class _SchemaConverter
   @override
   Map<String, dynamic> toJson(OpenApiSchema data) {
     return data.map(
-      (value) => data.toJson(),
-      reference: (value) {
-        final r = value.ref;
+      (value) {
+        return data.toJson();
+      },
+      array: (v) {
+        return {
+          'type': 'array',
+          'items': _ArrayItemsConverter().toJson(v.items),
+        };
+      },
+      reference: (v) {
+        final r = v.ref;
         if (r is _OpenApiSchema) {
           return {'\$ref': '#/components/schemas/${r.name}'};
         } else {

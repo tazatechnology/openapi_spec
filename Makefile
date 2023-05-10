@@ -21,4 +21,4 @@ docs:
 
 example:
 	rm -rf build
-	dart run example/openapi_spec_example.dart
+	dart run example/example.dart
