@@ -39,7 +39,7 @@ class OpenApiComponents with _$OpenApiComponents {
     List<OpenApiCallback>? callbacks,
 
     /// A set of reusable [OpenApiPath] objects.
-    List<OpenApiPath>? pathItems,
+    @_PathListConverter() List<OpenApiPath>? pathItems,
   }) = _OpenApiComponents;
 
   factory OpenApiComponents.fromJson(Map<String, dynamic> json) =>

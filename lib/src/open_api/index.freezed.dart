@@ -192,6 +192,7 @@ mixin _$OpenApiComponents {
   List<OpenApiCallback>? get callbacks => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiPath] objects.
+  @_PathListConverter()
   List<OpenApiPath>? get pathItems => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -216,7 +217,7 @@ abstract class $OpenApiComponentsCopyWith<$Res> {
       List<OpenApiSecurityScheme>? securitySchemes,
       List<OpenApiLink>? links,
       List<OpenApiCallback>? callbacks,
-      List<OpenApiPath>? pathItems});
+      @_PathListConverter() List<OpenApiPath>? pathItems});
 }
 
 /// @nodoc
@@ -306,7 +307,7 @@ abstract class _$$_OpenApiComponentsCopyWith<$Res>
       List<OpenApiSecurityScheme>? securitySchemes,
       List<OpenApiLink>? links,
       List<OpenApiCallback>? callbacks,
-      List<OpenApiPath>? pathItems});
+      @_PathListConverter() List<OpenApiPath>? pathItems});
 }
 
 /// @nodoc
@@ -389,7 +390,7 @@ class _$_OpenApiComponents implements _OpenApiComponents {
       final List<OpenApiSecurityScheme>? securitySchemes,
       final List<OpenApiLink>? links,
       final List<OpenApiCallback>? callbacks,
-      final List<OpenApiPath>? pathItems})
+      @_PathListConverter() final List<OpenApiPath>? pathItems})
       : _schemas = schemas,
         _responses = responses,
         _parameters = parameters,
@@ -526,6 +527,7 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
   /// A set of reusable [OpenApiPath] objects.
   @override
+  @_PathListConverter()
   List<OpenApiPath>? get pathItems {
     final value = _pathItems;
     if (value == null) return null;
@@ -594,16 +596,17 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
 abstract class _OpenApiComponents implements OpenApiComponents {
   const factory _OpenApiComponents(
-      {final List<OpenApiSchema>? schemas,
-      final List<OpenApiResponse>? responses,
-      final List<OpenApiParameter>? parameters,
-      final List<OpenApiExample>? examples,
-      final List<OpenApiRequestBody>? requestBodies,
-      final List<OpenApiHeader>? headers,
-      final List<OpenApiSecurityScheme>? securitySchemes,
-      final List<OpenApiLink>? links,
-      final List<OpenApiCallback>? callbacks,
-      final List<OpenApiPath>? pathItems}) = _$_OpenApiComponents;
+          {final List<OpenApiSchema>? schemas,
+          final List<OpenApiResponse>? responses,
+          final List<OpenApiParameter>? parameters,
+          final List<OpenApiExample>? examples,
+          final List<OpenApiRequestBody>? requestBodies,
+          final List<OpenApiHeader>? headers,
+          final List<OpenApiSecurityScheme>? securitySchemes,
+          final List<OpenApiLink>? links,
+          final List<OpenApiCallback>? callbacks,
+          @_PathListConverter() final List<OpenApiPath>? pathItems}) =
+      _$_OpenApiComponents;
 
   factory _OpenApiComponents.fromJson(Map<String, dynamic> json) =
       _$_OpenApiComponents.fromJson;
@@ -647,6 +650,7 @@ abstract class _OpenApiComponents implements OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiPath] objects.
+  @_PathListConverter()
   List<OpenApiPath>? get pathItems;
   @override
   @JsonKey(ignore: true)
@@ -2833,9 +2837,11 @@ mixin _$OpenApiOperation {
   List<OpenApiParameter>? get parameters => throw _privateConstructorUsedError;
 
   /// The request body applicable for this operation.
+  @_RequestBodyConverter()
   OpenApiRequestBody? get requestBody => throw _privateConstructorUsedError;
 
   /// The list of possible responses as they are returned from executing this operation.
+  @_ResponseListConverter()
   List<OpenApiResponse>? get responses => throw _privateConstructorUsedError;
 
   /// A map of possible out-of band callbacks related to the parent operation.
@@ -2874,8 +2880,10 @@ abstract class $OpenApiOperationCopyWith<$Res> {
       OpenApiExternalDocs? externalDocs,
       String? operationId,
       List<OpenApiParameter>? parameters,
-      OpenApiRequestBody? requestBody,
-      List<OpenApiResponse>? responses,
+      @_RequestBodyConverter()
+          OpenApiRequestBody? requestBody,
+      @_ResponseListConverter()
+          List<OpenApiResponse>? responses,
       List<OpenApiCallback>? callbacks,
       bool? deprecated,
       List<OpenApiSecurity>? security,
@@ -3004,8 +3012,10 @@ abstract class _$$_OpenApiOperationCopyWith<$Res>
       OpenApiExternalDocs? externalDocs,
       String? operationId,
       List<OpenApiParameter>? parameters,
-      OpenApiRequestBody? requestBody,
-      List<OpenApiResponse>? responses,
+      @_RequestBodyConverter()
+          OpenApiRequestBody? requestBody,
+      @_ResponseListConverter()
+          List<OpenApiResponse>? responses,
       List<OpenApiCallback>? callbacks,
       bool? deprecated,
       List<OpenApiSecurity>? security,
@@ -3105,8 +3115,10 @@ class _$_OpenApiOperation implements _OpenApiOperation {
       this.externalDocs,
       this.operationId,
       final List<OpenApiParameter>? parameters,
-      this.requestBody,
-      final List<OpenApiResponse>? responses,
+      @_RequestBodyConverter()
+          this.requestBody,
+      @_ResponseListConverter()
+          final List<OpenApiResponse>? responses,
       final List<OpenApiCallback>? callbacks,
       this.deprecated,
       final List<OpenApiSecurity>? security,
@@ -3172,6 +3184,7 @@ class _$_OpenApiOperation implements _OpenApiOperation {
 
   /// The request body applicable for this operation.
   @override
+  @_RequestBodyConverter()
   final OpenApiRequestBody? requestBody;
 
   /// The list of possible responses as they are returned from executing this operation.
@@ -3179,6 +3192,7 @@ class _$_OpenApiOperation implements _OpenApiOperation {
 
   /// The list of possible responses as they are returned from executing this operation.
   @override
+  @_ResponseListConverter()
   List<OpenApiResponse>? get responses {
     final value = _responses;
     if (value == null) return null;
@@ -3310,8 +3324,10 @@ abstract class _OpenApiOperation implements OpenApiOperation {
       final OpenApiExternalDocs? externalDocs,
       final String? operationId,
       final List<OpenApiParameter>? parameters,
-      final OpenApiRequestBody? requestBody,
-      final List<OpenApiResponse>? responses,
+      @_RequestBodyConverter()
+          final OpenApiRequestBody? requestBody,
+      @_ResponseListConverter()
+          final List<OpenApiResponse>? responses,
       final List<OpenApiCallback>? callbacks,
       final bool? deprecated,
       final List<OpenApiSecurity>? security,
@@ -3352,10 +3368,12 @@ abstract class _OpenApiOperation implements OpenApiOperation {
   @override
 
   /// The request body applicable for this operation.
+  @_RequestBodyConverter()
   OpenApiRequestBody? get requestBody;
   @override
 
   /// The list of possible responses as they are returned from executing this operation.
+  @_ResponseListConverter()
   List<OpenApiResponse>? get responses;
   @override
 
@@ -8852,18 +8870,80 @@ abstract class _OpenApiRequestBodyReference implements OpenApiRequestBody {
 }
 
 OpenApiResponse _$OpenApiResponseFromJson(Map<String, dynamic> json) {
-  return _OpenApiResponse.fromJson(json);
+  switch (json['unionType']) {
+    case 'default':
+      return _OpenApiResponse.fromJson(json);
+    case 'reference':
+      return _OpenApiResponseReference.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiResponse',
+          'Invalid union type "${json['unionType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$OpenApiResponse {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiResponseCopyWith<OpenApiResponse> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)
+        $default, {
+    required TResult Function(OpenApiResponse ref) reference,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)?
+        $default, {
+    TResult? Function(OpenApiResponse ref)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)?
+        $default, {
+    TResult Function(OpenApiResponse ref)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiResponse value) $default, {
+    required TResult Function(_OpenApiResponseReference value) reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiResponse value)? $default, {
+    TResult? Function(_OpenApiResponseReference value)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiResponse value)? $default, {
+    TResult Function(_OpenApiResponseReference value)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -8871,8 +8951,6 @@ abstract class $OpenApiResponseCopyWith<$Res> {
   factory $OpenApiResponseCopyWith(
           OpenApiResponse value, $Res Function(OpenApiResponse) then) =
       _$OpenApiResponseCopyWithImpl<$Res, OpenApiResponse>;
-  @useResult
-  $Res call({String? description});
 }
 
 /// @nodoc
@@ -8884,30 +8962,21 @@ class _$OpenApiResponseCopyWithImpl<$Res, $Val extends OpenApiResponse>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_OpenApiResponseCopyWith<$Res>
-    implements $OpenApiResponseCopyWith<$Res> {
+abstract class _$$_OpenApiResponseCopyWith<$Res> {
   factory _$$_OpenApiResponseCopyWith(
           _$_OpenApiResponse value, $Res Function(_$_OpenApiResponse) then) =
       __$$_OpenApiResponseCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? id,
+      String code,
+      String description,
+      Map<String, OpenApiHeader>? headers,
+      Map<String, OpenApiMediaType>? content,
+      Map<String, OpenApiLink>? links});
 }
 
 /// @nodoc
@@ -8921,13 +8990,38 @@ class __$$_OpenApiResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? id = freezed,
+    Object? code = null,
+    Object? description = null,
+    Object? headers = freezed,
+    Object? content = freezed,
+    Object? links = freezed,
   }) {
     return _then(_$_OpenApiResponse(
-      description: freezed == description
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      headers: freezed == headers
+          ? _value._headers
+          : headers // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiHeader>?,
+      content: freezed == content
+          ? _value._content
+          : content // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiMediaType>?,
+      links: freezed == links
+          ? _value._links
+          : links // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiLink>?,
     ));
   }
 }
@@ -8935,18 +9029,81 @@ class __$$_OpenApiResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiResponse implements _OpenApiResponse {
-  const _$_OpenApiResponse({this.description});
+  const _$_OpenApiResponse(
+      {this.id,
+      required this.code,
+      required this.description,
+      final Map<String, OpenApiHeader>? headers,
+      final Map<String, OpenApiMediaType>? content,
+      final Map<String, OpenApiLink>? links,
+      final String? $type})
+      : _headers = headers,
+        _content = content,
+        _links = links,
+        $type = $type ?? 'default';
 
   factory _$_OpenApiResponse.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiResponseFromJson(json);
 
-  /// Text
+  /// A unique identifier of this response schema if it is a reusable component.
   @override
-  final String? description;
+  final String? id;
+
+  /// Any HTTP status code can be used as the property name, but only one
+  /// property per code, to describe the expected response for that HTTP status code
+  @override
+  final String code;
+
+  /// A description of the response
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
+  @override
+  final String description;
+
+  /// Maps a header name to its definition. RFC7230 states header names are case insensitive.
+  final Map<String, OpenApiHeader>? _headers;
+
+  /// Maps a header name to its definition. RFC7230 states header names are case insensitive.
+  @override
+  Map<String, OpenApiHeader>? get headers {
+    final value = _headers;
+    if (value == null) return null;
+    if (_headers is EqualUnmodifiableMapView) return _headers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// A map containing descriptions of potential response payloads.
+  final Map<String, OpenApiMediaType>? _content;
+
+  /// A map containing descriptions of potential response payloads.
+  @override
+  Map<String, OpenApiMediaType>? get content {
+    final value = _content;
+    if (value == null) return null;
+    if (_content is EqualUnmodifiableMapView) return _content;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// A map containing descriptions of potential response payloads.
+  final Map<String, OpenApiLink>? _links;
+
+  /// A map containing descriptions of potential response payloads.
+  @override
+  Map<String, OpenApiLink>? get links {
+    final value = _links;
+    if (value == null) return null;
+    if (_links is EqualUnmodifiableMapView) return _links;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  @JsonKey(name: 'unionType')
+  final String $type;
 
   @override
   String toString() {
-    return 'OpenApiResponse(description: $description)';
+    return 'OpenApiResponse(id: $id, code: $code, description: $description, headers: $headers, content: $content, links: $links)';
   }
 
   @override
@@ -8954,19 +9111,114 @@ class _$_OpenApiResponse implements _OpenApiResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiResponse &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.code, code) || other.code == code) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other._headers, _headers) &&
+            const DeepCollectionEquality().equals(other._content, _content) &&
+            const DeepCollectionEquality().equals(other._links, _links));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      code,
+      description,
+      const DeepCollectionEquality().hash(_headers),
+      const DeepCollectionEquality().hash(_content),
+      const DeepCollectionEquality().hash(_links));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_OpenApiResponseCopyWith<_$_OpenApiResponse> get copyWith =>
       __$$_OpenApiResponseCopyWithImpl<_$_OpenApiResponse>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)
+        $default, {
+    required TResult Function(OpenApiResponse ref) reference,
+  }) {
+    return $default(id, code, description, headers, content, links);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)?
+        $default, {
+    TResult? Function(OpenApiResponse ref)? reference,
+  }) {
+    return $default?.call(id, code, description, headers, content, links);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)?
+        $default, {
+    TResult Function(OpenApiResponse ref)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(id, code, description, headers, content, links);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiResponse value) $default, {
+    required TResult Function(_OpenApiResponseReference value) reference,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiResponse value)? $default, {
+    TResult? Function(_OpenApiResponseReference value)? reference,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiResponse value)? $default, {
+    TResult Function(_OpenApiResponseReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -8977,162 +9229,224 @@ class _$_OpenApiResponse implements _OpenApiResponse {
 }
 
 abstract class _OpenApiResponse implements OpenApiResponse {
-  const factory _OpenApiResponse({final String? description}) =
-      _$_OpenApiResponse;
+  const factory _OpenApiResponse(
+      {final String? id,
+      required final String code,
+      required final String description,
+      final Map<String, OpenApiHeader>? headers,
+      final Map<String, OpenApiMediaType>? content,
+      final Map<String, OpenApiLink>? links}) = _$_OpenApiResponse;
 
   factory _OpenApiResponse.fromJson(Map<String, dynamic> json) =
       _$_OpenApiResponse.fromJson;
 
-  @override
+  /// A unique identifier of this response schema if it is a reusable component.
+  String? get id;
 
-  /// Text
-  String? get description;
-  @override
+  /// Any HTTP status code can be used as the property name, but only one
+  /// property per code, to describe the expected response for that HTTP status code
+  String get code;
+
+  /// A description of the response
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
+  String get description;
+
+  /// Maps a header name to its definition. RFC7230 states header names are case insensitive.
+  Map<String, OpenApiHeader>? get headers;
+
+  /// A map containing descriptions of potential response payloads.
+  Map<String, OpenApiMediaType>? get content;
+
+  /// A map containing descriptions of potential response payloads.
+  Map<String, OpenApiLink>? get links;
   @JsonKey(ignore: true)
   _$$_OpenApiResponseCopyWith<_$_OpenApiResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-OpenApiResponses _$OpenApiResponsesFromJson(Map<String, dynamic> json) {
-  return _OpenApiResponses.fromJson(json);
-}
-
 /// @nodoc
-mixin _$OpenApiResponses {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiResponsesCopyWith<OpenApiResponses> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $OpenApiResponsesCopyWith<$Res> {
-  factory $OpenApiResponsesCopyWith(
-          OpenApiResponses value, $Res Function(OpenApiResponses) then) =
-      _$OpenApiResponsesCopyWithImpl<$Res, OpenApiResponses>;
+abstract class _$$_OpenApiResponseReferenceCopyWith<$Res> {
+  factory _$$_OpenApiResponseReferenceCopyWith(
+          _$_OpenApiResponseReference value,
+          $Res Function(_$_OpenApiResponseReference) then) =
+      __$$_OpenApiResponseReferenceCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? description});
+  $Res call({OpenApiResponse ref});
+
+  $OpenApiResponseCopyWith<$Res> get ref;
 }
 
 /// @nodoc
-class _$OpenApiResponsesCopyWithImpl<$Res, $Val extends OpenApiResponses>
-    implements $OpenApiResponsesCopyWith<$Res> {
-  _$OpenApiResponsesCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_OpenApiResponsesCopyWith<$Res>
-    implements $OpenApiResponsesCopyWith<$Res> {
-  factory _$$_OpenApiResponsesCopyWith(
-          _$_OpenApiResponses value, $Res Function(_$_OpenApiResponses) then) =
-      __$$_OpenApiResponsesCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? description});
-}
-
-/// @nodoc
-class __$$_OpenApiResponsesCopyWithImpl<$Res>
-    extends _$OpenApiResponsesCopyWithImpl<$Res, _$_OpenApiResponses>
-    implements _$$_OpenApiResponsesCopyWith<$Res> {
-  __$$_OpenApiResponsesCopyWithImpl(
-      _$_OpenApiResponses _value, $Res Function(_$_OpenApiResponses) _then)
+class __$$_OpenApiResponseReferenceCopyWithImpl<$Res>
+    extends _$OpenApiResponseCopyWithImpl<$Res, _$_OpenApiResponseReference>
+    implements _$$_OpenApiResponseReferenceCopyWith<$Res> {
+  __$$_OpenApiResponseReferenceCopyWithImpl(_$_OpenApiResponseReference _value,
+      $Res Function(_$_OpenApiResponseReference) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? ref = null,
   }) {
-    return _then(_$_OpenApiResponses(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(_$_OpenApiResponseReference(
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as OpenApiResponse,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiResponseCopyWith<$Res> get ref {
+    return $OpenApiResponseCopyWith<$Res>(_value.ref, (value) {
+      return _then(_value.copyWith(ref: value));
+    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpenApiResponses implements _OpenApiResponses {
-  const _$_OpenApiResponses({this.description});
+class _$_OpenApiResponseReference implements _OpenApiResponseReference {
+  const _$_OpenApiResponseReference({required this.ref, final String? $type})
+      : $type = $type ?? 'reference';
 
-  factory _$_OpenApiResponses.fromJson(Map<String, dynamic> json) =>
-      _$$_OpenApiResponsesFromJson(json);
+  factory _$_OpenApiResponseReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiResponseReferenceFromJson(json);
 
-  /// Text
   @override
-  final String? description;
+  final OpenApiResponse ref;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
 
   @override
   String toString() {
-    return 'OpenApiResponses(description: $description)';
+    return 'OpenApiResponse.reference(ref: $ref)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OpenApiResponses &&
-            (identical(other.description, description) ||
-                other.description == description));
+            other is _$_OpenApiResponseReference &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, ref);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OpenApiResponsesCopyWith<_$_OpenApiResponses> get copyWith =>
-      __$$_OpenApiResponsesCopyWithImpl<_$_OpenApiResponses>(this, _$identity);
+  _$$_OpenApiResponseReferenceCopyWith<_$_OpenApiResponseReference>
+      get copyWith => __$$_OpenApiResponseReferenceCopyWithImpl<
+          _$_OpenApiResponseReference>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)
+        $default, {
+    required TResult Function(OpenApiResponse ref) reference,
+  }) {
+    return reference(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)?
+        $default, {
+    TResult? Function(OpenApiResponse ref)? reference,
+  }) {
+    return reference?.call(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? id,
+            String code,
+            String description,
+            Map<String, OpenApiHeader>? headers,
+            Map<String, OpenApiMediaType>? content,
+            Map<String, OpenApiLink>? links)?
+        $default, {
+    TResult Function(OpenApiResponse ref)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(ref);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiResponse value) $default, {
+    required TResult Function(_OpenApiResponseReference value) reference,
+  }) {
+    return reference(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiResponse value)? $default, {
+    TResult? Function(_OpenApiResponseReference value)? reference,
+  }) {
+    return reference?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiResponse value)? $default, {
+    TResult Function(_OpenApiResponseReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OpenApiResponsesToJson(
+    return _$$_OpenApiResponseReferenceToJson(
       this,
     );
   }
 }
 
-abstract class _OpenApiResponses implements OpenApiResponses {
-  const factory _OpenApiResponses({final String? description}) =
-      _$_OpenApiResponses;
+abstract class _OpenApiResponseReference implements OpenApiResponse {
+  const factory _OpenApiResponseReference(
+      {required final OpenApiResponse ref}) = _$_OpenApiResponseReference;
 
-  factory _OpenApiResponses.fromJson(Map<String, dynamic> json) =
-      _$_OpenApiResponses.fromJson;
+  factory _OpenApiResponseReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiResponseReference.fromJson;
 
-  @override
-
-  /// Text
-  String? get description;
-  @override
+  OpenApiResponse get ref;
   @JsonKey(ignore: true)
-  _$$_OpenApiResponsesCopyWith<_$_OpenApiResponses> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_OpenApiResponseReferenceCopyWith<_$_OpenApiResponseReference>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 OpenApiSchema _$OpenApiSchemaFromJson(Map<String, dynamic> json) {

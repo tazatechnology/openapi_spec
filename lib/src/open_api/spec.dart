@@ -66,44 +66,12 @@ class OpenApi with _$OpenApi {
     final OpenApiExternalDocs? externalDocs,
   }) = _OpenApi;
 
-  /// Create an [OpenApi] object from raw JSON serialized object
   factory OpenApi.fromJson(Map<String, dynamic> json) {
     return OpenApi(
       version: json['openapi'],
-      info: json['info'] == null
-          ? OpenApiInfo(title: 'Undefined', version: 'Undefined')
-          : OpenApiInfo.fromJson(json['info']),
       jsonSchemaDialect: json['jsonSchemaDialect'],
-      servers: json['servers'] == null
-          ? null
-          : (json['servers'] as List)
-              .map((e) => OpenApiServer.fromJson(json['servers']))
-              .toList(),
-      paths: json['paths'] == null
-          ? null
-          : (json['paths'] as Map)
-              .keys
-              .map((p) =>
-                  OpenApiPath.fromJson(json['paths'][p]!..addAll({'path': p})))
-              .toList(),
-      webhooks: json['webhooks'] == null
-          ? null
-          : (json['webhooks'] as Map).map((key, value) =>
-              MapEntry(key.toString(), OpenApiReference.fromJson(value))),
-      components: OpenApiComponents.fromJson(json['components']),
-      security: json['security'] == null
-          ? null
-          : (json['security'] as List)
-              .map((e) => OpenApiSecurity.fromJson(json['security']))
-              .toList(),
-      tags: json['tags'] == null
-          ? null
-          : (json['tags'] as List)
-              .map((e) => OpenApiTag.fromJson(json['tags']))
-              .toList(),
-      externalDocs: json['externalDocs'] == null
-          ? null
-          : OpenApiExternalDocs.fromJson(json['externalDocs']),
+      info: OpenApiInfo.fromJson(json['info']),
+      externalDocs: OpenApiExternalDocs.fromJson(json['externalDocs']),
     );
   }
 
@@ -114,20 +82,14 @@ class OpenApi with _$OpenApi {
         'OpenAPI spec must contain at least one of the following: paths, components, or webhooks',
       );
     }
+
     final out = {
       'openapi': version,
       'info': info.toJson(),
       if (jsonSchemaDialect != null) 'jsonSchemaDialect': jsonSchemaDialect,
       if (servers != null) 'servers': servers!.map((e) => e.toJson()).toList(),
       if (externalDocs != null) 'externalDocs': externalDocs!.toJson(),
-      if (paths != null)
-        'paths': paths!.asMap().map((_, v) {
-          return v.map(
-            (p) => MapEntry(p.path, v.toJson()..remove('path')),
-            reference: (r) =>
-                MapEntry('\$ref', '#/paths${r.mapOrNull((v) => v.path)}'),
-          );
-        }),
+      if (paths != null) 'paths': _PathListConverter().toJson(paths!),
       if (version.startsWith('3.1') && webhooks != null)
         'webhooks': webhooks!.map((k, v) => MapEntry(k, v.toJson())),
       if (components != null) 'components': components!.toJson(),

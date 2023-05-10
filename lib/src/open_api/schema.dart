@@ -39,6 +39,10 @@ class OpenApiSchema with _$OpenApiSchema {
       _$OpenApiSchemaFromJson(json);
 }
 
+// ==========================================
+// SchemaConverter
+// ==========================================
+
 /// Custom converter for the union type [OpenApiSchema]
 class _SchemaConverter
     implements JsonConverter<OpenApiSchema, Map<String, dynamic>> {
@@ -52,15 +56,18 @@ class _SchemaConverter
 
   @override
   Map<String, dynamic> toJson(OpenApiSchema data) {
-    return data.map((value) => data.toJson(), reference: (v) {
-      final r = v.ref;
-      if (r is _OpenApiSchema) {
-        return {'\$ref': '#/components/schemas/${r.name}'};
-      } else {
-        throw Exception(
-          '\n\nThe OpenApiSchema.reference() argument must not be another reference\n',
-        );
-      }
-    });
+    return data.map(
+      (value) => data.toJson(),
+      reference: (value) {
+        final r = value.ref;
+        if (r is _OpenApiSchema) {
+          return {'\$ref': '#/components/schemas/${r.name}'};
+        } else {
+          throw Exception(
+            '\n\nThe OpenApiSchema.reference() argument must not be another reference\n',
+          );
+        }
+      },
+    );
   }
 }

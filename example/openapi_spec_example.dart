@@ -130,6 +130,8 @@ void main() async {
           description: 'Update an existing pet by Id',
           operationId: 'updatePet',
           requestBody: OpenApiRequestBody(
+            isRequired: true,
+            description: 'Update an existent pet in the store',
             content: {
               'application/json': OpenApiMediaType(
                 schema: OpenApiSchema.reference(ref: schemaPet),
@@ -142,6 +144,35 @@ void main() async {
               ),
             },
           ),
+          responses: [
+            OpenApiResponse(
+              code: '200',
+              description: 'Successful operation',
+              content: {
+                'application/json': OpenApiMediaType(
+                  schema: OpenApiSchema.reference(ref: schemaPet),
+                ),
+                'application/xml': OpenApiMediaType(
+                  schema: OpenApiSchema.reference(ref: schemaPet),
+                ),
+              },
+            ),
+            OpenApiResponse(
+              code: '400',
+              description: 'Invalid ID supplied',
+            ),
+            OpenApiResponse(
+              code: '404',
+              description: 'Pet not found',
+            ),
+            OpenApiResponse(
+              code: '405',
+              description: 'Validation exception',
+            )
+          ],
+          security: [
+            OpenApiSecurity(),
+          ],
         ),
       )
     ],

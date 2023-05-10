@@ -34,10 +34,10 @@ class OpenApiOperation with _$OpenApiOperation {
     List<OpenApiParameter>? parameters,
 
     /// The request body applicable for this operation.
-    OpenApiRequestBody? requestBody,
+    @_RequestBodyConverter() OpenApiRequestBody? requestBody,
 
     /// The list of possible responses as they are returned from executing this operation.
-    List<OpenApiResponse>? responses,
+    @_ResponseListConverter() List<OpenApiResponse>? responses,
 
     /// A map of possible out-of band callbacks related to the parent operation.
     /// The key is a unique identifier for the [OpenApiCallback] Object.

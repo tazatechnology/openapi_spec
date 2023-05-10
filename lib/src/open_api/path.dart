@@ -61,3 +61,63 @@ class OpenApiPath with _$OpenApiPath {
   factory OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$OpenApiPathFromJson(json);
 }
+
+// ==========================================
+// PathConverter
+// ==========================================
+
+/// Custom converter [OpenApiPath] union type
+// class _PathConverter
+//     implements JsonConverter<OpenApiPath, Map<String, dynamic>> {
+//   const _PathConverter();
+
+//   @override
+//   OpenApiPath fromJson(Map<String, dynamic> json) {
+//     return OpenApiPath(path: '/');
+//   }
+
+//   @override
+//   Map<String, dynamic> toJson(OpenApiPath data) {
+//     return {};
+//   }
+// }
+
+// ==========================================
+// PathListConverter
+// ==========================================
+
+/// Custom converter for List<[OpenApiPath]> union type
+class _PathListConverter
+    implements JsonConverter<List<OpenApiPath>, Map<String, dynamic>> {
+  const _PathListConverter();
+
+  @override
+  List<OpenApiPath> fromJson(Map<String, dynamic> json) {
+    return [];
+  }
+
+  @override
+  Map<String, dynamic> toJson(List<OpenApiPath> data) {
+    Map<String, dynamic> json = {};
+    for (final p in data) {
+      p.map(
+        (value) {
+          json[value.path] = value.toJson()
+            ..remove('path')
+            ..remove(_unionKey);
+        },
+        reference: (value) {
+          final r = value.ref;
+          if (r is _OpenApiPath) {
+            json['\$ref'] = '#/components/pathItems/${r.path}';
+          } else {
+            throw Exception(
+              '\n\nThe OpenApiPath.reference() argument must not be another reference\n',
+            );
+          }
+        },
+      );
+    }
+    return json;
+  }
+}

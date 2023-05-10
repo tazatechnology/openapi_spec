@@ -54,9 +54,9 @@ _$_OpenApiComponents _$$_OpenApiComponentsFromJson(Map<String, dynamic> json) =>
       callbacks: (json['callbacks'] as List<dynamic>?)
           ?.map((e) => OpenApiCallback.fromJson(e as Map<String, dynamic>))
           .toList(),
-      pathItems: (json['pathItems'] as List<dynamic>?)
-          ?.map((e) => OpenApiPath.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      pathItems:
+          _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiPath>>(
+              json['pathItems'], const _PathListConverter().fromJson),
     );
 
 Map<String, dynamic> _$$_OpenApiComponentsToJson(
@@ -84,9 +84,23 @@ Map<String, dynamic> _$$_OpenApiComponentsToJson(
   writeNotNull(
       'callbacks', instance.callbacks?.map((e) => e.toJson()).toList());
   writeNotNull(
-      'pathItems', instance.pathItems?.map((e) => e.toJson()).toList());
+      'pathItems',
+      _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiPath>>(
+          instance.pathItems, const _PathListConverter().toJson));
   return val;
 }
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 _$_OpenApiContact _$$_OpenApiContactFromJson(Map<String, dynamic> json) =>
     _$_OpenApiContact(
@@ -341,18 +355,6 @@ Map<String, dynamic> _$$_OpenApiMediaTypeToJson(_$_OpenApiMediaType instance) {
   return val;
 }
 
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
-
 _$_OpenApiOperation _$$_OpenApiOperationFromJson(Map<String, dynamic> json) =>
     _$_OpenApiOperation(
       tags: _fromJsonTags(json['tags'] as List<String>?),
@@ -366,13 +368,12 @@ _$_OpenApiOperation _$$_OpenApiOperationFromJson(Map<String, dynamic> json) =>
       parameters: (json['parameters'] as List<dynamic>?)
           ?.map((e) => OpenApiParameter.fromJson(e as Map<String, dynamic>))
           .toList(),
-      requestBody: json['requestBody'] == null
-          ? null
-          : OpenApiRequestBody.fromJson(
-              json['requestBody'] as Map<String, dynamic>),
-      responses: (json['responses'] as List<dynamic>?)
-          ?.map((e) => OpenApiResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      requestBody:
+          _$JsonConverterFromJson<Map<String, dynamic>, OpenApiRequestBody>(
+              json['requestBody'], const _RequestBodyConverter().fromJson),
+      responses:
+          _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiResponse>>(
+              json['responses'], const _ResponseListConverter().fromJson),
       callbacks: (json['callbacks'] as List<dynamic>?)
           ?.map((e) => OpenApiCallback.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -401,9 +402,14 @@ Map<String, dynamic> _$$_OpenApiOperationToJson(_$_OpenApiOperation instance) {
   writeNotNull('operationId', instance.operationId);
   writeNotNull(
       'parameters', instance.parameters?.map((e) => e.toJson()).toList());
-  writeNotNull('requestBody', instance.requestBody?.toJson());
   writeNotNull(
-      'responses', instance.responses?.map((e) => e.toJson()).toList());
+      'requestBody',
+      _$JsonConverterToJson<Map<String, dynamic>, OpenApiRequestBody>(
+          instance.requestBody, const _RequestBodyConverter().toJson));
+  writeNotNull(
+      'responses',
+      _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiResponse>>(
+          instance.responses, const _ResponseListConverter().toJson));
   writeNotNull(
       'callbacks', instance.callbacks?.map((e) => e.toJson()).toList());
   writeNotNull('deprecated', instance.deprecated);
@@ -887,7 +893,21 @@ Map<String, dynamic> _$$_OpenApiRequestBodyReferenceToJson(
 
 _$_OpenApiResponse _$$_OpenApiResponseFromJson(Map<String, dynamic> json) =>
     _$_OpenApiResponse(
-      description: json['description'] as String?,
+      id: json['id'] as String?,
+      code: json['code'] as String,
+      description: json['description'] as String,
+      headers: (json['headers'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiHeader.fromJson(e as Map<String, dynamic>)),
+      ),
+      content: (json['content'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiMediaType.fromJson(e as Map<String, dynamic>)),
+      ),
+      links: (json['links'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, OpenApiLink.fromJson(e as Map<String, dynamic>)),
+      ),
+      $type: json['unionType'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiResponseToJson(_$_OpenApiResponse instance) {
@@ -899,27 +919,31 @@ Map<String, dynamic> _$$_OpenApiResponseToJson(_$_OpenApiResponse instance) {
     }
   }
 
-  writeNotNull('description', instance.description);
+  writeNotNull('id', instance.id);
+  val['code'] = instance.code;
+  val['description'] = instance.description;
+  writeNotNull(
+      'headers', instance.headers?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull(
+      'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull('links', instance.links?.map((k, e) => MapEntry(k, e.toJson())));
+  val['unionType'] = instance.$type;
   return val;
 }
 
-_$_OpenApiResponses _$$_OpenApiResponsesFromJson(Map<String, dynamic> json) =>
-    _$_OpenApiResponses(
-      description: json['description'] as String?,
+_$_OpenApiResponseReference _$$_OpenApiResponseReferenceFromJson(
+        Map<String, dynamic> json) =>
+    _$_OpenApiResponseReference(
+      ref: OpenApiResponse.fromJson(json['ref'] as Map<String, dynamic>),
+      $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OpenApiResponsesToJson(_$_OpenApiResponses instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
+Map<String, dynamic> _$$_OpenApiResponseReferenceToJson(
+        _$_OpenApiResponseReference instance) =>
+    <String, dynamic>{
+      'ref': instance.ref.toJson(),
+      'unionType': instance.$type,
+    };
 
 _$_OpenApiSchema _$$_OpenApiSchemaFromJson(Map<String, dynamic> json) =>
     _$_OpenApiSchema(

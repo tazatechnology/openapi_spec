@@ -29,3 +29,23 @@ class OpenApiRequestBody with _$OpenApiRequestBody {
   factory OpenApiRequestBody.fromJson(Map<String, dynamic> json) =>
       _$OpenApiRequestBodyFromJson(json);
 }
+
+// ==========================================
+// RequestBodyConverter
+// ==========================================
+
+/// Custom converter [OpenApiPath] union type
+class _RequestBodyConverter
+    implements JsonConverter<OpenApiRequestBody, Map<String, dynamic>> {
+  const _RequestBodyConverter();
+
+  @override
+  OpenApiRequestBody fromJson(Map<String, dynamic> json) {
+    return OpenApiRequestBody();
+  }
+
+  @override
+  Map<String, dynamic> toJson(OpenApiRequestBody data) {
+    return data.toJson()..remove(_unionKey);
+  }
+}

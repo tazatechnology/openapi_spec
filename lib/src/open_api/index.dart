@@ -29,7 +29,6 @@ part 'property.dart';
 part 'reference.dart';
 part 'request_body.dart';
 part 'response.dart';
-part 'responses.dart';
 part 'schema.dart';
 part 'security.dart';
 part 'security_scheme.dart';
