@@ -5791,8 +5791,8 @@ OpenApiProperty _$OpenApiPropertyFromJson(Map<String, dynamic> json) {
       return _OpenApiPropertyString.fromJson(json);
     case 'integer':
       return _OpenApiPropertyInteger.fromJson(json);
-    case 'double':
-      return _OpenApiPropertyDouble.fromJson(json);
+    case 'number':
+      return _OpenApiPropertyNumber.fromJson(json);
     case 'array':
       return _OpenApiPropertyArray.fromJson(json);
     case 'enumeration':
@@ -5816,6 +5816,7 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -5827,6 +5828,7 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -5840,13 +5842,14 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -5878,6 +5881,7 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -5889,6 +5893,7 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -5902,13 +5907,14 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -5940,6 +5946,7 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -5951,6 +5958,7 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -5964,13 +5972,14 @@ mixin _$OpenApiProperty {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -5999,7 +6008,7 @@ mixin _$OpenApiProperty {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
@@ -6009,7 +6018,7 @@ mixin _$OpenApiProperty {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
@@ -6019,7 +6028,7 @@ mixin _$OpenApiProperty {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
@@ -6059,6 +6068,7 @@ abstract class _$$_OpenApiPropertyStringCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') String? defaultValue,
+      OpenApiStringFormat? format,
       String? example,
       int? minLength,
       int? maxLength,
@@ -6083,6 +6093,7 @@ class __$$_OpenApiPropertyStringCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? format = freezed,
     Object? example = freezed,
     Object? minLength = freezed,
     Object? maxLength = freezed,
@@ -6109,6 +6120,10 @@ class __$$_OpenApiPropertyStringCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiStringFormat?,
       example: freezed == example
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
@@ -6150,6 +6165,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.format,
       this.example,
       this.minLength,
       this.maxLength,
@@ -6173,6 +6189,8 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   @JsonKey(name: 'default')
   final String? defaultValue;
   @override
+  final OpenApiStringFormat? format;
+  @override
   final String? example;
   @override
   final int? minLength;
@@ -6186,7 +6204,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
 
   @override
   String toString() {
-    return 'OpenApiProperty.string(isRequired: $isRequired, name: $name, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minLength: $minLength, maxLength: $maxLength, xml: $xml)';
+    return 'OpenApiProperty.string(isRequired: $isRequired, name: $name, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, xml: $xml)';
   }
 
   @override
@@ -6202,6 +6220,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minLength, minLength) ||
                 other.minLength == minLength) &&
@@ -6213,7 +6232,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, isRequired, name, title,
-      description, defaultValue, example, minLength, maxLength, xml);
+      description, defaultValue, format, example, minLength, maxLength, xml);
 
   @JsonKey(ignore: true)
   @override
@@ -6231,6 +6250,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -6242,6 +6262,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -6255,13 +6276,14 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -6284,8 +6306,8 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
         enumeration,
     required TResult Function(OpenApiSchema ref) reference,
   }) {
-    return string(isRequired, name, title, description, defaultValue, example,
-        minLength, maxLength, xml);
+    return string(isRequired, name, title, description, defaultValue, format,
+        example, minLength, maxLength, xml);
   }
 
   @override
@@ -6297,6 +6319,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -6308,6 +6331,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -6321,13 +6345,14 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -6351,7 +6376,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
     TResult? Function(OpenApiSchema ref)? reference,
   }) {
     return string?.call(isRequired, name, title, description, defaultValue,
-        example, minLength, maxLength, xml);
+        format, example, minLength, maxLength, xml);
   }
 
   @override
@@ -6363,6 +6388,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -6374,6 +6400,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -6387,13 +6414,14 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -6418,8 +6446,8 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
     required TResult orElse(),
   }) {
     if (string != null) {
-      return string(isRequired, name, title, description, defaultValue, example,
-          minLength, maxLength, xml);
+      return string(isRequired, name, title, description, defaultValue, format,
+          example, minLength, maxLength, xml);
     }
     return orElse();
   }
@@ -6429,7 +6457,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
@@ -6442,7 +6470,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
@@ -6455,7 +6483,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
@@ -6482,6 +6510,7 @@ abstract class _OpenApiPropertyString implements OpenApiProperty {
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final String? defaultValue,
+      final OpenApiStringFormat? format,
       final String? example,
       final int? minLength,
       final int? maxLength,
@@ -6497,6 +6526,7 @@ abstract class _OpenApiPropertyString implements OpenApiProperty {
   String? get description;
   @JsonKey(name: 'default')
   String? get defaultValue;
+  OpenApiStringFormat? get format;
   String? get example;
   int? get minLength;
   int? get maxLength;
@@ -6518,6 +6548,7 @@ abstract class _$$_OpenApiPropertyIntegerCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') int? defaultValue,
+      OpenApiIntegerFormat? format,
       int? example,
       int? minimum,
       int? exclusiveMinimum,
@@ -6544,6 +6575,7 @@ class __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? format = freezed,
     Object? example = freezed,
     Object? minimum = freezed,
     Object? exclusiveMinimum = freezed,
@@ -6572,6 +6604,10 @@ class __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as int?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiIntegerFormat?,
       example: freezed == example
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
@@ -6621,6 +6657,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.format,
       this.example,
       this.minimum,
       this.exclusiveMinimum,
@@ -6646,6 +6683,8 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   @JsonKey(name: 'default')
   final int? defaultValue;
   @override
+  final OpenApiIntegerFormat? format;
+  @override
   final int? example;
   @override
   final int? minimum;
@@ -6663,7 +6702,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
 
   @override
   String toString() {
-    return 'OpenApiProperty.integer(isRequired: $isRequired, name: $name, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, xml: $xml)';
+    return 'OpenApiProperty.integer(isRequired: $isRequired, name: $name, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, xml: $xml)';
   }
 
   @override
@@ -6679,6 +6718,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
             (identical(other.exclusiveMinimum, exclusiveMinimum) ||
@@ -6698,6 +6738,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
       title,
       description,
       defaultValue,
+      format,
       example,
       minimum,
       exclusiveMinimum,
@@ -6721,6 +6762,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -6732,6 +6774,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -6745,13 +6788,14 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -6774,8 +6818,8 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
         enumeration,
     required TResult Function(OpenApiSchema ref) reference,
   }) {
-    return integer(isRequired, name, title, description, defaultValue, example,
-        minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    return integer(isRequired, name, title, description, defaultValue, format,
+        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
   }
 
   @override
@@ -6787,6 +6831,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -6798,6 +6843,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -6811,13 +6857,14 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -6840,8 +6887,19 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
         enumeration,
     TResult? Function(OpenApiSchema ref)? reference,
   }) {
-    return integer?.call(isRequired, name, title, description, defaultValue,
-        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    return integer?.call(
+        isRequired,
+        name,
+        title,
+        description,
+        defaultValue,
+        format,
+        example,
+        minimum,
+        exclusiveMinimum,
+        maximum,
+        exclusiveMaximum,
+        xml);
   }
 
   @override
@@ -6853,6 +6911,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -6864,6 +6923,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -6877,13 +6937,14 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -6908,7 +6969,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
     required TResult orElse(),
   }) {
     if (integer != null) {
-      return integer(isRequired, name, title, description, defaultValue,
+      return integer(isRequired, name, title, description, defaultValue, format,
           example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
     }
     return orElse();
@@ -6919,7 +6980,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
@@ -6932,7 +6993,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
@@ -6945,7 +7006,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
@@ -6972,6 +7033,7 @@ abstract class _OpenApiPropertyInteger implements OpenApiProperty {
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final int? defaultValue,
+      final OpenApiIntegerFormat? format,
       final int? example,
       final int? minimum,
       final int? exclusiveMinimum,
@@ -6989,6 +7051,7 @@ abstract class _OpenApiPropertyInteger implements OpenApiProperty {
   String? get description;
   @JsonKey(name: 'default')
   int? get defaultValue;
+  OpenApiIntegerFormat? get format;
   int? get example;
   int? get minimum;
   int? get exclusiveMinimum;
@@ -7001,10 +7064,10 @@ abstract class _OpenApiPropertyInteger implements OpenApiProperty {
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyDoubleCopyWith<$Res> {
-  factory _$$_OpenApiPropertyDoubleCopyWith(_$_OpenApiPropertyDouble value,
-          $Res Function(_$_OpenApiPropertyDouble) then) =
-      __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyNumberCopyWith<$Res> {
+  factory _$$_OpenApiPropertyNumberCopyWith(_$_OpenApiPropertyNumber value,
+          $Res Function(_$_OpenApiPropertyNumber) then) =
+      __$$_OpenApiPropertyNumberCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {@JsonKey(ignore: true) bool isRequired,
@@ -7012,6 +7075,7 @@ abstract class _$$_OpenApiPropertyDoubleCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') double? defaultValue,
+      OpenApiNumberFormat? format,
       double? example,
       double? minimum,
       double? exclusiveMinimum,
@@ -7023,11 +7087,11 @@ abstract class _$$_OpenApiPropertyDoubleCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyDouble>
-    implements _$$_OpenApiPropertyDoubleCopyWith<$Res> {
-  __$$_OpenApiPropertyDoubleCopyWithImpl(_$_OpenApiPropertyDouble _value,
-      $Res Function(_$_OpenApiPropertyDouble) _then)
+class __$$_OpenApiPropertyNumberCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyNumber>
+    implements _$$_OpenApiPropertyNumberCopyWith<$Res> {
+  __$$_OpenApiPropertyNumberCopyWithImpl(_$_OpenApiPropertyNumber _value,
+      $Res Function(_$_OpenApiPropertyNumber) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7038,6 +7102,7 @@ class __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? format = freezed,
     Object? example = freezed,
     Object? minimum = freezed,
     Object? exclusiveMinimum = freezed,
@@ -7045,7 +7110,7 @@ class __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>
     Object? exclusiveMaximum = freezed,
     Object? xml = freezed,
   }) {
-    return _then(_$_OpenApiPropertyDouble(
+    return _then(_$_OpenApiPropertyNumber(
       isRequired: null == isRequired
           ? _value.isRequired
           : isRequired // ignore: cast_nullable_to_non_nullable
@@ -7066,6 +7131,10 @@ class __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as double?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiNumberFormat?,
       example: freezed == example
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
@@ -7108,13 +7177,14 @@ class __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
-  const _$_OpenApiPropertyDouble(
+class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
+  const _$_OpenApiPropertyNumber(
       {@JsonKey(ignore: true) this.isRequired = false,
       required this.name,
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.format,
       this.example,
       this.minimum,
       this.exclusiveMinimum,
@@ -7122,10 +7192,10 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
       this.exclusiveMaximum,
       this.xml,
       final String? $type})
-      : $type = $type ?? 'double';
+      : $type = $type ?? 'number';
 
-  factory _$_OpenApiPropertyDouble.fromJson(Map<String, dynamic> json) =>
-      _$$_OpenApiPropertyDoubleFromJson(json);
+  factory _$_OpenApiPropertyNumber.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyNumberFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -7139,6 +7209,8 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
   @override
   @JsonKey(name: 'default')
   final double? defaultValue;
+  @override
+  final OpenApiNumberFormat? format;
   @override
   final double? example;
   @override
@@ -7157,14 +7229,14 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
 
   @override
   String toString() {
-    return 'OpenApiProperty.double(isRequired: $isRequired, name: $name, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, xml: $xml)';
+    return 'OpenApiProperty.number(isRequired: $isRequired, name: $name, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, xml: $xml)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OpenApiPropertyDouble &&
+            other is _$_OpenApiPropertyNumber &&
             (identical(other.isRequired, isRequired) ||
                 other.isRequired == isRequired) &&
             (identical(other.name, name) || other.name == name) &&
@@ -7173,6 +7245,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
             (identical(other.exclusiveMinimum, exclusiveMinimum) ||
@@ -7192,6 +7265,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
       title,
       description,
       defaultValue,
+      format,
       example,
       minimum,
       exclusiveMinimum,
@@ -7202,8 +7276,8 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OpenApiPropertyDoubleCopyWith<_$_OpenApiPropertyDouble> get copyWith =>
-      __$$_OpenApiPropertyDoubleCopyWithImpl<_$_OpenApiPropertyDouble>(
+  _$$_OpenApiPropertyNumberCopyWith<_$_OpenApiPropertyNumber> get copyWith =>
+      __$$_OpenApiPropertyNumberCopyWithImpl<_$_OpenApiPropertyNumber>(
           this, _$identity);
 
   @override
@@ -7215,6 +7289,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -7226,6 +7301,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -7239,13 +7315,14 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -7268,8 +7345,8 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
         enumeration,
     required TResult Function(OpenApiSchema ref) reference,
   }) {
-    return double(isRequired, name, title, description, defaultValue, example,
-        minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    return number(isRequired, name, title, description, defaultValue, format,
+        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
   }
 
   @override
@@ -7281,6 +7358,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -7292,6 +7370,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -7305,13 +7384,14 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -7334,8 +7414,19 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
         enumeration,
     TResult? Function(OpenApiSchema ref)? reference,
   }) {
-    return double?.call(isRequired, name, title, description, defaultValue,
-        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    return number?.call(
+        isRequired,
+        name,
+        title,
+        description,
+        defaultValue,
+        format,
+        example,
+        minimum,
+        exclusiveMinimum,
+        maximum,
+        exclusiveMaximum,
+        xml);
   }
 
   @override
@@ -7347,6 +7438,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -7358,6 +7450,7 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -7371,13 +7464,14 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -7401,9 +7495,9 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
     TResult Function(OpenApiSchema ref)? reference,
     required TResult orElse(),
   }) {
-    if (double != null) {
-      return double(isRequired, name, title, description, defaultValue, example,
-          minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    if (number != null) {
+      return number(isRequired, name, title, description, defaultValue, format,
+          example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
     }
     return orElse();
   }
@@ -7413,12 +7507,12 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
-    return double(this);
+    return number(this);
   }
 
   @override
@@ -7426,12 +7520,12 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
-    return double?.call(this);
+    return number?.call(this);
   }
 
   @override
@@ -7439,42 +7533,43 @@ class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
-    if (double != null) {
-      return double(this);
+    if (number != null) {
+      return number(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OpenApiPropertyDoubleToJson(
+    return _$$_OpenApiPropertyNumberToJson(
       this,
     );
   }
 }
 
-abstract class _OpenApiPropertyDouble implements OpenApiProperty {
-  const factory _OpenApiPropertyDouble(
+abstract class _OpenApiPropertyNumber implements OpenApiProperty {
+  const factory _OpenApiPropertyNumber(
       {@JsonKey(ignore: true) final bool isRequired,
       required final String name,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final double? defaultValue,
+      final OpenApiNumberFormat? format,
       final double? example,
       final double? minimum,
       final double? exclusiveMinimum,
       final double? maximum,
       final double? exclusiveMaximum,
-      final OpenApiXml? xml}) = _$_OpenApiPropertyDouble;
+      final OpenApiXml? xml}) = _$_OpenApiPropertyNumber;
 
-  factory _OpenApiPropertyDouble.fromJson(Map<String, dynamic> json) =
-      _$_OpenApiPropertyDouble.fromJson;
+  factory _OpenApiPropertyNumber.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyNumber.fromJson;
 
   @JsonKey(ignore: true)
   bool get isRequired;
@@ -7483,6 +7578,7 @@ abstract class _OpenApiPropertyDouble implements OpenApiProperty {
   String? get description;
   @JsonKey(name: 'default')
   double? get defaultValue;
+  OpenApiNumberFormat? get format;
   double? get example;
   double? get minimum;
   double? get exclusiveMinimum;
@@ -7490,7 +7586,7 @@ abstract class _OpenApiPropertyDouble implements OpenApiProperty {
   double? get exclusiveMaximum;
   OpenApiXml? get xml;
   @JsonKey(ignore: true)
-  _$$_OpenApiPropertyDoubleCopyWith<_$_OpenApiPropertyDouble> get copyWith =>
+  _$$_OpenApiPropertyNumberCopyWith<_$_OpenApiPropertyNumber> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -7726,6 +7822,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -7737,6 +7834,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -7750,13 +7848,14 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -7792,6 +7891,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -7803,6 +7903,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -7816,13 +7917,14 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -7858,6 +7960,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -7869,6 +7972,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -7882,13 +7986,14 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -7924,7 +8029,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
@@ -7937,7 +8042,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
@@ -7950,7 +8055,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
@@ -8155,6 +8260,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -8166,6 +8272,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -8179,13 +8286,14 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -8221,6 +8329,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -8232,6 +8341,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -8245,13 +8355,14 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -8287,6 +8398,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -8298,6 +8410,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -8311,13 +8424,14 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -8353,7 +8467,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
@@ -8366,7 +8480,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
@@ -8379,7 +8493,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
@@ -8515,6 +8629,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -8526,6 +8641,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -8539,13 +8655,14 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)
-        double,
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -8580,6 +8697,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -8591,6 +8709,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -8604,13 +8723,14 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -8645,6 +8765,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
@@ -8656,6 +8777,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
             int? example,
             int? minimum,
             int? exclusiveMinimum,
@@ -8669,13 +8791,14 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
             double? example,
             double? minimum,
             double? exclusiveMinimum,
             double? maximum,
             double? exclusiveMaximum,
             OpenApiXml? xml)?
-        double,
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String name,
@@ -8710,7 +8833,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiPropertyString value) string,
     required TResult Function(_OpenApiPropertyInteger value) integer,
-    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyNumber value) number,
     required TResult Function(_OpenApiPropertyArray value) array,
     required TResult Function(_OpenApiPropertyEnum value) enumeration,
     required TResult Function(_OpenApiPropertyReference value) reference,
@@ -8723,7 +8846,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiPropertyString value)? string,
     TResult? Function(_OpenApiPropertyInteger value)? integer,
-    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyNumber value)? number,
     TResult? Function(_OpenApiPropertyArray value)? array,
     TResult? Function(_OpenApiPropertyEnum value)? enumeration,
     TResult? Function(_OpenApiPropertyReference value)? reference,
@@ -8736,7 +8859,7 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiPropertyString value)? string,
     TResult Function(_OpenApiPropertyInteger value)? integer,
-    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyNumber value)? number,
     TResult Function(_OpenApiPropertyArray value)? array,
     TResult Function(_OpenApiPropertyEnum value)? enumeration,
     TResult Function(_OpenApiPropertyReference value)? reference,
@@ -8775,8 +8898,8 @@ OpenApiArrayItems _$OpenApiArrayItemsFromJson(Map<String, dynamic> json) {
       return _OpenApiArrayItemsString.fromJson(json);
     case 'integer':
       return _OpenApiArrayItemsInteger.fromJson(json);
-    case 'double':
-      return _OpenApiArrayItemsDouble.fromJson(json);
+    case 'number':
+      return _OpenApiArrayItemsNumber.fromJson(json);
     case 'reference':
       return _OpenApiArrayItemsReference.fromJson(json);
 
@@ -8791,25 +8914,28 @@ mixin _$OpenApiArrayItems {
   OpenApiXml? get xml => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OpenApiXml? xml) string,
-    required TResult Function(OpenApiXml? xml) integer,
-    required TResult Function(OpenApiXml? xml) double,
+    required TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)
+        string,
+    required TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)
+        integer,
+    required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
+        number,
     required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiXml? xml)? string,
-    TResult? Function(OpenApiXml? xml)? integer,
-    TResult? Function(OpenApiXml? xml)? double,
+    TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OpenApiXml? xml)? string,
-    TResult Function(OpenApiXml? xml)? integer,
-    TResult Function(OpenApiXml? xml)? double,
+    TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) =>
@@ -8818,7 +8944,7 @@ mixin _$OpenApiArrayItems {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiArrayItemsString value) string,
     required TResult Function(_OpenApiArrayItemsInteger value) integer,
-    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsNumber value) number,
     required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) =>
       throw _privateConstructorUsedError;
@@ -8826,7 +8952,7 @@ mixin _$OpenApiArrayItems {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiArrayItemsString value)? string,
     TResult? Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsNumber value)? number,
     TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) =>
       throw _privateConstructorUsedError;
@@ -8834,7 +8960,7 @@ mixin _$OpenApiArrayItems {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiArrayItemsString value)? string,
     TResult Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsNumber value)? number,
     TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) =>
@@ -8900,7 +9026,7 @@ abstract class _$$_OpenApiArrayItemsStringCopyWith<$Res>
       __$$_OpenApiArrayItemsStringCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({OpenApiXml? xml});
+  $Res call({OpenApiXml? xml, OpenApiStringFormat? format});
 
   @override
   $OpenApiXmlCopyWith<$Res>? get xml;
@@ -8918,12 +9044,17 @@ class __$$_OpenApiArrayItemsStringCopyWithImpl<$Res>
   @override
   $Res call({
     Object? xml = freezed,
+    Object? format = freezed,
   }) {
     return _then(_$_OpenApiArrayItemsString(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
               as OpenApiXml?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiStringFormat?,
     ));
   }
 }
@@ -8931,7 +9062,7 @@ class __$$_OpenApiArrayItemsStringCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
-  const _$_OpenApiArrayItemsString({this.xml, final String? $type})
+  const _$_OpenApiArrayItemsString({this.xml, this.format, final String? $type})
       : $type = $type ?? 'string';
 
   factory _$_OpenApiArrayItemsString.fromJson(Map<String, dynamic> json) =>
@@ -8939,13 +9070,15 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
 
   @override
   final OpenApiXml? xml;
+  @override
+  final OpenApiStringFormat? format;
 
   @JsonKey(name: 'unionType')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiArrayItems.string(xml: $xml)';
+    return 'OpenApiArrayItems.string(xml: $xml, format: $format)';
   }
 
   @override
@@ -8953,12 +9086,13 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiArrayItemsString &&
-            (identical(other.xml, xml) || other.xml == xml));
+            (identical(other.xml, xml) || other.xml == xml) &&
+            (identical(other.format, format) || other.format == format));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, xml);
+  int get hashCode => Object.hash(runtimeType, xml, format);
 
   @JsonKey(ignore: true)
   @override
@@ -8971,36 +9105,39 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OpenApiXml? xml) string,
-    required TResult Function(OpenApiXml? xml) integer,
-    required TResult Function(OpenApiXml? xml) double,
+    required TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)
+        string,
+    required TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)
+        integer,
+    required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
+        number,
     required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
   }) {
-    return string(xml);
+    return string(xml, format);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiXml? xml)? string,
-    TResult? Function(OpenApiXml? xml)? integer,
-    TResult? Function(OpenApiXml? xml)? double,
+    TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
   }) {
-    return string?.call(xml);
+    return string?.call(xml, format);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OpenApiXml? xml)? string,
-    TResult Function(OpenApiXml? xml)? integer,
-    TResult Function(OpenApiXml? xml)? double,
+    TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
     if (string != null) {
-      return string(xml);
+      return string(xml, format);
     }
     return orElse();
   }
@@ -9010,7 +9147,7 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiArrayItemsString value) string,
     required TResult Function(_OpenApiArrayItemsInteger value) integer,
-    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsNumber value) number,
     required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return string(this);
@@ -9021,7 +9158,7 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiArrayItemsString value)? string,
     TResult? Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsNumber value)? number,
     TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return string?.call(this);
@@ -9032,7 +9169,7 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiArrayItemsString value)? string,
     TResult Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsNumber value)? number,
     TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
@@ -9051,14 +9188,16 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
 }
 
 abstract class _OpenApiArrayItemsString implements OpenApiArrayItems {
-  const factory _OpenApiArrayItemsString({final OpenApiXml? xml}) =
-      _$_OpenApiArrayItemsString;
+  const factory _OpenApiArrayItemsString(
+      {final OpenApiXml? xml,
+      final OpenApiStringFormat? format}) = _$_OpenApiArrayItemsString;
 
   factory _OpenApiArrayItemsString.fromJson(Map<String, dynamic> json) =
       _$_OpenApiArrayItemsString.fromJson;
 
   @override
   OpenApiXml? get xml;
+  OpenApiStringFormat? get format;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiArrayItemsStringCopyWith<_$_OpenApiArrayItemsString>
@@ -9074,7 +9213,7 @@ abstract class _$$_OpenApiArrayItemsIntegerCopyWith<$Res>
       __$$_OpenApiArrayItemsIntegerCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({OpenApiXml? xml});
+  $Res call({OpenApiXml? xml, OpenApiIntegerFormat? format});
 
   @override
   $OpenApiXmlCopyWith<$Res>? get xml;
@@ -9092,12 +9231,17 @@ class __$$_OpenApiArrayItemsIntegerCopyWithImpl<$Res>
   @override
   $Res call({
     Object? xml = freezed,
+    Object? format = freezed,
   }) {
     return _then(_$_OpenApiArrayItemsInteger(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
               as OpenApiXml?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiIntegerFormat?,
     ));
   }
 }
@@ -9105,7 +9249,8 @@ class __$$_OpenApiArrayItemsIntegerCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
-  const _$_OpenApiArrayItemsInteger({this.xml, final String? $type})
+  const _$_OpenApiArrayItemsInteger(
+      {this.xml, this.format, final String? $type})
       : $type = $type ?? 'integer';
 
   factory _$_OpenApiArrayItemsInteger.fromJson(Map<String, dynamic> json) =>
@@ -9113,13 +9258,15 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
 
   @override
   final OpenApiXml? xml;
+  @override
+  final OpenApiIntegerFormat? format;
 
   @JsonKey(name: 'unionType')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiArrayItems.integer(xml: $xml)';
+    return 'OpenApiArrayItems.integer(xml: $xml, format: $format)';
   }
 
   @override
@@ -9127,12 +9274,13 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiArrayItemsInteger &&
-            (identical(other.xml, xml) || other.xml == xml));
+            (identical(other.xml, xml) || other.xml == xml) &&
+            (identical(other.format, format) || other.format == format));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, xml);
+  int get hashCode => Object.hash(runtimeType, xml, format);
 
   @JsonKey(ignore: true)
   @override
@@ -9144,36 +9292,39 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OpenApiXml? xml) string,
-    required TResult Function(OpenApiXml? xml) integer,
-    required TResult Function(OpenApiXml? xml) double,
+    required TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)
+        string,
+    required TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)
+        integer,
+    required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
+        number,
     required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
   }) {
-    return integer(xml);
+    return integer(xml, format);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiXml? xml)? string,
-    TResult? Function(OpenApiXml? xml)? integer,
-    TResult? Function(OpenApiXml? xml)? double,
+    TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
   }) {
-    return integer?.call(xml);
+    return integer?.call(xml, format);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OpenApiXml? xml)? string,
-    TResult Function(OpenApiXml? xml)? integer,
-    TResult Function(OpenApiXml? xml)? double,
+    TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
     if (integer != null) {
-      return integer(xml);
+      return integer(xml, format);
     }
     return orElse();
   }
@@ -9183,7 +9334,7 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiArrayItemsString value) string,
     required TResult Function(_OpenApiArrayItemsInteger value) integer,
-    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsNumber value) number,
     required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return integer(this);
@@ -9194,7 +9345,7 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiArrayItemsString value)? string,
     TResult? Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsNumber value)? number,
     TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return integer?.call(this);
@@ -9205,7 +9356,7 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiArrayItemsString value)? string,
     TResult Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsNumber value)? number,
     TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
@@ -9224,14 +9375,16 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
 }
 
 abstract class _OpenApiArrayItemsInteger implements OpenApiArrayItems {
-  const factory _OpenApiArrayItemsInteger({final OpenApiXml? xml}) =
-      _$_OpenApiArrayItemsInteger;
+  const factory _OpenApiArrayItemsInteger(
+      {final OpenApiXml? xml,
+      final OpenApiIntegerFormat? format}) = _$_OpenApiArrayItemsInteger;
 
   factory _OpenApiArrayItemsInteger.fromJson(Map<String, dynamic> json) =
       _$_OpenApiArrayItemsInteger.fromJson;
 
   @override
   OpenApiXml? get xml;
+  OpenApiIntegerFormat? get format;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiArrayItemsIntegerCopyWith<_$_OpenApiArrayItemsInteger>
@@ -9239,114 +9392,125 @@ abstract class _OpenApiArrayItemsInteger implements OpenApiArrayItems {
 }
 
 /// @nodoc
-abstract class _$$_OpenApiArrayItemsDoubleCopyWith<$Res>
+abstract class _$$_OpenApiArrayItemsNumberCopyWith<$Res>
     implements $OpenApiArrayItemsCopyWith<$Res> {
-  factory _$$_OpenApiArrayItemsDoubleCopyWith(_$_OpenApiArrayItemsDouble value,
-          $Res Function(_$_OpenApiArrayItemsDouble) then) =
-      __$$_OpenApiArrayItemsDoubleCopyWithImpl<$Res>;
+  factory _$$_OpenApiArrayItemsNumberCopyWith(_$_OpenApiArrayItemsNumber value,
+          $Res Function(_$_OpenApiArrayItemsNumber) then) =
+      __$$_OpenApiArrayItemsNumberCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({OpenApiXml? xml});
+  $Res call({OpenApiXml? xml, OpenApiNumberFormat? format});
 
   @override
   $OpenApiXmlCopyWith<$Res>? get xml;
 }
 
 /// @nodoc
-class __$$_OpenApiArrayItemsDoubleCopyWithImpl<$Res>
-    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$_OpenApiArrayItemsDouble>
-    implements _$$_OpenApiArrayItemsDoubleCopyWith<$Res> {
-  __$$_OpenApiArrayItemsDoubleCopyWithImpl(_$_OpenApiArrayItemsDouble _value,
-      $Res Function(_$_OpenApiArrayItemsDouble) _then)
+class __$$_OpenApiArrayItemsNumberCopyWithImpl<$Res>
+    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$_OpenApiArrayItemsNumber>
+    implements _$$_OpenApiArrayItemsNumberCopyWith<$Res> {
+  __$$_OpenApiArrayItemsNumberCopyWithImpl(_$_OpenApiArrayItemsNumber _value,
+      $Res Function(_$_OpenApiArrayItemsNumber) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? xml = freezed,
+    Object? format = freezed,
   }) {
-    return _then(_$_OpenApiArrayItemsDouble(
+    return _then(_$_OpenApiArrayItemsNumber(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
               as OpenApiXml?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiNumberFormat?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpenApiArrayItemsDouble implements _OpenApiArrayItemsDouble {
-  const _$_OpenApiArrayItemsDouble({this.xml, final String? $type})
-      : $type = $type ?? 'double';
+class _$_OpenApiArrayItemsNumber implements _OpenApiArrayItemsNumber {
+  const _$_OpenApiArrayItemsNumber({this.xml, this.format, final String? $type})
+      : $type = $type ?? 'number';
 
-  factory _$_OpenApiArrayItemsDouble.fromJson(Map<String, dynamic> json) =>
-      _$$_OpenApiArrayItemsDoubleFromJson(json);
+  factory _$_OpenApiArrayItemsNumber.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiArrayItemsNumberFromJson(json);
 
   @override
   final OpenApiXml? xml;
+  @override
+  final OpenApiNumberFormat? format;
 
   @JsonKey(name: 'unionType')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiArrayItems.double(xml: $xml)';
+    return 'OpenApiArrayItems.number(xml: $xml, format: $format)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OpenApiArrayItemsDouble &&
-            (identical(other.xml, xml) || other.xml == xml));
+            other is _$_OpenApiArrayItemsNumber &&
+            (identical(other.xml, xml) || other.xml == xml) &&
+            (identical(other.format, format) || other.format == format));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, xml);
+  int get hashCode => Object.hash(runtimeType, xml, format);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OpenApiArrayItemsDoubleCopyWith<_$_OpenApiArrayItemsDouble>
+  _$$_OpenApiArrayItemsNumberCopyWith<_$_OpenApiArrayItemsNumber>
       get copyWith =>
-          __$$_OpenApiArrayItemsDoubleCopyWithImpl<_$_OpenApiArrayItemsDouble>(
+          __$$_OpenApiArrayItemsNumberCopyWithImpl<_$_OpenApiArrayItemsNumber>(
               this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OpenApiXml? xml) string,
-    required TResult Function(OpenApiXml? xml) integer,
-    required TResult Function(OpenApiXml? xml) double,
+    required TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)
+        string,
+    required TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)
+        integer,
+    required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
+        number,
     required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
   }) {
-    return double(xml);
+    return number(xml, format);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiXml? xml)? string,
-    TResult? Function(OpenApiXml? xml)? integer,
-    TResult? Function(OpenApiXml? xml)? double,
+    TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
   }) {
-    return double?.call(xml);
+    return number?.call(xml, format);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OpenApiXml? xml)? string,
-    TResult Function(OpenApiXml? xml)? integer,
-    TResult Function(OpenApiXml? xml)? double,
+    TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
-    if (double != null) {
-      return double(xml);
+    if (number != null) {
+      return number(xml, format);
     }
     return orElse();
   }
@@ -9356,10 +9520,10 @@ class _$_OpenApiArrayItemsDouble implements _OpenApiArrayItemsDouble {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiArrayItemsString value) string,
     required TResult Function(_OpenApiArrayItemsInteger value) integer,
-    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsNumber value) number,
     required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
-    return double(this);
+    return number(this);
   }
 
   @override
@@ -9367,10 +9531,10 @@ class _$_OpenApiArrayItemsDouble implements _OpenApiArrayItemsDouble {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiArrayItemsString value)? string,
     TResult? Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsNumber value)? number,
     TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
-    return double?.call(this);
+    return number?.call(this);
   }
 
   @override
@@ -9378,36 +9542,38 @@ class _$_OpenApiArrayItemsDouble implements _OpenApiArrayItemsDouble {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiArrayItemsString value)? string,
     TResult Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsNumber value)? number,
     TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
-    if (double != null) {
-      return double(this);
+    if (number != null) {
+      return number(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OpenApiArrayItemsDoubleToJson(
+    return _$$_OpenApiArrayItemsNumberToJson(
       this,
     );
   }
 }
 
-abstract class _OpenApiArrayItemsDouble implements OpenApiArrayItems {
-  const factory _OpenApiArrayItemsDouble({final OpenApiXml? xml}) =
-      _$_OpenApiArrayItemsDouble;
+abstract class _OpenApiArrayItemsNumber implements OpenApiArrayItems {
+  const factory _OpenApiArrayItemsNumber(
+      {final OpenApiXml? xml,
+      final OpenApiNumberFormat? format}) = _$_OpenApiArrayItemsNumber;
 
-  factory _OpenApiArrayItemsDouble.fromJson(Map<String, dynamic> json) =
-      _$_OpenApiArrayItemsDouble.fromJson;
+  factory _OpenApiArrayItemsNumber.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiArrayItemsNumber.fromJson;
 
   @override
   OpenApiXml? get xml;
+  OpenApiNumberFormat? get format;
   @override
   @JsonKey(ignore: true)
-  _$$_OpenApiArrayItemsDoubleCopyWith<_$_OpenApiArrayItemsDouble>
+  _$$_OpenApiArrayItemsNumberCopyWith<_$_OpenApiArrayItemsNumber>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -9509,9 +9675,12 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(OpenApiXml? xml) string,
-    required TResult Function(OpenApiXml? xml) integer,
-    required TResult Function(OpenApiXml? xml) double,
+    required TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)
+        string,
+    required TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)
+        integer,
+    required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
+        number,
     required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
   }) {
     return reference(ref, xml);
@@ -9520,9 +9689,9 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiXml? xml)? string,
-    TResult? Function(OpenApiXml? xml)? integer,
-    TResult? Function(OpenApiXml? xml)? double,
+    TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
   }) {
     return reference?.call(ref, xml);
@@ -9531,9 +9700,9 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(OpenApiXml? xml)? string,
-    TResult Function(OpenApiXml? xml)? integer,
-    TResult Function(OpenApiXml? xml)? double,
+    TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
+    TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
+    TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
     TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
@@ -9548,7 +9717,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
   TResult map<TResult extends Object?>({
     required TResult Function(_OpenApiArrayItemsString value) string,
     required TResult Function(_OpenApiArrayItemsInteger value) integer,
-    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsNumber value) number,
     required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return reference(this);
@@ -9559,7 +9728,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_OpenApiArrayItemsString value)? string,
     TResult? Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsNumber value)? number,
     TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return reference?.call(this);
@@ -9570,7 +9739,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_OpenApiArrayItemsString value)? string,
     TResult Function(_OpenApiArrayItemsInteger value)? integer,
-    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsNumber value)? number,
     TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
@@ -10824,6 +10993,10 @@ OpenApiSchema _$OpenApiSchemaFromJson(Map<String, dynamic> json) {
       return _OpenApiSchemaReference.fromJson(json);
     case 'string':
       return _OpenApiSchemaString.fromJson(json);
+    case 'integer':
+      return _OpenApiSchemaInteger.fromJson(json);
+    case 'number':
+      return _OpenApiSchemaNumber.fromJson(json);
     case 'enumeration':
       return _OpenApiSchemaEnum.fromJson(json);
     case 'array':
@@ -10852,11 +11025,38 @@ mixin _$OpenApiSchema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)
         string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -10891,11 +11091,38 @@ mixin _$OpenApiSchema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -10930,11 +11157,38 @@ mixin _$OpenApiSchema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -10960,6 +11214,8 @@ mixin _$OpenApiSchema {
     TResult Function(_OpenApiSchema value) $default, {
     required TResult Function(_OpenApiSchemaReference value) reference,
     required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
     required TResult Function(_OpenApiSchemaEnum value) enumeration,
     required TResult Function(_OpenApiSchemaArray value) array,
   }) =>
@@ -10969,6 +11225,8 @@ mixin _$OpenApiSchema {
     TResult? Function(_OpenApiSchema value)? $default, {
     TResult? Function(_OpenApiSchemaReference value)? reference,
     TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
     TResult? Function(_OpenApiSchemaEnum value)? enumeration,
     TResult? Function(_OpenApiSchemaArray value)? array,
   }) =>
@@ -10978,6 +11236,8 @@ mixin _$OpenApiSchema {
     TResult Function(_OpenApiSchema value)? $default, {
     TResult Function(_OpenApiSchemaReference value)? reference,
     TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
     TResult Function(_OpenApiSchemaEnum value)? enumeration,
     TResult Function(_OpenApiSchemaArray value)? array,
     required TResult orElse(),
@@ -11198,11 +11458,38 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)
         string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11240,11 +11527,38 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11282,11 +11596,38 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11318,6 +11659,8 @@ class _$_OpenApiSchema implements _OpenApiSchema {
     TResult Function(_OpenApiSchema value) $default, {
     required TResult Function(_OpenApiSchemaReference value) reference,
     required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
     required TResult Function(_OpenApiSchemaEnum value) enumeration,
     required TResult Function(_OpenApiSchemaArray value) array,
   }) {
@@ -11330,6 +11673,8 @@ class _$_OpenApiSchema implements _OpenApiSchema {
     TResult? Function(_OpenApiSchema value)? $default, {
     TResult? Function(_OpenApiSchemaReference value)? reference,
     TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
     TResult? Function(_OpenApiSchemaEnum value)? enumeration,
     TResult? Function(_OpenApiSchemaArray value)? array,
   }) {
@@ -11342,6 +11687,8 @@ class _$_OpenApiSchema implements _OpenApiSchema {
     TResult Function(_OpenApiSchema value)? $default, {
     TResult Function(_OpenApiSchemaReference value)? reference,
     TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
     TResult Function(_OpenApiSchemaEnum value)? enumeration,
     TResult Function(_OpenApiSchemaArray value)? array,
     required TResult orElse(),
@@ -11489,11 +11836,38 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)
         string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11531,11 +11905,38 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11573,11 +11974,38 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11609,6 +12037,8 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
     TResult Function(_OpenApiSchema value) $default, {
     required TResult Function(_OpenApiSchemaReference value) reference,
     required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
     required TResult Function(_OpenApiSchemaEnum value) enumeration,
     required TResult Function(_OpenApiSchemaArray value) array,
   }) {
@@ -11621,6 +12051,8 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
     TResult? Function(_OpenApiSchema value)? $default, {
     TResult? Function(_OpenApiSchemaReference value)? reference,
     TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
     TResult? Function(_OpenApiSchemaEnum value)? enumeration,
     TResult? Function(_OpenApiSchemaArray value)? array,
   }) {
@@ -11633,6 +12065,8 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
     TResult Function(_OpenApiSchema value)? $default, {
     TResult Function(_OpenApiSchemaReference value)? reference,
     TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
     TResult Function(_OpenApiSchemaEnum value)? enumeration,
     TResult Function(_OpenApiSchemaArray value)? array,
     required TResult orElse(),
@@ -11675,6 +12109,7 @@ abstract class _$$_OpenApiSchemaStringCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') String? defaultValue,
+      OpenApiStringFormat? format,
       String? example,
       int? minLength,
       int? maxLength,
@@ -11698,6 +12133,7 @@ class __$$_OpenApiSchemaStringCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? format = freezed,
     Object? example = freezed,
     Object? minLength = freezed,
     Object? maxLength = freezed,
@@ -11720,6 +12156,10 @@ class __$$_OpenApiSchemaStringCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiStringFormat?,
       example: freezed == example
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
@@ -11760,6 +12200,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.format,
       this.example,
       this.minLength,
       this.maxLength,
@@ -11781,6 +12222,8 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
   @JsonKey(name: 'default')
   final String? defaultValue;
   @override
+  final OpenApiStringFormat? format;
+  @override
   final String? example;
   @override
   final int? minLength;
@@ -11794,7 +12237,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
 
   @override
   String toString() {
-    return 'OpenApiSchema.string(isRequired: $isRequired, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minLength: $minLength, maxLength: $maxLength, xml: $xml)';
+    return 'OpenApiSchema.string(isRequired: $isRequired, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, xml: $xml)';
   }
 
   @override
@@ -11809,6 +12252,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minLength, minLength) ||
                 other.minLength == minLength) &&
@@ -11820,7 +12264,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, isRequired, title, description,
-      defaultValue, example, minLength, maxLength, xml);
+      defaultValue, format, example, minLength, maxLength, xml);
 
   @JsonKey(ignore: true)
   @override
@@ -11845,11 +12289,38 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)
         string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11868,7 +12339,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             OpenApiXml? xml)
         array,
   }) {
-    return string(isRequired, title, description, defaultValue, example,
+    return string(isRequired, title, description, defaultValue, format, example,
         minLength, maxLength, xml);
   }
 
@@ -11888,11 +12359,38 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11911,8 +12409,8 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             OpenApiXml? xml)?
         array,
   }) {
-    return string?.call(isRequired, title, description, defaultValue, example,
-        minLength, maxLength, xml);
+    return string?.call(isRequired, title, description, defaultValue, format,
+        example, minLength, maxLength, xml);
   }
 
   @override
@@ -11931,11 +12429,38 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -11956,8 +12481,8 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
     required TResult orElse(),
   }) {
     if (string != null) {
-      return string(isRequired, title, description, defaultValue, example,
-          minLength, maxLength, xml);
+      return string(isRequired, title, description, defaultValue, format,
+          example, minLength, maxLength, xml);
     }
     return orElse();
   }
@@ -11968,6 +12493,8 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
     TResult Function(_OpenApiSchema value) $default, {
     required TResult Function(_OpenApiSchemaReference value) reference,
     required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
     required TResult Function(_OpenApiSchemaEnum value) enumeration,
     required TResult Function(_OpenApiSchemaArray value) array,
   }) {
@@ -11980,6 +12507,8 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
     TResult? Function(_OpenApiSchema value)? $default, {
     TResult? Function(_OpenApiSchemaReference value)? reference,
     TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
     TResult? Function(_OpenApiSchemaEnum value)? enumeration,
     TResult? Function(_OpenApiSchemaArray value)? array,
   }) {
@@ -11992,6 +12521,8 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
     TResult Function(_OpenApiSchema value)? $default, {
     TResult Function(_OpenApiSchemaReference value)? reference,
     TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
     TResult Function(_OpenApiSchemaEnum value)? enumeration,
     TResult Function(_OpenApiSchemaArray value)? array,
     required TResult orElse(),
@@ -12016,6 +12547,7 @@ abstract class _OpenApiSchemaString implements OpenApiSchema {
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final String? defaultValue,
+      final OpenApiStringFormat? format,
       final String? example,
       final int? minLength,
       final int? maxLength,
@@ -12030,12 +12562,1031 @@ abstract class _OpenApiSchemaString implements OpenApiSchema {
   String? get description;
   @JsonKey(name: 'default')
   String? get defaultValue;
+  OpenApiStringFormat? get format;
   String? get example;
   int? get minLength;
   int? get maxLength;
   OpenApiXml? get xml;
   @JsonKey(ignore: true)
   _$$_OpenApiSchemaStringCopyWith<_$_OpenApiSchemaString> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSchemaIntegerCopyWith<$Res> {
+  factory _$$_OpenApiSchemaIntegerCopyWith(_$_OpenApiSchemaInteger value,
+          $Res Function(_$_OpenApiSchemaInteger) then) =
+      __$$_OpenApiSchemaIntegerCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {@JsonKey(ignore: true) bool isRequired,
+      String? title,
+      String? description,
+      @JsonKey(name: 'default') int? defaultValue,
+      OpenApiIntegerFormat? format,
+      int? example,
+      int? minimum,
+      int? exclusiveMinimum,
+      int? maximum,
+      int? exclusiveMaximum,
+      OpenApiXml? xml});
+
+  $OpenApiXmlCopyWith<$Res>? get xml;
+}
+
+/// @nodoc
+class __$$_OpenApiSchemaIntegerCopyWithImpl<$Res>
+    extends _$OpenApiSchemaCopyWithImpl<$Res, _$_OpenApiSchemaInteger>
+    implements _$$_OpenApiSchemaIntegerCopyWith<$Res> {
+  __$$_OpenApiSchemaIntegerCopyWithImpl(_$_OpenApiSchemaInteger _value,
+      $Res Function(_$_OpenApiSchemaInteger) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isRequired = null,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? defaultValue = freezed,
+    Object? format = freezed,
+    Object? example = freezed,
+    Object? minimum = freezed,
+    Object? exclusiveMinimum = freezed,
+    Object? maximum = freezed,
+    Object? exclusiveMaximum = freezed,
+    Object? xml = freezed,
+  }) {
+    return _then(_$_OpenApiSchemaInteger(
+      isRequired: null == isRequired
+          ? _value.isRequired
+          : isRequired // ignore: cast_nullable_to_non_nullable
+              as bool,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultValue: freezed == defaultValue
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as int?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiIntegerFormat?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as int?,
+      minimum: freezed == minimum
+          ? _value.minimum
+          : minimum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exclusiveMinimum: freezed == exclusiveMinimum
+          ? _value.exclusiveMinimum
+          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      maximum: freezed == maximum
+          ? _value.maximum
+          : maximum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exclusiveMaximum: freezed == exclusiveMaximum
+          ? _value.exclusiveMaximum
+          : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
+              as int?,
+      xml: freezed == xml
+          ? _value.xml
+          : xml // ignore: cast_nullable_to_non_nullable
+              as OpenApiXml?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiXmlCopyWith<$Res>? get xml {
+    if (_value.xml == null) {
+      return null;
+    }
+
+    return $OpenApiXmlCopyWith<$Res>(_value.xml!, (value) {
+      return _then(_value.copyWith(xml: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
+  const _$_OpenApiSchemaInteger(
+      {@JsonKey(ignore: true) this.isRequired = false,
+      this.title,
+      this.description,
+      @JsonKey(name: 'default') this.defaultValue,
+      this.format,
+      this.example,
+      this.minimum,
+      this.exclusiveMinimum,
+      this.maximum,
+      this.exclusiveMaximum,
+      this.xml,
+      final String? $type})
+      : $type = $type ?? 'integer';
+
+  factory _$_OpenApiSchemaInteger.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSchemaIntegerFromJson(json);
+
+  @override
+  @JsonKey(ignore: true)
+  final bool isRequired;
+  @override
+  final String? title;
+  @override
+  final String? description;
+  @override
+  @JsonKey(name: 'default')
+  final int? defaultValue;
+  @override
+  final OpenApiIntegerFormat? format;
+  @override
+  final int? example;
+  @override
+  final int? minimum;
+  @override
+  final int? exclusiveMinimum;
+  @override
+  final int? maximum;
+  @override
+  final int? exclusiveMaximum;
+  @override
+  final OpenApiXml? xml;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSchema.integer(isRequired: $isRequired, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, xml: $xml)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSchemaInteger &&
+            (identical(other.isRequired, isRequired) ||
+                other.isRequired == isRequired) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.defaultValue, defaultValue) ||
+                other.defaultValue == defaultValue) &&
+            (identical(other.format, format) || other.format == format) &&
+            (identical(other.example, example) || other.example == example) &&
+            (identical(other.minimum, minimum) || other.minimum == minimum) &&
+            (identical(other.exclusiveMinimum, exclusiveMinimum) ||
+                other.exclusiveMinimum == exclusiveMinimum) &&
+            (identical(other.maximum, maximum) || other.maximum == maximum) &&
+            (identical(other.exclusiveMaximum, exclusiveMaximum) ||
+                other.exclusiveMaximum == exclusiveMaximum) &&
+            (identical(other.xml, xml) || other.xml == xml));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      isRequired,
+      title,
+      description,
+      defaultValue,
+      format,
+      example,
+      minimum,
+      exclusiveMinimum,
+      maximum,
+      exclusiveMaximum,
+      xml);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSchemaIntegerCopyWith<_$_OpenApiSchemaInteger> get copyWith =>
+      __$$_OpenApiSchemaIntegerCopyWithImpl<_$_OpenApiSchemaInteger>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)
+        $default, {
+    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
+            String? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)
+        string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values,
+            String? title,
+            String? description)
+        enumeration,
+    required TResult Function(
+            @_ArrayItemsConverter() OpenApiArrayItems items,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') List<dynamic>? defaultValue,
+            List<dynamic>? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)
+        array,
+  }) {
+    return integer(isRequired, title, description, defaultValue, format,
+        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
+            String? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values,
+            String? title,
+            String? description)?
+        enumeration,
+    TResult? Function(
+            @_ArrayItemsConverter() OpenApiArrayItems items,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') List<dynamic>? defaultValue,
+            List<dynamic>? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        array,
+  }) {
+    return integer?.call(isRequired, title, description, defaultValue, format,
+        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
+            String? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values,
+            String? title,
+            String? description)?
+        enumeration,
+    TResult Function(
+            @_ArrayItemsConverter() OpenApiArrayItems items,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') List<dynamic>? defaultValue,
+            List<dynamic>? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        array,
+    required TResult orElse(),
+  }) {
+    if (integer != null) {
+      return integer(isRequired, title, description, defaultValue, format,
+          example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value) $default, {
+    required TResult Function(_OpenApiSchemaReference value) reference,
+    required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
+    required TResult Function(_OpenApiSchemaEnum value) enumeration,
+    required TResult Function(_OpenApiSchemaArray value) array,
+  }) {
+    return integer(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiSchema value)? $default, {
+    TResult? Function(_OpenApiSchemaReference value)? reference,
+    TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
+    TResult? Function(_OpenApiSchemaEnum value)? enumeration,
+    TResult? Function(_OpenApiSchemaArray value)? array,
+  }) {
+    return integer?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value)? $default, {
+    TResult Function(_OpenApiSchemaReference value)? reference,
+    TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
+    TResult Function(_OpenApiSchemaEnum value)? enumeration,
+    TResult Function(_OpenApiSchemaArray value)? array,
+    required TResult orElse(),
+  }) {
+    if (integer != null) {
+      return integer(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSchemaIntegerToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSchemaInteger implements OpenApiSchema {
+  const factory _OpenApiSchemaInteger(
+      {@JsonKey(ignore: true) final bool isRequired,
+      final String? title,
+      final String? description,
+      @JsonKey(name: 'default') final int? defaultValue,
+      final OpenApiIntegerFormat? format,
+      final int? example,
+      final int? minimum,
+      final int? exclusiveMinimum,
+      final int? maximum,
+      final int? exclusiveMaximum,
+      final OpenApiXml? xml}) = _$_OpenApiSchemaInteger;
+
+  factory _OpenApiSchemaInteger.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSchemaInteger.fromJson;
+
+  @JsonKey(ignore: true)
+  bool get isRequired;
+  String? get title;
+  String? get description;
+  @JsonKey(name: 'default')
+  int? get defaultValue;
+  OpenApiIntegerFormat? get format;
+  int? get example;
+  int? get minimum;
+  int? get exclusiveMinimum;
+  int? get maximum;
+  int? get exclusiveMaximum;
+  OpenApiXml? get xml;
+  @JsonKey(ignore: true)
+  _$$_OpenApiSchemaIntegerCopyWith<_$_OpenApiSchemaInteger> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSchemaNumberCopyWith<$Res> {
+  factory _$$_OpenApiSchemaNumberCopyWith(_$_OpenApiSchemaNumber value,
+          $Res Function(_$_OpenApiSchemaNumber) then) =
+      __$$_OpenApiSchemaNumberCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {@JsonKey(ignore: true) bool isRequired,
+      String? title,
+      String? description,
+      @JsonKey(name: 'default') double? defaultValue,
+      OpenApiNumberFormat? format,
+      double? example,
+      double? minimum,
+      double? exclusiveMinimum,
+      double? maximum,
+      double? exclusiveMaximum,
+      OpenApiXml? xml});
+
+  $OpenApiXmlCopyWith<$Res>? get xml;
+}
+
+/// @nodoc
+class __$$_OpenApiSchemaNumberCopyWithImpl<$Res>
+    extends _$OpenApiSchemaCopyWithImpl<$Res, _$_OpenApiSchemaNumber>
+    implements _$$_OpenApiSchemaNumberCopyWith<$Res> {
+  __$$_OpenApiSchemaNumberCopyWithImpl(_$_OpenApiSchemaNumber _value,
+      $Res Function(_$_OpenApiSchemaNumber) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isRequired = null,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? defaultValue = freezed,
+    Object? format = freezed,
+    Object? example = freezed,
+    Object? minimum = freezed,
+    Object? exclusiveMinimum = freezed,
+    Object? maximum = freezed,
+    Object? exclusiveMaximum = freezed,
+    Object? xml = freezed,
+  }) {
+    return _then(_$_OpenApiSchemaNumber(
+      isRequired: null == isRequired
+          ? _value.isRequired
+          : isRequired // ignore: cast_nullable_to_non_nullable
+              as bool,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultValue: freezed == defaultValue
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as OpenApiNumberFormat?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as double?,
+      minimum: freezed == minimum
+          ? _value.minimum
+          : minimum // ignore: cast_nullable_to_non_nullable
+              as double?,
+      exclusiveMinimum: freezed == exclusiveMinimum
+          ? _value.exclusiveMinimum
+          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
+              as double?,
+      maximum: freezed == maximum
+          ? _value.maximum
+          : maximum // ignore: cast_nullable_to_non_nullable
+              as double?,
+      exclusiveMaximum: freezed == exclusiveMaximum
+          ? _value.exclusiveMaximum
+          : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
+              as double?,
+      xml: freezed == xml
+          ? _value.xml
+          : xml // ignore: cast_nullable_to_non_nullable
+              as OpenApiXml?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiXmlCopyWith<$Res>? get xml {
+    if (_value.xml == null) {
+      return null;
+    }
+
+    return $OpenApiXmlCopyWith<$Res>(_value.xml!, (value) {
+      return _then(_value.copyWith(xml: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
+  const _$_OpenApiSchemaNumber(
+      {@JsonKey(ignore: true) this.isRequired = false,
+      this.title,
+      this.description,
+      @JsonKey(name: 'default') this.defaultValue,
+      this.format,
+      this.example,
+      this.minimum,
+      this.exclusiveMinimum,
+      this.maximum,
+      this.exclusiveMaximum,
+      this.xml,
+      final String? $type})
+      : $type = $type ?? 'number';
+
+  factory _$_OpenApiSchemaNumber.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSchemaNumberFromJson(json);
+
+  @override
+  @JsonKey(ignore: true)
+  final bool isRequired;
+  @override
+  final String? title;
+  @override
+  final String? description;
+  @override
+  @JsonKey(name: 'default')
+  final double? defaultValue;
+  @override
+  final OpenApiNumberFormat? format;
+  @override
+  final double? example;
+  @override
+  final double? minimum;
+  @override
+  final double? exclusiveMinimum;
+  @override
+  final double? maximum;
+  @override
+  final double? exclusiveMaximum;
+  @override
+  final OpenApiXml? xml;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSchema.number(isRequired: $isRequired, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, xml: $xml)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSchemaNumber &&
+            (identical(other.isRequired, isRequired) ||
+                other.isRequired == isRequired) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.defaultValue, defaultValue) ||
+                other.defaultValue == defaultValue) &&
+            (identical(other.format, format) || other.format == format) &&
+            (identical(other.example, example) || other.example == example) &&
+            (identical(other.minimum, minimum) || other.minimum == minimum) &&
+            (identical(other.exclusiveMinimum, exclusiveMinimum) ||
+                other.exclusiveMinimum == exclusiveMinimum) &&
+            (identical(other.maximum, maximum) || other.maximum == maximum) &&
+            (identical(other.exclusiveMaximum, exclusiveMaximum) ||
+                other.exclusiveMaximum == exclusiveMaximum) &&
+            (identical(other.xml, xml) || other.xml == xml));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      isRequired,
+      title,
+      description,
+      defaultValue,
+      format,
+      example,
+      minimum,
+      exclusiveMinimum,
+      maximum,
+      exclusiveMaximum,
+      xml);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSchemaNumberCopyWith<_$_OpenApiSchemaNumber> get copyWith =>
+      __$$_OpenApiSchemaNumberCopyWithImpl<_$_OpenApiSchemaNumber>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)
+        $default, {
+    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
+            String? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)
+        string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values,
+            String? title,
+            String? description)
+        enumeration,
+    required TResult Function(
+            @_ArrayItemsConverter() OpenApiArrayItems items,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') List<dynamic>? defaultValue,
+            List<dynamic>? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)
+        array,
+  }) {
+    return number(isRequired, title, description, defaultValue, format, example,
+        minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
+            String? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values,
+            String? title,
+            String? description)?
+        enumeration,
+    TResult? Function(
+            @_ArrayItemsConverter() OpenApiArrayItems items,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') List<dynamic>? defaultValue,
+            List<dynamic>? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        array,
+  }) {
+    return number?.call(isRequired, title, description, defaultValue, format,
+        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
+            String? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values,
+            String? title,
+            String? description)?
+        enumeration,
+    TResult Function(
+            @_ArrayItemsConverter() OpenApiArrayItems items,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') List<dynamic>? defaultValue,
+            List<dynamic>? example,
+            int? minLength,
+            int? maxLength,
+            OpenApiXml? xml)?
+        array,
+    required TResult orElse(),
+  }) {
+    if (number != null) {
+      return number(isRequired, title, description, defaultValue, format,
+          example, minimum, exclusiveMinimum, maximum, exclusiveMaximum, xml);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value) $default, {
+    required TResult Function(_OpenApiSchemaReference value) reference,
+    required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
+    required TResult Function(_OpenApiSchemaEnum value) enumeration,
+    required TResult Function(_OpenApiSchemaArray value) array,
+  }) {
+    return number(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiSchema value)? $default, {
+    TResult? Function(_OpenApiSchemaReference value)? reference,
+    TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
+    TResult? Function(_OpenApiSchemaEnum value)? enumeration,
+    TResult? Function(_OpenApiSchemaArray value)? array,
+  }) {
+    return number?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value)? $default, {
+    TResult Function(_OpenApiSchemaReference value)? reference,
+    TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
+    TResult Function(_OpenApiSchemaEnum value)? enumeration,
+    TResult Function(_OpenApiSchemaArray value)? array,
+    required TResult orElse(),
+  }) {
+    if (number != null) {
+      return number(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSchemaNumberToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSchemaNumber implements OpenApiSchema {
+  const factory _OpenApiSchemaNumber(
+      {@JsonKey(ignore: true) final bool isRequired,
+      final String? title,
+      final String? description,
+      @JsonKey(name: 'default') final double? defaultValue,
+      final OpenApiNumberFormat? format,
+      final double? example,
+      final double? minimum,
+      final double? exclusiveMinimum,
+      final double? maximum,
+      final double? exclusiveMaximum,
+      final OpenApiXml? xml}) = _$_OpenApiSchemaNumber;
+
+  factory _OpenApiSchemaNumber.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSchemaNumber.fromJson;
+
+  @JsonKey(ignore: true)
+  bool get isRequired;
+  String? get title;
+  String? get description;
+  @JsonKey(name: 'default')
+  double? get defaultValue;
+  OpenApiNumberFormat? get format;
+  double? get example;
+  double? get minimum;
+  double? get exclusiveMinimum;
+  double? get maximum;
+  double? get exclusiveMaximum;
+  OpenApiXml? get xml;
+  @JsonKey(ignore: true)
+  _$$_OpenApiSchemaNumberCopyWith<_$_OpenApiSchemaNumber> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -12182,11 +13733,38 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)
         string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -12224,11 +13802,38 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -12267,11 +13872,38 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -12303,6 +13935,8 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
     TResult Function(_OpenApiSchema value) $default, {
     required TResult Function(_OpenApiSchemaReference value) reference,
     required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
     required TResult Function(_OpenApiSchemaEnum value) enumeration,
     required TResult Function(_OpenApiSchemaArray value) array,
   }) {
@@ -12315,6 +13949,8 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
     TResult? Function(_OpenApiSchema value)? $default, {
     TResult? Function(_OpenApiSchemaReference value)? reference,
     TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
     TResult? Function(_OpenApiSchemaEnum value)? enumeration,
     TResult? Function(_OpenApiSchemaArray value)? array,
   }) {
@@ -12327,6 +13963,8 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
     TResult Function(_OpenApiSchema value)? $default, {
     TResult Function(_OpenApiSchemaReference value)? reference,
     TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
     TResult Function(_OpenApiSchemaEnum value)? enumeration,
     TResult Function(_OpenApiSchemaArray value)? array,
     required TResult orElse(),
@@ -12584,11 +14222,38 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)
         string,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)
+        integer,
+    required TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)
+        number,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -12627,11 +14292,38 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult? Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -12670,11 +14362,38 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            OpenApiStringFormat? format,
             String? example,
             int? minLength,
             int? maxLength,
             OpenApiXml? xml)?
         string,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') int? defaultValue,
+            OpenApiIntegerFormat? format,
+            int? example,
+            int? minimum,
+            int? exclusiveMinimum,
+            int? maximum,
+            int? exclusiveMaximum,
+            OpenApiXml? xml)?
+        integer,
+    TResult Function(
+            @JsonKey(ignore: true) bool isRequired,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') double? defaultValue,
+            OpenApiNumberFormat? format,
+            double? example,
+            double? minimum,
+            double? exclusiveMinimum,
+            double? maximum,
+            double? exclusiveMaximum,
+            OpenApiXml? xml)?
+        number,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             @JsonKey(name: 'default') String? defaultValue,
@@ -12707,6 +14426,8 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
     TResult Function(_OpenApiSchema value) $default, {
     required TResult Function(_OpenApiSchemaReference value) reference,
     required TResult Function(_OpenApiSchemaString value) string,
+    required TResult Function(_OpenApiSchemaInteger value) integer,
+    required TResult Function(_OpenApiSchemaNumber value) number,
     required TResult Function(_OpenApiSchemaEnum value) enumeration,
     required TResult Function(_OpenApiSchemaArray value) array,
   }) {
@@ -12719,6 +14440,8 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
     TResult? Function(_OpenApiSchema value)? $default, {
     TResult? Function(_OpenApiSchemaReference value)? reference,
     TResult? Function(_OpenApiSchemaString value)? string,
+    TResult? Function(_OpenApiSchemaInteger value)? integer,
+    TResult? Function(_OpenApiSchemaNumber value)? number,
     TResult? Function(_OpenApiSchemaEnum value)? enumeration,
     TResult? Function(_OpenApiSchemaArray value)? array,
   }) {
@@ -12731,6 +14454,8 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
     TResult Function(_OpenApiSchema value)? $default, {
     TResult Function(_OpenApiSchemaReference value)? reference,
     TResult Function(_OpenApiSchemaString value)? string,
+    TResult Function(_OpenApiSchemaInteger value)? integer,
+    TResult Function(_OpenApiSchemaNumber value)? number,
     TResult Function(_OpenApiSchemaEnum value)? enumeration,
     TResult Function(_OpenApiSchemaArray value)? array,
     required TResult orElse(),

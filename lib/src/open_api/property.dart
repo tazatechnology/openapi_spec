@@ -72,6 +72,7 @@ class OpenApiProperty with _$OpenApiProperty {
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
+    OpenApiStringFormat? format,
     String? example,
     int? minLength,
     int? maxLength,
@@ -89,6 +90,7 @@ class OpenApiProperty with _$OpenApiProperty {
     String? title,
     String? description,
     @JsonKey(name: 'default') int? defaultValue,
+    OpenApiIntegerFormat? format,
     int? example,
     int? minimum,
     int? exclusiveMinimum,
@@ -98,23 +100,24 @@ class OpenApiProperty with _$OpenApiProperty {
   }) = _OpenApiPropertyInteger;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.double
+  // FACTORY: OpenApiProperty.number
   // ------------------------------------------
 
-  /// A double schema property
-  const factory OpenApiProperty.double({
+  /// A number schema property
+  const factory OpenApiProperty.number({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
+    OpenApiNumberFormat? format,
     double? example,
     double? minimum,
     double? exclusiveMinimum,
     double? maximum,
     double? exclusiveMaximum,
     OpenApiXml? xml,
-  }) = _OpenApiPropertyDouble;
+  }) = _OpenApiPropertyNumber;
 
   // ------------------------------------------
   // FACTORY: OpenApiProperty.array
@@ -165,22 +168,28 @@ class OpenApiProperty with _$OpenApiProperty {
 // CLASS: OpenApiArrayItems
 // ==========================================
 
+/// The array item data type
+///
+/// https://swagger.io/specification/#data-types
 @freezed
 class OpenApiArrayItems with _$OpenApiArrayItems {
   /// An array of strings
   const factory OpenApiArrayItems.string({
     OpenApiXml? xml,
+    OpenApiStringFormat? format,
   }) = _OpenApiArrayItemsString;
 
   /// An array of integers
   const factory OpenApiArrayItems.integer({
     OpenApiXml? xml,
+    OpenApiIntegerFormat? format,
   }) = _OpenApiArrayItemsInteger;
 
   /// An array of doubles
-  const factory OpenApiArrayItems.double({
+  const factory OpenApiArrayItems.number({
     OpenApiXml? xml,
-  }) = _OpenApiArrayItemsDouble;
+    OpenApiNumberFormat? format,
+  }) = _OpenApiArrayItemsNumber;
 
   /// An array of [OpenApiSchema] object references
   const factory OpenApiArrayItems.reference({
@@ -191,6 +200,7 @@ class OpenApiArrayItems with _$OpenApiArrayItems {
   factory OpenApiArrayItems.fromJson(Map<String, dynamic> json) =>
       _$OpenApiArrayItemsFromJson(json);
 }
+
 // ==========================================
 // ArrayItemsConverter
 // ==========================================
@@ -212,17 +222,20 @@ class _ArrayItemsConverter
       string: (v) {
         return {
           'type': 'string',
-        };
+          'format': _$OpenApiStringFormatEnumMap[v.format],
+        }..removeWhere((k, v) => v == null);
       },
       integer: (v) {
         return {
           'type': 'integer',
-        };
+          'format': _$OpenApiIntegerFormatEnumMap[v.format],
+        }..removeWhere((k, v) => v == null);
       },
-      double: (v) {
+      number: (v) {
         return {
           'type': 'number',
-        };
+          'format': _$OpenApiNumberFormatEnumMap[v.format],
+        }..removeWhere((k, v) => v == null);
       },
       reference: (v) {
         final r = v.ref;

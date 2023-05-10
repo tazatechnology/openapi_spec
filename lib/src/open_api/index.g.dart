@@ -507,6 +507,7 @@ _$_OpenApiPropertyString _$$_OpenApiPropertyStringFromJson(
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as String?,
+      format: $enumDecodeNullable(_$OpenApiStringFormatEnumMap, json['format']),
       example: json['example'] as String?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
@@ -531,6 +532,7 @@ Map<String, dynamic> _$$_OpenApiPropertyStringToJson(
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('format', _$OpenApiStringFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
@@ -539,6 +541,14 @@ Map<String, dynamic> _$$_OpenApiPropertyStringToJson(
   return val;
 }
 
+const _$OpenApiStringFormatEnumMap = {
+  OpenApiStringFormat.byte: 'byte',
+  OpenApiStringFormat.binary: 'binary',
+  OpenApiStringFormat.date: 'date',
+  OpenApiStringFormat.datetime: 'date-time',
+  OpenApiStringFormat.password: 'password',
+};
+
 _$_OpenApiPropertyInteger _$$_OpenApiPropertyIntegerFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyInteger(
@@ -546,6 +556,8 @@ _$_OpenApiPropertyInteger _$$_OpenApiPropertyIntegerFromJson(
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as int?,
+      format:
+          $enumDecodeNullable(_$OpenApiIntegerFormatEnumMap, json['format']),
       example: json['example'] as int?,
       minimum: json['minimum'] as int?,
       exclusiveMinimum: json['exclusiveMinimum'] as int?,
@@ -572,6 +584,7 @@ Map<String, dynamic> _$$_OpenApiPropertyIntegerToJson(
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('format', _$OpenApiIntegerFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minimum', instance.minimum);
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
@@ -582,13 +595,19 @@ Map<String, dynamic> _$$_OpenApiPropertyIntegerToJson(
   return val;
 }
 
-_$_OpenApiPropertyDouble _$$_OpenApiPropertyDoubleFromJson(
+const _$OpenApiIntegerFormatEnumMap = {
+  OpenApiIntegerFormat.int32: 'int32',
+  OpenApiIntegerFormat.int64: 'int64',
+};
+
+_$_OpenApiPropertyNumber _$$_OpenApiPropertyNumberFromJson(
         Map<String, dynamic> json) =>
-    _$_OpenApiPropertyDouble(
+    _$_OpenApiPropertyNumber(
       name: json['name'] as String,
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: (json['default'] as num?)?.toDouble(),
+      format: $enumDecodeNullable(_$OpenApiNumberFormatEnumMap, json['format']),
       example: (json['example'] as num?)?.toDouble(),
       minimum: (json['minimum'] as num?)?.toDouble(),
       exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
@@ -600,8 +619,8 @@ _$_OpenApiPropertyDouble _$$_OpenApiPropertyDoubleFromJson(
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OpenApiPropertyDoubleToJson(
-    _$_OpenApiPropertyDouble instance) {
+Map<String, dynamic> _$$_OpenApiPropertyNumberToJson(
+    _$_OpenApiPropertyNumber instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };
@@ -615,6 +634,7 @@ Map<String, dynamic> _$$_OpenApiPropertyDoubleToJson(
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('format', _$OpenApiNumberFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minimum', instance.minimum);
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
@@ -624,6 +644,11 @@ Map<String, dynamic> _$$_OpenApiPropertyDoubleToJson(
   val['unionType'] = instance.$type;
   return val;
 }
+
+const _$OpenApiNumberFormatEnumMap = {
+  OpenApiNumberFormat.float: 'float',
+  OpenApiNumberFormat.double: 'double',
+};
 
 _$_OpenApiPropertyArray _$$_OpenApiPropertyArrayFromJson(
         Map<String, dynamic> json) =>
@@ -719,6 +744,7 @@ _$_OpenApiArrayItemsString _$$_OpenApiArrayItemsStringFromJson(
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
+      format: $enumDecodeNullable(_$OpenApiStringFormatEnumMap, json['format']),
       $type: json['unionType'] as String?,
     );
 
@@ -733,6 +759,7 @@ Map<String, dynamic> _$$_OpenApiArrayItemsStringToJson(
   }
 
   writeNotNull('xml', instance.xml?.toJson());
+  writeNotNull('format', _$OpenApiStringFormatEnumMap[instance.format]);
   val['unionType'] = instance.$type;
   return val;
 }
@@ -743,6 +770,8 @@ _$_OpenApiArrayItemsInteger _$$_OpenApiArrayItemsIntegerFromJson(
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
+      format:
+          $enumDecodeNullable(_$OpenApiIntegerFormatEnumMap, json['format']),
       $type: json['unionType'] as String?,
     );
 
@@ -757,21 +786,23 @@ Map<String, dynamic> _$$_OpenApiArrayItemsIntegerToJson(
   }
 
   writeNotNull('xml', instance.xml?.toJson());
+  writeNotNull('format', _$OpenApiIntegerFormatEnumMap[instance.format]);
   val['unionType'] = instance.$type;
   return val;
 }
 
-_$_OpenApiArrayItemsDouble _$$_OpenApiArrayItemsDoubleFromJson(
+_$_OpenApiArrayItemsNumber _$$_OpenApiArrayItemsNumberFromJson(
         Map<String, dynamic> json) =>
-    _$_OpenApiArrayItemsDouble(
+    _$_OpenApiArrayItemsNumber(
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
+      format: $enumDecodeNullable(_$OpenApiNumberFormatEnumMap, json['format']),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OpenApiArrayItemsDoubleToJson(
-    _$_OpenApiArrayItemsDouble instance) {
+Map<String, dynamic> _$$_OpenApiArrayItemsNumberToJson(
+    _$_OpenApiArrayItemsNumber instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -781,6 +812,7 @@ Map<String, dynamic> _$$_OpenApiArrayItemsDoubleToJson(
   }
 
   writeNotNull('xml', instance.xml?.toJson());
+  writeNotNull('format', _$OpenApiNumberFormatEnumMap[instance.format]);
   val['unionType'] = instance.$type;
   return val;
 }
@@ -988,6 +1020,7 @@ _$_OpenApiSchemaString _$$_OpenApiSchemaStringFromJson(
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as String?,
+      format: $enumDecodeNullable(_$OpenApiStringFormatEnumMap, json['format']),
       example: json['example'] as String?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
@@ -1010,9 +1043,95 @@ Map<String, dynamic> _$$_OpenApiSchemaStringToJson(
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('format', _$OpenApiStringFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
+  writeNotNull('xml', instance.xml?.toJson());
+  val['unionType'] = instance.$type;
+  return val;
+}
+
+_$_OpenApiSchemaInteger _$$_OpenApiSchemaIntegerFromJson(
+        Map<String, dynamic> json) =>
+    _$_OpenApiSchemaInteger(
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      defaultValue: json['default'] as int?,
+      format:
+          $enumDecodeNullable(_$OpenApiIntegerFormatEnumMap, json['format']),
+      example: json['example'] as int?,
+      minimum: json['minimum'] as int?,
+      exclusiveMinimum: json['exclusiveMinimum'] as int?,
+      maximum: json['maximum'] as int?,
+      exclusiveMaximum: json['exclusiveMaximum'] as int?,
+      xml: json['xml'] == null
+          ? null
+          : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
+      $type: json['unionType'] as String?,
+    );
+
+Map<String, dynamic> _$$_OpenApiSchemaIntegerToJson(
+    _$_OpenApiSchemaInteger instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('description', instance.description);
+  writeNotNull('default', instance.defaultValue);
+  writeNotNull('format', _$OpenApiIntegerFormatEnumMap[instance.format]);
+  writeNotNull('example', instance.example);
+  writeNotNull('minimum', instance.minimum);
+  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
+  writeNotNull('maximum', instance.maximum);
+  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
+  writeNotNull('xml', instance.xml?.toJson());
+  val['unionType'] = instance.$type;
+  return val;
+}
+
+_$_OpenApiSchemaNumber _$$_OpenApiSchemaNumberFromJson(
+        Map<String, dynamic> json) =>
+    _$_OpenApiSchemaNumber(
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      defaultValue: (json['default'] as num?)?.toDouble(),
+      format: $enumDecodeNullable(_$OpenApiNumberFormatEnumMap, json['format']),
+      example: (json['example'] as num?)?.toDouble(),
+      minimum: (json['minimum'] as num?)?.toDouble(),
+      exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
+      maximum: (json['maximum'] as num?)?.toDouble(),
+      exclusiveMaximum: (json['exclusiveMaximum'] as num?)?.toDouble(),
+      xml: json['xml'] == null
+          ? null
+          : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
+      $type: json['unionType'] as String?,
+    );
+
+Map<String, dynamic> _$$_OpenApiSchemaNumberToJson(
+    _$_OpenApiSchemaNumber instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('description', instance.description);
+  writeNotNull('default', instance.defaultValue);
+  writeNotNull('format', _$OpenApiNumberFormatEnumMap[instance.format]);
+  writeNotNull('example', instance.example);
+  writeNotNull('minimum', instance.minimum);
+  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
+  writeNotNull('maximum', instance.maximum);
+  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
   writeNotNull('xml', instance.xml?.toJson());
   val['unionType'] = instance.$type;
   return val;

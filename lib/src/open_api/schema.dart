@@ -49,11 +49,50 @@ class OpenApiSchema with _$OpenApiSchema {
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
+    OpenApiStringFormat? format,
     String? example,
     int? minLength,
     int? maxLength,
     OpenApiXml? xml,
   }) = _OpenApiSchemaString;
+
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.integer
+  // ------------------------------------------
+
+  /// An integer schema property
+  const factory OpenApiSchema.integer({
+    @Default(false) @JsonKey(ignore: true) bool isRequired,
+    String? title,
+    String? description,
+    @JsonKey(name: 'default') int? defaultValue,
+    OpenApiIntegerFormat? format,
+    int? example,
+    int? minimum,
+    int? exclusiveMinimum,
+    int? maximum,
+    int? exclusiveMaximum,
+    OpenApiXml? xml,
+  }) = _OpenApiSchemaInteger;
+
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.number
+  // ------------------------------------------
+
+  /// A number schema property
+  const factory OpenApiSchema.number({
+    @Default(false) @JsonKey(ignore: true) bool isRequired,
+    String? title,
+    String? description,
+    @JsonKey(name: 'default') double? defaultValue,
+    OpenApiNumberFormat? format,
+    double? example,
+    double? minimum,
+    double? exclusiveMinimum,
+    double? maximum,
+    double? exclusiveMaximum,
+    OpenApiXml? xml,
+  }) = _OpenApiSchemaNumber;
 
   // ------------------------------------------
   // FACTORY: OpenApiSchema.enumeration
@@ -112,6 +151,20 @@ class _SchemaConverter
       string: (v) {
         return {
           'type': 'string',
+        }
+          ..addAll(v.toJson())
+          ..remove(_unionKey);
+      },
+      integer: (v) {
+        return {
+          'type': 'integer',
+        }
+          ..addAll(v.toJson())
+          ..remove(_unionKey);
+      },
+      number: (v) {
+        return {
+          'type': 'number',
         }
           ..addAll(v.toJson())
           ..remove(_unionKey);

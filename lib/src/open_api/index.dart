@@ -17,6 +17,7 @@ part 'discriminator.dart';
 part 'encoding.dart';
 part 'example.dart';
 part 'external_docs.dart';
+part 'format.dart';
 part 'header.dart';
 part 'info.dart';
 part 'license.dart';
