@@ -15,8 +15,7 @@ class OpenApiTag with _$OpenApiTag {
     /// The name of the tag.
     required String name,
 
-    /// A description of the API. [CommonMark syntax](https://spec.commonmark.org/)
-    /// May be used for rich text representation.
+    /// A description of the API.
     String? description,
 
     /// Additional external documentation for this tag.

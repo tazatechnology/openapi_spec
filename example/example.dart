@@ -129,7 +129,7 @@ void main() async {
           tags: [petTag],
           summary: 'Update an existing pet',
           description: 'Update an existing pet by Id',
-          operationId: 'updatePet',
+          id: 'updatePet',
           requestBody: OpenApiRequestBody(
             isRequired: true,
             description: 'Update an existent pet in the store',
@@ -182,7 +182,7 @@ void main() async {
           tags: [petTag],
           summary: 'Add a new pet to the store',
           description: 'Add a new pet to the store',
-          operationId: 'addPet',
+          id: 'addPet',
           requestBody: OpenApiRequestBody(
             isRequired: true,
             description: 'Create a new pet in the store',
@@ -233,11 +233,18 @@ void main() async {
           summary: 'Finds Pets by status',
           description:
               'Multiple status values can be provided with comma separated strings',
-          operationId: 'findPetsByStatus',
+          id: 'findPetsByStatus',
           parameters: [
-            OpenApiParameter(
+            OpenApiParameter.query(
+              name: 'status',
               description:
                   'Status values that need to be considered for filter',
+              isRequired: false,
+              explode: true,
+              schema: OpenApiSchema.enumeration(
+                defaultValue: 'available',
+                values: ['available', 'pending', 'sold'],
+              ),
             ),
           ],
           responses: [
@@ -270,6 +277,55 @@ void main() async {
           ],
         ),
       ),
+
+      /// PATH: /pet/findByStatus
+      OpenApiPath(
+        path: '/pet/findByTags',
+        get: OpenApiOperation(
+          tags: [petTag],
+          summary: 'Finds Pets by tags',
+          description:
+              'Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.',
+          id: 'findPetsByTags',
+          parameters: [
+            OpenApiParameter.query(
+              name: 'tags',
+              description: 'Tags to filter by',
+              isRequired: false,
+              explode: true,
+              schema: OpenApiSchema.array(items: OpenApiArrayItems.string()),
+            ),
+          ],
+          responses: [
+            OpenApiResponse(
+              code: '200',
+              description: 'successful operation',
+              content: {
+                'application/json': OpenApiMediaType(
+                  schema: OpenApiSchema.array(
+                    items: OpenApiArrayItems.reference(ref: schemaPet),
+                  ),
+                ),
+                'application/xml': OpenApiMediaType(
+                  schema: OpenApiSchema.array(
+                    items: OpenApiArrayItems.reference(ref: schemaPet),
+                  ),
+                ),
+              },
+            ),
+            OpenApiResponse(
+              code: '400',
+              description: 'Invalid tag value',
+            ),
+          ],
+          security: [
+            OpenApiSecurity(
+              name: 'petstore_auth',
+              scopes: ['write:pets', 'read:pets'],
+            ),
+          ],
+        ),
+      )
     ],
     tags: [petTag, storeTag, userTag],
   );

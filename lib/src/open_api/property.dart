@@ -145,7 +145,7 @@ class OpenApiProperty with _$OpenApiProperty {
     required List<String> values,
     String? title,
     String? description,
-    @JsonKey(name: 'default') double? defaultValue,
+    @JsonKey(name: 'default') String? defaultValue,
   }) = _OpenApiPropertyEnum;
 
   // ------------------------------------------
@@ -210,13 +210,19 @@ class _ArrayItemsConverter
   Map<String, dynamic> toJson(OpenApiArrayItems data) {
     return data.map(
       string: (v) {
-        return {};
+        return {
+          'type': 'string',
+        };
       },
       integer: (v) {
-        return {};
+        return {
+          'type': 'integer',
+        };
       },
       double: (v) {
-        return {};
+        return {
+          'type': 'number',
+        };
       },
       reference: (v) {
         final r = v.ref;

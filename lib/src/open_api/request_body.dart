@@ -9,7 +9,6 @@ part of openapi_models;
 class OpenApiRequestBody with _$OpenApiRequestBody {
   const factory OpenApiRequestBody({
     /// A brief description of the request body. This could contain examples of use.
-    /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
     String? description,
 
     /// The content of the request body. The key is a media type or

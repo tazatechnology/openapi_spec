@@ -19,7 +19,6 @@ class OpenApiServerVariable with _$OpenApiServerVariable {
     required String defaultValue,
 
     /// An optional string describing the host designated by the URL.
-    /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
     final String? description,
   }) = _OpenApiServerVariable;
 

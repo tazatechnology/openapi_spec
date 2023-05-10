@@ -18,7 +18,6 @@ class OpenApiOperation with _$OpenApiOperation {
     String? summary,
 
     /// An optional string describing the host designated by the URL.
-    /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     String? description,
 
     /// Additional external documentation for this schema.
@@ -26,7 +25,7 @@ class OpenApiOperation with _$OpenApiOperation {
 
     /// Unique string used to identify the operation.
     /// The id MUST be unique among all operations described in the API.
-    String? operationId,
+    @JsonKey(name: 'operationId') String? id,
 
     /// A list of parameters that are applicable for this operation.
     /// If a parameter is already defined at the [OpenApiPath] level,

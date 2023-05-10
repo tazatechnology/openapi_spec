@@ -15,7 +15,7 @@ class OpenApiComponents with _$OpenApiComponents {
     List<OpenApiSchema>? schemas,
 
     /// A set of reusable [OpenApiResponse] objects.
-    List<OpenApiResponse>? responses,
+    @_ResponseListConverter() List<OpenApiResponse>? responses,
 
     /// A set of reusable [OpenApiParameter] objects.
     List<OpenApiParameter>? parameters,

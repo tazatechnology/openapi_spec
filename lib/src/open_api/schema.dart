@@ -31,10 +31,41 @@ class OpenApiSchema with _$OpenApiSchema {
     OpenApiXml? xml,
   }) = _OpenApiSchema;
 
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.reference
+  // ------------------------------------------
+
   /// Reference to another [OpenApiSchema]
   const factory OpenApiSchema.reference({
     required OpenApiSchema ref,
   }) = _OpenApiSchemaReference;
+
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.string
+  // ------------------------------------------
+
+  const factory OpenApiSchema.string({
+    @Default(false) @JsonKey(ignore: true) bool isRequired,
+    String? title,
+    String? description,
+    @JsonKey(name: 'default') String? defaultValue,
+    String? example,
+    int? minLength,
+    int? maxLength,
+    OpenApiXml? xml,
+  }) = _OpenApiSchemaString;
+
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.enumeration
+  // ------------------------------------------
+
+  const factory OpenApiSchema.enumeration({
+    @Default(false) @JsonKey(ignore: true) bool isRequired,
+    @JsonKey(name: 'default') String? defaultValue,
+    @JsonKey(name: 'enum') required List<String> values,
+    String? title,
+    String? description,
+  }) = _OpenApiSchemaEnum;
 
   // ------------------------------------------
   // FACTORY: OpenApiSchema.array
@@ -77,6 +108,20 @@ class _SchemaConverter
     return data.map(
       (value) {
         return data.toJson();
+      },
+      string: (v) {
+        return {
+          'type': 'string',
+        }
+          ..addAll(v.toJson())
+          ..remove(_unionKey);
+      },
+      enumeration: (v) {
+        return {
+          'type': 'string',
+        }
+          ..addAll(v.toJson())
+          ..remove(_unionKey);
       },
       array: (v) {
         return {

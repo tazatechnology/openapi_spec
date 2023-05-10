@@ -20,7 +20,6 @@ class OpenApiResponse with _$OpenApiResponse {
     required String code,
 
     /// A description of the response
-    /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
     required String description,
 
     /// Maps a header name to its definition. RFC7230 states header names are case insensitive.

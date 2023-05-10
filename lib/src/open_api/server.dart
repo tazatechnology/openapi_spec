@@ -15,7 +15,6 @@ class OpenApiServer with _$OpenApiServer {
     final String? url,
 
     /// An optional string describing the host designated by the URL.
-    /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
     final String? description,
 
     /// A map between a variable name and its value.

@@ -19,7 +19,6 @@ class OpenApiPath with _$OpenApiPath {
     String? summary,
 
     /// An optional, string description, intended to apply to all operations in this path.
-    /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
     String? description,
 
     /// A definition of a GET operation on this path.

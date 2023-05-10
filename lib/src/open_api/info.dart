@@ -14,8 +14,7 @@ class OpenApiInfo with _$OpenApiInfo {
     /// A short summary of the API.
     String? summary,
 
-    /// A description of the API. [CommonMark syntax](https://spec.commonmark.org/)
-    /// May be used for rich text representation.
+    /// A description of the API.
     String? description,
 
     /// A URL to the Terms of Service for the API.
