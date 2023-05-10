@@ -10021,16 +10021,15 @@ abstract class _OpenApiSchemaReference implements OpenApiSchema {
       throw _privateConstructorUsedError;
 }
 
-OpenApiSecurity _$OpenApiSecurityFromJson(Map<String, dynamic> json) {
-  return _OpenApiSecurity.fromJson(json);
-}
-
 /// @nodoc
 mixin _$OpenApiSecurity {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
+  /// Each name must correspond to a security scheme which is declared
+  /// in the [OpenApiComponents.securitySchemes] list
+  String? get name => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  /// List of scopes required to access the API, if any.
+  List<String> get scopes => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $OpenApiSecurityCopyWith<OpenApiSecurity> get copyWith =>
       throw _privateConstructorUsedError;
@@ -10042,7 +10041,7 @@ abstract class $OpenApiSecurityCopyWith<$Res> {
           OpenApiSecurity value, $Res Function(OpenApiSecurity) then) =
       _$OpenApiSecurityCopyWithImpl<$Res, OpenApiSecurity>;
   @useResult
-  $Res call({String? description});
+  $Res call({String? name, List<String> scopes});
 }
 
 /// @nodoc
@@ -10058,13 +10057,18 @@ class _$OpenApiSecurityCopyWithImpl<$Res, $Val extends OpenApiSecurity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = freezed,
+    Object? scopes = null,
   }) {
     return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      scopes: null == scopes
+          ? _value.scopes
+          : scopes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -10077,7 +10081,7 @@ abstract class _$$_OpenApiSecurityCopyWith<$Res>
       __$$_OpenApiSecurityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call({String? name, List<String> scopes});
 }
 
 /// @nodoc
@@ -10091,32 +10095,49 @@ class __$$_OpenApiSecurityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = freezed,
+    Object? scopes = null,
   }) {
     return _then(_$_OpenApiSecurity(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      scopes: null == scopes
+          ? _value._scopes
+          : scopes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$_OpenApiSecurity implements _OpenApiSecurity {
-  const _$_OpenApiSecurity({this.description});
 
-  factory _$_OpenApiSecurity.fromJson(Map<String, dynamic> json) =>
-      _$$_OpenApiSecurityFromJson(json);
+class _$_OpenApiSecurity extends _OpenApiSecurity {
+  const _$_OpenApiSecurity({this.name, final List<String> scopes = const []})
+      : _scopes = scopes,
+        super._();
 
-  /// Text
+  /// Each name must correspond to a security scheme which is declared
+  /// in the [OpenApiComponents.securitySchemes] list
   @override
-  final String? description;
+  final String? name;
+
+  /// List of scopes required to access the API, if any.
+  final List<String> _scopes;
+
+  /// List of scopes required to access the API, if any.
+  @override
+  @JsonKey()
+  List<String> get scopes {
+    if (_scopes is EqualUnmodifiableListView) return _scopes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_scopes);
+  }
 
   @override
   String toString() {
-    return 'OpenApiSecurity(description: $description)';
+    return 'OpenApiSecurity(name: $name, scopes: $scopes)';
   }
 
   @override
@@ -10124,39 +10145,35 @@ class _$_OpenApiSecurity implements _OpenApiSecurity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiSecurity &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other._scopes, _scopes));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(_scopes));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_OpenApiSecurityCopyWith<_$_OpenApiSecurity> get copyWith =>
       __$$_OpenApiSecurityCopyWithImpl<_$_OpenApiSecurity>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_OpenApiSecurityToJson(
-      this,
-    );
-  }
 }
 
-abstract class _OpenApiSecurity implements OpenApiSecurity {
-  const factory _OpenApiSecurity({final String? description}) =
-      _$_OpenApiSecurity;
-
-  factory _OpenApiSecurity.fromJson(Map<String, dynamic> json) =
-      _$_OpenApiSecurity.fromJson;
+abstract class _OpenApiSecurity extends OpenApiSecurity {
+  const factory _OpenApiSecurity(
+      {final String? name, final List<String> scopes}) = _$_OpenApiSecurity;
+  const _OpenApiSecurity._() : super._();
 
   @override
 
-  /// Text
-  String? get description;
+  /// Each name must correspond to a security scheme which is declared
+  /// in the [OpenApiComponents.securitySchemes] list
+  String? get name;
+  @override
+
+  /// List of scopes required to access the API, if any.
+  List<String> get scopes;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiSecurityCopyWith<_$_OpenApiSecurity> get copyWith =>

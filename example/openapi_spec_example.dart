@@ -171,7 +171,10 @@ void main() async {
             )
           ],
           security: [
-            OpenApiSecurity(),
+            OpenApiSecurity(
+              name: 'petstore_auth',
+              scopes: ['write:pets', 'read:pets'],
+            ),
           ],
         ),
       )

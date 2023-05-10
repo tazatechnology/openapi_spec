@@ -999,24 +999,6 @@ Map<String, dynamic> _$$_OpenApiSchemaReferenceToJson(
       'unionType': instance.$type,
     };
 
-_$_OpenApiSecurity _$$_OpenApiSecurityFromJson(Map<String, dynamic> json) =>
-    _$_OpenApiSecurity(
-      description: json['description'] as String?,
-    );
-
-Map<String, dynamic> _$$_OpenApiSecurityToJson(_$_OpenApiSecurity instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
-
 _$_OpenApiSecurityScheme _$$_OpenApiSecuritySchemeFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiSecurityScheme(
