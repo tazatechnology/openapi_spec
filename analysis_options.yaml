@@ -6,3 +6,8 @@ analyzer:
     - lib/src/**/*.g.dart
   errors:
     invalid_annotation_target: ignore
+
+linter:
+  rules:
+    avoid_print: true
+    always_use_package_imports: true

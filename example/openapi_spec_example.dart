@@ -33,6 +33,7 @@ void main() async {
   // ==========================================
 
   final schemaTag = OpenApiSchema(
+    name: 'Tag',
     xml: OpenApiXml(name: 'tag'),
     properties: [
       OpenApiProperty.integer(name: 'id'),
@@ -41,6 +42,7 @@ void main() async {
   );
 
   final schemaCategory = OpenApiSchema(
+    name: 'Category',
     xml: OpenApiXml(name: 'category'),
     properties: [
       OpenApiProperty.integer(
@@ -55,6 +57,7 @@ void main() async {
   );
 
   final schemaPet = OpenApiSchema(
+    name: 'Pet',
     xml: OpenApiXml(name: 'pet'),
     properties: [
       OpenApiProperty.integer(
@@ -121,6 +124,25 @@ void main() async {
     paths: [
       OpenApiPath(
         path: '/pet',
+        put: OpenApiOperation(
+          tags: [petTag],
+          summary: 'Update an existing pet',
+          description: 'Update an existing pet by Id',
+          operationId: 'updatePet',
+          requestBody: OpenApiRequestBody(
+            content: {
+              'application/json': OpenApiMediaType(
+                schema: OpenApiSchema.reference(ref: schemaPet),
+              ),
+              'application/xml': OpenApiMediaType(
+                schema: OpenApiSchema.reference(ref: schemaPet),
+              ),
+              'application/x-www-form-urlencoded': OpenApiMediaType(
+                schema: OpenApiSchema.reference(ref: schemaPet),
+              ),
+            },
+          ),
+        ),
       )
     ],
     tags: [petTag, storeTag, userTag],

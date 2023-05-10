@@ -14,6 +14,7 @@ part 'callback.dart';
 part 'components.dart';
 part 'contact.dart';
 part 'discriminator.dart';
+part 'encoding.dart';
 part 'example.dart';
 part 'external_docs.dart';
 part 'header.dart';
@@ -37,3 +38,5 @@ part 'server_variable.dart';
 part 'spec.dart';
 part 'tag.dart';
 part 'xml.dart';
+
+const _unionKey = 'unionType';

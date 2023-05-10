@@ -76,7 +76,7 @@ class OpenApiProperty with _$OpenApiProperty {
     int? minLength,
     int? maxLength,
     OpenApiXml? xml,
-  }) = OpenApiPropertyString;
+  }) = _OpenApiPropertyString;
 
   // ------------------------------------------
   // FACTORY: OpenApiProperty.integer
@@ -95,7 +95,7 @@ class OpenApiProperty with _$OpenApiProperty {
     int? maximum,
     int? exclusiveMaximum,
     OpenApiXml? xml,
-  }) = OpenApiPropertyInteger;
+  }) = _OpenApiPropertyInteger;
 
   // ------------------------------------------
   // FACTORY: OpenApiProperty.double
@@ -114,7 +114,7 @@ class OpenApiProperty with _$OpenApiProperty {
     double? maximum,
     double? exclusiveMaximum,
     OpenApiXml? xml,
-  }) = OpenApiPropertyDouble;
+  }) = _OpenApiPropertyDouble;
 
   // ------------------------------------------
   // FACTORY: OpenApiProperty.array
@@ -132,7 +132,7 @@ class OpenApiProperty with _$OpenApiProperty {
     int? minLength,
     int? maxLength,
     OpenApiXml? xml,
-  }) = OpenApiPropertyArray;
+  }) = _OpenApiPropertyArray;
 
   // ------------------------------------------
   // FACTORY: OpenApiProperty.enumeration
@@ -146,7 +146,7 @@ class OpenApiProperty with _$OpenApiProperty {
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
-  }) = OpenApiPropertyEnum;
+  }) = _OpenApiPropertyEnum;
 
   // ------------------------------------------
   // FACTORY: OpenApiProperty.reference
@@ -155,7 +155,7 @@ class OpenApiProperty with _$OpenApiProperty {
   /// a reference schema property
   const factory OpenApiProperty.reference({
     required OpenApiSchema reference,
-  }) = OpenApiPropertyReference;
+  }) = _OpenApiPropertyReference;
 
   factory OpenApiProperty.fromJson(Map<String, dynamic> json) =>
       _$OpenApiPropertyFromJson(json);
@@ -170,23 +170,23 @@ class OpenApiArrayItems with _$OpenApiArrayItems {
   /// An array of strings
   const factory OpenApiArrayItems.string({
     OpenApiXml? xml,
-  }) = OpenApiArrayItemsString;
+  }) = _OpenApiArrayItemsString;
 
   /// An array of integers
   const factory OpenApiArrayItems.integer({
     OpenApiXml? xml,
-  }) = OpenApiArrayItemsInteger;
+  }) = _OpenApiArrayItemsInteger;
 
   /// An array of doubles
   const factory OpenApiArrayItems.double({
     OpenApiXml? xml,
-  }) = OpenApiArrayItemsDouble;
+  }) = _OpenApiArrayItemsDouble;
 
   /// An array of [OpenApiSchema] object references
   const factory OpenApiArrayItems.reference({
     required OpenApiSchema reference,
     OpenApiXml? xml,
-  }) = OpenApiArrayItemsReference;
+  }) = _OpenApiArrayItemsReference;
 
   factory OpenApiArrayItems.fromJson(Map<String, dynamic> json) =>
       _$OpenApiArrayItemsFromJson(json);

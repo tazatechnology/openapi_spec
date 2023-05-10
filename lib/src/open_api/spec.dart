@@ -6,7 +6,6 @@ final _encoder = JsonEncoder.withIndent('  ');
 // ==========================================
 // CLASS: OpenApi
 // ==========================================
-
 /// The [OpenAPI Specification](https://swagger.io/specification/) (OAS)
 /// defines a standard,language-agnostic interface to RESTful APIs
 ///
@@ -69,9 +68,6 @@ class OpenApi with _$OpenApi {
 
   /// Create an [OpenApi] object from raw JSON serialized object
   factory OpenApi.fromJson(Map<String, dynamic> json) {
-    // return data.keys
-    //     .map((p) => OpenApiPath.fromJson(data[p]!..addAll({'path': p})))
-    //     .toList();
     return OpenApi(
       version: json['openapi'],
       info: json['info'] == null
@@ -112,15 +108,26 @@ class OpenApi with _$OpenApi {
   }
 
   /// Convert the [OpenApi] object to a JSON spec representation
-  Map<dynamic, dynamic> toJson() {
-    return {
+  Map<String, dynamic> toJson() {
+    if (paths == null && components == null && webhooks == null) {
+      throw Exception(
+        'OpenAPI spec must contain at least one of the following: paths, components, or webhooks',
+      );
+    }
+    final out = {
       'openapi': version,
       'info': info.toJson(),
       if (jsonSchemaDialect != null) 'jsonSchemaDialect': jsonSchemaDialect,
       if (servers != null) 'servers': servers!.map((e) => e.toJson()).toList(),
       if (externalDocs != null) 'externalDocs': externalDocs!.toJson(),
       if (paths != null)
-        'paths': paths!.asMap().map((_, v) => MapEntry(v.path, v.toJson())),
+        'paths': paths!.asMap().map((_, v) {
+          return v.map(
+            (p) => MapEntry(p.path, v.toJson()..remove('path')),
+            reference: (r) =>
+                MapEntry('\$ref', '#/paths${r.mapOrNull((v) => v.path)}'),
+          );
+        }),
       if (version.startsWith('3.1') && webhooks != null)
         'webhooks': webhooks!.map((k, v) => MapEntry(k, v.toJson())),
       if (components != null) 'components': components!.toJson(),
@@ -128,6 +135,7 @@ class OpenApi with _$OpenApi {
         'security': security!.map((e) => e.toJson()).toList(),
       if (tags != null) 'tags': tags!.map((e) => e.toJson()).toList(),
     };
+    return out;
   }
 
   /// Create an [OpenApi] object from an existing JSON spec file
@@ -215,6 +223,7 @@ class OpenApi with _$OpenApi {
     // Generate the spec file in the destination
     final oasFile = File(p.join(dirPath, 'openapi.json'));
     toJsonSpecFile(destination: oasFile);
+    // ignore: avoid_print
     if (!quiet) print('Created OpenAPI spec file:\n  - ${oasFile.path}');
 
     // Create a Javascript object for local parsing
@@ -240,6 +249,7 @@ class OpenApi with _$OpenApi {
       final faviconPath = p.normalize(f.absolute.path);
       if (f.existsSync()) {
         await Process.run('cp', [faviconPath, dir.absolute.path]);
+        // ignore: avoid_print
         if (!quiet) print('Copied favicon16x16:\n  - $faviconPath');
       } else {
         throw Exception(
@@ -248,6 +258,7 @@ class OpenApi with _$OpenApi {
       }
     }
 
+    // ignore: avoid_print
     if (!quiet) print('Static HTML generated in:\n  - $dirPath');
   }
 }

@@ -20,3 +20,6 @@ targets:
           generic_argument_factories: false
           ignore_unannotated: false
           include_if_null: false
+      freezed:
+        options:
+          union_key: unionType

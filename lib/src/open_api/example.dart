@@ -10,7 +10,11 @@ class OpenApiExample with _$OpenApiExample {
   const factory OpenApiExample({
     /// Text
     String? description,
-  }) = _OpenApiExample;
+  }) = OpenApiExampleObject;
+
+  const factory OpenApiExample.reference({
+    required OpenApiExampleObject ref,
+  }) = _OpenApiExampleReference;
 
   factory OpenApiExample.fromJson(Map<String, dynamic> json) =>
       _$OpenApiExampleFromJson(json);

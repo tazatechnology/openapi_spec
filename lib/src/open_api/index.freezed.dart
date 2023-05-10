@@ -1026,19 +1026,202 @@ abstract class _OpenApiDiscriminator implements OpenApiDiscriminator {
       throw _privateConstructorUsedError;
 }
 
+OpenApiEncoding _$OpenApiEncodingFromJson(Map<String, dynamic> json) {
+  return _OpenApiEncoding.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenApiEncoding {
+  /// The Content-Type for encoding a specific property.
+  String? get contentType => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OpenApiEncodingCopyWith<OpenApiEncoding> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenApiEncodingCopyWith<$Res> {
+  factory $OpenApiEncodingCopyWith(
+          OpenApiEncoding value, $Res Function(OpenApiEncoding) then) =
+      _$OpenApiEncodingCopyWithImpl<$Res, OpenApiEncoding>;
+  @useResult
+  $Res call({String? contentType});
+}
+
+/// @nodoc
+class _$OpenApiEncodingCopyWithImpl<$Res, $Val extends OpenApiEncoding>
+    implements $OpenApiEncodingCopyWith<$Res> {
+  _$OpenApiEncodingCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? contentType = freezed,
+  }) {
+    return _then(_value.copyWith(
+      contentType: freezed == contentType
+          ? _value.contentType
+          : contentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_OpenApiEncodingCopyWith<$Res>
+    implements $OpenApiEncodingCopyWith<$Res> {
+  factory _$$_OpenApiEncodingCopyWith(
+          _$_OpenApiEncoding value, $Res Function(_$_OpenApiEncoding) then) =
+      __$$_OpenApiEncodingCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? contentType});
+}
+
+/// @nodoc
+class __$$_OpenApiEncodingCopyWithImpl<$Res>
+    extends _$OpenApiEncodingCopyWithImpl<$Res, _$_OpenApiEncoding>
+    implements _$$_OpenApiEncodingCopyWith<$Res> {
+  __$$_OpenApiEncodingCopyWithImpl(
+      _$_OpenApiEncoding _value, $Res Function(_$_OpenApiEncoding) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? contentType = freezed,
+  }) {
+    return _then(_$_OpenApiEncoding(
+      contentType: freezed == contentType
+          ? _value.contentType
+          : contentType // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiEncoding implements _OpenApiEncoding {
+  const _$_OpenApiEncoding({this.contentType});
+
+  factory _$_OpenApiEncoding.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiEncodingFromJson(json);
+
+  /// The Content-Type for encoding a specific property.
+  @override
+  final String? contentType;
+
+  @override
+  String toString() {
+    return 'OpenApiEncoding(contentType: $contentType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiEncoding &&
+            (identical(other.contentType, contentType) ||
+                other.contentType == contentType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, contentType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiEncodingCopyWith<_$_OpenApiEncoding> get copyWith =>
+      __$$_OpenApiEncodingCopyWithImpl<_$_OpenApiEncoding>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiEncodingToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiEncoding implements OpenApiEncoding {
+  const factory _OpenApiEncoding({final String? contentType}) =
+      _$_OpenApiEncoding;
+
+  factory _OpenApiEncoding.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiEncoding.fromJson;
+
+  @override
+
+  /// The Content-Type for encoding a specific property.
+  String? get contentType;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiEncodingCopyWith<_$_OpenApiEncoding> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 OpenApiExample _$OpenApiExampleFromJson(Map<String, dynamic> json) {
-  return _OpenApiExample.fromJson(json);
+  switch (json['unionType']) {
+    case 'default':
+      return OpenApiExampleObject.fromJson(json);
+    case 'reference':
+      return _OpenApiExampleReference.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiExample',
+          'Invalid union type "${json['unionType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$OpenApiExample {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiExampleCopyWith<OpenApiExample> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? description) $default, {
+    required TResult Function(OpenApiExampleObject ref) reference,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? description)? $default, {
+    TResult? Function(OpenApiExampleObject ref)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? description)? $default, {
+    TResult Function(OpenApiExampleObject ref)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(OpenApiExampleObject value) $default, {
+    required TResult Function(_OpenApiExampleReference value) reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(OpenApiExampleObject value)? $default, {
+    TResult? Function(_OpenApiExampleReference value)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(OpenApiExampleObject value)? $default, {
+    TResult Function(_OpenApiExampleReference value)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1046,8 +1229,6 @@ abstract class $OpenApiExampleCopyWith<$Res> {
   factory $OpenApiExampleCopyWith(
           OpenApiExample value, $Res Function(OpenApiExample) then) =
       _$OpenApiExampleCopyWithImpl<$Res, OpenApiExample>;
-  @useResult
-  $Res call({String? description});
 }
 
 /// @nodoc
@@ -1059,38 +1240,23 @@ class _$OpenApiExampleCopyWithImpl<$Res, $Val extends OpenApiExample>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_OpenApiExampleCopyWith<$Res>
-    implements $OpenApiExampleCopyWith<$Res> {
-  factory _$$_OpenApiExampleCopyWith(
-          _$_OpenApiExample value, $Res Function(_$_OpenApiExample) then) =
-      __$$_OpenApiExampleCopyWithImpl<$Res>;
-  @override
+abstract class _$$OpenApiExampleObjectCopyWith<$Res> {
+  factory _$$OpenApiExampleObjectCopyWith(_$OpenApiExampleObject value,
+          $Res Function(_$OpenApiExampleObject) then) =
+      __$$OpenApiExampleObjectCopyWithImpl<$Res>;
   @useResult
   $Res call({String? description});
 }
 
 /// @nodoc
-class __$$_OpenApiExampleCopyWithImpl<$Res>
-    extends _$OpenApiExampleCopyWithImpl<$Res, _$_OpenApiExample>
-    implements _$$_OpenApiExampleCopyWith<$Res> {
-  __$$_OpenApiExampleCopyWithImpl(
-      _$_OpenApiExample _value, $Res Function(_$_OpenApiExample) _then)
+class __$$OpenApiExampleObjectCopyWithImpl<$Res>
+    extends _$OpenApiExampleCopyWithImpl<$Res, _$OpenApiExampleObject>
+    implements _$$OpenApiExampleObjectCopyWith<$Res> {
+  __$$OpenApiExampleObjectCopyWithImpl(_$OpenApiExampleObject _value,
+      $Res Function(_$OpenApiExampleObject) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1098,7 +1264,7 @@ class __$$_OpenApiExampleCopyWithImpl<$Res>
   $Res call({
     Object? description = freezed,
   }) {
-    return _then(_$_OpenApiExample(
+    return _then(_$OpenApiExampleObject(
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -1109,15 +1275,19 @@ class __$$_OpenApiExampleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpenApiExample implements _OpenApiExample {
-  const _$_OpenApiExample({this.description});
+class _$OpenApiExampleObject implements OpenApiExampleObject {
+  const _$OpenApiExampleObject({this.description, final String? $type})
+      : $type = $type ?? 'default';
 
-  factory _$_OpenApiExample.fromJson(Map<String, dynamic> json) =>
-      _$$_OpenApiExampleFromJson(json);
+  factory _$OpenApiExampleObject.fromJson(Map<String, dynamic> json) =>
+      _$$OpenApiExampleObjectFromJson(json);
 
   /// Text
   @override
   final String? description;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
 
   @override
   String toString() {
@@ -1128,7 +1298,7 @@ class _$_OpenApiExample implements _OpenApiExample {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OpenApiExample &&
+            other is _$OpenApiExampleObject &&
             (identical(other.description, description) ||
                 other.description == description));
   }
@@ -1140,32 +1310,247 @@ class _$_OpenApiExample implements _OpenApiExample {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OpenApiExampleCopyWith<_$_OpenApiExample> get copyWith =>
-      __$$_OpenApiExampleCopyWithImpl<_$_OpenApiExample>(this, _$identity);
+  _$$OpenApiExampleObjectCopyWith<_$OpenApiExampleObject> get copyWith =>
+      __$$OpenApiExampleObjectCopyWithImpl<_$OpenApiExampleObject>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? description) $default, {
+    required TResult Function(OpenApiExampleObject ref) reference,
+  }) {
+    return $default(description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? description)? $default, {
+    TResult? Function(OpenApiExampleObject ref)? reference,
+  }) {
+    return $default?.call(description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? description)? $default, {
+    TResult Function(OpenApiExampleObject ref)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(OpenApiExampleObject value) $default, {
+    required TResult Function(_OpenApiExampleReference value) reference,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(OpenApiExampleObject value)? $default, {
+    TResult? Function(_OpenApiExampleReference value)? reference,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(OpenApiExampleObject value)? $default, {
+    TResult Function(_OpenApiExampleReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OpenApiExampleToJson(
+    return _$$OpenApiExampleObjectToJson(
       this,
     );
   }
 }
 
-abstract class _OpenApiExample implements OpenApiExample {
-  const factory _OpenApiExample({final String? description}) =
-      _$_OpenApiExample;
+abstract class OpenApiExampleObject implements OpenApiExample {
+  const factory OpenApiExampleObject({final String? description}) =
+      _$OpenApiExampleObject;
 
-  factory _OpenApiExample.fromJson(Map<String, dynamic> json) =
-      _$_OpenApiExample.fromJson;
-
-  @override
+  factory OpenApiExampleObject.fromJson(Map<String, dynamic> json) =
+      _$OpenApiExampleObject.fromJson;
 
   /// Text
   String? get description;
-  @override
   @JsonKey(ignore: true)
-  _$$_OpenApiExampleCopyWith<_$_OpenApiExample> get copyWith =>
+  _$$OpenApiExampleObjectCopyWith<_$OpenApiExampleObject> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiExampleReferenceCopyWith<$Res> {
+  factory _$$_OpenApiExampleReferenceCopyWith(_$_OpenApiExampleReference value,
+          $Res Function(_$_OpenApiExampleReference) then) =
+      __$$_OpenApiExampleReferenceCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OpenApiExampleObject ref});
+}
+
+/// @nodoc
+class __$$_OpenApiExampleReferenceCopyWithImpl<$Res>
+    extends _$OpenApiExampleCopyWithImpl<$Res, _$_OpenApiExampleReference>
+    implements _$$_OpenApiExampleReferenceCopyWith<$Res> {
+  __$$_OpenApiExampleReferenceCopyWithImpl(_$_OpenApiExampleReference _value,
+      $Res Function(_$_OpenApiExampleReference) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ref = freezed,
+  }) {
+    return _then(_$_OpenApiExampleReference(
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as OpenApiExampleObject,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiExampleReference implements _OpenApiExampleReference {
+  const _$_OpenApiExampleReference({required this.ref, final String? $type})
+      : $type = $type ?? 'reference';
+
+  factory _$_OpenApiExampleReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiExampleReferenceFromJson(json);
+
+  @override
+  final OpenApiExampleObject ref;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiExample.reference(ref: $ref)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiExampleReference &&
+            const DeepCollectionEquality().equals(other.ref, ref));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(ref));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiExampleReferenceCopyWith<_$_OpenApiExampleReference>
+      get copyWith =>
+          __$$_OpenApiExampleReferenceCopyWithImpl<_$_OpenApiExampleReference>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String? description) $default, {
+    required TResult Function(OpenApiExampleObject ref) reference,
+  }) {
+    return reference(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String? description)? $default, {
+    TResult? Function(OpenApiExampleObject ref)? reference,
+  }) {
+    return reference?.call(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String? description)? $default, {
+    TResult Function(OpenApiExampleObject ref)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(ref);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(OpenApiExampleObject value) $default, {
+    required TResult Function(_OpenApiExampleReference value) reference,
+  }) {
+    return reference(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(OpenApiExampleObject value)? $default, {
+    TResult? Function(_OpenApiExampleReference value)? reference,
+  }) {
+    return reference?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(OpenApiExampleObject value)? $default, {
+    TResult Function(_OpenApiExampleReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiExampleReferenceToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiExampleReference implements OpenApiExample {
+  const factory _OpenApiExampleReference(
+      {required final OpenApiExampleObject ref}) = _$_OpenApiExampleReference;
+
+  factory _OpenApiExampleReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiExampleReference.fromJson;
+
+  OpenApiExampleObject get ref;
+  @JsonKey(ignore: true)
+  _$$_OpenApiExampleReferenceCopyWith<_$_OpenApiExampleReference>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 OpenApiExternalDocs _$OpenApiExternalDocsFromJson(Map<String, dynamic> json) {
@@ -2160,8 +2545,19 @@ OpenApiMediaType _$OpenApiMediaTypeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpenApiMediaType {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
+  /// The schema defining the content of the request, response, or parameter.
+  @_SchemaConverter()
+  OpenApiSchema? get schema => throw _privateConstructorUsedError;
+
+  /// Example of the media type.
+  dynamic get example =>
+      throw _privateConstructorUsedError; // Examples of the media type.
+  Map<String, OpenApiExample>? get examples =>
+      throw _privateConstructorUsedError;
+
+  /// A map between a property name and its encoding information.
+  Map<String, OpenApiEncoding>? get encoding =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2175,7 +2571,13 @@ abstract class $OpenApiMediaTypeCopyWith<$Res> {
           OpenApiMediaType value, $Res Function(OpenApiMediaType) then) =
       _$OpenApiMediaTypeCopyWithImpl<$Res, OpenApiMediaType>;
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {@_SchemaConverter() OpenApiSchema? schema,
+      dynamic example,
+      Map<String, OpenApiExample>? examples,
+      Map<String, OpenApiEncoding>? encoding});
+
+  $OpenApiSchemaCopyWith<$Res>? get schema;
 }
 
 /// @nodoc
@@ -2191,14 +2593,41 @@ class _$OpenApiMediaTypeCopyWithImpl<$Res, $Val extends OpenApiMediaType>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? schema = freezed,
+    Object? example = freezed,
+    Object? examples = freezed,
+    Object? encoding = freezed,
   }) {
     return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+      schema: freezed == schema
+          ? _value.schema
+          : schema // ignore: cast_nullable_to_non_nullable
+              as OpenApiSchema?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      examples: freezed == examples
+          ? _value.examples
+          : examples // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiExample>?,
+      encoding: freezed == encoding
+          ? _value.encoding
+          : encoding // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiEncoding>?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiSchemaCopyWith<$Res>? get schema {
+    if (_value.schema == null) {
+      return null;
+    }
+
+    return $OpenApiSchemaCopyWith<$Res>(_value.schema!, (value) {
+      return _then(_value.copyWith(schema: value) as $Val);
+    });
   }
 }
 
@@ -2210,7 +2639,14 @@ abstract class _$$_OpenApiMediaTypeCopyWith<$Res>
       __$$_OpenApiMediaTypeCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {@_SchemaConverter() OpenApiSchema? schema,
+      dynamic example,
+      Map<String, OpenApiExample>? examples,
+      Map<String, OpenApiEncoding>? encoding});
+
+  @override
+  $OpenApiSchemaCopyWith<$Res>? get schema;
 }
 
 /// @nodoc
@@ -2224,13 +2660,28 @@ class __$$_OpenApiMediaTypeCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? schema = freezed,
+    Object? example = freezed,
+    Object? examples = freezed,
+    Object? encoding = freezed,
   }) {
     return _then(_$_OpenApiMediaType(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+      schema: freezed == schema
+          ? _value.schema
+          : schema // ignore: cast_nullable_to_non_nullable
+              as OpenApiSchema?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      examples: freezed == examples
+          ? _value._examples
+          : examples // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiExample>?,
+      encoding: freezed == encoding
+          ? _value._encoding
+          : encoding // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiEncoding>?,
     ));
   }
 }
@@ -2238,18 +2689,53 @@ class __$$_OpenApiMediaTypeCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiMediaType implements _OpenApiMediaType {
-  const _$_OpenApiMediaType({this.description});
+  const _$_OpenApiMediaType(
+      {@_SchemaConverter() this.schema,
+      this.example,
+      final Map<String, OpenApiExample>? examples,
+      final Map<String, OpenApiEncoding>? encoding})
+      : _examples = examples,
+        _encoding = encoding;
 
   factory _$_OpenApiMediaType.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiMediaTypeFromJson(json);
 
-  /// Text
+  /// The schema defining the content of the request, response, or parameter.
   @override
-  final String? description;
+  @_SchemaConverter()
+  final OpenApiSchema? schema;
+
+  /// Example of the media type.
+  @override
+  final dynamic example;
+// Examples of the media type.
+  final Map<String, OpenApiExample>? _examples;
+// Examples of the media type.
+  @override
+  Map<String, OpenApiExample>? get examples {
+    final value = _examples;
+    if (value == null) return null;
+    if (_examples is EqualUnmodifiableMapView) return _examples;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// A map between a property name and its encoding information.
+  final Map<String, OpenApiEncoding>? _encoding;
+
+  /// A map between a property name and its encoding information.
+  @override
+  Map<String, OpenApiEncoding>? get encoding {
+    final value = _encoding;
+    if (value == null) return null;
+    if (_encoding is EqualUnmodifiableMapView) return _encoding;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
-    return 'OpenApiMediaType(description: $description)';
+    return 'OpenApiMediaType(schema: $schema, example: $example, examples: $examples, encoding: $encoding)';
   }
 
   @override
@@ -2257,13 +2743,20 @@ class _$_OpenApiMediaType implements _OpenApiMediaType {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiMediaType &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.schema, schema) || other.schema == schema) &&
+            const DeepCollectionEquality().equals(other.example, example) &&
+            const DeepCollectionEquality().equals(other._examples, _examples) &&
+            const DeepCollectionEquality().equals(other._encoding, _encoding));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      schema,
+      const DeepCollectionEquality().hash(example),
+      const DeepCollectionEquality().hash(_examples),
+      const DeepCollectionEquality().hash(_encoding));
 
   @JsonKey(ignore: true)
   @override
@@ -2280,16 +2773,30 @@ class _$_OpenApiMediaType implements _OpenApiMediaType {
 }
 
 abstract class _OpenApiMediaType implements OpenApiMediaType {
-  const factory _OpenApiMediaType({final String? description}) =
-      _$_OpenApiMediaType;
+  const factory _OpenApiMediaType(
+      {@_SchemaConverter() final OpenApiSchema? schema,
+      final dynamic example,
+      final Map<String, OpenApiExample>? examples,
+      final Map<String, OpenApiEncoding>? encoding}) = _$_OpenApiMediaType;
 
   factory _OpenApiMediaType.fromJson(Map<String, dynamic> json) =
       _$_OpenApiMediaType.fromJson;
 
   @override
 
-  /// Text
-  String? get description;
+  /// The schema defining the content of the request, response, or parameter.
+  @_SchemaConverter()
+  OpenApiSchema? get schema;
+  @override
+
+  /// Example of the media type.
+  dynamic get example;
+  @override // Examples of the media type.
+  Map<String, OpenApiExample>? get examples;
+  @override
+
+  /// A map between a property name and its encoding information.
+  Map<String, OpenApiEncoding>? get encoding;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiMediaTypeCopyWith<_$_OpenApiMediaType> get copyWith =>
@@ -2303,6 +2810,7 @@ OpenApiOperation _$OpenApiOperationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OpenApiOperation {
   /// A list of tags for API documentation control.
+  @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
   List<OpenApiTag>? get tags => throw _privateConstructorUsedError;
 
   /// A short summary of what the operation does.
@@ -2359,7 +2867,8 @@ abstract class $OpenApiOperationCopyWith<$Res> {
       _$OpenApiOperationCopyWithImpl<$Res, OpenApiOperation>;
   @useResult
   $Res call(
-      {List<OpenApiTag>? tags,
+      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
+          List<OpenApiTag>? tags,
       String? summary,
       String? description,
       OpenApiExternalDocs? externalDocs,
@@ -2488,7 +2997,8 @@ abstract class _$$_OpenApiOperationCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<OpenApiTag>? tags,
+      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
+          List<OpenApiTag>? tags,
       String? summary,
       String? description,
       OpenApiExternalDocs? externalDocs,
@@ -2588,7 +3098,8 @@ class __$$_OpenApiOperationCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiOperation implements _OpenApiOperation {
   const _$_OpenApiOperation(
-      {final List<OpenApiTag>? tags,
+      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
+          final List<OpenApiTag>? tags,
       this.summary,
       this.description,
       this.externalDocs,
@@ -2615,6 +3126,7 @@ class _$_OpenApiOperation implements _OpenApiOperation {
 
   /// A list of tags for API documentation control.
   @override
+  @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
   List<OpenApiTag>? get tags {
     final value = _tags;
     if (value == null) return null;
@@ -2791,7 +3303,8 @@ class _$_OpenApiOperation implements _OpenApiOperation {
 
 abstract class _OpenApiOperation implements OpenApiOperation {
   const factory _OpenApiOperation(
-      {final List<OpenApiTag>? tags,
+      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
+          final List<OpenApiTag>? tags,
       final String? summary,
       final String? description,
       final OpenApiExternalDocs? externalDocs,
@@ -2810,6 +3323,7 @@ abstract class _OpenApiOperation implements OpenApiOperation {
   @override
 
   /// A list of tags for API documentation control.
+  @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
   List<OpenApiTag>? get tags;
   @override
 
@@ -3012,55 +3526,101 @@ abstract class _OpenApiParameter implements OpenApiParameter {
 }
 
 OpenApiPath _$OpenApiPathFromJson(Map<String, dynamic> json) {
-  return _OpenApiPath.fromJson(json);
+  switch (json['unionType']) {
+    case 'default':
+      return _OpenApiPath.fromJson(json);
+    case 'reference':
+      return _OpenApiPathReference.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiPath',
+          'Invalid union type "${json['unionType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$OpenApiPath {
-  /// A relative path to an individual endpoint. The path is appended
-  /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
-  /// object's url field in order to construct the full URL.
-  String get path => throw _privateConstructorUsedError;
-
-  /// An optional string describing the host designated by the URL.
-  /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
-  String? get description => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get get => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get put => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get post => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get delete => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get options => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get head => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get patch => throw _privateConstructorUsedError;
-
-  /// A definition of a GET operation on this path.
-  OpenApiOperation? get trace => throw _privateConstructorUsedError;
-
-  /// An alternative [OpenApiServer] array to service all operations in this path.
-  List<OpenApiServer>? get servers => throw _privateConstructorUsedError;
-
-  /// A list of parameters that are applicable for all the operations described under this path.
-  /// These parameters can be overridden at the operation level, but cannot be removed there.
-  List<OpenApiParameter>? get parameters => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiPathCopyWith<OpenApiPath> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)
+        $default, {
+    required TResult Function(OpenApiPath ref) reference,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)?
+        $default, {
+    TResult? Function(OpenApiPath ref)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)?
+        $default, {
+    TResult Function(OpenApiPath ref)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiPath value) $default, {
+    required TResult Function(_OpenApiPathReference value) reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiPath value)? $default, {
+    TResult? Function(_OpenApiPathReference value)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiPath value)? $default, {
+    TResult Function(_OpenApiPathReference value)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -3068,29 +3628,6 @@ abstract class $OpenApiPathCopyWith<$Res> {
   factory $OpenApiPathCopyWith(
           OpenApiPath value, $Res Function(OpenApiPath) then) =
       _$OpenApiPathCopyWithImpl<$Res, OpenApiPath>;
-  @useResult
-  $Res call(
-      {String path,
-      String? description,
-      OpenApiOperation? get,
-      OpenApiOperation? put,
-      OpenApiOperation? post,
-      OpenApiOperation? delete,
-      OpenApiOperation? options,
-      OpenApiOperation? head,
-      OpenApiOperation? patch,
-      OpenApiOperation? trace,
-      List<OpenApiServer>? servers,
-      List<OpenApiParameter>? parameters});
-
-  $OpenApiOperationCopyWith<$Res>? get get;
-  $OpenApiOperationCopyWith<$Res>? get put;
-  $OpenApiOperationCopyWith<$Res>? get post;
-  $OpenApiOperationCopyWith<$Res>? get delete;
-  $OpenApiOperationCopyWith<$Res>? get options;
-  $OpenApiOperationCopyWith<$Res>? get head;
-  $OpenApiOperationCopyWith<$Res>? get patch;
-  $OpenApiOperationCopyWith<$Res>? get trace;
 }
 
 /// @nodoc
@@ -3102,182 +3639,17 @@ class _$OpenApiPathCopyWithImpl<$Res, $Val extends OpenApiPath>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? path = null,
-    Object? description = freezed,
-    Object? get = freezed,
-    Object? put = freezed,
-    Object? post = freezed,
-    Object? delete = freezed,
-    Object? options = freezed,
-    Object? head = freezed,
-    Object? patch = freezed,
-    Object? trace = freezed,
-    Object? servers = freezed,
-    Object? parameters = freezed,
-  }) {
-    return _then(_value.copyWith(
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      get: freezed == get
-          ? _value.get
-          : get // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      put: freezed == put
-          ? _value.put
-          : put // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      post: freezed == post
-          ? _value.post
-          : post // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      delete: freezed == delete
-          ? _value.delete
-          : delete // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      options: freezed == options
-          ? _value.options
-          : options // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      head: freezed == head
-          ? _value.head
-          : head // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      patch: freezed == patch
-          ? _value.patch
-          : patch // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      trace: freezed == trace
-          ? _value.trace
-          : trace // ignore: cast_nullable_to_non_nullable
-              as OpenApiOperation?,
-      servers: freezed == servers
-          ? _value.servers
-          : servers // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiServer>?,
-      parameters: freezed == parameters
-          ? _value.parameters
-          : parameters // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiParameter>?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get get {
-    if (_value.get == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.get!, (value) {
-      return _then(_value.copyWith(get: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get put {
-    if (_value.put == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.put!, (value) {
-      return _then(_value.copyWith(put: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get post {
-    if (_value.post == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.post!, (value) {
-      return _then(_value.copyWith(post: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get delete {
-    if (_value.delete == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.delete!, (value) {
-      return _then(_value.copyWith(delete: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get options {
-    if (_value.options == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.options!, (value) {
-      return _then(_value.copyWith(options: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get head {
-    if (_value.head == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.head!, (value) {
-      return _then(_value.copyWith(head: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get patch {
-    if (_value.patch == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.patch!, (value) {
-      return _then(_value.copyWith(patch: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiOperationCopyWith<$Res>? get trace {
-    if (_value.trace == null) {
-      return null;
-    }
-
-    return $OpenApiOperationCopyWith<$Res>(_value.trace!, (value) {
-      return _then(_value.copyWith(trace: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPathCopyWith<$Res>
-    implements $OpenApiPathCopyWith<$Res> {
+abstract class _$$_OpenApiPathCopyWith<$Res> {
   factory _$$_OpenApiPathCopyWith(
           _$_OpenApiPath value, $Res Function(_$_OpenApiPath) then) =
       __$$_OpenApiPathCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {String path,
+      String? summary,
       String? description,
       OpenApiOperation? get,
       OpenApiOperation? put,
@@ -3290,21 +3662,13 @@ abstract class _$$_OpenApiPathCopyWith<$Res>
       List<OpenApiServer>? servers,
       List<OpenApiParameter>? parameters});
 
-  @override
   $OpenApiOperationCopyWith<$Res>? get get;
-  @override
   $OpenApiOperationCopyWith<$Res>? get put;
-  @override
   $OpenApiOperationCopyWith<$Res>? get post;
-  @override
   $OpenApiOperationCopyWith<$Res>? get delete;
-  @override
   $OpenApiOperationCopyWith<$Res>? get options;
-  @override
   $OpenApiOperationCopyWith<$Res>? get head;
-  @override
   $OpenApiOperationCopyWith<$Res>? get patch;
-  @override
   $OpenApiOperationCopyWith<$Res>? get trace;
 }
 
@@ -3320,6 +3684,7 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
   @override
   $Res call({
     Object? path = null,
+    Object? summary = freezed,
     Object? description = freezed,
     Object? get = freezed,
     Object? put = freezed,
@@ -3337,6 +3702,10 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -3383,6 +3752,102 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
               as List<OpenApiParameter>?,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get get {
+    if (_value.get == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.get!, (value) {
+      return _then(_value.copyWith(get: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get put {
+    if (_value.put == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.put!, (value) {
+      return _then(_value.copyWith(put: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get post {
+    if (_value.post == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.post!, (value) {
+      return _then(_value.copyWith(post: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get delete {
+    if (_value.delete == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.delete!, (value) {
+      return _then(_value.copyWith(delete: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get options {
+    if (_value.options == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.options!, (value) {
+      return _then(_value.copyWith(options: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get head {
+    if (_value.head == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.head!, (value) {
+      return _then(_value.copyWith(head: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get patch {
+    if (_value.patch == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.patch!, (value) {
+      return _then(_value.copyWith(patch: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiOperationCopyWith<$Res>? get trace {
+    if (_value.trace == null) {
+      return null;
+    }
+
+    return $OpenApiOperationCopyWith<$Res>(_value.trace!, (value) {
+      return _then(_value.copyWith(trace: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -3390,6 +3855,7 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
 class _$_OpenApiPath implements _OpenApiPath {
   const _$_OpenApiPath(
       {required this.path,
+      this.summary,
       this.description,
       this.get,
       this.put,
@@ -3400,9 +3866,11 @@ class _$_OpenApiPath implements _OpenApiPath {
       this.patch,
       this.trace,
       final List<OpenApiServer>? servers,
-      final List<OpenApiParameter>? parameters})
+      final List<OpenApiParameter>? parameters,
+      final String? $type})
       : _servers = servers,
-        _parameters = parameters;
+        _parameters = parameters,
+        $type = $type ?? 'default';
 
   factory _$_OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPathFromJson(json);
@@ -3413,8 +3881,12 @@ class _$_OpenApiPath implements _OpenApiPath {
   @override
   final String path;
 
-  /// An optional string describing the host designated by the URL.
-  /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
+  /// An optional, string summary, intended to apply to all operations in this path.
+  @override
+  final String? summary;
+
+  /// An optional, string description, intended to apply to all operations in this path.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
   @override
   final String? description;
 
@@ -3478,9 +3950,12 @@ class _$_OpenApiPath implements _OpenApiPath {
     return EqualUnmodifiableListView(value);
   }
 
+  @JsonKey(name: 'unionType')
+  final String $type;
+
   @override
   String toString() {
-    return 'OpenApiPath(path: $path, description: $description, get: $get, put: $put, post: $post, delete: $delete, options: $options, head: $head, patch: $patch, trace: $trace, servers: $servers, parameters: $parameters)';
+    return 'OpenApiPath(path: $path, summary: $summary, description: $description, get: $get, put: $put, post: $post, delete: $delete, options: $options, head: $head, patch: $patch, trace: $trace, servers: $servers, parameters: $parameters)';
   }
 
   @override
@@ -3489,6 +3964,7 @@ class _$_OpenApiPath implements _OpenApiPath {
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPath &&
             (identical(other.path, path) || other.path == path) &&
+            (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.get, get) || other.get == get) &&
@@ -3509,6 +3985,7 @@ class _$_OpenApiPath implements _OpenApiPath {
   int get hashCode => Object.hash(
       runtimeType,
       path,
+      summary,
       description,
       get,
       put,
@@ -3528,6 +4005,113 @@ class _$_OpenApiPath implements _OpenApiPath {
       __$$_OpenApiPathCopyWithImpl<_$_OpenApiPath>(this, _$identity);
 
   @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)
+        $default, {
+    required TResult Function(OpenApiPath ref) reference,
+  }) {
+    return $default(path, summary, description, get, put, post, delete, options,
+        head, patch, trace, servers, parameters);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)?
+        $default, {
+    TResult? Function(OpenApiPath ref)? reference,
+  }) {
+    return $default?.call(path, summary, description, get, put, post, delete,
+        options, head, patch, trace, servers, parameters);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)?
+        $default, {
+    TResult Function(OpenApiPath ref)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(path, summary, description, get, put, post, delete,
+          options, head, patch, trace, servers, parameters);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiPath value) $default, {
+    required TResult Function(_OpenApiPathReference value) reference,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiPath value)? $default, {
+    TResult? Function(_OpenApiPathReference value)? reference,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiPath value)? $default, {
+    TResult Function(_OpenApiPathReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
+
+  @override
   Map<String, dynamic> toJson() {
     return _$$_OpenApiPathToJson(
       this,
@@ -3538,6 +4122,7 @@ class _$_OpenApiPath implements _OpenApiPath {
 abstract class _OpenApiPath implements OpenApiPath {
   const factory _OpenApiPath(
       {required final String path,
+      final String? summary,
       final String? description,
       final OpenApiOperation? get,
       final OpenApiOperation? put,
@@ -3553,82 +4138,276 @@ abstract class _OpenApiPath implements OpenApiPath {
   factory _OpenApiPath.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPath.fromJson;
 
-  @override
-
   /// A relative path to an individual endpoint. The path is appended
   /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
   /// object's url field in order to construct the full URL.
   String get path;
-  @override
 
-  /// An optional string describing the host designated by the URL.
-  /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
+  /// An optional, string summary, intended to apply to all operations in this path.
+  String? get summary;
+
+  /// An optional, string description, intended to apply to all operations in this path.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
   String? get description;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get get;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get put;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get post;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get delete;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get options;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get head;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get patch;
-  @override
 
   /// A definition of a GET operation on this path.
   OpenApiOperation? get trace;
-  @override
 
   /// An alternative [OpenApiServer] array to service all operations in this path.
   List<OpenApiServer>? get servers;
-  @override
 
   /// A list of parameters that are applicable for all the operations described under this path.
   /// These parameters can be overridden at the operation level, but cannot be removed there.
   List<OpenApiParameter>? get parameters;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiPathCopyWith<_$_OpenApiPath> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
+/// @nodoc
+abstract class _$$_OpenApiPathReferenceCopyWith<$Res> {
+  factory _$$_OpenApiPathReferenceCopyWith(_$_OpenApiPathReference value,
+          $Res Function(_$_OpenApiPathReference) then) =
+      __$$_OpenApiPathReferenceCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OpenApiPath ref});
+
+  $OpenApiPathCopyWith<$Res> get ref;
+}
+
+/// @nodoc
+class __$$_OpenApiPathReferenceCopyWithImpl<$Res>
+    extends _$OpenApiPathCopyWithImpl<$Res, _$_OpenApiPathReference>
+    implements _$$_OpenApiPathReferenceCopyWith<$Res> {
+  __$$_OpenApiPathReferenceCopyWithImpl(_$_OpenApiPathReference _value,
+      $Res Function(_$_OpenApiPathReference) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ref = null,
+  }) {
+    return _then(_$_OpenApiPathReference(
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as OpenApiPath,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiPathCopyWith<$Res> get ref {
+    return $OpenApiPathCopyWith<$Res>(_value.ref, (value) {
+      return _then(_value.copyWith(ref: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiPathReference implements _OpenApiPathReference {
+  const _$_OpenApiPathReference({required this.ref, final String? $type})
+      : $type = $type ?? 'reference';
+
+  factory _$_OpenApiPathReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPathReferenceFromJson(json);
+
+  @override
+  final OpenApiPath ref;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiPath.reference(ref: $ref)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiPathReference &&
+            (identical(other.ref, ref) || other.ref == ref));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, ref);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiPathReferenceCopyWith<_$_OpenApiPathReference> get copyWith =>
+      __$$_OpenApiPathReferenceCopyWithImpl<_$_OpenApiPathReference>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)
+        $default, {
+    required TResult Function(OpenApiPath ref) reference,
+  }) {
+    return reference(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)?
+        $default, {
+    TResult? Function(OpenApiPath ref)? reference,
+  }) {
+    return reference?.call(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String path,
+            String? summary,
+            String? description,
+            OpenApiOperation? get,
+            OpenApiOperation? put,
+            OpenApiOperation? post,
+            OpenApiOperation? delete,
+            OpenApiOperation? options,
+            OpenApiOperation? head,
+            OpenApiOperation? patch,
+            OpenApiOperation? trace,
+            List<OpenApiServer>? servers,
+            List<OpenApiParameter>? parameters)?
+        $default, {
+    TResult Function(OpenApiPath ref)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(ref);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiPath value) $default, {
+    required TResult Function(_OpenApiPathReference value) reference,
+  }) {
+    return reference(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiPath value)? $default, {
+    TResult? Function(_OpenApiPathReference value)? reference,
+  }) {
+    return reference?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiPath value)? $default, {
+    TResult Function(_OpenApiPathReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiPathReferenceToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiPathReference implements OpenApiPath {
+  const factory _OpenApiPathReference({required final OpenApiPath ref}) =
+      _$_OpenApiPathReference;
+
+  factory _OpenApiPathReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPathReference.fromJson;
+
+  OpenApiPath get ref;
+  @JsonKey(ignore: true)
+  _$$_OpenApiPathReferenceCopyWith<_$_OpenApiPathReference> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 OpenApiProperty _$OpenApiPropertyFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
+  switch (json['unionType']) {
     case 'string':
-      return OpenApiPropertyString.fromJson(json);
+      return _OpenApiPropertyString.fromJson(json);
     case 'integer':
-      return OpenApiPropertyInteger.fromJson(json);
+      return _OpenApiPropertyInteger.fromJson(json);
     case 'double':
-      return OpenApiPropertyDouble.fromJson(json);
+      return _OpenApiPropertyDouble.fromJson(json);
     case 'array':
-      return OpenApiPropertyArray.fromJson(json);
+      return _OpenApiPropertyArray.fromJson(json);
     case 'enumeration':
-      return OpenApiPropertyEnum.fromJson(json);
+      return _OpenApiPropertyEnum.fromJson(json);
     case 'reference':
-      return OpenApiPropertyReference.fromJson(json);
+      return _OpenApiPropertyReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'OpenApiProperty',
-          'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiProperty',
+          'Invalid union type "${json['unionType']}"!');
   }
 }
 
@@ -3823,32 +4602,32 @@ mixin _$OpenApiProperty {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3874,10 +4653,10 @@ class _$OpenApiPropertyCopyWithImpl<$Res, $Val extends OpenApiProperty>
 }
 
 /// @nodoc
-abstract class _$$OpenApiPropertyStringCopyWith<$Res> {
-  factory _$$OpenApiPropertyStringCopyWith(_$OpenApiPropertyString value,
-          $Res Function(_$OpenApiPropertyString) then) =
-      __$$OpenApiPropertyStringCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyStringCopyWith<$Res> {
+  factory _$$_OpenApiPropertyStringCopyWith(_$_OpenApiPropertyString value,
+          $Res Function(_$_OpenApiPropertyString) then) =
+      __$$_OpenApiPropertyStringCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {@JsonKey(ignore: true) bool isRequired,
@@ -3894,11 +4673,11 @@ abstract class _$$OpenApiPropertyStringCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OpenApiPropertyStringCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$OpenApiPropertyString>
-    implements _$$OpenApiPropertyStringCopyWith<$Res> {
-  __$$OpenApiPropertyStringCopyWithImpl(_$OpenApiPropertyString _value,
-      $Res Function(_$OpenApiPropertyString) _then)
+class __$$_OpenApiPropertyStringCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyString>
+    implements _$$_OpenApiPropertyStringCopyWith<$Res> {
+  __$$_OpenApiPropertyStringCopyWithImpl(_$_OpenApiPropertyString _value,
+      $Res Function(_$_OpenApiPropertyString) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -3914,7 +4693,7 @@ class __$$OpenApiPropertyStringCopyWithImpl<$Res>
     Object? maxLength = freezed,
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiPropertyString(
+    return _then(_$_OpenApiPropertyString(
       isRequired: null == isRequired
           ? _value.isRequired
           : isRequired // ignore: cast_nullable_to_non_nullable
@@ -3969,8 +4748,8 @@ class __$$OpenApiPropertyStringCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiPropertyString implements OpenApiPropertyString {
-  const _$OpenApiPropertyString(
+class _$_OpenApiPropertyString implements _OpenApiPropertyString {
+  const _$_OpenApiPropertyString(
       {@JsonKey(ignore: true) this.isRequired = false,
       required this.name,
       this.title,
@@ -3983,8 +4762,8 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
       final String? $type})
       : $type = $type ?? 'string';
 
-  factory _$OpenApiPropertyString.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiPropertyStringFromJson(json);
+  factory _$_OpenApiPropertyString.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyStringFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -4007,7 +4786,7 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -4019,7 +4798,7 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiPropertyString &&
+            other is _$_OpenApiPropertyString &&
             (identical(other.isRequired, isRequired) ||
                 other.isRequired == isRequired) &&
             (identical(other.name, name) || other.name == name) &&
@@ -4044,8 +4823,8 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiPropertyStringCopyWith<_$OpenApiPropertyString> get copyWith =>
-      __$$OpenApiPropertyStringCopyWithImpl<_$OpenApiPropertyString>(
+  _$$_OpenApiPropertyStringCopyWith<_$_OpenApiPropertyString> get copyWith =>
+      __$$_OpenApiPropertyStringCopyWithImpl<_$_OpenApiPropertyString>(
           this, _$identity);
 
   @override
@@ -4253,12 +5032,12 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
     return string(this);
   }
@@ -4266,12 +5045,12 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
     return string?.call(this);
   }
@@ -4279,12 +5058,12 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
     if (string != null) {
@@ -4295,14 +5074,14 @@ class _$OpenApiPropertyString implements OpenApiPropertyString {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiPropertyStringToJson(
+    return _$$_OpenApiPropertyStringToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiPropertyString implements OpenApiProperty {
-  const factory OpenApiPropertyString(
+abstract class _OpenApiPropertyString implements OpenApiProperty {
+  const factory _OpenApiPropertyString(
       {@JsonKey(ignore: true) final bool isRequired,
       required final String name,
       final String? title,
@@ -4311,10 +5090,10 @@ abstract class OpenApiPropertyString implements OpenApiProperty {
       final String? example,
       final int? minLength,
       final int? maxLength,
-      final OpenApiXml? xml}) = _$OpenApiPropertyString;
+      final OpenApiXml? xml}) = _$_OpenApiPropertyString;
 
-  factory OpenApiPropertyString.fromJson(Map<String, dynamic> json) =
-      _$OpenApiPropertyString.fromJson;
+  factory _OpenApiPropertyString.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyString.fromJson;
 
   @JsonKey(ignore: true)
   bool get isRequired;
@@ -4328,15 +5107,15 @@ abstract class OpenApiPropertyString implements OpenApiProperty {
   int? get maxLength;
   OpenApiXml? get xml;
   @JsonKey(ignore: true)
-  _$$OpenApiPropertyStringCopyWith<_$OpenApiPropertyString> get copyWith =>
+  _$$_OpenApiPropertyStringCopyWith<_$_OpenApiPropertyString> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiPropertyIntegerCopyWith<$Res> {
-  factory _$$OpenApiPropertyIntegerCopyWith(_$OpenApiPropertyInteger value,
-          $Res Function(_$OpenApiPropertyInteger) then) =
-      __$$OpenApiPropertyIntegerCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyIntegerCopyWith<$Res> {
+  factory _$$_OpenApiPropertyIntegerCopyWith(_$_OpenApiPropertyInteger value,
+          $Res Function(_$_OpenApiPropertyInteger) then) =
+      __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {@JsonKey(ignore: true) bool isRequired,
@@ -4355,11 +5134,11 @@ abstract class _$$OpenApiPropertyIntegerCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OpenApiPropertyIntegerCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$OpenApiPropertyInteger>
-    implements _$$OpenApiPropertyIntegerCopyWith<$Res> {
-  __$$OpenApiPropertyIntegerCopyWithImpl(_$OpenApiPropertyInteger _value,
-      $Res Function(_$OpenApiPropertyInteger) _then)
+class __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyInteger>
+    implements _$$_OpenApiPropertyIntegerCopyWith<$Res> {
+  __$$_OpenApiPropertyIntegerCopyWithImpl(_$_OpenApiPropertyInteger _value,
+      $Res Function(_$_OpenApiPropertyInteger) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4377,7 +5156,7 @@ class __$$OpenApiPropertyIntegerCopyWithImpl<$Res>
     Object? exclusiveMaximum = freezed,
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiPropertyInteger(
+    return _then(_$_OpenApiPropertyInteger(
       isRequired: null == isRequired
           ? _value.isRequired
           : isRequired // ignore: cast_nullable_to_non_nullable
@@ -4440,8 +5219,8 @@ class __$$OpenApiPropertyIntegerCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
-  const _$OpenApiPropertyInteger(
+class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
+  const _$_OpenApiPropertyInteger(
       {@JsonKey(ignore: true) this.isRequired = false,
       required this.name,
       this.title,
@@ -4456,8 +5235,8 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
       final String? $type})
       : $type = $type ?? 'integer';
 
-  factory _$OpenApiPropertyInteger.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiPropertyIntegerFromJson(json);
+  factory _$_OpenApiPropertyInteger.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyIntegerFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -4484,7 +5263,7 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -4496,7 +5275,7 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiPropertyInteger &&
+            other is _$_OpenApiPropertyInteger &&
             (identical(other.isRequired, isRequired) ||
                 other.isRequired == isRequired) &&
             (identical(other.name, name) || other.name == name) &&
@@ -4534,8 +5313,8 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiPropertyIntegerCopyWith<_$OpenApiPropertyInteger> get copyWith =>
-      __$$OpenApiPropertyIntegerCopyWithImpl<_$OpenApiPropertyInteger>(
+  _$$_OpenApiPropertyIntegerCopyWith<_$_OpenApiPropertyInteger> get copyWith =>
+      __$$_OpenApiPropertyIntegerCopyWithImpl<_$_OpenApiPropertyInteger>(
           this, _$identity);
 
   @override
@@ -4743,12 +5522,12 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
     return integer(this);
   }
@@ -4756,12 +5535,12 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
     return integer?.call(this);
   }
@@ -4769,12 +5548,12 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
     if (integer != null) {
@@ -4785,14 +5564,14 @@ class _$OpenApiPropertyInteger implements OpenApiPropertyInteger {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiPropertyIntegerToJson(
+    return _$$_OpenApiPropertyIntegerToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiPropertyInteger implements OpenApiProperty {
-  const factory OpenApiPropertyInteger(
+abstract class _OpenApiPropertyInteger implements OpenApiProperty {
+  const factory _OpenApiPropertyInteger(
       {@JsonKey(ignore: true) final bool isRequired,
       required final String name,
       final String? title,
@@ -4803,10 +5582,10 @@ abstract class OpenApiPropertyInteger implements OpenApiProperty {
       final int? exclusiveMinimum,
       final int? maximum,
       final int? exclusiveMaximum,
-      final OpenApiXml? xml}) = _$OpenApiPropertyInteger;
+      final OpenApiXml? xml}) = _$_OpenApiPropertyInteger;
 
-  factory OpenApiPropertyInteger.fromJson(Map<String, dynamic> json) =
-      _$OpenApiPropertyInteger.fromJson;
+  factory _OpenApiPropertyInteger.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyInteger.fromJson;
 
   @JsonKey(ignore: true)
   bool get isRequired;
@@ -4822,15 +5601,15 @@ abstract class OpenApiPropertyInteger implements OpenApiProperty {
   int? get exclusiveMaximum;
   OpenApiXml? get xml;
   @JsonKey(ignore: true)
-  _$$OpenApiPropertyIntegerCopyWith<_$OpenApiPropertyInteger> get copyWith =>
+  _$$_OpenApiPropertyIntegerCopyWith<_$_OpenApiPropertyInteger> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiPropertyDoubleCopyWith<$Res> {
-  factory _$$OpenApiPropertyDoubleCopyWith(_$OpenApiPropertyDouble value,
-          $Res Function(_$OpenApiPropertyDouble) then) =
-      __$$OpenApiPropertyDoubleCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyDoubleCopyWith<$Res> {
+  factory _$$_OpenApiPropertyDoubleCopyWith(_$_OpenApiPropertyDouble value,
+          $Res Function(_$_OpenApiPropertyDouble) then) =
+      __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {@JsonKey(ignore: true) bool isRequired,
@@ -4849,11 +5628,11 @@ abstract class _$$OpenApiPropertyDoubleCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OpenApiPropertyDoubleCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$OpenApiPropertyDouble>
-    implements _$$OpenApiPropertyDoubleCopyWith<$Res> {
-  __$$OpenApiPropertyDoubleCopyWithImpl(_$OpenApiPropertyDouble _value,
-      $Res Function(_$OpenApiPropertyDouble) _then)
+class __$$_OpenApiPropertyDoubleCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyDouble>
+    implements _$$_OpenApiPropertyDoubleCopyWith<$Res> {
+  __$$_OpenApiPropertyDoubleCopyWithImpl(_$_OpenApiPropertyDouble _value,
+      $Res Function(_$_OpenApiPropertyDouble) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -4871,7 +5650,7 @@ class __$$OpenApiPropertyDoubleCopyWithImpl<$Res>
     Object? exclusiveMaximum = freezed,
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiPropertyDouble(
+    return _then(_$_OpenApiPropertyDouble(
       isRequired: null == isRequired
           ? _value.isRequired
           : isRequired // ignore: cast_nullable_to_non_nullable
@@ -4934,8 +5713,8 @@ class __$$OpenApiPropertyDoubleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
-  const _$OpenApiPropertyDouble(
+class _$_OpenApiPropertyDouble implements _OpenApiPropertyDouble {
+  const _$_OpenApiPropertyDouble(
       {@JsonKey(ignore: true) this.isRequired = false,
       required this.name,
       this.title,
@@ -4950,8 +5729,8 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
       final String? $type})
       : $type = $type ?? 'double';
 
-  factory _$OpenApiPropertyDouble.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiPropertyDoubleFromJson(json);
+  factory _$_OpenApiPropertyDouble.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyDoubleFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -4978,7 +5757,7 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -4990,7 +5769,7 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiPropertyDouble &&
+            other is _$_OpenApiPropertyDouble &&
             (identical(other.isRequired, isRequired) ||
                 other.isRequired == isRequired) &&
             (identical(other.name, name) || other.name == name) &&
@@ -5028,8 +5807,8 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiPropertyDoubleCopyWith<_$OpenApiPropertyDouble> get copyWith =>
-      __$$OpenApiPropertyDoubleCopyWithImpl<_$OpenApiPropertyDouble>(
+  _$$_OpenApiPropertyDoubleCopyWith<_$_OpenApiPropertyDouble> get copyWith =>
+      __$$_OpenApiPropertyDoubleCopyWithImpl<_$_OpenApiPropertyDouble>(
           this, _$identity);
 
   @override
@@ -5237,12 +6016,12 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
     return double(this);
   }
@@ -5250,12 +6029,12 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
     return double?.call(this);
   }
@@ -5263,12 +6042,12 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
     if (double != null) {
@@ -5279,14 +6058,14 @@ class _$OpenApiPropertyDouble implements OpenApiPropertyDouble {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiPropertyDoubleToJson(
+    return _$$_OpenApiPropertyDoubleToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiPropertyDouble implements OpenApiProperty {
-  const factory OpenApiPropertyDouble(
+abstract class _OpenApiPropertyDouble implements OpenApiProperty {
+  const factory _OpenApiPropertyDouble(
       {@JsonKey(ignore: true) final bool isRequired,
       required final String name,
       final String? title,
@@ -5297,10 +6076,10 @@ abstract class OpenApiPropertyDouble implements OpenApiProperty {
       final double? exclusiveMinimum,
       final double? maximum,
       final double? exclusiveMaximum,
-      final OpenApiXml? xml}) = _$OpenApiPropertyDouble;
+      final OpenApiXml? xml}) = _$_OpenApiPropertyDouble;
 
-  factory OpenApiPropertyDouble.fromJson(Map<String, dynamic> json) =
-      _$OpenApiPropertyDouble.fromJson;
+  factory _OpenApiPropertyDouble.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyDouble.fromJson;
 
   @JsonKey(ignore: true)
   bool get isRequired;
@@ -5316,15 +6095,15 @@ abstract class OpenApiPropertyDouble implements OpenApiProperty {
   double? get exclusiveMaximum;
   OpenApiXml? get xml;
   @JsonKey(ignore: true)
-  _$$OpenApiPropertyDoubleCopyWith<_$OpenApiPropertyDouble> get copyWith =>
+  _$$_OpenApiPropertyDoubleCopyWith<_$_OpenApiPropertyDouble> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiPropertyArrayCopyWith<$Res> {
-  factory _$$OpenApiPropertyArrayCopyWith(_$OpenApiPropertyArray value,
-          $Res Function(_$OpenApiPropertyArray) then) =
-      __$$OpenApiPropertyArrayCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyArrayCopyWith<$Res> {
+  factory _$$_OpenApiPropertyArrayCopyWith(_$_OpenApiPropertyArray value,
+          $Res Function(_$_OpenApiPropertyArray) then) =
+      __$$_OpenApiPropertyArrayCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {@JsonKey(ignore: true) bool isRequired,
@@ -5343,11 +6122,11 @@ abstract class _$$OpenApiPropertyArrayCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OpenApiPropertyArrayCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$OpenApiPropertyArray>
-    implements _$$OpenApiPropertyArrayCopyWith<$Res> {
-  __$$OpenApiPropertyArrayCopyWithImpl(_$OpenApiPropertyArray _value,
-      $Res Function(_$OpenApiPropertyArray) _then)
+class __$$_OpenApiPropertyArrayCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyArray>
+    implements _$$_OpenApiPropertyArrayCopyWith<$Res> {
+  __$$_OpenApiPropertyArrayCopyWithImpl(_$_OpenApiPropertyArray _value,
+      $Res Function(_$_OpenApiPropertyArray) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5364,7 +6143,7 @@ class __$$OpenApiPropertyArrayCopyWithImpl<$Res>
     Object? maxLength = freezed,
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiPropertyArray(
+    return _then(_$_OpenApiPropertyArray(
       isRequired: null == isRequired
           ? _value.isRequired
           : isRequired // ignore: cast_nullable_to_non_nullable
@@ -5431,8 +6210,8 @@ class __$$OpenApiPropertyArrayCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiPropertyArray implements OpenApiPropertyArray {
-  const _$OpenApiPropertyArray(
+class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
+  const _$_OpenApiPropertyArray(
       {@JsonKey(ignore: true) this.isRequired = false,
       required this.name,
       required this.items,
@@ -5448,8 +6227,8 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
         _example = example,
         $type = $type ?? 'array';
 
-  factory _$OpenApiPropertyArray.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiPropertyArrayFromJson(json);
+  factory _$_OpenApiPropertyArray.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyArrayFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -5490,7 +6269,7 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -5502,7 +6281,7 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiPropertyArray &&
+            other is _$_OpenApiPropertyArray &&
             (identical(other.isRequired, isRequired) ||
                 other.isRequired == isRequired) &&
             (identical(other.name, name) || other.name == name) &&
@@ -5538,8 +6317,8 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiPropertyArrayCopyWith<_$OpenApiPropertyArray> get copyWith =>
-      __$$OpenApiPropertyArrayCopyWithImpl<_$OpenApiPropertyArray>(
+  _$$_OpenApiPropertyArrayCopyWith<_$_OpenApiPropertyArray> get copyWith =>
+      __$$_OpenApiPropertyArrayCopyWithImpl<_$_OpenApiPropertyArray>(
           this, _$identity);
 
   @override
@@ -5747,12 +6526,12 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
     return array(this);
   }
@@ -5760,12 +6539,12 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
     return array?.call(this);
   }
@@ -5773,12 +6552,12 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
     if (array != null) {
@@ -5789,14 +6568,14 @@ class _$OpenApiPropertyArray implements OpenApiPropertyArray {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiPropertyArrayToJson(
+    return _$$_OpenApiPropertyArrayToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiPropertyArray implements OpenApiProperty {
-  const factory OpenApiPropertyArray(
+abstract class _OpenApiPropertyArray implements OpenApiProperty {
+  const factory _OpenApiPropertyArray(
       {@JsonKey(ignore: true) final bool isRequired,
       required final String name,
       required final OpenApiArrayItems items,
@@ -5806,10 +6585,10 @@ abstract class OpenApiPropertyArray implements OpenApiProperty {
       final List<dynamic>? example,
       final int? minLength,
       final int? maxLength,
-      final OpenApiXml? xml}) = _$OpenApiPropertyArray;
+      final OpenApiXml? xml}) = _$_OpenApiPropertyArray;
 
-  factory OpenApiPropertyArray.fromJson(Map<String, dynamic> json) =
-      _$OpenApiPropertyArray.fromJson;
+  factory _OpenApiPropertyArray.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyArray.fromJson;
 
   @JsonKey(ignore: true)
   bool get isRequired;
@@ -5824,15 +6603,15 @@ abstract class OpenApiPropertyArray implements OpenApiProperty {
   int? get maxLength;
   OpenApiXml? get xml;
   @JsonKey(ignore: true)
-  _$$OpenApiPropertyArrayCopyWith<_$OpenApiPropertyArray> get copyWith =>
+  _$$_OpenApiPropertyArrayCopyWith<_$_OpenApiPropertyArray> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiPropertyEnumCopyWith<$Res> {
-  factory _$$OpenApiPropertyEnumCopyWith(_$OpenApiPropertyEnum value,
-          $Res Function(_$OpenApiPropertyEnum) then) =
-      __$$OpenApiPropertyEnumCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyEnumCopyWith<$Res> {
+  factory _$$_OpenApiPropertyEnumCopyWith(_$_OpenApiPropertyEnum value,
+          $Res Function(_$_OpenApiPropertyEnum) then) =
+      __$$_OpenApiPropertyEnumCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {@JsonKey(ignore: true) bool isRequired,
@@ -5844,11 +6623,11 @@ abstract class _$$OpenApiPropertyEnumCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OpenApiPropertyEnumCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$OpenApiPropertyEnum>
-    implements _$$OpenApiPropertyEnumCopyWith<$Res> {
-  __$$OpenApiPropertyEnumCopyWithImpl(
-      _$OpenApiPropertyEnum _value, $Res Function(_$OpenApiPropertyEnum) _then)
+class __$$_OpenApiPropertyEnumCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyEnum>
+    implements _$$_OpenApiPropertyEnumCopyWith<$Res> {
+  __$$_OpenApiPropertyEnumCopyWithImpl(_$_OpenApiPropertyEnum _value,
+      $Res Function(_$_OpenApiPropertyEnum) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -5861,7 +6640,7 @@ class __$$OpenApiPropertyEnumCopyWithImpl<$Res>
     Object? description = freezed,
     Object? defaultValue = freezed,
   }) {
-    return _then(_$OpenApiPropertyEnum(
+    return _then(_$_OpenApiPropertyEnum(
       isRequired: null == isRequired
           ? _value.isRequired
           : isRequired // ignore: cast_nullable_to_non_nullable
@@ -5892,8 +6671,8 @@ class __$$OpenApiPropertyEnumCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
-  const _$OpenApiPropertyEnum(
+class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
+  const _$_OpenApiPropertyEnum(
       {@JsonKey(ignore: true) this.isRequired = false,
       required this.name,
       required final List<String> values,
@@ -5904,8 +6683,8 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
       : _values = values,
         $type = $type ?? 'enumeration';
 
-  factory _$OpenApiPropertyEnum.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiPropertyEnumFromJson(json);
+  factory _$_OpenApiPropertyEnum.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyEnumFromJson(json);
 
   @override
   @JsonKey(ignore: true)
@@ -5928,7 +6707,7 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
   @JsonKey(name: 'default')
   final double? defaultValue;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -5940,7 +6719,7 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiPropertyEnum &&
+            other is _$_OpenApiPropertyEnum &&
             (identical(other.isRequired, isRequired) ||
                 other.isRequired == isRequired) &&
             (identical(other.name, name) || other.name == name) &&
@@ -5966,8 +6745,8 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiPropertyEnumCopyWith<_$OpenApiPropertyEnum> get copyWith =>
-      __$$OpenApiPropertyEnumCopyWithImpl<_$OpenApiPropertyEnum>(
+  _$$_OpenApiPropertyEnumCopyWith<_$_OpenApiPropertyEnum> get copyWith =>
+      __$$_OpenApiPropertyEnumCopyWithImpl<_$_OpenApiPropertyEnum>(
           this, _$identity);
 
   @override
@@ -6175,12 +6954,12 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
     return enumeration(this);
   }
@@ -6188,12 +6967,12 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
     return enumeration?.call(this);
   }
@@ -6201,12 +6980,12 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
     if (enumeration != null) {
@@ -6217,24 +6996,24 @@ class _$OpenApiPropertyEnum implements OpenApiPropertyEnum {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiPropertyEnumToJson(
+    return _$$_OpenApiPropertyEnumToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiPropertyEnum implements OpenApiProperty {
-  const factory OpenApiPropertyEnum(
+abstract class _OpenApiPropertyEnum implements OpenApiProperty {
+  const factory _OpenApiPropertyEnum(
           {@JsonKey(ignore: true) final bool isRequired,
           required final String name,
           required final List<String> values,
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final double? defaultValue}) =
-      _$OpenApiPropertyEnum;
+      _$_OpenApiPropertyEnum;
 
-  factory OpenApiPropertyEnum.fromJson(Map<String, dynamic> json) =
-      _$OpenApiPropertyEnum.fromJson;
+  factory _OpenApiPropertyEnum.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyEnum.fromJson;
 
   @JsonKey(ignore: true)
   bool get isRequired;
@@ -6245,15 +7024,16 @@ abstract class OpenApiPropertyEnum implements OpenApiProperty {
   @JsonKey(name: 'default')
   double? get defaultValue;
   @JsonKey(ignore: true)
-  _$$OpenApiPropertyEnumCopyWith<_$OpenApiPropertyEnum> get copyWith =>
+  _$$_OpenApiPropertyEnumCopyWith<_$_OpenApiPropertyEnum> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiPropertyReferenceCopyWith<$Res> {
-  factory _$$OpenApiPropertyReferenceCopyWith(_$OpenApiPropertyReference value,
-          $Res Function(_$OpenApiPropertyReference) then) =
-      __$$OpenApiPropertyReferenceCopyWithImpl<$Res>;
+abstract class _$$_OpenApiPropertyReferenceCopyWith<$Res> {
+  factory _$$_OpenApiPropertyReferenceCopyWith(
+          _$_OpenApiPropertyReference value,
+          $Res Function(_$_OpenApiPropertyReference) then) =
+      __$$_OpenApiPropertyReferenceCopyWithImpl<$Res>;
   @useResult
   $Res call({OpenApiSchema reference});
 
@@ -6261,11 +7041,11 @@ abstract class _$$OpenApiPropertyReferenceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$OpenApiPropertyReferenceCopyWithImpl<$Res>
-    extends _$OpenApiPropertyCopyWithImpl<$Res, _$OpenApiPropertyReference>
-    implements _$$OpenApiPropertyReferenceCopyWith<$Res> {
-  __$$OpenApiPropertyReferenceCopyWithImpl(_$OpenApiPropertyReference _value,
-      $Res Function(_$OpenApiPropertyReference) _then)
+class __$$_OpenApiPropertyReferenceCopyWithImpl<$Res>
+    extends _$OpenApiPropertyCopyWithImpl<$Res, _$_OpenApiPropertyReference>
+    implements _$$_OpenApiPropertyReferenceCopyWith<$Res> {
+  __$$_OpenApiPropertyReferenceCopyWithImpl(_$_OpenApiPropertyReference _value,
+      $Res Function(_$_OpenApiPropertyReference) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6273,7 +7053,7 @@ class __$$OpenApiPropertyReferenceCopyWithImpl<$Res>
   $Res call({
     Object? reference = null,
   }) {
-    return _then(_$OpenApiPropertyReference(
+    return _then(_$_OpenApiPropertyReference(
       reference: null == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
@@ -6292,18 +7072,18 @@ class __$$OpenApiPropertyReferenceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiPropertyReference implements OpenApiPropertyReference {
-  const _$OpenApiPropertyReference(
+class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
+  const _$_OpenApiPropertyReference(
       {required this.reference, final String? $type})
       : $type = $type ?? 'reference';
 
-  factory _$OpenApiPropertyReference.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiPropertyReferenceFromJson(json);
+  factory _$_OpenApiPropertyReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiPropertyReferenceFromJson(json);
 
   @override
   final OpenApiSchema reference;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -6315,7 +7095,7 @@ class _$OpenApiPropertyReference implements OpenApiPropertyReference {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiPropertyReference &&
+            other is _$_OpenApiPropertyReference &&
             (identical(other.reference, reference) ||
                 other.reference == reference));
   }
@@ -6327,10 +7107,9 @@ class _$OpenApiPropertyReference implements OpenApiPropertyReference {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiPropertyReferenceCopyWith<_$OpenApiPropertyReference>
-      get copyWith =>
-          __$$OpenApiPropertyReferenceCopyWithImpl<_$OpenApiPropertyReference>(
-              this, _$identity);
+  _$$_OpenApiPropertyReferenceCopyWith<_$_OpenApiPropertyReference>
+      get copyWith => __$$_OpenApiPropertyReferenceCopyWithImpl<
+          _$_OpenApiPropertyReference>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6534,12 +7313,12 @@ class _$OpenApiPropertyReference implements OpenApiPropertyReference {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiPropertyString value) string,
-    required TResult Function(OpenApiPropertyInteger value) integer,
-    required TResult Function(OpenApiPropertyDouble value) double,
-    required TResult Function(OpenApiPropertyArray value) array,
-    required TResult Function(OpenApiPropertyEnum value) enumeration,
-    required TResult Function(OpenApiPropertyReference value) reference,
+    required TResult Function(_OpenApiPropertyString value) string,
+    required TResult Function(_OpenApiPropertyInteger value) integer,
+    required TResult Function(_OpenApiPropertyDouble value) double,
+    required TResult Function(_OpenApiPropertyArray value) array,
+    required TResult Function(_OpenApiPropertyEnum value) enumeration,
+    required TResult Function(_OpenApiPropertyReference value) reference,
   }) {
     return reference(this);
   }
@@ -6547,12 +7326,12 @@ class _$OpenApiPropertyReference implements OpenApiPropertyReference {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiPropertyString value)? string,
-    TResult? Function(OpenApiPropertyInteger value)? integer,
-    TResult? Function(OpenApiPropertyDouble value)? double,
-    TResult? Function(OpenApiPropertyArray value)? array,
-    TResult? Function(OpenApiPropertyEnum value)? enumeration,
-    TResult? Function(OpenApiPropertyReference value)? reference,
+    TResult? Function(_OpenApiPropertyString value)? string,
+    TResult? Function(_OpenApiPropertyInteger value)? integer,
+    TResult? Function(_OpenApiPropertyDouble value)? double,
+    TResult? Function(_OpenApiPropertyArray value)? array,
+    TResult? Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult? Function(_OpenApiPropertyReference value)? reference,
   }) {
     return reference?.call(this);
   }
@@ -6560,12 +7339,12 @@ class _$OpenApiPropertyReference implements OpenApiPropertyReference {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiPropertyString value)? string,
-    TResult Function(OpenApiPropertyInteger value)? integer,
-    TResult Function(OpenApiPropertyDouble value)? double,
-    TResult Function(OpenApiPropertyArray value)? array,
-    TResult Function(OpenApiPropertyEnum value)? enumeration,
-    TResult Function(OpenApiPropertyReference value)? reference,
+    TResult Function(_OpenApiPropertyString value)? string,
+    TResult Function(_OpenApiPropertyInteger value)? integer,
+    TResult Function(_OpenApiPropertyDouble value)? double,
+    TResult Function(_OpenApiPropertyArray value)? array,
+    TResult Function(_OpenApiPropertyEnum value)? enumeration,
+    TResult Function(_OpenApiPropertyReference value)? reference,
     required TResult orElse(),
   }) {
     if (reference != null) {
@@ -6576,39 +7355,39 @@ class _$OpenApiPropertyReference implements OpenApiPropertyReference {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiPropertyReferenceToJson(
+    return _$$_OpenApiPropertyReferenceToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiPropertyReference implements OpenApiProperty {
-  const factory OpenApiPropertyReference(
-      {required final OpenApiSchema reference}) = _$OpenApiPropertyReference;
+abstract class _OpenApiPropertyReference implements OpenApiProperty {
+  const factory _OpenApiPropertyReference(
+      {required final OpenApiSchema reference}) = _$_OpenApiPropertyReference;
 
-  factory OpenApiPropertyReference.fromJson(Map<String, dynamic> json) =
-      _$OpenApiPropertyReference.fromJson;
+  factory _OpenApiPropertyReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiPropertyReference.fromJson;
 
   OpenApiSchema get reference;
   @JsonKey(ignore: true)
-  _$$OpenApiPropertyReferenceCopyWith<_$OpenApiPropertyReference>
+  _$$_OpenApiPropertyReferenceCopyWith<_$_OpenApiPropertyReference>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 OpenApiArrayItems _$OpenApiArrayItemsFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
+  switch (json['unionType']) {
     case 'string':
-      return OpenApiArrayItemsString.fromJson(json);
+      return _OpenApiArrayItemsString.fromJson(json);
     case 'integer':
-      return OpenApiArrayItemsInteger.fromJson(json);
+      return _OpenApiArrayItemsInteger.fromJson(json);
     case 'double':
-      return OpenApiArrayItemsDouble.fromJson(json);
+      return _OpenApiArrayItemsDouble.fromJson(json);
     case 'reference':
-      return OpenApiArrayItemsReference.fromJson(json);
+      return _OpenApiArrayItemsReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'OpenApiArrayItems',
-          'Invalid union type "${json['runtimeType']}"!');
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiArrayItems',
+          'Invalid union type "${json['unionType']}"!');
   }
 }
 
@@ -6643,26 +7422,26 @@ mixin _$OpenApiArrayItems {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiArrayItemsString value) string,
-    required TResult Function(OpenApiArrayItemsInteger value) integer,
-    required TResult Function(OpenApiArrayItemsDouble value) double,
-    required TResult Function(OpenApiArrayItemsReference value) reference,
+    required TResult Function(_OpenApiArrayItemsString value) string,
+    required TResult Function(_OpenApiArrayItemsInteger value) integer,
+    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiArrayItemsString value)? string,
-    TResult? Function(OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(OpenApiArrayItemsDouble value)? double,
-    TResult? Function(OpenApiArrayItemsReference value)? reference,
+    TResult? Function(_OpenApiArrayItemsString value)? string,
+    TResult? Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiArrayItemsString value)? string,
-    TResult Function(OpenApiArrayItemsInteger value)? integer,
-    TResult Function(OpenApiArrayItemsDouble value)? double,
-    TResult Function(OpenApiArrayItemsReference value)? reference,
+    TResult Function(_OpenApiArrayItemsString value)? string,
+    TResult Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -6720,11 +7499,11 @@ class _$OpenApiArrayItemsCopyWithImpl<$Res, $Val extends OpenApiArrayItems>
 }
 
 /// @nodoc
-abstract class _$$OpenApiArrayItemsStringCopyWith<$Res>
+abstract class _$$_OpenApiArrayItemsStringCopyWith<$Res>
     implements $OpenApiArrayItemsCopyWith<$Res> {
-  factory _$$OpenApiArrayItemsStringCopyWith(_$OpenApiArrayItemsString value,
-          $Res Function(_$OpenApiArrayItemsString) then) =
-      __$$OpenApiArrayItemsStringCopyWithImpl<$Res>;
+  factory _$$_OpenApiArrayItemsStringCopyWith(_$_OpenApiArrayItemsString value,
+          $Res Function(_$_OpenApiArrayItemsString) then) =
+      __$$_OpenApiArrayItemsStringCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({OpenApiXml? xml});
@@ -6734,11 +7513,11 @@ abstract class _$$OpenApiArrayItemsStringCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$OpenApiArrayItemsStringCopyWithImpl<$Res>
-    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$OpenApiArrayItemsString>
-    implements _$$OpenApiArrayItemsStringCopyWith<$Res> {
-  __$$OpenApiArrayItemsStringCopyWithImpl(_$OpenApiArrayItemsString _value,
-      $Res Function(_$OpenApiArrayItemsString) _then)
+class __$$_OpenApiArrayItemsStringCopyWithImpl<$Res>
+    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$_OpenApiArrayItemsString>
+    implements _$$_OpenApiArrayItemsStringCopyWith<$Res> {
+  __$$_OpenApiArrayItemsStringCopyWithImpl(_$_OpenApiArrayItemsString _value,
+      $Res Function(_$_OpenApiArrayItemsString) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6746,7 +7525,7 @@ class __$$OpenApiArrayItemsStringCopyWithImpl<$Res>
   $Res call({
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiArrayItemsString(
+    return _then(_$_OpenApiArrayItemsString(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -6757,17 +7536,17 @@ class __$$OpenApiArrayItemsStringCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
-  const _$OpenApiArrayItemsString({this.xml, final String? $type})
+class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
+  const _$_OpenApiArrayItemsString({this.xml, final String? $type})
       : $type = $type ?? 'string';
 
-  factory _$OpenApiArrayItemsString.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiArrayItemsStringFromJson(json);
+  factory _$_OpenApiArrayItemsString.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiArrayItemsStringFromJson(json);
 
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -6779,7 +7558,7 @@ class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiArrayItemsString &&
+            other is _$_OpenApiArrayItemsString &&
             (identical(other.xml, xml) || other.xml == xml));
   }
 
@@ -6790,9 +7569,10 @@ class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiArrayItemsStringCopyWith<_$OpenApiArrayItemsString> get copyWith =>
-      __$$OpenApiArrayItemsStringCopyWithImpl<_$OpenApiArrayItemsString>(
-          this, _$identity);
+  _$$_OpenApiArrayItemsStringCopyWith<_$_OpenApiArrayItemsString>
+      get copyWith =>
+          __$$_OpenApiArrayItemsStringCopyWithImpl<_$_OpenApiArrayItemsString>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6835,10 +7615,10 @@ class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiArrayItemsString value) string,
-    required TResult Function(OpenApiArrayItemsInteger value) integer,
-    required TResult Function(OpenApiArrayItemsDouble value) double,
-    required TResult Function(OpenApiArrayItemsReference value) reference,
+    required TResult Function(_OpenApiArrayItemsString value) string,
+    required TResult Function(_OpenApiArrayItemsInteger value) integer,
+    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return string(this);
   }
@@ -6846,10 +7626,10 @@ class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiArrayItemsString value)? string,
-    TResult? Function(OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(OpenApiArrayItemsDouble value)? double,
-    TResult? Function(OpenApiArrayItemsReference value)? reference,
+    TResult? Function(_OpenApiArrayItemsString value)? string,
+    TResult? Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return string?.call(this);
   }
@@ -6857,10 +7637,10 @@ class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiArrayItemsString value)? string,
-    TResult Function(OpenApiArrayItemsInteger value)? integer,
-    TResult Function(OpenApiArrayItemsDouble value)? double,
-    TResult Function(OpenApiArrayItemsReference value)? reference,
+    TResult Function(_OpenApiArrayItemsString value)? string,
+    TResult Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
     if (string != null) {
@@ -6871,33 +7651,34 @@ class _$OpenApiArrayItemsString implements OpenApiArrayItemsString {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiArrayItemsStringToJson(
+    return _$$_OpenApiArrayItemsStringToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiArrayItemsString implements OpenApiArrayItems {
-  const factory OpenApiArrayItemsString({final OpenApiXml? xml}) =
-      _$OpenApiArrayItemsString;
+abstract class _OpenApiArrayItemsString implements OpenApiArrayItems {
+  const factory _OpenApiArrayItemsString({final OpenApiXml? xml}) =
+      _$_OpenApiArrayItemsString;
 
-  factory OpenApiArrayItemsString.fromJson(Map<String, dynamic> json) =
-      _$OpenApiArrayItemsString.fromJson;
+  factory _OpenApiArrayItemsString.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiArrayItemsString.fromJson;
 
   @override
   OpenApiXml? get xml;
   @override
   @JsonKey(ignore: true)
-  _$$OpenApiArrayItemsStringCopyWith<_$OpenApiArrayItemsString> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_OpenApiArrayItemsStringCopyWith<_$_OpenApiArrayItemsString>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiArrayItemsIntegerCopyWith<$Res>
+abstract class _$$_OpenApiArrayItemsIntegerCopyWith<$Res>
     implements $OpenApiArrayItemsCopyWith<$Res> {
-  factory _$$OpenApiArrayItemsIntegerCopyWith(_$OpenApiArrayItemsInteger value,
-          $Res Function(_$OpenApiArrayItemsInteger) then) =
-      __$$OpenApiArrayItemsIntegerCopyWithImpl<$Res>;
+  factory _$$_OpenApiArrayItemsIntegerCopyWith(
+          _$_OpenApiArrayItemsInteger value,
+          $Res Function(_$_OpenApiArrayItemsInteger) then) =
+      __$$_OpenApiArrayItemsIntegerCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({OpenApiXml? xml});
@@ -6907,11 +7688,11 @@ abstract class _$$OpenApiArrayItemsIntegerCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$OpenApiArrayItemsIntegerCopyWithImpl<$Res>
-    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$OpenApiArrayItemsInteger>
-    implements _$$OpenApiArrayItemsIntegerCopyWith<$Res> {
-  __$$OpenApiArrayItemsIntegerCopyWithImpl(_$OpenApiArrayItemsInteger _value,
-      $Res Function(_$OpenApiArrayItemsInteger) _then)
+class __$$_OpenApiArrayItemsIntegerCopyWithImpl<$Res>
+    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$_OpenApiArrayItemsInteger>
+    implements _$$_OpenApiArrayItemsIntegerCopyWith<$Res> {
+  __$$_OpenApiArrayItemsIntegerCopyWithImpl(_$_OpenApiArrayItemsInteger _value,
+      $Res Function(_$_OpenApiArrayItemsInteger) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -6919,7 +7700,7 @@ class __$$OpenApiArrayItemsIntegerCopyWithImpl<$Res>
   $Res call({
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiArrayItemsInteger(
+    return _then(_$_OpenApiArrayItemsInteger(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -6930,17 +7711,17 @@ class __$$OpenApiArrayItemsIntegerCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
-  const _$OpenApiArrayItemsInteger({this.xml, final String? $type})
+class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
+  const _$_OpenApiArrayItemsInteger({this.xml, final String? $type})
       : $type = $type ?? 'integer';
 
-  factory _$OpenApiArrayItemsInteger.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiArrayItemsIntegerFromJson(json);
+  factory _$_OpenApiArrayItemsInteger.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiArrayItemsIntegerFromJson(json);
 
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -6952,7 +7733,7 @@ class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiArrayItemsInteger &&
+            other is _$_OpenApiArrayItemsInteger &&
             (identical(other.xml, xml) || other.xml == xml));
   }
 
@@ -6963,10 +7744,9 @@ class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiArrayItemsIntegerCopyWith<_$OpenApiArrayItemsInteger>
-      get copyWith =>
-          __$$OpenApiArrayItemsIntegerCopyWithImpl<_$OpenApiArrayItemsInteger>(
-              this, _$identity);
+  _$$_OpenApiArrayItemsIntegerCopyWith<_$_OpenApiArrayItemsInteger>
+      get copyWith => __$$_OpenApiArrayItemsIntegerCopyWithImpl<
+          _$_OpenApiArrayItemsInteger>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7009,10 +7789,10 @@ class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiArrayItemsString value) string,
-    required TResult Function(OpenApiArrayItemsInteger value) integer,
-    required TResult Function(OpenApiArrayItemsDouble value) double,
-    required TResult Function(OpenApiArrayItemsReference value) reference,
+    required TResult Function(_OpenApiArrayItemsString value) string,
+    required TResult Function(_OpenApiArrayItemsInteger value) integer,
+    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return integer(this);
   }
@@ -7020,10 +7800,10 @@ class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiArrayItemsString value)? string,
-    TResult? Function(OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(OpenApiArrayItemsDouble value)? double,
-    TResult? Function(OpenApiArrayItemsReference value)? reference,
+    TResult? Function(_OpenApiArrayItemsString value)? string,
+    TResult? Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return integer?.call(this);
   }
@@ -7031,10 +7811,10 @@ class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiArrayItemsString value)? string,
-    TResult Function(OpenApiArrayItemsInteger value)? integer,
-    TResult Function(OpenApiArrayItemsDouble value)? double,
-    TResult Function(OpenApiArrayItemsReference value)? reference,
+    TResult Function(_OpenApiArrayItemsString value)? string,
+    TResult Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
     if (integer != null) {
@@ -7045,33 +7825,33 @@ class _$OpenApiArrayItemsInteger implements OpenApiArrayItemsInteger {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiArrayItemsIntegerToJson(
+    return _$$_OpenApiArrayItemsIntegerToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiArrayItemsInteger implements OpenApiArrayItems {
-  const factory OpenApiArrayItemsInteger({final OpenApiXml? xml}) =
-      _$OpenApiArrayItemsInteger;
+abstract class _OpenApiArrayItemsInteger implements OpenApiArrayItems {
+  const factory _OpenApiArrayItemsInteger({final OpenApiXml? xml}) =
+      _$_OpenApiArrayItemsInteger;
 
-  factory OpenApiArrayItemsInteger.fromJson(Map<String, dynamic> json) =
-      _$OpenApiArrayItemsInteger.fromJson;
+  factory _OpenApiArrayItemsInteger.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiArrayItemsInteger.fromJson;
 
   @override
   OpenApiXml? get xml;
   @override
   @JsonKey(ignore: true)
-  _$$OpenApiArrayItemsIntegerCopyWith<_$OpenApiArrayItemsInteger>
+  _$$_OpenApiArrayItemsIntegerCopyWith<_$_OpenApiArrayItemsInteger>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiArrayItemsDoubleCopyWith<$Res>
+abstract class _$$_OpenApiArrayItemsDoubleCopyWith<$Res>
     implements $OpenApiArrayItemsCopyWith<$Res> {
-  factory _$$OpenApiArrayItemsDoubleCopyWith(_$OpenApiArrayItemsDouble value,
-          $Res Function(_$OpenApiArrayItemsDouble) then) =
-      __$$OpenApiArrayItemsDoubleCopyWithImpl<$Res>;
+  factory _$$_OpenApiArrayItemsDoubleCopyWith(_$_OpenApiArrayItemsDouble value,
+          $Res Function(_$_OpenApiArrayItemsDouble) then) =
+      __$$_OpenApiArrayItemsDoubleCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({OpenApiXml? xml});
@@ -7081,11 +7861,11 @@ abstract class _$$OpenApiArrayItemsDoubleCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$OpenApiArrayItemsDoubleCopyWithImpl<$Res>
-    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$OpenApiArrayItemsDouble>
-    implements _$$OpenApiArrayItemsDoubleCopyWith<$Res> {
-  __$$OpenApiArrayItemsDoubleCopyWithImpl(_$OpenApiArrayItemsDouble _value,
-      $Res Function(_$OpenApiArrayItemsDouble) _then)
+class __$$_OpenApiArrayItemsDoubleCopyWithImpl<$Res>
+    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$_OpenApiArrayItemsDouble>
+    implements _$$_OpenApiArrayItemsDoubleCopyWith<$Res> {
+  __$$_OpenApiArrayItemsDoubleCopyWithImpl(_$_OpenApiArrayItemsDouble _value,
+      $Res Function(_$_OpenApiArrayItemsDouble) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7093,7 +7873,7 @@ class __$$OpenApiArrayItemsDoubleCopyWithImpl<$Res>
   $Res call({
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiArrayItemsDouble(
+    return _then(_$_OpenApiArrayItemsDouble(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -7104,17 +7884,17 @@ class __$$OpenApiArrayItemsDoubleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
-  const _$OpenApiArrayItemsDouble({this.xml, final String? $type})
+class _$_OpenApiArrayItemsDouble implements _OpenApiArrayItemsDouble {
+  const _$_OpenApiArrayItemsDouble({this.xml, final String? $type})
       : $type = $type ?? 'double';
 
-  factory _$OpenApiArrayItemsDouble.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiArrayItemsDoubleFromJson(json);
+  factory _$_OpenApiArrayItemsDouble.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiArrayItemsDoubleFromJson(json);
 
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -7126,7 +7906,7 @@ class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiArrayItemsDouble &&
+            other is _$_OpenApiArrayItemsDouble &&
             (identical(other.xml, xml) || other.xml == xml));
   }
 
@@ -7137,9 +7917,10 @@ class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiArrayItemsDoubleCopyWith<_$OpenApiArrayItemsDouble> get copyWith =>
-      __$$OpenApiArrayItemsDoubleCopyWithImpl<_$OpenApiArrayItemsDouble>(
-          this, _$identity);
+  _$$_OpenApiArrayItemsDoubleCopyWith<_$_OpenApiArrayItemsDouble>
+      get copyWith =>
+          __$$_OpenApiArrayItemsDoubleCopyWithImpl<_$_OpenApiArrayItemsDouble>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7182,10 +7963,10 @@ class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiArrayItemsString value) string,
-    required TResult Function(OpenApiArrayItemsInteger value) integer,
-    required TResult Function(OpenApiArrayItemsDouble value) double,
-    required TResult Function(OpenApiArrayItemsReference value) reference,
+    required TResult Function(_OpenApiArrayItemsString value) string,
+    required TResult Function(_OpenApiArrayItemsInteger value) integer,
+    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return double(this);
   }
@@ -7193,10 +7974,10 @@ class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiArrayItemsString value)? string,
-    TResult? Function(OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(OpenApiArrayItemsDouble value)? double,
-    TResult? Function(OpenApiArrayItemsReference value)? reference,
+    TResult? Function(_OpenApiArrayItemsString value)? string,
+    TResult? Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return double?.call(this);
   }
@@ -7204,10 +7985,10 @@ class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiArrayItemsString value)? string,
-    TResult Function(OpenApiArrayItemsInteger value)? integer,
-    TResult Function(OpenApiArrayItemsDouble value)? double,
-    TResult Function(OpenApiArrayItemsReference value)? reference,
+    TResult Function(_OpenApiArrayItemsString value)? string,
+    TResult Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
     if (double != null) {
@@ -7218,34 +7999,34 @@ class _$OpenApiArrayItemsDouble implements OpenApiArrayItemsDouble {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiArrayItemsDoubleToJson(
+    return _$$_OpenApiArrayItemsDoubleToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiArrayItemsDouble implements OpenApiArrayItems {
-  const factory OpenApiArrayItemsDouble({final OpenApiXml? xml}) =
-      _$OpenApiArrayItemsDouble;
+abstract class _OpenApiArrayItemsDouble implements OpenApiArrayItems {
+  const factory _OpenApiArrayItemsDouble({final OpenApiXml? xml}) =
+      _$_OpenApiArrayItemsDouble;
 
-  factory OpenApiArrayItemsDouble.fromJson(Map<String, dynamic> json) =
-      _$OpenApiArrayItemsDouble.fromJson;
+  factory _OpenApiArrayItemsDouble.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiArrayItemsDouble.fromJson;
 
   @override
   OpenApiXml? get xml;
   @override
   @JsonKey(ignore: true)
-  _$$OpenApiArrayItemsDoubleCopyWith<_$OpenApiArrayItemsDouble> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_OpenApiArrayItemsDoubleCopyWith<_$_OpenApiArrayItemsDouble>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$OpenApiArrayItemsReferenceCopyWith<$Res>
+abstract class _$$_OpenApiArrayItemsReferenceCopyWith<$Res>
     implements $OpenApiArrayItemsCopyWith<$Res> {
-  factory _$$OpenApiArrayItemsReferenceCopyWith(
-          _$OpenApiArrayItemsReference value,
-          $Res Function(_$OpenApiArrayItemsReference) then) =
-      __$$OpenApiArrayItemsReferenceCopyWithImpl<$Res>;
+  factory _$$_OpenApiArrayItemsReferenceCopyWith(
+          _$_OpenApiArrayItemsReference value,
+          $Res Function(_$_OpenApiArrayItemsReference) then) =
+      __$$_OpenApiArrayItemsReferenceCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({OpenApiSchema reference, OpenApiXml? xml});
@@ -7256,12 +8037,12 @@ abstract class _$$OpenApiArrayItemsReferenceCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$OpenApiArrayItemsReferenceCopyWithImpl<$Res>
-    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$OpenApiArrayItemsReference>
-    implements _$$OpenApiArrayItemsReferenceCopyWith<$Res> {
-  __$$OpenApiArrayItemsReferenceCopyWithImpl(
-      _$OpenApiArrayItemsReference _value,
-      $Res Function(_$OpenApiArrayItemsReference) _then)
+class __$$_OpenApiArrayItemsReferenceCopyWithImpl<$Res>
+    extends _$OpenApiArrayItemsCopyWithImpl<$Res, _$_OpenApiArrayItemsReference>
+    implements _$$_OpenApiArrayItemsReferenceCopyWith<$Res> {
+  __$$_OpenApiArrayItemsReferenceCopyWithImpl(
+      _$_OpenApiArrayItemsReference _value,
+      $Res Function(_$_OpenApiArrayItemsReference) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -7270,7 +8051,7 @@ class __$$OpenApiArrayItemsReferenceCopyWithImpl<$Res>
     Object? reference = null,
     Object? xml = freezed,
   }) {
-    return _then(_$OpenApiArrayItemsReference(
+    return _then(_$_OpenApiArrayItemsReference(
       reference: null == reference
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
@@ -7293,20 +8074,20 @@ class __$$OpenApiArrayItemsReferenceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
-  const _$OpenApiArrayItemsReference(
+class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
+  const _$_OpenApiArrayItemsReference(
       {required this.reference, this.xml, final String? $type})
       : $type = $type ?? 'reference';
 
-  factory _$OpenApiArrayItemsReference.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiArrayItemsReferenceFromJson(json);
+  factory _$_OpenApiArrayItemsReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiArrayItemsReferenceFromJson(json);
 
   @override
   final OpenApiSchema reference;
   @override
   final OpenApiXml? xml;
 
-  @JsonKey(name: 'runtimeType')
+  @JsonKey(name: 'unionType')
   final String $type;
 
   @override
@@ -7318,7 +8099,7 @@ class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OpenApiArrayItemsReference &&
+            other is _$_OpenApiArrayItemsReference &&
             (identical(other.reference, reference) ||
                 other.reference == reference) &&
             (identical(other.xml, xml) || other.xml == xml));
@@ -7331,9 +8112,9 @@ class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OpenApiArrayItemsReferenceCopyWith<_$OpenApiArrayItemsReference>
-      get copyWith => __$$OpenApiArrayItemsReferenceCopyWithImpl<
-          _$OpenApiArrayItemsReference>(this, _$identity);
+  _$$_OpenApiArrayItemsReferenceCopyWith<_$_OpenApiArrayItemsReference>
+      get copyWith => __$$_OpenApiArrayItemsReferenceCopyWithImpl<
+          _$_OpenApiArrayItemsReference>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -7376,10 +8157,10 @@ class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(OpenApiArrayItemsString value) string,
-    required TResult Function(OpenApiArrayItemsInteger value) integer,
-    required TResult Function(OpenApiArrayItemsDouble value) double,
-    required TResult Function(OpenApiArrayItemsReference value) reference,
+    required TResult Function(_OpenApiArrayItemsString value) string,
+    required TResult Function(_OpenApiArrayItemsInteger value) integer,
+    required TResult Function(_OpenApiArrayItemsDouble value) double,
+    required TResult Function(_OpenApiArrayItemsReference value) reference,
   }) {
     return reference(this);
   }
@@ -7387,10 +8168,10 @@ class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(OpenApiArrayItemsString value)? string,
-    TResult? Function(OpenApiArrayItemsInteger value)? integer,
-    TResult? Function(OpenApiArrayItemsDouble value)? double,
-    TResult? Function(OpenApiArrayItemsReference value)? reference,
+    TResult? Function(_OpenApiArrayItemsString value)? string,
+    TResult? Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult? Function(_OpenApiArrayItemsDouble value)? double,
+    TResult? Function(_OpenApiArrayItemsReference value)? reference,
   }) {
     return reference?.call(this);
   }
@@ -7398,10 +8179,10 @@ class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(OpenApiArrayItemsString value)? string,
-    TResult Function(OpenApiArrayItemsInteger value)? integer,
-    TResult Function(OpenApiArrayItemsDouble value)? double,
-    TResult Function(OpenApiArrayItemsReference value)? reference,
+    TResult Function(_OpenApiArrayItemsString value)? string,
+    TResult Function(_OpenApiArrayItemsInteger value)? integer,
+    TResult Function(_OpenApiArrayItemsDouble value)? double,
+    TResult Function(_OpenApiArrayItemsReference value)? reference,
     required TResult orElse(),
   }) {
     if (reference != null) {
@@ -7412,26 +8193,26 @@ class _$OpenApiArrayItemsReference implements OpenApiArrayItemsReference {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OpenApiArrayItemsReferenceToJson(
+    return _$$_OpenApiArrayItemsReferenceToJson(
       this,
     );
   }
 }
 
-abstract class OpenApiArrayItemsReference implements OpenApiArrayItems {
-  const factory OpenApiArrayItemsReference(
+abstract class _OpenApiArrayItemsReference implements OpenApiArrayItems {
+  const factory _OpenApiArrayItemsReference(
       {required final OpenApiSchema reference,
-      final OpenApiXml? xml}) = _$OpenApiArrayItemsReference;
+      final OpenApiXml? xml}) = _$_OpenApiArrayItemsReference;
 
-  factory OpenApiArrayItemsReference.fromJson(Map<String, dynamic> json) =
-      _$OpenApiArrayItemsReference.fromJson;
+  factory _OpenApiArrayItemsReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiArrayItemsReference.fromJson;
 
   OpenApiSchema get reference;
   @override
   OpenApiXml? get xml;
   @override
   @JsonKey(ignore: true)
-  _$$OpenApiArrayItemsReferenceCopyWith<_$OpenApiArrayItemsReference>
+  _$$_OpenApiArrayItemsReferenceCopyWith<_$_OpenApiArrayItemsReference>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -7578,18 +8359,71 @@ abstract class _OpenApiReference implements OpenApiReference {
 }
 
 OpenApiRequestBody _$OpenApiRequestBodyFromJson(Map<String, dynamic> json) {
-  return _OpenApiRequestBody.fromJson(json);
+  switch (json['unionType']) {
+    case 'default':
+      return _OpenApiRequestBody.fromJson(json);
+    case 'reference':
+      return _OpenApiRequestBodyReference.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiRequestBody',
+          'Invalid union type "${json['unionType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$OpenApiRequestBody {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiRequestBodyCopyWith<OpenApiRequestBody> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)
+        $default, {
+    required TResult Function(OpenApiRequestBody ref) reference,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)?
+        $default, {
+    TResult? Function(OpenApiRequestBody ref)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)?
+        $default, {
+    TResult Function(OpenApiRequestBody ref)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiRequestBody value) $default, {
+    required TResult Function(_OpenApiRequestBodyReference value) reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiRequestBody value)? $default, {
+    TResult? Function(_OpenApiRequestBodyReference value)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiRequestBody value)? $default, {
+    TResult Function(_OpenApiRequestBodyReference value)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -7597,8 +8431,6 @@ abstract class $OpenApiRequestBodyCopyWith<$Res> {
   factory $OpenApiRequestBodyCopyWith(
           OpenApiRequestBody value, $Res Function(OpenApiRequestBody) then) =
       _$OpenApiRequestBodyCopyWithImpl<$Res, OpenApiRequestBody>;
-  @useResult
-  $Res call({String? description});
 }
 
 /// @nodoc
@@ -7610,30 +8442,18 @@ class _$OpenApiRequestBodyCopyWithImpl<$Res, $Val extends OpenApiRequestBody>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_OpenApiRequestBodyCopyWith<$Res>
-    implements $OpenApiRequestBodyCopyWith<$Res> {
+abstract class _$$_OpenApiRequestBodyCopyWith<$Res> {
   factory _$$_OpenApiRequestBodyCopyWith(_$_OpenApiRequestBody value,
           $Res Function(_$_OpenApiRequestBody) then) =
       __$$_OpenApiRequestBodyCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? description,
+      Map<String, OpenApiMediaType>? content,
+      @JsonKey(name: 'required') bool? isRequired});
 }
 
 /// @nodoc
@@ -7648,12 +8468,22 @@ class __$$_OpenApiRequestBodyCopyWithImpl<$Res>
   @override
   $Res call({
     Object? description = freezed,
+    Object? content = freezed,
+    Object? isRequired = freezed,
   }) {
     return _then(_$_OpenApiRequestBody(
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      content: freezed == content
+          ? _value._content
+          : content // ignore: cast_nullable_to_non_nullable
+              as Map<String, OpenApiMediaType>?,
+      isRequired: freezed == isRequired
+          ? _value.isRequired
+          : isRequired // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -7661,18 +8491,52 @@ class __$$_OpenApiRequestBodyCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiRequestBody implements _OpenApiRequestBody {
-  const _$_OpenApiRequestBody({this.description});
+  const _$_OpenApiRequestBody(
+      {this.description,
+      final Map<String, OpenApiMediaType>? content,
+      @JsonKey(name: 'required') this.isRequired,
+      final String? $type})
+      : _content = content,
+        $type = $type ?? 'default';
 
   factory _$_OpenApiRequestBody.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiRequestBodyFromJson(json);
 
-  /// Text
+  /// A brief description of the request body. This could contain examples of use.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
   @override
   final String? description;
 
+  /// The content of the request body. The key is a media type or
+  /// media type range and the value describes it. For requests that
+  /// match multiple keys, only the most specific key is applicable.
+  /// e.g. `text/plain` overrides `text/*`
+  final Map<String, OpenApiMediaType>? _content;
+
+  /// The content of the request body. The key is a media type or
+  /// media type range and the value describes it. For requests that
+  /// match multiple keys, only the most specific key is applicable.
+  /// e.g. `text/plain` overrides `text/*`
+  @override
+  Map<String, OpenApiMediaType>? get content {
+    final value = _content;
+    if (value == null) return null;
+    if (_content is EqualUnmodifiableMapView) return _content;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// Determines if the request body is required in the request.
+  @override
+  @JsonKey(name: 'required')
+  final bool? isRequired;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
   @override
   String toString() {
-    return 'OpenApiRequestBody(description: $description)';
+    return 'OpenApiRequestBody(description: $description, content: $content, isRequired: $isRequired)';
   }
 
   @override
@@ -7681,12 +8545,16 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiRequestBody &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other._content, _content) &&
+            (identical(other.isRequired, isRequired) ||
+                other.isRequired == isRequired));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, description,
+      const DeepCollectionEquality().hash(_content), isRequired);
 
   @JsonKey(ignore: true)
   @override
@@ -7694,6 +8562,80 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
   _$$_OpenApiRequestBodyCopyWith<_$_OpenApiRequestBody> get copyWith =>
       __$$_OpenApiRequestBodyCopyWithImpl<_$_OpenApiRequestBody>(
           this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)
+        $default, {
+    required TResult Function(OpenApiRequestBody ref) reference,
+  }) {
+    return $default(description, content, isRequired);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)?
+        $default, {
+    TResult? Function(OpenApiRequestBody ref)? reference,
+  }) {
+    return $default?.call(description, content, isRequired);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)?
+        $default, {
+    TResult Function(OpenApiRequestBody ref)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(description, content, isRequired);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiRequestBody value) $default, {
+    required TResult Function(_OpenApiRequestBodyReference value) reference,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiRequestBody value)? $default, {
+    TResult? Function(_OpenApiRequestBodyReference value)? reference,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiRequestBody value)? $default, {
+    TResult Function(_OpenApiRequestBodyReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -7704,20 +8646,209 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
 }
 
 abstract class _OpenApiRequestBody implements OpenApiRequestBody {
-  const factory _OpenApiRequestBody({final String? description}) =
+  const factory _OpenApiRequestBody(
+          {final String? description,
+          final Map<String, OpenApiMediaType>? content,
+          @JsonKey(name: 'required') final bool? isRequired}) =
       _$_OpenApiRequestBody;
 
   factory _OpenApiRequestBody.fromJson(Map<String, dynamic> json) =
       _$_OpenApiRequestBody.fromJson;
 
-  @override
-
-  /// Text
+  /// A brief description of the request body. This could contain examples of use.
+  /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
   String? get description;
-  @override
+
+  /// The content of the request body. The key is a media type or
+  /// media type range and the value describes it. For requests that
+  /// match multiple keys, only the most specific key is applicable.
+  /// e.g. `text/plain` overrides `text/*`
+  Map<String, OpenApiMediaType>? get content;
+
+  /// Determines if the request body is required in the request.
+  @JsonKey(name: 'required')
+  bool? get isRequired;
   @JsonKey(ignore: true)
   _$$_OpenApiRequestBodyCopyWith<_$_OpenApiRequestBody> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiRequestBodyReferenceCopyWith<$Res> {
+  factory _$$_OpenApiRequestBodyReferenceCopyWith(
+          _$_OpenApiRequestBodyReference value,
+          $Res Function(_$_OpenApiRequestBodyReference) then) =
+      __$$_OpenApiRequestBodyReferenceCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OpenApiRequestBody ref});
+
+  $OpenApiRequestBodyCopyWith<$Res> get ref;
+}
+
+/// @nodoc
+class __$$_OpenApiRequestBodyReferenceCopyWithImpl<$Res>
+    extends _$OpenApiRequestBodyCopyWithImpl<$Res,
+        _$_OpenApiRequestBodyReference>
+    implements _$$_OpenApiRequestBodyReferenceCopyWith<$Res> {
+  __$$_OpenApiRequestBodyReferenceCopyWithImpl(
+      _$_OpenApiRequestBodyReference _value,
+      $Res Function(_$_OpenApiRequestBodyReference) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ref = null,
+  }) {
+    return _then(_$_OpenApiRequestBodyReference(
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as OpenApiRequestBody,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiRequestBodyCopyWith<$Res> get ref {
+    return $OpenApiRequestBodyCopyWith<$Res>(_value.ref, (value) {
+      return _then(_value.copyWith(ref: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiRequestBodyReference implements _OpenApiRequestBodyReference {
+  const _$_OpenApiRequestBodyReference({required this.ref, final String? $type})
+      : $type = $type ?? 'reference';
+
+  factory _$_OpenApiRequestBodyReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiRequestBodyReferenceFromJson(json);
+
+  @override
+  final OpenApiRequestBody ref;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiRequestBody.reference(ref: $ref)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiRequestBodyReference &&
+            (identical(other.ref, ref) || other.ref == ref));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, ref);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiRequestBodyReferenceCopyWith<_$_OpenApiRequestBodyReference>
+      get copyWith => __$$_OpenApiRequestBodyReferenceCopyWithImpl<
+          _$_OpenApiRequestBodyReference>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)
+        $default, {
+    required TResult Function(OpenApiRequestBody ref) reference,
+  }) {
+    return reference(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)?
+        $default, {
+    TResult? Function(OpenApiRequestBody ref)? reference,
+  }) {
+    return reference?.call(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? description,
+            Map<String, OpenApiMediaType>? content,
+            @JsonKey(name: 'required') bool? isRequired)?
+        $default, {
+    TResult Function(OpenApiRequestBody ref)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(ref);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiRequestBody value) $default, {
+    required TResult Function(_OpenApiRequestBodyReference value) reference,
+  }) {
+    return reference(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiRequestBody value)? $default, {
+    TResult? Function(_OpenApiRequestBodyReference value)? reference,
+  }) {
+    return reference?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiRequestBody value)? $default, {
+    TResult Function(_OpenApiRequestBodyReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiRequestBodyReferenceToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiRequestBodyReference implements OpenApiRequestBody {
+  const factory _OpenApiRequestBodyReference(
+      {required final OpenApiRequestBody ref}) = _$_OpenApiRequestBodyReference;
+
+  factory _OpenApiRequestBodyReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiRequestBodyReference.fromJson;
+
+  OpenApiRequestBody get ref;
+  @JsonKey(ignore: true)
+  _$$_OpenApiRequestBodyReferenceCopyWith<_$_OpenApiRequestBodyReference>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 OpenApiResponse _$OpenApiResponseFromJson(Map<String, dynamic> json) {
@@ -8005,30 +9136,77 @@ abstract class _OpenApiResponses implements OpenApiResponses {
 }
 
 OpenApiSchema _$OpenApiSchemaFromJson(Map<String, dynamic> json) {
-  return _OpenApiSchema.fromJson(json);
+  switch (json['unionType']) {
+    case 'default':
+      return _OpenApiSchema.fromJson(json);
+    case 'reference':
+      return _OpenApiSchemaReference.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiSchema',
+          'Invalid union type "${json['unionType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$OpenApiSchema {
-  /// Adds support for polymorphism.
-  /// The discriminator is an object name that is used to differentiate between
-  /// other schemas which may satisfy the payload description
-  /// See [Composition and Inheritance](https://swagger.io/specification/#schema-composition) for more details.
-  OpenApiDiscriminator? get discriminator => throw _privateConstructorUsedError;
-
-  /// Additional external documentation for this schema.
-  OpenApiExternalDocs? get externalDocs => throw _privateConstructorUsedError;
-
-  /// The properties of the schema
-  List<OpenApiProperty>? get properties => throw _privateConstructorUsedError;
-
-  /// Adds additional metadata to describe the XML representation of this property.
-  OpenApiXml? get xml => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiSchemaCopyWith<OpenApiSchema> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)
+        $default, {
+    required TResult Function(OpenApiSchema ref) reference,
+  }) =>
       throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult? Function(OpenApiSchema ref)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult Function(OpenApiSchema ref)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value) $default, {
+    required TResult Function(_OpenApiSchemaReference value) reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiSchema value)? $default, {
+    TResult? Function(_OpenApiSchemaReference value)? reference,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value)? $default, {
+    TResult Function(_OpenApiSchemaReference value)? reference,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -8036,16 +9214,6 @@ abstract class $OpenApiSchemaCopyWith<$Res> {
   factory $OpenApiSchemaCopyWith(
           OpenApiSchema value, $Res Function(OpenApiSchema) then) =
       _$OpenApiSchemaCopyWithImpl<$Res, OpenApiSchema>;
-  @useResult
-  $Res call(
-      {OpenApiDiscriminator? discriminator,
-      OpenApiExternalDocs? externalDocs,
-      List<OpenApiProperty>? properties,
-      OpenApiXml? xml});
-
-  $OpenApiDiscriminatorCopyWith<$Res>? get discriminator;
-  $OpenApiExternalDocsCopyWith<$Res>? get externalDocs;
-  $OpenApiXmlCopyWith<$Res>? get xml;
 }
 
 /// @nodoc
@@ -8057,91 +9225,23 @@ class _$OpenApiSchemaCopyWithImpl<$Res, $Val extends OpenApiSchema>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? discriminator = freezed,
-    Object? externalDocs = freezed,
-    Object? properties = freezed,
-    Object? xml = freezed,
-  }) {
-    return _then(_value.copyWith(
-      discriminator: freezed == discriminator
-          ? _value.discriminator
-          : discriminator // ignore: cast_nullable_to_non_nullable
-              as OpenApiDiscriminator?,
-      externalDocs: freezed == externalDocs
-          ? _value.externalDocs
-          : externalDocs // ignore: cast_nullable_to_non_nullable
-              as OpenApiExternalDocs?,
-      properties: freezed == properties
-          ? _value.properties
-          : properties // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiProperty>?,
-      xml: freezed == xml
-          ? _value.xml
-          : xml // ignore: cast_nullable_to_non_nullable
-              as OpenApiXml?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiDiscriminatorCopyWith<$Res>? get discriminator {
-    if (_value.discriminator == null) {
-      return null;
-    }
-
-    return $OpenApiDiscriminatorCopyWith<$Res>(_value.discriminator!, (value) {
-      return _then(_value.copyWith(discriminator: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiExternalDocsCopyWith<$Res>? get externalDocs {
-    if (_value.externalDocs == null) {
-      return null;
-    }
-
-    return $OpenApiExternalDocsCopyWith<$Res>(_value.externalDocs!, (value) {
-      return _then(_value.copyWith(externalDocs: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiXmlCopyWith<$Res>? get xml {
-    if (_value.xml == null) {
-      return null;
-    }
-
-    return $OpenApiXmlCopyWith<$Res>(_value.xml!, (value) {
-      return _then(_value.copyWith(xml: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_OpenApiSchemaCopyWith<$Res>
-    implements $OpenApiSchemaCopyWith<$Res> {
+abstract class _$$_OpenApiSchemaCopyWith<$Res> {
   factory _$$_OpenApiSchemaCopyWith(
           _$_OpenApiSchema value, $Res Function(_$_OpenApiSchema) then) =
       __$$_OpenApiSchemaCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
-      {OpenApiDiscriminator? discriminator,
+      {String name,
+      OpenApiDiscriminator? discriminator,
       OpenApiExternalDocs? externalDocs,
       List<OpenApiProperty>? properties,
       OpenApiXml? xml});
 
-  @override
   $OpenApiDiscriminatorCopyWith<$Res>? get discriminator;
-  @override
   $OpenApiExternalDocsCopyWith<$Res>? get externalDocs;
-  @override
   $OpenApiXmlCopyWith<$Res>? get xml;
 }
 
@@ -8156,12 +9256,17 @@ class __$$_OpenApiSchemaCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
     Object? properties = freezed,
     Object? xml = freezed,
   }) {
     return _then(_$_OpenApiSchema(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       discriminator: freezed == discriminator
           ? _value.discriminator
           : discriminator // ignore: cast_nullable_to_non_nullable
@@ -8180,20 +9285,63 @@ class __$$_OpenApiSchemaCopyWithImpl<$Res>
               as OpenApiXml?,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiDiscriminatorCopyWith<$Res>? get discriminator {
+    if (_value.discriminator == null) {
+      return null;
+    }
+
+    return $OpenApiDiscriminatorCopyWith<$Res>(_value.discriminator!, (value) {
+      return _then(_value.copyWith(discriminator: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiExternalDocsCopyWith<$Res>? get externalDocs {
+    if (_value.externalDocs == null) {
+      return null;
+    }
+
+    return $OpenApiExternalDocsCopyWith<$Res>(_value.externalDocs!, (value) {
+      return _then(_value.copyWith(externalDocs: value));
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiXmlCopyWith<$Res>? get xml {
+    if (_value.xml == null) {
+      return null;
+    }
+
+    return $OpenApiXmlCopyWith<$Res>(_value.xml!, (value) {
+      return _then(_value.copyWith(xml: value));
+    });
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiSchema implements _OpenApiSchema {
   const _$_OpenApiSchema(
-      {this.discriminator,
+      {required this.name,
+      this.discriminator,
       this.externalDocs,
       final List<OpenApiProperty>? properties,
-      this.xml})
-      : _properties = properties;
+      this.xml,
+      final String? $type})
+      : _properties = properties,
+        $type = $type ?? 'default';
 
   factory _$_OpenApiSchema.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiSchemaFromJson(json);
+
+  /// The class name of this schema
+  @override
+  final String name;
 
   /// Adds support for polymorphism.
   /// The discriminator is an object name that is used to differentiate between
@@ -8223,9 +9371,12 @@ class _$_OpenApiSchema implements _OpenApiSchema {
   @override
   final OpenApiXml? xml;
 
+  @JsonKey(name: 'unionType')
+  final String $type;
+
   @override
   String toString() {
-    return 'OpenApiSchema(discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
+    return 'OpenApiSchema(name: $name, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
   }
 
   @override
@@ -8233,6 +9384,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiSchema &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.discriminator, discriminator) ||
                 other.discriminator == discriminator) &&
             (identical(other.externalDocs, externalDocs) ||
@@ -8244,14 +9396,94 @@ class _$_OpenApiSchema implements _OpenApiSchema {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, discriminator, externalDocs,
-      const DeepCollectionEquality().hash(_properties), xml);
+  int get hashCode => Object.hash(runtimeType, name, discriminator,
+      externalDocs, const DeepCollectionEquality().hash(_properties), xml);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_OpenApiSchemaCopyWith<_$_OpenApiSchema> get copyWith =>
       __$$_OpenApiSchemaCopyWithImpl<_$_OpenApiSchema>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)
+        $default, {
+    required TResult Function(OpenApiSchema ref) reference,
+  }) {
+    return $default(name, discriminator, externalDocs, properties, xml);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult? Function(OpenApiSchema ref)? reference,
+  }) {
+    return $default?.call(name, discriminator, externalDocs, properties, xml);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult Function(OpenApiSchema ref)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(name, discriminator, externalDocs, properties, xml);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value) $default, {
+    required TResult Function(_OpenApiSchemaReference value) reference,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiSchema value)? $default, {
+    TResult? Function(_OpenApiSchemaReference value)? reference,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value)? $default, {
+    TResult Function(_OpenApiSchemaReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -8263,7 +9495,8 @@ class _$_OpenApiSchema implements _OpenApiSchema {
 
 abstract class _OpenApiSchema implements OpenApiSchema {
   const factory _OpenApiSchema(
-      {final OpenApiDiscriminator? discriminator,
+      {required final String name,
+      final OpenApiDiscriminator? discriminator,
       final OpenApiExternalDocs? externalDocs,
       final List<OpenApiProperty>? properties,
       final OpenApiXml? xml}) = _$_OpenApiSchema;
@@ -8271,28 +9504,206 @@ abstract class _OpenApiSchema implements OpenApiSchema {
   factory _OpenApiSchema.fromJson(Map<String, dynamic> json) =
       _$_OpenApiSchema.fromJson;
 
-  @override
+  /// The class name of this schema
+  String get name;
 
   /// Adds support for polymorphism.
   /// The discriminator is an object name that is used to differentiate between
   /// other schemas which may satisfy the payload description
   /// See [Composition and Inheritance](https://swagger.io/specification/#schema-composition) for more details.
   OpenApiDiscriminator? get discriminator;
-  @override
 
   /// Additional external documentation for this schema.
   OpenApiExternalDocs? get externalDocs;
-  @override
 
   /// The properties of the schema
   List<OpenApiProperty>? get properties;
-  @override
 
   /// Adds additional metadata to describe the XML representation of this property.
   OpenApiXml? get xml;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiSchemaCopyWith<_$_OpenApiSchema> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSchemaReferenceCopyWith<$Res> {
+  factory _$$_OpenApiSchemaReferenceCopyWith(_$_OpenApiSchemaReference value,
+          $Res Function(_$_OpenApiSchemaReference) then) =
+      __$$_OpenApiSchemaReferenceCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OpenApiSchema ref});
+
+  $OpenApiSchemaCopyWith<$Res> get ref;
+}
+
+/// @nodoc
+class __$$_OpenApiSchemaReferenceCopyWithImpl<$Res>
+    extends _$OpenApiSchemaCopyWithImpl<$Res, _$_OpenApiSchemaReference>
+    implements _$$_OpenApiSchemaReferenceCopyWith<$Res> {
+  __$$_OpenApiSchemaReferenceCopyWithImpl(_$_OpenApiSchemaReference _value,
+      $Res Function(_$_OpenApiSchemaReference) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ref = null,
+  }) {
+    return _then(_$_OpenApiSchemaReference(
+      ref: null == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as OpenApiSchema,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiSchemaCopyWith<$Res> get ref {
+    return $OpenApiSchemaCopyWith<$Res>(_value.ref, (value) {
+      return _then(_value.copyWith(ref: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
+  const _$_OpenApiSchemaReference({required this.ref, final String? $type})
+      : $type = $type ?? 'reference';
+
+  factory _$_OpenApiSchemaReference.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSchemaReferenceFromJson(json);
+
+  @override
+  final OpenApiSchema ref;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSchema.reference(ref: $ref)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSchemaReference &&
+            (identical(other.ref, ref) || other.ref == ref));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, ref);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSchemaReferenceCopyWith<_$_OpenApiSchemaReference> get copyWith =>
+      __$$_OpenApiSchemaReferenceCopyWithImpl<_$_OpenApiSchemaReference>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)
+        $default, {
+    required TResult Function(OpenApiSchema ref) reference,
+  }) {
+    return reference(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult? Function(OpenApiSchema ref)? reference,
+  }) {
+    return reference?.call(ref);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String name,
+            OpenApiDiscriminator? discriminator,
+            OpenApiExternalDocs? externalDocs,
+            List<OpenApiProperty>? properties,
+            OpenApiXml? xml)?
+        $default, {
+    TResult Function(OpenApiSchema ref)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(ref);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value) $default, {
+    required TResult Function(_OpenApiSchemaReference value) reference,
+  }) {
+    return reference(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_OpenApiSchema value)? $default, {
+    TResult? Function(_OpenApiSchemaReference value)? reference,
+  }) {
+    return reference?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_OpenApiSchema value)? $default, {
+    TResult Function(_OpenApiSchemaReference value)? reference,
+    required TResult orElse(),
+  }) {
+    if (reference != null) {
+      return reference(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSchemaReferenceToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSchemaReference implements OpenApiSchema {
+  const factory _OpenApiSchemaReference({required final OpenApiSchema ref}) =
+      _$_OpenApiSchemaReference;
+
+  factory _OpenApiSchemaReference.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSchemaReference.fromJson;
+
+  OpenApiSchema get ref;
+  @JsonKey(ignore: true)
+  _$$_OpenApiSchemaReferenceCopyWith<_$_OpenApiSchemaReference> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

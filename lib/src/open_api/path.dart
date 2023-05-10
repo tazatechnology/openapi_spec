@@ -15,8 +15,11 @@ class OpenApiPath with _$OpenApiPath {
     /// object's url field in order to construct the full URL.
     required String path,
 
-    /// An optional string describing the host designated by the URL.
-    /// [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.
+    /// An optional, string summary, intended to apply to all operations in this path.
+    String? summary,
+
+    /// An optional, string description, intended to apply to all operations in this path.
+    /// [CommonMark syntax](https://spec.commonmark.org/) may be used for rich text representation.
     String? description,
 
     /// A definition of a GET operation on this path.
@@ -50,6 +53,10 @@ class OpenApiPath with _$OpenApiPath {
     /// These parameters can be overridden at the operation level, but cannot be removed there.
     List<OpenApiParameter>? parameters,
   }) = _OpenApiPath;
+
+  const factory OpenApiPath.reference({
+    required OpenApiPath ref,
+  }) = _OpenApiPathReference;
 
   factory OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$OpenApiPathFromJson(json);
