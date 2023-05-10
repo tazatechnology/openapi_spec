@@ -1,5 +1,5 @@
 .DEFAULT_TARGET: help
-.PHONY: build docs example
+.PHONY: build test coverage docs example
 
 help:
 	@echo "Package Makefile"
@@ -22,3 +22,17 @@ docs:
 example:
 	rm -rf build
 	dart run example/example.dart
+
+test: 
+	clear && dart test
+
+coverage: 
+	dart run test --coverage=./tmp/coverage
+	dart pub global activate coverage
+	dart pub global run coverage:format_coverage \
+		--packages=.dart_tool/package_config.json \
+		--report-on=lib \
+		--lcov -o ./tmp/coverage/lcov.info -i ./tmp/coverage
+	lcov --remove ./tmp/coverage/lcov.info '**/*.freezed.dart' '**/*.g.dart'  -o ./tmp/coverage/lcov.info
+	genhtml -o ./tmp/coverage/report ./tmp/coverage/lcov.info
+	open ./tmp/coverage/report/index.html	

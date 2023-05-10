@@ -87,24 +87,22 @@ class OpenApi with _$OpenApi {
       'openapi': version,
       'info': info.toJson(),
       if (jsonSchemaDialect != null) 'jsonSchemaDialect': jsonSchemaDialect,
-      if (servers != null) 'servers': servers!.map((e) => e.toJson()).toList(),
       if (externalDocs != null) 'externalDocs': externalDocs!.toJson(),
+      if (servers != null) 'servers': servers!.map((e) => e.toJson()).toList(),
+      if (tags != null) 'tags': tags!.map((e) => e.toJson()).toList(),
       if (paths != null) 'paths': _PathListConverter().toJson(paths!),
       if (version.startsWith('3.1') && webhooks != null)
         'webhooks': webhooks!.map((k, v) => MapEntry(k, v.toJson())),
       if (components != null) 'components': components!.toJson(),
       if (security != null)
         'security': security!.map((e) => e.toJson()).toList(),
-      if (tags != null) 'tags': tags!.map((e) => e.toJson()).toList(),
     };
     return out;
   }
 
   /// Create an [OpenApi] object from an existing JSON spec file
-  factory OpenApi.fromJsonSpecFile({
-    required File source,
-  }) {
-    return _fromRawMapSpec(json.decode((source.readAsStringSync())));
+  factory OpenApi.fromJsonSpecFile({required String source}) {
+    return _fromRawMapSpec(json.decode((File(source).readAsStringSync())));
   }
 
   /// Create an [OpenApi] object from an existing YAML spec file
@@ -126,10 +124,8 @@ class OpenApi with _$OpenApi {
 
   /// Convert the [OpenApi] object to a JSON spec file
   /// Will overwrite the existing file if it exists
-  void toJsonSpecFile({
-    required File destination,
-  }) {
-    destination.writeAsStringSync(_encoder.convert(toJson()));
+  void toJsonSpecFile({required String destination}) {
+    File(destination).writeAsStringSync(_encoder.convert(toJson()));
   }
 
   /// Generate a static Swagger UI website from [OpenApi] object
@@ -183,10 +179,10 @@ class OpenApi with _$OpenApi {
     await Process.run('cp', ['-r', source.path, dirPath]);
 
     // Generate the spec file in the destination
-    final oasFile = File(p.join(dirPath, 'openapi.json'));
+    final oasFile = p.join(dirPath, 'openapi.json');
     toJsonSpecFile(destination: oasFile);
     // ignore: avoid_print
-    if (!quiet) print('Created OpenAPI spec file:\n  - ${oasFile.path}');
+    if (!quiet) print('Created OpenAPI spec file:\n  - $oasFile');
 
     // Create a Javascript object for local parsing
     // Avoids the need to spin up a server to simply view the Swagger UI output

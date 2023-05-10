@@ -15269,10 +15269,16 @@ mixin _$OpenApi {
   /// This must be in the form of a URI.
   String? get jsonSchemaDialect => throw _privateConstructorUsedError;
 
+  /// Additional external documentation.
+  OpenApiExternalDocs? get externalDocs => throw _privateConstructorUsedError;
+
   /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
   /// If the servers property is not provided, or is an empty array,
   /// the default value would be a [OpenApiServer] object with a url value of `/`.
   List<OpenApiServer>? get servers => throw _privateConstructorUsedError;
+
+  /// can be included in the array.
+  List<OpenApiTag>? get tags => throw _privateConstructorUsedError;
 
   /// The available paths and operations for the API.
   List<OpenApiPath>? get paths => throw _privateConstructorUsedError;
@@ -15298,12 +15304,6 @@ mixin _$OpenApi {
   /// can be included in the array.
   List<OpenApiSecurity>? get security => throw _privateConstructorUsedError;
 
-  /// can be included in the array.
-  List<OpenApiTag>? get tags => throw _privateConstructorUsedError;
-
-  /// Additional external documentation.
-  OpenApiExternalDocs? get externalDocs => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $OpenApiCopyWith<OpenApi> get copyWith => throw _privateConstructorUsedError;
 }
@@ -15317,17 +15317,17 @@ abstract class $OpenApiCopyWith<$Res> {
       {@JsonKey(name: 'openapi') String version,
       OpenApiInfo info,
       String? jsonSchemaDialect,
+      OpenApiExternalDocs? externalDocs,
       List<OpenApiServer>? servers,
+      List<OpenApiTag>? tags,
       List<OpenApiPath>? paths,
       Map<String, OpenApiReference>? webhooks,
       OpenApiComponents? components,
-      List<OpenApiSecurity>? security,
-      List<OpenApiTag>? tags,
-      OpenApiExternalDocs? externalDocs});
+      List<OpenApiSecurity>? security});
 
   $OpenApiInfoCopyWith<$Res> get info;
-  $OpenApiComponentsCopyWith<$Res>? get components;
   $OpenApiExternalDocsCopyWith<$Res>? get externalDocs;
+  $OpenApiComponentsCopyWith<$Res>? get components;
 }
 
 /// @nodoc
@@ -15346,13 +15346,13 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
     Object? version = null,
     Object? info = null,
     Object? jsonSchemaDialect = freezed,
+    Object? externalDocs = freezed,
     Object? servers = freezed,
+    Object? tags = freezed,
     Object? paths = freezed,
     Object? webhooks = freezed,
     Object? components = freezed,
     Object? security = freezed,
-    Object? tags = freezed,
-    Object? externalDocs = freezed,
   }) {
     return _then(_value.copyWith(
       version: null == version
@@ -15367,10 +15367,18 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
           ? _value.jsonSchemaDialect
           : jsonSchemaDialect // ignore: cast_nullable_to_non_nullable
               as String?,
+      externalDocs: freezed == externalDocs
+          ? _value.externalDocs
+          : externalDocs // ignore: cast_nullable_to_non_nullable
+              as OpenApiExternalDocs?,
       servers: freezed == servers
           ? _value.servers
           : servers // ignore: cast_nullable_to_non_nullable
               as List<OpenApiServer>?,
+      tags: freezed == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiTag>?,
       paths: freezed == paths
           ? _value.paths
           : paths // ignore: cast_nullable_to_non_nullable
@@ -15387,14 +15395,6 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
           ? _value.security
           : security // ignore: cast_nullable_to_non_nullable
               as List<OpenApiSecurity>?,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiTag>?,
-      externalDocs: freezed == externalDocs
-          ? _value.externalDocs
-          : externalDocs // ignore: cast_nullable_to_non_nullable
-              as OpenApiExternalDocs?,
     ) as $Val);
   }
 
@@ -15408,18 +15408,6 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
 
   @override
   @pragma('vm:prefer-inline')
-  $OpenApiComponentsCopyWith<$Res>? get components {
-    if (_value.components == null) {
-      return null;
-    }
-
-    return $OpenApiComponentsCopyWith<$Res>(_value.components!, (value) {
-      return _then(_value.copyWith(components: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
   $OpenApiExternalDocsCopyWith<$Res>? get externalDocs {
     if (_value.externalDocs == null) {
       return null;
@@ -15427,6 +15415,18 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
 
     return $OpenApiExternalDocsCopyWith<$Res>(_value.externalDocs!, (value) {
       return _then(_value.copyWith(externalDocs: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OpenApiComponentsCopyWith<$Res>? get components {
+    if (_value.components == null) {
+      return null;
+    }
+
+    return $OpenApiComponentsCopyWith<$Res>(_value.components!, (value) {
+      return _then(_value.copyWith(components: value) as $Val);
     });
   }
 }
@@ -15442,20 +15442,20 @@ abstract class _$$_OpenApiCopyWith<$Res> implements $OpenApiCopyWith<$Res> {
       {@JsonKey(name: 'openapi') String version,
       OpenApiInfo info,
       String? jsonSchemaDialect,
+      OpenApiExternalDocs? externalDocs,
       List<OpenApiServer>? servers,
+      List<OpenApiTag>? tags,
       List<OpenApiPath>? paths,
       Map<String, OpenApiReference>? webhooks,
       OpenApiComponents? components,
-      List<OpenApiSecurity>? security,
-      List<OpenApiTag>? tags,
-      OpenApiExternalDocs? externalDocs});
+      List<OpenApiSecurity>? security});
 
   @override
   $OpenApiInfoCopyWith<$Res> get info;
   @override
-  $OpenApiComponentsCopyWith<$Res>? get components;
-  @override
   $OpenApiExternalDocsCopyWith<$Res>? get externalDocs;
+  @override
+  $OpenApiComponentsCopyWith<$Res>? get components;
 }
 
 /// @nodoc
@@ -15471,13 +15471,13 @@ class __$$_OpenApiCopyWithImpl<$Res>
     Object? version = null,
     Object? info = null,
     Object? jsonSchemaDialect = freezed,
+    Object? externalDocs = freezed,
     Object? servers = freezed,
+    Object? tags = freezed,
     Object? paths = freezed,
     Object? webhooks = freezed,
     Object? components = freezed,
     Object? security = freezed,
-    Object? tags = freezed,
-    Object? externalDocs = freezed,
   }) {
     return _then(_$_OpenApi(
       version: null == version
@@ -15492,10 +15492,18 @@ class __$$_OpenApiCopyWithImpl<$Res>
           ? _value.jsonSchemaDialect
           : jsonSchemaDialect // ignore: cast_nullable_to_non_nullable
               as String?,
+      externalDocs: freezed == externalDocs
+          ? _value.externalDocs
+          : externalDocs // ignore: cast_nullable_to_non_nullable
+              as OpenApiExternalDocs?,
       servers: freezed == servers
           ? _value._servers
           : servers // ignore: cast_nullable_to_non_nullable
               as List<OpenApiServer>?,
+      tags: freezed == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<OpenApiTag>?,
       paths: freezed == paths
           ? _value._paths
           : paths // ignore: cast_nullable_to_non_nullable
@@ -15512,14 +15520,6 @@ class __$$_OpenApiCopyWithImpl<$Res>
           ? _value._security
           : security // ignore: cast_nullable_to_non_nullable
               as List<OpenApiSecurity>?,
-      tags: freezed == tags
-          ? _value._tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiTag>?,
-      externalDocs: freezed == externalDocs
-          ? _value.externalDocs
-          : externalDocs // ignore: cast_nullable_to_non_nullable
-              as OpenApiExternalDocs?,
     ));
   }
 }
@@ -15531,18 +15531,18 @@ class _$_OpenApi extends _OpenApi {
       {@JsonKey(name: 'openapi') this.version = '3.1.0',
       required this.info,
       this.jsonSchemaDialect,
+      this.externalDocs,
       final List<OpenApiServer>? servers,
+      final List<OpenApiTag>? tags,
       final List<OpenApiPath>? paths,
       final Map<String, OpenApiReference>? webhooks,
       this.components,
-      final List<OpenApiSecurity>? security,
-      final List<OpenApiTag>? tags,
-      this.externalDocs})
+      final List<OpenApiSecurity>? security})
       : _servers = servers,
+        _tags = tags,
         _paths = paths,
         _webhooks = webhooks,
         _security = security,
-        _tags = tags,
         super._();
 
   /// This string must be the version number of the
@@ -15564,6 +15564,10 @@ class _$_OpenApi extends _OpenApi {
   @override
   final String? jsonSchemaDialect;
 
+  /// Additional external documentation.
+  @override
+  final OpenApiExternalDocs? externalDocs;
+
   /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
   /// If the servers property is not provided, or is an empty array,
   /// the default value would be a [OpenApiServer] object with a url value of `/`.
@@ -15577,6 +15581,19 @@ class _$_OpenApi extends _OpenApi {
     final value = _servers;
     if (value == null) return null;
     if (_servers is EqualUnmodifiableListView) return _servers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// can be included in the array.
+  final List<OpenApiTag>? _tags;
+
+  /// can be included in the array.
+  @override
+  List<OpenApiTag>? get tags {
+    final value = _tags;
+    if (value == null) return null;
+    if (_tags is EqualUnmodifiableListView) return _tags;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -15646,26 +15663,9 @@ class _$_OpenApi extends _OpenApi {
     return EqualUnmodifiableListView(value);
   }
 
-  /// can be included in the array.
-  final List<OpenApiTag>? _tags;
-
-  /// can be included in the array.
-  @override
-  List<OpenApiTag>? get tags {
-    final value = _tags;
-    if (value == null) return null;
-    if (_tags is EqualUnmodifiableListView) return _tags;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  /// Additional external documentation.
-  @override
-  final OpenApiExternalDocs? externalDocs;
-
   @override
   String toString() {
-    return 'OpenApi(version: $version, info: $info, jsonSchemaDialect: $jsonSchemaDialect, servers: $servers, paths: $paths, webhooks: $webhooks, components: $components, security: $security, tags: $tags, externalDocs: $externalDocs)';
+    return 'OpenApi(version: $version, info: $info, jsonSchemaDialect: $jsonSchemaDialect, externalDocs: $externalDocs, servers: $servers, tags: $tags, paths: $paths, webhooks: $webhooks, components: $components, security: $security)';
   }
 
   @override
@@ -15677,15 +15677,15 @@ class _$_OpenApi extends _OpenApi {
             (identical(other.info, info) || other.info == info) &&
             (identical(other.jsonSchemaDialect, jsonSchemaDialect) ||
                 other.jsonSchemaDialect == jsonSchemaDialect) &&
+            (identical(other.externalDocs, externalDocs) ||
+                other.externalDocs == externalDocs) &&
             const DeepCollectionEquality().equals(other._servers, _servers) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
             const DeepCollectionEquality().equals(other._paths, _paths) &&
             const DeepCollectionEquality().equals(other._webhooks, _webhooks) &&
             (identical(other.components, components) ||
                 other.components == components) &&
-            const DeepCollectionEquality().equals(other._security, _security) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.externalDocs, externalDocs) ||
-                other.externalDocs == externalDocs));
+            const DeepCollectionEquality().equals(other._security, _security));
   }
 
   @override
@@ -15694,13 +15694,13 @@ class _$_OpenApi extends _OpenApi {
       version,
       info,
       jsonSchemaDialect,
+      externalDocs,
       const DeepCollectionEquality().hash(_servers),
+      const DeepCollectionEquality().hash(_tags),
       const DeepCollectionEquality().hash(_paths),
       const DeepCollectionEquality().hash(_webhooks),
       components,
-      const DeepCollectionEquality().hash(_security),
-      const DeepCollectionEquality().hash(_tags),
-      externalDocs);
+      const DeepCollectionEquality().hash(_security));
 
   @JsonKey(ignore: true)
   @override
@@ -15714,13 +15714,13 @@ abstract class _OpenApi extends OpenApi {
       {@JsonKey(name: 'openapi') final String version,
       required final OpenApiInfo info,
       final String? jsonSchemaDialect,
+      final OpenApiExternalDocs? externalDocs,
       final List<OpenApiServer>? servers,
+      final List<OpenApiTag>? tags,
       final List<OpenApiPath>? paths,
       final Map<String, OpenApiReference>? webhooks,
       final OpenApiComponents? components,
-      final List<OpenApiSecurity>? security,
-      final List<OpenApiTag>? tags,
-      final OpenApiExternalDocs? externalDocs}) = _$_OpenApi;
+      final List<OpenApiSecurity>? security}) = _$_OpenApi;
   const _OpenApi._() : super._();
 
   @override
@@ -15744,10 +15744,18 @@ abstract class _OpenApi extends OpenApi {
   String? get jsonSchemaDialect;
   @override
 
+  /// Additional external documentation.
+  OpenApiExternalDocs? get externalDocs;
+  @override
+
   /// An array of [OpenApiServer] objects, which provide connectivity information to a target server.
   /// If the servers property is not provided, or is an empty array,
   /// the default value would be a [OpenApiServer] object with a url value of `/`.
   List<OpenApiServer>? get servers;
+  @override
+
+  /// can be included in the array.
+  List<OpenApiTag>? get tags;
   @override
 
   /// The available paths and operations for the API.
@@ -15775,14 +15783,6 @@ abstract class _OpenApi extends OpenApi {
   /// this definition. To make security optional, an empty security requirement ({})
   /// can be included in the array.
   List<OpenApiSecurity>? get security;
-  @override
-
-  /// can be included in the array.
-  List<OpenApiTag>? get tags;
-  @override
-
-  /// Additional external documentation.
-  OpenApiExternalDocs? get externalDocs;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiCopyWith<_$_OpenApi> get copyWith =>
