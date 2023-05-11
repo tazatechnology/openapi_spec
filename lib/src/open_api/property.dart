@@ -45,6 +45,12 @@ part of openapi_models;
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#properties
 @freezed
 class OpenApiProperty with _$OpenApiProperty {
+  /// A boolean schema property
+  const factory OpenApiProperty.boolean({
+    @Default(false) @JsonKey(ignore: true) bool isRequired,
+    required String name,
+  }) = _OpenApiPropertyBoolean;
+
   // ------------------------------------------
   // FACTORY: OpenApiProperty.string
   // ------------------------------------------
@@ -69,6 +75,7 @@ class OpenApiProperty with _$OpenApiProperty {
   const factory OpenApiProperty.string({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
+    OpenApiXml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
@@ -76,7 +83,6 @@ class OpenApiProperty with _$OpenApiProperty {
     String? example,
     int? minLength,
     int? maxLength,
-    OpenApiXml? xml,
   }) = _OpenApiPropertyString;
 
   // ------------------------------------------
@@ -87,6 +93,7 @@ class OpenApiProperty with _$OpenApiProperty {
   const factory OpenApiProperty.integer({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
+    OpenApiXml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') int? defaultValue,
@@ -96,7 +103,6 @@ class OpenApiProperty with _$OpenApiProperty {
     int? exclusiveMinimum,
     int? maximum,
     int? exclusiveMaximum,
-    OpenApiXml? xml,
   }) = _OpenApiPropertyInteger;
 
   // ------------------------------------------
@@ -107,6 +113,7 @@ class OpenApiProperty with _$OpenApiProperty {
   const factory OpenApiProperty.number({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
+    OpenApiXml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
@@ -116,7 +123,6 @@ class OpenApiProperty with _$OpenApiProperty {
     double? exclusiveMinimum,
     double? maximum,
     double? exclusiveMaximum,
-    OpenApiXml? xml,
   }) = _OpenApiPropertyNumber;
 
   // ------------------------------------------
@@ -127,6 +133,7 @@ class OpenApiProperty with _$OpenApiProperty {
   const factory OpenApiProperty.array({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
+    OpenApiXml? xml,
     @_ArrayItemsConverter() required OpenApiArrayItems items,
     String? title,
     String? description,
@@ -134,7 +141,6 @@ class OpenApiProperty with _$OpenApiProperty {
     List? example,
     int? minLength,
     int? maxLength,
-    OpenApiXml? xml,
   }) = _OpenApiPropertyArray;
 
   // ------------------------------------------
@@ -145,9 +151,10 @@ class OpenApiProperty with _$OpenApiProperty {
   const factory OpenApiProperty.enumeration({
     @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
-    required List<String> values,
-    String? title,
     String? description,
+    String? example,
+    @JsonKey(name: 'enum') required List<String> values,
+    String? title,
     @JsonKey(name: 'default') String? defaultValue,
   }) = _OpenApiPropertyEnum;
 
@@ -157,6 +164,7 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// a reference schema property
   const factory OpenApiProperty.reference({
+    String? name,
     required OpenApiSchema ref,
   }) = _OpenApiPropertyReference;
 
@@ -165,85 +173,46 @@ class OpenApiProperty with _$OpenApiProperty {
 }
 
 // ==========================================
-// CLASS: OpenApiArrayItems
+// CLASS: PropertyListConverter
 // ==========================================
 
-/// The array item data type
-///
-/// https://swagger.io/specification/#data-types
-@freezed
-class OpenApiArrayItems with _$OpenApiArrayItems {
-  /// An array of strings
-  const factory OpenApiArrayItems.string({
-    OpenApiXml? xml,
-    OpenApiStringFormat? format,
-  }) = _OpenApiArrayItemsString;
-
-  /// An array of integers
-  const factory OpenApiArrayItems.integer({
-    OpenApiXml? xml,
-    OpenApiIntegerFormat? format,
-  }) = _OpenApiArrayItemsInteger;
-
-  /// An array of doubles
-  const factory OpenApiArrayItems.number({
-    OpenApiXml? xml,
-    OpenApiNumberFormat? format,
-  }) = _OpenApiArrayItemsNumber;
-
-  /// An array of [OpenApiSchema] object references
-  const factory OpenApiArrayItems.reference({
-    required OpenApiSchema ref,
-    OpenApiXml? xml,
-  }) = _OpenApiArrayItemsReference;
-
-  factory OpenApiArrayItems.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiArrayItemsFromJson(json);
-}
-
-// ==========================================
-// ArrayItemsConverter
-// ==========================================
-
-/// Custom converter for the union type [OpenApiArrayItems]
-class _ArrayItemsConverter
-    implements JsonConverter<OpenApiArrayItems, Map<String, dynamic>> {
-  const _ArrayItemsConverter();
+/// Custom converter for List<[OpenApiProperty]> union type
+class _PropertyListConverter
+    implements JsonConverter<List<OpenApiProperty>, Map<String, dynamic>> {
+  const _PropertyListConverter();
 
   @override
-  OpenApiArrayItems fromJson(Map<String, dynamic> json) {
-    // TO be implemented
-    return OpenApiArrayItems.string();
+  List<OpenApiProperty> fromJson(Map<String, dynamic> json) {
+    return [];
   }
 
   @override
-  Map<String, dynamic> toJson(OpenApiArrayItems data) {
-    return data.map(
-      string: (v) {
-        return {
-          'type': 'string',
-          'format': _$OpenApiStringFormatEnumMap[v.format],
-        }..removeWhere((k, v) => v == null);
-      },
-      integer: (v) {
-        return {
-          'type': 'integer',
-          'format': _$OpenApiIntegerFormatEnumMap[v.format],
-        }..removeWhere((k, v) => v == null);
-      },
-      number: (v) {
-        return {
-          'type': 'number',
-          'format': _$OpenApiNumberFormatEnumMap[v.format],
-        }..removeWhere((k, v) => v == null);
-      },
-      reference: (v) {
-        final r = v.ref;
-        if (r is _OpenApiSchema) {
-          return {'\$ref': '#/components/schemas/${r.name}'};
+  Map<String, dynamic> toJson(List<OpenApiProperty> data) {
+    return data.asMap().map(
+      (_, value) {
+        dynamic type = value.map(
+          boolean: (v) => 'boolean',
+          string: (v) => 'string',
+          integer: (v) => 'integer',
+          number: (v) => 'number',
+          array: (v) => 'array',
+          enumeration: (v) => 'string',
+          reference: (v) => 'reference',
+        );
+        if (type == 'reference') {
+          return MapEntry(
+            value.name.toString(),
+            {'\$ref': '#/components/schemas/Category'},
+          );
         } else {
-          throw Exception(
-            '\n\nThe OpenApiArrayItems.reference() argument must not be another reference\n',
+          return MapEntry(
+            value is _OpenApiPropertyReference
+                ? value.runtimeType.toString()
+                : (value as dynamic).name,
+            {'type': type}
+              ..addAll(value.toJson())
+              ..remove('name')
+              ..remove(_unionKey),
           );
         }
       },

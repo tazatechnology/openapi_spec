@@ -93,7 +93,7 @@ class OpenApi with _$OpenApi {
       if (paths != null) 'paths': _PathListConverter().toJson(paths!),
       if (version.startsWith('3.1') && webhooks != null)
         'webhooks': webhooks!.map((k, v) => MapEntry(k, v.toJson())),
-      if (components != null) 'components': components!.toJson(),
+      if (components != null) 'components': components?.toJson(),
       if (security != null)
         'security': security!.map((e) => e.toJson()).toList(),
     };

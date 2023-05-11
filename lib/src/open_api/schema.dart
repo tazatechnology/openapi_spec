@@ -25,7 +25,7 @@ class OpenApiSchema with _$OpenApiSchema {
     OpenApiExternalDocs? externalDocs,
 
     /// The properties of the schema
-    List<OpenApiProperty>? properties,
+    @_PropertyListConverter() List<OpenApiProperty>? properties,
 
     /// Adds additional metadata to describe the XML representation of this property.
     OpenApiXml? xml,
@@ -125,6 +125,15 @@ class OpenApiSchema with _$OpenApiSchema {
   /// Convert from JSON representation
   factory OpenApiSchema.fromJson(Map<String, dynamic> json) =>
       _$OpenApiSchemaFromJson(json);
+
+  // ------------------------------------------
+  // FACTORY: OpenApiSchema.map
+  // ------------------------------------------
+
+  /// A map schema property
+  const factory OpenApiSchema.map({
+    required OpenApiSchema value,
+  }) = _OpenApiSchemaMap;
 }
 
 // ==========================================
@@ -146,7 +155,14 @@ class _SchemaConverter
   Map<String, dynamic> toJson(OpenApiSchema data) {
     return data.map(
       (value) {
-        return data.toJson();
+        return {
+          'type': 'object',
+          'discriminator': value.discriminator?.toJson(),
+          'externalDocs': value.externalDocs?.toJson(),
+          if (value.properties != null)
+            'properties': _PropertyListConverter().toJson(value.properties!),
+          'xml': value.xml?.toJson(),
+        }..removeWhere((_, v) => v == null);
       },
       string: (v) {
         return {
@@ -182,6 +198,12 @@ class _SchemaConverter
           'items': _ArrayItemsConverter().toJson(v.items),
         };
       },
+      map: (v) {
+        return {
+          'type': 'object',
+          'additionalProperties': _SchemaConverter().toJson(v.value),
+        };
+      },
       reference: (v) {
         final r = v.ref;
         if (r is _OpenApiSchema) {
@@ -193,5 +215,52 @@ class _SchemaConverter
         }
       },
     );
+  }
+}
+
+// ==========================================
+// SchemaListConverter
+// ==========================================
+
+/// Custom converter for List<[OpenApiSchema]> union type
+class _SchemaListConverter
+    implements JsonConverter<List<OpenApiSchema>, Map<String, dynamic>> {
+  const _SchemaListConverter();
+
+  @override
+  List<OpenApiSchema> fromJson(Map<String, dynamic> json) {
+    return [];
+  }
+
+  @override
+  Map<String, dynamic> toJson(List<OpenApiSchema> data) {
+    return data.asMap().map((_, value) {
+      // Check for required properties
+      List<String> req = [];
+      if (value is _OpenApiSchema) {
+        for (final p in value.properties ?? []) {
+          if (p is _OpenApiPropertyReference) {
+            continue;
+          }
+          if (p.isRequired) {
+            req.add(p.name);
+          }
+        }
+      }
+      var reqEntry = {};
+      if (req.isNotEmpty) {
+        reqEntry = {'required': req};
+      }
+      if (value is _OpenApiSchema) {
+        return MapEntry(
+          value.name,
+          reqEntry..addAll(_SchemaConverter().toJson(value)..remove('name')),
+        );
+      } else {
+        throw Exception(
+          '\n\nThe OpenApiSchema must not be another reference\n',
+        );
+      }
+    });
   }
 }

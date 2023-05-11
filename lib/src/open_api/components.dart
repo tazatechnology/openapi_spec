@@ -10,9 +10,11 @@ part of openapi_models;
 /// https://swagger.io/specification/#components-object
 @freezed
 class OpenApiComponents with _$OpenApiComponents {
+  const OpenApiComponents._();
+
   const factory OpenApiComponents({
     /// A set of reusable [OpenApiSchema] objects.
-    List<OpenApiSchema>? schemas,
+    @_SchemaListConverter() List<OpenApiSchema>? schemas,
 
     /// A set of reusable [OpenApiResponse] objects.
     @_ResponseListConverter() List<OpenApiResponse>? responses,

@@ -10,6 +10,9 @@ class OpenApiHeader with _$OpenApiHeader {
   const factory OpenApiHeader({
     /// Text
     String? description,
+
+    /// The schema of the content
+    @_SchemaConverter() OpenApiSchema? schema,
   }) = _OpenApiHeader;
 
   factory OpenApiHeader.fromJson(Map<String, dynamic> json) =>

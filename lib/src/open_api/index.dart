@@ -10,6 +10,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'index.g.dart';
 part 'index.freezed.dart';
 
+part 'array_items.dart';
 part 'callback.dart';
 part 'components.dart';
 part 'contact.dart';
