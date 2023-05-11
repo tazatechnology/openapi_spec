@@ -42,7 +42,7 @@ mixin _$OpenApiArrayItems {
         integer,
     required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
         number,
-    required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
+    required TResult Function(String ref, OpenApiXml? xml) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,7 +50,7 @@ mixin _$OpenApiArrayItems {
     TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult? Function(String ref, OpenApiXml? xml)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,7 +58,7 @@ mixin _$OpenApiArrayItems {
     TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult Function(String ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -233,7 +233,7 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
         integer,
     required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
         number,
-    required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
+    required TResult Function(String ref, OpenApiXml? xml) reference,
   }) {
     return string(xml, format);
   }
@@ -244,7 +244,7 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
     TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult? Function(String ref, OpenApiXml? xml)? reference,
   }) {
     return string?.call(xml, format);
   }
@@ -255,7 +255,7 @@ class _$_OpenApiArrayItemsString implements _OpenApiArrayItemsString {
     TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult Function(String ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
     if (string != null) {
@@ -420,7 +420,7 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
         integer,
     required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
         number,
-    required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
+    required TResult Function(String ref, OpenApiXml? xml) reference,
   }) {
     return integer(xml, format);
   }
@@ -431,7 +431,7 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
     TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult? Function(String ref, OpenApiXml? xml)? reference,
   }) {
     return integer?.call(xml, format);
   }
@@ -442,7 +442,7 @@ class _$_OpenApiArrayItemsInteger implements _OpenApiArrayItemsInteger {
     TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult Function(String ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
     if (integer != null) {
@@ -606,7 +606,7 @@ class _$_OpenApiArrayItemsNumber implements _OpenApiArrayItemsNumber {
         integer,
     required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
         number,
-    required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
+    required TResult Function(String ref, OpenApiXml? xml) reference,
   }) {
     return number(xml, format);
   }
@@ -617,7 +617,7 @@ class _$_OpenApiArrayItemsNumber implements _OpenApiArrayItemsNumber {
     TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult? Function(String ref, OpenApiXml? xml)? reference,
   }) {
     return number?.call(xml, format);
   }
@@ -628,7 +628,7 @@ class _$_OpenApiArrayItemsNumber implements _OpenApiArrayItemsNumber {
     TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult Function(String ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
     if (number != null) {
@@ -708,9 +708,8 @@ abstract class _$$_OpenApiArrayItemsReferenceCopyWith<$Res>
       __$$_OpenApiArrayItemsReferenceCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({OpenApiSchema ref, OpenApiXml? xml});
+  $Res call({String ref, OpenApiXml? xml});
 
-  $OpenApiSchemaCopyWith<$Res> get ref;
   @override
   $OpenApiXmlCopyWith<$Res>? get xml;
 }
@@ -734,20 +733,12 @@ class __$$_OpenApiArrayItemsReferenceCopyWithImpl<$Res>
       ref: null == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
-              as OpenApiSchema,
+              as String,
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
               as OpenApiXml?,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiSchemaCopyWith<$Res> get ref {
-    return $OpenApiSchemaCopyWith<$Res>(_value.ref, (value) {
-      return _then(_value.copyWith(ref: value));
-    });
   }
 }
 
@@ -762,7 +753,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
       _$$_OpenApiArrayItemsReferenceFromJson(json);
 
   @override
-  final OpenApiSchema ref;
+  final String ref;
   @override
   final OpenApiXml? xml;
 
@@ -803,7 +794,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
         integer,
     required TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)
         number,
-    required TResult Function(OpenApiSchema ref, OpenApiXml? xml) reference,
+    required TResult Function(String ref, OpenApiXml? xml) reference,
   }) {
     return reference(ref, xml);
   }
@@ -814,7 +805,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
     TResult? Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult? Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult? Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult? Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult? Function(String ref, OpenApiXml? xml)? reference,
   }) {
     return reference?.call(ref, xml);
   }
@@ -825,7 +816,7 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
     TResult Function(OpenApiXml? xml, OpenApiStringFormat? format)? string,
     TResult Function(OpenApiXml? xml, OpenApiIntegerFormat? format)? integer,
     TResult Function(OpenApiXml? xml, OpenApiNumberFormat? format)? number,
-    TResult Function(OpenApiSchema ref, OpenApiXml? xml)? reference,
+    TResult Function(String ref, OpenApiXml? xml)? reference,
     required TResult orElse(),
   }) {
     if (reference != null) {
@@ -881,13 +872,13 @@ class _$_OpenApiArrayItemsReference implements _OpenApiArrayItemsReference {
 
 abstract class _OpenApiArrayItemsReference implements OpenApiArrayItems {
   const factory _OpenApiArrayItemsReference(
-      {required final OpenApiSchema ref,
+      {required final String ref,
       final OpenApiXml? xml}) = _$_OpenApiArrayItemsReference;
 
   factory _OpenApiArrayItemsReference.fromJson(Map<String, dynamic> json) =
       _$_OpenApiArrayItemsReference.fromJson;
 
-  OpenApiSchema get ref;
+  String get ref;
   @override
   OpenApiXml? get xml;
   @override
@@ -1049,6 +1040,7 @@ mixin _$OpenApiComponents {
   List<OpenApiSchema>? get schemas => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiResponse] objects.
+  @_ResponseListConverter()
   List<OpenApiResponse>? get responses => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiParameter] objects.
@@ -1058,6 +1050,7 @@ mixin _$OpenApiComponents {
   List<OpenApiExample>? get examples => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiRequestBody.component] objects.
+  @_RequestBodyListConverter()
   List<OpenApiRequestBody>? get requestBodies =>
       throw _privateConstructorUsedError;
 
@@ -1065,6 +1058,7 @@ mixin _$OpenApiComponents {
   List<OpenApiHeader>? get headers => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
+  @_SecurityListConverter()
   List<OpenApiSecurityScheme>? get securitySchemes =>
       throw _privateConstructorUsedError;
 
@@ -1092,12 +1086,12 @@ abstract class $OpenApiComponentsCopyWith<$Res> {
   @useResult
   $Res call(
       {@_SchemaListConverter() List<OpenApiSchema>? schemas,
-      List<OpenApiResponse>? responses,
+      @_ResponseListConverter() List<OpenApiResponse>? responses,
       List<OpenApiParameter>? parameters,
       List<OpenApiExample>? examples,
-      List<OpenApiRequestBody>? requestBodies,
+      @_RequestBodyListConverter() List<OpenApiRequestBody>? requestBodies,
       List<OpenApiHeader>? headers,
-      List<OpenApiSecurityScheme>? securitySchemes,
+      @_SecurityListConverter() List<OpenApiSecurityScheme>? securitySchemes,
       List<OpenApiLink>? links,
       List<OpenApiCallback>? callbacks,
       @_PathListConverter() List<OpenApiPath>? pathItems});
@@ -1182,12 +1176,12 @@ abstract class _$$_OpenApiComponentsCopyWith<$Res>
   @useResult
   $Res call(
       {@_SchemaListConverter() List<OpenApiSchema>? schemas,
-      List<OpenApiResponse>? responses,
+      @_ResponseListConverter() List<OpenApiResponse>? responses,
       List<OpenApiParameter>? parameters,
       List<OpenApiExample>? examples,
-      List<OpenApiRequestBody>? requestBodies,
+      @_RequestBodyListConverter() List<OpenApiRequestBody>? requestBodies,
       List<OpenApiHeader>? headers,
-      List<OpenApiSecurityScheme>? securitySchemes,
+      @_SecurityListConverter() List<OpenApiSecurityScheme>? securitySchemes,
       List<OpenApiLink>? links,
       List<OpenApiCallback>? callbacks,
       @_PathListConverter() List<OpenApiPath>? pathItems});
@@ -1264,16 +1258,21 @@ class __$$_OpenApiComponentsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiComponents implements _OpenApiComponents {
   const _$_OpenApiComponents(
-      {@_SchemaListConverter() final List<OpenApiSchema>? schemas,
-      final List<OpenApiResponse>? responses,
+      {@_SchemaListConverter()
+          final List<OpenApiSchema>? schemas,
+      @_ResponseListConverter()
+          final List<OpenApiResponse>? responses,
       final List<OpenApiParameter>? parameters,
       final List<OpenApiExample>? examples,
-      final List<OpenApiRequestBody>? requestBodies,
+      @_RequestBodyListConverter()
+          final List<OpenApiRequestBody>? requestBodies,
       final List<OpenApiHeader>? headers,
-      final List<OpenApiSecurityScheme>? securitySchemes,
+      @_SecurityListConverter()
+          final List<OpenApiSecurityScheme>? securitySchemes,
       final List<OpenApiLink>? links,
       final List<OpenApiCallback>? callbacks,
-      @_PathListConverter() final List<OpenApiPath>? pathItems})
+      @_PathListConverter()
+          final List<OpenApiPath>? pathItems})
       : _schemas = schemas,
         _responses = responses,
         _parameters = parameters,
@@ -1307,6 +1306,7 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
   /// A set of reusable [OpenApiResponse] objects.
   @override
+  @_ResponseListConverter()
   List<OpenApiResponse>? get responses {
     final value = _responses;
     if (value == null) return null;
@@ -1346,6 +1346,7 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
   /// A set of reusable [OpenApiRequestBody.component] objects.
   @override
+  @_RequestBodyListConverter()
   List<OpenApiRequestBody>? get requestBodies {
     final value = _requestBodies;
     if (value == null) return null;
@@ -1372,6 +1373,7 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
   @override
+  @_SecurityListConverter()
   List<OpenApiSecurityScheme>? get securitySchemes {
     final value = _securitySchemes;
     if (value == null) return null;
@@ -1480,17 +1482,21 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
 abstract class _OpenApiComponents implements OpenApiComponents {
   const factory _OpenApiComponents(
-          {@_SchemaListConverter() final List<OpenApiSchema>? schemas,
+      {@_SchemaListConverter()
+          final List<OpenApiSchema>? schemas,
+      @_ResponseListConverter()
           final List<OpenApiResponse>? responses,
-          final List<OpenApiParameter>? parameters,
-          final List<OpenApiExample>? examples,
+      final List<OpenApiParameter>? parameters,
+      final List<OpenApiExample>? examples,
+      @_RequestBodyListConverter()
           final List<OpenApiRequestBody>? requestBodies,
-          final List<OpenApiHeader>? headers,
+      final List<OpenApiHeader>? headers,
+      @_SecurityListConverter()
           final List<OpenApiSecurityScheme>? securitySchemes,
-          final List<OpenApiLink>? links,
-          final List<OpenApiCallback>? callbacks,
-          @_PathListConverter() final List<OpenApiPath>? pathItems}) =
-      _$_OpenApiComponents;
+      final List<OpenApiLink>? links,
+      final List<OpenApiCallback>? callbacks,
+      @_PathListConverter()
+          final List<OpenApiPath>? pathItems}) = _$_OpenApiComponents;
 
   factory _OpenApiComponents.fromJson(Map<String, dynamic> json) =
       _$_OpenApiComponents.fromJson;
@@ -1503,6 +1509,7 @@ abstract class _OpenApiComponents implements OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiResponse] objects.
+  @_ResponseListConverter()
   List<OpenApiResponse>? get responses;
   @override
 
@@ -1515,6 +1522,7 @@ abstract class _OpenApiComponents implements OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiRequestBody.component] objects.
+  @_RequestBodyListConverter()
   List<OpenApiRequestBody>? get requestBodies;
   @override
 
@@ -1523,6 +1531,7 @@ abstract class _OpenApiComponents implements OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
+  @_SecurityListConverter()
   List<OpenApiSecurityScheme>? get securitySchemes;
   @override
 
@@ -11631,7 +11640,7 @@ mixin _$OpenApiSchema {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -11698,7 +11707,7 @@ mixin _$OpenApiSchema {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -11765,7 +11774,7 @@ mixin _$OpenApiSchema {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12072,7 +12081,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12142,7 +12151,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12212,7 +12221,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12374,9 +12383,7 @@ abstract class _$$_OpenApiSchemaReferenceCopyWith<$Res> {
           $Res Function(_$_OpenApiSchemaReference) then) =
       __$$_OpenApiSchemaReferenceCopyWithImpl<$Res>;
   @useResult
-  $Res call({OpenApiSchema ref});
-
-  $OpenApiSchemaCopyWith<$Res> get ref;
+  $Res call({String ref});
 }
 
 /// @nodoc
@@ -12396,16 +12403,8 @@ class __$$_OpenApiSchemaReferenceCopyWithImpl<$Res>
       ref: null == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
-              as OpenApiSchema,
+              as String,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiSchemaCopyWith<$Res> get ref {
-    return $OpenApiSchemaCopyWith<$Res>(_value.ref, (value) {
-      return _then(_value.copyWith(ref: value));
-    });
   }
 }
 
@@ -12419,7 +12418,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
       _$$_OpenApiSchemaReferenceFromJson(json);
 
   @override
-  final OpenApiSchema ref;
+  final String ref;
 
   @JsonKey(name: 'unionType')
   final String $type;
@@ -12458,7 +12457,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12528,7 +12527,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12598,7 +12597,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12720,13 +12719,13 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
 }
 
 abstract class _OpenApiSchemaReference implements OpenApiSchema {
-  const factory _OpenApiSchemaReference({required final OpenApiSchema ref}) =
+  const factory _OpenApiSchemaReference({required final String ref}) =
       _$_OpenApiSchemaReference;
 
   factory _OpenApiSchemaReference.fromJson(Map<String, dynamic> json) =
       _$_OpenApiSchemaReference.fromJson;
 
-  OpenApiSchema get ref;
+  String get ref;
   @JsonKey(ignore: true)
   _$$_OpenApiSchemaReferenceCopyWith<_$_OpenApiSchemaReference> get copyWith =>
       throw _privateConstructorUsedError;
@@ -12917,7 +12916,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -12988,7 +12987,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -13059,7 +13058,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -13428,7 +13427,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -13499,7 +13498,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -13570,7 +13569,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -13943,7 +13942,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14014,7 +14013,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14085,7 +14084,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14379,7 +14378,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14449,7 +14448,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14520,7 +14519,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14874,7 +14873,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -14945,7 +14944,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -15016,7 +15015,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -15256,7 +15255,7 @@ class _$_OpenApiSchemaMap implements _OpenApiSchemaMap {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)
         $default, {
-    required TResult Function(OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
     required TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -15326,7 +15325,7 @@ class _$_OpenApiSchemaMap implements _OpenApiSchemaMap {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult? Function(OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
     TResult? Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -15396,7 +15395,7 @@ class _$_OpenApiSchemaMap implements _OpenApiSchemaMap {
             @_PropertyListConverter() List<OpenApiProperty>? properties,
             OpenApiXml? xml)?
         $default, {
-    TResult Function(OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     TResult Function(
             @JsonKey(ignore: true) bool isRequired,
             String? title,
@@ -15691,14 +15690,85 @@ abstract class _OpenApiSecurity extends OpenApiSecurity {
 
 OpenApiSecurityScheme _$OpenApiSecuritySchemeFromJson(
     Map<String, dynamic> json) {
-  return _OpenApiSecurityScheme.fromJson(json);
+  switch (json['unionType']) {
+    case 'apiKey':
+      return _OpenApiSecuritySchemeApiKey.fromJson(json);
+    case 'http':
+      return _OpenApiSecuritySchemeHttp.fromJson(json);
+    case 'mutualTLS':
+      return _OpenApiSecuritySchemeMutualTLS.fromJson(json);
+    case 'oauth2':
+      return _OpenApiSecuritySchemeOauth2.fromJson(json);
+    case 'openIdConnect':
+      return _OpenApiSecuritySchemeOpenIdConnect.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'unionType', 'OpenApiSecurityScheme',
+          'Invalid union type "${json['unionType']}"!');
+  }
 }
 
 /// @nodoc
 mixin _$OpenApiSecurityScheme {
-  /// Text
+  String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String? description) apiKey,
+    required TResult Function(String name, String? description) http,
+    required TResult Function(String name, String? description) mutualTLS,
+    required TResult Function(String name, String? description) oauth2,
+    required TResult Function(String name, String? description) openIdConnect,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String? description)? apiKey,
+    TResult? Function(String name, String? description)? http,
+    TResult? Function(String name, String? description)? mutualTLS,
+    TResult? Function(String name, String? description)? oauth2,
+    TResult? Function(String name, String? description)? openIdConnect,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String? description)? apiKey,
+    TResult Function(String name, String? description)? http,
+    TResult Function(String name, String? description)? mutualTLS,
+    TResult Function(String name, String? description)? oauth2,
+    TResult Function(String name, String? description)? openIdConnect,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenApiSecuritySchemeApiKey value) apiKey,
+    required TResult Function(_OpenApiSecuritySchemeHttp value) http,
+    required TResult Function(_OpenApiSecuritySchemeMutualTLS value) mutualTLS,
+    required TResult Function(_OpenApiSecuritySchemeOauth2 value) oauth2,
+    required TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)
+        openIdConnect,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult? Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult? Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult? Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult? Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $OpenApiSecuritySchemeCopyWith<OpenApiSecurityScheme> get copyWith =>
@@ -15711,7 +15781,7 @@ abstract class $OpenApiSecuritySchemeCopyWith<$Res> {
           $Res Function(OpenApiSecurityScheme) then) =
       _$OpenApiSecuritySchemeCopyWithImpl<$Res, OpenApiSecurityScheme>;
   @useResult
-  $Res call({String? description});
+  $Res call({String name, String? description});
 }
 
 /// @nodoc
@@ -15728,9 +15798,14 @@ class _$OpenApiSecuritySchemeCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -15740,30 +15815,38 @@ class _$OpenApiSecuritySchemeCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_OpenApiSecuritySchemeCopyWith<$Res>
+abstract class _$$_OpenApiSecuritySchemeApiKeyCopyWith<$Res>
     implements $OpenApiSecuritySchemeCopyWith<$Res> {
-  factory _$$_OpenApiSecuritySchemeCopyWith(_$_OpenApiSecurityScheme value,
-          $Res Function(_$_OpenApiSecurityScheme) then) =
-      __$$_OpenApiSecuritySchemeCopyWithImpl<$Res>;
+  factory _$$_OpenApiSecuritySchemeApiKeyCopyWith(
+          _$_OpenApiSecuritySchemeApiKey value,
+          $Res Function(_$_OpenApiSecuritySchemeApiKey) then) =
+      __$$_OpenApiSecuritySchemeApiKeyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call({String name, String? description});
 }
 
 /// @nodoc
-class __$$_OpenApiSecuritySchemeCopyWithImpl<$Res>
-    extends _$OpenApiSecuritySchemeCopyWithImpl<$Res, _$_OpenApiSecurityScheme>
-    implements _$$_OpenApiSecuritySchemeCopyWith<$Res> {
-  __$$_OpenApiSecuritySchemeCopyWithImpl(_$_OpenApiSecurityScheme _value,
-      $Res Function(_$_OpenApiSecurityScheme) _then)
+class __$$_OpenApiSecuritySchemeApiKeyCopyWithImpl<$Res>
+    extends _$OpenApiSecuritySchemeCopyWithImpl<$Res,
+        _$_OpenApiSecuritySchemeApiKey>
+    implements _$$_OpenApiSecuritySchemeApiKeyCopyWith<$Res> {
+  __$$_OpenApiSecuritySchemeApiKeyCopyWithImpl(
+      _$_OpenApiSecuritySchemeApiKey _value,
+      $Res Function(_$_OpenApiSecuritySchemeApiKey) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? description = freezed,
   }) {
-    return _then(_$_OpenApiSecurityScheme(
+    return _then(_$_OpenApiSecuritySchemeApiKey(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -15774,64 +15857,930 @@ class __$$_OpenApiSecuritySchemeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpenApiSecurityScheme implements _OpenApiSecurityScheme {
-  const _$_OpenApiSecurityScheme({this.description});
+class _$_OpenApiSecuritySchemeApiKey implements _OpenApiSecuritySchemeApiKey {
+  const _$_OpenApiSecuritySchemeApiKey(
+      {required this.name, this.description, final String? $type})
+      : $type = $type ?? 'apiKey';
 
-  factory _$_OpenApiSecurityScheme.fromJson(Map<String, dynamic> json) =>
-      _$$_OpenApiSecuritySchemeFromJson(json);
+  factory _$_OpenApiSecuritySchemeApiKey.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSecuritySchemeApiKeyFromJson(json);
 
-  /// Text
+  @override
+  final String name;
   @override
   final String? description;
 
+  @JsonKey(name: 'unionType')
+  final String $type;
+
   @override
   String toString() {
-    return 'OpenApiSecurityScheme(description: $description)';
+    return 'OpenApiSecurityScheme.apiKey(name: $name, description: $description)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_OpenApiSecurityScheme &&
+            other is _$_OpenApiSecuritySchemeApiKey &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, name, description);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_OpenApiSecuritySchemeCopyWith<_$_OpenApiSecurityScheme> get copyWith =>
-      __$$_OpenApiSecuritySchemeCopyWithImpl<_$_OpenApiSecurityScheme>(
-          this, _$identity);
+  _$$_OpenApiSecuritySchemeApiKeyCopyWith<_$_OpenApiSecuritySchemeApiKey>
+      get copyWith => __$$_OpenApiSecuritySchemeApiKeyCopyWithImpl<
+          _$_OpenApiSecuritySchemeApiKey>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String? description) apiKey,
+    required TResult Function(String name, String? description) http,
+    required TResult Function(String name, String? description) mutualTLS,
+    required TResult Function(String name, String? description) oauth2,
+    required TResult Function(String name, String? description) openIdConnect,
+  }) {
+    return apiKey(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String? description)? apiKey,
+    TResult? Function(String name, String? description)? http,
+    TResult? Function(String name, String? description)? mutualTLS,
+    TResult? Function(String name, String? description)? oauth2,
+    TResult? Function(String name, String? description)? openIdConnect,
+  }) {
+    return apiKey?.call(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String? description)? apiKey,
+    TResult Function(String name, String? description)? http,
+    TResult Function(String name, String? description)? mutualTLS,
+    TResult Function(String name, String? description)? oauth2,
+    TResult Function(String name, String? description)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (apiKey != null) {
+      return apiKey(name, description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenApiSecuritySchemeApiKey value) apiKey,
+    required TResult Function(_OpenApiSecuritySchemeHttp value) http,
+    required TResult Function(_OpenApiSecuritySchemeMutualTLS value) mutualTLS,
+    required TResult Function(_OpenApiSecuritySchemeOauth2 value) oauth2,
+    required TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)
+        openIdConnect,
+  }) {
+    return apiKey(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult? Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult? Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult? Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult? Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+  }) {
+    return apiKey?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (apiKey != null) {
+      return apiKey(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_OpenApiSecuritySchemeToJson(
+    return _$$_OpenApiSecuritySchemeApiKeyToJson(
       this,
     );
   }
 }
 
-abstract class _OpenApiSecurityScheme implements OpenApiSecurityScheme {
-  const factory _OpenApiSecurityScheme({final String? description}) =
-      _$_OpenApiSecurityScheme;
+abstract class _OpenApiSecuritySchemeApiKey implements OpenApiSecurityScheme {
+  const factory _OpenApiSecuritySchemeApiKey(
+      {required final String name,
+      final String? description}) = _$_OpenApiSecuritySchemeApiKey;
 
-  factory _OpenApiSecurityScheme.fromJson(Map<String, dynamic> json) =
-      _$_OpenApiSecurityScheme.fromJson;
+  factory _OpenApiSecuritySchemeApiKey.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSecuritySchemeApiKey.fromJson;
 
   @override
-
-  /// Text
+  String get name;
+  @override
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_OpenApiSecuritySchemeCopyWith<_$_OpenApiSecurityScheme> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$_OpenApiSecuritySchemeApiKeyCopyWith<_$_OpenApiSecuritySchemeApiKey>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSecuritySchemeHttpCopyWith<$Res>
+    implements $OpenApiSecuritySchemeCopyWith<$Res> {
+  factory _$$_OpenApiSecuritySchemeHttpCopyWith(
+          _$_OpenApiSecuritySchemeHttp value,
+          $Res Function(_$_OpenApiSecuritySchemeHttp) then) =
+      __$$_OpenApiSecuritySchemeHttpCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiSecuritySchemeHttpCopyWithImpl<$Res>
+    extends _$OpenApiSecuritySchemeCopyWithImpl<$Res,
+        _$_OpenApiSecuritySchemeHttp>
+    implements _$$_OpenApiSecuritySchemeHttpCopyWith<$Res> {
+  __$$_OpenApiSecuritySchemeHttpCopyWithImpl(
+      _$_OpenApiSecuritySchemeHttp _value,
+      $Res Function(_$_OpenApiSecuritySchemeHttp) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiSecuritySchemeHttp(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSecuritySchemeHttp implements _OpenApiSecuritySchemeHttp {
+  const _$_OpenApiSecuritySchemeHttp(
+      {required this.name, this.description, final String? $type})
+      : $type = $type ?? 'http';
+
+  factory _$_OpenApiSecuritySchemeHttp.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSecuritySchemeHttpFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String? description;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSecurityScheme.http(name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSecuritySchemeHttp &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSecuritySchemeHttpCopyWith<_$_OpenApiSecuritySchemeHttp>
+      get copyWith => __$$_OpenApiSecuritySchemeHttpCopyWithImpl<
+          _$_OpenApiSecuritySchemeHttp>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String? description) apiKey,
+    required TResult Function(String name, String? description) http,
+    required TResult Function(String name, String? description) mutualTLS,
+    required TResult Function(String name, String? description) oauth2,
+    required TResult Function(String name, String? description) openIdConnect,
+  }) {
+    return http(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String? description)? apiKey,
+    TResult? Function(String name, String? description)? http,
+    TResult? Function(String name, String? description)? mutualTLS,
+    TResult? Function(String name, String? description)? oauth2,
+    TResult? Function(String name, String? description)? openIdConnect,
+  }) {
+    return http?.call(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String? description)? apiKey,
+    TResult Function(String name, String? description)? http,
+    TResult Function(String name, String? description)? mutualTLS,
+    TResult Function(String name, String? description)? oauth2,
+    TResult Function(String name, String? description)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (http != null) {
+      return http(name, description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenApiSecuritySchemeApiKey value) apiKey,
+    required TResult Function(_OpenApiSecuritySchemeHttp value) http,
+    required TResult Function(_OpenApiSecuritySchemeMutualTLS value) mutualTLS,
+    required TResult Function(_OpenApiSecuritySchemeOauth2 value) oauth2,
+    required TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)
+        openIdConnect,
+  }) {
+    return http(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult? Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult? Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult? Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult? Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+  }) {
+    return http?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (http != null) {
+      return http(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSecuritySchemeHttpToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSecuritySchemeHttp implements OpenApiSecurityScheme {
+  const factory _OpenApiSecuritySchemeHttp(
+      {required final String name,
+      final String? description}) = _$_OpenApiSecuritySchemeHttp;
+
+  factory _OpenApiSecuritySchemeHttp.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSecuritySchemeHttp.fromJson;
+
+  @override
+  String get name;
+  @override
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiSecuritySchemeHttpCopyWith<_$_OpenApiSecuritySchemeHttp>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSecuritySchemeMutualTLSCopyWith<$Res>
+    implements $OpenApiSecuritySchemeCopyWith<$Res> {
+  factory _$$_OpenApiSecuritySchemeMutualTLSCopyWith(
+          _$_OpenApiSecuritySchemeMutualTLS value,
+          $Res Function(_$_OpenApiSecuritySchemeMutualTLS) then) =
+      __$$_OpenApiSecuritySchemeMutualTLSCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiSecuritySchemeMutualTLSCopyWithImpl<$Res>
+    extends _$OpenApiSecuritySchemeCopyWithImpl<$Res,
+        _$_OpenApiSecuritySchemeMutualTLS>
+    implements _$$_OpenApiSecuritySchemeMutualTLSCopyWith<$Res> {
+  __$$_OpenApiSecuritySchemeMutualTLSCopyWithImpl(
+      _$_OpenApiSecuritySchemeMutualTLS _value,
+      $Res Function(_$_OpenApiSecuritySchemeMutualTLS) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiSecuritySchemeMutualTLS(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSecuritySchemeMutualTLS
+    implements _OpenApiSecuritySchemeMutualTLS {
+  const _$_OpenApiSecuritySchemeMutualTLS(
+      {required this.name, this.description, final String? $type})
+      : $type = $type ?? 'mutualTLS';
+
+  factory _$_OpenApiSecuritySchemeMutualTLS.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_OpenApiSecuritySchemeMutualTLSFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String? description;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSecurityScheme.mutualTLS(name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSecuritySchemeMutualTLS &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSecuritySchemeMutualTLSCopyWith<_$_OpenApiSecuritySchemeMutualTLS>
+      get copyWith => __$$_OpenApiSecuritySchemeMutualTLSCopyWithImpl<
+          _$_OpenApiSecuritySchemeMutualTLS>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String? description) apiKey,
+    required TResult Function(String name, String? description) http,
+    required TResult Function(String name, String? description) mutualTLS,
+    required TResult Function(String name, String? description) oauth2,
+    required TResult Function(String name, String? description) openIdConnect,
+  }) {
+    return mutualTLS(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String? description)? apiKey,
+    TResult? Function(String name, String? description)? http,
+    TResult? Function(String name, String? description)? mutualTLS,
+    TResult? Function(String name, String? description)? oauth2,
+    TResult? Function(String name, String? description)? openIdConnect,
+  }) {
+    return mutualTLS?.call(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String? description)? apiKey,
+    TResult Function(String name, String? description)? http,
+    TResult Function(String name, String? description)? mutualTLS,
+    TResult Function(String name, String? description)? oauth2,
+    TResult Function(String name, String? description)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (mutualTLS != null) {
+      return mutualTLS(name, description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenApiSecuritySchemeApiKey value) apiKey,
+    required TResult Function(_OpenApiSecuritySchemeHttp value) http,
+    required TResult Function(_OpenApiSecuritySchemeMutualTLS value) mutualTLS,
+    required TResult Function(_OpenApiSecuritySchemeOauth2 value) oauth2,
+    required TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)
+        openIdConnect,
+  }) {
+    return mutualTLS(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult? Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult? Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult? Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult? Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+  }) {
+    return mutualTLS?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (mutualTLS != null) {
+      return mutualTLS(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSecuritySchemeMutualTLSToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSecuritySchemeMutualTLS
+    implements OpenApiSecurityScheme {
+  const factory _OpenApiSecuritySchemeMutualTLS(
+      {required final String name,
+      final String? description}) = _$_OpenApiSecuritySchemeMutualTLS;
+
+  factory _OpenApiSecuritySchemeMutualTLS.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSecuritySchemeMutualTLS.fromJson;
+
+  @override
+  String get name;
+  @override
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiSecuritySchemeMutualTLSCopyWith<_$_OpenApiSecuritySchemeMutualTLS>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSecuritySchemeOauth2CopyWith<$Res>
+    implements $OpenApiSecuritySchemeCopyWith<$Res> {
+  factory _$$_OpenApiSecuritySchemeOauth2CopyWith(
+          _$_OpenApiSecuritySchemeOauth2 value,
+          $Res Function(_$_OpenApiSecuritySchemeOauth2) then) =
+      __$$_OpenApiSecuritySchemeOauth2CopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiSecuritySchemeOauth2CopyWithImpl<$Res>
+    extends _$OpenApiSecuritySchemeCopyWithImpl<$Res,
+        _$_OpenApiSecuritySchemeOauth2>
+    implements _$$_OpenApiSecuritySchemeOauth2CopyWith<$Res> {
+  __$$_OpenApiSecuritySchemeOauth2CopyWithImpl(
+      _$_OpenApiSecuritySchemeOauth2 _value,
+      $Res Function(_$_OpenApiSecuritySchemeOauth2) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiSecuritySchemeOauth2(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSecuritySchemeOauth2 implements _OpenApiSecuritySchemeOauth2 {
+  const _$_OpenApiSecuritySchemeOauth2(
+      {required this.name, this.description, final String? $type})
+      : $type = $type ?? 'oauth2';
+
+  factory _$_OpenApiSecuritySchemeOauth2.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenApiSecuritySchemeOauth2FromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String? description;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSecurityScheme.oauth2(name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSecuritySchemeOauth2 &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSecuritySchemeOauth2CopyWith<_$_OpenApiSecuritySchemeOauth2>
+      get copyWith => __$$_OpenApiSecuritySchemeOauth2CopyWithImpl<
+          _$_OpenApiSecuritySchemeOauth2>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String? description) apiKey,
+    required TResult Function(String name, String? description) http,
+    required TResult Function(String name, String? description) mutualTLS,
+    required TResult Function(String name, String? description) oauth2,
+    required TResult Function(String name, String? description) openIdConnect,
+  }) {
+    return oauth2(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String? description)? apiKey,
+    TResult? Function(String name, String? description)? http,
+    TResult? Function(String name, String? description)? mutualTLS,
+    TResult? Function(String name, String? description)? oauth2,
+    TResult? Function(String name, String? description)? openIdConnect,
+  }) {
+    return oauth2?.call(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String? description)? apiKey,
+    TResult Function(String name, String? description)? http,
+    TResult Function(String name, String? description)? mutualTLS,
+    TResult Function(String name, String? description)? oauth2,
+    TResult Function(String name, String? description)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (oauth2 != null) {
+      return oauth2(name, description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenApiSecuritySchemeApiKey value) apiKey,
+    required TResult Function(_OpenApiSecuritySchemeHttp value) http,
+    required TResult Function(_OpenApiSecuritySchemeMutualTLS value) mutualTLS,
+    required TResult Function(_OpenApiSecuritySchemeOauth2 value) oauth2,
+    required TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)
+        openIdConnect,
+  }) {
+    return oauth2(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult? Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult? Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult? Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult? Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+  }) {
+    return oauth2?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (oauth2 != null) {
+      return oauth2(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSecuritySchemeOauth2ToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSecuritySchemeOauth2 implements OpenApiSecurityScheme {
+  const factory _OpenApiSecuritySchemeOauth2(
+      {required final String name,
+      final String? description}) = _$_OpenApiSecuritySchemeOauth2;
+
+  factory _OpenApiSecuritySchemeOauth2.fromJson(Map<String, dynamic> json) =
+      _$_OpenApiSecuritySchemeOauth2.fromJson;
+
+  @override
+  String get name;
+  @override
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiSecuritySchemeOauth2CopyWith<_$_OpenApiSecuritySchemeOauth2>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_OpenApiSecuritySchemeOpenIdConnectCopyWith<$Res>
+    implements $OpenApiSecuritySchemeCopyWith<$Res> {
+  factory _$$_OpenApiSecuritySchemeOpenIdConnectCopyWith(
+          _$_OpenApiSecuritySchemeOpenIdConnect value,
+          $Res Function(_$_OpenApiSecuritySchemeOpenIdConnect) then) =
+      __$$_OpenApiSecuritySchemeOpenIdConnectCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String? description});
+}
+
+/// @nodoc
+class __$$_OpenApiSecuritySchemeOpenIdConnectCopyWithImpl<$Res>
+    extends _$OpenApiSecuritySchemeCopyWithImpl<$Res,
+        _$_OpenApiSecuritySchemeOpenIdConnect>
+    implements _$$_OpenApiSecuritySchemeOpenIdConnectCopyWith<$Res> {
+  __$$_OpenApiSecuritySchemeOpenIdConnectCopyWithImpl(
+      _$_OpenApiSecuritySchemeOpenIdConnect _value,
+      $Res Function(_$_OpenApiSecuritySchemeOpenIdConnect) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = freezed,
+  }) {
+    return _then(_$_OpenApiSecuritySchemeOpenIdConnect(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenApiSecuritySchemeOpenIdConnect
+    implements _OpenApiSecuritySchemeOpenIdConnect {
+  const _$_OpenApiSecuritySchemeOpenIdConnect(
+      {required this.name, this.description, final String? $type})
+      : $type = $type ?? 'openIdConnect';
+
+  factory _$_OpenApiSecuritySchemeOpenIdConnect.fromJson(
+          Map<String, dynamic> json) =>
+      _$$_OpenApiSecuritySchemeOpenIdConnectFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String? description;
+
+  @JsonKey(name: 'unionType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'OpenApiSecurityScheme.openIdConnect(name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenApiSecuritySchemeOpenIdConnect &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, description);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenApiSecuritySchemeOpenIdConnectCopyWith<
+          _$_OpenApiSecuritySchemeOpenIdConnect>
+      get copyWith => __$$_OpenApiSecuritySchemeOpenIdConnectCopyWithImpl<
+          _$_OpenApiSecuritySchemeOpenIdConnect>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String name, String? description) apiKey,
+    required TResult Function(String name, String? description) http,
+    required TResult Function(String name, String? description) mutualTLS,
+    required TResult Function(String name, String? description) oauth2,
+    required TResult Function(String name, String? description) openIdConnect,
+  }) {
+    return openIdConnect(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String name, String? description)? apiKey,
+    TResult? Function(String name, String? description)? http,
+    TResult? Function(String name, String? description)? mutualTLS,
+    TResult? Function(String name, String? description)? oauth2,
+    TResult? Function(String name, String? description)? openIdConnect,
+  }) {
+    return openIdConnect?.call(name, description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String name, String? description)? apiKey,
+    TResult Function(String name, String? description)? http,
+    TResult Function(String name, String? description)? mutualTLS,
+    TResult Function(String name, String? description)? oauth2,
+    TResult Function(String name, String? description)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (openIdConnect != null) {
+      return openIdConnect(name, description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_OpenApiSecuritySchemeApiKey value) apiKey,
+    required TResult Function(_OpenApiSecuritySchemeHttp value) http,
+    required TResult Function(_OpenApiSecuritySchemeMutualTLS value) mutualTLS,
+    required TResult Function(_OpenApiSecuritySchemeOauth2 value) oauth2,
+    required TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)
+        openIdConnect,
+  }) {
+    return openIdConnect(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult? Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult? Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult? Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult? Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+  }) {
+    return openIdConnect?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_OpenApiSecuritySchemeApiKey value)? apiKey,
+    TResult Function(_OpenApiSecuritySchemeHttp value)? http,
+    TResult Function(_OpenApiSecuritySchemeMutualTLS value)? mutualTLS,
+    TResult Function(_OpenApiSecuritySchemeOauth2 value)? oauth2,
+    TResult Function(_OpenApiSecuritySchemeOpenIdConnect value)? openIdConnect,
+    required TResult orElse(),
+  }) {
+    if (openIdConnect != null) {
+      return openIdConnect(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenApiSecuritySchemeOpenIdConnectToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenApiSecuritySchemeOpenIdConnect
+    implements OpenApiSecurityScheme {
+  const factory _OpenApiSecuritySchemeOpenIdConnect(
+      {required final String name,
+      final String? description}) = _$_OpenApiSecuritySchemeOpenIdConnect;
+
+  factory _OpenApiSecuritySchemeOpenIdConnect.fromJson(
+          Map<String, dynamic> json) =
+      _$_OpenApiSecuritySchemeOpenIdConnect.fromJson;
+
+  @override
+  String get name;
+  @override
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenApiSecuritySchemeOpenIdConnectCopyWith<
+          _$_OpenApiSecuritySchemeOpenIdConnect>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 OpenApiServer _$OpenApiServerFromJson(Map<String, dynamic> json) {

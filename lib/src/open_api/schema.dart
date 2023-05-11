@@ -37,7 +37,7 @@ class OpenApiSchema with _$OpenApiSchema {
 
   /// Reference to another [OpenApiSchema]
   const factory OpenApiSchema.reference({
-    required OpenApiSchema ref,
+    required String ref,
   }) = _OpenApiSchemaReference;
 
   // ------------------------------------------
@@ -205,14 +205,7 @@ class _SchemaConverter
         };
       },
       reference: (v) {
-        final r = v.ref;
-        if (r is _OpenApiSchema) {
-          return {'\$ref': '#/components/schemas/${r.name}'};
-        } else {
-          throw Exception(
-            '\n\nThe OpenApiSchema.reference() argument must not be another reference\n',
-          );
-        }
+        return {'\$ref': '#/components/schemas/${v.ref}'};
       },
     );
   }

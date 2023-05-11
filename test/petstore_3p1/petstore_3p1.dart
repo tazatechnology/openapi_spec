@@ -90,7 +90,7 @@ final schemaPet = OpenApiSchema(
     OpenApiProperty.array(
       name: 'tags',
       xml: OpenApiXml(wrapped: true),
-      items: OpenApiArrayItems.reference(ref: schemaTag),
+      items: OpenApiArrayItems.reference(ref: 'Tag'),
     ),
     OpenApiProperty.enumeration(
       name: 'status',
@@ -192,7 +192,7 @@ final schemaCustomer = OpenApiSchema(
     ),
     OpenApiProperty.array(
       name: 'address',
-      items: OpenApiArrayItems.reference(ref: schemaAddress),
+      items: OpenApiArrayItems.reference(ref: 'Address'),
       xml: OpenApiXml(
         name: 'addresses',
         wrapped: true,
@@ -239,6 +239,14 @@ final schemaApiResponse = OpenApiSchema(
       name: 'message',
     ),
   ],
+);
+
+final oauthSecurityScheme = OpenApiSecurityScheme.oauth2(
+  name: 'petstore_auth',
+);
+
+final apiKeySecurityScheme = OpenApiSecurityScheme.apiKey(
+  name: 'api_key',
 );
 
 // ==========================================
@@ -288,13 +296,13 @@ final spec = OpenApi(
           description: 'Update an existent pet in the store',
           content: {
             'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaPet),
+              schema: OpenApiSchema.reference(ref: 'Pet'),
             ),
             'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaPet),
+              schema: OpenApiSchema.reference(ref: 'Pet'),
             ),
             'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaPet),
+              schema: OpenApiSchema.reference(ref: 'Pet'),
             ),
           },
         ),
@@ -304,10 +312,10 @@ final spec = OpenApi(
             description: 'Successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaPet),
+                schema: OpenApiSchema.reference(ref: 'Pet'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaPet),
+                schema: OpenApiSchema.reference(ref: 'Pet'),
               ),
             },
           ),
@@ -341,13 +349,13 @@ final spec = OpenApi(
           description: 'Create a new pet in the store',
           content: {
             'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaPet),
+              schema: OpenApiSchema.reference(ref: 'Pet'),
             ),
             'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaPet),
+              schema: OpenApiSchema.reference(ref: 'Pet'),
             ),
             'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaPet),
+              schema: OpenApiSchema.reference(ref: 'Pet'),
             ),
           },
         ),
@@ -357,10 +365,10 @@ final spec = OpenApi(
             description: 'Successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaPet),
+                schema: OpenApiSchema.reference(ref: 'Pet'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaPet),
+                schema: OpenApiSchema.reference(ref: 'Pet'),
               ),
             },
           ),
@@ -406,12 +414,12 @@ final spec = OpenApi(
             content: {
               'application/json': OpenApiMediaType(
                 schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: schemaPet),
+                  items: OpenApiArrayItems.reference(ref: 'Pet'),
                 ),
               ),
               'application/xml': OpenApiMediaType(
                 schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: schemaPet),
+                  items: OpenApiArrayItems.reference(ref: 'Pet'),
                 ),
               ),
             },
@@ -455,12 +463,12 @@ final spec = OpenApi(
             content: {
               'application/json': OpenApiMediaType(
                 schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: schemaPet),
+                  items: OpenApiArrayItems.reference(ref: 'Pet'),
                 ),
               ),
               'application/xml': OpenApiMediaType(
                 schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: schemaPet),
+                  items: OpenApiArrayItems.reference(ref: 'Pet'),
                 ),
               ),
             },
@@ -502,10 +510,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaPet),
+                schema: OpenApiSchema.reference(ref: 'Pet'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaPet),
+                schema: OpenApiSchema.reference(ref: 'Pet'),
               ),
             },
           ),
@@ -637,7 +645,7 @@ final spec = OpenApi(
             content: {
               'application/json': OpenApiMediaType(
                 schema: OpenApiSchema.reference(
-                  ref: schemaApiResponse,
+                  ref: 'ApiResponse',
                 ),
               ),
             },
@@ -692,13 +700,13 @@ final spec = OpenApi(
         requestBody: OpenApiRequestBody(
           content: {
             'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaOrder),
+              schema: OpenApiSchema.reference(ref: 'Order'),
             ),
             'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaOrder),
+              schema: OpenApiSchema.reference(ref: 'Order'),
             ),
             'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaOrder),
+              schema: OpenApiSchema.reference(ref: 'Order'),
             ),
           },
         ),
@@ -709,7 +717,7 @@ final spec = OpenApi(
             content: {
               'application/json': OpenApiMediaType(
                 schema: OpenApiSchema.reference(
-                  ref: schemaOrder,
+                  ref: 'Order',
                 ),
               ),
             },
@@ -746,10 +754,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaOrder),
+                schema: OpenApiSchema.reference(ref: 'Order'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaOrder),
+                schema: OpenApiSchema.reference(ref: 'Order'),
               ),
             },
           ),
@@ -803,13 +811,13 @@ final spec = OpenApi(
           description: 'Created user object',
           content: {
             'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaUser),
+              schema: OpenApiSchema.reference(ref: 'User'),
             ),
             'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaUser),
+              schema: OpenApiSchema.reference(ref: 'User'),
             ),
             'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaUser),
+              schema: OpenApiSchema.reference(ref: 'User'),
             ),
           },
         ),
@@ -819,10 +827,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaUser),
+                schema: OpenApiSchema.reference(ref: 'User'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaUser),
+                schema: OpenApiSchema.reference(ref: 'User'),
               ),
             },
           )
@@ -842,7 +850,7 @@ final spec = OpenApi(
           content: {
             'application/json': OpenApiMediaType(
               schema: OpenApiSchema.array(
-                items: OpenApiArrayItems.reference(ref: schemaUser),
+                items: OpenApiArrayItems.reference(ref: 'User'),
               ),
             ),
           },
@@ -853,10 +861,10 @@ final spec = OpenApi(
             description: 'Successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaUser),
+                schema: OpenApiSchema.reference(ref: 'User'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaUser),
+                schema: OpenApiSchema.reference(ref: 'User'),
               ),
             },
           ),
@@ -965,10 +973,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaUser),
+                schema: OpenApiSchema.reference(ref: 'User'),
               ),
               'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: schemaUser),
+                schema: OpenApiSchema.reference(ref: 'User'),
               ),
             },
           ),
@@ -998,13 +1006,13 @@ final spec = OpenApi(
           description: 'Update an existent user in the store',
           content: {
             'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaUser),
+              schema: OpenApiSchema.reference(ref: 'User'),
             ),
             'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaUser),
+              schema: OpenApiSchema.reference(ref: 'User'),
             ),
             'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: schemaUser),
+              schema: OpenApiSchema.reference(ref: 'User'),
             ),
           },
         ),
@@ -1055,7 +1063,30 @@ final spec = OpenApi(
       OpenApiRequestBody(
         name: 'Pet',
         description: 'Pet object that needs to be added to the store',
+        content: {
+          'application/json': OpenApiMediaType(
+            schema: OpenApiSchema.reference(ref: 'Pet'),
+          ),
+          'application/xml': OpenApiMediaType(
+            schema: OpenApiSchema.reference(ref: 'Pet'),
+          ),
+        },
       ),
+      OpenApiRequestBody(
+        name: 'UserArray',
+        description: 'List of user object',
+        content: {
+          'application/json': OpenApiMediaType(
+            schema: OpenApiSchema.array(
+              items: OpenApiArrayItems.reference(ref: 'User'),
+            ),
+          ),
+        },
+      ),
+    ],
+    securitySchemes: [
+      oauthSecurityScheme,
+      apiKeySecurityScheme,
     ],
   ),
 );

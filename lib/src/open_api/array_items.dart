@@ -29,7 +29,7 @@ class OpenApiArrayItems with _$OpenApiArrayItems {
 
   /// An array of [OpenApiSchema] object references
   const factory OpenApiArrayItems.reference({
-    required OpenApiSchema ref,
+    required String ref,
     OpenApiXml? xml,
   }) = _OpenApiArrayItemsReference;
 
@@ -77,14 +77,7 @@ class _ArrayItemsConverter
         }..removeWhere((k, v) => v == null);
       },
       reference: (v) {
-        final r = v.ref;
-        if (r is _OpenApiSchema) {
-          return {'\$ref': '#/components/schemas/${r.name}'};
-        } else {
-          throw Exception(
-            '\n\nThe OpenApiArrayItems.reference() argument must not be another reference\n',
-          );
-        }
+        return {'\$ref': '#/components/schemas/${v.ref}'};
       },
     );
   }
