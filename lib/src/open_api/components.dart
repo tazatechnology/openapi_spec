@@ -10,14 +10,12 @@ part of openapi_models;
 /// https://swagger.io/specification/#components-object
 @freezed
 class OpenApiComponents with _$OpenApiComponents {
-  const OpenApiComponents._();
-
   const factory OpenApiComponents({
     /// A set of reusable [OpenApiSchema] objects.
     @_SchemaListConverter() List<OpenApiSchema>? schemas,
 
     /// A set of reusable [OpenApiResponse] objects.
-    @_ResponseListConverter() List<OpenApiResponse>? responses,
+    List<OpenApiResponse>? responses,
 
     /// A set of reusable [OpenApiParameter] objects.
     List<OpenApiParameter>? parameters,
@@ -25,7 +23,7 @@ class OpenApiComponents with _$OpenApiComponents {
     /// A set of reusable [OpenApiExample] objects.
     List<OpenApiExample>? examples,
 
-    /// A set of reusable [OpenApiRequestBody] objects.
+    /// A set of reusable [OpenApiRequestBody.component] objects.
     List<OpenApiRequestBody>? requestBodies,
 
     /// A set of reusable [OpenApiHeader] objects.
@@ -47,3 +45,54 @@ class OpenApiComponents with _$OpenApiComponents {
   factory OpenApiComponents.fromJson(Map<String, dynamic> json) =>
       _$OpenApiComponentsFromJson(json);
 }
+
+// ==========================================
+// SchemaListConverter
+// ==========================================
+
+/// Custom converter for List<[OpenApiSchema]> union type
+class _SchemaListConverter
+    implements JsonConverter<List<OpenApiSchema>, Map<String, dynamic>> {
+  const _SchemaListConverter();
+
+  @override
+  List<OpenApiSchema> fromJson(Map<String, dynamic> json) {
+    return [];
+  }
+
+  @override
+  Map<String, dynamic> toJson(List<OpenApiSchema> data) {
+    return data.asMap().map((_, value) {
+      // Check for required properties
+      List<String> req = [];
+      if (value is _OpenApiSchema) {
+        for (final p in value.properties ?? []) {
+          if (p is _OpenApiPropertyReference) {
+            continue;
+          }
+          if (p.isRequired) {
+            req.add(p.name);
+          }
+        }
+      }
+      var reqEntry = {};
+      if (req.isNotEmpty) {
+        reqEntry = {'required': req};
+      }
+      if (value is _OpenApiSchema) {
+        return MapEntry(
+          value.name.toString(),
+          reqEntry..addAll(_SchemaConverter().toJson(value)..remove('name')),
+        );
+      } else {
+        throw Exception(
+          '\n\nThe OpenApiSchema must not be another reference\n',
+        );
+      }
+    });
+  }
+}
+
+// ==========================================
+// RequestBodyListConverter
+// ==========================================

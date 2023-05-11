@@ -33,10 +33,10 @@ class OpenApiOperation with _$OpenApiOperation {
     List<OpenApiParameter>? parameters,
 
     /// The request body applicable for this operation.
-    @_RequestBodyConverter() OpenApiRequestBody? requestBody,
+    @_OperationRequestBodyConverter() OpenApiRequestBody? requestBody,
 
     /// The list of possible responses as they are returned from executing this operation.
-    @_ResponseListConverter() List<OpenApiResponse>? responses,
+    @_OperationResponseListConverter() List<OpenApiResponse>? responses,
 
     /// A map of possible out-of band callbacks related to the parent operation.
     /// The key is a unique identifier for the [OpenApiCallback] Object.
@@ -65,4 +65,64 @@ List<String>? _toJsonTags(List<OpenApiTag>? tags) {
 
 List<OpenApiTag>? _fromJsonTags(List<String>? json) {
   return json?.map((e) => OpenApiTag(name: e)).toList();
+}
+
+// ==========================================
+// OperationResponseListConverter
+// ==========================================
+
+/// Custom converter for List<[OpenApiResponse]> union type
+class _OperationResponseListConverter
+    implements JsonConverter<List<OpenApiResponse>, Map<String, dynamic>> {
+  const _OperationResponseListConverter();
+
+  @override
+  List<OpenApiResponse> fromJson(Map<String, dynamic> json) {
+    return [];
+  }
+
+  @override
+  Map<String, dynamic> toJson(List<OpenApiResponse> data) {
+    Map<String, dynamic> json = {};
+    for (final p in data) {
+      p.map(
+        (value) {
+          json[value.code] = value.toJson()
+            ..remove('code')
+            ..remove(_unionKey);
+        },
+        reference: (value) {
+          final r = value.ref;
+          if (r is _OpenApiResponse) {
+            json['\$ref'] = '#/components/responses/${r.id}';
+          } else {
+            throw Exception(
+              '\n\nThe OpenApiResponse.reference() argument must not be another reference\n',
+            );
+          }
+        },
+      );
+    }
+    return json;
+  }
+}
+
+// ==========================================
+// OperationRequestBodyConverter
+// ==========================================
+
+/// Custom converter [OpenApiPath] union type
+class _OperationRequestBodyConverter
+    implements JsonConverter<OpenApiRequestBody, Map<String, dynamic>> {
+  const _OperationRequestBodyConverter();
+
+  @override
+  OpenApiRequestBody fromJson(Map<String, dynamic> json) {
+    return OpenApiRequestBody();
+  }
+
+  @override
+  Map<String, dynamic> toJson(OpenApiRequestBody data) {
+    return data.toJson()..remove(_unionKey);
+  }
 }

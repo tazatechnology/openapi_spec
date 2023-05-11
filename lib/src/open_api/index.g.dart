@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of openapi_models;
+part of 'index.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -153,9 +153,9 @@ _$_OpenApiComponents _$$_OpenApiComponentsFromJson(Map<String, dynamic> json) =>
       schemas:
           _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiSchema>>(
               json['schemas'], const _SchemaListConverter().fromJson),
-      responses:
-          _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiResponse>>(
-              json['responses'], const _ResponseListConverter().fromJson),
+      responses: (json['responses'] as List<dynamic>?)
+          ?.map((e) => OpenApiResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
       parameters: (json['parameters'] as List<dynamic>?)
           ?.map((e) => OpenApiParameter.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -198,9 +198,7 @@ Map<String, dynamic> _$$_OpenApiComponentsToJson(
       _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiSchema>>(
           instance.schemas, const _SchemaListConverter().toJson));
   writeNotNull(
-      'responses',
-      _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiResponse>>(
-          instance.responses, const _ResponseListConverter().toJson));
+      'responses', instance.responses?.map((e) => e.toJson()).toList());
   writeNotNull(
       'parameters', instance.parameters?.map((e) => e.toJson()).toList());
   writeNotNull('examples', instance.examples?.map((e) => e.toJson()).toList());
@@ -505,10 +503,12 @@ _$_OpenApiOperation _$$_OpenApiOperationFromJson(Map<String, dynamic> json) =>
           .toList(),
       requestBody:
           _$JsonConverterFromJson<Map<String, dynamic>, OpenApiRequestBody>(
-              json['requestBody'], const _RequestBodyConverter().fromJson),
+              json['requestBody'],
+              const _OperationRequestBodyConverter().fromJson),
       responses:
           _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiResponse>>(
-              json['responses'], const _ResponseListConverter().fromJson),
+              json['responses'],
+              const _OperationResponseListConverter().fromJson),
       callbacks: (json['callbacks'] as List<dynamic>?)
           ?.map((e) => OpenApiCallback.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -540,11 +540,11 @@ Map<String, dynamic> _$$_OpenApiOperationToJson(_$_OpenApiOperation instance) {
   writeNotNull(
       'requestBody',
       _$JsonConverterToJson<Map<String, dynamic>, OpenApiRequestBody>(
-          instance.requestBody, const _RequestBodyConverter().toJson));
+          instance.requestBody, const _OperationRequestBodyConverter().toJson));
   writeNotNull(
       'responses',
       _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiResponse>>(
-          instance.responses, const _ResponseListConverter().toJson));
+          instance.responses, const _OperationResponseListConverter().toJson));
   writeNotNull(
       'callbacks', instance.callbacks?.map((e) => e.toJson()).toList());
   writeNotNull('deprecated', instance.deprecated);
@@ -996,7 +996,6 @@ Map<String, dynamic> _$$_OpenApiResponseReferenceToJson(
 
 _$_OpenApiSchema _$$_OpenApiSchemaFromJson(Map<String, dynamic> json) =>
     _$_OpenApiSchema(
-      name: json['name'] as String,
       discriminator: json['discriminator'] == null
           ? null
           : OpenApiDiscriminator.fromJson(
@@ -1015,9 +1014,7 @@ _$_OpenApiSchema _$$_OpenApiSchemaFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$_OpenApiSchemaToJson(_$_OpenApiSchema instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {

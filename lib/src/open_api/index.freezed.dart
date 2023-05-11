@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of openapi_models;
+part of 'index.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -1049,7 +1049,6 @@ mixin _$OpenApiComponents {
   List<OpenApiSchema>? get schemas => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiResponse] objects.
-  @_ResponseListConverter()
   List<OpenApiResponse>? get responses => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiParameter] objects.
@@ -1058,7 +1057,7 @@ mixin _$OpenApiComponents {
   /// A set of reusable [OpenApiExample] objects.
   List<OpenApiExample>? get examples => throw _privateConstructorUsedError;
 
-  /// A set of reusable [OpenApiRequestBody] objects.
+  /// A set of reusable [OpenApiRequestBody.component] objects.
   List<OpenApiRequestBody>? get requestBodies =>
       throw _privateConstructorUsedError;
 
@@ -1093,7 +1092,7 @@ abstract class $OpenApiComponentsCopyWith<$Res> {
   @useResult
   $Res call(
       {@_SchemaListConverter() List<OpenApiSchema>? schemas,
-      @_ResponseListConverter() List<OpenApiResponse>? responses,
+      List<OpenApiResponse>? responses,
       List<OpenApiParameter>? parameters,
       List<OpenApiExample>? examples,
       List<OpenApiRequestBody>? requestBodies,
@@ -1183,7 +1182,7 @@ abstract class _$$_OpenApiComponentsCopyWith<$Res>
   @useResult
   $Res call(
       {@_SchemaListConverter() List<OpenApiSchema>? schemas,
-      @_ResponseListConverter() List<OpenApiResponse>? responses,
+      List<OpenApiResponse>? responses,
       List<OpenApiParameter>? parameters,
       List<OpenApiExample>? examples,
       List<OpenApiRequestBody>? requestBodies,
@@ -1263,10 +1262,10 @@ class __$$_OpenApiComponentsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpenApiComponents extends _OpenApiComponents {
+class _$_OpenApiComponents implements _OpenApiComponents {
   const _$_OpenApiComponents(
       {@_SchemaListConverter() final List<OpenApiSchema>? schemas,
-      @_ResponseListConverter() final List<OpenApiResponse>? responses,
+      final List<OpenApiResponse>? responses,
       final List<OpenApiParameter>? parameters,
       final List<OpenApiExample>? examples,
       final List<OpenApiRequestBody>? requestBodies,
@@ -1284,8 +1283,7 @@ class _$_OpenApiComponents extends _OpenApiComponents {
         _securitySchemes = securitySchemes,
         _links = links,
         _callbacks = callbacks,
-        _pathItems = pathItems,
-        super._();
+        _pathItems = pathItems;
 
   factory _$_OpenApiComponents.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiComponentsFromJson(json);
@@ -1309,7 +1307,6 @@ class _$_OpenApiComponents extends _OpenApiComponents {
 
   /// A set of reusable [OpenApiResponse] objects.
   @override
-  @_ResponseListConverter()
   List<OpenApiResponse>? get responses {
     final value = _responses;
     if (value == null) return null;
@@ -1344,10 +1341,10 @@ class _$_OpenApiComponents extends _OpenApiComponents {
     return EqualUnmodifiableListView(value);
   }
 
-  /// A set of reusable [OpenApiRequestBody] objects.
+  /// A set of reusable [OpenApiRequestBody.component] objects.
   final List<OpenApiRequestBody>? _requestBodies;
 
-  /// A set of reusable [OpenApiRequestBody] objects.
+  /// A set of reusable [OpenApiRequestBody.component] objects.
   @override
   List<OpenApiRequestBody>? get requestBodies {
     final value = _requestBodies;
@@ -1481,10 +1478,10 @@ class _$_OpenApiComponents extends _OpenApiComponents {
   }
 }
 
-abstract class _OpenApiComponents extends OpenApiComponents {
+abstract class _OpenApiComponents implements OpenApiComponents {
   const factory _OpenApiComponents(
           {@_SchemaListConverter() final List<OpenApiSchema>? schemas,
-          @_ResponseListConverter() final List<OpenApiResponse>? responses,
+          final List<OpenApiResponse>? responses,
           final List<OpenApiParameter>? parameters,
           final List<OpenApiExample>? examples,
           final List<OpenApiRequestBody>? requestBodies,
@@ -1494,7 +1491,6 @@ abstract class _OpenApiComponents extends OpenApiComponents {
           final List<OpenApiCallback>? callbacks,
           @_PathListConverter() final List<OpenApiPath>? pathItems}) =
       _$_OpenApiComponents;
-  const _OpenApiComponents._() : super._();
 
   factory _OpenApiComponents.fromJson(Map<String, dynamic> json) =
       _$_OpenApiComponents.fromJson;
@@ -1507,7 +1503,6 @@ abstract class _OpenApiComponents extends OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiResponse] objects.
-  @_ResponseListConverter()
   List<OpenApiResponse>? get responses;
   @override
 
@@ -1519,7 +1514,7 @@ abstract class _OpenApiComponents extends OpenApiComponents {
   List<OpenApiExample>? get examples;
   @override
 
-  /// A set of reusable [OpenApiRequestBody] objects.
+  /// A set of reusable [OpenApiRequestBody.component] objects.
   List<OpenApiRequestBody>? get requestBodies;
   @override
 
@@ -3765,11 +3760,11 @@ mixin _$OpenApiOperation {
   List<OpenApiParameter>? get parameters => throw _privateConstructorUsedError;
 
   /// The request body applicable for this operation.
-  @_RequestBodyConverter()
+  @_OperationRequestBodyConverter()
   OpenApiRequestBody? get requestBody => throw _privateConstructorUsedError;
 
   /// The list of possible responses as they are returned from executing this operation.
-  @_ResponseListConverter()
+  @_OperationResponseListConverter()
   List<OpenApiResponse>? get responses => throw _privateConstructorUsedError;
 
   /// A map of possible out-of band callbacks related to the parent operation.
@@ -3809,9 +3804,9 @@ abstract class $OpenApiOperationCopyWith<$Res> {
       @JsonKey(name: 'operationId')
           String? id,
       List<OpenApiParameter>? parameters,
-      @_RequestBodyConverter()
+      @_OperationRequestBodyConverter()
           OpenApiRequestBody? requestBody,
-      @_ResponseListConverter()
+      @_OperationResponseListConverter()
           List<OpenApiResponse>? responses,
       List<OpenApiCallback>? callbacks,
       bool? deprecated,
@@ -3942,9 +3937,9 @@ abstract class _$$_OpenApiOperationCopyWith<$Res>
       @JsonKey(name: 'operationId')
           String? id,
       List<OpenApiParameter>? parameters,
-      @_RequestBodyConverter()
+      @_OperationRequestBodyConverter()
           OpenApiRequestBody? requestBody,
-      @_ResponseListConverter()
+      @_OperationResponseListConverter()
           List<OpenApiResponse>? responses,
       List<OpenApiCallback>? callbacks,
       bool? deprecated,
@@ -4046,9 +4041,9 @@ class _$_OpenApiOperation implements _OpenApiOperation {
       @JsonKey(name: 'operationId')
           this.id,
       final List<OpenApiParameter>? parameters,
-      @_RequestBodyConverter()
+      @_OperationRequestBodyConverter()
           this.requestBody,
-      @_ResponseListConverter()
+      @_OperationResponseListConverter()
           final List<OpenApiResponse>? responses,
       final List<OpenApiCallback>? callbacks,
       this.deprecated,
@@ -4115,7 +4110,7 @@ class _$_OpenApiOperation implements _OpenApiOperation {
 
   /// The request body applicable for this operation.
   @override
-  @_RequestBodyConverter()
+  @_OperationRequestBodyConverter()
   final OpenApiRequestBody? requestBody;
 
   /// The list of possible responses as they are returned from executing this operation.
@@ -4123,7 +4118,7 @@ class _$_OpenApiOperation implements _OpenApiOperation {
 
   /// The list of possible responses as they are returned from executing this operation.
   @override
-  @_ResponseListConverter()
+  @_OperationResponseListConverter()
   List<OpenApiResponse>? get responses {
     final value = _responses;
     if (value == null) return null;
@@ -4255,9 +4250,9 @@ abstract class _OpenApiOperation implements OpenApiOperation {
       @JsonKey(name: 'operationId')
           final String? id,
       final List<OpenApiParameter>? parameters,
-      @_RequestBodyConverter()
+      @_OperationRequestBodyConverter()
           final OpenApiRequestBody? requestBody,
-      @_ResponseListConverter()
+      @_OperationResponseListConverter()
           final List<OpenApiResponse>? responses,
       final List<OpenApiCallback>? callbacks,
       final bool? deprecated,
@@ -4299,12 +4294,12 @@ abstract class _OpenApiOperation implements OpenApiOperation {
   @override
 
   /// The request body applicable for this operation.
-  @_RequestBodyConverter()
+  @_OperationRequestBodyConverter()
   OpenApiRequestBody? get requestBody;
   @override
 
   /// The list of possible responses as they are returned from executing this operation.
-  @_ResponseListConverter()
+  @_OperationResponseListConverter()
   List<OpenApiResponse>? get responses;
   @override
 
@@ -10531,6 +10526,7 @@ mixin _$OpenApiRequestBody {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)
@@ -10541,6 +10537,7 @@ mixin _$OpenApiRequestBody {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)?
@@ -10551,6 +10548,7 @@ mixin _$OpenApiRequestBody {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)?
@@ -10606,7 +10604,8 @@ abstract class _$$_OpenApiRequestBodyCopyWith<$Res> {
       __$$_OpenApiRequestBodyCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? description,
+      {@JsonKey(ignore: true) String? name,
+      String? description,
       Map<String, OpenApiMediaType>? content,
       @JsonKey(name: 'required') bool? isRequired});
 }
@@ -10622,11 +10621,16 @@ class __$$_OpenApiRequestBodyCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = freezed,
     Object? description = freezed,
     Object? content = freezed,
     Object? isRequired = freezed,
   }) {
     return _then(_$_OpenApiRequestBody(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -10647,7 +10651,8 @@ class __$$_OpenApiRequestBodyCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiRequestBody implements _OpenApiRequestBody {
   const _$_OpenApiRequestBody(
-      {this.description,
+      {@JsonKey(ignore: true) this.name,
+      this.description,
       final Map<String, OpenApiMediaType>? content,
       @JsonKey(name: 'required') this.isRequired,
       final String? $type})
@@ -10657,20 +10662,19 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
   factory _$_OpenApiRequestBody.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiRequestBodyFromJson(json);
 
-  /// A brief description of the request body. This could contain examples of use.
+  /// The name of the component class defined for [OpenApiComponents.requestBodies].
+  @override
+  @JsonKey(ignore: true)
+  final String? name;
+
+  /// A brief description of the request body.
   @override
   final String? description;
 
-  /// The content of the request body. The key is a media type or
-  /// media type range and the value describes it. For requests that
-  /// match multiple keys, only the most specific key is applicable.
-  /// e.g. `text/plain` overrides `text/*`
+  /// The content of the request body.
   final Map<String, OpenApiMediaType>? _content;
 
-  /// The content of the request body. The key is a media type or
-  /// media type range and the value describes it. For requests that
-  /// match multiple keys, only the most specific key is applicable.
-  /// e.g. `text/plain` overrides `text/*`
+  /// The content of the request body.
   @override
   Map<String, OpenApiMediaType>? get content {
     final value = _content;
@@ -10690,7 +10694,7 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
 
   @override
   String toString() {
-    return 'OpenApiRequestBody(description: $description, content: $content, isRequired: $isRequired)';
+    return 'OpenApiRequestBody(name: $name, description: $description, content: $content, isRequired: $isRequired)';
   }
 
   @override
@@ -10698,6 +10702,7 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiRequestBody &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
@@ -10707,7 +10712,7 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description,
+  int get hashCode => Object.hash(runtimeType, name, description,
       const DeepCollectionEquality().hash(_content), isRequired);
 
   @JsonKey(ignore: true)
@@ -10721,32 +10726,35 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)
         $default, {
     required TResult Function(OpenApiRequestBody ref) reference,
   }) {
-    return $default(description, content, isRequired);
+    return $default(name, description, content, isRequired);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)?
         $default, {
     TResult? Function(OpenApiRequestBody ref)? reference,
   }) {
-    return $default?.call(description, content, isRequired);
+    return $default?.call(name, description, content, isRequired);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)?
@@ -10755,7 +10763,7 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(description, content, isRequired);
+      return $default(name, description, content, isRequired);
     }
     return orElse();
   }
@@ -10801,7 +10809,8 @@ class _$_OpenApiRequestBody implements _OpenApiRequestBody {
 
 abstract class _OpenApiRequestBody implements OpenApiRequestBody {
   const factory _OpenApiRequestBody(
-          {final String? description,
+          {@JsonKey(ignore: true) final String? name,
+          final String? description,
           final Map<String, OpenApiMediaType>? content,
           @JsonKey(name: 'required') final bool? isRequired}) =
       _$_OpenApiRequestBody;
@@ -10809,13 +10818,14 @@ abstract class _OpenApiRequestBody implements OpenApiRequestBody {
   factory _OpenApiRequestBody.fromJson(Map<String, dynamic> json) =
       _$_OpenApiRequestBody.fromJson;
 
-  /// A brief description of the request body. This could contain examples of use.
+  /// The name of the component class defined for [OpenApiComponents.requestBodies].
+  @JsonKey(ignore: true)
+  String? get name;
+
+  /// A brief description of the request body.
   String? get description;
 
-  /// The content of the request body. The key is a media type or
-  /// media type range and the value describes it. For requests that
-  /// match multiple keys, only the most specific key is applicable.
-  /// e.g. `text/plain` overrides `text/*`
+  /// The content of the request body.
   Map<String, OpenApiMediaType>? get content;
 
   /// Determines if the request body is required in the request.
@@ -10913,6 +10923,7 @@ class _$_OpenApiRequestBodyReference implements _OpenApiRequestBodyReference {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)
@@ -10926,6 +10937,7 @@ class _$_OpenApiRequestBodyReference implements _OpenApiRequestBodyReference {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)?
@@ -10939,6 +10951,7 @@ class _$_OpenApiRequestBodyReference implements _OpenApiRequestBodyReference {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            @JsonKey(ignore: true) String? name,
             String? description,
             Map<String, OpenApiMediaType>? content,
             @JsonKey(name: 'required') bool? isRequired)?
@@ -11612,7 +11625,7 @@ mixin _$OpenApiSchema {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -11679,7 +11692,7 @@ mixin _$OpenApiSchema {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -11746,7 +11759,7 @@ mixin _$OpenApiSchema {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -11876,7 +11889,7 @@ abstract class _$$_OpenApiSchemaCopyWith<$Res> {
       __$$_OpenApiSchemaCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String name,
+      {@JsonKey(ignore: true) String? name,
       OpenApiDiscriminator? discriminator,
       OpenApiExternalDocs? externalDocs,
       @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -11898,17 +11911,17 @@ class __$$_OpenApiSchemaCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? name = freezed,
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
     Object? properties = freezed,
     Object? xml = freezed,
   }) {
     return _then(_$_OpenApiSchema(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       discriminator: freezed == discriminator
           ? _value.discriminator
           : discriminator // ignore: cast_nullable_to_non_nullable
@@ -11969,7 +11982,7 @@ class __$$_OpenApiSchemaCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiSchema implements _OpenApiSchema {
   const _$_OpenApiSchema(
-      {required this.name,
+      {@JsonKey(ignore: true) this.name,
       this.discriminator,
       this.externalDocs,
       @_PropertyListConverter() final List<OpenApiProperty>? properties,
@@ -11981,9 +11994,10 @@ class _$_OpenApiSchema implements _OpenApiSchema {
   factory _$_OpenApiSchema.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiSchemaFromJson(json);
 
-  /// The class name of this schema
+  /// The name of the component class defined for [OpenApiComponents.schemas].
   @override
-  final String name;
+  @JsonKey(ignore: true)
+  final String? name;
 
   /// Adds support for polymorphism.
   /// The discriminator is an object name that is used to differentiate between
@@ -12052,7 +12066,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12122,7 +12136,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12192,7 +12206,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12321,7 +12335,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
 
 abstract class _OpenApiSchema implements OpenApiSchema {
   const factory _OpenApiSchema(
-      {required final String name,
+      {@JsonKey(ignore: true) final String? name,
       final OpenApiDiscriminator? discriminator,
       final OpenApiExternalDocs? externalDocs,
       @_PropertyListConverter() final List<OpenApiProperty>? properties,
@@ -12330,8 +12344,9 @@ abstract class _OpenApiSchema implements OpenApiSchema {
   factory _OpenApiSchema.fromJson(Map<String, dynamic> json) =
       _$_OpenApiSchema.fromJson;
 
-  /// The class name of this schema
-  String get name;
+  /// The name of the component class defined for [OpenApiComponents.schemas].
+  @JsonKey(ignore: true)
+  String? get name;
 
   /// Adds support for polymorphism.
   /// The discriminator is an object name that is used to differentiate between
@@ -12437,7 +12452,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12507,7 +12522,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12577,7 +12592,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12896,7 +12911,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -12967,7 +12982,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -13038,7 +13053,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -13407,7 +13422,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -13478,7 +13493,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -13549,7 +13564,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -13922,7 +13937,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -13993,7 +14008,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14064,7 +14079,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14358,7 +14373,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14428,7 +14443,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14499,7 +14514,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14853,7 +14868,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14924,7 +14939,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -14995,7 +15010,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -15235,7 +15250,7 @@ class _$_OpenApiSchemaMap implements _OpenApiSchemaMap {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -15305,7 +15320,7 @@ class _$_OpenApiSchemaMap implements _OpenApiSchemaMap {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,
@@ -15375,7 +15390,7 @@ class _$_OpenApiSchemaMap implements _OpenApiSchemaMap {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String name,
+            @JsonKey(ignore: true) String? name,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
             @_PropertyListConverter() List<OpenApiProperty>? properties,

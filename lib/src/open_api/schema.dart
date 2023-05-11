@@ -12,8 +12,8 @@ part of openapi_models;
 @freezed
 class OpenApiSchema with _$OpenApiSchema {
   const factory OpenApiSchema({
-    /// The class name of this schema
-    required String name,
+    /// The name of the component class defined for [OpenApiComponents.schemas].
+    @JsonKey(ignore: true) String? name,
 
     /// Adds support for polymorphism.
     /// The discriminator is an object name that is used to differentiate between
@@ -215,52 +215,5 @@ class _SchemaConverter
         }
       },
     );
-  }
-}
-
-// ==========================================
-// SchemaListConverter
-// ==========================================
-
-/// Custom converter for List<[OpenApiSchema]> union type
-class _SchemaListConverter
-    implements JsonConverter<List<OpenApiSchema>, Map<String, dynamic>> {
-  const _SchemaListConverter();
-
-  @override
-  List<OpenApiSchema> fromJson(Map<String, dynamic> json) {
-    return [];
-  }
-
-  @override
-  Map<String, dynamic> toJson(List<OpenApiSchema> data) {
-    return data.asMap().map((_, value) {
-      // Check for required properties
-      List<String> req = [];
-      if (value is _OpenApiSchema) {
-        for (final p in value.properties ?? []) {
-          if (p is _OpenApiPropertyReference) {
-            continue;
-          }
-          if (p.isRequired) {
-            req.add(p.name);
-          }
-        }
-      }
-      var reqEntry = {};
-      if (req.isNotEmpty) {
-        reqEntry = {'required': req};
-      }
-      if (value is _OpenApiSchema) {
-        return MapEntry(
-          value.name,
-          reqEntry..addAll(_SchemaConverter().toJson(value)..remove('name')),
-        );
-      } else {
-        throw Exception(
-          '\n\nThe OpenApiSchema must not be another reference\n',
-        );
-      }
-    });
   }
 }
