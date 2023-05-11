@@ -33,7 +33,7 @@ class OpenApiOperation with _$OpenApiOperation {
     List<OpenApiParameter>? parameters,
 
     /// The request body applicable for this operation.
-    @_OperationRequestBodyConverter() OpenApiRequestBody? requestBody,
+    OpenApiRequestBody? requestBody,
 
     /// The list of possible responses as they are returned from executing this operation.
     @_OperationResponseListConverter() List<OpenApiResponse>? responses,
@@ -87,9 +87,7 @@ class _OperationResponseListConverter
     for (final p in data) {
       p.map(
         (value) {
-          json[value.code] = value.toJson()
-            ..remove('code')
-            ..remove(_unionKey);
+          json[value.code] = value.toJson()..remove('code');
         },
         reference: (value) {
           final r = value.ref;
@@ -104,25 +102,5 @@ class _OperationResponseListConverter
       );
     }
     return json;
-  }
-}
-
-// ==========================================
-// OperationRequestBodyConverter
-// ==========================================
-
-/// Custom converter [OpenApiPath] union type
-class _OperationRequestBodyConverter
-    implements JsonConverter<OpenApiRequestBody, Map<String, dynamic>> {
-  const _OperationRequestBodyConverter();
-
-  @override
-  OpenApiRequestBody fromJson(Map<String, dynamic> json) {
-    return OpenApiRequestBody();
-  }
-
-  @override
-  Map<String, dynamic> toJson(OpenApiRequestBody data) {
-    return data.toJson()..remove(_unionKey);
   }
 }

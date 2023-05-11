@@ -32,7 +32,6 @@ final userTag = OpenApiTag(
 // ==========================================
 
 final schemaTag = OpenApiSchema(
-  name: 'Tag',
   xml: OpenApiXml(name: 'tag'),
   properties: [
     OpenApiProperty.integer(
@@ -46,7 +45,6 @@ final schemaTag = OpenApiSchema(
 );
 
 final schemaCategory = OpenApiSchema(
-  name: 'Category',
   xml: OpenApiXml(name: 'category'),
   properties: [
     OpenApiProperty.integer(
@@ -62,8 +60,11 @@ final schemaCategory = OpenApiSchema(
 );
 
 final schemaPet = OpenApiSchema(
-  name: 'Pet',
   xml: OpenApiXml(name: 'pet'),
+  required: [
+    'name',
+    'photoUrls',
+  ],
   properties: [
     OpenApiProperty.integer(
       name: 'id',
@@ -71,7 +72,6 @@ final schemaPet = OpenApiSchema(
       example: 10,
     ),
     OpenApiProperty.string(
-      isRequired: true,
       name: 'name',
       example: 'doggie',
     ),
@@ -80,7 +80,6 @@ final schemaPet = OpenApiSchema(
       ref: schemaCategory,
     ),
     OpenApiProperty.array(
-      isRequired: true,
       name: 'photoUrls',
       xml: OpenApiXml(wrapped: true),
       items: OpenApiArrayItems.string(
@@ -101,7 +100,6 @@ final schemaPet = OpenApiSchema(
 );
 
 final schemaOrder = OpenApiSchema(
-  name: 'Order',
   xml: OpenApiXml(name: 'order'),
   properties: [
     OpenApiProperty.integer(
@@ -136,7 +134,6 @@ final schemaOrder = OpenApiSchema(
 );
 
 final schemaUser = OpenApiSchema(
-  name: 'User',
   xml: OpenApiXml(name: 'user'),
   properties: [
     OpenApiProperty.integer(
@@ -178,7 +175,6 @@ final schemaUser = OpenApiSchema(
 );
 
 final schemaCustomer = OpenApiSchema(
-  name: 'Customer',
   xml: OpenApiXml(name: 'customer'),
   properties: [
     OpenApiProperty.integer(
@@ -202,7 +198,6 @@ final schemaCustomer = OpenApiSchema(
 );
 
 final schemaAddress = OpenApiSchema(
-  name: 'Address',
   xml: OpenApiXml(name: 'address'),
   properties: [
     OpenApiProperty.string(
@@ -225,7 +220,6 @@ final schemaAddress = OpenApiSchema(
 );
 
 final schemaApiResponse = OpenApiSchema(
-  name: 'ApiResponse',
   xml: OpenApiXml(name: '##default'),
   properties: [
     OpenApiProperty.integer(
@@ -242,11 +236,20 @@ final schemaApiResponse = OpenApiSchema(
 );
 
 final oauthSecurityScheme = OpenApiSecurityScheme.oauth2(
-  name: 'petstore_auth',
+  flows: OpenApiOAuthFlows(
+    implicit: OpenApiOAuthFlow.implicit(
+      authorizationUrl: 'https://petstore3.swagger.io/oauth/authorize',
+      scopes: {
+        'write:pets': 'modify pets in your account',
+        'read:pets': 'read your pets',
+      },
+    ),
+  ),
 );
 
 final apiKeySecurityScheme = OpenApiSecurityScheme.apiKey(
   name: 'api_key',
+  location: ApiKeyLocation.header,
 );
 
 // ==========================================
@@ -399,7 +402,7 @@ final spec = OpenApi(
           OpenApiParameter.query(
             name: 'status',
             description: 'Status values that need to be considered for filter',
-            isRequired: false,
+            required: false,
             explode: true,
             schema: OpenApiSchema.enumeration(
               defaultValue: 'available',
@@ -451,7 +454,7 @@ final spec = OpenApi(
           OpenApiParameter.query(
             name: 'tags',
             description: 'Tags to filter by',
-            isRequired: false,
+            required: false,
             explode: true,
             schema: OpenApiSchema.array(items: OpenApiArrayItems.string()),
           ),
@@ -580,7 +583,7 @@ final spec = OpenApi(
           OpenApiParameter.header(
             name: 'api_key',
             description: '',
-            isRequired: false,
+            required: false,
             schema: OpenApiSchema.string(),
           ),
           OpenApiParameter.path(
@@ -625,7 +628,7 @@ final spec = OpenApi(
           OpenApiParameter.query(
             name: 'additionalMetadata',
             description: 'Additional Metadata',
-            isRequired: false,
+            required: false,
             schema: OpenApiSchema.string(),
           ),
         ],
@@ -674,8 +677,8 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.map(
-                  value: OpenApiSchema.integer(
+                schema: OpenApiSchema(
+                  additionalProperties: OpenApiSchema.integer(
                     format: OpenApiIntegerFormat.int32,
                   ),
                 ),
@@ -888,13 +891,13 @@ final spec = OpenApi(
           OpenApiParameter.query(
             name: 'username',
             description: 'The user name for login',
-            isRequired: false,
+            required: false,
             schema: OpenApiSchema.string(),
           ),
           OpenApiParameter.query(
             name: 'password',
             description: 'The password for login in clear text',
-            isRequired: false,
+            required: false,
             schema: OpenApiSchema.string(),
           ),
         ],
@@ -1049,19 +1052,18 @@ final spec = OpenApi(
     ),
   ],
   components: OpenApiComponents(
-    schemas: [
-      schemaOrder,
-      schemaCustomer,
-      schemaAddress,
-      schemaCategory,
-      schemaUser,
-      schemaTag,
-      schemaPet,
-      schemaApiResponse,
-    ],
-    requestBodies: [
-      OpenApiRequestBody(
-        name: 'Pet',
+    schemas: {
+      'Order': schemaOrder,
+      'Customer': schemaCustomer,
+      'Address': schemaAddress,
+      'Category': schemaCategory,
+      'User': schemaUser,
+      'Tag': schemaTag,
+      'Pet': schemaPet,
+      'ApiResponse': schemaApiResponse,
+    },
+    requestBodies: {
+      'Pet': OpenApiRequestBody(
         description: 'Pet object that needs to be added to the store',
         content: {
           'application/json': OpenApiMediaType(
@@ -1072,8 +1074,7 @@ final spec = OpenApi(
           ),
         },
       ),
-      OpenApiRequestBody(
-        name: 'UserArray',
+      'UserArray': OpenApiRequestBody(
         description: 'List of user object',
         content: {
           'application/json': OpenApiMediaType(
@@ -1082,11 +1083,11 @@ final spec = OpenApi(
             ),
           ),
         },
-      ),
-    ],
-    securitySchemes: [
-      oauthSecurityScheme,
-      apiKeySecurityScheme,
-    ],
+      )
+    },
+    securitySchemes: {
+      'petstore_auth': oauthSecurityScheme,
+      'api_key': apiKeySecurityScheme,
+    },
   ),
 );

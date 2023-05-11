@@ -81,9 +81,7 @@ class _PathListConverter
     for (final p in data) {
       p.map(
         (value) {
-          json[value.path] = value.toJson()
-            ..remove('path')
-            ..remove(_unionKey);
+          json[value.path] = value.toJson()..remove('path');
         },
         reference: (value) {
           final r = value.ref;

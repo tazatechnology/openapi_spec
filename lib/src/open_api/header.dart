@@ -12,7 +12,7 @@ class OpenApiHeader with _$OpenApiHeader {
     String? description,
 
     /// The schema of the content
-    @_SchemaConverter() OpenApiSchema? schema,
+    OpenApiSchema? schema,
   }) = _OpenApiHeader;
 
   factory OpenApiHeader.fromJson(Map<String, dynamic> json) =>

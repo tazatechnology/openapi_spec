@@ -9,7 +9,7 @@ part of openapi_models;
 class OpenApiMediaType with _$OpenApiMediaType {
   const factory OpenApiMediaType({
     /// The schema defining the content of the request, response, or parameter.
-    @_SchemaConverter() OpenApiSchema? schema,
+    OpenApiSchema? schema,
 
     /// Example of the media type.
     dynamic example,

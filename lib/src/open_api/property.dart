@@ -47,7 +47,6 @@ part of openapi_models;
 class OpenApiProperty with _$OpenApiProperty {
   /// A boolean schema property
   const factory OpenApiProperty.boolean({
-    @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
   }) = _OpenApiPropertyBoolean;
 
@@ -56,8 +55,6 @@ class OpenApiProperty with _$OpenApiProperty {
   // ------------------------------------------
 
   /// A string schema property
-  ///
-  /// `isRequired`: If the property is required in the parent object definition
   ///
   /// `name`: The name of the property
   ///
@@ -73,7 +70,6 @@ class OpenApiProperty with _$OpenApiProperty {
   ///
   /// `xml`: Adds additional metadata to describe the XML representation of this property.
   const factory OpenApiProperty.string({
-    @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
     OpenApiXml? xml,
     String? title,
@@ -91,7 +87,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// An integer schema property
   const factory OpenApiProperty.integer({
-    @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
     OpenApiXml? xml,
     String? title,
@@ -111,7 +106,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// A number schema property
   const factory OpenApiProperty.number({
-    @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
     OpenApiXml? xml,
     String? title,
@@ -131,7 +125,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// An array schema property
   const factory OpenApiProperty.array({
-    @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
     OpenApiXml? xml,
     @_ArrayItemsConverter() required OpenApiArrayItems items,
@@ -149,7 +142,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// Enumeration property
   const factory OpenApiProperty.enumeration({
-    @Default(false) @JsonKey(ignore: true) bool isRequired,
     required String name,
     String? description,
     String? example,
@@ -211,8 +203,7 @@ class _PropertyListConverter
                 : (value as dynamic).name,
             {'type': type}
               ..addAll(value.toJson())
-              ..remove('name')
-              ..remove(_unionKey),
+              ..remove('name'),
           );
         }
       },

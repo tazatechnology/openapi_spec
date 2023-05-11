@@ -8,9 +8,6 @@ part of openapi_models;
 @freezed
 class OpenApiRequestBody with _$OpenApiRequestBody {
   const factory OpenApiRequestBody({
-    /// The name of the component class defined for [OpenApiComponents.requestBodies].
-    @JsonKey(ignore: true) String? name,
-
     /// A brief description of the request body.
     String? description,
 

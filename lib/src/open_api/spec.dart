@@ -97,7 +97,8 @@ class OpenApi with _$OpenApi {
       if (security != null)
         'security': security!.map((e) => e.toJson()).toList(),
     };
-    return out;
+
+    return _formatJson(out);
   }
 
   /// Create an [OpenApi] object from an existing JSON spec file
