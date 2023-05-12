@@ -37,7 +37,7 @@ class OpenApi with _$OpenApi {
     List<OpenApiServer>? servers,
 
     /// The available paths and operations for the API.
-    List<OpenApiPath>? paths,
+    Map<String, OpenApiPath>? paths,
 
     /// The incoming webhooks that may be received as part of this
     /// API and that the API consumer MAY choose to implement.
@@ -90,7 +90,7 @@ class OpenApi with _$OpenApi {
       if (externalDocs != null) 'externalDocs': externalDocs!.toJson(),
       if (servers != null) 'servers': servers!.map((e) => e.toJson()).toList(),
       if (tags != null) 'tags': tags!.map((e) => e.toJson()).toList(),
-      if (paths != null) 'paths': _PathListConverter().toJson(paths!),
+      if (paths != null) 'paths': paths!.map((k, v) => MapEntry(k, v.toJson())),
       if (version.startsWith('3.1') && webhooks != null)
         'webhooks': webhooks!.map((k, v) => MapEntry(k, v.toJson())),
       if (components != null) 'components': components?.toJson(),

@@ -10,11 +10,6 @@ part of openapi_models;
 @freezed
 class OpenApiPath with _$OpenApiPath {
   const factory OpenApiPath({
-    /// A relative path to an individual endpoint. The path is appended
-    /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
-    /// object's url field in order to construct the full URL.
-    required String path,
-
     /// An optional, string summary, intended to apply to all operations in this path.
     String? summary,
 
@@ -59,42 +54,4 @@ class OpenApiPath with _$OpenApiPath {
 
   factory OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$OpenApiPathFromJson(json);
-}
-
-// ==========================================
-// PathListConverter
-// ==========================================
-
-/// Custom converter for List<[OpenApiPath]> union type
-class _PathListConverter
-    implements JsonConverter<List<OpenApiPath>, Map<String, dynamic>> {
-  const _PathListConverter();
-
-  @override
-  List<OpenApiPath> fromJson(Map<String, dynamic> json) {
-    return [];
-  }
-
-  @override
-  Map<String, dynamic> toJson(List<OpenApiPath> data) {
-    Map<String, dynamic> json = {};
-    for (final p in data) {
-      p.map(
-        (value) {
-          json[value.path] = value.toJson()..remove('path');
-        },
-        reference: (value) {
-          final r = value.ref;
-          if (r is _OpenApiPath) {
-            json['\$ref'] = '#/components/pathItems/${r.path}';
-          } else {
-            throw Exception(
-              '\n\nThe OpenApiPath.reference() argument must not be another reference\n',
-            );
-          }
-        },
-      );
-    }
-    return json;
-  }
 }

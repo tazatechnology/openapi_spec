@@ -299,34 +299,40 @@ _$_OpenApiComponents _$$_OpenApiComponentsFromJson(Map<String, dynamic> json) =>
         (k, e) =>
             MapEntry(k, OpenApiSchema.fromJson(e as Map<String, dynamic>)),
       ),
-      responses: (json['responses'] as List<dynamic>?)
-          ?.map((e) => OpenApiResponse.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      parameters: (json['parameters'] as List<dynamic>?)
-          ?.map((e) => OpenApiParameter.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      examples: (json['examples'] as List<dynamic>?)
-          ?.map((e) => OpenApiExample.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      responses: (json['responses'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiResponse.fromJson(e as Map<String, dynamic>)),
+      ),
+      parameters: (json['parameters'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiParameter.fromJson(e as Map<String, dynamic>)),
+      ),
+      examples: (json['examples'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiExample.fromJson(e as Map<String, dynamic>)),
+      ),
       requestBodies: (json['requestBodies'] as Map<String, dynamic>?)?.map(
         (k, e) =>
             MapEntry(k, OpenApiRequestBody.fromJson(e as Map<String, dynamic>)),
       ),
-      headers: (json['headers'] as List<dynamic>?)
-          ?.map((e) => OpenApiHeader.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      securitySchemes: _$JsonConverterFromJson<Map<String, dynamic>,
-              Map<String, OpenApiSecurityScheme>>(json['securitySchemes'],
-          const _SecuritySchemeMapConverter().fromJson),
-      links: (json['links'] as List<dynamic>?)
-          ?.map((e) => OpenApiLink.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      callbacks: (json['callbacks'] as List<dynamic>?)
-          ?.map((e) => OpenApiCallback.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      pathItems:
-          _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiPath>>(
-              json['pathItems'], const _PathListConverter().fromJson),
+      headers: (json['headers'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiHeader.fromJson(e as Map<String, dynamic>)),
+      ),
+      securitySchemes: (json['securitySchemes'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, OpenApiSecurityScheme.fromJson(e as Map<String, dynamic>)),
+      ),
+      links: (json['links'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, OpenApiLink.fromJson(e as Map<String, dynamic>)),
+      ),
+      callbacks: (json['callbacks'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiCallback.fromJson(e as Map<String, dynamic>)),
+      ),
+      pathItems: (json['pathItems'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, OpenApiPath.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$_OpenApiComponentsToJson(
@@ -342,39 +348,24 @@ Map<String, dynamic> _$$_OpenApiComponentsToJson(
   writeNotNull(
       'schemas', instance.schemas?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
-      'responses', instance.responses?.map((e) => e.toJson()).toList());
+      'responses', instance.responses?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull('parameters',
+      instance.parameters?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
-      'parameters', instance.parameters?.map((e) => e.toJson()).toList());
-  writeNotNull('examples', instance.examples?.map((e) => e.toJson()).toList());
+      'examples', instance.examples?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull('requestBodies',
       instance.requestBodies?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('headers', instance.headers?.map((e) => e.toJson()).toList());
   writeNotNull(
-      'securitySchemes',
-      _$JsonConverterToJson<Map<String, dynamic>,
-              Map<String, OpenApiSecurityScheme>>(instance.securitySchemes,
-          const _SecuritySchemeMapConverter().toJson));
-  writeNotNull('links', instance.links?.map((e) => e.toJson()).toList());
+      'headers', instance.headers?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull('securitySchemes',
+      instance.securitySchemes?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull('links', instance.links?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
-      'callbacks', instance.callbacks?.map((e) => e.toJson()).toList());
+      'callbacks', instance.callbacks?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
-      'pathItems',
-      _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiPath>>(
-          instance.pathItems, const _PathListConverter().toJson));
+      'pathItems', instance.pathItems?.map((k, e) => MapEntry(k, e.toJson())));
   return val;
 }
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
 
 _$_OpenApiContact _$$_OpenApiContactFromJson(Map<String, dynamic> json) =>
     _$_OpenApiContact(
@@ -693,6 +684,18 @@ Map<String, dynamic> _$$_OpenApiOperationToJson(_$_OpenApiOperation instance) {
   return val;
 }
 
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
+
 _$_OpenApiPropertyCookie _$$_OpenApiPropertyCookieFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyCookie(
@@ -841,7 +844,6 @@ Map<String, dynamic> _$$_OpenApiPropertyPathToJson(
 
 _$_OpenApiPath _$$_OpenApiPathFromJson(Map<String, dynamic> json) =>
     _$_OpenApiPath(
-      path: json['path'] as String,
       summary: json['summary'] as String?,
       description: json['description'] as String?,
       get: json['get'] == null
@@ -878,9 +880,7 @@ _$_OpenApiPath _$$_OpenApiPathFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$_OpenApiPathToJson(_$_OpenApiPath instance) {
-  final val = <String, dynamic>{
-    'path': instance.path,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -922,21 +922,28 @@ Map<String, dynamic> _$$_OpenApiPathReferenceToJson(
 _$_OpenApiPropertyBoolean _$$_OpenApiPropertyBooleanFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyBoolean(
-      name: json['name'] as String,
-      $type: json['unionType'] as String?,
+      defaultValue: json['default'] as bool?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyBooleanToJson(
-        _$_OpenApiPropertyBoolean instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'unionType': instance.$type,
-    };
+    _$_OpenApiPropertyBoolean instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('default', instance.defaultValue);
+  val['type'] = instance.$type;
+  return val;
+}
 
 _$_OpenApiPropertyString _$$_OpenApiPropertyStringFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyString(
-      name: json['name'] as String,
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -947,14 +954,12 @@ _$_OpenApiPropertyString _$$_OpenApiPropertyStringFromJson(
       example: json['example'] as String?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyStringToJson(
     _$_OpenApiPropertyString instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -970,14 +975,13 @@ Map<String, dynamic> _$$_OpenApiPropertyStringToJson(
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
 _$_OpenApiPropertyInteger _$$_OpenApiPropertyIntegerFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyInteger(
-      name: json['name'] as String,
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -991,14 +995,12 @@ _$_OpenApiPropertyInteger _$$_OpenApiPropertyIntegerFromJson(
       exclusiveMinimum: json['exclusiveMinimum'] as int?,
       maximum: json['maximum'] as int?,
       exclusiveMaximum: json['exclusiveMaximum'] as int?,
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyIntegerToJson(
     _$_OpenApiPropertyInteger instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1016,14 +1018,13 @@ Map<String, dynamic> _$$_OpenApiPropertyIntegerToJson(
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
 _$_OpenApiPropertyNumber _$$_OpenApiPropertyNumberFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyNumber(
-      name: json['name'] as String,
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1036,14 +1037,12 @@ _$_OpenApiPropertyNumber _$$_OpenApiPropertyNumberFromJson(
       exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
       maximum: (json['maximum'] as num?)?.toDouble(),
       exclusiveMaximum: (json['exclusiveMaximum'] as num?)?.toDouble(),
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyNumberToJson(
     _$_OpenApiPropertyNumber instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1061,14 +1060,13 @@ Map<String, dynamic> _$$_OpenApiPropertyNumberToJson(
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
 _$_OpenApiPropertyArray _$$_OpenApiPropertyArrayFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyArray(
-      name: json['name'] as String,
       xml: json['xml'] == null
           ? null
           : OpenApiXml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1080,14 +1078,12 @@ _$_OpenApiPropertyArray _$$_OpenApiPropertyArrayFromJson(
       example: json['example'] as List<dynamic>?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyArrayToJson(
     _$_OpenApiPropertyArray instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1103,27 +1099,24 @@ Map<String, dynamic> _$$_OpenApiPropertyArrayToJson(
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
 _$_OpenApiPropertyEnum _$$_OpenApiPropertyEnumFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyEnum(
-      name: json['name'] as String,
       description: json['description'] as String?,
       example: json['example'] as String?,
       values: (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
       title: json['title'] as String?,
       defaultValue: json['default'] as String?,
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyEnumToJson(
     _$_OpenApiPropertyEnum instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1136,33 +1129,23 @@ Map<String, dynamic> _$$_OpenApiPropertyEnumToJson(
   val['enum'] = instance.values;
   writeNotNull('title', instance.title);
   writeNotNull('default', instance.defaultValue);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
 _$_OpenApiPropertyReference _$$_OpenApiPropertyReferenceFromJson(
         Map<String, dynamic> json) =>
     _$_OpenApiPropertyReference(
-      name: json['name'] as String?,
-      ref: OpenApiSchema.fromJson(json['ref'] as Map<String, dynamic>),
-      $type: json['unionType'] as String?,
+      ref: json['ref'] as String,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_OpenApiPropertyReferenceToJson(
-    _$_OpenApiPropertyReference instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  val['ref'] = instance.ref.toJson();
-  val['unionType'] = instance.$type;
-  return val;
-}
+        _$_OpenApiPropertyReference instance) =>
+    <String, dynamic>{
+      'ref': instance.ref,
+      'type': instance.$type,
+    };
 
 _$_OpenApiReference _$$_OpenApiReferenceFromJson(Map<String, dynamic> json) =>
     _$_OpenApiReference(
@@ -1293,9 +1276,10 @@ _$_OpenApiSchema _$$_OpenApiSchemaFromJson(Map<String, dynamic> json) =>
           ? null
           : OpenApiExternalDocs.fromJson(
               json['externalDocs'] as Map<String, dynamic>),
-      properties:
-          _$JsonConverterFromJson<Map<String, dynamic>, List<OpenApiProperty>>(
-              json['properties'], const _PropertyListConverter().fromJson),
+      properties: (json['properties'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, OpenApiProperty.fromJson(e as Map<String, dynamic>)),
+      ),
       additionalProperties: json['additionalProperties'] == null
           ? null
           : OpenApiSchema.fromJson(
@@ -1318,10 +1302,8 @@ Map<String, dynamic> _$$_OpenApiSchemaToJson(_$_OpenApiSchema instance) {
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
   writeNotNull('externalDocs', instance.externalDocs?.toJson());
-  writeNotNull(
-      'properties',
-      _$JsonConverterToJson<Map<String, dynamic>, List<OpenApiProperty>>(
-          instance.properties, const _PropertyListConverter().toJson));
+  writeNotNull('properties',
+      instance.properties?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull('additionalProperties', instance.additionalProperties?.toJson());
   writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;

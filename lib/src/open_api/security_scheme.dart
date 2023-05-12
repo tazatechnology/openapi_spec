@@ -88,28 +88,3 @@ class OpenApiSecurityScheme with _$OpenApiSecurityScheme {
   factory OpenApiSecurityScheme.fromJson(Map<String, dynamic> json) =>
       _$OpenApiSecuritySchemeFromJson(json);
 }
-
-// ==========================================
-// _SecuritySchemeMapConverter
-// ==========================================
-
-/// Custom converter [OpenApiSecurityScheme] union type
-class _SecuritySchemeMapConverter
-    implements
-        JsonConverter<Map<String, OpenApiSecurityScheme>,
-            Map<String, dynamic>> {
-  const _SecuritySchemeMapConverter();
-
-  @override
-  Map<String, OpenApiSecurityScheme> fromJson(Map<String, dynamic> json) {
-    return {};
-  }
-
-  @override
-  Map<String, dynamic> toJson(Map<String, OpenApiSecurityScheme> data) {
-    return data.map((k, v) {
-      final d = v.toJson();
-      return MapEntry(k, {'type': d['type']}..addAll(d..remove('type')));
-    });
-  }
-}

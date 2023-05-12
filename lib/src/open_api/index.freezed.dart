@@ -2424,35 +2424,37 @@ mixin _$OpenApiComponents {
   Map<String, OpenApiSchema>? get schemas => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiResponse] objects.
-  List<OpenApiResponse>? get responses => throw _privateConstructorUsedError;
+  Map<String, OpenApiResponse>? get responses =>
+      throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiParameter] objects.
-  List<OpenApiParameter>? get parameters => throw _privateConstructorUsedError;
+  Map<String, OpenApiParameter>? get parameters =>
+      throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiExample] objects.
-  List<OpenApiExample>? get examples => throw _privateConstructorUsedError;
+  Map<String, OpenApiExample>? get examples =>
+      throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiRequestBody.component] objects.
   Map<String, OpenApiRequestBody>? get requestBodies =>
       throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiHeader] objects.
-  List<OpenApiHeader>? get headers => throw _privateConstructorUsedError;
+  Map<String, OpenApiHeader>? get headers => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
-  @_SecuritySchemeMapConverter()
   Map<String, OpenApiSecurityScheme>? get securitySchemes =>
       throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiLink] objects.
-  List<OpenApiLink>? get links => throw _privateConstructorUsedError;
+  Map<String, OpenApiLink>? get links => throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiCallback] objects.
-  List<OpenApiCallback>? get callbacks => throw _privateConstructorUsedError;
+  Map<String, OpenApiCallback>? get callbacks =>
+      throw _privateConstructorUsedError;
 
   /// A set of reusable [OpenApiPath] objects.
-  @_PathListConverter()
-  List<OpenApiPath>? get pathItems => throw _privateConstructorUsedError;
+  Map<String, OpenApiPath>? get pathItems => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2468,17 +2470,15 @@ abstract class $OpenApiComponentsCopyWith<$Res> {
   @useResult
   $Res call(
       {Map<String, OpenApiSchema>? schemas,
-      List<OpenApiResponse>? responses,
-      List<OpenApiParameter>? parameters,
-      List<OpenApiExample>? examples,
+      Map<String, OpenApiResponse>? responses,
+      Map<String, OpenApiParameter>? parameters,
+      Map<String, OpenApiExample>? examples,
       Map<String, OpenApiRequestBody>? requestBodies,
-      List<OpenApiHeader>? headers,
-      @_SecuritySchemeMapConverter()
-          Map<String, OpenApiSecurityScheme>? securitySchemes,
-      List<OpenApiLink>? links,
-      List<OpenApiCallback>? callbacks,
-      @_PathListConverter()
-          List<OpenApiPath>? pathItems});
+      Map<String, OpenApiHeader>? headers,
+      Map<String, OpenApiSecurityScheme>? securitySchemes,
+      Map<String, OpenApiLink>? links,
+      Map<String, OpenApiCallback>? callbacks,
+      Map<String, OpenApiPath>? pathItems});
 }
 
 /// @nodoc
@@ -2513,15 +2513,15 @@ class _$OpenApiComponentsCopyWithImpl<$Res, $Val extends OpenApiComponents>
       responses: freezed == responses
           ? _value.responses
           : responses // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiResponse>?,
+              as Map<String, OpenApiResponse>?,
       parameters: freezed == parameters
           ? _value.parameters
           : parameters // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiParameter>?,
+              as Map<String, OpenApiParameter>?,
       examples: freezed == examples
           ? _value.examples
           : examples // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiExample>?,
+              as Map<String, OpenApiExample>?,
       requestBodies: freezed == requestBodies
           ? _value.requestBodies
           : requestBodies // ignore: cast_nullable_to_non_nullable
@@ -2529,7 +2529,7 @@ class _$OpenApiComponentsCopyWithImpl<$Res, $Val extends OpenApiComponents>
       headers: freezed == headers
           ? _value.headers
           : headers // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiHeader>?,
+              as Map<String, OpenApiHeader>?,
       securitySchemes: freezed == securitySchemes
           ? _value.securitySchemes
           : securitySchemes // ignore: cast_nullable_to_non_nullable
@@ -2537,15 +2537,15 @@ class _$OpenApiComponentsCopyWithImpl<$Res, $Val extends OpenApiComponents>
       links: freezed == links
           ? _value.links
           : links // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiLink>?,
+              as Map<String, OpenApiLink>?,
       callbacks: freezed == callbacks
           ? _value.callbacks
           : callbacks // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiCallback>?,
+              as Map<String, OpenApiCallback>?,
       pathItems: freezed == pathItems
           ? _value.pathItems
           : pathItems // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiPath>?,
+              as Map<String, OpenApiPath>?,
     ) as $Val);
   }
 }
@@ -2560,17 +2560,15 @@ abstract class _$$_OpenApiComponentsCopyWith<$Res>
   @useResult
   $Res call(
       {Map<String, OpenApiSchema>? schemas,
-      List<OpenApiResponse>? responses,
-      List<OpenApiParameter>? parameters,
-      List<OpenApiExample>? examples,
+      Map<String, OpenApiResponse>? responses,
+      Map<String, OpenApiParameter>? parameters,
+      Map<String, OpenApiExample>? examples,
       Map<String, OpenApiRequestBody>? requestBodies,
-      List<OpenApiHeader>? headers,
-      @_SecuritySchemeMapConverter()
-          Map<String, OpenApiSecurityScheme>? securitySchemes,
-      List<OpenApiLink>? links,
-      List<OpenApiCallback>? callbacks,
-      @_PathListConverter()
-          List<OpenApiPath>? pathItems});
+      Map<String, OpenApiHeader>? headers,
+      Map<String, OpenApiSecurityScheme>? securitySchemes,
+      Map<String, OpenApiLink>? links,
+      Map<String, OpenApiCallback>? callbacks,
+      Map<String, OpenApiPath>? pathItems});
 }
 
 /// @nodoc
@@ -2603,15 +2601,15 @@ class __$$_OpenApiComponentsCopyWithImpl<$Res>
       responses: freezed == responses
           ? _value._responses
           : responses // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiResponse>?,
+              as Map<String, OpenApiResponse>?,
       parameters: freezed == parameters
           ? _value._parameters
           : parameters // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiParameter>?,
+              as Map<String, OpenApiParameter>?,
       examples: freezed == examples
           ? _value._examples
           : examples // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiExample>?,
+              as Map<String, OpenApiExample>?,
       requestBodies: freezed == requestBodies
           ? _value._requestBodies
           : requestBodies // ignore: cast_nullable_to_non_nullable
@@ -2619,7 +2617,7 @@ class __$$_OpenApiComponentsCopyWithImpl<$Res>
       headers: freezed == headers
           ? _value._headers
           : headers // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiHeader>?,
+              as Map<String, OpenApiHeader>?,
       securitySchemes: freezed == securitySchemes
           ? _value._securitySchemes
           : securitySchemes // ignore: cast_nullable_to_non_nullable
@@ -2627,15 +2625,15 @@ class __$$_OpenApiComponentsCopyWithImpl<$Res>
       links: freezed == links
           ? _value._links
           : links // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiLink>?,
+              as Map<String, OpenApiLink>?,
       callbacks: freezed == callbacks
           ? _value._callbacks
           : callbacks // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiCallback>?,
+              as Map<String, OpenApiCallback>?,
       pathItems: freezed == pathItems
           ? _value._pathItems
           : pathItems // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiPath>?,
+              as Map<String, OpenApiPath>?,
     ));
   }
 }
@@ -2645,17 +2643,15 @@ class __$$_OpenApiComponentsCopyWithImpl<$Res>
 class _$_OpenApiComponents implements _OpenApiComponents {
   const _$_OpenApiComponents(
       {final Map<String, OpenApiSchema>? schemas,
-      final List<OpenApiResponse>? responses,
-      final List<OpenApiParameter>? parameters,
-      final List<OpenApiExample>? examples,
+      final Map<String, OpenApiResponse>? responses,
+      final Map<String, OpenApiParameter>? parameters,
+      final Map<String, OpenApiExample>? examples,
       final Map<String, OpenApiRequestBody>? requestBodies,
-      final List<OpenApiHeader>? headers,
-      @_SecuritySchemeMapConverter()
-          final Map<String, OpenApiSecurityScheme>? securitySchemes,
-      final List<OpenApiLink>? links,
-      final List<OpenApiCallback>? callbacks,
-      @_PathListConverter()
-          final List<OpenApiPath>? pathItems})
+      final Map<String, OpenApiHeader>? headers,
+      final Map<String, OpenApiSecurityScheme>? securitySchemes,
+      final Map<String, OpenApiLink>? links,
+      final Map<String, OpenApiCallback>? callbacks,
+      final Map<String, OpenApiPath>? pathItems})
       : _schemas = schemas,
         _responses = responses,
         _parameters = parameters,
@@ -2684,42 +2680,42 @@ class _$_OpenApiComponents implements _OpenApiComponents {
   }
 
   /// A set of reusable [OpenApiResponse] objects.
-  final List<OpenApiResponse>? _responses;
+  final Map<String, OpenApiResponse>? _responses;
 
   /// A set of reusable [OpenApiResponse] objects.
   @override
-  List<OpenApiResponse>? get responses {
+  Map<String, OpenApiResponse>? get responses {
     final value = _responses;
     if (value == null) return null;
-    if (_responses is EqualUnmodifiableListView) return _responses;
+    if (_responses is EqualUnmodifiableMapView) return _responses;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A set of reusable [OpenApiParameter] objects.
-  final List<OpenApiParameter>? _parameters;
+  final Map<String, OpenApiParameter>? _parameters;
 
   /// A set of reusable [OpenApiParameter] objects.
   @override
-  List<OpenApiParameter>? get parameters {
+  Map<String, OpenApiParameter>? get parameters {
     final value = _parameters;
     if (value == null) return null;
-    if (_parameters is EqualUnmodifiableListView) return _parameters;
+    if (_parameters is EqualUnmodifiableMapView) return _parameters;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A set of reusable [OpenApiExample] objects.
-  final List<OpenApiExample>? _examples;
+  final Map<String, OpenApiExample>? _examples;
 
   /// A set of reusable [OpenApiExample] objects.
   @override
-  List<OpenApiExample>? get examples {
+  Map<String, OpenApiExample>? get examples {
     final value = _examples;
     if (value == null) return null;
-    if (_examples is EqualUnmodifiableListView) return _examples;
+    if (_examples is EqualUnmodifiableMapView) return _examples;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A set of reusable [OpenApiRequestBody.component] objects.
@@ -2736,16 +2732,16 @@ class _$_OpenApiComponents implements _OpenApiComponents {
   }
 
   /// A set of reusable [OpenApiHeader] objects.
-  final List<OpenApiHeader>? _headers;
+  final Map<String, OpenApiHeader>? _headers;
 
   /// A set of reusable [OpenApiHeader] objects.
   @override
-  List<OpenApiHeader>? get headers {
+  Map<String, OpenApiHeader>? get headers {
     final value = _headers;
     if (value == null) return null;
-    if (_headers is EqualUnmodifiableListView) return _headers;
+    if (_headers is EqualUnmodifiableMapView) return _headers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
@@ -2753,7 +2749,6 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
   @override
-  @_SecuritySchemeMapConverter()
   Map<String, OpenApiSecurityScheme>? get securitySchemes {
     final value = _securitySchemes;
     if (value == null) return null;
@@ -2763,43 +2758,42 @@ class _$_OpenApiComponents implements _OpenApiComponents {
   }
 
   /// A set of reusable [OpenApiLink] objects.
-  final List<OpenApiLink>? _links;
+  final Map<String, OpenApiLink>? _links;
 
   /// A set of reusable [OpenApiLink] objects.
   @override
-  List<OpenApiLink>? get links {
+  Map<String, OpenApiLink>? get links {
     final value = _links;
     if (value == null) return null;
-    if (_links is EqualUnmodifiableListView) return _links;
+    if (_links is EqualUnmodifiableMapView) return _links;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A set of reusable [OpenApiCallback] objects.
-  final List<OpenApiCallback>? _callbacks;
+  final Map<String, OpenApiCallback>? _callbacks;
 
   /// A set of reusable [OpenApiCallback] objects.
   @override
-  List<OpenApiCallback>? get callbacks {
+  Map<String, OpenApiCallback>? get callbacks {
     final value = _callbacks;
     if (value == null) return null;
-    if (_callbacks is EqualUnmodifiableListView) return _callbacks;
+    if (_callbacks is EqualUnmodifiableMapView) return _callbacks;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A set of reusable [OpenApiPath] objects.
-  final List<OpenApiPath>? _pathItems;
+  final Map<String, OpenApiPath>? _pathItems;
 
   /// A set of reusable [OpenApiPath] objects.
   @override
-  @_PathListConverter()
-  List<OpenApiPath>? get pathItems {
+  Map<String, OpenApiPath>? get pathItems {
     final value = _pathItems;
     if (value == null) return null;
-    if (_pathItems is EqualUnmodifiableListView) return _pathItems;
+    if (_pathItems is EqualUnmodifiableMapView) return _pathItems;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
@@ -2863,17 +2857,15 @@ class _$_OpenApiComponents implements _OpenApiComponents {
 abstract class _OpenApiComponents implements OpenApiComponents {
   const factory _OpenApiComponents(
       {final Map<String, OpenApiSchema>? schemas,
-      final List<OpenApiResponse>? responses,
-      final List<OpenApiParameter>? parameters,
-      final List<OpenApiExample>? examples,
+      final Map<String, OpenApiResponse>? responses,
+      final Map<String, OpenApiParameter>? parameters,
+      final Map<String, OpenApiExample>? examples,
       final Map<String, OpenApiRequestBody>? requestBodies,
-      final List<OpenApiHeader>? headers,
-      @_SecuritySchemeMapConverter()
-          final Map<String, OpenApiSecurityScheme>? securitySchemes,
-      final List<OpenApiLink>? links,
-      final List<OpenApiCallback>? callbacks,
-      @_PathListConverter()
-          final List<OpenApiPath>? pathItems}) = _$_OpenApiComponents;
+      final Map<String, OpenApiHeader>? headers,
+      final Map<String, OpenApiSecurityScheme>? securitySchemes,
+      final Map<String, OpenApiLink>? links,
+      final Map<String, OpenApiCallback>? callbacks,
+      final Map<String, OpenApiPath>? pathItems}) = _$_OpenApiComponents;
 
   factory _OpenApiComponents.fromJson(Map<String, dynamic> json) =
       _$_OpenApiComponents.fromJson;
@@ -2885,15 +2877,15 @@ abstract class _OpenApiComponents implements OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiResponse] objects.
-  List<OpenApiResponse>? get responses;
+  Map<String, OpenApiResponse>? get responses;
   @override
 
   /// A set of reusable [OpenApiParameter] objects.
-  List<OpenApiParameter>? get parameters;
+  Map<String, OpenApiParameter>? get parameters;
   @override
 
   /// A set of reusable [OpenApiExample] objects.
-  List<OpenApiExample>? get examples;
+  Map<String, OpenApiExample>? get examples;
   @override
 
   /// A set of reusable [OpenApiRequestBody.component] objects.
@@ -2901,25 +2893,23 @@ abstract class _OpenApiComponents implements OpenApiComponents {
   @override
 
   /// A set of reusable [OpenApiHeader] objects.
-  List<OpenApiHeader>? get headers;
+  Map<String, OpenApiHeader>? get headers;
   @override
 
   /// A set of reusable [OpenApiSecurityScheme] objects.
-  @_SecuritySchemeMapConverter()
   Map<String, OpenApiSecurityScheme>? get securitySchemes;
   @override
 
   /// A set of reusable [OpenApiLink] objects.
-  List<OpenApiLink>? get links;
+  Map<String, OpenApiLink>? get links;
   @override
 
   /// A set of reusable [OpenApiCallback] objects.
-  List<OpenApiCallback>? get callbacks;
+  Map<String, OpenApiCallback>? get callbacks;
   @override
 
   /// A set of reusable [OpenApiPath] objects.
-  @_PathListConverter()
-  List<OpenApiPath>? get pathItems;
+  Map<String, OpenApiPath>? get pathItems;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiComponentsCopyWith<_$_OpenApiComponents> get copyWith =>
@@ -7323,7 +7313,6 @@ mixin _$OpenApiPath {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -7343,7 +7332,6 @@ mixin _$OpenApiPath {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -7363,7 +7351,6 @@ mixin _$OpenApiPath {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -7428,8 +7415,7 @@ abstract class _$$_OpenApiPathCopyWith<$Res> {
       __$$_OpenApiPathCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String path,
-      String? summary,
+      {String? summary,
       String? description,
       OpenApiOperation? get,
       OpenApiOperation? put,
@@ -7463,7 +7449,6 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = null,
     Object? summary = freezed,
     Object? description = freezed,
     Object? get = freezed,
@@ -7478,10 +7463,6 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
     Object? parameters = freezed,
   }) {
     return _then(_$_OpenApiPath(
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
       summary: freezed == summary
           ? _value.summary
           : summary // ignore: cast_nullable_to_non_nullable
@@ -7634,8 +7615,7 @@ class __$$_OpenApiPathCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiPath implements _OpenApiPath {
   const _$_OpenApiPath(
-      {required this.path,
-      this.summary,
+      {this.summary,
       this.description,
       this.get,
       this.put,
@@ -7654,12 +7634,6 @@ class _$_OpenApiPath implements _OpenApiPath {
 
   factory _$_OpenApiPath.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPathFromJson(json);
-
-  /// A relative path to an individual endpoint. The path is appended
-  /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
-  /// object's url field in order to construct the full URL.
-  @override
-  final String path;
 
   /// An optional, string summary, intended to apply to all operations in this path.
   @override
@@ -7734,7 +7708,7 @@ class _$_OpenApiPath implements _OpenApiPath {
 
   @override
   String toString() {
-    return 'OpenApiPath(path: $path, summary: $summary, description: $description, get: $get, put: $put, post: $post, delete: $delete, options: $options, head: $head, patch: $patch, trace: $trace, servers: $servers, parameters: $parameters)';
+    return 'OpenApiPath(summary: $summary, description: $description, get: $get, put: $put, post: $post, delete: $delete, options: $options, head: $head, patch: $patch, trace: $trace, servers: $servers, parameters: $parameters)';
   }
 
   @override
@@ -7742,7 +7716,6 @@ class _$_OpenApiPath implements _OpenApiPath {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPath &&
-            (identical(other.path, path) || other.path == path) &&
             (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -7763,7 +7736,6 @@ class _$_OpenApiPath implements _OpenApiPath {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      path,
       summary,
       description,
       get,
@@ -7787,7 +7759,6 @@ class _$_OpenApiPath implements _OpenApiPath {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -7803,15 +7774,14 @@ class _$_OpenApiPath implements _OpenApiPath {
         $default, {
     required TResult Function(OpenApiPath ref) reference,
   }) {
-    return $default(path, summary, description, get, put, post, delete, options,
-        head, patch, trace, servers, parameters);
+    return $default(summary, description, get, put, post, delete, options, head,
+        patch, trace, servers, parameters);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -7827,15 +7797,14 @@ class _$_OpenApiPath implements _OpenApiPath {
         $default, {
     TResult? Function(OpenApiPath ref)? reference,
   }) {
-    return $default?.call(path, summary, description, get, put, post, delete,
-        options, head, patch, trace, servers, parameters);
+    return $default?.call(summary, description, get, put, post, delete, options,
+        head, patch, trace, servers, parameters);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -7853,8 +7822,8 @@ class _$_OpenApiPath implements _OpenApiPath {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(path, summary, description, get, put, post, delete,
-          options, head, patch, trace, servers, parameters);
+      return $default(summary, description, get, put, post, delete, options,
+          head, patch, trace, servers, parameters);
     }
     return orElse();
   }
@@ -7900,8 +7869,7 @@ class _$_OpenApiPath implements _OpenApiPath {
 
 abstract class _OpenApiPath implements OpenApiPath {
   const factory _OpenApiPath(
-      {required final String path,
-      final String? summary,
+      {final String? summary,
       final String? description,
       final OpenApiOperation? get,
       final OpenApiOperation? put,
@@ -7916,11 +7884,6 @@ abstract class _OpenApiPath implements OpenApiPath {
 
   factory _OpenApiPath.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPath.fromJson;
-
-  /// A relative path to an individual endpoint. The path is appended
-  /// (no relative URL resolution) to the expanded URL from the [OpenApiServer]
-  /// object's url field in order to construct the full URL.
-  String get path;
 
   /// An optional, string summary, intended to apply to all operations in this path.
   String? get summary;
@@ -8047,7 +8010,6 @@ class _$_OpenApiPathReference implements _OpenApiPathReference {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -8070,7 +8032,6 @@ class _$_OpenApiPathReference implements _OpenApiPathReference {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -8093,7 +8054,6 @@ class _$_OpenApiPathReference implements _OpenApiPathReference {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String path,
             String? summary,
             String? description,
             OpenApiOperation? get,
@@ -8169,7 +8129,7 @@ abstract class _OpenApiPathReference implements OpenApiPath {
 }
 
 OpenApiProperty _$OpenApiPropertyFromJson(Map<String, dynamic> json) {
-  switch (json['unionType']) {
+  switch (json['type']) {
     case 'boolean':
       return _OpenApiPropertyBoolean.fromJson(json);
     case 'string':
@@ -8186,19 +8146,18 @@ OpenApiProperty _$OpenApiPropertyFromJson(Map<String, dynamic> json) {
       return _OpenApiPropertyReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'unionType', 'OpenApiProperty',
-          'Invalid union type "${json['unionType']}"!');
+      throw CheckedFromJsonException(json, 'type', 'OpenApiProperty',
+          'Invalid union type "${json['type']}"!');
   }
 }
 
 /// @nodoc
 mixin _$OpenApiProperty {
-  String? get name => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8209,7 +8168,6 @@ mixin _$OpenApiProperty {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8222,7 +8180,6 @@ mixin _$OpenApiProperty {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8235,7 +8192,6 @@ mixin _$OpenApiProperty {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -8246,21 +8202,19 @@ mixin _$OpenApiProperty {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8271,7 +8225,6 @@ mixin _$OpenApiProperty {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8284,7 +8237,6 @@ mixin _$OpenApiProperty {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8297,7 +8249,6 @@ mixin _$OpenApiProperty {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -8308,21 +8259,19 @@ mixin _$OpenApiProperty {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8333,7 +8282,6 @@ mixin _$OpenApiProperty {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8346,7 +8294,6 @@ mixin _$OpenApiProperty {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8359,7 +8306,6 @@ mixin _$OpenApiProperty {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -8370,14 +8316,13 @@ mixin _$OpenApiProperty {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -8416,9 +8361,6 @@ mixin _$OpenApiProperty {
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OpenApiPropertyCopyWith<OpenApiProperty> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -8426,8 +8368,6 @@ abstract class $OpenApiPropertyCopyWith<$Res> {
   factory $OpenApiPropertyCopyWith(
           OpenApiProperty value, $Res Function(OpenApiProperty) then) =
       _$OpenApiPropertyCopyWithImpl<$Res, OpenApiProperty>;
-  @useResult
-  $Res call({String name});
 }
 
 /// @nodoc
@@ -8439,30 +8379,15 @@ class _$OpenApiPropertyCopyWithImpl<$Res, $Val extends OpenApiProperty>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? name = null,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name!
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyBooleanCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyBooleanCopyWith<$Res> {
   factory _$$_OpenApiPropertyBooleanCopyWith(_$_OpenApiPropertyBoolean value,
           $Res Function(_$_OpenApiPropertyBoolean) then) =
       __$$_OpenApiPropertyBooleanCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String name});
+  $Res call({@JsonKey(name: 'default') bool? defaultValue});
 }
 
 /// @nodoc
@@ -8476,13 +8401,13 @@ class __$$_OpenApiPropertyBooleanCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? defaultValue = freezed,
   }) {
     return _then(_$_OpenApiPropertyBoolean(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
+      defaultValue: freezed == defaultValue
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -8490,21 +8415,23 @@ class __$$_OpenApiPropertyBooleanCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
-  const _$_OpenApiPropertyBoolean({required this.name, final String? $type})
+  const _$_OpenApiPropertyBoolean(
+      {@JsonKey(name: 'default') this.defaultValue, final String? $type})
       : $type = $type ?? 'boolean';
 
   factory _$_OpenApiPropertyBoolean.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyBooleanFromJson(json);
 
   @override
-  final String name;
+  @JsonKey(name: 'default')
+  final bool? defaultValue;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.boolean(name: $name)';
+    return 'OpenApiProperty.boolean(defaultValue: $defaultValue)';
   }
 
   @override
@@ -8512,12 +8439,13 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyBoolean &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.defaultValue, defaultValue) ||
+                other.defaultValue == defaultValue));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, defaultValue);
 
   @JsonKey(ignore: true)
   @override
@@ -8529,9 +8457,9 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8542,7 +8470,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8555,7 +8482,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8568,7 +8494,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -8579,24 +8504,22 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return boolean(name);
+    return boolean(defaultValue);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8607,7 +8530,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8620,7 +8542,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8633,7 +8554,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -8644,24 +8564,22 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return boolean?.call(name);
+    return boolean?.call(defaultValue);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8672,7 +8590,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8685,7 +8602,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8698,7 +8614,6 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -8709,18 +8624,17 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (boolean != null) {
-      return boolean(name);
+      return boolean(defaultValue);
     }
     return orElse();
   }
@@ -8780,31 +8694,28 @@ class _$_OpenApiPropertyBoolean implements _OpenApiPropertyBoolean {
 }
 
 abstract class _OpenApiPropertyBoolean implements OpenApiProperty {
-  const factory _OpenApiPropertyBoolean({required final String name}) =
+  const factory _OpenApiPropertyBoolean(
+          {@JsonKey(name: 'default') final bool? defaultValue}) =
       _$_OpenApiPropertyBoolean;
 
   factory _OpenApiPropertyBoolean.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyBoolean.fromJson;
 
-  @override
-  String get name;
-  @override
+  @JsonKey(name: 'default')
+  bool? get defaultValue;
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyBooleanCopyWith<_$_OpenApiPropertyBoolean> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyStringCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyStringCopyWith<$Res> {
   factory _$$_OpenApiPropertyStringCopyWith(_$_OpenApiPropertyString value,
           $Res Function(_$_OpenApiPropertyString) then) =
       __$$_OpenApiPropertyStringCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
-      {String name,
-      OpenApiXml? xml,
+      {OpenApiXml? xml,
       String? title,
       String? description,
       @JsonKey(name: 'default') String? defaultValue,
@@ -8827,7 +8738,6 @@ class __$$_OpenApiPropertyStringCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? xml = freezed,
     Object? title = freezed,
     Object? description = freezed,
@@ -8838,10 +8748,6 @@ class __$$_OpenApiPropertyStringCopyWithImpl<$Res>
     Object? maxLength = freezed,
   }) {
     return _then(_$_OpenApiPropertyString(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -8894,8 +8800,7 @@ class __$$_OpenApiPropertyStringCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   const _$_OpenApiPropertyString(
-      {required this.name,
-      this.xml,
+      {this.xml,
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
@@ -8909,8 +8814,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   factory _$_OpenApiPropertyString.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyStringFromJson(json);
 
-  @override
-  final String name;
   @override
   final OpenApiXml? xml;
   @override
@@ -8929,12 +8832,12 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   @override
   final int? maxLength;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.string(name: $name, xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength)';
+    return 'OpenApiProperty.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength)';
   }
 
   @override
@@ -8942,7 +8845,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyString &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.xml, xml) || other.xml == xml) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -8959,7 +8861,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, xml, title, description,
+  int get hashCode => Object.hash(runtimeType, xml, title, description,
       defaultValue, format, example, minLength, maxLength);
 
   @JsonKey(ignore: true)
@@ -8972,9 +8874,9 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8985,7 +8887,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -8998,7 +8899,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9011,7 +8911,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -9022,25 +8921,23 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return string(name, xml, title, description, defaultValue, format, example,
+    return string(xml, title, description, defaultValue, format, example,
         minLength, maxLength);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9051,7 +8948,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9064,7 +8960,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9077,7 +8972,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -9088,25 +8982,23 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return string?.call(name, xml, title, description, defaultValue, format,
-        example, minLength, maxLength);
+    return string?.call(xml, title, description, defaultValue, format, example,
+        minLength, maxLength);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9117,7 +9009,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9130,7 +9021,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9143,7 +9033,6 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -9154,19 +9043,18 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (string != null) {
-      return string(name, xml, title, description, defaultValue, format,
-          example, minLength, maxLength);
+      return string(xml, title, description, defaultValue, format, example,
+          minLength, maxLength);
     }
     return orElse();
   }
@@ -9227,8 +9115,7 @@ class _$_OpenApiPropertyString implements _OpenApiPropertyString {
 
 abstract class _OpenApiPropertyString implements OpenApiProperty {
   const factory _OpenApiPropertyString(
-      {required final String name,
-      final OpenApiXml? xml,
+      {final OpenApiXml? xml,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final String? defaultValue,
@@ -9240,8 +9127,6 @@ abstract class _OpenApiPropertyString implements OpenApiProperty {
   factory _OpenApiPropertyString.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyString.fromJson;
 
-  @override
-  String get name;
   OpenApiXml? get xml;
   String? get title;
   String? get description;
@@ -9251,23 +9136,19 @@ abstract class _OpenApiPropertyString implements OpenApiProperty {
   String? get example;
   int? get minLength;
   int? get maxLength;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyStringCopyWith<_$_OpenApiPropertyString> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyIntegerCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyIntegerCopyWith<$Res> {
   factory _$$_OpenApiPropertyIntegerCopyWith(_$_OpenApiPropertyInteger value,
           $Res Function(_$_OpenApiPropertyInteger) then) =
       __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
-      {String name,
-      OpenApiXml? xml,
+      {OpenApiXml? xml,
       String? title,
       String? description,
       @JsonKey(name: 'default') int? defaultValue,
@@ -9292,7 +9173,6 @@ class __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? xml = freezed,
     Object? title = freezed,
     Object? description = freezed,
@@ -9305,10 +9185,6 @@ class __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>
     Object? exclusiveMaximum = freezed,
   }) {
     return _then(_$_OpenApiPropertyInteger(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -9369,8 +9245,7 @@ class __$$_OpenApiPropertyIntegerCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   const _$_OpenApiPropertyInteger(
-      {required this.name,
-      this.xml,
+      {this.xml,
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
@@ -9386,8 +9261,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   factory _$_OpenApiPropertyInteger.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyIntegerFromJson(json);
 
-  @override
-  final String name;
   @override
   final OpenApiXml? xml;
   @override
@@ -9410,12 +9283,12 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   @override
   final int? exclusiveMaximum;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.integer(name: $name, xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum)';
+    return 'OpenApiProperty.integer(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum)';
   }
 
   @override
@@ -9423,7 +9296,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyInteger &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.xml, xml) || other.xml == xml) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -9444,7 +9316,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      name,
       xml,
       title,
       description,
@@ -9466,9 +9337,9 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9479,7 +9350,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9492,7 +9362,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9505,7 +9374,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -9516,25 +9384,23 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return integer(name, xml, title, description, defaultValue, format, example,
+    return integer(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9545,7 +9411,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9558,7 +9423,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9571,7 +9435,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -9582,25 +9445,23 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return integer?.call(name, xml, title, description, defaultValue, format,
-        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum);
+    return integer?.call(xml, title, description, defaultValue, format, example,
+        minimum, exclusiveMinimum, maximum, exclusiveMaximum);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9611,7 +9472,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9624,7 +9484,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9637,7 +9496,6 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -9648,19 +9506,18 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (integer != null) {
-      return integer(name, xml, title, description, defaultValue, format,
-          example, minimum, exclusiveMinimum, maximum, exclusiveMaximum);
+      return integer(xml, title, description, defaultValue, format, example,
+          minimum, exclusiveMinimum, maximum, exclusiveMaximum);
     }
     return orElse();
   }
@@ -9721,8 +9578,7 @@ class _$_OpenApiPropertyInteger implements _OpenApiPropertyInteger {
 
 abstract class _OpenApiPropertyInteger implements OpenApiProperty {
   const factory _OpenApiPropertyInteger(
-      {required final String name,
-      final OpenApiXml? xml,
+      {final OpenApiXml? xml,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final int? defaultValue,
@@ -9736,8 +9592,6 @@ abstract class _OpenApiPropertyInteger implements OpenApiProperty {
   factory _OpenApiPropertyInteger.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyInteger.fromJson;
 
-  @override
-  String get name;
   OpenApiXml? get xml;
   String? get title;
   String? get description;
@@ -9749,23 +9603,19 @@ abstract class _OpenApiPropertyInteger implements OpenApiProperty {
   int? get exclusiveMinimum;
   int? get maximum;
   int? get exclusiveMaximum;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyIntegerCopyWith<_$_OpenApiPropertyInteger> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyNumberCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyNumberCopyWith<$Res> {
   factory _$$_OpenApiPropertyNumberCopyWith(_$_OpenApiPropertyNumber value,
           $Res Function(_$_OpenApiPropertyNumber) then) =
       __$$_OpenApiPropertyNumberCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
-      {String name,
-      OpenApiXml? xml,
+      {OpenApiXml? xml,
       String? title,
       String? description,
       @JsonKey(name: 'default') double? defaultValue,
@@ -9790,7 +9640,6 @@ class __$$_OpenApiPropertyNumberCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? xml = freezed,
     Object? title = freezed,
     Object? description = freezed,
@@ -9803,10 +9652,6 @@ class __$$_OpenApiPropertyNumberCopyWithImpl<$Res>
     Object? exclusiveMaximum = freezed,
   }) {
     return _then(_$_OpenApiPropertyNumber(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -9867,8 +9712,7 @@ class __$$_OpenApiPropertyNumberCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
   const _$_OpenApiPropertyNumber(
-      {required this.name,
-      this.xml,
+      {this.xml,
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
@@ -9884,8 +9728,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
   factory _$_OpenApiPropertyNumber.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyNumberFromJson(json);
 
-  @override
-  final String name;
   @override
   final OpenApiXml? xml;
   @override
@@ -9908,12 +9750,12 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
   @override
   final double? exclusiveMaximum;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.number(name: $name, xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum)';
+    return 'OpenApiProperty.number(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum)';
   }
 
   @override
@@ -9921,7 +9763,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyNumber &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.xml, xml) || other.xml == xml) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -9942,7 +9783,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      name,
       xml,
       title,
       description,
@@ -9964,9 +9804,9 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9977,7 +9817,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -9990,7 +9829,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10003,7 +9841,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10014,25 +9851,23 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return number(name, xml, title, description, defaultValue, format, example,
+    return number(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10043,7 +9878,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10056,7 +9890,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10069,7 +9902,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10080,25 +9912,23 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return number?.call(name, xml, title, description, defaultValue, format,
-        example, minimum, exclusiveMinimum, maximum, exclusiveMaximum);
+    return number?.call(xml, title, description, defaultValue, format, example,
+        minimum, exclusiveMinimum, maximum, exclusiveMaximum);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10109,7 +9939,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10122,7 +9951,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10135,7 +9963,6 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10146,19 +9973,18 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (number != null) {
-      return number(name, xml, title, description, defaultValue, format,
-          example, minimum, exclusiveMinimum, maximum, exclusiveMaximum);
+      return number(xml, title, description, defaultValue, format, example,
+          minimum, exclusiveMinimum, maximum, exclusiveMaximum);
     }
     return orElse();
   }
@@ -10219,8 +10045,7 @@ class _$_OpenApiPropertyNumber implements _OpenApiPropertyNumber {
 
 abstract class _OpenApiPropertyNumber implements OpenApiProperty {
   const factory _OpenApiPropertyNumber(
-      {required final String name,
-      final OpenApiXml? xml,
+      {final OpenApiXml? xml,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final double? defaultValue,
@@ -10234,8 +10059,6 @@ abstract class _OpenApiPropertyNumber implements OpenApiProperty {
   factory _OpenApiPropertyNumber.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyNumber.fromJson;
 
-  @override
-  String get name;
   OpenApiXml? get xml;
   String? get title;
   String? get description;
@@ -10247,23 +10070,19 @@ abstract class _OpenApiPropertyNumber implements OpenApiProperty {
   double? get exclusiveMinimum;
   double? get maximum;
   double? get exclusiveMaximum;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyNumberCopyWith<_$_OpenApiPropertyNumber> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyArrayCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyArrayCopyWith<$Res> {
   factory _$$_OpenApiPropertyArrayCopyWith(_$_OpenApiPropertyArray value,
           $Res Function(_$_OpenApiPropertyArray) then) =
       __$$_OpenApiPropertyArrayCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
-      {String name,
-      OpenApiXml? xml,
+      {OpenApiXml? xml,
       @_ArrayItemsConverter() OpenApiArrayItems items,
       String? title,
       String? description,
@@ -10287,7 +10106,6 @@ class __$$_OpenApiPropertyArrayCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? xml = freezed,
     Object? items = null,
     Object? title = freezed,
@@ -10298,10 +10116,6 @@ class __$$_OpenApiPropertyArrayCopyWithImpl<$Res>
     Object? maxLength = freezed,
   }) {
     return _then(_$_OpenApiPropertyArray(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -10362,8 +10176,7 @@ class __$$_OpenApiPropertyArrayCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   const _$_OpenApiPropertyArray(
-      {required this.name,
-      this.xml,
+      {this.xml,
       @_ArrayItemsConverter() required this.items,
       this.title,
       this.description,
@@ -10379,8 +10192,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   factory _$_OpenApiPropertyArray.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyArrayFromJson(json);
 
-  @override
-  final String name;
   @override
   final OpenApiXml? xml;
   @override
@@ -10416,12 +10227,12 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   @override
   final int? maxLength;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.array(name: $name, xml: $xml, items: $items, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minLength: $minLength, maxLength: $maxLength)';
+    return 'OpenApiProperty.array(xml: $xml, items: $items, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minLength: $minLength, maxLength: $maxLength)';
   }
 
   @override
@@ -10429,7 +10240,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyArray &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.xml, xml) || other.xml == xml) &&
             (identical(other.items, items) || other.items == items) &&
             (identical(other.title, title) || other.title == title) &&
@@ -10448,7 +10258,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      name,
       xml,
       items,
       title,
@@ -10468,9 +10277,9 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10481,7 +10290,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10494,7 +10302,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10507,7 +10314,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10518,25 +10324,23 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return array(name, xml, items, title, description, defaultValue, example,
+    return array(xml, items, title, description, defaultValue, example,
         minLength, maxLength);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10547,7 +10351,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10560,7 +10363,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10573,7 +10375,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10584,25 +10385,23 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return array?.call(name, xml, items, title, description, defaultValue,
-        example, minLength, maxLength);
+    return array?.call(xml, items, title, description, defaultValue, example,
+        minLength, maxLength);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10613,7 +10412,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10626,7 +10424,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10639,7 +10436,6 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10650,18 +10446,17 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (array != null) {
-      return array(name, xml, items, title, description, defaultValue, example,
+      return array(xml, items, title, description, defaultValue, example,
           minLength, maxLength);
     }
     return orElse();
@@ -10723,8 +10518,7 @@ class _$_OpenApiPropertyArray implements _OpenApiPropertyArray {
 
 abstract class _OpenApiPropertyArray implements OpenApiProperty {
   const factory _OpenApiPropertyArray(
-      {required final String name,
-      final OpenApiXml? xml,
+      {final OpenApiXml? xml,
       @_ArrayItemsConverter() required final OpenApiArrayItems items,
       final String? title,
       final String? description,
@@ -10736,8 +10530,6 @@ abstract class _OpenApiPropertyArray implements OpenApiProperty {
   factory _OpenApiPropertyArray.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyArray.fromJson;
 
-  @override
-  String get name;
   OpenApiXml? get xml;
   @_ArrayItemsConverter()
   OpenApiArrayItems get items;
@@ -10748,23 +10540,19 @@ abstract class _OpenApiPropertyArray implements OpenApiProperty {
   List<dynamic>? get example;
   int? get minLength;
   int? get maxLength;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyArrayCopyWith<_$_OpenApiPropertyArray> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyEnumCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyEnumCopyWith<$Res> {
   factory _$$_OpenApiPropertyEnumCopyWith(_$_OpenApiPropertyEnum value,
           $Res Function(_$_OpenApiPropertyEnum) then) =
       __$$_OpenApiPropertyEnumCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
-      {String name,
-      String? description,
+      {String? description,
       String? example,
       @JsonKey(name: 'enum') List<String> values,
       String? title,
@@ -10782,7 +10570,6 @@ class __$$_OpenApiPropertyEnumCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
     Object? description = freezed,
     Object? example = freezed,
     Object? values = null,
@@ -10790,10 +10577,6 @@ class __$$_OpenApiPropertyEnumCopyWithImpl<$Res>
     Object? defaultValue = freezed,
   }) {
     return _then(_$_OpenApiPropertyEnum(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -10822,8 +10605,7 @@ class __$$_OpenApiPropertyEnumCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   const _$_OpenApiPropertyEnum(
-      {required this.name,
-      this.description,
+      {this.description,
       this.example,
       @JsonKey(name: 'enum') required final List<String> values,
       this.title,
@@ -10835,8 +10617,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   factory _$_OpenApiPropertyEnum.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyEnumFromJson(json);
 
-  @override
-  final String name;
   @override
   final String? description;
   @override
@@ -10856,12 +10636,12 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   @JsonKey(name: 'default')
   final String? defaultValue;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.enumeration(name: $name, description: $description, example: $example, values: $values, title: $title, defaultValue: $defaultValue)';
+    return 'OpenApiProperty.enumeration(description: $description, example: $example, values: $values, title: $title, defaultValue: $defaultValue)';
   }
 
   @override
@@ -10869,7 +10649,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyEnum &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.example, example) || other.example == example) &&
@@ -10881,7 +10660,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, description, example,
+  int get hashCode => Object.hash(runtimeType, description, example,
       const DeepCollectionEquality().hash(_values), title, defaultValue);
 
   @JsonKey(ignore: true)
@@ -10894,9 +10673,9 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10907,7 +10686,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10920,7 +10698,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10933,7 +10710,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -10944,24 +10720,22 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return enumeration(name, description, example, values, title, defaultValue);
+    return enumeration(description, example, values, title, defaultValue);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10972,7 +10746,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10985,7 +10758,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -10998,7 +10770,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -11009,25 +10780,22 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return enumeration?.call(
-        name, description, example, values, title, defaultValue);
+    return enumeration?.call(description, example, values, title, defaultValue);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11038,7 +10806,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11051,7 +10818,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11064,7 +10830,6 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -11075,19 +10840,17 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (enumeration != null) {
-      return enumeration(
-          name, description, example, values, title, defaultValue);
+      return enumeration(description, example, values, title, defaultValue);
     }
     return orElse();
   }
@@ -11148,8 +10911,7 @@ class _$_OpenApiPropertyEnum implements _OpenApiPropertyEnum {
 
 abstract class _OpenApiPropertyEnum implements OpenApiProperty {
   const factory _OpenApiPropertyEnum(
-          {required final String name,
-          final String? description,
+          {final String? description,
           final String? example,
           @JsonKey(name: 'enum') required final List<String> values,
           final String? title,
@@ -11159,8 +10921,6 @@ abstract class _OpenApiPropertyEnum implements OpenApiProperty {
   factory _OpenApiPropertyEnum.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyEnum.fromJson;
 
-  @override
-  String get name;
   String? get description;
   String? get example;
   @JsonKey(name: 'enum')
@@ -11168,24 +10928,19 @@ abstract class _OpenApiPropertyEnum implements OpenApiProperty {
   String? get title;
   @JsonKey(name: 'default')
   String? get defaultValue;
-  @override
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyEnumCopyWith<_$_OpenApiPropertyEnum> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_OpenApiPropertyReferenceCopyWith<$Res>
-    implements $OpenApiPropertyCopyWith<$Res> {
+abstract class _$$_OpenApiPropertyReferenceCopyWith<$Res> {
   factory _$$_OpenApiPropertyReferenceCopyWith(
           _$_OpenApiPropertyReference value,
           $Res Function(_$_OpenApiPropertyReference) then) =
       __$$_OpenApiPropertyReferenceCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String? name, OpenApiSchema ref});
-
-  $OpenApiSchemaCopyWith<$Res> get ref;
+  $Res call({String ref});
 }
 
 /// @nodoc
@@ -11199,51 +10954,35 @@ class __$$_OpenApiPropertyReferenceCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
     Object? ref = null,
   }) {
     return _then(_$_OpenApiPropertyReference(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
       ref: null == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
-              as OpenApiSchema,
+              as String,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OpenApiSchemaCopyWith<$Res> get ref {
-    return $OpenApiSchemaCopyWith<$Res>(_value.ref, (value) {
-      return _then(_value.copyWith(ref: value));
-    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
-  const _$_OpenApiPropertyReference(
-      {this.name, required this.ref, final String? $type})
+  const _$_OpenApiPropertyReference({required this.ref, final String? $type})
       : $type = $type ?? 'reference';
 
   factory _$_OpenApiPropertyReference.fromJson(Map<String, dynamic> json) =>
       _$$_OpenApiPropertyReferenceFromJson(json);
 
   @override
-  final String? name;
-  @override
-  final OpenApiSchema ref;
+  final String ref;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'OpenApiProperty.reference(name: $name, ref: $ref)';
+    return 'OpenApiProperty.reference(ref: $ref)';
   }
 
   @override
@@ -11251,13 +10990,12 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_OpenApiPropertyReference &&
-            (identical(other.name, name) || other.name == name) &&
             (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, ref);
+  int get hashCode => Object.hash(runtimeType, ref);
 
   @JsonKey(ignore: true)
   @override
@@ -11269,9 +11007,9 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String name) boolean,
+    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+        boolean,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11282,7 +11020,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? maxLength)
         string,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11295,7 +11032,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? exclusiveMaximum)
         integer,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11308,7 +11044,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             double? exclusiveMaximum)
         number,
     required TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -11319,24 +11054,22 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? maxLength)
         array,
     required TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)
         enumeration,
-    required TResult Function(String? name, OpenApiSchema ref) reference,
+    required TResult Function(String ref) reference,
   }) {
-    return reference(name, ref);
+    return reference(ref);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String name)? boolean,
+    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11347,7 +11080,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? maxLength)?
         string,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11360,7 +11092,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? exclusiveMaximum)?
         integer,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11373,7 +11104,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             double? exclusiveMaximum)?
         number,
     TResult? Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -11384,24 +11114,22 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? maxLength)?
         array,
     TResult? Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult? Function(String? name, OpenApiSchema ref)? reference,
+    TResult? Function(String ref)? reference,
   }) {
-    return reference?.call(name, ref);
+    return reference?.call(ref);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String name)? boolean,
+    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11412,7 +11140,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? maxLength)?
         string,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11425,7 +11152,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? exclusiveMaximum)?
         integer,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             String? title,
             String? description,
@@ -11438,7 +11164,6 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             double? exclusiveMaximum)?
         number,
     TResult Function(
-            String name,
             OpenApiXml? xml,
             @_ArrayItemsConverter() OpenApiArrayItems items,
             String? title,
@@ -11449,18 +11174,17 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
             int? maxLength)?
         array,
     TResult Function(
-            String name,
             String? description,
             String? example,
             @JsonKey(name: 'enum') List<String> values,
             String? title,
             @JsonKey(name: 'default') String? defaultValue)?
         enumeration,
-    TResult Function(String? name, OpenApiSchema ref)? reference,
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (reference != null) {
-      return reference(name, ref);
+      return reference(ref);
     }
     return orElse();
   }
@@ -11520,17 +11244,13 @@ class _$_OpenApiPropertyReference implements _OpenApiPropertyReference {
 }
 
 abstract class _OpenApiPropertyReference implements OpenApiProperty {
-  const factory _OpenApiPropertyReference(
-      {final String? name,
-      required final OpenApiSchema ref}) = _$_OpenApiPropertyReference;
+  const factory _OpenApiPropertyReference({required final String ref}) =
+      _$_OpenApiPropertyReference;
 
   factory _OpenApiPropertyReference.fromJson(Map<String, dynamic> json) =
       _$_OpenApiPropertyReference.fromJson;
 
-  @override
-  String? get name;
-  OpenApiSchema get ref;
-  @override
+  String get ref;
   @JsonKey(ignore: true)
   _$$_OpenApiPropertyReferenceCopyWith<_$_OpenApiPropertyReference>
       get copyWith => throw _privateConstructorUsedError;
@@ -12769,7 +12489,7 @@ mixin _$OpenApiSchema {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -12832,7 +12552,7 @@ mixin _$OpenApiSchema {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -12895,7 +12615,7 @@ mixin _$OpenApiSchema {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -13018,7 +12738,7 @@ abstract class _$$_OpenApiSchemaCopyWith<$Res> {
       {List<String>? required,
       OpenApiDiscriminator? discriminator,
       OpenApiExternalDocs? externalDocs,
-      @_PropertyListConverter() List<OpenApiProperty>? properties,
+      Map<String, OpenApiProperty>? properties,
       OpenApiSchema? additionalProperties,
       OpenApiXml? xml});
 
@@ -13062,7 +12782,7 @@ class __$$_OpenApiSchemaCopyWithImpl<$Res>
       properties: freezed == properties
           ? _value._properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiProperty>?,
+              as Map<String, OpenApiProperty>?,
       additionalProperties: freezed == additionalProperties
           ? _value.additionalProperties
           : additionalProperties // ignore: cast_nullable_to_non_nullable
@@ -13130,7 +12850,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
       {final List<String>? required,
       this.discriminator,
       this.externalDocs,
-      @_PropertyListConverter() final List<OpenApiProperty>? properties,
+      final Map<String, OpenApiProperty>? properties,
       this.additionalProperties,
       this.xml,
       final String? $type})
@@ -13165,17 +12885,16 @@ class _$_OpenApiSchema implements _OpenApiSchema {
   final OpenApiExternalDocs? externalDocs;
 
   /// The properties of the schema
-  final List<OpenApiProperty>? _properties;
+  final Map<String, OpenApiProperty>? _properties;
 
   /// The properties of the schema
   @override
-  @_PropertyListConverter()
-  List<OpenApiProperty>? get properties {
+  Map<String, OpenApiProperty>? get properties {
     final value = _properties;
     if (value == null) return null;
-    if (_properties is EqualUnmodifiableListView) return _properties;
+    if (_properties is EqualUnmodifiableMapView) return _properties;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   ///
@@ -13235,7 +12954,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -13302,7 +13021,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -13369,7 +13088,7 @@ class _$_OpenApiSchema implements _OpenApiSchema {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -13492,7 +13211,7 @@ abstract class _OpenApiSchema implements OpenApiSchema {
       {final List<String>? required,
       final OpenApiDiscriminator? discriminator,
       final OpenApiExternalDocs? externalDocs,
-      @_PropertyListConverter() final List<OpenApiProperty>? properties,
+      final Map<String, OpenApiProperty>? properties,
       final OpenApiSchema? additionalProperties,
       final OpenApiXml? xml}) = _$_OpenApiSchema;
 
@@ -13511,8 +13230,7 @@ abstract class _OpenApiSchema implements OpenApiSchema {
   OpenApiExternalDocs? get externalDocs;
 
   /// The properties of the schema
-  @_PropertyListConverter()
-  List<OpenApiProperty>? get properties;
+  Map<String, OpenApiProperty>? get properties;
 
   ///
   OpenApiSchema? get additionalProperties;
@@ -13601,7 +13319,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -13667,7 +13385,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -13733,7 +13451,7 @@ class _$_OpenApiSchemaReference implements _OpenApiSchemaReference {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -14033,7 +13751,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -14100,7 +13818,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -14167,7 +13885,7 @@ class _$_OpenApiSchemaString implements _OpenApiSchemaString {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -14513,7 +14231,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -14580,7 +14298,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -14647,7 +14365,7 @@ class _$_OpenApiSchemaInteger implements _OpenApiSchemaInteger {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -14997,7 +14715,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -15064,7 +14782,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -15131,7 +14849,7 @@ class _$_OpenApiSchemaNumber implements _OpenApiSchemaNumber {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -15403,7 +15121,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -15469,7 +15187,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -15535,7 +15253,7 @@ class _$_OpenApiSchemaEnum implements _OpenApiSchemaEnum {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -15879,7 +15597,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)
         $default, {
@@ -15946,7 +15664,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -16013,7 +15731,7 @@ class _$_OpenApiSchemaArray implements _OpenApiSchemaArray {
             List<String>? required,
             OpenApiDiscriminator? discriminator,
             OpenApiExternalDocs? externalDocs,
-            @_PropertyListConverter() List<OpenApiProperty>? properties,
+            Map<String, OpenApiProperty>? properties,
             OpenApiSchema? additionalProperties,
             OpenApiXml? xml)?
         $default, {
@@ -18049,7 +17767,7 @@ mixin _$OpenApi {
   List<OpenApiServer>? get servers => throw _privateConstructorUsedError;
 
   /// The available paths and operations for the API.
-  List<OpenApiPath>? get paths => throw _privateConstructorUsedError;
+  Map<String, OpenApiPath>? get paths => throw _privateConstructorUsedError;
 
   /// The incoming webhooks that may be received as part of this
   /// API and that the API consumer MAY choose to implement.
@@ -18092,7 +17810,7 @@ abstract class $OpenApiCopyWith<$Res> {
       OpenApiInfo info,
       String? jsonSchemaDialect,
       List<OpenApiServer>? servers,
-      List<OpenApiPath>? paths,
+      Map<String, OpenApiPath>? paths,
       Map<String, OpenApiReference>? webhooks,
       OpenApiComponents? components,
       List<OpenApiSecurity>? security,
@@ -18148,7 +17866,7 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
       paths: freezed == paths
           ? _value.paths
           : paths // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiPath>?,
+              as Map<String, OpenApiPath>?,
       webhooks: freezed == webhooks
           ? _value.webhooks
           : webhooks // ignore: cast_nullable_to_non_nullable
@@ -18217,7 +17935,7 @@ abstract class _$$_OpenApiCopyWith<$Res> implements $OpenApiCopyWith<$Res> {
       OpenApiInfo info,
       String? jsonSchemaDialect,
       List<OpenApiServer>? servers,
-      List<OpenApiPath>? paths,
+      Map<String, OpenApiPath>? paths,
       Map<String, OpenApiReference>? webhooks,
       OpenApiComponents? components,
       List<OpenApiSecurity>? security,
@@ -18273,7 +17991,7 @@ class __$$_OpenApiCopyWithImpl<$Res>
       paths: freezed == paths
           ? _value._paths
           : paths // ignore: cast_nullable_to_non_nullable
-              as List<OpenApiPath>?,
+              as Map<String, OpenApiPath>?,
       webhooks: freezed == webhooks
           ? _value._webhooks
           : webhooks // ignore: cast_nullable_to_non_nullable
@@ -18306,7 +18024,7 @@ class _$_OpenApi extends _OpenApi {
       required this.info,
       this.jsonSchemaDialect,
       final List<OpenApiServer>? servers,
-      final List<OpenApiPath>? paths,
+      final Map<String, OpenApiPath>? paths,
       final Map<String, OpenApiReference>? webhooks,
       this.components,
       final List<OpenApiSecurity>? security,
@@ -18356,16 +18074,16 @@ class _$_OpenApi extends _OpenApi {
   }
 
   /// The available paths and operations for the API.
-  final List<OpenApiPath>? _paths;
+  final Map<String, OpenApiPath>? _paths;
 
   /// The available paths and operations for the API.
   @override
-  List<OpenApiPath>? get paths {
+  Map<String, OpenApiPath>? get paths {
     final value = _paths;
     if (value == null) return null;
-    if (_paths is EqualUnmodifiableListView) return _paths;
+    if (_paths is EqualUnmodifiableMapView) return _paths;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// The incoming webhooks that may be received as part of this
@@ -18489,7 +18207,7 @@ abstract class _OpenApi extends OpenApi {
       required final OpenApiInfo info,
       final String? jsonSchemaDialect,
       final List<OpenApiServer>? servers,
-      final List<OpenApiPath>? paths,
+      final Map<String, OpenApiPath>? paths,
       final Map<String, OpenApiReference>? webhooks,
       final OpenApiComponents? components,
       final List<OpenApiSecurity>? security,
@@ -18525,7 +18243,7 @@ abstract class _OpenApi extends OpenApi {
   @override
 
   /// The available paths and operations for the API.
-  List<OpenApiPath>? get paths;
+  Map<String, OpenApiPath>? get paths;
   @override
 
   /// The incoming webhooks that may be received as part of this

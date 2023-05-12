@@ -33,30 +33,25 @@ final userTag = OpenApiTag(
 
 final schemaTag = OpenApiSchema(
   xml: OpenApiXml(name: 'tag'),
-  properties: [
-    OpenApiProperty.integer(
-      name: 'id',
+  properties: {
+    'id': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int64,
     ),
-    OpenApiProperty.string(
-      name: 'name',
-    ),
-  ],
+    'name': OpenApiProperty.string(),
+  },
 );
 
 final schemaCategory = OpenApiSchema(
   xml: OpenApiXml(name: 'category'),
-  properties: [
-    OpenApiProperty.integer(
-      name: 'id',
+  properties: {
+    'id': OpenApiProperty.integer(
       example: 1,
       format: OpenApiIntegerFormat.int64,
     ),
-    OpenApiProperty.string(
-      name: 'name',
+    'name': OpenApiProperty.string(
       example: 'Dogs',
     ),
-  ],
+  },
 );
 
 final schemaPet = OpenApiSchema(
@@ -65,174 +60,141 @@ final schemaPet = OpenApiSchema(
     'name',
     'photoUrls',
   ],
-  properties: [
-    OpenApiProperty.integer(
-      name: 'id',
+  properties: {
+    'id': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int64,
       example: 10,
     ),
-    OpenApiProperty.string(
-      name: 'name',
+    'name': OpenApiProperty.string(
       example: 'doggie',
     ),
-    OpenApiProperty.reference(
-      name: 'category',
-      ref: schemaCategory,
+    'category': OpenApiProperty.reference(
+      ref: 'Category',
     ),
-    OpenApiProperty.array(
-      name: 'photoUrls',
+    'photoUrls': OpenApiProperty.array(
       xml: OpenApiXml(wrapped: true),
       items: OpenApiArrayItems.string(
         xml: OpenApiXml(name: 'photoUrl'),
       ),
     ),
-    OpenApiProperty.array(
-      name: 'tags',
+    'tags': OpenApiProperty.array(
       xml: OpenApiXml(wrapped: true),
       items: OpenApiArrayItems.reference(ref: 'Tag'),
     ),
-    OpenApiProperty.enumeration(
-      name: 'status',
+    'status': OpenApiProperty.enumeration(
       description: 'pet status in the store',
       values: ['available', 'pending', 'sold'],
     ),
-  ],
+  },
 );
 
 final schemaOrder = OpenApiSchema(
   xml: OpenApiXml(name: 'order'),
-  properties: [
-    OpenApiProperty.integer(
-      name: 'id',
+  properties: {
+    'id': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int64,
       example: 10,
     ),
-    OpenApiProperty.integer(
-      name: 'petId',
+    'petId': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int64,
       example: 198772,
     ),
-    OpenApiProperty.integer(
-      name: 'quantity',
+    'quantity': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int32,
       example: 7,
     ),
-    OpenApiProperty.string(
-      name: 'shipDate',
+    'shipDate': OpenApiProperty.string(
       format: OpenApiStringFormat.datetime,
     ),
-    OpenApiProperty.enumeration(
-      name: 'status',
+    'status': OpenApiProperty.enumeration(
       description: 'Order Status',
       example: 'approved',
       values: ['placed', 'approved', 'delivered'],
     ),
-    OpenApiProperty.boolean(
-      name: 'complete',
-    ),
-  ],
+    'complete': OpenApiProperty.boolean(),
+  },
 );
 
 final schemaUser = OpenApiSchema(
   xml: OpenApiXml(name: 'user'),
-  properties: [
-    OpenApiProperty.integer(
-      name: 'id',
+  properties: {
+    'id': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int64,
       example: 10,
     ),
-    OpenApiProperty.string(
-      name: 'username',
+    'username': OpenApiProperty.string(
       example: 'theUser',
     ),
-    OpenApiProperty.string(
-      name: 'firstName',
+    'firstName': OpenApiProperty.string(
       example: 'John',
     ),
-    OpenApiProperty.string(
-      name: 'lastName',
+    'lastName': OpenApiProperty.string(
       example: 'James',
     ),
-    OpenApiProperty.string(
-      name: 'email',
+    'email': OpenApiProperty.string(
       example: 'john@email.com',
     ),
-    OpenApiProperty.string(
-      name: 'password',
+    'password': OpenApiProperty.string(
       example: '12345',
     ),
-    OpenApiProperty.string(
-      name: 'phone',
+    'phone': OpenApiProperty.string(
       example: '12345',
     ),
-    OpenApiProperty.integer(
-      name: 'userStatus',
+    'userStatus': OpenApiProperty.integer(
       description: 'User Status',
       format: OpenApiIntegerFormat.int32,
       example: 1,
     ),
-  ],
+  },
 );
 
 final schemaCustomer = OpenApiSchema(
   xml: OpenApiXml(name: 'customer'),
-  properties: [
-    OpenApiProperty.integer(
-      name: 'id',
+  properties: {
+    'id': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int64,
       example: 100000,
     ),
-    OpenApiProperty.string(
-      name: 'username',
+    'username': OpenApiProperty.string(
       example: 'fehguy',
     ),
-    OpenApiProperty.array(
-      name: 'address',
+    'address': OpenApiProperty.array(
       items: OpenApiArrayItems.reference(ref: 'Address'),
       xml: OpenApiXml(
         name: 'addresses',
         wrapped: true,
       ),
     ),
-  ],
+  },
 );
 
 final schemaAddress = OpenApiSchema(
   xml: OpenApiXml(name: 'address'),
-  properties: [
-    OpenApiProperty.string(
-      name: 'street',
+  properties: {
+    'street': OpenApiProperty.string(
       example: '437 Lytton',
     ),
-    OpenApiProperty.string(
-      name: 'city',
+    'city': OpenApiProperty.string(
       example: 'Palo Alto',
     ),
-    OpenApiProperty.string(
-      name: 'state',
+    'state': OpenApiProperty.string(
       example: 'CA',
     ),
-    OpenApiProperty.string(
-      name: 'zip',
+    'zip': OpenApiProperty.string(
       example: '94301',
     ),
-  ],
+  },
 );
 
 final schemaApiResponse = OpenApiSchema(
   xml: OpenApiXml(name: '##default'),
-  properties: [
-    OpenApiProperty.integer(
-      name: 'code',
+  properties: {
+    'code': OpenApiProperty.integer(
       format: OpenApiIntegerFormat.int32,
     ),
-    OpenApiProperty.string(
-      name: 'type',
-    ),
-    OpenApiProperty.string(
-      name: 'message',
-    ),
-  ],
+    'type': OpenApiProperty.string(),
+    'message': OpenApiProperty.string(),
+  },
 );
 
 final oauthSecurityScheme = OpenApiSecurityScheme.oauth2(
@@ -285,10 +247,9 @@ final spec = OpenApi(
     storeTag,
     userTag,
   ],
-  paths: [
+  paths: {
     /// PATH: /path
-    OpenApiPath(
-      path: '/pet',
+    '/pet': OpenApiPath(
       put: OpenApiOperation(
         tags: [petTag],
         summary: 'Update an existing pet',
@@ -390,8 +351,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /pet/findByStatus
-    OpenApiPath(
-      path: '/pet/findByStatus',
+    '/pet/findByStatus': OpenApiPath(
       get: OpenApiOperation(
         tags: [petTag],
         summary: 'Finds Pets by status',
@@ -442,8 +402,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /pet/findByTags
-    OpenApiPath(
-      path: '/pet/findByTags',
+    '/pet/findByTags': OpenApiPath(
       get: OpenApiOperation(
         tags: [petTag],
         summary: 'Finds Pets by tags',
@@ -491,8 +450,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /pet/{petId}
-    OpenApiPath(
-      path: '/pet/{petId}',
+    '/pet/{petId}': OpenApiPath(
       get: OpenApiOperation(
         tags: [petTag],
         summary: 'Find pet by ID',
@@ -610,8 +568,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /pet/{petId}/uploadImage
-    OpenApiPath(
-      path: '/pet/{petId}/uploadImage',
+    '/pet/{petId}/uploadImage': OpenApiPath(
       post: OpenApiOperation(
         tags: [petTag],
         summary: 'uploads an image',
@@ -664,8 +621,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /store/inventory
-    OpenApiPath(
-      path: '/store/inventory',
+    '/store/inventory': OpenApiPath(
       get: OpenApiOperation(
         tags: [storeTag],
         summary: 'Returns pet inventories by status',
@@ -693,8 +649,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /store/order
-    OpenApiPath(
-      path: '/store/order',
+    '/store/order': OpenApiPath(
       post: OpenApiOperation(
         tags: [storeTag],
         summary: 'Place an order for a pet',
@@ -734,8 +689,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /store/order/{orderId}
-    OpenApiPath(
-      path: '/store/order/{orderId}',
+    '/store/order/{orderId}': OpenApiPath(
       get: OpenApiOperation(
         tags: [storeTag],
         summary: 'Find purchase order by ID',
@@ -803,8 +757,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /user
-    OpenApiPath(
-      path: '/user',
+    '/user': OpenApiPath(
       post: OpenApiOperation(
         tags: [userTag],
         summary: 'Create user',
@@ -842,8 +795,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /user/createWithList
-    OpenApiPath(
-      path: '/user/createWithList',
+    '/user/createWithList': OpenApiPath(
       post: OpenApiOperation(
         tags: [userTag],
         summary: 'Creates list of users with given input array',
@@ -880,8 +832,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /user/login
-    OpenApiPath(
-      path: '/user/login',
+    '/user/login': OpenApiPath(
       get: OpenApiOperation(
         tags: [userTag],
         summary: 'Logs user into the system',
@@ -937,8 +888,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /user/logout
-    OpenApiPath(
-      path: '/user/logout',
+    '/user/logout': OpenApiPath(
       get: OpenApiOperation(
         tags: [userTag],
         summary: 'Logs out current logged in user session',
@@ -955,8 +905,7 @@ final spec = OpenApi(
     ),
 
     /// PATH: /user/{username}
-    OpenApiPath(
-      path: '/user/{username}',
+    '/user/{username}': OpenApiPath(
       get: OpenApiOperation(
         tags: [userTag],
         summary: 'Get user by user name',
@@ -1050,7 +999,7 @@ final spec = OpenApi(
         ],
       ),
     ),
-  ],
+  },
   components: OpenApiComponents(
     schemas: {
       'Order': schemaOrder,

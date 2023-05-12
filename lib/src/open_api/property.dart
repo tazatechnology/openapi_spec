@@ -43,11 +43,11 @@ part of openapi_models;
 /// Property
 ///
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#properties
-@freezed
+@Freezed(unionKey: 'type')
 class OpenApiProperty with _$OpenApiProperty {
   /// A boolean schema property
   const factory OpenApiProperty.boolean({
-    required String name,
+    @JsonKey(name: 'default') bool? defaultValue,
   }) = _OpenApiPropertyBoolean;
 
   // ------------------------------------------
@@ -70,7 +70,6 @@ class OpenApiProperty with _$OpenApiProperty {
   ///
   /// `xml`: Adds additional metadata to describe the XML representation of this property.
   const factory OpenApiProperty.string({
-    required String name,
     OpenApiXml? xml,
     String? title,
     String? description,
@@ -87,7 +86,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// An integer schema property
   const factory OpenApiProperty.integer({
-    required String name,
     OpenApiXml? xml,
     String? title,
     String? description,
@@ -106,7 +104,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// A number schema property
   const factory OpenApiProperty.number({
-    required String name,
     OpenApiXml? xml,
     String? title,
     String? description,
@@ -125,7 +122,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// An array schema property
   const factory OpenApiProperty.array({
-    required String name,
     OpenApiXml? xml,
     @_ArrayItemsConverter() required OpenApiArrayItems items,
     String? title,
@@ -142,7 +138,6 @@ class OpenApiProperty with _$OpenApiProperty {
 
   /// Enumeration property
   const factory OpenApiProperty.enumeration({
-    required String name,
     String? description,
     String? example,
     @JsonKey(name: 'enum') required List<String> values,
@@ -154,59 +149,11 @@ class OpenApiProperty with _$OpenApiProperty {
   // FACTORY: OpenApiProperty.reference
   // ------------------------------------------
 
-  /// a reference schema property
+  /// A reference schema property
   const factory OpenApiProperty.reference({
-    String? name,
-    required OpenApiSchema ref,
+    required String ref,
   }) = _OpenApiPropertyReference;
 
   factory OpenApiProperty.fromJson(Map<String, dynamic> json) =>
       _$OpenApiPropertyFromJson(json);
-}
-
-// ==========================================
-// CLASS: PropertyListConverter
-// ==========================================
-
-/// Custom converter for List<[OpenApiProperty]> union type
-class _PropertyListConverter
-    implements JsonConverter<List<OpenApiProperty>, Map<String, dynamic>> {
-  const _PropertyListConverter();
-
-  @override
-  List<OpenApiProperty> fromJson(Map<String, dynamic> json) {
-    return [];
-  }
-
-  @override
-  Map<String, dynamic> toJson(List<OpenApiProperty> data) {
-    return data.asMap().map(
-      (_, value) {
-        dynamic type = value.map(
-          boolean: (v) => 'boolean',
-          string: (v) => 'string',
-          integer: (v) => 'integer',
-          number: (v) => 'number',
-          array: (v) => 'array',
-          enumeration: (v) => 'string',
-          reference: (v) => 'reference',
-        );
-        if (type == 'reference') {
-          return MapEntry(
-            value.name.toString(),
-            {'\$ref': '#/components/schemas/Category'},
-          );
-        } else {
-          return MapEntry(
-            value is _OpenApiPropertyReference
-                ? value.runtimeType.toString()
-                : (value as dynamic).name,
-            {'type': type}
-              ..addAll(value.toJson())
-              ..remove('name'),
-          );
-        }
-      },
-    );
-  }
 }

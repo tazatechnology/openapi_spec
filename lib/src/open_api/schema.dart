@@ -24,7 +24,7 @@ class OpenApiSchema with _$OpenApiSchema {
     OpenApiExternalDocs? externalDocs,
 
     /// The properties of the schema
-    @_PropertyListConverter() List<OpenApiProperty>? properties,
+    Map<String, OpenApiProperty>? properties,
 
     ///
     OpenApiSchema? additionalProperties,

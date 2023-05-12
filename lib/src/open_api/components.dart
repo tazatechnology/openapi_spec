@@ -15,32 +15,31 @@ class OpenApiComponents with _$OpenApiComponents {
     Map<String, OpenApiSchema>? schemas,
 
     /// A set of reusable [OpenApiResponse] objects.
-    List<OpenApiResponse>? responses,
+    Map<String, OpenApiResponse>? responses,
 
     /// A set of reusable [OpenApiParameter] objects.
-    List<OpenApiParameter>? parameters,
+    Map<String, OpenApiParameter>? parameters,
 
     /// A set of reusable [OpenApiExample] objects.
-    List<OpenApiExample>? examples,
+    Map<String, OpenApiExample>? examples,
 
     /// A set of reusable [OpenApiRequestBody.component] objects.
     Map<String, OpenApiRequestBody>? requestBodies,
 
     /// A set of reusable [OpenApiHeader] objects.
-    List<OpenApiHeader>? headers,
+    Map<String, OpenApiHeader>? headers,
 
     /// A set of reusable [OpenApiSecurityScheme] objects.
-    @_SecuritySchemeMapConverter()
-        Map<String, OpenApiSecurityScheme>? securitySchemes,
+    Map<String, OpenApiSecurityScheme>? securitySchemes,
 
     /// A set of reusable [OpenApiLink] objects.
-    List<OpenApiLink>? links,
+    Map<String, OpenApiLink>? links,
 
     /// A set of reusable [OpenApiCallback] objects.
-    List<OpenApiCallback>? callbacks,
+    Map<String, OpenApiCallback>? callbacks,
 
     /// A set of reusable [OpenApiPath] objects.
-    @_PathListConverter() List<OpenApiPath>? pathItems,
+    Map<String, OpenApiPath>? pathItems,
   }) = _OpenApiComponents;
 
   // ------------------------------------------

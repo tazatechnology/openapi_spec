@@ -14,7 +14,7 @@ build:
 	dart run build_runner build --delete-conflicting-outputs
 	dart fix --apply
 	dart format lib/*
-	dart pub get
+	dart pub get --offline
 
 docs:
 	dart doc --validate-links --output build/docs
