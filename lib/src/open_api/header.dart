@@ -1,20 +1,19 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiHeader
+// CLASS: Header
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiHeader with _$OpenApiHeader {
-  const factory OpenApiHeader({
+class Header with _$Header {
+  const factory Header({
     /// Text
     String? description,
 
     /// The schema of the content
-    OpenApiSchema? schema,
-  }) = _OpenApiHeader;
+    Schema? schema,
+  }) = _Header;
 
-  factory OpenApiHeader.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiHeaderFromJson(json);
+  factory Header.fromJson(Map<String, dynamic> json) => _$HeaderFromJson(json);
 }

@@ -1,17 +1,17 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiReference
+// CLASS: Reference
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiReference with _$OpenApiReference {
-  const factory OpenApiReference({
+class Reference with _$Reference {
+  const factory Reference({
     /// Text
     String? description,
-  }) = _OpenApiReference;
+  }) = _Reference;
 
-  factory OpenApiReference.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiReferenceFromJson(json);
+  factory Reference.fromJson(Map<String, dynamic> json) =>
+      _$ReferenceFromJson(json);
 }

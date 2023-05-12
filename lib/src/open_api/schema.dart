@@ -1,126 +1,125 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiSchema
+// CLASS: Schema
 // ==========================================
 
-/// The [OpenApiSchema] object allows the definition of input and output data types.
+/// The [Schema] object allows the definition of input and output data types.
 /// These types can be objects, but also primitives and arrays
 ///
 /// https://swagger.io/specification/#schema-object
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
 @Freezed(unionKey: 'type')
-class OpenApiSchema with _$OpenApiSchema {
-  const factory OpenApiSchema({
+class Schema with _$Schema {
+  const factory Schema({
     /// The required properties of the schema
     List<String>? required,
 
     /// Adds support for polymorphism.
     /// The discriminator is an object name that is used to differentiate between
     /// other schemas which may satisfy the payload description
-    OpenApiDiscriminator? discriminator,
+    Discriminator? discriminator,
 
     /// Additional external documentation for this schema.
-    OpenApiExternalDocs? externalDocs,
+    ExternalDocs? externalDocs,
 
     /// The properties of the schema
-    Map<String, OpenApiProperty>? properties,
+    Map<String, Property>? properties,
 
     ///
-    OpenApiSchema? additionalProperties,
+    Schema? additionalProperties,
 
     /// Adds additional metadata to describe the XML representation of this property.
-    OpenApiXml? xml,
-  }) = _OpenApiSchema;
+    Xml? xml,
+  }) = _Schema;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSchema.reference
+  // FACTORY: Schema.reference
   // ------------------------------------------
 
-  /// Reference to another [OpenApiSchema]
-  const factory OpenApiSchema.reference({
+  /// Reference to another [Schema]
+  const factory Schema.reference({
     required String ref,
-  }) = _OpenApiSchemaReference;
+  }) = _SchemaReference;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSchema.string
+  // FACTORY: Schema.string
   // ------------------------------------------
 
-  const factory OpenApiSchema.string({
+  const factory Schema.string({
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
-    OpenApiStringFormat? format,
+    StringFormat? format,
     String? example,
     int? minLength,
     int? maxLength,
-    OpenApiXml? xml,
-  }) = _OpenApiSchemaString;
+    Xml? xml,
+  }) = _SchemaString;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSchema.integer
+  // FACTORY: Schema.integer
   // ------------------------------------------
 
   /// An integer schema property
-  const factory OpenApiSchema.integer({
+  const factory Schema.integer({
     String? title,
     String? description,
     @JsonKey(name: 'default') int? defaultValue,
-    OpenApiIntegerFormat? format,
+    IntegerFormat? format,
     int? example,
     int? minimum,
     int? exclusiveMinimum,
     int? maximum,
     int? exclusiveMaximum,
-    OpenApiXml? xml,
-  }) = _OpenApiSchemaInteger;
+    Xml? xml,
+  }) = _SchemaInteger;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSchema.number
+  // FACTORY: Schema.number
   // ------------------------------------------
 
   /// A number schema property
-  const factory OpenApiSchema.number({
+  const factory Schema.number({
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
-    OpenApiNumberFormat? format,
+    NumberFormat? format,
     double? example,
     double? minimum,
     double? exclusiveMinimum,
     double? maximum,
     double? exclusiveMaximum,
-    OpenApiXml? xml,
-  }) = _OpenApiSchemaNumber;
+    Xml? xml,
+  }) = _SchemaNumber;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSchema.enumeration
+  // FACTORY: Schema.enumeration
   // ------------------------------------------
 
-  const factory OpenApiSchema.enumeration({
+  const factory Schema.enumeration({
     @JsonKey(name: 'default') String? defaultValue,
     @JsonKey(name: 'enum') required List<String> values,
     String? title,
     String? description,
-  }) = _OpenApiSchemaEnum;
+  }) = _SchemaEnum;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSchema.array
+  // FACTORY: Schema.array
   // ------------------------------------------
 
-  /// A generic [OpenApiSchema] schema of array type
-  const factory OpenApiSchema.array({
-    @_ArrayItemsConverter() required OpenApiArrayItems items,
+  /// A generic [Schema] schema of array type
+  const factory Schema.array({
+    @_ArrayItemsConverter() required ArrayItems items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
     List? example,
     int? minLength,
     int? maxLength,
-    OpenApiXml? xml,
-  }) = _OpenApiSchemaArray;
+    Xml? xml,
+  }) = _SchemaArray;
 
   /// Convert from JSON representation
-  factory OpenApiSchema.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiSchemaFromJson(json);
+  factory Schema.fromJson(Map<String, dynamic> json) => _$SchemaFromJson(json);
 }

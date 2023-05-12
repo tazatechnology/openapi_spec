@@ -6,7 +6,7 @@ void main() async {
   // ==========================================
 
   final spec = OpenApi(
-    info: OpenApiInfo(
+    info: Info(
       title: 'My API',
       version: '1.0.0',
     ),

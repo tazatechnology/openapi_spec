@@ -1,7 +1,7 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiResponse
+// CLASS: Response
 // ==========================================
 
 /// A container for the expected responses of an operation.
@@ -10,8 +10,8 @@ part of openapi_models;
 ///
 /// https://swagger.io/specification/#response-object
 @freezed
-class OpenApiResponse with _$OpenApiResponse {
-  const factory OpenApiResponse({
+class Response with _$Response {
+  const factory Response({
     /// A unique identifier of this response schema if it is a reusable component.
     String? id,
 
@@ -23,19 +23,19 @@ class OpenApiResponse with _$OpenApiResponse {
     required String description,
 
     /// Maps a header name to its definition. RFC7230 states header names are case insensitive.
-    Map<String, OpenApiHeader>? headers,
+    Map<String, Header>? headers,
 
     /// A map containing descriptions of potential response payloads.
-    Map<String, OpenApiMediaType>? content,
+    Map<String, MediaType>? content,
 
     /// A map containing descriptions of potential response payloads.
-    Map<String, OpenApiLink>? links,
-  }) = _OpenApiResponse;
+    Map<String, Link>? links,
+  }) = _Response;
 
-  const factory OpenApiResponse.reference({
-    required OpenApiResponse ref,
-  }) = _OpenApiResponseReference;
+  const factory Response.reference({
+    required Response ref,
+  }) = _ResponseReference;
 
-  factory OpenApiResponse.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiResponseFromJson(json);
+  factory Response.fromJson(Map<String, dynamic> json) =>
+      _$ResponseFromJson(json);
 }

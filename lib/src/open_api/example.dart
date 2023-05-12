@@ -1,21 +1,21 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiExample
+// CLASS: Example
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiExample with _$OpenApiExample {
-  const factory OpenApiExample({
+class Example with _$Example {
+  const factory Example({
     /// Text
     String? description,
-  }) = OpenApiExampleObject;
+  }) = ExampleObject;
 
-  const factory OpenApiExample.reference({
-    required OpenApiExampleObject ref,
-  }) = _OpenApiExampleReference;
+  const factory Example.reference({
+    required ExampleObject ref,
+  }) = _ExampleReference;
 
-  factory OpenApiExample.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiExampleFromJson(json);
+  factory Example.fromJson(Map<String, dynamic> json) =>
+      _$ExampleFromJson(json);
 }

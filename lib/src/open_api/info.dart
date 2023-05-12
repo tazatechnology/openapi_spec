@@ -1,13 +1,13 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiInfo
+// CLASS: Info
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiInfo with _$OpenApiInfo {
-  const factory OpenApiInfo({
+class Info with _$Info {
+  const factory Info({
     /// The title of the API.
     required String title,
 
@@ -22,15 +22,14 @@ class OpenApiInfo with _$OpenApiInfo {
     String? termsOfService,
 
     /// The contact information for the exposed API.
-    OpenApiContact? contact,
+    Contact? contact,
 
     /// The license information for the exposed API.
-    OpenApiLicense? license,
+    License? license,
 
     /// The version of the OpenAPI document. Distinct from [OpenApi.openapi].
     required String version,
-  }) = _OpenApiInfo;
+  }) = _Info;
 
-  factory OpenApiInfo.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiInfoFromJson(json);
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
 }

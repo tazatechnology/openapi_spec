@@ -1,13 +1,13 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiLicense
+// CLASS: License
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiLicense with _$OpenApiLicense {
-  const factory OpenApiLicense({
+class License with _$License {
+  const factory License({
     /// The license name used for the API.
     required String name,
 
@@ -18,8 +18,8 @@ class OpenApiLicense with _$OpenApiLicense {
     /// A URL to the license used for the API. This must be in the form of a URL.
     /// The [url] field is mutually exclusive of the [identifier] field.
     String? url,
-  }) = _OpenApiLicense;
+  }) = _License;
 
-  factory OpenApiLicense.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiLicenseFromJson(json);
+  factory License.fromJson(Map<String, dynamic> json) =>
+      _$LicenseFromJson(json);
 }

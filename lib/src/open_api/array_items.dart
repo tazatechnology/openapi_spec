@@ -1,78 +1,78 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiArrayItems
+// CLASS: ArrayItems
 // ==========================================
 
 /// The array item data type
 ///
 /// https://swagger.io/specification/#data-types
 @freezed
-class OpenApiArrayItems with _$OpenApiArrayItems {
+class ArrayItems with _$ArrayItems {
   /// An array of strings
-  const factory OpenApiArrayItems.string({
-    OpenApiXml? xml,
-    OpenApiStringFormat? format,
-  }) = _OpenApiArrayItemsString;
+  const factory ArrayItems.string({
+    Xml? xml,
+    StringFormat? format,
+  }) = _ArrayItemsString;
 
   /// An array of integers
-  const factory OpenApiArrayItems.integer({
-    OpenApiXml? xml,
-    OpenApiIntegerFormat? format,
-  }) = _OpenApiArrayItemsInteger;
+  const factory ArrayItems.integer({
+    Xml? xml,
+    IntegerFormat? format,
+  }) = _ArrayItemsInteger;
 
   /// An array of doubles
-  const factory OpenApiArrayItems.number({
-    OpenApiXml? xml,
-    OpenApiNumberFormat? format,
-  }) = _OpenApiArrayItemsNumber;
+  const factory ArrayItems.number({
+    Xml? xml,
+    NumberFormat? format,
+  }) = _ArrayItemsNumber;
 
-  /// An array of [OpenApiSchema] object references
-  const factory OpenApiArrayItems.reference({
+  /// An array of [Schema] object references
+  const factory ArrayItems.reference({
     required String ref,
-    OpenApiXml? xml,
-  }) = _OpenApiArrayItemsReference;
+    Xml? xml,
+  }) = _ArrayItemsReference;
 
-  factory OpenApiArrayItems.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiArrayItemsFromJson(json);
+  factory ArrayItems.fromJson(Map<String, dynamic> json) =>
+      _$ArrayItemsFromJson(json);
 }
 
 // ==========================================
 // ArrayItemsConverter
 // ==========================================
 
-/// Custom converter for the union type [OpenApiArrayItems]
+/// Custom converter for the union type [ArrayItems]
 class _ArrayItemsConverter
-    implements JsonConverter<OpenApiArrayItems, Map<String, dynamic>> {
+    implements JsonConverter<ArrayItems, Map<String, dynamic>> {
   const _ArrayItemsConverter();
 
   @override
-  OpenApiArrayItems fromJson(Map<String, dynamic> json) {
+  ArrayItems fromJson(Map<String, dynamic> json) {
     // TO be implemented
-    return OpenApiArrayItems.string();
+    return ArrayItems.string();
   }
 
   @override
-  Map<String, dynamic> toJson(OpenApiArrayItems data) {
+  Map<String, dynamic> toJson(ArrayItems data) {
     return data.map(
       string: (v) {
         return {
           'type': 'string',
-          'format': _$OpenApiStringFormatEnumMap[v.format],
+          'format': _$StringFormatEnumMap[v.format],
           'xml': v.xml?.toJson(),
         }..removeWhere((k, v) => v == null);
       },
       integer: (v) {
         return {
           'type': 'integer',
-          'format': _$OpenApiIntegerFormatEnumMap[v.format],
+          'format': _$IntegerFormatEnumMap[v.format],
           'xml': v.xml?.toJson(),
         }..removeWhere((k, v) => v == null);
       },
       number: (v) {
         return {
           'type': 'number',
-          'format': _$OpenApiNumberFormatEnumMap[v.format],
+          'format': _$NumberFormatEnumMap[v.format],
           'xml': v.xml?.toJson(),
         }..removeWhere((k, v) => v == null);
       },

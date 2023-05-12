@@ -1,17 +1,17 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiCallback
+// CLASS: ApiCallback
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiCallback with _$OpenApiCallback {
-  const factory OpenApiCallback({
+class ApiCallback with _$ApiCallback {
+  const factory ApiCallback({
     /// Text
     String? description,
-  }) = _OpenApiCallback;
+  }) = _ApiCallback;
 
-  factory OpenApiCallback.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiCallbackFromJson(json);
+  factory ApiCallback.fromJson(Map<String, dynamic> json) =>
+      _$ApiCallbackFromJson(json);
 }

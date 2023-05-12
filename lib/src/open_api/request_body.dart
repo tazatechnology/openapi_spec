@@ -1,36 +1,36 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiRequestBody
+// CLASS: RequestBody
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiRequestBody with _$OpenApiRequestBody {
-  const factory OpenApiRequestBody({
+class RequestBody with _$RequestBody {
+  const factory RequestBody({
     /// A brief description of the request body.
     String? description,
 
     /// The content of the request body.
-    Map<String, OpenApiMediaType>? content,
+    Map<String, MediaType>? content,
 
     /// Determines if the request body is required in the request.
     @JsonKey(name: 'required') bool? isRequired,
-  }) = _OpenApiRequestBody;
+  }) = _RequestBody;
 
   // ------------------------------------------
-  // FACTORY: OpenApiRequestBody.reference
+  // FACTORY: RequestBody.reference
   // ------------------------------------------
 
-  const factory OpenApiRequestBody.reference({
-    required OpenApiRequestBody ref,
-  }) = _OpenApiRequestBodyReference;
+  const factory RequestBody.reference({
+    required RequestBody ref,
+  }) = _RequestBodyReference;
 
   // ------------------------------------------
-  // FACTORY: OpenApiRequestBody.fromJson
+  // FACTORY: RequestBody.fromJson
   // ------------------------------------------
 
-  /// Construct an instance of [OpenApiRequestBody] from a JSON map
-  factory OpenApiRequestBody.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiRequestBodyFromJson(json);
+  /// Construct an instance of [RequestBody] from a JSON map
+  factory RequestBody.fromJson(Map<String, dynamic> json) =>
+      _$RequestBodyFromJson(json);
 }

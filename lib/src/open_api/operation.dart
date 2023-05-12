@@ -1,18 +1,17 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiOperation
+// CLASS: Operation
 // ==========================================
 
-/// Describes a single API operation on a path.
+/// Describes a single API operation on a Path.
 ///
 /// https://swagger.io/specification/#operation-object
 @freezed
-class OpenApiOperation with _$OpenApiOperation {
-  const factory OpenApiOperation({
+class Operation with _$Operation {
+  const factory Operation({
     /// A list of tags for API documentation control.
-    @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
-        List<OpenApiTag>? tags,
+    @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags) List<Tag>? tags,
 
     /// A short summary of what the operation does.
     String? summary,
@@ -21,68 +20,68 @@ class OpenApiOperation with _$OpenApiOperation {
     String? description,
 
     /// Additional external documentation for this schema.
-    OpenApiExternalDocs? externalDocs,
+    ExternalDocs? externalDocs,
 
     /// Unique string used to identify the operation.
     /// The id MUST be unique among all operations described in the API.
     @JsonKey(name: 'operationId') String? id,
 
     /// A list of parameters that are applicable for this operation.
-    /// If a parameter is already defined at the [OpenApiPath] level,
+    /// If a parameter is already defined at the [PathItem] level,
     /// the new definition will override it but can never remove it.
-    List<OpenApiParameter>? parameters,
+    List<Parameter>? parameters,
 
     /// The request body applicable for this operation.
-    OpenApiRequestBody? requestBody,
+    RequestBody? requestBody,
 
     /// The list of possible responses as they are returned from executing this operation.
-    @_OperationResponseListConverter() List<OpenApiResponse>? responses,
+    @_OperationResponseListConverter() List<Response>? responses,
 
     /// A map of possible out-of band callbacks related to the parent operation.
-    /// The key is a unique identifier for the [OpenApiCallback] Object.
-    List<OpenApiCallback>? callbacks,
+    /// The key is a unique identifier for the [ApiCallback] Object.
+    List<ApiCallback>? callbacks,
 
     /// Declares this operation to be deprecated.
     bool? deprecated,
 
     /// A declaration of which security mechanisms can be used for this operation.
     /// The list of values includes alternative security requirement objects that can be used.
-    List<OpenApiSecurity>? security,
+    List<Security>? security,
 
-    /// An alternative [OpenApiServer] array to service this operation.
-    /// If an alternative [OpenApiServer] object is specified at the [OpenApiPath] level,
+    /// An alternative [Server] array to service this operation.
+    /// If an alternative [Server] object is specified at the [PathItem] level,
     /// it will be overridden by this value.
-    List<OpenApiServer>? servers,
-  }) = _OpenApiOperation;
+    List<Server>? servers,
+  }) = _Operation;
 
-  factory OpenApiOperation.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiOperationFromJson(json);
+  factory Operation.fromJson(Map<String, dynamic> json) =>
+      _$OperationFromJson(json);
 }
 
-List<String>? _toJsonTags(List<OpenApiTag>? tags) {
+List<String>? _toJsonTags(List<Tag>? tags) {
   return tags?.map((e) => e.name).toList();
 }
 
-List<OpenApiTag>? _fromJsonTags(List<String>? json) {
-  return json?.map((e) => OpenApiTag(name: e)).toList();
+List<Tag>? _fromJsonTags(List<String>? json) {
+  return json?.map((e) => Tag(name: e)).toList();
 }
 
 // ==========================================
 // OperationResponseListConverter
 // ==========================================
 
-/// Custom converter for List<[OpenApiResponse]> union type
+/// Custom converter for List<[Response]> union type
 class _OperationResponseListConverter
-    implements JsonConverter<List<OpenApiResponse>, Map<String, dynamic>> {
+    implements JsonConverter<List<Response>, Map<String, dynamic>> {
   const _OperationResponseListConverter();
 
   @override
-  List<OpenApiResponse> fromJson(Map<String, dynamic> json) {
+  List<Response> fromJson(Map<String, dynamic> json) {
     return [];
   }
 
   @override
-  Map<String, dynamic> toJson(List<OpenApiResponse> data) {
+  Map<String, dynamic> toJson(List<Response> data) {
     Map<String, dynamic> json = {};
     for (final p in data) {
       p.map(
@@ -91,11 +90,11 @@ class _OperationResponseListConverter
         },
         reference: (value) {
           final r = value.ref;
-          if (r is _OpenApiResponse) {
+          if (r is _Response) {
             json['\$ref'] = '#/components/responses/${r.id}';
           } else {
             throw Exception(
-              '\n\nThe OpenApiResponse.reference() argument must not be another reference\n',
+              '\n\nThe Response.reference() argument must not be another reference\n',
             );
           }
         },

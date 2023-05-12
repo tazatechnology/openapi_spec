@@ -1,53 +1,53 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiOAuthFlows
+// CLASS: OAuthFlows
 // ==========================================
 
 @freezed
-class OpenApiOAuthFlows with _$OpenApiOAuthFlows {
-  const factory OpenApiOAuthFlows({
-    OpenApiOAuthFlow? implicit,
-    OpenApiOAuthFlow? password,
-    OpenApiOAuthFlow? clientCredentials,
-    OpenApiOAuthFlow? authorizationCode,
-  }) = _OpenApiOAuthFlows;
+class OAuthFlows with _$OAuthFlows {
+  const factory OAuthFlows({
+    OAuthFlow? implicit,
+    OAuthFlow? password,
+    OAuthFlow? clientCredentials,
+    OAuthFlow? authorizationCode,
+  }) = _OAuthFlows;
 
-  factory OpenApiOAuthFlows.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiOAuthFlowsFromJson(json);
+  factory OAuthFlows.fromJson(Map<String, dynamic> json) =>
+      _$OAuthFlowsFromJson(json);
 }
 
 // ==========================================
-// CLASS: OpenApiOAuthFlow
+// CLASS: OAuthFlow
 // ==========================================
 
 @freezed
-class OpenApiOAuthFlow with _$OpenApiOAuthFlow {
-  const factory OpenApiOAuthFlow.implicit({
+class OAuthFlow with _$OAuthFlow {
+  const factory OAuthFlow.implicit({
     required String authorizationUrl,
     String? refreshUrl,
     required Map<String, String> scopes,
-  }) = _OpenApiOAuthFlowImplicit;
+  }) = _OAuthFlowImplicit;
 
-  const factory OpenApiOAuthFlow.password({
+  const factory OAuthFlow.password({
     required String tokenUrl,
     String? refreshUrl,
     required Map<String, String> scopes,
-  }) = _OpenApiOAuthFlowPassword;
+  }) = _OAuthFlowPassword;
 
-  const factory OpenApiOAuthFlow.clientCredentials({
+  const factory OAuthFlow.clientCredentials({
     required String tokenUrl,
     String? refreshUrl,
     required Map<String, String> scopes,
-  }) = _OpenApiOAuthFlowClientCredentials;
+  }) = _OAuthFlowClientCredentials;
 
-  const factory OpenApiOAuthFlow.authorizationCode({
+  const factory OAuthFlow.authorizationCode({
     required String authorizationUrl,
     required String tokenUrl,
     String? refreshUrl,
     required Map<String, String> scopes,
-  }) = _OpenApiOAuthFlowAuthorizationCode;
+  }) = _OAuthFlowAuthorizationCode;
 
-  factory OpenApiOAuthFlow.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiOAuthFlowFromJson(json);
+  factory OAuthFlow.fromJson(Map<String, dynamic> json) =>
+      _$OAuthFlowFromJson(json);
 }

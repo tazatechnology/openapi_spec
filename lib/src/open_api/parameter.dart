@@ -1,77 +1,77 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiParameter
+// CLASS: Parameter
 // ==========================================
 
 /// Text
 @Freezed(unionKey: 'in')
-class OpenApiParameter with _$OpenApiParameter {
-  const OpenApiParameter._();
+class Parameter with _$Parameter {
+  const Parameter._();
 
   // ------------------------------------------
-  // FACTORY: OpenApiParameter.cookie
+  // FACTORY: Parameter.cookie
   // ------------------------------------------
 
   /// Cookie parameter in request
-  const factory OpenApiParameter.cookie({
+  const factory Parameter.cookie({
     required String name,
     String? description,
     bool? required,
     bool? deprecated,
     bool? explode,
     bool? allowReserved,
-    OpenApiSchema? schema,
-  }) = _OpenApiPropertyCookie;
+    Schema? schema,
+  }) = _PropertyCookie;
 
   // ------------------------------------------
-  // FACTORY: OpenApiParameter.header
+  // FACTORY: Parameter.header
   // ------------------------------------------
 
   /// Header parameter in request
-  const factory OpenApiParameter.header({
+  const factory Parameter.header({
     required String name,
     String? description,
     bool? required,
     bool? deprecated,
     bool? explode,
     bool? allowReserved,
-    OpenApiSchema? schema,
-  }) = _OpenApiPropertyHeader;
+    Schema? schema,
+  }) = _PropertyHeader;
 
   // ------------------------------------------
-  // FACTORY: OpenApiParameter.query
+  // FACTORY: Parameter.query
   // ------------------------------------------
 
   /// Query parameter in request
-  const factory OpenApiParameter.query({
+  const factory Parameter.query({
     required String name,
     String? description,
     bool? required,
     bool? deprecated,
     bool? explode,
     bool? allowReserved,
-    OpenApiSchema? schema,
-  }) = _OpenApiPropertyQuery;
+    Schema? schema,
+  }) = _PropertyQuery;
 
   // ------------------------------------------
-  // FACTORY: OpenApiParameter.path
+  // FACTORY: Parameter.path
   // ------------------------------------------
 
   /// Path parameter in request
-  const factory OpenApiParameter.path({
+  const factory Parameter.path({
     required String name,
     String? description,
     bool? deprecated,
     bool? explode,
     bool? allowReserved,
-    OpenApiSchema? schema,
-  }) = _OpenApiPropertyPath;
+    Schema? schema,
+  }) = _PropertyPath;
 
   // ------------------------------------------
-  // FACTORY: OpenApiParameter.fromJson
+  // FACTORY: Parameter.fromJson
   // ------------------------------------------
 
-  factory OpenApiParameter.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiParameterFromJson(json);
+  factory Parameter.fromJson(Map<String, dynamic> json) =>
+      _$ParameterFromJson(json);
 }

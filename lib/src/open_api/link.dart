@@ -1,17 +1,16 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiLink
+// CLASS: Link
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiLink with _$OpenApiLink {
-  const factory OpenApiLink({
+class Link with _$Link {
+  const factory Link({
     /// Text
     String? description,
-  }) = _OpenApiLink;
+  }) = _Link;
 
-  factory OpenApiLink.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiLinkFromJson(json);
+  factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);
 }

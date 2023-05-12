@@ -1,26 +1,26 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiMediaType
+// CLASS: MediaType
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiMediaType with _$OpenApiMediaType {
-  const factory OpenApiMediaType({
+class MediaType with _$MediaType {
+  const factory MediaType({
     /// The schema defining the content of the request, response, or parameter.
-    OpenApiSchema? schema,
+    Schema? schema,
 
     /// Example of the media type.
     dynamic example,
 
     // Examples of the media type.
-    Map<String, OpenApiExample>? examples,
+    Map<String, Example>? examples,
 
     /// A map between a property name and its encoding information.
-    Map<String, OpenApiEncoding>? encoding,
-  }) = _OpenApiMediaType;
+    Map<String, Encoding>? encoding,
+  }) = _MediaType;
 
-  factory OpenApiMediaType.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiMediaTypeFromJson(json);
+  factory MediaType.fromJson(Map<String, dynamic> json) =>
+      _$MediaTypeFromJson(json);
 }

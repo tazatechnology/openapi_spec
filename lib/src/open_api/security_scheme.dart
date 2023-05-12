@@ -14,17 +14,17 @@ enum ApiKeyLocation {
 }
 
 // ==========================================
-// CLASS: OpenApiSecurityScheme
+// CLASS: SecurityScheme
 // ==========================================
 
 /// Text
 @Freezed(unionKey: 'type')
-class OpenApiSecurityScheme with _$OpenApiSecurityScheme {
+class SecurityScheme with _$SecurityScheme {
   // ------------------------------------------
-  // FACTORY: OpenApiSecurityScheme.apiKey
+  // FACTORY: SecurityScheme.apiKey
   // ------------------------------------------
 
-  const factory OpenApiSecurityScheme.apiKey({
+  const factory SecurityScheme.apiKey({
     /// The name for security scheme.
     required String name,
 
@@ -33,58 +33,58 @@ class OpenApiSecurityScheme with _$OpenApiSecurityScheme {
 
     /// The location of the API key.
     @JsonKey(name: 'in') required ApiKeyLocation location,
-  }) = _OpenApiSecuritySchemeApiKey;
+  }) = _SecuritySchemeApiKey;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSecurityScheme.http
+  // FACTORY: SecurityScheme.http
   // ------------------------------------------
 
-  const factory OpenApiSecurityScheme.http({
+  const factory SecurityScheme.http({
     /// A description for security scheme.
     String? description,
 
     /// The name of the HTTP Authorization scheme to be used in the Authorization header
     required String scheme,
     required String bearerFormat,
-  }) = _OpenApiSecuritySchemeHttp;
+  }) = _SecuritySchemeHttp;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSecurityScheme.mutualTLS
+  // FACTORY: SecurityScheme.mutualTLS
   // ------------------------------------------
 
-  const factory OpenApiSecurityScheme.mutualTLS({
+  const factory SecurityScheme.mutualTLS({
     /// A description for security scheme.
     String? description,
-  }) = _OpenApiSecuritySchemeMutualTLS;
+  }) = _SecuritySchemeMutualTLS;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSecurityScheme.oauth2
+  // FACTORY: SecurityScheme.oauth2
   // ------------------------------------------
 
-  const factory OpenApiSecurityScheme.oauth2({
+  const factory SecurityScheme.oauth2({
     /// A description for security scheme.
     String? description,
 
     /// An object containing configuration information for the flow types supported.
-    required OpenApiOAuthFlows flows,
-  }) = _OpenApiSecuritySchemeOauth2;
+    required OAuthFlows flows,
+  }) = _SecuritySchemeOauth2;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSecurityScheme.openIdConnect
+  // FACTORY: SecurityScheme.openIdConnect
   // ------------------------------------------
 
-  const factory OpenApiSecurityScheme.openIdConnect({
+  const factory SecurityScheme.openIdConnect({
     /// A description for security scheme.
     String? description,
 
     /// OpenId Connect URL to discover OAuth2 configuration values.
     @JsonKey(name: 'openIdConnectUrl') required String url,
-  }) = _OpenApiSecuritySchemeOpenIdConnect;
+  }) = _SecuritySchemeOpenIdConnect;
 
   // ------------------------------------------
-  // FACTORY: OpenApiSecurityScheme.fromJson
+  // FACTORY: SecurityScheme.fromJson
   // ------------------------------------------
 
-  factory OpenApiSecurityScheme.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiSecuritySchemeFromJson(json);
+  factory SecurityScheme.fromJson(Map<String, dynamic> json) =>
+      _$SecuritySchemeFromJson(json);
 }

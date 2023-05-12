@@ -1,17 +1,17 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiTag
+// CLASS: Tag
 // ==========================================
 
-/// Adds metadata to a single tag that is used by the [OpenApiOperation] object.
-/// It is not mandatory to have a [OpenApiTag] object per tag defined in
-/// the [OpenApiOperation] object instances.
+/// Adds metadata to a single tag that is used by the [Operation] object.
+/// It is not mandatory to have a [Tag] object per tag defined in
+/// the [Operation] object instances.
 ///
 /// https://swagger.io/specification/#tag-object
 @freezed
-class OpenApiTag with _$OpenApiTag {
-  const factory OpenApiTag({
+class Tag with _$Tag {
+  const factory Tag({
     /// The name of the tag.
     required String name,
 
@@ -19,9 +19,8 @@ class OpenApiTag with _$OpenApiTag {
     String? description,
 
     /// Additional external documentation for this tag.
-    OpenApiExternalDocs? externalDocs,
-  }) = _OpenApiTag;
+    ExternalDocs? externalDocs,
+  }) = _Tag;
 
-  factory OpenApiTag.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiTagFromJson(json);
+  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }

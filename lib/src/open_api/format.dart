@@ -1,10 +1,10 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiStringFormat
+// CLASS: StringFormat
 // ==========================================
 
-enum OpenApiStringFormat {
+enum StringFormat {
   @JsonValue('byte')
   byte,
   @JsonValue('binary')
@@ -18,10 +18,10 @@ enum OpenApiStringFormat {
 }
 
 // ==========================================
-// CLASS: OpenApiIntegerFormat
+// CLASS: IntegerFormat
 // ==========================================
 
-enum OpenApiIntegerFormat {
+enum IntegerFormat {
   @JsonValue('int32')
   int32,
   @JsonValue('int64')
@@ -29,10 +29,10 @@ enum OpenApiIntegerFormat {
 }
 
 // ==========================================
-// CLASS: OpenApiNumberFormat
+// CLASS: NumberFormat
 // ==========================================
 
-enum OpenApiNumberFormat {
+enum NumberFormat {
   @JsonValue('float')
   float,
   @JsonValue('double')

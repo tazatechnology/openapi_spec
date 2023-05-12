@@ -1,13 +1,13 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiContact
+// CLASS: Contact
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiContact with _$OpenApiContact {
-  const factory OpenApiContact({
+class Contact with _$Contact {
+  const factory Contact({
     /// The identifying name of the contact person/organization.
     String? name,
 
@@ -18,8 +18,8 @@ class OpenApiContact with _$OpenApiContact {
     /// The email address of the contact person/organization.
     /// This must be in the form of an email address.
     String? email,
-  }) = _OpenApiContact;
+  }) = _Contact;
 
-  factory OpenApiContact.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiContactFromJson(json);
+  factory Contact.fromJson(Map<String, dynamic> json) =>
+      _$ContactFromJson(json);
 }

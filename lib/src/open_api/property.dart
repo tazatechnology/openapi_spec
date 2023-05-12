@@ -1,57 +1,21 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiProperty
+// CLASS: Property
 // ==========================================
-
-// type
-// format
-// required
-// title
-// description
-// default
-// example
-
-// enum
-// items
-// uniqueItems
-// pattern (regex)
-// properties
-// additionalProperties
-
-// minimum
-// maximum
-
-// exclusiveMinimum
-// exclusiveMaximum
-
-// minLength
-// maxLength
-
-// minItems
-// maxItems
-
-// minProperties
-// maxProperties
-
-// allOf
-// oneOf
-// anyOf
-// multipleOf
-// not
 
 /// Property
 ///
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#properties
 @Freezed(unionKey: 'type')
-class OpenApiProperty with _$OpenApiProperty {
+class Property with _$Property {
   /// A boolean schema property
-  const factory OpenApiProperty.boolean({
+  const factory Property.boolean({
     @JsonKey(name: 'default') bool? defaultValue,
-  }) = _OpenApiPropertyBoolean;
+  }) = _PropertyBoolean;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.string
+  // FACTORY: Property.string
   // ------------------------------------------
 
   /// A string schema property
@@ -69,91 +33,91 @@ class OpenApiProperty with _$OpenApiProperty {
   /// `maxLength`: The maximum string length
   ///
   /// `xml`: Adds additional metadata to describe the XML representation of this property.
-  const factory OpenApiProperty.string({
-    OpenApiXml? xml,
+  const factory Property.string({
+    Xml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
-    OpenApiStringFormat? format,
+    StringFormat? format,
     String? example,
     int? minLength,
     int? maxLength,
-  }) = _OpenApiPropertyString;
+  }) = _PropertyString;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.integer
+  // FACTORY: Property.integer
   // ------------------------------------------
 
   /// An integer schema property
-  const factory OpenApiProperty.integer({
-    OpenApiXml? xml,
+  const factory Property.integer({
+    Xml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') int? defaultValue,
-    OpenApiIntegerFormat? format,
+    IntegerFormat? format,
     int? example,
     int? minimum,
     int? exclusiveMinimum,
     int? maximum,
     int? exclusiveMaximum,
-  }) = _OpenApiPropertyInteger;
+  }) = _PropertyInteger;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.number
+  // FACTORY: Property.number
   // ------------------------------------------
 
   /// A number schema property
-  const factory OpenApiProperty.number({
-    OpenApiXml? xml,
+  const factory Property.number({
+    Xml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
-    OpenApiNumberFormat? format,
+    NumberFormat? format,
     double? example,
     double? minimum,
     double? exclusiveMinimum,
     double? maximum,
     double? exclusiveMaximum,
-  }) = _OpenApiPropertyNumber;
+  }) = _PropertyNumber;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.array
+  // FACTORY: Property.array
   // ------------------------------------------
 
   /// An array schema property
-  const factory OpenApiProperty.array({
-    OpenApiXml? xml,
-    @_ArrayItemsConverter() required OpenApiArrayItems items,
+  const factory Property.array({
+    Xml? xml,
+    @_ArrayItemsConverter() required ArrayItems items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
     List? example,
     int? minLength,
     int? maxLength,
-  }) = _OpenApiPropertyArray;
+  }) = _PropertyArray;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.enumeration
+  // FACTORY: Property.enumeration
   // ------------------------------------------
 
   /// Enumeration property
-  const factory OpenApiProperty.enumeration({
+  const factory Property.enumeration({
     String? description,
     String? example,
     @JsonKey(name: 'enum') required List<String> values,
     String? title,
     @JsonKey(name: 'default') String? defaultValue,
-  }) = _OpenApiPropertyEnum;
+  }) = _PropertyEnum;
 
   // ------------------------------------------
-  // FACTORY: OpenApiProperty.reference
+  // FACTORY: Property.reference
   // ------------------------------------------
 
   /// A reference schema property
-  const factory OpenApiProperty.reference({
+  const factory Property.reference({
     required String ref,
-  }) = _OpenApiPropertyReference;
+  }) = _PropertyReference;
 
-  factory OpenApiProperty.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiPropertyFromJson(json);
+  factory Property.fromJson(Map<String, dynamic> json) =>
+      _$PropertyFromJson(json);
 }

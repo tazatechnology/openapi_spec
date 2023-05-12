@@ -1,21 +1,21 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiExternalDocs
+// CLASS: ExternalDocs
 // ==========================================
 
 /// Allows referencing an external resource for extended documentation.
 /// https://swagger.io/specification/#external-documentation-object
 @freezed
-class OpenApiExternalDocs with _$OpenApiExternalDocs {
-  const factory OpenApiExternalDocs({
+class ExternalDocs with _$ExternalDocs {
+  const factory ExternalDocs({
     /// A description of the target documentation.
     String? description,
 
     /// The URL for the target documentation. This must be in the form of a URL.
     required String url,
-  }) = _OpenApiExternalDocs;
+  }) = _ExternalDocs;
 
-  factory OpenApiExternalDocs.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiExternalDocsFromJson(json);
+  factory ExternalDocs.fromJson(Map<String, dynamic> json) =>
+      _$ExternalDocsFromJson(json);
 }

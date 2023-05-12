@@ -1,20 +1,20 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiDiscriminator
+// CLASS: Discriminator
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiDiscriminator with _$OpenApiDiscriminator {
-  const factory OpenApiDiscriminator({
+class Discriminator with _$Discriminator {
+  const factory Discriminator({
     /// The name of the property in the payload that will hold the discriminator value.
     required String propertyName,
 
     /// An object to hold mappings between payload values and schema names or references.
     Map<String, String>? mapping,
-  }) = _OpenApiDiscriminator;
+  }) = _Discriminator;
 
-  factory OpenApiDiscriminator.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiDiscriminatorFromJson(json);
+  factory Discriminator.fromJson(Map<String, dynamic> json) =>
+      _$DiscriminatorFromJson(json);
 }

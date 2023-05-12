@@ -1,13 +1,13 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiServerVariable
+// CLASS: ServerVariable
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiServerVariable with _$OpenApiServerVariable {
-  const factory OpenApiServerVariable({
+class ServerVariable with _$ServerVariable {
+  const factory ServerVariable({
     /// An enumeration of string values to be used if the substitution
     /// options are from a limited set. The array must not be empty.
     required List<String> enumValue,
@@ -20,8 +20,8 @@ class OpenApiServerVariable with _$OpenApiServerVariable {
 
     /// An optional string describing the host designated by the URL.
     final String? description,
-  }) = _OpenApiServerVariable;
+  }) = _ServerVariable;
 
-  factory OpenApiServerVariable.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiServerVariableFromJson(json);
+  factory ServerVariable.fromJson(Map<String, dynamic> json) =>
+      _$ServerVariableFromJson(json);
 }

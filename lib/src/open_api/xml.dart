@@ -1,13 +1,13 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiXml
+// CLASS: Xml
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiXml with _$OpenApiXml {
-  const factory OpenApiXml({
+class Xml with _$Xml {
+  const factory Xml({
     /// Replaces the name of the element/attribute used for the described schema property
     String? name,
 
@@ -23,8 +23,7 @@ class OpenApiXml with _$OpenApiXml {
 
     /// May be used only for an array definition
     bool? wrapped,
-  }) = _OpenApiXml;
+  }) = _Xml;
 
-  factory OpenApiXml.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiXmlFromJson(json);
+  factory Xml.fromJson(Map<String, dynamic> json) => _$XmlFromJson(json);
 }

@@ -1,7 +1,7 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiComponents
+// CLASS: Components
 // ==========================================
 
 /// Holds a set of reusable objects for different aspects of the OAS.
@@ -9,43 +9,43 @@ part of openapi_models;
 /// unless they are explicitly referenced from properties outside the components object.
 /// https://swagger.io/specification/#components-object
 @freezed
-class OpenApiComponents with _$OpenApiComponents {
-  const factory OpenApiComponents({
-    /// A set of reusable [OpenApiSchema] objects.
-    Map<String, OpenApiSchema>? schemas,
+class Components with _$Components {
+  const factory Components({
+    /// A set of reusable [Schema] objects.
+    Map<String, Schema>? schemas,
 
-    /// A set of reusable [OpenApiResponse] objects.
-    Map<String, OpenApiResponse>? responses,
+    /// A set of reusable [Response] objects.
+    Map<String, Response>? responses,
 
-    /// A set of reusable [OpenApiParameter] objects.
-    Map<String, OpenApiParameter>? parameters,
+    /// A set of reusable [Parameter] objects.
+    Map<String, Parameter>? parameters,
 
-    /// A set of reusable [OpenApiExample] objects.
-    Map<String, OpenApiExample>? examples,
+    /// A set of reusable [Example] objects.
+    Map<String, Example>? examples,
 
-    /// A set of reusable [OpenApiRequestBody.component] objects.
-    Map<String, OpenApiRequestBody>? requestBodies,
+    /// A set of reusable [RequestBody.component] objects.
+    Map<String, RequestBody>? requestBodies,
 
-    /// A set of reusable [OpenApiHeader] objects.
-    Map<String, OpenApiHeader>? headers,
+    /// A set of reusable [Header] objects.
+    Map<String, Header>? headers,
 
-    /// A set of reusable [OpenApiSecurityScheme] objects.
-    Map<String, OpenApiSecurityScheme>? securitySchemes,
+    /// A set of reusable [SecurityScheme] objects.
+    Map<String, SecurityScheme>? securitySchemes,
 
-    /// A set of reusable [OpenApiLink] objects.
-    Map<String, OpenApiLink>? links,
+    /// A set of reusable [Link] objects.
+    Map<String, Link>? links,
 
-    /// A set of reusable [OpenApiCallback] objects.
-    Map<String, OpenApiCallback>? callbacks,
+    /// A set of reusable [ApiCallback] objects.
+    Map<String, ApiCallback>? callbacks,
 
-    /// A set of reusable [OpenApiPath] objects.
-    Map<String, OpenApiPath>? pathItems,
-  }) = _OpenApiComponents;
+    /// A set of reusable [PathItem] objects.
+    Map<String, PathItem>? pathItems,
+  }) = _Components;
 
   // ------------------------------------------
-  // FACTORY: OpenApiComponents.fromJson
+  // FACTORY: Components.fromJson
   // ------------------------------------------
 
-  factory OpenApiComponents.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiComponentsFromJson(json);
+  factory Components.fromJson(Map<String, dynamic> json) =>
+      _$ComponentsFromJson(json);
 }

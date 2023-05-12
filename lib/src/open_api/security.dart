@@ -1,27 +1,27 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiSecurity
+// CLASS: Security
 // ==========================================
 
 /// A declaration of which security mechanisms can be used for this operation.
 ///
 /// https://swagger.io/specification/#security-requirement-object
 @freezed
-class OpenApiSecurity with _$OpenApiSecurity {
-  const OpenApiSecurity._();
+class Security with _$Security {
+  const Security._();
 
-  const factory OpenApiSecurity({
+  const factory Security({
     /// Each name must correspond to a security scheme which is declared
-    /// in the [OpenApiComponents.securitySchemes] list
+    /// in the [Components.securitySchemes] list
     String? name,
 
     /// List of scopes required to access the API, if any.
     @Default([]) List<String> scopes,
-  }) = _OpenApiSecurity;
+  }) = _Security;
 
-  factory OpenApiSecurity.fromJson(Map<String, dynamic> json) {
-    return OpenApiSecurity();
+  factory Security.fromJson(Map<String, dynamic> json) {
+    return Security();
   }
 
   Map<String, dynamic> toJson() {

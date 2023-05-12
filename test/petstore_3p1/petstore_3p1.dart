@@ -4,25 +4,25 @@ import 'package:openapi_spec/openapi_spec.dart';
 // Define tags
 // ==========================================
 
-final petTag = OpenApiTag(
+final petTag = Tag(
   name: 'pet',
   description: 'Everything about your Pets',
-  externalDocs: OpenApiExternalDocs(
+  externalDocs: ExternalDocs(
     description: 'Find out more',
     url: 'http://swagger.io',
   ),
 );
 
-final storeTag = OpenApiTag(
+final storeTag = Tag(
   name: 'store',
   description: 'Access to Petstore orders',
-  externalDocs: OpenApiExternalDocs(
+  externalDocs: ExternalDocs(
     description: 'Find out more about our store',
     url: 'http://swagger.io',
   ),
 );
 
-final userTag = OpenApiTag(
+final userTag = Tag(
   name: 'user',
   description: 'Operations about user',
 );
@@ -31,136 +31,136 @@ final userTag = OpenApiTag(
 // Define schemas
 // ==========================================
 
-final schemaTag = OpenApiSchema(
-  xml: OpenApiXml(name: 'tag'),
+final schemaTag = Schema(
+  xml: Xml(name: 'tag'),
   properties: {
-    'id': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int64,
+    'id': Property.integer(
+      format: IntegerFormat.int64,
     ),
-    'name': OpenApiProperty.string(),
+    'name': Property.string(),
   },
 );
 
-final schemaCategory = OpenApiSchema(
-  xml: OpenApiXml(name: 'category'),
+final schemaCategory = Schema(
+  xml: Xml(name: 'category'),
   properties: {
-    'id': OpenApiProperty.integer(
+    'id': Property.integer(
       example: 1,
-      format: OpenApiIntegerFormat.int64,
+      format: IntegerFormat.int64,
     ),
-    'name': OpenApiProperty.string(
+    'name': Property.string(
       example: 'Dogs',
     ),
   },
 );
 
-final schemaPet = OpenApiSchema(
-  xml: OpenApiXml(name: 'pet'),
+final schemaPet = Schema(
+  xml: Xml(name: 'pet'),
   required: [
     'name',
     'photoUrls',
   ],
   properties: {
-    'id': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int64,
+    'id': Property.integer(
+      format: IntegerFormat.int64,
       example: 10,
     ),
-    'name': OpenApiProperty.string(
+    'name': Property.string(
       example: 'doggie',
     ),
-    'category': OpenApiProperty.reference(
+    'category': Property.reference(
       ref: 'Category',
     ),
-    'photoUrls': OpenApiProperty.array(
-      xml: OpenApiXml(wrapped: true),
-      items: OpenApiArrayItems.string(
-        xml: OpenApiXml(name: 'photoUrl'),
+    'photoUrls': Property.array(
+      xml: Xml(wrapped: true),
+      items: ArrayItems.string(
+        xml: Xml(name: 'photoUrl'),
       ),
     ),
-    'tags': OpenApiProperty.array(
-      xml: OpenApiXml(wrapped: true),
-      items: OpenApiArrayItems.reference(ref: 'Tag'),
+    'tags': Property.array(
+      xml: Xml(wrapped: true),
+      items: ArrayItems.reference(ref: 'Tag'),
     ),
-    'status': OpenApiProperty.enumeration(
+    'status': Property.enumeration(
       description: 'pet status in the store',
       values: ['available', 'pending', 'sold'],
     ),
   },
 );
 
-final schemaOrder = OpenApiSchema(
-  xml: OpenApiXml(name: 'order'),
+final schemaOrder = Schema(
+  xml: Xml(name: 'order'),
   properties: {
-    'id': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int64,
+    'id': Property.integer(
+      format: IntegerFormat.int64,
       example: 10,
     ),
-    'petId': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int64,
+    'petId': Property.integer(
+      format: IntegerFormat.int64,
       example: 198772,
     ),
-    'quantity': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int32,
+    'quantity': Property.integer(
+      format: IntegerFormat.int32,
       example: 7,
     ),
-    'shipDate': OpenApiProperty.string(
-      format: OpenApiStringFormat.datetime,
+    'shipDate': Property.string(
+      format: StringFormat.datetime,
     ),
-    'status': OpenApiProperty.enumeration(
+    'status': Property.enumeration(
       description: 'Order Status',
       example: 'approved',
       values: ['placed', 'approved', 'delivered'],
     ),
-    'complete': OpenApiProperty.boolean(),
+    'complete': Property.boolean(),
   },
 );
 
-final schemaUser = OpenApiSchema(
-  xml: OpenApiXml(name: 'user'),
+final schemaUser = Schema(
+  xml: Xml(name: 'user'),
   properties: {
-    'id': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int64,
+    'id': Property.integer(
+      format: IntegerFormat.int64,
       example: 10,
     ),
-    'username': OpenApiProperty.string(
+    'username': Property.string(
       example: 'theUser',
     ),
-    'firstName': OpenApiProperty.string(
+    'firstName': Property.string(
       example: 'John',
     ),
-    'lastName': OpenApiProperty.string(
+    'lastName': Property.string(
       example: 'James',
     ),
-    'email': OpenApiProperty.string(
+    'email': Property.string(
       example: 'john@email.com',
     ),
-    'password': OpenApiProperty.string(
+    'password': Property.string(
       example: '12345',
     ),
-    'phone': OpenApiProperty.string(
+    'phone': Property.string(
       example: '12345',
     ),
-    'userStatus': OpenApiProperty.integer(
+    'userStatus': Property.integer(
       description: 'User Status',
-      format: OpenApiIntegerFormat.int32,
+      format: IntegerFormat.int32,
       example: 1,
     ),
   },
 );
 
-final schemaCustomer = OpenApiSchema(
-  xml: OpenApiXml(name: 'customer'),
+final schemaCustomer = Schema(
+  xml: Xml(name: 'customer'),
   properties: {
-    'id': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int64,
+    'id': Property.integer(
+      format: IntegerFormat.int64,
       example: 100000,
     ),
-    'username': OpenApiProperty.string(
+    'username': Property.string(
       example: 'fehguy',
     ),
-    'address': OpenApiProperty.array(
-      items: OpenApiArrayItems.reference(ref: 'Address'),
-      xml: OpenApiXml(
+    'address': Property.array(
+      items: ArrayItems.reference(ref: 'Address'),
+      xml: Xml(
         name: 'addresses',
         wrapped: true,
       ),
@@ -168,38 +168,38 @@ final schemaCustomer = OpenApiSchema(
   },
 );
 
-final schemaAddress = OpenApiSchema(
-  xml: OpenApiXml(name: 'address'),
+final schemaAddress = Schema(
+  xml: Xml(name: 'address'),
   properties: {
-    'street': OpenApiProperty.string(
+    'street': Property.string(
       example: '437 Lytton',
     ),
-    'city': OpenApiProperty.string(
+    'city': Property.string(
       example: 'Palo Alto',
     ),
-    'state': OpenApiProperty.string(
+    'state': Property.string(
       example: 'CA',
     ),
-    'zip': OpenApiProperty.string(
+    'zip': Property.string(
       example: '94301',
     ),
   },
 );
 
-final schemaApiResponse = OpenApiSchema(
-  xml: OpenApiXml(name: '##default'),
+final schemaApiResponse = Schema(
+  xml: Xml(name: '##default'),
   properties: {
-    'code': OpenApiProperty.integer(
-      format: OpenApiIntegerFormat.int32,
+    'code': Property.integer(
+      format: IntegerFormat.int32,
     ),
-    'type': OpenApiProperty.string(),
-    'message': OpenApiProperty.string(),
+    'type': Property.string(),
+    'message': Property.string(),
   },
 );
 
-final oauthSecurityScheme = OpenApiSecurityScheme.oauth2(
-  flows: OpenApiOAuthFlows(
-    implicit: OpenApiOAuthFlow.implicit(
+final oauthSecurityScheme = SecurityScheme.oauth2(
+  flows: OAuthFlows(
+    implicit: OAuthFlow.implicit(
       authorizationUrl: 'https://petstore3.swagger.io/oauth/authorize',
       scopes: {
         'write:pets': 'modify pets in your account',
@@ -209,7 +209,7 @@ final oauthSecurityScheme = OpenApiSecurityScheme.oauth2(
   ),
 );
 
-final apiKeySecurityScheme = OpenApiSecurityScheme.apiKey(
+final apiKeySecurityScheme = SecurityScheme.apiKey(
   name: 'api_key',
   location: ApiKeyLocation.header,
 );
@@ -219,26 +219,26 @@ final apiKeySecurityScheme = OpenApiSecurityScheme.apiKey(
 // ==========================================
 
 final spec = OpenApi(
-  info: OpenApiInfo(
+  info: Info(
     title: 'Swagger Petstore - OpenAPI 3.1',
     description:
         "This is a sample Pet Store Server based on the OpenAPI 3.1 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
     termsOfService: 'http://swagger.io/terms/',
-    contact: OpenApiContact(
+    contact: Contact(
       email: 'apiteam@swagger.io',
     ),
-    license: OpenApiLicense(
+    license: License(
       name: 'Apache 2.0',
       url: 'http://www.apache.org/licenses/LICENSE-2.0.html',
     ),
     version: '1.0.11',
   ),
-  externalDocs: OpenApiExternalDocs(
+  externalDocs: ExternalDocs(
     description: 'Find out more about Swagger',
     url: 'http://swagger.io',
   ),
   servers: [
-    OpenApiServer(
+    Server(
       url: 'https://petstore3.swagger.io/api/v3',
     ),
   ],
@@ -248,101 +248,101 @@ final spec = OpenApi(
     userTag,
   ],
   paths: {
-    /// PATH: /path
-    '/pet': OpenApiPath(
-      put: OpenApiOperation(
+    /// Path: /Path
+    '/pet': PathItem(
+      put: Operation(
         tags: [petTag],
         summary: 'Update an existing pet',
         description: 'Update an existing pet by Id',
         id: 'updatePet',
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           isRequired: true,
           description: 'Update an existent pet in the store',
           content: {
-            'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Pet'),
+            'application/json': MediaType(
+              schema: Schema.reference(ref: 'Pet'),
             ),
-            'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Pet'),
+            'application/xml': MediaType(
+              schema: Schema.reference(ref: 'Pet'),
             ),
-            'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Pet'),
+            'application/x-www-form-urlencoded': MediaType(
+              schema: Schema.reference(ref: 'Pet'),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'Successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Pet'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'Pet'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Pet'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'Pet'),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid ID supplied',
           ),
-          OpenApiResponse(
+          Response(
             code: '404',
             description: 'Pet not found',
           ),
-          OpenApiResponse(
+          Response(
             code: '405',
             description: 'Validation exception',
           )
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
         ],
       ),
-      post: OpenApiOperation(
+      post: Operation(
         tags: [petTag],
         summary: 'Add a new pet to the store',
         description: 'Add a new pet to the store',
         id: 'addPet',
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           isRequired: true,
           description: 'Create a new pet in the store',
           content: {
-            'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Pet'),
+            'application/json': MediaType(
+              schema: Schema.reference(ref: 'Pet'),
             ),
-            'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Pet'),
+            'application/xml': MediaType(
+              schema: Schema.reference(ref: 'Pet'),
             ),
-            'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Pet'),
+            'application/x-www-form-urlencoded': MediaType(
+              schema: Schema.reference(ref: 'Pet'),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'Successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Pet'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'Pet'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Pet'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'Pet'),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '405',
             description: 'Invalid input',
           )
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
@@ -350,50 +350,50 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /pet/findByStatus
-    '/pet/findByStatus': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /pet/findByStatus
+    '/pet/findByStatus': PathItem(
+      get: Operation(
         tags: [petTag],
         summary: 'Finds Pets by status',
         description:
             'Multiple status values can be provided with comma separated strings',
         id: 'findPetsByStatus',
         parameters: [
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'status',
             description: 'Status values that need to be considered for filter',
             required: false,
             explode: true,
-            schema: OpenApiSchema.enumeration(
+            schema: Schema.enumeration(
               defaultValue: 'available',
               values: ['available', 'pending', 'sold'],
             ),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: 'Pet'),
+              'application/json': MediaType(
+                schema: Schema.array(
+                  items: ArrayItems.reference(ref: 'Pet'),
                 ),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: 'Pet'),
+              'application/xml': MediaType(
+                schema: Schema.array(
+                  items: ArrayItems.reference(ref: 'Pet'),
                 ),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid status value',
           ),
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
@@ -401,47 +401,47 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /pet/findByTags
-    '/pet/findByTags': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /pet/findByTags
+    '/pet/findByTags': PathItem(
+      get: Operation(
         tags: [petTag],
         summary: 'Finds Pets by tags',
         description:
             'Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.',
         id: 'findPetsByTags',
         parameters: [
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'tags',
             description: 'Tags to filter by',
             required: false,
             explode: true,
-            schema: OpenApiSchema.array(items: OpenApiArrayItems.string()),
+            schema: Schema.array(items: ArrayItems.string()),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: 'Pet'),
+              'application/json': MediaType(
+                schema: Schema.array(
+                  items: ArrayItems.reference(ref: 'Pet'),
                 ),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.array(
-                  items: OpenApiArrayItems.reference(ref: 'Pet'),
+              'application/xml': MediaType(
+                schema: Schema.array(
+                  items: ArrayItems.reference(ref: 'Pet'),
                 ),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid tag value',
           ),
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
@@ -449,117 +449,117 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /pet/{petId}
-    '/pet/{petId}': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /pet/{petId}
+    '/pet/{petId}': PathItem(
+      get: Operation(
         tags: [petTag],
         summary: 'Find pet by ID',
         description: 'Returns a single pet',
         id: 'getPetById',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'petId',
             description: 'ID of pet to return',
-            schema: OpenApiSchema.integer(
-              format: OpenApiIntegerFormat.int64,
+            schema: Schema.integer(
+              format: IntegerFormat.int64,
             ),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Pet'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'Pet'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Pet'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'Pet'),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid ID supplied',
           ),
-          OpenApiResponse(
+          Response(
             code: '404',
             description: 'Pet not found',
           ),
         ],
         security: [
-          OpenApiSecurity(name: 'api_key'),
-          OpenApiSecurity(
+          Security(name: 'api_key'),
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
         ],
       ),
-      post: OpenApiOperation(
+      post: Operation(
         tags: [petTag],
         summary: 'Updates a pet in the store with form data',
         description: '',
         id: 'updatePetWithForm',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'petId',
             description: 'ID of pet that needs to be updated',
-            schema: OpenApiSchema.integer(
-              format: OpenApiIntegerFormat.int64,
+            schema: Schema.integer(
+              format: IntegerFormat.int64,
             ),
           ),
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'name',
             description: 'Name of pet that needs to be updated',
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'status',
             description: 'Status of pet that needs to be updated',
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '405',
             description: 'Invalid input',
           ),
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
         ],
       ),
-      delete: OpenApiOperation(
+      delete: Operation(
         tags: [petTag],
         summary: 'Deletes a pet',
         description: 'delete a pet',
         id: 'deletePet',
         parameters: [
-          OpenApiParameter.header(
+          Parameter.header(
             name: 'api_key',
             description: '',
             required: false,
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'petId',
             description: 'Pet id to delete',
-            schema: OpenApiSchema.integer(
-              format: OpenApiIntegerFormat.int64,
+            schema: Schema.integer(
+              format: IntegerFormat.int64,
             ),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid pet value',
           ),
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
@@ -567,44 +567,44 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /pet/{petId}/uploadImage
-    '/pet/{petId}/uploadImage': OpenApiPath(
-      post: OpenApiOperation(
+    /// Path: /pet/{petId}/uploadImage
+    '/pet/{petId}/uploadImage': PathItem(
+      post: Operation(
         tags: [petTag],
         summary: 'uploads an image',
         description: '',
         id: 'uploadFile',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'petId',
             description: 'ID of pet to update',
-            schema: OpenApiSchema.integer(
-              format: OpenApiIntegerFormat.int64,
+            schema: Schema.integer(
+              format: IntegerFormat.int64,
             ),
           ),
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'additionalMetadata',
             description: 'Additional Metadata',
             required: false,
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
         ],
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           content: {
-            'application/octet-stream': OpenApiMediaType(
-              schema: OpenApiSchema.string(
-                format: OpenApiStringFormat.binary,
+            'application/octet-stream': MediaType(
+              schema: Schema.string(
+                format: StringFormat.binary,
               ),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(
+              'application/json': MediaType(
+                schema: Schema.reference(
                   ref: 'ApiResponse',
                 ),
               ),
@@ -612,7 +612,7 @@ final spec = OpenApi(
           ),
         ],
         security: [
-          OpenApiSecurity(
+          Security(
             name: 'petstore_auth',
             scopes: ['write:pets', 'read:pets'],
           ),
@@ -620,22 +620,22 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /store/inventory
-    '/store/inventory': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /store/inventory
+    '/store/inventory': PathItem(
+      get: Operation(
         tags: [storeTag],
         summary: 'Returns pet inventories by status',
         description: 'Returns a map of status codes to quantities',
         id: 'getInventory',
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema(
-                  additionalProperties: OpenApiSchema.integer(
-                    format: OpenApiIntegerFormat.int32,
+              'application/json': MediaType(
+                schema: Schema(
+                  additionalProperties: Schema.integer(
+                    format: IntegerFormat.int32,
                   ),
                 ),
               ),
@@ -643,44 +643,44 @@ final spec = OpenApi(
           ),
         ],
         security: [
-          OpenApiSecurity(name: 'api_key'),
+          Security(name: 'api_key'),
         ],
       ),
     ),
 
-    /// PATH: /store/order
-    '/store/order': OpenApiPath(
-      post: OpenApiOperation(
+    /// Path: /store/order
+    '/store/order': PathItem(
+      post: Operation(
         tags: [storeTag],
         summary: 'Place an order for a pet',
         description: 'Place a new order in the store',
         id: 'placeOrder',
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           content: {
-            'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Order'),
+            'application/json': MediaType(
+              schema: Schema.reference(ref: 'Order'),
             ),
-            'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Order'),
+            'application/xml': MediaType(
+              schema: Schema.reference(ref: 'Order'),
             ),
-            'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'Order'),
+            'application/x-www-form-urlencoded': MediaType(
+              schema: Schema.reference(ref: 'Order'),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(
+              'application/json': MediaType(
+                schema: Schema.reference(
                   ref: 'Order',
                 ),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '405',
             description: 'Invalid input',
           ),
@@ -688,67 +688,67 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /store/order/{orderId}
-    '/store/order/{orderId}': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /store/order/{orderId}
+    '/store/order/{orderId}': PathItem(
+      get: Operation(
         tags: [storeTag],
         summary: 'Find purchase order by ID',
         description:
             'For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.',
         id: 'getOrderById',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'orderId',
             description: 'ID of order that needs to be fetched',
-            schema: OpenApiSchema.integer(
-              format: OpenApiIntegerFormat.int64,
+            schema: Schema.integer(
+              format: IntegerFormat.int64,
             ),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Order'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'Order'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'Order'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'Order'),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid ID supplied',
           ),
-          OpenApiResponse(
+          Response(
             code: '404',
             description: 'Order not found',
           ),
         ],
       ),
-      delete: OpenApiOperation(
+      delete: Operation(
         tags: [storeTag],
         summary: 'Delete purchase order by ID',
         description:
             'For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors',
         id: 'deleteOrder',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'orderId',
             description: 'ID of the order that needs to be deleted',
-            schema: OpenApiSchema.integer(
-              format: OpenApiIntegerFormat.int64,
+            schema: Schema.integer(
+              format: IntegerFormat.int64,
             ),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid ID supplied',
           ),
-          OpenApiResponse(
+          Response(
             code: '404',
             description: 'Order not found',
           ),
@@ -756,37 +756,37 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /user
-    '/user': OpenApiPath(
-      post: OpenApiOperation(
+    /// Path: /user
+    '/user': PathItem(
+      post: Operation(
         tags: [userTag],
         summary: 'Create user',
         description: 'This can only be done by the logged in user.',
         id: 'createUser',
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           description: 'Created user object',
           content: {
-            'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'User'),
+            'application/json': MediaType(
+              schema: Schema.reference(ref: 'User'),
             ),
-            'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'User'),
+            'application/xml': MediaType(
+              schema: Schema.reference(ref: 'User'),
             ),
-            'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'User'),
+            'application/x-www-form-urlencoded': MediaType(
+              schema: Schema.reference(ref: 'User'),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: 'default',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'User'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'User'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'User'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'User'),
               ),
             },
           )
@@ -794,36 +794,36 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /user/createWithList
-    '/user/createWithList': OpenApiPath(
-      post: OpenApiOperation(
+    /// Path: /user/createWithList
+    '/user/createWithList': PathItem(
+      post: Operation(
         tags: [userTag],
         summary: 'Creates list of users with given input array',
         description: 'Creates list of users with given input array',
         id: 'createUsersWithListInput',
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           content: {
-            'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.array(
-                items: OpenApiArrayItems.reference(ref: 'User'),
+            'application/json': MediaType(
+              schema: Schema.array(
+                items: ArrayItems.reference(ref: 'User'),
               ),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'Successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'User'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'User'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'User'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'User'),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: 'default',
             description: 'successful operation',
           ),
@@ -831,55 +831,55 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /user/login
-    '/user/login': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /user/login
+    '/user/login': PathItem(
+      get: Operation(
         tags: [userTag],
         summary: 'Logs user into the system',
         description: '',
         id: 'loginUser',
         parameters: [
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'username',
             description: 'The user name for login',
             required: false,
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
-          OpenApiParameter.query(
+          Parameter.query(
             name: 'password',
             description: 'The password for login in clear text',
             required: false,
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             headers: {
-              'X-Rate-Limit': OpenApiHeader(
+              'X-Rate-Limit': Header(
                 description: 'calls per hour allowed by the user',
-                schema: OpenApiSchema.integer(
-                  format: OpenApiIntegerFormat.int32,
+                schema: Schema.integer(
+                  format: IntegerFormat.int32,
                 ),
               ),
-              'X-Expires-After': OpenApiHeader(
+              'X-Expires-After': Header(
                 description: 'date in UTC when token expires',
-                schema: OpenApiSchema.string(
-                  format: OpenApiStringFormat.datetime,
+                schema: Schema.string(
+                  format: StringFormat.datetime,
                 ),
               ),
             },
             content: {
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.string(),
+              'application/xml': MediaType(
+                schema: Schema.string(),
               ),
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.string(),
+              'application/json': MediaType(
+                schema: Schema.string(),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid username/password supplied',
           ),
@@ -887,16 +887,16 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /user/logout
-    '/user/logout': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /user/logout
+    '/user/logout': PathItem(
+      get: Operation(
         tags: [userTag],
         summary: 'Logs out current logged in user session',
         description: '',
         id: 'logoutUser',
         parameters: [],
         responses: [
-          OpenApiResponse(
+          Response(
             code: 'default',
             description: 'successful operation',
           ),
@@ -904,95 +904,95 @@ final spec = OpenApi(
       ),
     ),
 
-    /// PATH: /user/{username}
-    '/user/{username}': OpenApiPath(
-      get: OpenApiOperation(
+    /// Path: /user/{username}
+    '/user/{username}': PathItem(
+      get: Operation(
         tags: [userTag],
         summary: 'Get user by user name',
         description: '',
         id: 'getUserByName',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'username',
             description:
                 'The name that needs to be fetched. Use user1 for testing. ',
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '200',
             description: 'successful operation',
             content: {
-              'application/json': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'User'),
+              'application/json': MediaType(
+                schema: Schema.reference(ref: 'User'),
               ),
-              'application/xml': OpenApiMediaType(
-                schema: OpenApiSchema.reference(ref: 'User'),
+              'application/xml': MediaType(
+                schema: Schema.reference(ref: 'User'),
               ),
             },
           ),
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid username supplied',
           ),
-          OpenApiResponse(
+          Response(
             code: '404',
             description: 'User not found',
           ),
         ],
       ),
-      put: OpenApiOperation(
+      put: Operation(
         tags: [userTag],
         summary: 'Update user',
         description: 'This can only be done by the logged in user.',
         id: 'updateUser',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'username',
             description: 'name that need to be deleted',
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
         ],
-        requestBody: OpenApiRequestBody(
+        requestBody: RequestBody(
           description: 'Update an existent user in the store',
           content: {
-            'application/json': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'User'),
+            'application/json': MediaType(
+              schema: Schema.reference(ref: 'User'),
             ),
-            'application/xml': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'User'),
+            'application/xml': MediaType(
+              schema: Schema.reference(ref: 'User'),
             ),
-            'application/x-www-form-urlencoded': OpenApiMediaType(
-              schema: OpenApiSchema.reference(ref: 'User'),
+            'application/x-www-form-urlencoded': MediaType(
+              schema: Schema.reference(ref: 'User'),
             ),
           },
         ),
         responses: [
-          OpenApiResponse(
+          Response(
             code: 'default',
             description: 'successful operation',
           ),
         ],
       ),
-      delete: OpenApiOperation(
+      delete: Operation(
         tags: [userTag],
         summary: 'Delete user',
         description: 'This can only be done by the logged in user.',
         id: 'deleteUser',
         parameters: [
-          OpenApiParameter.path(
+          Parameter.path(
             name: 'username',
             description: 'The name that needs to be deleted',
-            schema: OpenApiSchema.string(),
+            schema: Schema.string(),
           ),
         ],
         responses: [
-          OpenApiResponse(
+          Response(
             code: '400',
             description: 'Invalid username supplied',
           ),
-          OpenApiResponse(
+          Response(
             code: '404',
             description: 'User not found',
           ),
@@ -1000,7 +1000,7 @@ final spec = OpenApi(
       ),
     ),
   },
-  components: OpenApiComponents(
+  components: Components(
     schemas: {
       'Order': schemaOrder,
       'Customer': schemaCustomer,
@@ -1012,23 +1012,23 @@ final spec = OpenApi(
       'ApiResponse': schemaApiResponse,
     },
     requestBodies: {
-      'Pet': OpenApiRequestBody(
+      'Pet': RequestBody(
         description: 'Pet object that needs to be added to the store',
         content: {
-          'application/json': OpenApiMediaType(
-            schema: OpenApiSchema.reference(ref: 'Pet'),
+          'application/json': MediaType(
+            schema: Schema.reference(ref: 'Pet'),
           ),
-          'application/xml': OpenApiMediaType(
-            schema: OpenApiSchema.reference(ref: 'Pet'),
+          'application/xml': MediaType(
+            schema: Schema.reference(ref: 'Pet'),
           ),
         },
       ),
-      'UserArray': OpenApiRequestBody(
+      'UserArray': RequestBody(
         description: 'List of user object',
         content: {
-          'application/json': OpenApiMediaType(
-            schema: OpenApiSchema.array(
-              items: OpenApiArrayItems.reference(ref: 'User'),
+          'application/json': MediaType(
+            schema: Schema.array(
+              items: ArrayItems.reference(ref: 'User'),
             ),
           ),
         },

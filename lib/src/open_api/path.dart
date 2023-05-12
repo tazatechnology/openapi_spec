@@ -1,57 +1,57 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiPath
+// CLASS: Path
 // ==========================================
 
-/// Describes the operations available on a single path.
+/// Describes the operations available on a single Path.
 ///
-/// https://swagger.io/specification/#path-item-object
+/// https://swagger.io/specification/#Path-item-object
 @freezed
-class OpenApiPath with _$OpenApiPath {
-  const factory OpenApiPath({
-    /// An optional, string summary, intended to apply to all operations in this path.
+class PathItem with _$PathItem {
+  const factory PathItem({
+    /// An optional, string summary, intended to apply to all operations in this Path.
     String? summary,
 
-    /// An optional, string description, intended to apply to all operations in this path.
+    /// An optional, string description, intended to apply to all operations in this Path.
     String? description,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? get,
+    /// A definition of a GET operation on this Path.
+    Operation? get,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? put,
+    /// A definition of a GET operation on this Path.
+    Operation? put,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? post,
+    /// A definition of a GET operation on this Path.
+    Operation? post,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? delete,
+    /// A definition of a GET operation on this Path.
+    Operation? delete,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? options,
+    /// A definition of a GET operation on this Path.
+    Operation? options,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? head,
+    /// A definition of a GET operation on this Path.
+    Operation? head,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? patch,
+    /// A definition of a GET operation on this Path.
+    Operation? patch,
 
-    /// A definition of a GET operation on this path.
-    OpenApiOperation? trace,
+    /// A definition of a GET operation on this Path.
+    Operation? trace,
 
-    /// An alternative [OpenApiServer] array to service all operations in this path.
-    List<OpenApiServer>? servers,
+    /// An alternative [Server] array to service all operations in this Path.
+    List<Server>? servers,
 
-    /// A list of parameters that are applicable for all the operations described under this path.
+    /// A list of parameters that are applicable for all the operations described under this Path.
     /// These parameters can be overridden at the operation level, but cannot be removed there.
-    List<OpenApiParameter>? parameters,
-  }) = _OpenApiPath;
+    List<Parameter>? parameters,
+  }) = _PathItem;
 
-  const factory OpenApiPath.reference({
-    required OpenApiPath ref,
-  }) = _OpenApiPathReference;
+  const factory PathItem.reference({
+    required String ref,
+  }) = _PathItemReference;
 
-  factory OpenApiPath.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiPathFromJson(json);
+  factory PathItem.fromJson(Map<String, dynamic> json) =>
+      _$PathItemFromJson(json);
 }

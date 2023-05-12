@@ -1,13 +1,13 @@
 part of openapi_models;
 
 // ==========================================
-// CLASS: OpenApiServer
+// CLASS: Server
 // ==========================================
 
 /// Text
 @freezed
-class OpenApiServer with _$OpenApiServer {
-  const factory OpenApiServer({
+class Server with _$Server {
+  const factory Server({
     /// A URL to the target host. This URL supports Server Variables and may
     /// be relative, to indicate that the host location is relative to the
     /// location where the OpenAPI document is being served. Variable
@@ -19,9 +19,8 @@ class OpenApiServer with _$OpenApiServer {
 
     /// A map between a variable name and its value.
     /// The value is used for substitution in the server's URL template.
-    final Map<String, OpenApiServerVariable>? variables,
-  }) = _OpenApiServer;
+    final Map<String, ServerVariable>? variables,
+  }) = _Server;
 
-  factory OpenApiServer.fromJson(Map<String, dynamic> json) =>
-      _$OpenApiServerFromJson(json);
+  factory Server.fromJson(Map<String, dynamic> json) => _$ServerFromJson(json);
 }
