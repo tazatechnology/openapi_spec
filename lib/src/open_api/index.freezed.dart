@@ -5009,8 +5009,7 @@ mixin _$Operation {
   RequestBody? get requestBody => throw _privateConstructorUsedError;
 
   /// The list of possible responses as they are returned from executing this operation.
-  @_OperationResponseListConverter()
-  List<Response>? get responses => throw _privateConstructorUsedError;
+  Map<String, Response>? get responses => throw _privateConstructorUsedError;
 
   /// A map of possible out-of band callbacks related to the parent operation.
   /// The key is a unique identifier for the [ApiCallback] Object.
@@ -5047,7 +5046,7 @@ abstract class $OperationCopyWith<$Res> {
       @JsonKey(name: 'operationId') String? id,
       List<Parameter>? parameters,
       RequestBody? requestBody,
-      @_OperationResponseListConverter() List<Response>? responses,
+      Map<String, Response>? responses,
       List<ApiCallback>? callbacks,
       bool? deprecated,
       List<Security>? security,
@@ -5115,7 +5114,7 @@ class _$OperationCopyWithImpl<$Res, $Val extends Operation>
       responses: freezed == responses
           ? _value.responses
           : responses // ignore: cast_nullable_to_non_nullable
-              as List<Response>?,
+              as Map<String, Response>?,
       callbacks: freezed == callbacks
           ? _value.callbacks
           : callbacks // ignore: cast_nullable_to_non_nullable
@@ -5175,7 +5174,7 @@ abstract class _$$_OperationCopyWith<$Res> implements $OperationCopyWith<$Res> {
       @JsonKey(name: 'operationId') String? id,
       List<Parameter>? parameters,
       RequestBody? requestBody,
-      @_OperationResponseListConverter() List<Response>? responses,
+      Map<String, Response>? responses,
       List<ApiCallback>? callbacks,
       bool? deprecated,
       List<Security>? security,
@@ -5243,7 +5242,7 @@ class __$$_OperationCopyWithImpl<$Res>
       responses: freezed == responses
           ? _value._responses
           : responses // ignore: cast_nullable_to_non_nullable
-              as List<Response>?,
+              as Map<String, Response>?,
       callbacks: freezed == callbacks
           ? _value._callbacks
           : callbacks // ignore: cast_nullable_to_non_nullable
@@ -5277,8 +5276,7 @@ class _$_Operation implements _Operation {
           this.id,
       final List<Parameter>? parameters,
       this.requestBody,
-      @_OperationResponseListConverter()
-          final List<Response>? responses,
+      final Map<String, Response>? responses,
       final List<ApiCallback>? callbacks,
       this.deprecated,
       final List<Security>? security,
@@ -5347,17 +5345,16 @@ class _$_Operation implements _Operation {
   final RequestBody? requestBody;
 
   /// The list of possible responses as they are returned from executing this operation.
-  final List<Response>? _responses;
+  final Map<String, Response>? _responses;
 
   /// The list of possible responses as they are returned from executing this operation.
   @override
-  @_OperationResponseListConverter()
-  List<Response>? get responses {
+  Map<String, Response>? get responses {
     final value = _responses;
     if (value == null) return null;
-    if (_responses is EqualUnmodifiableListView) return _responses;
+    if (_responses is EqualUnmodifiableMapView) return _responses;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// A map of possible out-of band callbacks related to the parent operation.
@@ -5484,8 +5481,7 @@ abstract class _Operation implements Operation {
           final String? id,
       final List<Parameter>? parameters,
       final RequestBody? requestBody,
-      @_OperationResponseListConverter()
-          final List<Response>? responses,
+      final Map<String, Response>? responses,
       final List<ApiCallback>? callbacks,
       final bool? deprecated,
       final List<Security>? security,
@@ -5530,8 +5526,7 @@ abstract class _Operation implements Operation {
   @override
 
   /// The list of possible responses as they are returned from executing this operation.
-  @_OperationResponseListConverter()
-  List<Response>? get responses;
+  Map<String, Response>? get responses;
   @override
 
   /// A map of possible out-of band callbacks related to the parent operation.
@@ -11101,145 +11096,6 @@ abstract class _PropertyReference implements Property {
       throw _privateConstructorUsedError;
 }
 
-Reference _$ReferenceFromJson(Map<String, dynamic> json) {
-  return _Reference.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Reference {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ReferenceCopyWith<Reference> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ReferenceCopyWith<$Res> {
-  factory $ReferenceCopyWith(Reference value, $Res Function(Reference) then) =
-      _$ReferenceCopyWithImpl<$Res, Reference>;
-  @useResult
-  $Res call({String? description});
-}
-
-/// @nodoc
-class _$ReferenceCopyWithImpl<$Res, $Val extends Reference>
-    implements $ReferenceCopyWith<$Res> {
-  _$ReferenceCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = freezed,
-  }) {
-    return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$_ReferenceCopyWith<$Res> implements $ReferenceCopyWith<$Res> {
-  factory _$$_ReferenceCopyWith(
-          _$_Reference value, $Res Function(_$_Reference) then) =
-      __$$_ReferenceCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? description});
-}
-
-/// @nodoc
-class __$$_ReferenceCopyWithImpl<$Res>
-    extends _$ReferenceCopyWithImpl<$Res, _$_Reference>
-    implements _$$_ReferenceCopyWith<$Res> {
-  __$$_ReferenceCopyWithImpl(
-      _$_Reference _value, $Res Function(_$_Reference) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? description = freezed,
-  }) {
-    return _then(_$_Reference(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_Reference implements _Reference {
-  const _$_Reference({this.description});
-
-  factory _$_Reference.fromJson(Map<String, dynamic> json) =>
-      _$$_ReferenceFromJson(json);
-
-  /// Text
-  @override
-  final String? description;
-
-  @override
-  String toString() {
-    return 'Reference(description: $description)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Reference &&
-            (identical(other.description, description) ||
-                other.description == description));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, description);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ReferenceCopyWith<_$_Reference> get copyWith =>
-      __$$_ReferenceCopyWithImpl<_$_Reference>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ReferenceToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Reference implements Reference {
-  const factory _Reference({final String? description}) = _$_Reference;
-
-  factory _Reference.fromJson(Map<String, dynamic> json) =
-      _$_Reference.fromJson;
-
-  @override
-
-  /// Text
-  String? get description;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ReferenceCopyWith<_$_Reference> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 RequestBody _$RequestBodyFromJson(Map<String, dynamic> json) {
   switch (json['unionType']) {
     case 'default':
@@ -11716,39 +11572,24 @@ Response _$ResponseFromJson(Map<String, dynamic> json) {
 mixin _$Response {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)
+    TResult Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)
         $default, {
     required TResult Function(Response ref) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)?
+    TResult? Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)?
         $default, {
     TResult? Function(Response ref)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)?
+    TResult Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)?
         $default, {
     TResult Function(Response ref)? reference,
     required TResult orElse(),
@@ -11800,9 +11641,7 @@ abstract class _$$_ResponseCopyWith<$Res> {
       __$$_ResponseCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? id,
-      String code,
-      String description,
+      {String description,
       Map<String, Header>? headers,
       Map<String, MediaType>? content,
       Map<String, Link>? links});
@@ -11819,22 +11658,12 @@ class __$$_ResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? code = null,
     Object? description = null,
     Object? headers = freezed,
     Object? content = freezed,
     Object? links = freezed,
   }) {
     return _then(_$_Response(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -11859,9 +11688,7 @@ class __$$_ResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Response implements _Response {
   const _$_Response(
-      {this.id,
-      required this.code,
-      required this.description,
+      {required this.description,
       final Map<String, Header>? headers,
       final Map<String, MediaType>? content,
       final Map<String, Link>? links,
@@ -11873,15 +11700,6 @@ class _$_Response implements _Response {
 
   factory _$_Response.fromJson(Map<String, dynamic> json) =>
       _$$_ResponseFromJson(json);
-
-  /// A unique identifier of this response schema if it is a reusable component.
-  @override
-  final String? id;
-
-  /// Any HTTP status code can be used as the property name, but only one
-  /// property per code, to describe the expected response for that HTTP status code
-  @override
-  final String code;
 
   /// A description of the response
   @override
@@ -11931,7 +11749,7 @@ class _$_Response implements _Response {
 
   @override
   String toString() {
-    return 'Response(id: $id, code: $code, description: $description, headers: $headers, content: $content, links: $links)';
+    return 'Response(description: $description, headers: $headers, content: $content, links: $links)';
   }
 
   @override
@@ -11939,8 +11757,6 @@ class _$_Response implements _Response {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Response &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.code, code) || other.code == code) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._headers, _headers) &&
@@ -11952,8 +11768,6 @@ class _$_Response implements _Response {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
-      code,
       description,
       const DeepCollectionEquality().hash(_headers),
       const DeepCollectionEquality().hash(_content),
@@ -11968,51 +11782,36 @@ class _$_Response implements _Response {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)
+    TResult Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)
         $default, {
     required TResult Function(Response ref) reference,
   }) {
-    return $default(id, code, description, headers, content, links);
+    return $default(description, headers, content, links);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)?
+    TResult? Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)?
         $default, {
     TResult? Function(Response ref)? reference,
   }) {
-    return $default?.call(id, code, description, headers, content, links);
+    return $default?.call(description, headers, content, links);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)?
+    TResult Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)?
         $default, {
     TResult Function(Response ref)? reference,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(id, code, description, headers, content, links);
+      return $default(description, headers, content, links);
     }
     return orElse();
   }
@@ -12058,21 +11857,12 @@ class _$_Response implements _Response {
 
 abstract class _Response implements Response {
   const factory _Response(
-      {final String? id,
-      required final String code,
-      required final String description,
+      {required final String description,
       final Map<String, Header>? headers,
       final Map<String, MediaType>? content,
       final Map<String, Link>? links}) = _$_Response;
 
   factory _Response.fromJson(Map<String, dynamic> json) = _$_Response.fromJson;
-
-  /// A unique identifier of this response schema if it is a reusable component.
-  String? get id;
-
-  /// Any HTTP status code can be used as the property name, but only one
-  /// property per code, to describe the expected response for that HTTP status code
-  String get code;
 
   /// A description of the response
   String get description;
@@ -12173,13 +11963,8 @@ class _$_ResponseReference implements _ResponseReference {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)
+    TResult Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)
         $default, {
     required TResult Function(Response ref) reference,
   }) {
@@ -12189,13 +11974,8 @@ class _$_ResponseReference implements _ResponseReference {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)?
+    TResult? Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)?
         $default, {
     TResult? Function(Response ref)? reference,
   }) {
@@ -12205,13 +11985,8 @@ class _$_ResponseReference implements _ResponseReference {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? id,
-            String code,
-            String description,
-            Map<String, Header>? headers,
-            Map<String, MediaType>? content,
-            Map<String, Link>? links)?
+    TResult Function(String description, Map<String, Header>? headers,
+            Map<String, MediaType>? content, Map<String, Link>? links)?
         $default, {
     TResult Function(Response ref)? reference,
     required TResult orElse(),
@@ -17535,7 +17310,7 @@ mixin _$OpenApi {
   /// band registration. The key name is a unique string to refer to each
   /// webhook, while the (optionally referenced) path Item Object describes a
   /// request that may be initiated by the API provider and the expected responses.
-  Map<String, Reference>? get webhooks => throw _privateConstructorUsedError;
+  Map<String, PathItem>? get webhooks => throw _privateConstructorUsedError;
 
   /// An element to hold various schemas for the document.
   Components? get components => throw _privateConstructorUsedError;
@@ -17569,7 +17344,7 @@ abstract class $OpenApiCopyWith<$Res> {
       String? jsonSchemaDialect,
       List<Server>? servers,
       Map<String, PathItem>? paths,
-      Map<String, Reference>? webhooks,
+      Map<String, PathItem>? webhooks,
       Components? components,
       List<Security>? security,
       List<Tag>? tags,
@@ -17628,7 +17403,7 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
       webhooks: freezed == webhooks
           ? _value.webhooks
           : webhooks // ignore: cast_nullable_to_non_nullable
-              as Map<String, Reference>?,
+              as Map<String, PathItem>?,
       components: freezed == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
@@ -17694,7 +17469,7 @@ abstract class _$$_OpenApiCopyWith<$Res> implements $OpenApiCopyWith<$Res> {
       String? jsonSchemaDialect,
       List<Server>? servers,
       Map<String, PathItem>? paths,
-      Map<String, Reference>? webhooks,
+      Map<String, PathItem>? webhooks,
       Components? components,
       List<Security>? security,
       List<Tag>? tags,
@@ -17753,7 +17528,7 @@ class __$$_OpenApiCopyWithImpl<$Res>
       webhooks: freezed == webhooks
           ? _value._webhooks
           : webhooks // ignore: cast_nullable_to_non_nullable
-              as Map<String, Reference>?,
+              as Map<String, PathItem>?,
       components: freezed == components
           ? _value.components
           : components // ignore: cast_nullable_to_non_nullable
@@ -17783,7 +17558,7 @@ class _$_OpenApi extends _OpenApi {
       this.jsonSchemaDialect,
       final List<Server>? servers,
       final Map<String, PathItem>? paths,
-      final Map<String, Reference>? webhooks,
+      final Map<String, PathItem>? webhooks,
       this.components,
       final List<Security>? security,
       final List<Tag>? tags,
@@ -17851,7 +17626,7 @@ class _$_OpenApi extends _OpenApi {
   /// band registration. The key name is a unique string to refer to each
   /// webhook, while the (optionally referenced) path Item Object describes a
   /// request that may be initiated by the API provider and the expected responses.
-  final Map<String, Reference>? _webhooks;
+  final Map<String, PathItem>? _webhooks;
 
   /// The incoming webhooks that may be received as part of this
   /// API and that the API consumer MAY choose to implement.
@@ -17861,7 +17636,7 @@ class _$_OpenApi extends _OpenApi {
   /// webhook, while the (optionally referenced) path Item Object describes a
   /// request that may be initiated by the API provider and the expected responses.
   @override
-  Map<String, Reference>? get webhooks {
+  Map<String, PathItem>? get webhooks {
     final value = _webhooks;
     if (value == null) return null;
     if (_webhooks is EqualUnmodifiableMapView) return _webhooks;
@@ -17966,7 +17741,7 @@ abstract class _OpenApi extends OpenApi {
       final String? jsonSchemaDialect,
       final List<Server>? servers,
       final Map<String, PathItem>? paths,
-      final Map<String, Reference>? webhooks,
+      final Map<String, PathItem>? webhooks,
       final Components? components,
       final List<Security>? security,
       final List<Tag>? tags,
@@ -18011,7 +17786,7 @@ abstract class _OpenApi extends OpenApi {
   /// band registration. The key name is a unique string to refer to each
   /// webhook, while the (optionally referenced) path Item Object describes a
   /// request that may be initiated by the API provider and the expected responses.
-  Map<String, Reference>? get webhooks;
+  Map<String, PathItem>? get webhooks;
   @override
 
   /// An element to hold various schemas for the document.

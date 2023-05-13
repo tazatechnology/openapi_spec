@@ -602,8 +602,9 @@ _$_Operation _$$_OperationFromJson(Map<String, dynamic> json) => _$_Operation(
       requestBody: json['requestBody'] == null
           ? null
           : RequestBody.fromJson(json['requestBody'] as Map<String, dynamic>),
-      responses: _$JsonConverterFromJson<Map<String, dynamic>, List<Response>>(
-          json['responses'], const _OperationResponseListConverter().fromJson),
+      responses: (json['responses'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Response.fromJson(e as Map<String, dynamic>)),
+      ),
       callbacks: (json['callbacks'] as List<dynamic>?)
           ?.map((e) => ApiCallback.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -634,9 +635,7 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
       'parameters', instance.parameters?.map((e) => e.toJson()).toList());
   writeNotNull('requestBody', instance.requestBody?.toJson());
   writeNotNull(
-      'responses',
-      _$JsonConverterToJson<Map<String, dynamic>, List<Response>>(
-          instance.responses, const _OperationResponseListConverter().toJson));
+      'responses', instance.responses?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
       'callbacks', instance.callbacks?.map((e) => e.toJson()).toList());
   writeNotNull('deprecated', instance.deprecated);
@@ -644,18 +643,6 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
   writeNotNull('servers', instance.servers?.map((e) => e.toJson()).toList());
   return val;
 }
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
 
 _$_PropertyCookie _$$_PropertyCookieFromJson(Map<String, dynamic> json) =>
     _$_PropertyCookie(
@@ -1084,23 +1071,6 @@ Map<String, dynamic> _$$_PropertyReferenceToJson(
       'type': instance.$type,
     };
 
-_$_Reference _$$_ReferenceFromJson(Map<String, dynamic> json) => _$_Reference(
-      description: json['description'] as String?,
-    );
-
-Map<String, dynamic> _$$_ReferenceToJson(_$_Reference instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
-
 _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
     _$_RequestBody(
       description: json['description'] as String?,
@@ -1143,8 +1113,6 @@ Map<String, dynamic> _$$_RequestBodyReferenceToJson(
     };
 
 _$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
-      id: json['id'] as String?,
-      code: json['code'] as String,
       description: json['description'] as String,
       headers: (json['headers'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Header.fromJson(e as Map<String, dynamic>)),
@@ -1159,7 +1127,9 @@ _$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
     );
 
 Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'description': instance.description,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1167,9 +1137,6 @@ Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  val['code'] = instance.code;
-  val['description'] = instance.description;
   writeNotNull(
       'headers', instance.headers?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(

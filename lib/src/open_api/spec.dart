@@ -46,7 +46,7 @@ class OpenApi with _$OpenApi {
     /// band registration. The key name is a unique string to refer to each
     /// webhook, while the (optionally referenced) path Item Object describes a
     /// request that may be initiated by the API provider and the expected responses.
-    Map<String, Reference>? webhooks,
+    Map<String, PathItem>? webhooks,
 
     /// An element to hold various schemas for the document.
     Components? components,
@@ -66,6 +66,11 @@ class OpenApi with _$OpenApi {
     final ExternalDocs? externalDocs,
   }) = _OpenApi;
 
+  // ------------------------------------------
+  // FACTORY: OpenApi.fromJson
+  // ------------------------------------------
+
+  /// Create an [OpenApi] object from a JSON representation of an OpenAPI
   factory OpenApi.fromJson(Map<String, dynamic> json) {
     return OpenApi(
       version: json['openapi'],
@@ -74,6 +79,36 @@ class OpenApi with _$OpenApi {
       externalDocs: ExternalDocs.fromJson(json['externalDocs']),
     );
   }
+
+  // ------------------------------------------
+  // FACTORY: OpenApi.fromJsonFile
+  // ------------------------------------------
+
+  /// Create an [OpenApi] object from an existing JSON/YAML OpenAPI spec file
+  factory OpenApi.fromFile({required String source}) {
+    final file = File(source);
+    final ext = p.extension(source).toLowerCase();
+    dynamic raw;
+    if (ext.contains('json')) {
+      raw = json.decode((file.readAsStringSync()));
+    } else if (ext.contains('yaml')) {
+      raw = yaml.loadYaml((file.readAsStringSync()));
+    } else {
+      throw Exception('Unsupported file type: $ext');
+    }
+
+    final data = Map<String, dynamic>.from(raw);
+    return OpenApi(
+      version: data['openapi'],
+      jsonSchemaDialect: data['jsonSchemaDialect'],
+      info: Info.fromJson(data['info']),
+      externalDocs: ExternalDocs.fromJson(data['externalDocs']),
+    );
+  }
+
+  // ------------------------------------------
+  // METHOD: toJson
+  // ------------------------------------------
 
   /// Convert the [OpenApi] object to a JSON spec representation
   Map<String, dynamic> toJson() {
@@ -101,31 +136,13 @@ class OpenApi with _$OpenApi {
     return _formatJson(out);
   }
 
-  /// Create an [OpenApi] object from an existing JSON spec file
-  factory OpenApi.fromJsonSpecFile({required String source}) {
-    return _fromRawMapSpec(json.decode((File(source).readAsStringSync())));
-  }
-
-  /// Create an [OpenApi] object from an existing YAML spec file
-  factory OpenApi.fromYamlSpecFile({
-    required File source,
-  }) {
-    return _fromRawMapSpec(yaml.loadYaml((source.readAsStringSync())));
-  }
-
-  /// Helper method to create an [OpenApi] object from a raw JSON OpenAPI spec
-  static OpenApi _fromRawMapSpec(Map<String, dynamic> map) {
-    return OpenApi(
-      version: map['openapi'],
-      jsonSchemaDialect: map['jsonSchemaDialect'],
-      info: Info.fromJson(map['info']),
-      externalDocs: ExternalDocs.fromJson(map['externalDocs']),
-    );
-  }
+  // ------------------------------------------
+  // METHOD: toJsonFile
+  // ------------------------------------------
 
   /// Convert the [OpenApi] object to a JSON spec file
   /// Will overwrite the existing file if it exists
-  void toJsonSpecFile({required String destination}) {
+  void toJsonFile({required String destination}) {
     File(destination).writeAsStringSync(_encoder.convert(toJson()));
   }
 
@@ -181,7 +198,7 @@ class OpenApi with _$OpenApi {
 
     // Generate the spec file in the destination
     final oasFile = p.join(dirpath, 'openapi.json');
-    toJsonSpecFile(destination: oasFile);
+    toJsonFile(destination: oasFile);
     // ignore: avoid_print
     if (!quiet) print('Created OpenAPI spec file:\n  - $oasFile');
 

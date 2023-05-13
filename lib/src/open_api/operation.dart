@@ -35,7 +35,7 @@ class Operation with _$Operation {
     RequestBody? requestBody,
 
     /// The list of possible responses as they are returned from executing this operation.
-    @_OperationResponseListConverter() List<Response>? responses,
+    Map<String, Response>? responses,
 
     /// A map of possible out-of band callbacks related to the parent operation.
     /// The key is a unique identifier for the [ApiCallback] Object.
@@ -64,42 +64,4 @@ List<String>? _toJsonTags(List<Tag>? tags) {
 
 List<Tag>? _fromJsonTags(List<String>? json) {
   return json?.map((e) => Tag(name: e)).toList();
-}
-
-// ==========================================
-// OperationResponseListConverter
-// ==========================================
-
-/// Custom converter for List<[Response]> union type
-class _OperationResponseListConverter
-    implements JsonConverter<List<Response>, Map<String, dynamic>> {
-  const _OperationResponseListConverter();
-
-  @override
-  List<Response> fromJson(Map<String, dynamic> json) {
-    return [];
-  }
-
-  @override
-  Map<String, dynamic> toJson(List<Response> data) {
-    Map<String, dynamic> json = {};
-    for (final p in data) {
-      p.map(
-        (value) {
-          json[value.code] = value.toJson()..remove('code');
-        },
-        reference: (value) {
-          final r = value.ref;
-          if (r is _Response) {
-            json['\$ref'] = '#/components/responses/${r.id}';
-          } else {
-            throw Exception(
-              '\n\nThe Response.reference() argument must not be another reference\n',
-            );
-          }
-        },
-      );
-    }
-    return json;
-  }
 }

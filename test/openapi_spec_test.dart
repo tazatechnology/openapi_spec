@@ -15,7 +15,7 @@ void main() {
   group('Petstore 3.1', () {
     test('Compare JSON representation', () {
       /// Write the Dart representation to a JSON OpenAPI spec file
-      spec.toJsonSpecFile(destination: 'tmp/petstore_3p1.json');
+      spec.toJsonFile(destination: 'tmp/petstore_3p1.json');
 
       /// Load both files and compare line by line
       var truth = File('test/petstore_3p1/petstore_3p1.json').readAsLinesSync();

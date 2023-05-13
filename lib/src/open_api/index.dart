@@ -29,7 +29,6 @@ part 'operation.dart';
 part 'parameter.dart';
 part 'path.dart';
 part 'property.dart';
-part 'reference.dart';
 part 'request_body.dart';
 part 'response.dart';
 part 'schema.dart';

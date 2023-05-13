@@ -12,13 +12,6 @@ part of openapi_models;
 @freezed
 class Response with _$Response {
   const factory Response({
-    /// A unique identifier of this response schema if it is a reusable component.
-    String? id,
-
-    /// Any HTTP status code can be used as the property name, but only one
-    /// property per code, to describe the expected response for that HTTP status code
-    required String code,
-
     /// A description of the response
     required String description,
 

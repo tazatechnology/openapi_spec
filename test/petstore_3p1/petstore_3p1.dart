@@ -270,9 +270,8 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'Successful operation',
             content: {
               'application/json': MediaType(
@@ -283,19 +282,16 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid ID supplied',
           ),
-          Response(
-            code: '404',
+          '404': Response(
             description: 'Pet not found',
           ),
-          Response(
-            code: '405',
+          '405': Response(
             description: 'Validation exception',
           )
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -323,9 +319,8 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'Successful operation',
             content: {
               'application/json': MediaType(
@@ -336,11 +331,10 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '405',
+          '405': Response(
             description: 'Invalid input',
           )
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -370,9 +364,8 @@ final spec = OpenApi(
             ),
           ),
         ],
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -387,11 +380,10 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid status value',
           ),
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -418,9 +410,8 @@ final spec = OpenApi(
             schema: Schema.array(items: ArrayItems.string()),
           ),
         ],
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -435,11 +426,10 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid tag value',
           ),
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -465,9 +455,8 @@ final spec = OpenApi(
             ),
           ),
         ],
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -478,15 +467,13 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid ID supplied',
           ),
-          Response(
-            code: '404',
+          '404': Response(
             description: 'Pet not found',
           ),
-        ],
+        },
         security: [
           Security(name: 'api_key'),
           Security(
@@ -519,12 +506,11 @@ final spec = OpenApi(
             schema: Schema.string(),
           ),
         ],
-        responses: [
-          Response(
-            code: '405',
+        responses: {
+          '405': Response(
             description: 'Invalid input',
           ),
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -552,12 +538,11 @@ final spec = OpenApi(
             ),
           ),
         ],
-        responses: [
-          Response(
-            code: '400',
+        responses: {
+          '400': Response(
             description: 'Invalid pet value',
           ),
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -598,9 +583,8 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -610,7 +594,7 @@ final spec = OpenApi(
               ),
             },
           ),
-        ],
+        },
         security: [
           Security(
             name: 'petstore_auth',
@@ -627,9 +611,8 @@ final spec = OpenApi(
         summary: 'Returns pet inventories by status',
         description: 'Returns a map of status codes to quantities',
         id: 'getInventory',
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -641,7 +624,7 @@ final spec = OpenApi(
               ),
             },
           ),
-        ],
+        },
         security: [
           Security(name: 'api_key'),
         ],
@@ -668,9 +651,8 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -680,11 +662,10 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '405',
+          '405': Response(
             description: 'Invalid input',
           ),
-        ],
+        },
       ),
     ),
 
@@ -705,9 +686,8 @@ final spec = OpenApi(
             ),
           ),
         ],
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -718,15 +698,13 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid ID supplied',
           ),
-          Response(
-            code: '404',
+          '404': Response(
             description: 'Order not found',
           ),
-        ],
+        },
       ),
       delete: Operation(
         tags: [storeTag],
@@ -743,16 +721,14 @@ final spec = OpenApi(
             ),
           ),
         ],
-        responses: [
-          Response(
-            code: '400',
+        responses: {
+          '400': Response(
             description: 'Invalid ID supplied',
           ),
-          Response(
-            code: '404',
+          '404': Response(
             description: 'Order not found',
           ),
-        ],
+        },
       ),
     ),
 
@@ -777,9 +753,8 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: 'default',
+        responses: {
+          'default': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -790,7 +765,7 @@ final spec = OpenApi(
               ),
             },
           )
-        ],
+        },
       ),
     ),
 
@@ -810,9 +785,8 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'Successful operation',
             content: {
               'application/json': MediaType(
@@ -823,11 +797,10 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: 'default',
+          'default': Response(
             description: 'successful operation',
           ),
-        ],
+        },
       ),
     ),
 
@@ -852,9 +825,8 @@ final spec = OpenApi(
             schema: Schema.string(),
           ),
         ],
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             headers: {
               'X-Rate-Limit': Header(
@@ -879,11 +851,10 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid username/password supplied',
           ),
-        ],
+        },
       ),
     ),
 
@@ -895,12 +866,11 @@ final spec = OpenApi(
         description: '',
         id: 'logoutUser',
         parameters: [],
-        responses: [
-          Response(
-            code: 'default',
+        responses: {
+          'default': Response(
             description: 'successful operation',
           ),
-        ],
+        },
       ),
     ),
 
@@ -919,9 +889,8 @@ final spec = OpenApi(
             schema: Schema.string(),
           ),
         ],
-        responses: [
-          Response(
-            code: '200',
+        responses: {
+          '200': Response(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
@@ -932,15 +901,13 @@ final spec = OpenApi(
               ),
             },
           ),
-          Response(
-            code: '400',
+          '400': Response(
             description: 'Invalid username supplied',
           ),
-          Response(
-            code: '404',
+          '404': Response(
             description: 'User not found',
           ),
-        ],
+        },
       ),
       put: Operation(
         tags: [userTag],
@@ -968,12 +935,11 @@ final spec = OpenApi(
             ),
           },
         ),
-        responses: [
-          Response(
-            code: 'default',
+        responses: {
+          'default': Response(
             description: 'successful operation',
           ),
-        ],
+        },
       ),
       delete: Operation(
         tags: [userTag],
@@ -987,16 +953,14 @@ final spec = OpenApi(
             schema: Schema.string(),
           ),
         ],
-        responses: [
-          Response(
-            code: '400',
+        responses: {
+          '400': Response(
             description: 'Invalid username supplied',
           ),
-          Response(
-            code: '404',
+          '404': Response(
             description: 'User not found',
           ),
-        ],
+        },
       ),
     ),
   },
