@@ -87,7 +87,7 @@ class Property with _$Property {
   /// An array schema property
   const factory Property.array({
     Xml? xml,
-    @_ArrayItemsConverter() required ArrayItems items,
+    required ArrayItems items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,

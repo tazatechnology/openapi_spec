@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ArrayItems _$ArrayItemsFromJson(Map<String, dynamic> json) {
-  switch (json['unionType']) {
+  switch (json['type']) {
     case 'string':
       return _ArrayItemsString.fromJson(json);
     case 'integer':
@@ -26,8 +26,8 @@ ArrayItems _$ArrayItemsFromJson(Map<String, dynamic> json) {
       return _ArrayItemsReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'unionType', 'ArrayItems',
-          'Invalid union type "${json['unionType']}"!');
+      throw CheckedFromJsonException(
+          json, 'type', 'ArrayItems', 'Invalid union type "${json['type']}"!');
   }
 }
 
@@ -192,7 +192,7 @@ class _$_ArrayItemsString implements _ArrayItemsString {
   @override
   final StringFormat? format;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
@@ -372,7 +372,7 @@ class _$_ArrayItemsInteger implements _ArrayItemsInteger {
   @override
   final IntegerFormat? format;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
@@ -553,7 +553,7 @@ class _$_ArrayItemsNumber implements _ArrayItemsNumber {
   @override
   final NumberFormat? format;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
@@ -734,7 +734,7 @@ class _$_ArrayItemsReference implements _ArrayItemsReference {
   @override
   final Xml? xml;
 
-  @JsonKey(name: 'unionType')
+  @JsonKey(name: 'type')
   final String $type;
 
   @override
@@ -4983,8 +4983,7 @@ Operation _$OperationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Operation {
   /// A list of tags for API documentation control.
-  @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
-  List<Tag>? get tags => throw _privateConstructorUsedError;
+  List<String>? get tags => throw _privateConstructorUsedError;
 
   /// A short summary of what the operation does.
   String? get summary => throw _privateConstructorUsedError;
@@ -5039,7 +5038,7 @@ abstract class $OperationCopyWith<$Res> {
       _$OperationCopyWithImpl<$Res, Operation>;
   @useResult
   $Res call(
-      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags) List<Tag>? tags,
+      {List<String>? tags,
       String? summary,
       String? description,
       ExternalDocs? externalDocs,
@@ -5086,7 +5085,7 @@ class _$OperationCopyWithImpl<$Res, $Val extends Operation>
       tags: freezed == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
-              as List<Tag>?,
+              as List<String>?,
       summary: freezed == summary
           ? _value.summary
           : summary // ignore: cast_nullable_to_non_nullable
@@ -5167,7 +5166,7 @@ abstract class _$$_OperationCopyWith<$Res> implements $OperationCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags) List<Tag>? tags,
+      {List<String>? tags,
       String? summary,
       String? description,
       ExternalDocs? externalDocs,
@@ -5214,7 +5213,7 @@ class __$$_OperationCopyWithImpl<$Res>
       tags: freezed == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
-              as List<Tag>?,
+              as List<String>?,
       summary: freezed == summary
           ? _value.summary
           : summary // ignore: cast_nullable_to_non_nullable
@@ -5267,13 +5266,11 @@ class __$$_OperationCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Operation implements _Operation {
   const _$_Operation(
-      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
-          final List<Tag>? tags,
+      {final List<String>? tags,
       this.summary,
       this.description,
       this.externalDocs,
-      @JsonKey(name: 'operationId')
-          this.id,
+      @JsonKey(name: 'operationId') this.id,
       final List<Parameter>? parameters,
       this.requestBody,
       final Map<String, Response>? responses,
@@ -5292,12 +5289,11 @@ class _$_Operation implements _Operation {
       _$$_OperationFromJson(json);
 
   /// A list of tags for API documentation control.
-  final List<Tag>? _tags;
+  final List<String>? _tags;
 
   /// A list of tags for API documentation control.
   @override
-  @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
-  List<Tag>? get tags {
+  List<String>? get tags {
     final value = _tags;
     if (value == null) return null;
     if (_tags is EqualUnmodifiableListView) return _tags;
@@ -5472,13 +5468,11 @@ class _$_Operation implements _Operation {
 
 abstract class _Operation implements Operation {
   const factory _Operation(
-      {@JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
-          final List<Tag>? tags,
+      {final List<String>? tags,
       final String? summary,
       final String? description,
       final ExternalDocs? externalDocs,
-      @JsonKey(name: 'operationId')
-          final String? id,
+      @JsonKey(name: 'operationId') final String? id,
       final List<Parameter>? parameters,
       final RequestBody? requestBody,
       final Map<String, Response>? responses,
@@ -5493,8 +5487,7 @@ abstract class _Operation implements Operation {
   @override
 
   /// A list of tags for API documentation control.
-  @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags)
-  List<Tag>? get tags;
+  List<String>? get tags;
   @override
 
   /// A short summary of what the operation does.
@@ -7158,14 +7151,11 @@ abstract class _PropertyPath extends Parameter {
 
 PathItem _$PathItemFromJson(Map<String, dynamic> json) {
   switch (json['unionType']) {
-    case 'default':
-      return _PathItem.fromJson(json);
     case 'reference':
       return _PathItemReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'unionType', 'PathItem',
-          'Invalid union type "${json['unionType']}"!');
+      return _PathItem.fromJson(json);
   }
 }
 
@@ -8042,7 +8032,7 @@ mixin _$Property {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8099,7 +8089,7 @@ mixin _$Property {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8156,7 +8146,7 @@ mixin _$Property {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8342,7 +8332,7 @@ class _$_PropertyBoolean implements _PropertyBoolean {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8402,7 +8392,7 @@ class _$_PropertyBoolean implements _PropertyBoolean {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8462,7 +8452,7 @@ class _$_PropertyBoolean implements _PropertyBoolean {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8758,7 +8748,7 @@ class _$_PropertyString implements _PropertyString {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8819,7 +8809,7 @@ class _$_PropertyString implements _PropertyString {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -8880,7 +8870,7 @@ class _$_PropertyString implements _PropertyString {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9220,7 +9210,7 @@ class _$_PropertyInteger implements _PropertyInteger {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9281,7 +9271,7 @@ class _$_PropertyInteger implements _PropertyInteger {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9342,7 +9332,7 @@ class _$_PropertyInteger implements _PropertyInteger {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9686,7 +9676,7 @@ class _$_PropertyNumber implements _PropertyNumber {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9747,7 +9737,7 @@ class _$_PropertyNumber implements _PropertyNumber {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9808,7 +9798,7 @@ class _$_PropertyNumber implements _PropertyNumber {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -9927,7 +9917,7 @@ abstract class _$$_PropertyArrayCopyWith<$Res> {
   @useResult
   $Res call(
       {Xml? xml,
-      @_ArrayItemsConverter() ArrayItems items,
+      ArrayItems items,
       String? title,
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10021,7 +10011,7 @@ class __$$_PropertyArrayCopyWithImpl<$Res>
 class _$_PropertyArray implements _PropertyArray {
   const _$_PropertyArray(
       {this.xml,
-      @_ArrayItemsConverter() required this.items,
+      required this.items,
       this.title,
       this.description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
@@ -10039,7 +10029,6 @@ class _$_PropertyArray implements _PropertyArray {
   @override
   final Xml? xml;
   @override
-  @_ArrayItemsConverter()
   final ArrayItems items;
   @override
   final String? title;
@@ -10158,7 +10147,7 @@ class _$_PropertyArray implements _PropertyArray {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10219,7 +10208,7 @@ class _$_PropertyArray implements _PropertyArray {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10280,7 +10269,7 @@ class _$_PropertyArray implements _PropertyArray {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10362,7 +10351,7 @@ class _$_PropertyArray implements _PropertyArray {
 abstract class _PropertyArray implements Property {
   const factory _PropertyArray(
       {final Xml? xml,
-      @_ArrayItemsConverter() required final ArrayItems items,
+      required final ArrayItems items,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
@@ -10374,7 +10363,6 @@ abstract class _PropertyArray implements Property {
       _$_PropertyArray.fromJson;
 
   Xml? get xml;
-  @_ArrayItemsConverter()
   ArrayItems get items;
   String? get title;
   String? get description;
@@ -10553,7 +10541,7 @@ class _$_PropertyEnum implements _PropertyEnum {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10613,7 +10601,7 @@ class _$_PropertyEnum implements _PropertyEnum {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10673,7 +10661,7 @@ class _$_PropertyEnum implements _PropertyEnum {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10885,7 +10873,7 @@ class _$_PropertyReference implements _PropertyReference {
         number,
     required TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -10945,7 +10933,7 @@ class _$_PropertyReference implements _PropertyReference {
         number,
     TResult? Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -11005,7 +10993,7 @@ class _$_PropertyReference implements _PropertyReference {
         number,
     TResult Function(
             Xml? xml,
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -11098,14 +11086,11 @@ abstract class _PropertyReference implements Property {
 
 RequestBody _$RequestBodyFromJson(Map<String, dynamic> json) {
   switch (json['unionType']) {
-    case 'default':
-      return _RequestBody.fromJson(json);
     case 'reference':
       return _RequestBodyReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'unionType', 'RequestBody',
-          'Invalid union type "${json['unionType']}"!');
+      return _RequestBody.fromJson(json);
   }
 }
 
@@ -11114,7 +11099,7 @@ mixin _$RequestBody {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)
+            bool? required)
         $default, {
     required TResult Function(RequestBody ref) reference,
   }) =>
@@ -11122,7 +11107,7 @@ mixin _$RequestBody {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)?
+            bool? required)?
         $default, {
     TResult? Function(RequestBody ref)? reference,
   }) =>
@@ -11130,7 +11115,7 @@ mixin _$RequestBody {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)?
+            bool? required)?
         $default, {
     TResult Function(RequestBody ref)? reference,
     required TResult orElse(),
@@ -11183,9 +11168,7 @@ abstract class _$$_RequestBodyCopyWith<$Res> {
       __$$_RequestBodyCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? description,
-      Map<String, MediaType>? content,
-      @JsonKey(name: 'required') bool? isRequired});
+      {String? description, Map<String, MediaType>? content, bool? required});
 }
 
 /// @nodoc
@@ -11201,7 +11184,7 @@ class __$$_RequestBodyCopyWithImpl<$Res>
   $Res call({
     Object? description = freezed,
     Object? content = freezed,
-    Object? isRequired = freezed,
+    Object? required = freezed,
   }) {
     return _then(_$_RequestBody(
       description: freezed == description
@@ -11212,9 +11195,9 @@ class __$$_RequestBodyCopyWithImpl<$Res>
           ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
               as Map<String, MediaType>?,
-      isRequired: freezed == isRequired
-          ? _value.isRequired
-          : isRequired // ignore: cast_nullable_to_non_nullable
+      required: freezed == required
+          ? _value.required
+          : required // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -11226,7 +11209,7 @@ class _$_RequestBody implements _RequestBody {
   const _$_RequestBody(
       {this.description,
       final Map<String, MediaType>? content,
-      @JsonKey(name: 'required') this.isRequired,
+      this.required,
       final String? $type})
       : _content = content,
         $type = $type ?? 'default';
@@ -11253,15 +11236,14 @@ class _$_RequestBody implements _RequestBody {
 
   /// Determines if the request body is required in the request.
   @override
-  @JsonKey(name: 'required')
-  final bool? isRequired;
+  final bool? required;
 
   @JsonKey(name: 'unionType')
   final String $type;
 
   @override
   String toString() {
-    return 'RequestBody(description: $description, content: $content, isRequired: $isRequired)';
+    return 'RequestBody(description: $description, content: $content, required: $required)';
   }
 
   @override
@@ -11272,14 +11254,14 @@ class _$_RequestBody implements _RequestBody {
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
-            (identical(other.isRequired, isRequired) ||
-                other.isRequired == isRequired));
+            (identical(other.required, required) ||
+                other.required == required));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, description,
-      const DeepCollectionEquality().hash(_content), isRequired);
+      const DeepCollectionEquality().hash(_content), required);
 
   @JsonKey(ignore: true)
   @override
@@ -11291,35 +11273,35 @@ class _$_RequestBody implements _RequestBody {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)
+            bool? required)
         $default, {
     required TResult Function(RequestBody ref) reference,
   }) {
-    return $default(description, content, isRequired);
+    return $default(description, content, required);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)?
+            bool? required)?
         $default, {
     TResult? Function(RequestBody ref)? reference,
   }) {
-    return $default?.call(description, content, isRequired);
+    return $default?.call(description, content, required);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)?
+            bool? required)?
         $default, {
     TResult Function(RequestBody ref)? reference,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(description, content, isRequired);
+      return $default(description, content, required);
     }
     return orElse();
   }
@@ -11367,7 +11349,7 @@ abstract class _RequestBody implements RequestBody {
   const factory _RequestBody(
       {final String? description,
       final Map<String, MediaType>? content,
-      @JsonKey(name: 'required') final bool? isRequired}) = _$_RequestBody;
+      final bool? required}) = _$_RequestBody;
 
   factory _RequestBody.fromJson(Map<String, dynamic> json) =
       _$_RequestBody.fromJson;
@@ -11379,8 +11361,7 @@ abstract class _RequestBody implements RequestBody {
   Map<String, MediaType>? get content;
 
   /// Determines if the request body is required in the request.
-  @JsonKey(name: 'required')
-  bool? get isRequired;
+  bool? get required;
   @JsonKey(ignore: true)
   _$$_RequestBodyCopyWith<_$_RequestBody> get copyWith =>
       throw _privateConstructorUsedError;
@@ -11470,7 +11451,7 @@ class _$_RequestBodyReference implements _RequestBodyReference {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)
+            bool? required)
         $default, {
     required TResult Function(RequestBody ref) reference,
   }) {
@@ -11481,7 +11462,7 @@ class _$_RequestBodyReference implements _RequestBodyReference {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)?
+            bool? required)?
         $default, {
     TResult? Function(RequestBody ref)? reference,
   }) {
@@ -11492,7 +11473,7 @@ class _$_RequestBodyReference implements _RequestBodyReference {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(String? description, Map<String, MediaType>? content,
-            @JsonKey(name: 'required') bool? isRequired)?
+            bool? required)?
         $default, {
     TResult Function(RequestBody ref)? reference,
     required TResult orElse(),
@@ -11557,14 +11538,11 @@ abstract class _RequestBodyReference implements RequestBody {
 
 Response _$ResponseFromJson(Map<String, dynamic> json) {
   switch (json['unionType']) {
-    case 'default':
-      return _Response.fromJson(json);
     case 'reference':
       return _ResponseReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'unionType', 'Response',
-          'Invalid union type "${json['unionType']}"!');
+      return _Response.fromJson(json);
   }
 }
 
@@ -12051,8 +12029,6 @@ abstract class _ResponseReference implements Response {
 
 Schema _$SchemaFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
-    case 'default':
-      return _Schema.fromJson(json);
     case 'reference':
       return _SchemaReference.fromJson(json);
     case 'string':
@@ -12067,8 +12043,7 @@ Schema _$SchemaFromJson(Map<String, dynamic> json) {
       return _SchemaArray.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(
-          json, 'type', 'Schema', 'Invalid union type "${json['type']}"!');
+      return _Schema.fromJson(json);
   }
 }
 
@@ -12126,7 +12101,7 @@ mixin _$Schema {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12189,7 +12164,7 @@ mixin _$Schema {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12252,7 +12227,7 @@ mixin _$Schema {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12588,7 +12563,7 @@ class _$_Schema implements _Schema {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12655,7 +12630,7 @@ class _$_Schema implements _Schema {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12722,7 +12697,7 @@ class _$_Schema implements _Schema {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12951,7 +12926,7 @@ class _$_SchemaReference implements _SchemaReference {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13017,7 +12992,7 @@ class _$_SchemaReference implements _SchemaReference {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13083,7 +13058,7 @@ class _$_SchemaReference implements _SchemaReference {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13382,7 +13357,7 @@ class _$_SchemaString implements _SchemaString {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13449,7 +13424,7 @@ class _$_SchemaString implements _SchemaString {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13516,7 +13491,7 @@ class _$_SchemaString implements _SchemaString {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13861,7 +13836,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13928,7 +13903,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -13995,7 +13970,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14344,7 +14319,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14411,7 +14386,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14478,7 +14453,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14749,7 +14724,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14815,7 +14790,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14881,7 +14856,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -14980,7 +14955,7 @@ abstract class _$$_SchemaArrayCopyWith<$Res> {
       __$$_SchemaArrayCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {@_ArrayItemsConverter() ArrayItems items,
+      {ArrayItems items,
       String? title,
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -15074,7 +15049,7 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SchemaArray implements _SchemaArray {
   const _$_SchemaArray(
-      {@_ArrayItemsConverter() required this.items,
+      {required this.items,
       this.title,
       this.description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
@@ -15091,7 +15066,6 @@ class _$_SchemaArray implements _SchemaArray {
       _$$_SchemaArrayFromJson(json);
 
   @override
-  @_ArrayItemsConverter()
   final ArrayItems items;
   @override
   final String? title;
@@ -15224,7 +15198,7 @@ class _$_SchemaArray implements _SchemaArray {
             String? description)
         enumeration,
     required TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -15291,7 +15265,7 @@ class _$_SchemaArray implements _SchemaArray {
             String? description)?
         enumeration,
     TResult? Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -15358,7 +15332,7 @@ class _$_SchemaArray implements _SchemaArray {
             String? description)?
         enumeration,
     TResult Function(
-            @_ArrayItemsConverter() ArrayItems items,
+            ArrayItems items,
             String? title,
             String? description,
             @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -15432,7 +15406,7 @@ class _$_SchemaArray implements _SchemaArray {
 
 abstract class _SchemaArray implements Schema {
   const factory _SchemaArray(
-      {@_ArrayItemsConverter() required final ArrayItems items,
+      {required final ArrayItems items,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
@@ -15444,7 +15418,6 @@ abstract class _SchemaArray implements Schema {
   factory _SchemaArray.fromJson(Map<String, dynamic> json) =
       _$_SchemaArray.fromJson;
 
-  @_ArrayItemsConverter()
   ArrayItems get items;
   String? get title;
   String? get description;
@@ -17290,6 +17263,9 @@ mixin _$OpenApi {
   /// The metadata MAY be used by tooling as required.
   Info get info => throw _privateConstructorUsedError;
 
+  /// Additional external documentation.
+  ExternalDocs? get externalDocs => throw _privateConstructorUsedError;
+
   /// The default value for the $schema keyword within
   /// Schema Objects contained within this OAS document
   /// This must be in the form of a URI.
@@ -17299,6 +17275,9 @@ mixin _$OpenApi {
   /// If the servers property is not provided, or is an empty array,
   /// the default value would be a [Server] object with a url value of `/`.
   List<Server>? get servers => throw _privateConstructorUsedError;
+
+  /// can be included in the array.
+  List<Tag>? get tags => throw _privateConstructorUsedError;
 
   /// The available paths and operations for the API.
   Map<String, PathItem>? get paths => throw _privateConstructorUsedError;
@@ -17323,12 +17302,6 @@ mixin _$OpenApi {
   /// can be included in the array.
   List<Security>? get security => throw _privateConstructorUsedError;
 
-  /// can be included in the array.
-  List<Tag>? get tags => throw _privateConstructorUsedError;
-
-  /// Additional external documentation.
-  ExternalDocs? get externalDocs => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $OpenApiCopyWith<OpenApi> get copyWith => throw _privateConstructorUsedError;
 }
@@ -17341,18 +17314,18 @@ abstract class $OpenApiCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'openapi') String version,
       Info info,
+      ExternalDocs? externalDocs,
       String? jsonSchemaDialect,
       List<Server>? servers,
+      List<Tag>? tags,
       Map<String, PathItem>? paths,
       Map<String, PathItem>? webhooks,
       Components? components,
-      List<Security>? security,
-      List<Tag>? tags,
-      ExternalDocs? externalDocs});
+      List<Security>? security});
 
   $InfoCopyWith<$Res> get info;
-  $ComponentsCopyWith<$Res>? get components;
   $ExternalDocsCopyWith<$Res>? get externalDocs;
+  $ComponentsCopyWith<$Res>? get components;
 }
 
 /// @nodoc
@@ -17370,14 +17343,14 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
   $Res call({
     Object? version = null,
     Object? info = null,
+    Object? externalDocs = freezed,
     Object? jsonSchemaDialect = freezed,
     Object? servers = freezed,
+    Object? tags = freezed,
     Object? paths = freezed,
     Object? webhooks = freezed,
     Object? components = freezed,
     Object? security = freezed,
-    Object? tags = freezed,
-    Object? externalDocs = freezed,
   }) {
     return _then(_value.copyWith(
       version: null == version
@@ -17388,6 +17361,10 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
               as Info,
+      externalDocs: freezed == externalDocs
+          ? _value.externalDocs
+          : externalDocs // ignore: cast_nullable_to_non_nullable
+              as ExternalDocs?,
       jsonSchemaDialect: freezed == jsonSchemaDialect
           ? _value.jsonSchemaDialect
           : jsonSchemaDialect // ignore: cast_nullable_to_non_nullable
@@ -17396,6 +17373,10 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
           ? _value.servers
           : servers // ignore: cast_nullable_to_non_nullable
               as List<Server>?,
+      tags: freezed == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<Tag>?,
       paths: freezed == paths
           ? _value.paths
           : paths // ignore: cast_nullable_to_non_nullable
@@ -17412,14 +17393,6 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
           ? _value.security
           : security // ignore: cast_nullable_to_non_nullable
               as List<Security>?,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<Tag>?,
-      externalDocs: freezed == externalDocs
-          ? _value.externalDocs
-          : externalDocs // ignore: cast_nullable_to_non_nullable
-              as ExternalDocs?,
     ) as $Val);
   }
 
@@ -17428,18 +17401,6 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
   $InfoCopyWith<$Res> get info {
     return $InfoCopyWith<$Res>(_value.info, (value) {
       return _then(_value.copyWith(info: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ComponentsCopyWith<$Res>? get components {
-    if (_value.components == null) {
-      return null;
-    }
-
-    return $ComponentsCopyWith<$Res>(_value.components!, (value) {
-      return _then(_value.copyWith(components: value) as $Val);
     });
   }
 
@@ -17454,6 +17415,18 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
       return _then(_value.copyWith(externalDocs: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ComponentsCopyWith<$Res>? get components {
+    if (_value.components == null) {
+      return null;
+    }
+
+    return $ComponentsCopyWith<$Res>(_value.components!, (value) {
+      return _then(_value.copyWith(components: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -17466,21 +17439,21 @@ abstract class _$$_OpenApiCopyWith<$Res> implements $OpenApiCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'openapi') String version,
       Info info,
+      ExternalDocs? externalDocs,
       String? jsonSchemaDialect,
       List<Server>? servers,
+      List<Tag>? tags,
       Map<String, PathItem>? paths,
       Map<String, PathItem>? webhooks,
       Components? components,
-      List<Security>? security,
-      List<Tag>? tags,
-      ExternalDocs? externalDocs});
+      List<Security>? security});
 
   @override
   $InfoCopyWith<$Res> get info;
   @override
-  $ComponentsCopyWith<$Res>? get components;
-  @override
   $ExternalDocsCopyWith<$Res>? get externalDocs;
+  @override
+  $ComponentsCopyWith<$Res>? get components;
 }
 
 /// @nodoc
@@ -17495,14 +17468,14 @@ class __$$_OpenApiCopyWithImpl<$Res>
   $Res call({
     Object? version = null,
     Object? info = null,
+    Object? externalDocs = freezed,
     Object? jsonSchemaDialect = freezed,
     Object? servers = freezed,
+    Object? tags = freezed,
     Object? paths = freezed,
     Object? webhooks = freezed,
     Object? components = freezed,
     Object? security = freezed,
-    Object? tags = freezed,
-    Object? externalDocs = freezed,
   }) {
     return _then(_$_OpenApi(
       version: null == version
@@ -17513,6 +17486,10 @@ class __$$_OpenApiCopyWithImpl<$Res>
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
               as Info,
+      externalDocs: freezed == externalDocs
+          ? _value.externalDocs
+          : externalDocs // ignore: cast_nullable_to_non_nullable
+              as ExternalDocs?,
       jsonSchemaDialect: freezed == jsonSchemaDialect
           ? _value.jsonSchemaDialect
           : jsonSchemaDialect // ignore: cast_nullable_to_non_nullable
@@ -17521,6 +17498,10 @@ class __$$_OpenApiCopyWithImpl<$Res>
           ? _value._servers
           : servers // ignore: cast_nullable_to_non_nullable
               as List<Server>?,
+      tags: freezed == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<Tag>?,
       paths: freezed == paths
           ? _value._paths
           : paths // ignore: cast_nullable_to_non_nullable
@@ -17537,14 +17518,6 @@ class __$$_OpenApiCopyWithImpl<$Res>
           ? _value._security
           : security // ignore: cast_nullable_to_non_nullable
               as List<Security>?,
-      tags: freezed == tags
-          ? _value._tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as List<Tag>?,
-      externalDocs: freezed == externalDocs
-          ? _value.externalDocs
-          : externalDocs // ignore: cast_nullable_to_non_nullable
-              as ExternalDocs?,
     ));
   }
 }
@@ -17555,19 +17528,19 @@ class _$_OpenApi extends _OpenApi {
   const _$_OpenApi(
       {@JsonKey(name: 'openapi') this.version = '3.1.0',
       required this.info,
+      this.externalDocs,
       this.jsonSchemaDialect,
       final List<Server>? servers,
+      final List<Tag>? tags,
       final Map<String, PathItem>? paths,
       final Map<String, PathItem>? webhooks,
       this.components,
-      final List<Security>? security,
-      final List<Tag>? tags,
-      this.externalDocs})
+      final List<Security>? security})
       : _servers = servers,
+        _tags = tags,
         _paths = paths,
         _webhooks = webhooks,
         _security = security,
-        _tags = tags,
         super._();
 
   /// This string must be the version number of the
@@ -17582,6 +17555,10 @@ class _$_OpenApi extends _OpenApi {
   /// The metadata MAY be used by tooling as required.
   @override
   final Info info;
+
+  /// Additional external documentation.
+  @override
+  final ExternalDocs? externalDocs;
 
   /// The default value for the $schema keyword within
   /// Schema Objects contained within this OAS document
@@ -17602,6 +17579,19 @@ class _$_OpenApi extends _OpenApi {
     final value = _servers;
     if (value == null) return null;
     if (_servers is EqualUnmodifiableListView) return _servers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// can be included in the array.
+  final List<Tag>? _tags;
+
+  /// can be included in the array.
+  @override
+  List<Tag>? get tags {
+    final value = _tags;
+    if (value == null) return null;
+    if (_tags is EqualUnmodifiableListView) return _tags;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -17671,26 +17661,9 @@ class _$_OpenApi extends _OpenApi {
     return EqualUnmodifiableListView(value);
   }
 
-  /// can be included in the array.
-  final List<Tag>? _tags;
-
-  /// can be included in the array.
-  @override
-  List<Tag>? get tags {
-    final value = _tags;
-    if (value == null) return null;
-    if (_tags is EqualUnmodifiableListView) return _tags;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  /// Additional external documentation.
-  @override
-  final ExternalDocs? externalDocs;
-
   @override
   String toString() {
-    return 'OpenApi(version: $version, info: $info, jsonSchemaDialect: $jsonSchemaDialect, servers: $servers, paths: $paths, webhooks: $webhooks, components: $components, security: $security, tags: $tags, externalDocs: $externalDocs)';
+    return 'OpenApi(version: $version, info: $info, externalDocs: $externalDocs, jsonSchemaDialect: $jsonSchemaDialect, servers: $servers, tags: $tags, paths: $paths, webhooks: $webhooks, components: $components, security: $security)';
   }
 
   @override
@@ -17700,17 +17673,17 @@ class _$_OpenApi extends _OpenApi {
             other is _$_OpenApi &&
             (identical(other.version, version) || other.version == version) &&
             (identical(other.info, info) || other.info == info) &&
+            (identical(other.externalDocs, externalDocs) ||
+                other.externalDocs == externalDocs) &&
             (identical(other.jsonSchemaDialect, jsonSchemaDialect) ||
                 other.jsonSchemaDialect == jsonSchemaDialect) &&
             const DeepCollectionEquality().equals(other._servers, _servers) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
             const DeepCollectionEquality().equals(other._paths, _paths) &&
             const DeepCollectionEquality().equals(other._webhooks, _webhooks) &&
             (identical(other.components, components) ||
                 other.components == components) &&
-            const DeepCollectionEquality().equals(other._security, _security) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.externalDocs, externalDocs) ||
-                other.externalDocs == externalDocs));
+            const DeepCollectionEquality().equals(other._security, _security));
   }
 
   @override
@@ -17718,14 +17691,14 @@ class _$_OpenApi extends _OpenApi {
       runtimeType,
       version,
       info,
+      externalDocs,
       jsonSchemaDialect,
       const DeepCollectionEquality().hash(_servers),
+      const DeepCollectionEquality().hash(_tags),
       const DeepCollectionEquality().hash(_paths),
       const DeepCollectionEquality().hash(_webhooks),
       components,
-      const DeepCollectionEquality().hash(_security),
-      const DeepCollectionEquality().hash(_tags),
-      externalDocs);
+      const DeepCollectionEquality().hash(_security));
 
   @JsonKey(ignore: true)
   @override
@@ -17738,14 +17711,14 @@ abstract class _OpenApi extends OpenApi {
   const factory _OpenApi(
       {@JsonKey(name: 'openapi') final String version,
       required final Info info,
+      final ExternalDocs? externalDocs,
       final String? jsonSchemaDialect,
       final List<Server>? servers,
+      final List<Tag>? tags,
       final Map<String, PathItem>? paths,
       final Map<String, PathItem>? webhooks,
       final Components? components,
-      final List<Security>? security,
-      final List<Tag>? tags,
-      final ExternalDocs? externalDocs}) = _$_OpenApi;
+      final List<Security>? security}) = _$_OpenApi;
   const _OpenApi._() : super._();
 
   @override
@@ -17763,6 +17736,10 @@ abstract class _OpenApi extends OpenApi {
   Info get info;
   @override
 
+  /// Additional external documentation.
+  ExternalDocs? get externalDocs;
+  @override
+
   /// The default value for the $schema keyword within
   /// Schema Objects contained within this OAS document
   /// This must be in the form of a URI.
@@ -17773,6 +17750,10 @@ abstract class _OpenApi extends OpenApi {
   /// If the servers property is not provided, or is an empty array,
   /// the default value would be a [Server] object with a url value of `/`.
   List<Server>? get servers;
+  @override
+
+  /// can be included in the array.
+  List<Tag>? get tags;
   @override
 
   /// The available paths and operations for the API.
@@ -17800,14 +17781,6 @@ abstract class _OpenApi extends OpenApi {
   /// this definition. To make security optional, an empty security requirement ({})
   /// can be included in the array.
   List<Security>? get security;
-  @override
-
-  /// can be included in the array.
-  List<Tag>? get tags;
-  @override
-
-  /// Additional external documentation.
-  ExternalDocs? get externalDocs;
   @override
   @JsonKey(ignore: true)
   _$$_OpenApiCopyWith<_$_OpenApi> get copyWith =>

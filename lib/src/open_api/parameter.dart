@@ -5,7 +5,7 @@ part of openapi_models;
 // ==========================================
 
 /// Text
-@Freezed(unionKey: 'in')
+@Freezed(unionKey: _unionKeyParams)
 class Parameter with _$Parameter {
   const Parameter._();
 

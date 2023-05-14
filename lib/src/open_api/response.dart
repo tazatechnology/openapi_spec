@@ -9,7 +9,7 @@ part of openapi_models;
 /// The container maps a HTTP response code to the expected response.
 ///
 /// https://swagger.io/specification/#response-object
-@freezed
+@Freezed(fallbackUnion: 'default')
 class Response with _$Response {
   const factory Response({
     /// A description of the response

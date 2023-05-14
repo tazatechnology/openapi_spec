@@ -252,12 +252,12 @@ final spec = OpenApi(
     /// Path: /Path
     '/pet': PathItem(
       put: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Update an existing pet',
         description: 'Update an existing pet by Id',
         id: 'updatePet',
         requestBody: RequestBody(
-          isRequired: true,
+          required: true,
           description: 'Update an existent pet in the store',
           content: {
             'application/json': MediaType(
@@ -301,12 +301,12 @@ final spec = OpenApi(
         ],
       ),
       post: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Add a new pet to the store',
         description: 'Add a new pet to the store',
         id: 'addPet',
         requestBody: RequestBody(
-          isRequired: true,
+          required: true,
           description: 'Create a new pet in the store',
           content: {
             'application/json': MediaType(
@@ -348,7 +348,7 @@ final spec = OpenApi(
     /// Path: /pet/findByStatus
     '/pet/findByStatus': PathItem(
       get: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Finds Pets by status',
         description:
             'Multiple status values can be provided with comma separated strings',
@@ -397,7 +397,7 @@ final spec = OpenApi(
     /// Path: /pet/findByTags
     '/pet/findByTags': PathItem(
       get: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Finds Pets by tags',
         description:
             'Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.',
@@ -443,7 +443,7 @@ final spec = OpenApi(
     /// Path: /pet/{petId}
     '/pet/{petId}': PathItem(
       get: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Find pet by ID',
         description: 'Returns a single pet',
         id: 'getPetById',
@@ -484,7 +484,7 @@ final spec = OpenApi(
         ],
       ),
       post: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Updates a pet in the store with form data',
         description: '',
         id: 'updatePetWithForm',
@@ -520,7 +520,7 @@ final spec = OpenApi(
         ],
       ),
       delete: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'Deletes a pet',
         description: 'delete a pet',
         id: 'deletePet',
@@ -556,7 +556,7 @@ final spec = OpenApi(
     /// Path: /pet/{petId}/uploadImage
     '/pet/{petId}/uploadImage': PathItem(
       post: Operation(
-        tags: [petTag],
+        tags: ['pet'],
         summary: 'uploads an image',
         description: '',
         id: 'uploadFile',
@@ -608,7 +608,7 @@ final spec = OpenApi(
     /// Path: /store/inventory
     '/store/inventory': PathItem(
       get: Operation(
-        tags: [storeTag],
+        tags: ['store'],
         summary: 'Returns pet inventories by status',
         description: 'Returns a map of status codes to quantities',
         id: 'getInventory',
@@ -635,7 +635,7 @@ final spec = OpenApi(
     /// Path: /store/order
     '/store/order': PathItem(
       post: Operation(
-        tags: [storeTag],
+        tags: ['store'],
         summary: 'Place an order for a pet',
         description: 'Place a new order in the store',
         id: 'placeOrder',
@@ -673,7 +673,7 @@ final spec = OpenApi(
     /// Path: /store/order/{orderId}
     '/store/order/{orderId}': PathItem(
       get: Operation(
-        tags: [storeTag],
+        tags: ['store'],
         summary: 'Find purchase order by ID',
         description:
             'For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.',
@@ -708,7 +708,7 @@ final spec = OpenApi(
         },
       ),
       delete: Operation(
-        tags: [storeTag],
+        tags: ['store'],
         summary: 'Delete purchase order by ID',
         description:
             'For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors',
@@ -736,7 +736,7 @@ final spec = OpenApi(
     /// Path: /user
     '/user': PathItem(
       post: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Create user',
         description: 'This can only be done by the logged in user.',
         id: 'createUser',
@@ -773,7 +773,7 @@ final spec = OpenApi(
     /// Path: /user/createWithList
     '/user/createWithList': PathItem(
       post: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Creates list of users with given input array',
         description: 'Creates list of users with given input array',
         id: 'createUsersWithListInput',
@@ -808,7 +808,7 @@ final spec = OpenApi(
     /// Path: /user/login
     '/user/login': PathItem(
       get: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Logs user into the system',
         description: '',
         id: 'loginUser',
@@ -862,7 +862,7 @@ final spec = OpenApi(
     /// Path: /user/logout
     '/user/logout': PathItem(
       get: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Logs out current logged in user session',
         description: '',
         id: 'logoutUser',
@@ -878,7 +878,7 @@ final spec = OpenApi(
     /// Path: /user/{username}
     '/user/{username}': PathItem(
       get: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Get user by user name',
         description: '',
         id: 'getUserByName',
@@ -911,7 +911,7 @@ final spec = OpenApi(
         },
       ),
       put: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Update user',
         description: 'This can only be done by the logged in user.',
         id: 'updateUser',
@@ -943,7 +943,7 @@ final spec = OpenApi(
         },
       ),
       delete: Operation(
-        tags: [userTag],
+        tags: ['user'],
         summary: 'Delete user',
         description: 'This can only be done by the logged in user.',
         id: 'deleteUser',

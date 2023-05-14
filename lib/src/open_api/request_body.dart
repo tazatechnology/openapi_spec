@@ -5,7 +5,7 @@ part of openapi_models;
 // ==========================================
 
 /// Text
-@freezed
+@Freezed(fallbackUnion: 'default')
 class RequestBody with _$RequestBody {
   const factory RequestBody({
     /// A brief description of the request body.
@@ -15,7 +15,7 @@ class RequestBody with _$RequestBody {
     Map<String, MediaType>? content,
 
     /// Determines if the request body is required in the request.
-    @JsonKey(name: 'required') bool? isRequired,
+    bool? required,
   }) = _RequestBody;
 
   // ------------------------------------------

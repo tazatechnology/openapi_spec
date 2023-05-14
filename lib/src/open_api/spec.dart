@@ -26,6 +26,9 @@ class OpenApi with _$OpenApi {
     /// The metadata MAY be used by tooling as required.
     required Info info,
 
+    /// Additional external documentation.
+    final ExternalDocs? externalDocs,
+
     /// The default value for the $schema keyword within
     /// Schema Objects contained within this OAS document
     /// This must be in the form of a URI.
@@ -35,6 +38,9 @@ class OpenApi with _$OpenApi {
     /// If the servers property is not provided, or is an empty array,
     /// the default value would be a [Server] object with a url value of `/`.
     List<Server>? servers,
+
+    /// can be included in the array.
+    List<Tag>? tags,
 
     /// The available paths and operations for the API.
     Map<String, PathItem>? paths,
@@ -58,27 +64,7 @@ class OpenApi with _$OpenApi {
     /// this definition. To make security optional, an empty security requirement ({})
     /// can be included in the array.
     List<Security>? security,
-
-    /// can be included in the array.
-    List<Tag>? tags,
-
-    /// Additional external documentation.
-    final ExternalDocs? externalDocs,
   }) = _OpenApi;
-
-  // ------------------------------------------
-  // FACTORY: OpenApi.fromJson
-  // ------------------------------------------
-
-  /// Create an [OpenApi] object from a JSON representation of an OpenAPI
-  factory OpenApi.fromJson(Map<String, dynamic> json) {
-    return OpenApi(
-      version: json['openapi'],
-      jsonSchemaDialect: json['jsonSchemaDialect'],
-      info: Info.fromJson(json['info']),
-      externalDocs: ExternalDocs.fromJson(json['externalDocs']),
-    );
-  }
 
   // ------------------------------------------
   // FACTORY: OpenApi.fromJsonFile
@@ -97,12 +83,37 @@ class OpenApi with _$OpenApi {
       throw Exception('Unsupported file type: $ext');
     }
 
-    final data = Map<String, dynamic>.from(raw);
+    return OpenApi.fromJson(Map<String, dynamic>.from(raw));
+  }
+
+  // ------------------------------------------
+  // FACTORY: OpenApi.fromJson
+  // ------------------------------------------
+
+  /// Create an [OpenApi] object from a JSON representation of an OpenAPI
+  factory OpenApi.fromJson(Map<String, dynamic> json) {
+    final d = _formatSpecFromJson(json);
     return OpenApi(
-      version: data['openapi'],
-      jsonSchemaDialect: data['jsonSchemaDialect'],
-      info: Info.fromJson(data['info']),
-      externalDocs: ExternalDocs.fromJson(data['externalDocs']),
+      version: d.containsKey('openapi') ? d['openapi'] : null,
+      info: Info.fromJson(d['info']),
+      jsonSchemaDialect: d['jsonSchemaDialect'],
+      externalDocs: d.containsKey('externalDocs')
+          ? ExternalDocs.fromJson(d['externalDocs'])
+          : null,
+      servers: (d['servers'] as List<dynamic>?)
+          ?.map((e) => Server.fromJson(e))
+          .toList(),
+      tags: (d['tags'] as List<dynamic>?)?.map((e) => Tag.fromJson(e)).toList(),
+      paths: (d['paths'] as Map<String, dynamic>?)
+          ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
+      webhooks: (d['webhooks'] as Map<String, dynamic>?)
+          ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
+      components: d.containsKey('components')
+          ? Components.fromJson(d['components'])
+          : null,
+      security: (d['security'] as List<dynamic>?)
+          ?.map((e) => Security.fromJson(e))
+          .toList(),
     );
   }
 
@@ -121,19 +132,17 @@ class OpenApi with _$OpenApi {
     final out = {
       'openapi': version,
       'info': info.toJson(),
-      if (jsonSchemaDialect != null) 'jsonSchemaDialect': jsonSchemaDialect,
-      if (externalDocs != null) 'externalDocs': externalDocs!.toJson(),
-      if (servers != null) 'servers': servers!.map((e) => e.toJson()).toList(),
-      if (tags != null) 'tags': tags!.map((e) => e.toJson()).toList(),
-      if (paths != null) 'paths': paths!.map((k, v) => MapEntry(k, v.toJson())),
-      if (version.startsWith('3.1') && webhooks != null)
-        'webhooks': webhooks!.map((k, v) => MapEntry(k, v.toJson())),
-      if (components != null) 'components': components?.toJson(),
-      if (security != null)
-        'security': security!.map((e) => e.toJson()).toList(),
+      'jsonSchemaDialect': jsonSchemaDialect,
+      'externalDocs': externalDocs?.toJson(),
+      'servers': servers?.map((e) => e.toJson()).toList(),
+      'tags': tags?.map((e) => e.toJson()).toList(),
+      'paths': paths?.map((k, v) => MapEntry(k, v.toJson())),
+      'webhooks': webhooks?.map((k, v) => MapEntry(k, v.toJson())),
+      'components': components?.toJson(),
+      'security': security?.map((e) => e.toJson()).toList(),
     };
 
-    return _formatJson(out);
+    return _formatSpecToJson(out);
   }
 
   // ------------------------------------------
@@ -237,4 +246,169 @@ class OpenApi with _$OpenApi {
     // ignore: avoid_print
     if (!quiet) print('Static HTML generated in:\n  - $dirpath');
   }
+}
+
+const String _unionKey = 'unionType';
+const String _unionKeyParams = 'in';
+
+// ------------------------------------------
+// METHOD: _formatSpecToJson
+// ------------------------------------------
+
+Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
+  // Remove the unionType field from the map (freezed union key)
+  var m = Map<String, dynamic>.from(json)
+    ..removeWhere((k, v) => k == _unionKey);
+
+  for (final e in m.entries.toList()) {
+    // Update references
+    if (e.key == 'ref') {
+      final v = m.remove(e.key);
+      if (v.toString().startsWith('#')) {
+        m['\$ref'] = v;
+      } else {
+        // Assume component schema is the reference
+        m['\$ref'] = '#/components/schemas/$v';
+      }
+    }
+    // Update type definitions
+    if (e.key == 'type' && e.value == 'reference') {
+      m.remove(e.key);
+    } else if (e.key == 'type' && e.value == 'enumeration') {
+      m['type'] = 'string';
+    } else if (e.key == 'type' && e.value == 'default') {
+      m['type'] = 'object';
+    }
+    // Remove null values
+    if (e.value == null) {
+      m.remove(e.key);
+    }
+  }
+
+  // Always place the type property of schema object
+  if (m.containsKey('type') && m['type'] is String) {
+    m = {'type': m['type'], ...m..remove('type')};
+  }
+
+  // Special case for required property of schema object
+  if (m.containsKey('required') && m['required'] is List) {
+    m = {'required': m['required'], ...m..remove('required')};
+  }
+
+  // Special case for "in" property - place after "name"
+  // Will also add "required = true" for path parameters
+  if (m.containsKey(_unionKeyParams) &&
+      m[_unionKeyParams] is String &&
+      m.containsKey('name') &&
+      m['name'] is String) {
+    bool isPath = m[_unionKeyParams] == 'path';
+    bool hasDescription = m.containsKey('description');
+    var newKeys = [];
+    for (final k in m.keys.toList()) {
+      newKeys.add(k);
+      if (k == 'name') {
+        newKeys.add(_unionKeyParams);
+        if (!hasDescription && isPath) {
+          newKeys.add('required');
+          m['required'] = 'true';
+        }
+      }
+
+      if (k == 'description' && isPath) {
+        newKeys.add('required');
+        m['required'] = true;
+      }
+    }
+    newKeys = newKeys.toSet().toList();
+    m = newKeys.asMap().map((_, k) => MapEntry(k, m[k]));
+  }
+
+  // Recursion
+  for (final k in m.keys) {
+    if (m[k] is Map) {
+      m[k] = _formatSpecToJson(Map<String, dynamic>.from(m[k]));
+    } else if (m[k] is List) {
+      final l = List.from(m[k]);
+      for (var i = 0; i < l.length; i++) {
+        if (l[i] is Map) {
+          l[i] = _formatSpecToJson(Map<String, dynamic>.from(l[i]));
+        }
+      }
+      m[k] = l;
+    }
+  }
+  return m;
+}
+
+// ------------------------------------------
+// METHOD: _formatSpecFromJson
+// ------------------------------------------
+
+Map<String, dynamic> _formatSpecFromJson(
+  Map<String, dynamic> json, {
+  String parentKey = '',
+  String? unionKey,
+}) {
+  final m = Map<String, dynamic>.from(json);
+
+  final oAuthTypes = [
+    'implicit',
+    'password',
+    'clientCredentials',
+    'authorizationCode'
+  ];
+
+  // Return a parsable reference object
+  if (m.containsKey('\$ref')) {
+    final x = {
+      'ref': m['\$ref'],
+      'type': 'reference',
+      _unionKey: 'reference',
+    };
+    return x;
+  } else {
+    if (m.containsKey('type')) {
+      if (m['type'] == 'object') {
+        m['type'] = 'default';
+      } else if (m['type'] == 'string' && m.containsKey('enum')) {
+        m['type'] = 'enumeration';
+      }
+    } else if (oAuthTypes.contains(parentKey)) {
+      m[_unionKey] = parentKey;
+    }
+  }
+
+  // Recursion
+  for (final k in m.keys) {
+    if (m[k] is Map) {
+      String? unionKey;
+      if (k == 'schema' || k == 'properties') {
+        unionKey = 'type';
+      }
+
+      m[k] = _formatSpecFromJson(
+        Map<String, dynamic>.from(m[k]),
+        parentKey: k,
+        unionKey: unionKey,
+      );
+    } else if (m[k] is List) {
+      final l = List.from(m[k]);
+      for (var i = 0; i < l.length; i++) {
+        if (l[i] is Map) {
+          String? unionKey;
+          if (k == 'parameters') {
+            unionKey = _unionKeyParams;
+          }
+          l[i] = _formatSpecFromJson(
+            Map<String, dynamic>.from(l[i]),
+            parentKey: k,
+            unionKey: unionKey,
+          );
+        }
+      }
+      m[k] = l;
+    }
+  }
+
+  return m;
 }

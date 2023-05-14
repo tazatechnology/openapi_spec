@@ -12,7 +12,7 @@ _$_ArrayItemsString _$$_ArrayItemsStringFromJson(Map<String, dynamic> json) =>
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       format: $enumDecodeNullable(_$StringFormatEnumMap, json['format']),
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_ArrayItemsStringToJson(_$_ArrayItemsString instance) {
@@ -26,7 +26,7 @@ Map<String, dynamic> _$$_ArrayItemsStringToJson(_$_ArrayItemsString instance) {
 
   writeNotNull('xml', instance.xml?.toJson());
   writeNotNull('format', _$StringFormatEnumMap[instance.format]);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
@@ -44,7 +44,7 @@ _$_ArrayItemsInteger _$$_ArrayItemsIntegerFromJson(Map<String, dynamic> json) =>
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       format: $enumDecodeNullable(_$IntegerFormatEnumMap, json['format']),
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_ArrayItemsIntegerToJson(
@@ -59,7 +59,7 @@ Map<String, dynamic> _$$_ArrayItemsIntegerToJson(
 
   writeNotNull('xml', instance.xml?.toJson());
   writeNotNull('format', _$IntegerFormatEnumMap[instance.format]);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
@@ -74,7 +74,7 @@ _$_ArrayItemsNumber _$$_ArrayItemsNumberFromJson(Map<String, dynamic> json) =>
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       format: $enumDecodeNullable(_$NumberFormatEnumMap, json['format']),
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_ArrayItemsNumberToJson(_$_ArrayItemsNumber instance) {
@@ -88,7 +88,7 @@ Map<String, dynamic> _$$_ArrayItemsNumberToJson(_$_ArrayItemsNumber instance) {
 
   writeNotNull('xml', instance.xml?.toJson());
   writeNotNull('format', _$NumberFormatEnumMap[instance.format]);
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
@@ -104,7 +104,7 @@ _$_ArrayItemsReference _$$_ArrayItemsReferenceFromJson(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      $type: json['unionType'] as String?,
+      $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_ArrayItemsReferenceToJson(
@@ -120,7 +120,7 @@ Map<String, dynamic> _$$_ArrayItemsReferenceToJson(
   }
 
   writeNotNull('xml', instance.xml?.toJson());
-  val['unionType'] = instance.$type;
+  val['type'] = instance.$type;
   return val;
 }
 
@@ -589,7 +589,7 @@ Map<String, dynamic> _$$_MediaTypeToJson(_$_MediaType instance) {
 }
 
 _$_Operation _$$_OperationFromJson(Map<String, dynamic> json) => _$_Operation(
-      tags: _fromJsonTags(json['tags'] as List<String>?),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       summary: json['summary'] as String?,
       description: json['description'] as String?,
       externalDocs: json['externalDocs'] == null
@@ -626,7 +626,7 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
     }
   }
 
-  writeNotNull('tags', _toJsonTags(instance.tags));
+  writeNotNull('tags', instance.tags);
   writeNotNull('summary', instance.summary);
   writeNotNull('description', instance.description);
   writeNotNull('externalDocs', instance.externalDocs?.toJson());
@@ -998,8 +998,7 @@ _$_PropertyArray _$$_PropertyArrayFromJson(Map<String, dynamic> json) =>
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      items: const _ArrayItemsConverter()
-          .fromJson(json['items'] as Map<String, dynamic>),
+      items: ArrayItems.fromJson(json['items'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
@@ -1019,7 +1018,7 @@ Map<String, dynamic> _$$_PropertyArrayToJson(_$_PropertyArray instance) {
   }
 
   writeNotNull('xml', instance.xml?.toJson());
-  val['items'] = const _ArrayItemsConverter().toJson(instance.items);
+  val['items'] = instance.items.toJson();
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
@@ -1077,7 +1076,7 @@ _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
       content: (json['content'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, MediaType.fromJson(e as Map<String, dynamic>)),
       ),
-      isRequired: json['required'] as bool?,
+      required: json['required'] as bool?,
       $type: json['unionType'] as String?,
     );
 
@@ -1093,7 +1092,7 @@ Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
   writeNotNull('description', instance.description);
   writeNotNull(
       'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('required', instance.isRequired);
+  writeNotNull('required', instance.required);
   val['unionType'] = instance.$type;
   return val;
 }
@@ -1359,8 +1358,7 @@ Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
 
 _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
     _$_SchemaArray(
-      items: const _ArrayItemsConverter()
-          .fromJson(json['items'] as Map<String, dynamic>),
+      items: ArrayItems.fromJson(json['items'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
@@ -1375,7 +1373,7 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
   final val = <String, dynamic>{
-    'items': const _ArrayItemsConverter().toJson(instance.items),
+    'items': instance.items.toJson(),
   };
 
   void writeNotNull(String key, dynamic value) {

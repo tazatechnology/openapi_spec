@@ -11,7 +11,7 @@ part of openapi_models;
 class Operation with _$Operation {
   const factory Operation({
     /// A list of tags for API documentation control.
-    @JsonKey(toJson: _toJsonTags, fromJson: _fromJsonTags) List<Tag>? tags,
+    List<String>? tags,
 
     /// A short summary of what the operation does.
     String? summary,
@@ -56,12 +56,4 @@ class Operation with _$Operation {
 
   factory Operation.fromJson(Map<String, dynamic> json) =>
       _$OperationFromJson(json);
-}
-
-List<String>? _toJsonTags(List<Tag>? tags) {
-  return tags?.map((e) => e.name).toList();
-}
-
-List<Tag>? _fromJsonTags(List<String>? json) {
-  return json?.map((e) => Tag(name: e)).toList();
 }

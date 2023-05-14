@@ -7,7 +7,7 @@ part of openapi_models;
 /// Describes the operations available on a single Path.
 ///
 /// https://swagger.io/specification/#Path-item-object
-@freezed
+@Freezed(fallbackUnion: 'default')
 class PathItem with _$PathItem {
   const factory PathItem({
     /// An optional, string summary, intended to apply to all operations in this Path.

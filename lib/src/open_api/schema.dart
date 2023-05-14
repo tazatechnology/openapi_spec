@@ -9,7 +9,7 @@ part of openapi_models;
 ///
 /// https://swagger.io/specification/#schema-object
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
-@Freezed(unionKey: 'type')
+@Freezed(unionKey: 'type', fallbackUnion: 'default')
 class Schema with _$Schema {
   const factory Schema({
     /// The required properties of the schema
@@ -110,7 +110,7 @@ class Schema with _$Schema {
 
   /// A generic [Schema] schema of array type
   const factory Schema.array({
-    @_ArrayItemsConverter() required ArrayItems items,
+    required ArrayItems items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
