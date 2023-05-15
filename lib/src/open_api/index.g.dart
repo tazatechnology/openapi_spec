@@ -859,6 +859,11 @@ Map<String, dynamic> _$$_PathItemReferenceToJson(
 
 _$_PropertyBoolean _$$_PropertyBooleanFromJson(Map<String, dynamic> json) =>
     _$_PropertyBoolean(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
+      title: json['title'] as String?,
+      description: json['description'] as String?,
       defaultValue: json['default'] as bool?,
       $type: json['type'] as String?,
     );
@@ -872,6 +877,9 @@ Map<String, dynamic> _$$_PropertyBooleanToJson(_$_PropertyBoolean instance) {
     }
   }
 
+  writeNotNull('xml', instance.xml?.toJson());
+  writeNotNull('title', instance.title);
+  writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
   val['type'] = instance.$type;
   return val;
@@ -1159,6 +1167,7 @@ Map<String, dynamic> _$$_ResponseReferenceToJson(
     };
 
 _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
+      description: json['description'] as String?,
       required: (json['required'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -1191,6 +1200,7 @@ Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
     }
   }
 
+  writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
   writeNotNull('externalDocs', instance.externalDocs?.toJson());

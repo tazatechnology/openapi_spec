@@ -7994,7 +7994,8 @@ Property _$PropertyFromJson(Map<String, dynamic> json) {
 mixin _$Property {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8052,7 +8053,9 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -8109,7 +8112,9 @@ mixin _$Property {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -8225,7 +8230,13 @@ abstract class _$$_PropertyBooleanCopyWith<$Res> {
           _$_PropertyBoolean value, $Res Function(_$_PropertyBoolean) then) =
       __$$_PropertyBooleanCopyWithImpl<$Res>;
   @useResult
-  $Res call({@JsonKey(name: 'default') bool? defaultValue});
+  $Res call(
+      {Xml? xml,
+      String? title,
+      String? description,
+      @JsonKey(name: 'default') bool? defaultValue});
+
+  $XmlCopyWith<$Res>? get xml;
 }
 
 /// @nodoc
@@ -8239,14 +8250,41 @@ class __$$_PropertyBooleanCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? xml = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
     Object? defaultValue = freezed,
   }) {
     return _then(_$_PropertyBoolean(
+      xml: freezed == xml
+          ? _value.xml
+          : xml // ignore: cast_nullable_to_non_nullable
+              as Xml?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $XmlCopyWith<$Res>? get xml {
+    if (_value.xml == null) {
+      return null;
+    }
+
+    return $XmlCopyWith<$Res>(_value.xml!, (value) {
+      return _then(_value.copyWith(xml: value));
+    });
   }
 }
 
@@ -8254,12 +8292,22 @@ class __$$_PropertyBooleanCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PropertyBoolean implements _PropertyBoolean {
   const _$_PropertyBoolean(
-      {@JsonKey(name: 'default') this.defaultValue, final String? $type})
+      {this.xml,
+      this.title,
+      this.description,
+      @JsonKey(name: 'default') this.defaultValue,
+      final String? $type})
       : $type = $type ?? 'boolean';
 
   factory _$_PropertyBoolean.fromJson(Map<String, dynamic> json) =>
       _$$_PropertyBooleanFromJson(json);
 
+  @override
+  final Xml? xml;
+  @override
+  final String? title;
+  @override
+  final String? description;
   @override
   @JsonKey(name: 'default')
   final bool? defaultValue;
@@ -8269,7 +8317,7 @@ class _$_PropertyBoolean implements _PropertyBoolean {
 
   @override
   String toString() {
-    return 'Property.boolean(defaultValue: $defaultValue)';
+    return 'Property.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue)';
   }
 
   @override
@@ -8277,13 +8325,18 @@ class _$_PropertyBoolean implements _PropertyBoolean {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PropertyBoolean &&
+            (identical(other.xml, xml) || other.xml == xml) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, defaultValue);
+  int get hashCode =>
+      Object.hash(runtimeType, xml, title, description, defaultValue);
 
   @JsonKey(ignore: true)
   @override
@@ -8294,7 +8347,8 @@ class _$_PropertyBoolean implements _PropertyBoolean {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8349,13 +8403,15 @@ class _$_PropertyBoolean implements _PropertyBoolean {
         enumeration,
     required TResult Function(String ref) reference,
   }) {
-    return boolean(defaultValue);
+    return boolean(xml, title, description, defaultValue);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -8409,13 +8465,15 @@ class _$_PropertyBoolean implements _PropertyBoolean {
         enumeration,
     TResult? Function(String ref)? reference,
   }) {
-    return boolean?.call(defaultValue);
+    return boolean?.call(xml, title, description, defaultValue);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -8471,7 +8529,7 @@ class _$_PropertyBoolean implements _PropertyBoolean {
     required TResult orElse(),
   }) {
     if (boolean != null) {
-      return boolean(defaultValue);
+      return boolean(xml, title, description, defaultValue);
     }
     return orElse();
   }
@@ -8532,12 +8590,17 @@ class _$_PropertyBoolean implements _PropertyBoolean {
 
 abstract class _PropertyBoolean implements Property {
   const factory _PropertyBoolean(
-          {@JsonKey(name: 'default') final bool? defaultValue}) =
-      _$_PropertyBoolean;
+      {final Xml? xml,
+      final String? title,
+      final String? description,
+      @JsonKey(name: 'default') final bool? defaultValue}) = _$_PropertyBoolean;
 
   factory _PropertyBoolean.fromJson(Map<String, dynamic> json) =
       _$_PropertyBoolean.fromJson;
 
+  Xml? get xml;
+  String? get title;
+  String? get description;
   @JsonKey(name: 'default')
   bool? get defaultValue;
   @JsonKey(ignore: true)
@@ -8710,7 +8773,8 @@ class _$_PropertyString implements _PropertyString {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8772,7 +8836,9 @@ class _$_PropertyString implements _PropertyString {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -8833,7 +8899,9 @@ class _$_PropertyString implements _PropertyString {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -9172,7 +9240,8 @@ class _$_PropertyInteger implements _PropertyInteger {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9234,7 +9303,9 @@ class _$_PropertyInteger implements _PropertyInteger {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -9295,7 +9366,9 @@ class _$_PropertyInteger implements _PropertyInteger {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -9638,7 +9711,8 @@ class _$_PropertyNumber implements _PropertyNumber {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9700,7 +9774,9 @@ class _$_PropertyNumber implements _PropertyNumber {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -9761,7 +9837,9 @@ class _$_PropertyNumber implements _PropertyNumber {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -10109,7 +10187,8 @@ class _$_PropertyArray implements _PropertyArray {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10171,7 +10250,9 @@ class _$_PropertyArray implements _PropertyArray {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -10232,7 +10313,9 @@ class _$_PropertyArray implements _PropertyArray {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -10503,7 +10586,8 @@ class _$_PropertyEnum implements _PropertyEnum {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10564,7 +10648,9 @@ class _$_PropertyEnum implements _PropertyEnum {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -10624,7 +10710,9 @@ class _$_PropertyEnum implements _PropertyEnum {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -10835,7 +10923,8 @@ class _$_PropertyReference implements _PropertyReference {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10896,7 +10985,9 @@ class _$_PropertyReference implements _PropertyReference {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult? Function(
             Xml? xml,
             String? title,
@@ -10956,7 +11047,9 @@ class _$_PropertyReference implements _PropertyReference {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@JsonKey(name: 'default') bool? defaultValue)? boolean,
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
+        boolean,
     TResult Function(
             Xml? xml,
             String? title,
@@ -12052,6 +12145,7 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12115,6 +12209,7 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12178,6 +12273,7 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12299,7 +12395,8 @@ abstract class _$$_SchemaCopyWith<$Res> {
       __$$_SchemaCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<String>? required,
+      {String? description,
+      List<String>? required,
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
       Map<String, Property>? properties,
@@ -12322,6 +12419,7 @@ class __$$_SchemaCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? description = freezed,
     Object? required = freezed,
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
@@ -12330,6 +12428,10 @@ class __$$_SchemaCopyWithImpl<$Res>
     Object? xml = freezed,
   }) {
     return _then(_$_Schema(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       required: freezed == required
           ? _value._required
           : required // ignore: cast_nullable_to_non_nullable
@@ -12410,7 +12512,8 @@ class __$$_SchemaCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Schema implements _Schema {
   const _$_Schema(
-      {final List<String>? required,
+      {this.description,
+      final List<String>? required,
       this.discriminator,
       this.externalDocs,
       final Map<String, Property>? properties,
@@ -12423,6 +12526,10 @@ class _$_Schema implements _Schema {
 
   factory _$_Schema.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaFromJson(json);
+
+  /// A description of this schema
+  @override
+  final String? description;
 
   /// The required properties of the schema
   final List<String>? _required;
@@ -12473,7 +12580,7 @@ class _$_Schema implements _Schema {
 
   @override
   String toString() {
-    return 'Schema(required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
+    return 'Schema(description: $description, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
   }
 
   @override
@@ -12481,6 +12588,8 @@ class _$_Schema implements _Schema {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Schema &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality().equals(other._required, _required) &&
             (identical(other.discriminator, discriminator) ||
                 other.discriminator == discriminator) &&
@@ -12497,6 +12606,7 @@ class _$_Schema implements _Schema {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      description,
       const DeepCollectionEquality().hash(_required),
       discriminator,
       externalDocs,
@@ -12514,6 +12624,7 @@ class _$_Schema implements _Schema {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12573,14 +12684,15 @@ class _$_Schema implements _Schema {
             Xml? xml)
         array,
   }) {
-    return $default(required, discriminator, externalDocs, properties,
-        additionalProperties, xml);
+    return $default(description, required, discriminator, externalDocs,
+        properties, additionalProperties, xml);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12640,14 +12752,15 @@ class _$_Schema implements _Schema {
             Xml? xml)?
         array,
   }) {
-    return $default?.call(required, discriminator, externalDocs, properties,
-        additionalProperties, xml);
+    return $default?.call(description, required, discriminator, externalDocs,
+        properties, additionalProperties, xml);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12709,8 +12822,8 @@ class _$_Schema implements _Schema {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(required, discriminator, externalDocs, properties,
-          additionalProperties, xml);
+      return $default(description, required, discriminator, externalDocs,
+          properties, additionalProperties, xml);
     }
     return orElse();
   }
@@ -12771,7 +12884,8 @@ class _$_Schema implements _Schema {
 
 abstract class _Schema implements Schema {
   const factory _Schema(
-      {final List<String>? required,
+      {final String? description,
+      final List<String>? required,
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
       final Map<String, Property>? properties,
@@ -12779,6 +12893,9 @@ abstract class _Schema implements Schema {
       final Xml? xml}) = _$_Schema;
 
   factory _Schema.fromJson(Map<String, dynamic> json) = _$_Schema.fromJson;
+
+  /// A description of this schema
+  String? get description;
 
   /// The required properties of the schema
   List<String>? get required;
@@ -12877,6 +12994,7 @@ class _$_SchemaReference implements _SchemaReference {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12943,6 +13061,7 @@ class _$_SchemaReference implements _SchemaReference {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13009,6 +13128,7 @@ class _$_SchemaReference implements _SchemaReference {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13308,6 +13428,7 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13375,6 +13496,7 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13442,6 +13564,7 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13787,6 +13910,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13854,6 +13978,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13921,6 +14046,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -14270,6 +14396,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -14337,6 +14464,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -14404,6 +14532,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -14675,6 +14804,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -14741,6 +14871,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -14807,6 +14938,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -15149,6 +15281,7 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -15216,6 +15349,7 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -15283,6 +15417,7 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? description,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,

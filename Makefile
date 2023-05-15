@@ -16,6 +16,11 @@ build:
 	dart format lib/*
 	dart pub get
 
+build-test:
+	dart run build_runner build test --delete-conflicting-outputs
+	dart fix --apply test
+	dart format test
+
 docs:
 	dart doc --validate-links --output build/docs
 

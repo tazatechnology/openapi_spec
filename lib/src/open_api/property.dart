@@ -11,6 +11,9 @@ part of openapi_models;
 class Property with _$Property {
   /// A boolean schema property
   const factory Property.boolean({
+    Xml? xml,
+    String? title,
+    String? description,
     @JsonKey(name: 'default') bool? defaultValue,
   }) = _PropertyBoolean;
 

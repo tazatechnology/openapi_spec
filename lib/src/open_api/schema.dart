@@ -12,6 +12,9 @@ part of openapi_models;
 @Freezed(unionKey: 'type', fallbackUnion: 'default')
 class Schema with _$Schema {
   const factory Schema({
+    /// A description of this schema
+    String? description,
+
     /// The required properties of the schema
     List<String>? required,
 
