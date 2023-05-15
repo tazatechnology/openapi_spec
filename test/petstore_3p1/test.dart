@@ -14,7 +14,11 @@ void main() {
   final testJson = p.join(tmp.path, 'openapi.json');
   final testDartJson = p.join(tmp.path, 'openapi_dart.json');
 
-  final genModelsDir = p.join(tmp.path, 'gen_models');
+  final genSchemaDir = p.join(tmp.path, 'gen_schema');
+  final genSchemaSingleDir = p.join(tmp.path, 'gen_schema_single');
+  final genClientDir = p.join(tmp.path, 'gen_client');
+  final genServerDir = p.join(tmp.path, 'gen_serve');
+  final genAllDir = p.join(tmp.path, 'gen_all');
 
   group('Petstore 3.1', () {
     setUp(() {
@@ -53,26 +57,38 @@ void main() {
     });
 
     /// Test code generation of OpenAPI spec defined models
-    test('Generate Model Code', () {
+    test('Generate Schema Code', () {
       spec.generate(
         package: 'petstore',
-        destination: genModelsDir,
-        replace: true,
-        singleSchemaFile: false,
+        destination: genSchemaDir,
+      );
+
+      spec.generate(
+        package: 'petstore',
+        destination: genSchemaSingleDir,
+        singleSchemaFile: true,
       );
     });
 
     /// Test code generation of OpenAPI spec defined client
     test('Generate Client Code', () {
       spec.generate(
-        destination: 'tmp/petstore_3p1_gen_client',
+        package: 'petstore',
+        destination: genClientDir,
       );
     });
 
     /// Test code generation of OpenAPI spec defined server
     test('Generate Server code', () {
       spec.generate(
-        destination: 'tmp/petstore_3p1_gen_server',
+        destination: genServerDir,
+      );
+    });
+
+    /// Test code generation of OpenAPI spec defined server
+    test('Generate Server code', () {
+      spec.generate(
+        destination: genAllDir,
       );
     });
   });

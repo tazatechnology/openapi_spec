@@ -88,16 +88,18 @@ class SchemaGenerator extends BaseGenerator {
     // Loop through properties
     final props = s.properties;
     bool firstPass = true;
+    List<String> validations = [];
     for (final p in (props?.keys.toList() ?? <String>[])) {
       if (firstPass) {
         firstPass = false;
         file.writeAsStringSync('{', mode: FileMode.append);
       }
-      _writeProperty(
+      final v = _writeProperty(
         name: p,
         property: props![p]!,
         required: s.required?.contains(p) ?? false,
       );
+      validations.addAll(v);
     }
 
     // Class footer
@@ -105,6 +107,12 @@ class SchemaGenerator extends BaseGenerator {
     ${firstPass ? '' : '}'}) = _$name;
 
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
+
+    /// Perform validations on the schema property values
+    String? validateSchema(){
+      ${validations.isEmpty ? '' : validations.join('\n')}
+      return null;
+    }
     }\n
     """, mode: FileMode.append);
   }
@@ -113,11 +121,13 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _writeProperty
   // ------------------------------------------
 
-  void _writeProperty({
+  List<String> _writeProperty({
     required String name,
     required Schema property,
     required bool required,
   }) {
+    final validations = <String>[];
+
     property.map(
       (p) {
         // Default
@@ -205,12 +215,11 @@ class SchemaGenerator extends BaseGenerator {
         }
         c += "String ${nullable ? '?' : ''} $name,\n";
         file.writeAsStringSync(c, mode: FileMode.append);
-
-        /// TODO - add validation for values
       },
       reference: (_) {
         /// TODO - add reference to other schema
       },
     );
+    return validations;
   }
 }
