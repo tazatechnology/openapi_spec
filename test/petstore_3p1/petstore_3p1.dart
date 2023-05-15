@@ -34,21 +34,21 @@ final userTag = Tag(
 final schemaTag = Schema(
   xml: Xml(name: 'tag'),
   properties: {
-    'id': Property.integer(
+    'id': Schema.integer(
       format: IntegerFormat.int64,
     ),
-    'name': Property.string(),
+    'name': Schema.string(),
   },
 );
 
 final schemaCategory = Schema(
   xml: Xml(name: 'category'),
   properties: {
-    'id': Property.integer(
+    'id': Schema.integer(
       example: 1,
       format: IntegerFormat.int64,
     ),
-    'name': Property.string(
+    'name': Schema.string(
       example: 'Dogs',
     ),
   },
@@ -61,27 +61,27 @@ final schemaPet = Schema(
     'photoUrls',
   ],
   properties: {
-    'id': Property.integer(
+    'id': Schema.integer(
       format: IntegerFormat.int64,
       example: 10,
     ),
-    'name': Property.string(
+    'name': Schema.string(
       example: 'doggie',
     ),
-    'category': Property.reference(
+    'category': Schema.reference(
       ref: 'Category',
     ),
-    'photoUrls': Property.array(
+    'photoUrls': Schema.array(
       xml: Xml(wrapped: true),
       items: ArrayItems.string(
         xml: Xml(name: 'photoUrl'),
       ),
     ),
-    'tags': Property.array(
+    'tags': Schema.array(
       xml: Xml(wrapped: true),
       items: ArrayItems.reference(ref: 'Tag'),
     ),
-    'status': Property.enumeration(
+    'status': Schema.enumeration(
       description: 'pet status in the store',
       values: ['available', 'pending', 'sold'],
     ),
@@ -91,56 +91,56 @@ final schemaPet = Schema(
 final schemaOrder = Schema(
   xml: Xml(name: 'order'),
   properties: {
-    'id': Property.integer(
+    'id': Schema.integer(
       format: IntegerFormat.int64,
       example: 10,
     ),
-    'petId': Property.integer(
+    'petId': Schema.integer(
       format: IntegerFormat.int64,
       example: 198772,
     ),
-    'quantity': Property.integer(
+    'quantity': Schema.integer(
       format: IntegerFormat.int32,
       example: 7,
     ),
-    'shipDate': Property.string(
+    'shipDate': Schema.string(
       format: StringFormat.datetime,
     ),
-    'status': Property.enumeration(
+    'status': Schema.enumeration(
       description: 'Order Status',
       example: 'approved',
       values: ['placed', 'approved', 'delivered'],
     ),
-    'complete': Property.boolean(),
+    'complete': Schema.boolean(),
   },
 );
 
 final schemaUser = Schema(
   xml: Xml(name: 'user'),
   properties: {
-    'id': Property.integer(
+    'id': Schema.integer(
       format: IntegerFormat.int64,
       example: 10,
     ),
-    'username': Property.string(
+    'username': Schema.string(
       example: 'theUser',
     ),
-    'firstName': Property.string(
+    'firstName': Schema.string(
       example: 'John',
     ),
-    'lastName': Property.string(
+    'lastName': Schema.string(
       example: 'James',
     ),
-    'email': Property.string(
+    'email': Schema.string(
       example: 'john@email.com',
     ),
-    'password': Property.string(
+    'password': Schema.string(
       example: '12345',
     ),
-    'phone': Property.string(
+    'phone': Schema.string(
       example: '12345',
     ),
-    'userStatus': Property.integer(
+    'userStatus': Schema.integer(
       description: 'User Status',
       format: IntegerFormat.int32,
       example: 1,
@@ -151,14 +151,14 @@ final schemaUser = Schema(
 final schemaCustomer = Schema(
   xml: Xml(name: 'customer'),
   properties: {
-    'id': Property.integer(
+    'id': Schema.integer(
       format: IntegerFormat.int64,
       example: 100000,
     ),
-    'username': Property.string(
+    'username': Schema.string(
       example: 'fehguy',
     ),
-    'address': Property.array(
+    'address': Schema.array(
       items: ArrayItems.reference(ref: 'Address'),
       xml: Xml(
         name: 'addresses',
@@ -171,16 +171,16 @@ final schemaCustomer = Schema(
 final schemaAddress = Schema(
   xml: Xml(name: 'address'),
   properties: {
-    'street': Property.string(
+    'street': Schema.string(
       example: '437 Lytton',
     ),
-    'city': Property.string(
+    'city': Schema.string(
       example: 'Palo Alto',
     ),
-    'state': Property.string(
+    'state': Schema.string(
       example: 'CA',
     ),
-    'zip': Property.string(
+    'zip': Schema.string(
       example: '94301',
     ),
   },
@@ -189,11 +189,11 @@ final schemaAddress = Schema(
 final schemaApiResponse = Schema(
   xml: Xml(name: '##default'),
   properties: {
-    'code': Property.integer(
+    'code': Schema.integer(
       format: IntegerFormat.int32,
     ),
-    'type': Property.string(),
-    'message': Property.string(),
+    'type': Schema.string(),
+    'message': Schema.string(),
   },
 );
 

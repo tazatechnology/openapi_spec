@@ -115,10 +115,13 @@ class SchemaGenerator extends BaseGenerator {
 
   void _writeProperty({
     required String name,
-    required Property property,
+    required Schema property,
     required bool required,
   }) {
     property.map(
+      (p) {
+        // Default
+      },
       boolean: (p) {
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required;

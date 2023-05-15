@@ -8,23 +8,21 @@ import '../utils/assert.dart';
 import 'petstore_3p1.dart' show spec;
 
 void main() {
-  final tmp = Directory('test/tmp');
+  final tmp = Directory('test/tmp/petstore_3p1');
 
   final truthJson = p.join('test', 'petstore_3p1', 'petstore_3p1.json');
-  final testJson = p.join(tmp.path, 'petstore_3p1.json');
-  final testDartJson = p.join(tmp.path, 'petstore_3p1_dart.json');
+  final testJson = p.join(tmp.path, 'openapi.json');
+  final testDartJson = p.join(tmp.path, 'openapi_dart.json');
 
-  final genModelsDir = p.join(tmp.path, 'petstore_3p1_gen_models');
-
-  setUp(() {
-    tmp.createSync();
-  });
-
-  // tearDown(() {
-  //   Directory('tmp').deleteSync(recursive: true);
-  // });
+  final genModelsDir = p.join(tmp.path, 'gen_models');
 
   group('Petstore 3.1', () {
+    setUp(() {
+      if (!tmp.existsSync()) {
+        tmp.createSync(recursive: true);
+      }
+    });
+
     /// Test Dart [OpenApi] object to JSON conversion
     test('Dart -> JSON', () {
       // Write the Dart representation to a JSON OpenAPI spec file
@@ -64,18 +62,18 @@ void main() {
       );
     });
 
-    // /// Test code generation of OpenAPI spec defined client
-    // test('Generate Client Code', () {
-    //   spec.generate(
-    //     destination: 'tmp/petstore_3p1_gen_client',
-    //   );
-    // });
+    /// Test code generation of OpenAPI spec defined client
+    test('Generate Client Code', () {
+      spec.generate(
+        destination: 'tmp/petstore_3p1_gen_client',
+      );
+    });
 
-    // /// Test code generation of OpenAPI spec defined server
-    // test('Generate Server code', () {
-    //   spec.generate(
-    //     destination: 'tmp/petstore_3p1_gen_server',
-    //   );
-    // });
+    /// Test code generation of OpenAPI spec defined server
+    test('Generate Server code', () {
+      spec.generate(
+        destination: 'tmp/petstore_3p1_gen_server',
+      );
+    });
   });
 }

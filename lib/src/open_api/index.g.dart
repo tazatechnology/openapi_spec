@@ -857,227 +857,6 @@ Map<String, dynamic> _$$_PathItemReferenceToJson(
       'unionType': instance.$type,
     };
 
-_$_PropertyBoolean _$$_PropertyBooleanFromJson(Map<String, dynamic> json) =>
-    _$_PropertyBoolean(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      defaultValue: json['default'] as bool?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyBooleanToJson(_$_PropertyBoolean instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  val['type'] = instance.$type;
-  return val;
-}
-
-_$_PropertyString _$$_PropertyStringFromJson(Map<String, dynamic> json) =>
-    _$_PropertyString(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      defaultValue: json['default'] as String?,
-      format: $enumDecodeNullable(_$StringFormatEnumMap, json['format']),
-      example: json['example'] as String?,
-      minLength: json['minLength'] as int?,
-      maxLength: json['maxLength'] as int?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyStringToJson(_$_PropertyString instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('format', _$StringFormatEnumMap[instance.format]);
-  writeNotNull('example', instance.example);
-  writeNotNull('minLength', instance.minLength);
-  writeNotNull('maxLength', instance.maxLength);
-  val['type'] = instance.$type;
-  return val;
-}
-
-_$_PropertyInteger _$$_PropertyIntegerFromJson(Map<String, dynamic> json) =>
-    _$_PropertyInteger(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      defaultValue: json['default'] as int?,
-      format: $enumDecodeNullable(_$IntegerFormatEnumMap, json['format']),
-      example: json['example'] as int?,
-      minimum: json['minimum'] as int?,
-      exclusiveMinimum: json['exclusiveMinimum'] as int?,
-      maximum: json['maximum'] as int?,
-      exclusiveMaximum: json['exclusiveMaximum'] as int?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyIntegerToJson(_$_PropertyInteger instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('format', _$IntegerFormatEnumMap[instance.format]);
-  writeNotNull('example', instance.example);
-  writeNotNull('minimum', instance.minimum);
-  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
-  writeNotNull('maximum', instance.maximum);
-  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  val['type'] = instance.$type;
-  return val;
-}
-
-_$_PropertyNumber _$$_PropertyNumberFromJson(Map<String, dynamic> json) =>
-    _$_PropertyNumber(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      defaultValue: (json['default'] as num?)?.toDouble(),
-      format: $enumDecodeNullable(_$NumberFormatEnumMap, json['format']),
-      example: (json['example'] as num?)?.toDouble(),
-      minimum: (json['minimum'] as num?)?.toDouble(),
-      exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
-      maximum: (json['maximum'] as num?)?.toDouble(),
-      exclusiveMaximum: (json['exclusiveMaximum'] as num?)?.toDouble(),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyNumberToJson(_$_PropertyNumber instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('format', _$NumberFormatEnumMap[instance.format]);
-  writeNotNull('example', instance.example);
-  writeNotNull('minimum', instance.minimum);
-  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
-  writeNotNull('maximum', instance.maximum);
-  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  val['type'] = instance.$type;
-  return val;
-}
-
-_$_PropertyArray _$$_PropertyArrayFromJson(Map<String, dynamic> json) =>
-    _$_PropertyArray(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      items: ArrayItems.fromJson(json['items'] as Map<String, dynamic>),
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      defaultValue: json['default'] as List<dynamic>?,
-      example: json['example'] as List<dynamic>?,
-      minLength: json['minLength'] as int?,
-      maxLength: json['maxLength'] as int?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyArrayToJson(_$_PropertyArray instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  val['items'] = instance.items.toJson();
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('example', instance.example);
-  writeNotNull('minLength', instance.minLength);
-  writeNotNull('maxLength', instance.maxLength);
-  val['type'] = instance.$type;
-  return val;
-}
-
-_$_PropertyEnum _$$_PropertyEnumFromJson(Map<String, dynamic> json) =>
-    _$_PropertyEnum(
-      description: json['description'] as String?,
-      example: json['example'] as String?,
-      values: (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
-      title: json['title'] as String?,
-      defaultValue: json['default'] as String?,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyEnumToJson(_$_PropertyEnum instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('example', instance.example);
-  val['enum'] = instance.values;
-  writeNotNull('title', instance.title);
-  writeNotNull('default', instance.defaultValue);
-  val['type'] = instance.$type;
-  return val;
-}
-
-_$_PropertyReference _$$_PropertyReferenceFromJson(Map<String, dynamic> json) =>
-    _$_PropertyReference(
-      ref: json['ref'] as String,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_PropertyReferenceToJson(
-        _$_PropertyReference instance) =>
-    <String, dynamic>{
-      'ref': instance.ref,
-      'type': instance.$type,
-    };
-
 _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
     _$_RequestBody(
       description: json['description'] as String?,
@@ -1179,7 +958,7 @@ _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
           ? null
           : ExternalDocs.fromJson(json['externalDocs'] as Map<String, dynamic>),
       properties: (json['properties'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, Property.fromJson(e as Map<String, dynamic>)),
+        (k, e) => MapEntry(k, Schema.fromJson(e as Map<String, dynamic>)),
       ),
       additionalProperties: json['additionalProperties'] == null
           ? null
@@ -1224,8 +1003,39 @@ Map<String, dynamic> _$$_SchemaReferenceToJson(_$_SchemaReference instance) =>
       'type': instance.$type,
     };
 
+_$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
+    _$_SchemaBoolean(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      defaultValue: json['default'] as bool?,
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$_SchemaBooleanToJson(_$_SchemaBoolean instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('xml', instance.xml?.toJson());
+  writeNotNull('title', instance.title);
+  writeNotNull('description', instance.description);
+  writeNotNull('default', instance.defaultValue);
+  val['type'] = instance.$type;
+  return val;
+}
+
 _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
     _$_SchemaString(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as String?,
@@ -1233,9 +1043,6 @@ _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
       example: json['example'] as String?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
@@ -1248,6 +1055,7 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
     }
   }
 
+  writeNotNull('xml', instance.xml?.toJson());
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
@@ -1255,13 +1063,15 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
-  writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;
   return val;
 }
 
 _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
     _$_SchemaInteger(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as int?,
@@ -1271,9 +1081,6 @@ _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
       exclusiveMinimum: json['exclusiveMinimum'] as int?,
       maximum: json['maximum'] as int?,
       exclusiveMaximum: json['exclusiveMaximum'] as int?,
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
@@ -1286,6 +1093,7 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
     }
   }
 
+  writeNotNull('xml', instance.xml?.toJson());
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
@@ -1295,13 +1103,15 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;
   return val;
 }
 
 _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
     _$_SchemaNumber(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: (json['default'] as num?)?.toDouble(),
@@ -1311,9 +1121,6 @@ _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
       exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
       maximum: (json['maximum'] as num?)?.toDouble(),
       exclusiveMaximum: (json['exclusiveMaximum'] as num?)?.toDouble(),
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
@@ -1326,6 +1133,7 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
     }
   }
 
+  writeNotNull('xml', instance.xml?.toJson());
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
@@ -1335,17 +1143,17 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;
   return val;
 }
 
 _$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
     _$_SchemaEnum(
-      defaultValue: json['default'] as String?,
-      values: (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
       title: json['title'] as String?,
       description: json['description'] as String?,
+      example: json['example'] as String?,
+      defaultValue: json['default'] as String?,
+      values: (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
       $type: json['type'] as String?,
     );
 
@@ -1358,16 +1166,20 @@ Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
     }
   }
 
-  writeNotNull('default', instance.defaultValue);
-  val['enum'] = instance.values;
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
+  writeNotNull('example', instance.example);
+  writeNotNull('default', instance.defaultValue);
+  val['enum'] = instance.values;
   val['type'] = instance.$type;
   return val;
 }
 
 _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
     _$_SchemaArray(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       items: ArrayItems.fromJson(json['items'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
@@ -1375,16 +1187,11 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
       example: json['example'] as List<dynamic>?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
-  final val = <String, dynamic>{
-    'items': instance.items.toJson(),
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1392,13 +1199,14 @@ Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
     }
   }
 
+  writeNotNull('xml', instance.xml?.toJson());
+  val['items'] = instance.items.toJson();
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
-  writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;
   return val;
 }

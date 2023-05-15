@@ -27,7 +27,7 @@ class Schema with _$Schema {
     ExternalDocs? externalDocs,
 
     /// The properties of the schema
-    Map<String, Property>? properties,
+    Map<String, Schema>? properties,
 
     ///
     Schema? additionalProperties,
@@ -46,10 +46,22 @@ class Schema with _$Schema {
   }) = _SchemaReference;
 
   // ------------------------------------------
+  // FACTORY: Schema.boolean
+  // ------------------------------------------
+
+  const factory Schema.boolean({
+    Xml? xml,
+    String? title,
+    String? description,
+    @JsonKey(name: 'default') bool? defaultValue,
+  }) = _SchemaBoolean;
+
+  // ------------------------------------------
   // FACTORY: Schema.string
   // ------------------------------------------
 
   const factory Schema.string({
+    Xml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
@@ -57,7 +69,6 @@ class Schema with _$Schema {
     String? example,
     int? minLength,
     int? maxLength,
-    Xml? xml,
   }) = _SchemaString;
 
   // ------------------------------------------
@@ -66,6 +77,7 @@ class Schema with _$Schema {
 
   /// An integer schema property
   const factory Schema.integer({
+    Xml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') int? defaultValue,
@@ -75,7 +87,6 @@ class Schema with _$Schema {
     int? exclusiveMinimum,
     int? maximum,
     int? exclusiveMaximum,
-    Xml? xml,
   }) = _SchemaInteger;
 
   // ------------------------------------------
@@ -84,6 +95,7 @@ class Schema with _$Schema {
 
   /// A number schema property
   const factory Schema.number({
+    Xml? xml,
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
@@ -93,7 +105,6 @@ class Schema with _$Schema {
     double? exclusiveMinimum,
     double? maximum,
     double? exclusiveMaximum,
-    Xml? xml,
   }) = _SchemaNumber;
 
   // ------------------------------------------
@@ -101,10 +112,11 @@ class Schema with _$Schema {
   // ------------------------------------------
 
   const factory Schema.enumeration({
-    @JsonKey(name: 'default') String? defaultValue,
-    @JsonKey(name: 'enum') required List<String> values,
     String? title,
     String? description,
+    String? example,
+    @JsonKey(name: 'default') String? defaultValue,
+    @JsonKey(name: 'enum') required List<String> values,
   }) = _SchemaEnum;
 
   // ------------------------------------------
@@ -113,6 +125,7 @@ class Schema with _$Schema {
 
   /// A generic [Schema] schema of array type
   const factory Schema.array({
+    Xml? xml,
     required ArrayItems items,
     String? title,
     String? description,
@@ -120,7 +133,6 @@ class Schema with _$Schema {
     List? example,
     int? minLength,
     int? maxLength,
-    Xml? xml,
   }) = _SchemaArray;
 
   /// Convert from JSON representation

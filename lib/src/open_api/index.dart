@@ -30,7 +30,6 @@ part 'media_type.dart';
 part 'operation.dart';
 part 'parameter.dart';
 part 'path_item.dart';
-part 'property.dart';
 part 'request_body.dart';
 part 'response.dart';
 part 'schema.dart';
