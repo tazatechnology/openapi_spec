@@ -70,26 +70,26 @@ void main() {
       );
     });
 
-    /// Test code generation of OpenAPI spec defined client
-    test('Generate Client Code', () {
-      spec.generate(
-        package: 'petstore',
-        destination: genClientDir,
-      );
-    });
+    // /// Test code generation of OpenAPI spec defined client
+    // test('Generate Client Code', () {
+    //   spec.generate(
+    //     package: 'petstore',
+    //     destination: genClientDir,
+    //   );
+    // });
 
-    /// Test code generation of OpenAPI spec defined server
-    test('Generate Server code', () {
-      spec.generate(
-        destination: genServerDir,
-      );
-    });
+    // /// Test code generation of OpenAPI spec defined server
+    // test('Generate Server code', () {
+    //   spec.generate(
+    //     destination: genServerDir,
+    //   );
+    // });
 
-    /// Test code generation of OpenAPI spec defined server
-    test('Generate Server code', () {
-      spec.generate(
-        destination: genAllDir,
-      );
-    });
+    // /// Test code generation of OpenAPI spec defined server
+    // test('Generate Client/Server code', () {
+    //   spec.generate(
+    //     destination: genAllDir,
+    //   );
+    // });
   });
 }

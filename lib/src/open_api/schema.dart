@@ -15,6 +15,9 @@ class Schema with _$Schema {
     /// A description of this schema
     String? description,
 
+    /// Reference to a schema definition
+    String? ref,
+
     /// The required properties of the schema
     List<String>? required,
 
@@ -35,15 +38,6 @@ class Schema with _$Schema {
     /// Adds additional metadata to describe the XML representation of this property.
     Xml? xml,
   }) = _Schema;
-
-  // ------------------------------------------
-  // FACTORY: Schema.reference
-  // ------------------------------------------
-
-  /// Reference to another [Schema]
-  const factory Schema.reference({
-    required String ref,
-  }) = _SchemaReference;
 
   // ------------------------------------------
   // FACTORY: Schema.boolean

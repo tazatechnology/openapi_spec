@@ -947,6 +947,7 @@ Map<String, dynamic> _$$_ResponseReferenceToJson(
 
 _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
       description: json['description'] as String?,
+      ref: json['ref'] as String?,
       required: (json['required'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -980,6 +981,7 @@ Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
   }
 
   writeNotNull('description', instance.description);
+  writeNotNull('ref', instance.ref);
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
   writeNotNull('externalDocs', instance.externalDocs?.toJson());
@@ -990,18 +992,6 @@ Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
   val['type'] = instance.$type;
   return val;
 }
-
-_$_SchemaReference _$$_SchemaReferenceFromJson(Map<String, dynamic> json) =>
-    _$_SchemaReference(
-      ref: json['ref'] as String,
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_SchemaReferenceToJson(_$_SchemaReference instance) =>
-    <String, dynamic>{
-      'ref': instance.ref,
-      'type': instance.$type,
-    };
 
 _$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
     _$_SchemaBoolean(

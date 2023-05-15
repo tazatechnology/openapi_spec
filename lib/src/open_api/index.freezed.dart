@@ -8912,8 +8912,6 @@ abstract class _ResponseReference implements Response {
 
 Schema _$SchemaFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
-    case 'reference':
-      return _SchemaReference.fromJson(json);
     case 'boolean':
       return _SchemaBoolean.fromJson(json);
     case 'string':
@@ -8934,10 +8932,13 @@ Schema _$SchemaFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Schema {
+  /// A description of this schema
+  String? get description => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8945,7 +8946,6 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -8997,6 +8997,7 @@ mixin _$Schema {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9004,7 +9005,6 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -9059,6 +9059,7 @@ mixin _$Schema {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9066,7 +9067,6 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -9121,7 +9121,6 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -9133,7 +9132,6 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -9145,7 +9143,6 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -9156,12 +9153,16 @@ mixin _$Schema {
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SchemaCopyWith<Schema> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SchemaCopyWith<$Res> {
   factory $SchemaCopyWith(Schema value, $Res Function(Schema) then) =
       _$SchemaCopyWithImpl<$Res, Schema>;
+  @useResult
+  $Res call({String? description});
 }
 
 /// @nodoc
@@ -9173,15 +9174,30 @@ class _$SchemaCopyWithImpl<$Res, $Val extends Schema>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_SchemaCopyWith<$Res> {
+abstract class _$$_SchemaCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaCopyWith(_$_Schema value, $Res Function(_$_Schema) then) =
       __$$_SchemaCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {String? description,
+      String? ref,
       List<String>? required,
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
@@ -9206,6 +9222,7 @@ class __$$_SchemaCopyWithImpl<$Res>
   @override
   $Res call({
     Object? description = freezed,
+    Object? ref = freezed,
     Object? required = freezed,
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
@@ -9217,6 +9234,10 @@ class __$$_SchemaCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
               as String?,
       required: freezed == required
           ? _value._required
@@ -9299,6 +9320,7 @@ class __$$_SchemaCopyWithImpl<$Res>
 class _$_Schema implements _Schema {
   const _$_Schema(
       {this.description,
+      this.ref,
       final List<String>? required,
       this.discriminator,
       this.externalDocs,
@@ -9316,6 +9338,10 @@ class _$_Schema implements _Schema {
   /// A description of this schema
   @override
   final String? description;
+
+  /// Reference to a schema definition
+  @override
+  final String? ref;
 
   /// The required properties of the schema
   final List<String>? _required;
@@ -9366,7 +9392,7 @@ class _$_Schema implements _Schema {
 
   @override
   String toString() {
-    return 'Schema(description: $description, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
+    return 'Schema(description: $description, ref: $ref, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
   }
 
   @override
@@ -9376,6 +9402,7 @@ class _$_Schema implements _Schema {
             other is _$_Schema &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.ref, ref) || other.ref == ref) &&
             const DeepCollectionEquality().equals(other._required, _required) &&
             (identical(other.discriminator, discriminator) ||
                 other.discriminator == discriminator) &&
@@ -9393,6 +9420,7 @@ class _$_Schema implements _Schema {
   int get hashCode => Object.hash(
       runtimeType,
       description,
+      ref,
       const DeepCollectionEquality().hash(_required),
       discriminator,
       externalDocs,
@@ -9411,6 +9439,7 @@ class _$_Schema implements _Schema {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9418,7 +9447,6 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -9465,7 +9493,7 @@ class _$_Schema implements _Schema {
         enumeration,
     required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
-    return $default(description, required, discriminator, externalDocs,
+    return $default(description, ref, required, discriminator, externalDocs,
         properties, additionalProperties, xml);
   }
 
@@ -9474,6 +9502,7 @@ class _$_Schema implements _Schema {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9481,7 +9510,6 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -9531,8 +9559,8 @@ class _$_Schema implements _Schema {
             int? maxLength)?
         array,
   }) {
-    return $default?.call(description, required, discriminator, externalDocs,
-        properties, additionalProperties, xml);
+    return $default?.call(description, ref, required, discriminator,
+        externalDocs, properties, additionalProperties, xml);
   }
 
   @override
@@ -9540,6 +9568,7 @@ class _$_Schema implements _Schema {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9547,7 +9576,6 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -9599,7 +9627,7 @@ class _$_Schema implements _Schema {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(description, required, discriminator, externalDocs,
+      return $default(description, ref, required, discriminator, externalDocs,
           properties, additionalProperties, xml);
     }
     return orElse();
@@ -9609,7 +9637,6 @@ class _$_Schema implements _Schema {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -9624,7 +9651,6 @@ class _$_Schema implements _Schema {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -9639,7 +9665,6 @@ class _$_Schema implements _Schema {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -9665,6 +9690,7 @@ class _$_Schema implements _Schema {
 abstract class _Schema implements Schema {
   const factory _Schema(
       {final String? description,
+      final String? ref,
       final List<String>? required,
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
@@ -9674,8 +9700,13 @@ abstract class _Schema implements Schema {
 
   factory _Schema.fromJson(Map<String, dynamic> json) = _$_Schema.fromJson;
 
+  @override
+
   /// A description of this schema
   String? get description;
+
+  /// Reference to a schema definition
+  String? get ref;
 
   /// The required properties of the schema
   List<String>? get required;
@@ -9696,351 +9727,19 @@ abstract class _Schema implements Schema {
 
   /// Adds additional metadata to describe the XML representation of this property.
   Xml? get xml;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaCopyWith<_$_Schema> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SchemaReferenceCopyWith<$Res> {
-  factory _$$_SchemaReferenceCopyWith(
-          _$_SchemaReference value, $Res Function(_$_SchemaReference) then) =
-      __$$_SchemaReferenceCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String ref});
-}
-
-/// @nodoc
-class __$$_SchemaReferenceCopyWithImpl<$Res>
-    extends _$SchemaCopyWithImpl<$Res, _$_SchemaReference>
-    implements _$$_SchemaReferenceCopyWith<$Res> {
-  __$$_SchemaReferenceCopyWithImpl(
-      _$_SchemaReference _value, $Res Function(_$_SchemaReference) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? ref = null,
-  }) {
-    return _then(_$_SchemaReference(
-      ref: null == ref
-          ? _value.ref
-          : ref // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_SchemaReference implements _SchemaReference {
-  const _$_SchemaReference({required this.ref, final String? $type})
-      : $type = $type ?? 'reference';
-
-  factory _$_SchemaReference.fromJson(Map<String, dynamic> json) =>
-      _$$_SchemaReferenceFromJson(json);
-
-  @override
-  final String ref;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Schema.reference(ref: $ref)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_SchemaReference &&
-            (identical(other.ref, ref) || other.ref == ref));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, ref);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_SchemaReferenceCopyWith<_$_SchemaReference> get copyWith =>
-      __$$_SchemaReferenceCopyWithImpl<_$_SchemaReference>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String? description,
-            List<String>? required,
-            Discriminator? discriminator,
-            ExternalDocs? externalDocs,
-            Map<String, Schema>? properties,
-            Schema? additionalProperties,
-            Xml? xml)
-        $default, {
-    required TResult Function(String ref) reference,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
-        boolean,
-    required TResult Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') String? defaultValue,
-            StringFormat? format,
-            String? example,
-            int? minLength,
-            int? maxLength)
-        string,
-    required TResult Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') int? defaultValue,
-            IntegerFormat? format,
-            int? example,
-            int? minimum,
-            int? exclusiveMinimum,
-            int? maximum,
-            int? exclusiveMaximum)
-        integer,
-    required TResult Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') double? defaultValue,
-            NumberFormat? format,
-            double? example,
-            double? minimum,
-            double? exclusiveMinimum,
-            double? maximum,
-            double? exclusiveMaximum)
-        number,
-    required TResult Function(
-            String? title,
-            String? description,
-            String? example,
-            @JsonKey(name: 'default') String? defaultValue,
-            @JsonKey(name: 'enum') List<String> values)
-        enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
-  }) {
-    return reference(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? description,
-            List<String>? required,
-            Discriminator? discriminator,
-            ExternalDocs? externalDocs,
-            Map<String, Schema>? properties,
-            Schema? additionalProperties,
-            Xml? xml)?
-        $default, {
-    TResult? Function(String ref)? reference,
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
-        boolean,
-    TResult? Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') String? defaultValue,
-            StringFormat? format,
-            String? example,
-            int? minLength,
-            int? maxLength)?
-        string,
-    TResult? Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') int? defaultValue,
-            IntegerFormat? format,
-            int? example,
-            int? minimum,
-            int? exclusiveMinimum,
-            int? maximum,
-            int? exclusiveMaximum)?
-        integer,
-    TResult? Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') double? defaultValue,
-            NumberFormat? format,
-            double? example,
-            double? minimum,
-            double? exclusiveMinimum,
-            double? maximum,
-            double? exclusiveMaximum)?
-        number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
-    TResult? Function(
-            Xml? xml,
-            ArrayItems items,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
-  }) {
-    return reference?.call(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? description,
-            List<String>? required,
-            Discriminator? discriminator,
-            ExternalDocs? externalDocs,
-            Map<String, Schema>? properties,
-            Schema? additionalProperties,
-            Xml? xml)?
-        $default, {
-    TResult Function(String ref)? reference,
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
-        boolean,
-    TResult Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') String? defaultValue,
-            StringFormat? format,
-            String? example,
-            int? minLength,
-            int? maxLength)?
-        string,
-    TResult Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') int? defaultValue,
-            IntegerFormat? format,
-            int? example,
-            int? minimum,
-            int? exclusiveMinimum,
-            int? maximum,
-            int? exclusiveMaximum)?
-        integer,
-    TResult Function(
-            Xml? xml,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') double? defaultValue,
-            NumberFormat? format,
-            double? example,
-            double? minimum,
-            double? exclusiveMinimum,
-            double? maximum,
-            double? exclusiveMaximum)?
-        number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
-    TResult Function(
-            Xml? xml,
-            ArrayItems items,
-            String? title,
-            String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(ref);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-  }) {
-    return reference(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-  }) {
-    return reference?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SchemaReferenceToJson(
-      this,
-    );
-  }
-}
-
-abstract class _SchemaReference implements Schema {
-  const factory _SchemaReference({required final String ref}) =
-      _$_SchemaReference;
-
-  factory _SchemaReference.fromJson(Map<String, dynamic> json) =
-      _$_SchemaReference.fromJson;
-
-  String get ref;
-  @JsonKey(ignore: true)
-  _$$_SchemaReferenceCopyWith<_$_SchemaReference> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_SchemaBooleanCopyWith<$Res> {
+abstract class _$$_SchemaBooleanCopyWith<$Res>
+    implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaBooleanCopyWith(
           _$_SchemaBoolean value, $Res Function(_$_SchemaBoolean) then) =
       __$$_SchemaBooleanCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {Xml? xml,
@@ -10161,6 +9860,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10168,7 +9868,6 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -10223,6 +9922,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10230,7 +9930,6 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -10288,6 +9987,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10295,7 +9995,6 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -10356,7 +10055,6 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -10371,7 +10069,6 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -10386,7 +10083,6 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -10421,19 +10117,22 @@ abstract class _SchemaBoolean implements Schema {
 
   Xml? get xml;
   String? get title;
+  @override
   String? get description;
   @JsonKey(name: 'default')
   bool? get defaultValue;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaBooleanCopyWith<_$_SchemaBoolean> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SchemaStringCopyWith<$Res> {
+abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaStringCopyWith(
           _$_SchemaString value, $Res Function(_$_SchemaString) then) =
       __$$_SchemaStringCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {Xml? xml,
@@ -10596,6 +10295,7 @@ class _$_SchemaString implements _SchemaString {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10603,7 +10303,6 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -10659,6 +10358,7 @@ class _$_SchemaString implements _SchemaString {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10666,7 +10366,6 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -10725,6 +10424,7 @@ class _$_SchemaString implements _SchemaString {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10732,7 +10432,6 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -10794,7 +10493,6 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -10809,7 +10507,6 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -10824,7 +10521,6 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -10863,6 +10559,7 @@ abstract class _SchemaString implements Schema {
 
   Xml? get xml;
   String? get title;
+  @override
   String? get description;
   @JsonKey(name: 'default')
   String? get defaultValue;
@@ -10870,16 +10567,19 @@ abstract class _SchemaString implements Schema {
   String? get example;
   int? get minLength;
   int? get maxLength;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaStringCopyWith<_$_SchemaString> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SchemaIntegerCopyWith<$Res> {
+abstract class _$$_SchemaIntegerCopyWith<$Res>
+    implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaIntegerCopyWith(
           _$_SchemaInteger value, $Res Function(_$_SchemaInteger) then) =
       __$$_SchemaIntegerCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {Xml? xml,
@@ -11072,6 +10772,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11079,7 +10780,6 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -11135,6 +10835,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11142,7 +10843,6 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -11201,6 +10901,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11208,7 +10909,6 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -11270,7 +10970,6 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -11285,7 +10984,6 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -11300,7 +10998,6 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -11341,6 +11038,7 @@ abstract class _SchemaInteger implements Schema {
 
   Xml? get xml;
   String? get title;
+  @override
   String? get description;
   @JsonKey(name: 'default')
   int? get defaultValue;
@@ -11350,16 +11048,18 @@ abstract class _SchemaInteger implements Schema {
   int? get exclusiveMinimum;
   int? get maximum;
   int? get exclusiveMaximum;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaIntegerCopyWith<_$_SchemaInteger> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SchemaNumberCopyWith<$Res> {
+abstract class _$$_SchemaNumberCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaNumberCopyWith(
           _$_SchemaNumber value, $Res Function(_$_SchemaNumber) then) =
       __$$_SchemaNumberCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {Xml? xml,
@@ -11552,6 +11252,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11559,7 +11260,6 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -11615,6 +11315,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11622,7 +11323,6 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -11681,6 +11381,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11688,7 +11389,6 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -11750,7 +11450,6 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -11765,7 +11464,6 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -11780,7 +11478,6 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -11821,6 +11518,7 @@ abstract class _SchemaNumber implements Schema {
 
   Xml? get xml;
   String? get title;
+  @override
   String? get description;
   @JsonKey(name: 'default')
   double? get defaultValue;
@@ -11830,16 +11528,18 @@ abstract class _SchemaNumber implements Schema {
   double? get exclusiveMinimum;
   double? get maximum;
   double? get exclusiveMaximum;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaNumberCopyWith<_$_SchemaNumber> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SchemaEnumCopyWith<$Res> {
+abstract class _$$_SchemaEnumCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaEnumCopyWith(
           _$_SchemaEnum value, $Res Function(_$_SchemaEnum) then) =
       __$$_SchemaEnumCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {String? title,
@@ -11963,6 +11663,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11970,7 +11671,6 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -12025,6 +11725,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12032,7 +11733,6 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -12090,6 +11790,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12097,7 +11798,6 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -12158,7 +11858,6 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -12173,7 +11872,6 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -12188,7 +11886,6 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -12224,22 +11921,25 @@ abstract class _SchemaEnum implements Schema {
       _$_SchemaEnum.fromJson;
 
   String? get title;
+  @override
   String? get description;
   String? get example;
   @JsonKey(name: 'default')
   String? get defaultValue;
   @JsonKey(name: 'enum')
   List<String> get values;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaEnumCopyWith<_$_SchemaEnum> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SchemaArrayCopyWith<$Res> {
+abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   factory _$$_SchemaArrayCopyWith(
           _$_SchemaArray value, $Res Function(_$_SchemaArray) then) =
       __$$_SchemaArrayCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {Xml? xml,
@@ -12437,6 +12137,7 @@ class _$_SchemaArray implements _SchemaArray {
   TResult when<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12444,7 +12145,6 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(String ref) reference,
     required TResult Function(Xml? xml, String? title, String? description,
             @JsonKey(name: 'default') bool? defaultValue)
         boolean,
@@ -12500,6 +12200,7 @@ class _$_SchemaArray implements _SchemaArray {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12507,7 +12208,6 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(String ref)? reference,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
@@ -12566,6 +12266,7 @@ class _$_SchemaArray implements _SchemaArray {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String? description,
+            String? ref,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12573,7 +12274,6 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(String ref)? reference,
     TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
@@ -12635,7 +12335,6 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_Schema value) $default, {
-    required TResult Function(_SchemaReference value) reference,
     required TResult Function(_SchemaBoolean value) boolean,
     required TResult Function(_SchemaString value) string,
     required TResult Function(_SchemaInteger value) integer,
@@ -12650,7 +12349,6 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Schema value)? $default, {
-    TResult? Function(_SchemaReference value)? reference,
     TResult? Function(_SchemaBoolean value)? boolean,
     TResult? Function(_SchemaString value)? string,
     TResult? Function(_SchemaInteger value)? integer,
@@ -12665,7 +12363,6 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Schema value)? $default, {
-    TResult Function(_SchemaReference value)? reference,
     TResult Function(_SchemaBoolean value)? boolean,
     TResult Function(_SchemaString value)? string,
     TResult Function(_SchemaInteger value)? integer,
@@ -12705,12 +12402,14 @@ abstract class _SchemaArray implements Schema {
   Xml? get xml;
   ArrayItems get items;
   String? get title;
+  @override
   String? get description;
   @JsonKey(name: 'default')
   List<dynamic>? get defaultValue;
   List<dynamic>? get example;
   int? get minLength;
   int? get maxLength;
+  @override
   @JsonKey(ignore: true)
   _$$_SchemaArrayCopyWith<_$_SchemaArray> get copyWith =>
       throw _privateConstructorUsedError;

@@ -10,13 +10,11 @@ abstract class BaseGenerator {
     required String destination,
     required this.package,
   }) {
-    directory = Directory(destination);
-    index = File(p.join(directory.path, 'index.dart'));
+    parentDirectory = Directory(destination);
   }
 
   final OpenApi spec;
-  late final Directory directory;
-  late final File index;
+  late final Directory parentDirectory;
   final String package;
 
   /// Method to generate file(s)

@@ -11,12 +11,13 @@ class SchemaGenerator extends BaseGenerator {
     required super.package,
     required this.separate,
   }) {
-    file = File(p.join(directory.path, 'schema.dart'));
-    schemaDirectory = Directory(p.join(directory.path, 'schema'));
+    schemaDirectory = Directory(p.join(parentDirectory.path, 'schema'));
+    file = File(p.join(schemaDirectory.path, '_schema.dart'));
+    index = File(p.join(schemaDirectory.path, 'index.dart'));
   }
   late File file;
+  late final File index;
   late final Directory schemaDirectory;
-
   final bool separate;
 
   // ------------------------------------------
@@ -30,23 +31,46 @@ class SchemaGenerator extends BaseGenerator {
       return;
     }
 
-    if (separate) {
-      if (!schemaDirectory.existsSync()) {
-        schemaDirectory.createSync();
-      }
-    } else {
+    String schemaPackage = '${package}_schema';
+
+    if (!schemaDirectory.existsSync()) {
+      schemaDirectory.createSync();
+    }
+
+    index.writeAsStringSync("""
+      // GENERATED CODE - DO NOT MODIFY BY HAND
+
+      library $schemaPackage;
+
+      import 'package:freezed_annotation/freezed_annotation.dart';
+
+      part 'index.g.dart';
+      part 'index.freezed.dart';\n
+      """);
+
+    if (!separate) {
       file.writeAsStringSync(getHeader());
-      file.writeAsStringSync('part of $package;\n\n', mode: FileMode.append);
+      file.writeAsStringSync(
+        'part of $schemaPackage;\n\n',
+        mode: FileMode.append,
+      );
+      index.writeAsStringSync(
+        "part '_schema.dart';\n",
+        mode: FileMode.append,
+      );
     }
 
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
       if (separate) {
-        file = File(p.join(schemaDirectory.path, '${s.snakeCase}.dart'));
+        file = File(p.join(schemaDirectory.path, '_${s.snakeCase}.dart'));
         file.writeAsStringSync(getHeader());
-        file.writeAsStringSync('part of $package;\n\n', mode: FileMode.append);
+        file.writeAsStringSync(
+          'part of $schemaPackage;\n\n',
+          mode: FileMode.append,
+        );
         index.writeAsStringSync(
-          "part 'schema/${s.snakeCase}.dart';\n",
+          "part '_${s.snakeCase}.dart';\n",
           mode: FileMode.append,
         );
       }
@@ -215,9 +239,6 @@ class SchemaGenerator extends BaseGenerator {
         }
         c += "String ${nullable ? '?' : ''} $name,\n";
         file.writeAsStringSync(c, mode: FileMode.append);
-      },
-      reference: (_) {
-        /// TODO - add reference to other schema
       },
     );
     return validations;

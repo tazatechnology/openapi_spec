@@ -3,6 +3,7 @@ library openapi_models;
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
+import 'package:recase/recase.dart';
 import 'package:yaml/yaml.dart' as yaml;
 import 'package:path/path.dart' as p;
 import 'package:freezed_annotation/freezed_annotation.dart';

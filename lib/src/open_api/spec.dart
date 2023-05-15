@@ -258,8 +258,8 @@ class OpenApi with _$OpenApi {
   void generate({
     String package = 'my_api',
     required String destination,
-    bool client = true,
-    bool server = true,
+    bool client = false,
+    bool server = false,
     bool replace = false,
     bool singleSchemaFile = false,
   }) {
@@ -274,31 +274,10 @@ class OpenApi with _$OpenApi {
       d.createSync(recursive: true);
     }
 
-    // Sanitize the package name
-    package = package
-        .replaceAll('.', '_')
-        .replaceAll('-', '_')
-        .replaceAll(' ', '_')
-        .replaceAll('__', '_');
-
-    // Add the index file
-    final index = File(p.join(d.path, 'index.dart'));
-    index.writeAsStringSync("""
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-library $package;
-
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'index.g.dart';
-part 'index.freezed.dart';
-${singleSchemaFile ? "part 'schema.dart';" : ''} 
-""");
-
     // Generate the schemas
     SchemaGenerator(
       spec: this,
-      package: package,
+      package: package.snakeCase,
       destination: destination,
       separate: !singleSchemaFile,
     ).generate();
@@ -329,9 +308,7 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
       }
     }
     // Update type definitions
-    if (e.key == 'type' && e.value == 'reference') {
-      m.remove(e.key);
-    } else if (e.key == 'type' && e.value == 'enumeration') {
+    if (e.key == 'type' && e.value == 'enumeration') {
       m['type'] = 'string';
     } else if (e.key == 'type' && e.value == 'default') {
       m['type'] = 'object';
@@ -340,6 +317,13 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
     if (e.value == null) {
       m.remove(e.key);
     }
+  }
+
+  // Only a reference, no need for object annotation
+  if (m.containsKey('\$ref') &&
+      m.containsKey('type') &&
+      (m['type'] == 'object' || m['type'] == 'reference')) {
+    m.remove('type');
   }
 
   // Always place the type property of schema object
