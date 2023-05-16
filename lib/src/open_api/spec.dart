@@ -155,17 +155,6 @@ class OpenApi with _$OpenApi {
   }
 
   // ------------------------------------------
-  // METHOD: toYamlFile
-  // ------------------------------------------
-
-  /// Convert the [OpenApi] object to a YAML spec file
-  /// Will overwrite the existing file if it exists
-  void toYamlFile({required String destination}) {
-    final yamlWriter = YAMLWriter(allowUnquotedStrings: true);
-    return File(destination).writeAsStringSync(yamlWriter.convert(toJson()));
-  }
-
-  // ------------------------------------------
   // METHOD: toSwaggerUI
   // ------------------------------------------
 

@@ -16,7 +16,7 @@ void main() {
     var fileName = p.basename(e.path).split('.').first.snakeCase;
     final tmp = Directory('test/tmp/$fileName');
     final fileExt = p.extension(e.path);
-    fileName = '${fileName}_dart';
+    fileName = "${fileName}_${fileExt.replaceAll('.', '')}";
     bool isJson = fileExt.toLowerCase().contains('json');
 
     group('OAS Example: $fileName', () {
@@ -28,23 +28,23 @@ void main() {
 
       /// Ensure ability to parse JSON to Dart
       test('${isJson ? 'JSON' : 'YAML'} -> Dart', () {
-        // Read the spec file
-        final spec = OpenApi.fromFile(
-          source: e.absolute.path,
-        );
-
-        // Write the Dart representation (from JSON) back to JSON
-        final destination = p.join(tmp.path, '$fileName$fileExt');
-        if (isJson) {
-          spec.toJsonFile(destination: destination);
-          // Load both files and compare line by line
-          assertFileLineByLine(
-            truthFile: e.absolute.path,
-            actualFile: destination,
-          );
-        } else {
-          // spec.toYamlFile(destination: destination);
+        final source = e.absolute.path;
+        String sourceJson = source;
+        if (!isJson) {
+          sourceJson = source.replaceAll('.yaml', '.json');
         }
+        // Read the spec file
+        final spec = OpenApi.fromFile(source: source);
+
+        // Write the Dart representation (built from source) back to JSON
+        final destination = p.join(tmp.path, '$fileName.json');
+        spec.toJsonFile(destination: destination);
+
+        // Load both files and compare line by line
+        assertFileLineByLine(
+          truthFile: sourceJson,
+          actualFile: destination,
+        );
       });
     });
   }
