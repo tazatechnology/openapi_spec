@@ -190,6 +190,13 @@ class SchemaGenerator extends BaseGenerator {
         }
         c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
+
+        /// Determine if there are any validations
+        if (p.minLength != null) {
+          validations.add(
+            "if ($name.length < ${p.minLength}) return 'The value of $name cannot be less than ${p.minLength} characters';",
+          );
+        }
       },
       integer: (p) {
         bool hasDefault = p.defaultValue != null;

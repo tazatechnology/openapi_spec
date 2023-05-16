@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:path/path.dart' as p;
-import 'petstore_3p1/test.dart' as petstore_3p1;
+// import 'petstore_3p0/test.dart' as petstore_3p0;
+// import 'petstore_3p1/test.dart' as petstore_3p1;
+import 'oas_examples/test.dart' as oas_examples;
 
 void main() {
   // Ensure a clean test tmp directory
@@ -11,5 +13,6 @@ void main() {
   tmp.createSync(recursive: true);
 
   // petstore_3p0.main();
-  petstore_3p1.main();
+  // petstore_3p1.main();
+  oas_examples.main();
 }
