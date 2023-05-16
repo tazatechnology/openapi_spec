@@ -37,16 +37,14 @@ void main() {
         final destination = p.join(tmp.path, '$fileName$fileExt');
         if (isJson) {
           spec.toJsonFile(destination: destination);
+          // Load both files and compare line by line
+          assertFileLineByLine(
+            truthFile: e.absolute.path,
+            actualFile: destination,
+          );
         } else {
-          return;
-          spec.toYamlFile(destination: destination);
+          // spec.toYamlFile(destination: destination);
         }
-
-        // Load both files and compare line by line
-        assertFileLineByLine(
-          truthFile: e.absolute.path,
-          actualFile: destination,
-        );
       });
     });
   }
