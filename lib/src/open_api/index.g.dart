@@ -946,6 +946,7 @@ Map<String, dynamic> _$$_ResponseReferenceToJson(
     };
 
 _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
+      title: json['title'] as String?,
       description: json['description'] as String?,
       ref: json['ref'] as String?,
       required: (json['required'] as List<dynamic>?)
@@ -980,6 +981,7 @@ Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
     }
   }
 
+  writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('ref', instance.ref);
   writeNotNull('required', instance.required);

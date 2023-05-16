@@ -12,7 +12,10 @@ part of openapi_models;
 @Freezed(unionKey: 'type', fallbackUnion: 'default')
 class Schema with _$Schema {
   const factory Schema({
-    /// A description of this schema
+    /// A summary title of the schema
+    String? title,
+
+    /// A short description of the schema
     String? description,
 
     /// Reference to a schema definition
@@ -32,7 +35,7 @@ class Schema with _$Schema {
     /// The properties of the schema
     Map<String, Schema>? properties,
 
-    ///
+    /// Any extra properties to add to this schema
     Schema? additionalProperties,
 
     /// Adds additional metadata to describe the XML representation of this property.

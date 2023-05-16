@@ -8932,11 +8932,15 @@ Schema _$SchemaFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Schema {
-  /// A description of this schema
+  /// A summary title of the schema
+  String? get title => throw _privateConstructorUsedError;
+
+  /// A short description of the schema
   String? get description => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -8996,6 +9000,7 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9058,6 +9063,7 @@ mixin _$Schema {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9162,7 +9168,7 @@ abstract class $SchemaCopyWith<$Res> {
   factory $SchemaCopyWith(Schema value, $Res Function(Schema) then) =
       _$SchemaCopyWithImpl<$Res, Schema>;
   @useResult
-  $Res call({String? description});
+  $Res call({String? title, String? description});
 }
 
 /// @nodoc
@@ -9178,9 +9184,14 @@ class _$SchemaCopyWithImpl<$Res, $Val extends Schema>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -9196,7 +9207,8 @@ abstract class _$$_SchemaCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? description,
+      {String? title,
+      String? description,
       String? ref,
       List<String>? required,
       Discriminator? discriminator,
@@ -9221,6 +9233,7 @@ class __$$_SchemaCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = freezed,
     Object? description = freezed,
     Object? ref = freezed,
     Object? required = freezed,
@@ -9231,6 +9244,10 @@ class __$$_SchemaCopyWithImpl<$Res>
     Object? xml = freezed,
   }) {
     return _then(_$_Schema(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -9319,7 +9336,8 @@ class __$$_SchemaCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Schema implements _Schema {
   const _$_Schema(
-      {this.description,
+      {this.title,
+      this.description,
       this.ref,
       final List<String>? required,
       this.discriminator,
@@ -9335,7 +9353,11 @@ class _$_Schema implements _Schema {
   factory _$_Schema.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaFromJson(json);
 
-  /// A description of this schema
+  /// A summary title of the schema
+  @override
+  final String? title;
+
+  /// A short description of the schema
   @override
   final String? description;
 
@@ -9379,7 +9401,7 @@ class _$_Schema implements _Schema {
     return EqualUnmodifiableMapView(value);
   }
 
-  ///
+  /// Any extra properties to add to this schema
   @override
   final Schema? additionalProperties;
 
@@ -9392,7 +9414,7 @@ class _$_Schema implements _Schema {
 
   @override
   String toString() {
-    return 'Schema(description: $description, ref: $ref, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
+    return 'Schema(title: $title, description: $description, ref: $ref, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
   }
 
   @override
@@ -9400,6 +9422,7 @@ class _$_Schema implements _Schema {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Schema &&
+            (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.ref, ref) || other.ref == ref) &&
@@ -9419,6 +9442,7 @@ class _$_Schema implements _Schema {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      title,
       description,
       ref,
       const DeepCollectionEquality().hash(_required),
@@ -9438,6 +9462,7 @@ class _$_Schema implements _Schema {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9493,14 +9518,15 @@ class _$_Schema implements _Schema {
         enumeration,
     required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
-    return $default(description, ref, required, discriminator, externalDocs,
-        properties, additionalProperties, xml);
+    return $default(title, description, ref, required, discriminator,
+        externalDocs, properties, additionalProperties, xml);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9559,7 +9585,7 @@ class _$_Schema implements _Schema {
             int? maxLength)?
         array,
   }) {
-    return $default?.call(description, ref, required, discriminator,
+    return $default?.call(title, description, ref, required, discriminator,
         externalDocs, properties, additionalProperties, xml);
   }
 
@@ -9567,6 +9593,7 @@ class _$_Schema implements _Schema {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9627,8 +9654,8 @@ class _$_Schema implements _Schema {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(description, ref, required, discriminator, externalDocs,
-          properties, additionalProperties, xml);
+      return $default(title, description, ref, required, discriminator,
+          externalDocs, properties, additionalProperties, xml);
     }
     return orElse();
   }
@@ -9689,7 +9716,8 @@ class _$_Schema implements _Schema {
 
 abstract class _Schema implements Schema {
   const factory _Schema(
-      {final String? description,
+      {final String? title,
+      final String? description,
       final String? ref,
       final List<String>? required,
       final Discriminator? discriminator,
@@ -9702,7 +9730,11 @@ abstract class _Schema implements Schema {
 
   @override
 
-  /// A description of this schema
+  /// A summary title of the schema
+  String? get title;
+  @override
+
+  /// A short description of the schema
   String? get description;
 
   /// Reference to a schema definition
@@ -9722,7 +9754,7 @@ abstract class _Schema implements Schema {
   /// The properties of the schema
   Map<String, Schema>? get properties;
 
-  ///
+  /// Any extra properties to add to this schema
   Schema? get additionalProperties;
 
   /// Adds additional metadata to describe the XML representation of this property.
@@ -9859,6 +9891,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9921,6 +9954,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -9986,6 +10020,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -10116,6 +10151,7 @@ abstract class _SchemaBoolean implements Schema {
       _$_SchemaBoolean.fromJson;
 
   Xml? get xml;
+  @override
   String? get title;
   @override
   String? get description;
@@ -10294,6 +10330,7 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -10357,6 +10394,7 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -10423,6 +10461,7 @@ class _$_SchemaString implements _SchemaString {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -10558,6 +10597,7 @@ abstract class _SchemaString implements Schema {
       _$_SchemaString.fromJson;
 
   Xml? get xml;
+  @override
   String? get title;
   @override
   String? get description;
@@ -10771,6 +10811,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -10834,6 +10875,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -10900,6 +10942,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11037,6 +11080,7 @@ abstract class _SchemaInteger implements Schema {
       _$_SchemaInteger.fromJson;
 
   Xml? get xml;
+  @override
   String? get title;
   @override
   String? get description;
@@ -11251,6 +11295,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11314,6 +11359,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11380,6 +11426,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11517,6 +11564,7 @@ abstract class _SchemaNumber implements Schema {
       _$_SchemaNumber.fromJson;
 
   Xml? get xml;
+  @override
   String? get title;
   @override
   String? get description;
@@ -11662,6 +11710,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11724,6 +11773,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11789,6 +11839,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -11920,6 +11971,7 @@ abstract class _SchemaEnum implements Schema {
   factory _SchemaEnum.fromJson(Map<String, dynamic> json) =
       _$_SchemaEnum.fromJson;
 
+  @override
   String? get title;
   @override
   String? get description;
@@ -12136,6 +12188,7 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -12199,6 +12252,7 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -12265,6 +12319,7 @@ class _$_SchemaArray implements _SchemaArray {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
+            String? title,
             String? description,
             String? ref,
             List<String>? required,
@@ -12401,6 +12456,7 @@ abstract class _SchemaArray implements Schema {
 
   Xml? get xml;
   ArrayItems get items;
+  @override
   String? get title;
   @override
   String? get description;

@@ -154,7 +154,15 @@ class SchemaGenerator extends BaseGenerator {
 
     property.map(
       (p) {
-        // Default
+        bool nullable = !required;
+        String c = "/// ${p.description ?? 'No Description'} \n";
+        if (required) {
+          c += "required ";
+        }
+        if (p.ref != null) {
+          c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
+        }
+        file.writeAsStringSync(c, mode: FileMode.append);
       },
       boolean: (p) {
         bool hasDefault = p.defaultValue != null;
@@ -166,7 +174,7 @@ class SchemaGenerator extends BaseGenerator {
         if (required) {
           c += "required ";
         }
-        c += "bool ${nullable ? '?' : ''} $name,\n";
+        c += "bool ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       string: (p) {
@@ -179,7 +187,7 @@ class SchemaGenerator extends BaseGenerator {
         if (required) {
           c += "required ";
         }
-        c += "String ${nullable ? '?' : ''} $name,\n";
+        c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       integer: (p) {
@@ -192,7 +200,7 @@ class SchemaGenerator extends BaseGenerator {
         if (required) {
           c += "required ";
         }
-        c += "int ${nullable ? '?' : ''} $name,\n";
+        c += "int ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       number: (p) {
@@ -205,7 +213,7 @@ class SchemaGenerator extends BaseGenerator {
         if (required) {
           c += "required ";
         }
-        c += "double ${nullable ? '?' : ''} $name,\n";
+        c += "double ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       array: (p) {
@@ -224,7 +232,7 @@ class SchemaGenerator extends BaseGenerator {
           number: (i) => 'List<double>',
           reference: (i) => 'List<${i.ref}>',
         );
-        c += "$type ${nullable ? '?' : ''} $name,\n";
+        c += "$type ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       enumeration: (p) {
@@ -237,7 +245,7 @@ class SchemaGenerator extends BaseGenerator {
         if (required) {
           c += "required ";
         }
-        c += "String ${nullable ? '?' : ''} $name,\n";
+        c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
     );
