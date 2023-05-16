@@ -413,7 +413,10 @@ Map<String, dynamic> _$$_EncodingToJson(_$_Encoding instance) {
 
 _$ExampleObject _$$ExampleObjectFromJson(Map<String, dynamic> json) =>
     _$ExampleObject(
+      summary: json['summary'] as String?,
       description: json['description'] as String?,
+      value: json['value'],
+      externalValue: json['externalValue'] as String?,
       $type: json['unionType'] as String?,
     );
 
@@ -426,20 +429,23 @@ Map<String, dynamic> _$$ExampleObjectToJson(_$ExampleObject instance) {
     }
   }
 
+  writeNotNull('summary', instance.summary);
   writeNotNull('description', instance.description);
+  writeNotNull('value', instance.value);
+  writeNotNull('externalValue', instance.externalValue);
   val['unionType'] = instance.$type;
   return val;
 }
 
 _$_ExampleReference _$$_ExampleReferenceFromJson(Map<String, dynamic> json) =>
     _$_ExampleReference(
-      ref: ExampleObject.fromJson(json['ref'] as Map<String, dynamic>),
+      ref: json['ref'] as String,
       $type: json['unionType'] as String?,
     );
 
 Map<String, dynamic> _$$_ExampleReferenceToJson(_$_ExampleReference instance) =>
     <String, dynamic>{
-      'ref': instance.ref.toJson(),
+      'ref': instance.ref,
       'unionType': instance.$type,
     };
 

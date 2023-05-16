@@ -5,15 +5,28 @@ part of openapi_models;
 // ==========================================
 
 /// Text
-@freezed
+@Freezed(fallbackUnion: 'default')
 class Example with _$Example {
   const factory Example({
-    /// Text
+    /// Short description for the example.
+    String? summary,
+
+    /// Long description for the example.
     String? description,
+
+    /// Embedded literal example
+    dynamic value,
+
+    /// A URI that points to the literal example.
+    String? externalValue,
   }) = ExampleObject;
 
+  // ------------------------------------------
+  // FACTORY: Example.reference
+  // ------------------------------------------
+
   const factory Example.reference({
-    required ExampleObject ref,
+    required String ref,
   }) = _ExampleReference;
 
   factory Example.fromJson(Map<String, dynamic> json) =>

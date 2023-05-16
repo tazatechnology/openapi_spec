@@ -3352,14 +3352,11 @@ abstract class _Encoding implements Encoding {
 
 Example _$ExampleFromJson(Map<String, dynamic> json) {
   switch (json['unionType']) {
-    case 'default':
-      return ExampleObject.fromJson(json);
     case 'reference':
       return _ExampleReference.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'unionType', 'Example',
-          'Invalid union type "${json['unionType']}"!');
+      return ExampleObject.fromJson(json);
   }
 }
 
@@ -3367,20 +3364,26 @@ Example _$ExampleFromJson(Map<String, dynamic> json) {
 mixin _$Example {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? description) $default, {
-    required TResult Function(ExampleObject ref) reference,
+    TResult Function(String? summary, String? description, dynamic value,
+            String? externalValue)
+        $default, {
+    required TResult Function(String ref) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description)? $default, {
-    TResult? Function(ExampleObject ref)? reference,
+    TResult? Function(String? summary, String? description, dynamic value,
+            String? externalValue)?
+        $default, {
+    TResult? Function(String ref)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description)? $default, {
-    TResult Function(ExampleObject ref)? reference,
+    TResult Function(String? summary, String? description, dynamic value,
+            String? externalValue)?
+        $default, {
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3429,7 +3432,11 @@ abstract class _$$ExampleObjectCopyWith<$Res> {
           _$ExampleObject value, $Res Function(_$ExampleObject) then) =
       __$$ExampleObjectCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? summary,
+      String? description,
+      dynamic value,
+      String? externalValue});
 }
 
 /// @nodoc
@@ -3443,12 +3450,27 @@ class __$$ExampleObjectCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? summary = freezed,
     Object? description = freezed,
+    Object? value = freezed,
+    Object? externalValue = freezed,
   }) {
     return _then(_$ExampleObject(
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      value: freezed == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      externalValue: freezed == externalValue
+          ? _value.externalValue
+          : externalValue // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -3457,22 +3479,39 @@ class __$$ExampleObjectCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ExampleObject implements ExampleObject {
-  const _$ExampleObject({this.description, final String? $type})
+  const _$ExampleObject(
+      {this.summary,
+      this.description,
+      this.value,
+      this.externalValue,
+      final String? $type})
       : $type = $type ?? 'default';
 
   factory _$ExampleObject.fromJson(Map<String, dynamic> json) =>
       _$$ExampleObjectFromJson(json);
 
-  /// Text
+  /// Short description for the example.
+  @override
+  final String? summary;
+
+  /// Long description for the example.
   @override
   final String? description;
+
+  /// Embedded literal example
+  @override
+  final dynamic value;
+
+  /// A URI that points to the literal example.
+  @override
+  final String? externalValue;
 
   @JsonKey(name: 'unionType')
   final String $type;
 
   @override
   String toString() {
-    return 'Example(description: $description)';
+    return 'Example(summary: $summary, description: $description, value: $value, externalValue: $externalValue)';
   }
 
   @override
@@ -3480,13 +3519,18 @@ class _$ExampleObject implements ExampleObject {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExampleObject &&
+            (identical(other.summary, summary) || other.summary == summary) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            const DeepCollectionEquality().equals(other.value, value) &&
+            (identical(other.externalValue, externalValue) ||
+                other.externalValue == externalValue));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, summary, description,
+      const DeepCollectionEquality().hash(value), externalValue);
 
   @JsonKey(ignore: true)
   @override
@@ -3497,30 +3541,36 @@ class _$ExampleObject implements ExampleObject {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? description) $default, {
-    required TResult Function(ExampleObject ref) reference,
+    TResult Function(String? summary, String? description, dynamic value,
+            String? externalValue)
+        $default, {
+    required TResult Function(String ref) reference,
   }) {
-    return $default(description);
+    return $default(summary, description, value, externalValue);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description)? $default, {
-    TResult? Function(ExampleObject ref)? reference,
+    TResult? Function(String? summary, String? description, dynamic value,
+            String? externalValue)?
+        $default, {
+    TResult? Function(String ref)? reference,
   }) {
-    return $default?.call(description);
+    return $default?.call(summary, description, value, externalValue);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description)? $default, {
-    TResult Function(ExampleObject ref)? reference,
+    TResult Function(String? summary, String? description, dynamic value,
+            String? externalValue)?
+        $default, {
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(description);
+      return $default(summary, description, value, externalValue);
     }
     return orElse();
   }
@@ -3565,13 +3615,26 @@ class _$ExampleObject implements ExampleObject {
 }
 
 abstract class ExampleObject implements Example {
-  const factory ExampleObject({final String? description}) = _$ExampleObject;
+  const factory ExampleObject(
+      {final String? summary,
+      final String? description,
+      final dynamic value,
+      final String? externalValue}) = _$ExampleObject;
 
   factory ExampleObject.fromJson(Map<String, dynamic> json) =
       _$ExampleObject.fromJson;
 
-  /// Text
+  /// Short description for the example.
+  String? get summary;
+
+  /// Long description for the example.
   String? get description;
+
+  /// Embedded literal example
+  dynamic get value;
+
+  /// A URI that points to the literal example.
+  String? get externalValue;
   @JsonKey(ignore: true)
   _$$ExampleObjectCopyWith<_$ExampleObject> get copyWith =>
       throw _privateConstructorUsedError;
@@ -3583,7 +3646,7 @@ abstract class _$$_ExampleReferenceCopyWith<$Res> {
           _$_ExampleReference value, $Res Function(_$_ExampleReference) then) =
       __$$_ExampleReferenceCopyWithImpl<$Res>;
   @useResult
-  $Res call({ExampleObject ref});
+  $Res call({String ref});
 }
 
 /// @nodoc
@@ -3597,13 +3660,13 @@ class __$$_ExampleReferenceCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? ref = freezed,
+    Object? ref = null,
   }) {
     return _then(_$_ExampleReference(
-      ref: freezed == ref
+      ref: null == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
-              as ExampleObject,
+              as String,
     ));
   }
 }
@@ -3618,7 +3681,7 @@ class _$_ExampleReference implements _ExampleReference {
       _$$_ExampleReferenceFromJson(json);
 
   @override
-  final ExampleObject ref;
+  final String ref;
 
   @JsonKey(name: 'unionType')
   final String $type;
@@ -3633,13 +3696,12 @@ class _$_ExampleReference implements _ExampleReference {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ExampleReference &&
-            const DeepCollectionEquality().equals(other.ref, ref));
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(ref));
+  int get hashCode => Object.hash(runtimeType, ref);
 
   @JsonKey(ignore: true)
   @override
@@ -3650,8 +3712,10 @@ class _$_ExampleReference implements _ExampleReference {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? description) $default, {
-    required TResult Function(ExampleObject ref) reference,
+    TResult Function(String? summary, String? description, dynamic value,
+            String? externalValue)
+        $default, {
+    required TResult Function(String ref) reference,
   }) {
     return reference(ref);
   }
@@ -3659,8 +3723,10 @@ class _$_ExampleReference implements _ExampleReference {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description)? $default, {
-    TResult? Function(ExampleObject ref)? reference,
+    TResult? Function(String? summary, String? description, dynamic value,
+            String? externalValue)?
+        $default, {
+    TResult? Function(String ref)? reference,
   }) {
     return reference?.call(ref);
   }
@@ -3668,8 +3734,10 @@ class _$_ExampleReference implements _ExampleReference {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description)? $default, {
-    TResult Function(ExampleObject ref)? reference,
+    TResult Function(String? summary, String? description, dynamic value,
+            String? externalValue)?
+        $default, {
+    TResult Function(String ref)? reference,
     required TResult orElse(),
   }) {
     if (reference != null) {
@@ -3718,13 +3786,13 @@ class _$_ExampleReference implements _ExampleReference {
 }
 
 abstract class _ExampleReference implements Example {
-  const factory _ExampleReference({required final ExampleObject ref}) =
+  const factory _ExampleReference({required final String ref}) =
       _$_ExampleReference;
 
   factory _ExampleReference.fromJson(Map<String, dynamic> json) =
       _$_ExampleReference.fromJson;
 
-  ExampleObject get ref;
+  String get ref;
   @JsonKey(ignore: true)
   _$$_ExampleReferenceCopyWith<_$_ExampleReference> get copyWith =>
       throw _privateConstructorUsedError;

@@ -353,7 +353,9 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
   }
 
   // Always place the type property of schema object
-  if (m.containsKey('type') && m['type'] is String) {
+  if (m.containsKey('type') &&
+      m['type'] is String &&
+      !m['type'].contains('/')) {
     m = {'type': m['type'], ...m..remove('type')};
   }
 
