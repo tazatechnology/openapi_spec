@@ -377,7 +377,7 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
         newKeys.add(_unionKeyParams);
         if (!hasDescription && isPath) {
           newKeys.add('required');
-          m['required'] = 'true';
+          m['required'] = true;
         }
       }
 

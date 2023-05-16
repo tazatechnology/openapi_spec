@@ -4,12 +4,20 @@ part of openapi_models;
 // CLASS: Link
 // ==========================================
 
-/// Text
+/// The [Link] object represents a possible design-time link for a response
 @freezed
 class Link with _$Link {
   const factory Link({
-    /// Text
-    String? description,
+    /// A relative or absolute URI reference to an OAS operation.
+    String? ref,
+
+    /// The name of an existing, resolvable OAS operation,
+    /// as defined with a unique operationId.
+    String? operationId,
+
+    /// A map representing parameters to pass to an operation
+    /// as specified with operationId or identified via [ref].
+    Map<String, String>? parameters,
   }) = _Link;
 
   factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);

@@ -541,7 +541,11 @@ Map<String, dynamic> _$$_LicenseToJson(_$_License instance) {
 }
 
 _$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
-      description: json['description'] as String?,
+      ref: json['ref'] as String?,
+      operationId: json['operationId'] as String?,
+      parameters: (json['parameters'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
     );
 
 Map<String, dynamic> _$$_LinkToJson(_$_Link instance) {
@@ -553,7 +557,9 @@ Map<String, dynamic> _$$_LinkToJson(_$_Link instance) {
     }
   }
 
-  writeNotNull('description', instance.description);
+  writeNotNull('ref', instance.ref);
+  writeNotNull('operationId', instance.operationId);
+  writeNotNull('parameters', instance.parameters);
   return val;
 }
 

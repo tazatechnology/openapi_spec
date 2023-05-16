@@ -4593,8 +4593,16 @@ Link _$LinkFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Link {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
+  /// A relative or absolute URI reference to an OAS operation.
+  String? get ref => throw _privateConstructorUsedError;
+
+  /// The name of an existing, resolvable OAS operation,
+  /// as defined with a unique operationId.
+  String? get operationId => throw _privateConstructorUsedError;
+
+  /// A map representing parameters to pass to an operation
+  /// as specified with operationId or identified via [ref].
+  Map<String, String>? get parameters => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -4606,7 +4614,8 @@ abstract class $LinkCopyWith<$Res> {
   factory $LinkCopyWith(Link value, $Res Function(Link) then) =
       _$LinkCopyWithImpl<$Res, Link>;
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? ref, String? operationId, Map<String, String>? parameters});
 }
 
 /// @nodoc
@@ -4622,13 +4631,23 @@ class _$LinkCopyWithImpl<$Res, $Val extends Link>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? ref = freezed,
+    Object? operationId = freezed,
+    Object? parameters = freezed,
   }) {
     return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
               as String?,
+      operationId: freezed == operationId
+          ? _value.operationId
+          : operationId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parameters: freezed == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
     ) as $Val);
   }
 }
@@ -4639,7 +4658,8 @@ abstract class _$$_LinkCopyWith<$Res> implements $LinkCopyWith<$Res> {
       __$$_LinkCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call(
+      {String? ref, String? operationId, Map<String, String>? parameters});
 }
 
 /// @nodoc
@@ -4651,13 +4671,23 @@ class __$$_LinkCopyWithImpl<$Res> extends _$LinkCopyWithImpl<$Res, _$_Link>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? ref = freezed,
+    Object? operationId = freezed,
+    Object? parameters = freezed,
   }) {
     return _then(_$_Link(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
               as String?,
+      operationId: freezed == operationId
+          ? _value.operationId
+          : operationId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      parameters: freezed == parameters
+          ? _value._parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
     ));
   }
 }
@@ -4665,17 +4695,39 @@ class __$$_LinkCopyWithImpl<$Res> extends _$LinkCopyWithImpl<$Res, _$_Link>
 /// @nodoc
 @JsonSerializable()
 class _$_Link implements _Link {
-  const _$_Link({this.description});
+  const _$_Link(
+      {this.ref, this.operationId, final Map<String, String>? parameters})
+      : _parameters = parameters;
 
   factory _$_Link.fromJson(Map<String, dynamic> json) => _$$_LinkFromJson(json);
 
-  /// Text
+  /// A relative or absolute URI reference to an OAS operation.
   @override
-  final String? description;
+  final String? ref;
+
+  /// The name of an existing, resolvable OAS operation,
+  /// as defined with a unique operationId.
+  @override
+  final String? operationId;
+
+  /// A map representing parameters to pass to an operation
+  /// as specified with operationId or identified via [ref].
+  final Map<String, String>? _parameters;
+
+  /// A map representing parameters to pass to an operation
+  /// as specified with operationId or identified via [ref].
+  @override
+  Map<String, String>? get parameters {
+    final value = _parameters;
+    if (value == null) return null;
+    if (_parameters is EqualUnmodifiableMapView) return _parameters;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
-    return 'Link(description: $description)';
+    return 'Link(ref: $ref, operationId: $operationId, parameters: $parameters)';
   }
 
   @override
@@ -4683,13 +4735,17 @@ class _$_Link implements _Link {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Link &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.ref, ref) || other.ref == ref) &&
+            (identical(other.operationId, operationId) ||
+                other.operationId == operationId) &&
+            const DeepCollectionEquality()
+                .equals(other._parameters, _parameters));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(runtimeType, ref, operationId,
+      const DeepCollectionEquality().hash(_parameters));
 
   @JsonKey(ignore: true)
   @override
@@ -4706,14 +4762,27 @@ class _$_Link implements _Link {
 }
 
 abstract class _Link implements Link {
-  const factory _Link({final String? description}) = _$_Link;
+  const factory _Link(
+      {final String? ref,
+      final String? operationId,
+      final Map<String, String>? parameters}) = _$_Link;
 
   factory _Link.fromJson(Map<String, dynamic> json) = _$_Link.fromJson;
 
   @override
 
-  /// Text
-  String? get description;
+  /// A relative or absolute URI reference to an OAS operation.
+  String? get ref;
+  @override
+
+  /// The name of an existing, resolvable OAS operation,
+  /// as defined with a unique operationId.
+  String? get operationId;
+  @override
+
+  /// A map representing parameters to pass to an operation
+  /// as specified with operationId or identified via [ref].
+  Map<String, String>? get parameters;
   @override
   @JsonKey(ignore: true)
   _$$_LinkCopyWith<_$_Link> get copyWith => throw _privateConstructorUsedError;

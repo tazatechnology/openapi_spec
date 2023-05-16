@@ -248,36 +248,6 @@
     }
   },
   "components": {
-    "links": {
-      "UserRepositories": {
-        "operationId": "getRepositoriesByOwner",
-        "parameters": {
-          "username": "$response.body#/username"
-        }
-      },
-      "UserRepository": {
-        "operationId": "getRepository",
-        "parameters": {
-          "username": "$response.body#/owner/username",
-          "slug": "$response.body#/slug"
-        }
-      },
-      "RepositoryPullRequests": {
-        "operationId": "getPullRequestsByRepository",
-        "parameters": {
-          "username": "$response.body#/owner/username",
-          "slug": "$response.body#/slug"
-        }
-      },
-      "PullRequestMerge": {
-        "operationId": "mergePullRequest",
-        "parameters": {
-          "username": "$response.body#/author/username",
-          "slug": "$response.body#/repository/slug",
-          "pid": "$response.body#/id"
-        }
-      }
-    },
     "schemas": {
       "user": {
         "type": "object",
@@ -316,6 +286,36 @@
           "author": {
             "$ref": "#/components/schemas/user"
           }
+        }
+      }
+    },
+    "links": {
+      "UserRepositories": {
+        "operationId": "getRepositoriesByOwner",
+        "parameters": {
+          "username": "$response.body#/username"
+        }
+      },
+      "UserRepository": {
+        "operationId": "getRepository",
+        "parameters": {
+          "username": "$response.body#/owner/username",
+          "slug": "$response.body#/slug"
+        }
+      },
+      "RepositoryPullRequests": {
+        "operationId": "getPullRequestsByRepository",
+        "parameters": {
+          "username": "$response.body#/owner/username",
+          "slug": "$response.body#/slug"
+        }
+      },
+      "PullRequestMerge": {
+        "operationId": "mergePullRequest",
+        "parameters": {
+          "username": "$response.body#/author/username",
+          "slug": "$response.body#/repository/slug",
+          "pid": "$response.body#/id"
         }
       }
     }
