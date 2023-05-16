@@ -1104,13 +1104,13 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      items: Schema.fromJson(json['items'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
       example: json['example'] as List<dynamic>?,
-      minLength: json['minLength'] as int?,
-      maxLength: json['maxLength'] as int?,
+      minItems: json['minItems'] as int?,
+      maxItems: json['maxItems'] as int?,
+      items: Schema.fromJson(json['items'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
@@ -1124,13 +1124,13 @@ Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
   }
 
   writeNotNull('xml', instance.xml?.toJson());
-  val['items'] = instance.items.toJson();
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
   writeNotNull('example', instance.example);
-  writeNotNull('minLength', instance.minLength);
-  writeNotNull('maxLength', instance.maxLength);
+  writeNotNull('minItems', instance.minItems);
+  writeNotNull('maxItems', instance.maxItems);
+  val['items'] = instance.items.toJson();
   val['type'] = instance.$type;
   return val;
 }

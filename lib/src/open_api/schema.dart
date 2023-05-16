@@ -126,13 +126,13 @@ class Schema with _$Schema {
   /// A generic [Schema] schema of array type
   const factory Schema.array({
     Xml? xml,
-    required Schema items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
     List? example,
-    int? minLength,
-    int? maxLength,
+    int? minItems,
+    int? maxItems,
+    required Schema items,
   }) = _SchemaArray;
 
   /// Convert from JSON representation

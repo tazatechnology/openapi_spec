@@ -1,11 +1,11 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
     "title": "Swagger Petstore",
     "license": {
       "name": "MIT"
-    }
+    },
+    "version": "1.0.0"
   },
   "servers": [
     {
@@ -15,11 +15,11 @@
   "paths": {
     "/pets": {
       "get": {
-        "summary": "List all pets",
-        "operationId": "listPets",
         "tags": [
           "pets"
         ],
+        "summary": "List all pets",
+        "operationId": "listPets",
         "parameters": [
           {
             "name": "limit",
@@ -28,8 +28,8 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "maximum": 100,
-              "format": "int32"
+              "format": "int32",
+              "maximum": 100
             }
           }
         ],
@@ -65,11 +65,11 @@
         }
       },
       "post": {
-        "summary": "Create a pet",
-        "operationId": "createPets",
         "tags": [
           "pets"
         ],
+        "summary": "Create a pet",
+        "operationId": "createPets",
         "responses": {
           "201": {
             "description": "Null response"
@@ -89,17 +89,17 @@
     },
     "/pets/{petId}": {
       "get": {
-        "summary": "Info for a specific pet",
-        "operationId": "showPetById",
         "tags": [
           "pets"
         ],
+        "summary": "Info for a specific pet",
+        "operationId": "showPetById",
         "parameters": [
           {
             "name": "petId",
             "in": "path",
-            "required": true,
             "description": "The id of the pet to retrieve",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -133,11 +133,11 @@
   "components": {
     "schemas": {
       "Pet": {
-        "type": "object",
         "required": [
           "id",
           "name"
         ],
+        "type": "object",
         "properties": {
           "id": {
             "type": "integer",
@@ -159,11 +159,11 @@
         }
       },
       "Error": {
-        "type": "object",
         "required": [
           "code",
           "message"
         ],
+        "type": "object",
         "properties": {
           "code": {
             "type": "integer",

@@ -8596,7 +8596,7 @@ mixin _$Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -8657,7 +8657,7 @@ mixin _$Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -8718,7 +8718,7 @@ mixin _$Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -9138,7 +9138,7 @@ class _$_Schema implements _Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
     return $default(title, description, ref, allOf, required, discriminator,
         externalDocs, properties, additionalProperties, xml);
@@ -9203,7 +9203,7 @@ class _$_Schema implements _Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
     return $default?.call(title, description, ref, allOf, required,
         discriminator, externalDocs, properties, additionalProperties, xml);
@@ -9268,7 +9268,7 @@ class _$_Schema implements _Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -9568,7 +9568,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
     return boolean(xml, title, description, defaultValue);
   }
@@ -9632,7 +9632,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
     return boolean?.call(xml, title, description, defaultValue);
   }
@@ -9696,7 +9696,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if (boolean != null) {
@@ -10004,7 +10004,7 @@ class _$_SchemaString implements _SchemaString {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
     return string(xml, title, description, defaultValue, format, example,
         minLength, maxLength);
@@ -10069,7 +10069,7 @@ class _$_SchemaString implements _SchemaString {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
     return string?.call(xml, title, description, defaultValue, format, example,
         minLength, maxLength);
@@ -10134,7 +10134,7 @@ class _$_SchemaString implements _SchemaString {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if (string != null) {
@@ -10482,7 +10482,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
     return integer(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -10547,7 +10547,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
     return integer?.call(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -10612,7 +10612,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if (integer != null) {
@@ -10963,7 +10963,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
     return number(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -11028,7 +11028,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
     return number?.call(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -11093,7 +11093,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if (number != null) {
@@ -11375,7 +11375,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
     return enumeration(title, description, example, defaultValue, values);
   }
@@ -11439,7 +11439,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
     return enumeration?.call(title, description, example, defaultValue, values);
   }
@@ -11503,7 +11503,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if (enumeration != null) {
@@ -11602,13 +11602,13 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   @useResult
   $Res call(
       {Xml? xml,
-      Schema items,
       String? title,
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
       List<dynamic>? example,
-      int? minLength,
-      int? maxLength});
+      int? minItems,
+      int? maxItems,
+      Schema items});
 
   $XmlCopyWith<$Res>? get xml;
   $SchemaCopyWith<$Res> get items;
@@ -11626,23 +11626,19 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
   @override
   $Res call({
     Object? xml = freezed,
-    Object? items = null,
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
     Object? example = freezed,
-    Object? minLength = freezed,
-    Object? maxLength = freezed,
+    Object? minItems = freezed,
+    Object? maxItems = freezed,
+    Object? items = null,
   }) {
     return _then(_$_SchemaArray(
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
               as Xml?,
-      items: null == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as Schema,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -11659,14 +11655,18 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
           ? _value._example
           : example // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
-      minLength: freezed == minLength
-          ? _value.minLength
-          : minLength // ignore: cast_nullable_to_non_nullable
+      minItems: freezed == minItems
+          ? _value.minItems
+          : minItems // ignore: cast_nullable_to_non_nullable
               as int?,
-      maxLength: freezed == maxLength
-          ? _value.maxLength
-          : maxLength // ignore: cast_nullable_to_non_nullable
+      maxItems: freezed == maxItems
+          ? _value.maxItems
+          : maxItems // ignore: cast_nullable_to_non_nullable
               as int?,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Schema,
     ));
   }
 
@@ -11696,13 +11696,13 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
 class _$_SchemaArray implements _SchemaArray {
   const _$_SchemaArray(
       {this.xml,
-      required this.items,
       this.title,
       this.description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
       final List<dynamic>? example,
-      this.minLength,
-      this.maxLength,
+      this.minItems,
+      this.maxItems,
+      required this.items,
       final String? $type})
       : _defaultValue = defaultValue,
         _example = example,
@@ -11713,8 +11713,6 @@ class _$_SchemaArray implements _SchemaArray {
 
   @override
   final Xml? xml;
-  @override
-  final Schema items;
   @override
   final String? title;
   @override
@@ -11741,16 +11739,18 @@ class _$_SchemaArray implements _SchemaArray {
   }
 
   @override
-  final int? minLength;
+  final int? minItems;
   @override
-  final int? maxLength;
+  final int? maxItems;
+  @override
+  final Schema items;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Schema.array(xml: $xml, items: $items, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minLength: $minLength, maxLength: $maxLength)';
+    return 'Schema.array(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minItems: $minItems, maxItems: $maxItems, items: $items)';
   }
 
   @override
@@ -11759,17 +11759,17 @@ class _$_SchemaArray implements _SchemaArray {
         (other.runtimeType == runtimeType &&
             other is _$_SchemaArray &&
             (identical(other.xml, xml) || other.xml == xml) &&
-            (identical(other.items, items) || other.items == items) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
                 .equals(other._defaultValue, _defaultValue) &&
             const DeepCollectionEquality().equals(other._example, _example) &&
-            (identical(other.minLength, minLength) ||
-                other.minLength == minLength) &&
-            (identical(other.maxLength, maxLength) ||
-                other.maxLength == maxLength));
+            (identical(other.minItems, minItems) ||
+                other.minItems == minItems) &&
+            (identical(other.maxItems, maxItems) ||
+                other.maxItems == maxItems) &&
+            (identical(other.items, items) || other.items == items));
   }
 
   @JsonKey(ignore: true)
@@ -11777,13 +11777,13 @@ class _$_SchemaArray implements _SchemaArray {
   int get hashCode => Object.hash(
       runtimeType,
       xml,
-      items,
       title,
       description,
       const DeepCollectionEquality().hash(_defaultValue),
       const DeepCollectionEquality().hash(_example),
-      minLength,
-      maxLength);
+      minItems,
+      maxItems,
+      items);
 
   @JsonKey(ignore: true)
   @override
@@ -11850,10 +11850,10 @@ class _$_SchemaArray implements _SchemaArray {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
   }) {
-    return array(xml, items, title, description, defaultValue, example,
-        minLength, maxLength);
+    return array(xml, title, description, defaultValue, example, minItems,
+        maxItems, items);
   }
 
   @override
@@ -11915,10 +11915,10 @@ class _$_SchemaArray implements _SchemaArray {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
   }) {
-    return array?.call(xml, items, title, description, defaultValue, example,
-        minLength, maxLength);
+    return array?.call(xml, title, description, defaultValue, example, minItems,
+        maxItems, items);
   }
 
   @override
@@ -11980,12 +11980,12 @@ class _$_SchemaArray implements _SchemaArray {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)?
         enumeration,
-    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     required TResult orElse(),
   }) {
     if (array != null) {
-      return array(xml, items, title, description, defaultValue, example,
-          minLength, maxLength);
+      return array(xml, title, description, defaultValue, example, minItems,
+          maxItems, items);
     }
     return orElse();
   }
@@ -12047,19 +12047,18 @@ class _$_SchemaArray implements _SchemaArray {
 abstract class _SchemaArray implements Schema {
   const factory _SchemaArray(
       {final Xml? xml,
-      required final Schema items,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
       final List<dynamic>? example,
-      final int? minLength,
-      final int? maxLength}) = _$_SchemaArray;
+      final int? minItems,
+      final int? maxItems,
+      required final Schema items}) = _$_SchemaArray;
 
   factory _SchemaArray.fromJson(Map<String, dynamic> json) =
       _$_SchemaArray.fromJson;
 
   Xml? get xml;
-  Schema get items;
   @override
   String? get title;
   @override
@@ -12067,8 +12066,9 @@ abstract class _SchemaArray implements Schema {
   @JsonKey(name: 'default')
   List<dynamic>? get defaultValue;
   List<dynamic>? get example;
-  int? get minLength;
-  int? get maxLength;
+  int? get minItems;
+  int? get maxItems;
+  Schema get items;
   @override
   @JsonKey(ignore: true)
   _$$_SchemaArrayCopyWith<_$_SchemaArray> get copyWith =>
