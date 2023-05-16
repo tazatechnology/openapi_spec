@@ -11,11 +11,11 @@ class RequestBody with _$RequestBody {
     /// A brief description of the request body.
     String? description,
 
-    /// The content of the request body.
-    Map<String, MediaType>? content,
-
     /// Determines if the request body is required in the request.
     bool? required,
+
+    /// The content of the request body.
+    Map<String, MediaType>? content,
   }) = _RequestBody;
 
   // ------------------------------------------

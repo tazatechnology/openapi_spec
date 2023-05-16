@@ -8,7 +8,7 @@ paths:
       security:
         - bearerAuth:
             - 'read:users'
-            - 'public'
+            - public
 components:
   securitySchemes:
     bearerAuth:

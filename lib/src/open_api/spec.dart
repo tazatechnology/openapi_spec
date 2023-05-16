@@ -129,7 +129,7 @@ class OpenApi with _$OpenApi {
       );
     }
 
-    final out = {
+    Map<String, dynamic> out = {
       'openapi': version,
       'info': info.toJson(),
       'jsonSchemaDialect': jsonSchemaDialect,
@@ -141,7 +141,6 @@ class OpenApi with _$OpenApi {
       'components': components?.toJson(),
       'security': security?.map((e) => e.toJson()).toList(),
     };
-
     return _formatSpecToJson(out);
   }
 
@@ -154,6 +153,21 @@ class OpenApi with _$OpenApi {
   void toJsonFile({required String destination}) {
     File(destination).writeAsStringSync(_encoder.convert(toJson()));
   }
+
+  // ------------------------------------------
+  // METHOD: toYamlFile
+  // ------------------------------------------
+
+  /// Convert the [OpenApi] object to a YAML spec file
+  /// Will overwrite the existing file if it exists
+  void toYamlFile({required String destination}) {
+    final yamlWriter = YAMLWriter(allowUnquotedStrings: true);
+    return File(destination).writeAsStringSync(yamlWriter.convert(toJson()));
+  }
+
+  // ------------------------------------------
+  // METHOD: toSwaggerUI
+  // ------------------------------------------
 
   /// Generate a static Swagger UI website from [OpenApi] object
   ///
@@ -385,6 +399,7 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
       m[k] = l;
     }
   }
+
   return m;
 }
 

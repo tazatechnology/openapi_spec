@@ -32,6 +32,7 @@
           "id",
           "name"
         ],
+        "type": "object",
         "properties": {
           "id": {
             "type": "integer",

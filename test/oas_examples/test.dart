@@ -2,28 +2,52 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:openapi_spec/openapi_spec.dart';
+import 'package:recase/recase.dart';
 import '../utils/assert.dart';
 
 void main() {
-  final tmp = Directory('test/tmp/petstore_3p1');
+  final examples = Directory(p.join('test', 'oas_examples'));
+  final dir3p0 = Directory(p.join(examples.path, 'v3.0'));
+  final dir3p1 = Directory(p.join(examples.path, 'v3.1'));
+  final allExamples = [...dir3p0.listSync(), ...dir3p1.listSync()];
 
-  final truthJson = p.join('test', 'petstore_3p1', 'petstore_3p1.json');
-  final testJson = p.join(tmp.path, 'openapi.json');
-  final testDartJson = p.join(tmp.path, 'openapi_dart.json');
+  /// Open API Specification Examples
+  for (final e in allExamples) {
+    var fileName = p.basename(e.path).split('.').first.snakeCase;
+    final tmp = Directory('test/tmp/$fileName');
+    final fileExt = p.extension(e.path);
+    fileName = '${fileName}_dart';
+    bool isJson = fileExt.toLowerCase().contains('json');
 
-  final genSchemaDir = p.join(tmp.path, 'gen_schema');
-  final genSchemaSingleDir = p.join(tmp.path, 'gen_schema_single');
+    group('OAS Example: $fileName', () {
+      setUp(() {
+        if (!tmp.existsSync()) {
+          tmp.createSync(recursive: true);
+        }
+      });
 
-  group('Petstore 3.1', () {
-    setUp(() {
-      if (!tmp.existsSync()) {
-        tmp.createSync(recursive: true);
-      }
+      /// Ensure ability to parse JSON to Dart
+      test('JSON/YAML -> Dart', () {
+        // Read the spec file
+        final spec = OpenApi.fromFile(
+          source: e.absolute.path,
+        );
+
+        // Write the Dart representation (from JSON) back to JSON
+        final destination = p.join(tmp.path, '$fileName$fileExt');
+        if (isJson) {
+          spec.toJsonFile(destination: destination);
+        } else {
+          return;
+          spec.toYamlFile(destination: destination);
+        }
+
+        // Load both files and compare line by line
+        assertFileLineByLine(
+          truthFile: e.absolute.path,
+          actualFile: destination,
+        );
+      });
     });
-
-    /// Test Dart [OpenApi] object to JSON conversion
-    test('Dart -> JSON', () {
-      //
-    });
-  });
+  }
 }

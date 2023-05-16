@@ -352,8 +352,8 @@ Map<String, dynamic> _$$_ComponentsToJson(_$_Components instance) {
 
 _$_Contact _$$_ContactFromJson(Map<String, dynamic> json) => _$_Contact(
       name: json['name'] as String?,
-      url: json['url'] as String?,
       email: json['email'] as String?,
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$$_ContactToJson(_$_Contact instance) {
@@ -366,8 +366,8 @@ Map<String, dynamic> _$$_ContactToJson(_$_Contact instance) {
   }
 
   writeNotNull('name', instance.name);
-  writeNotNull('url', instance.url);
   writeNotNull('email', instance.email);
+  writeNotNull('url', instance.url);
   return val;
 }
 
@@ -650,6 +650,7 @@ _$_PropertyCookie _$$_PropertyCookieFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       required: json['required'] as bool?,
       deprecated: json['deprecated'] as bool?,
+      style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
       schema: json['schema'] == null
@@ -672,6 +673,7 @@ Map<String, dynamic> _$$_PropertyCookieToJson(_$_PropertyCookie instance) {
   writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('deprecated', instance.deprecated);
+  writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('schema', instance.schema?.toJson());
@@ -685,6 +687,7 @@ _$_PropertyHeader _$$_PropertyHeaderFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       required: json['required'] as bool?,
       deprecated: json['deprecated'] as bool?,
+      style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
       schema: json['schema'] == null
@@ -707,6 +710,7 @@ Map<String, dynamic> _$$_PropertyHeaderToJson(_$_PropertyHeader instance) {
   writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('deprecated', instance.deprecated);
+  writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('schema', instance.schema?.toJson());
@@ -720,6 +724,7 @@ _$_PropertyQuery _$$_PropertyQueryFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       required: json['required'] as bool?,
       deprecated: json['deprecated'] as bool?,
+      style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
       schema: json['schema'] == null
@@ -742,6 +747,7 @@ Map<String, dynamic> _$$_PropertyQueryToJson(_$_PropertyQuery instance) {
   writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('deprecated', instance.deprecated);
+  writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('schema', instance.schema?.toJson());
@@ -754,6 +760,7 @@ _$_PropertyPath _$$_PropertyPathFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       description: json['description'] as String?,
       deprecated: json['deprecated'] as bool?,
+      style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
       schema: json['schema'] == null
@@ -775,6 +782,7 @@ Map<String, dynamic> _$$_PropertyPathToJson(_$_PropertyPath instance) {
 
   writeNotNull('description', instance.description);
   writeNotNull('deprecated', instance.deprecated);
+  writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('schema', instance.schema?.toJson());
@@ -860,10 +868,10 @@ Map<String, dynamic> _$$_PathItemReferenceToJson(
 _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
     _$_RequestBody(
       description: json['description'] as String?,
+      required: json['required'] as bool?,
       content: (json['content'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, MediaType.fromJson(e as Map<String, dynamic>)),
       ),
-      required: json['required'] as bool?,
       $type: json['unionType'] as String?,
     );
 
@@ -877,9 +885,9 @@ Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
   }
 
   writeNotNull('description', instance.description);
+  writeNotNull('required', instance.required);
   writeNotNull(
       'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('required', instance.required);
   val['unionType'] = instance.$type;
   return val;
 }
@@ -1239,15 +1247,18 @@ const _$ApiKeyLocationEnumMap = {
 _$_SecuritySchemeHttp _$$_SecuritySchemeHttpFromJson(
         Map<String, dynamic> json) =>
     _$_SecuritySchemeHttp(
-      description: json['description'] as String?,
       scheme: json['scheme'] as String,
       bearerFormat: json['bearerFormat'] as String,
+      description: json['description'] as String?,
       $type: json['type'] as String?,
     );
 
 Map<String, dynamic> _$$_SecuritySchemeHttpToJson(
     _$_SecuritySchemeHttp instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'scheme': instance.scheme,
+    'bearerFormat': instance.bearerFormat,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1256,8 +1267,6 @@ Map<String, dynamic> _$$_SecuritySchemeHttpToJson(
   }
 
   writeNotNull('description', instance.description);
-  val['scheme'] = instance.scheme;
-  val['bearerFormat'] = instance.bearerFormat;
   val['type'] = instance.$type;
   return val;
 }

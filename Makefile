@@ -12,8 +12,8 @@ upgrade:
 
 build:
 	dart run build_runner build --delete-conflicting-outputs
-	dart fix --apply lib/*
-	dart format lib/*
+	dart fix --apply lib
+	dart format lib
 	dart pub get
 
 build-test:

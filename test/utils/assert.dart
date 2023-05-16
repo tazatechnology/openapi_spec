@@ -19,8 +19,10 @@ assertFileLineByLine({
     expect(
       actual[i],
       equals(truth[i]),
-      reason:
-          'Line ${i + 1} of ${actual.length} mismatch\nActual: ${actual[i]}\nTruth: ${truth[i]}',
+      reason: """
+Line ${i + 1} of ${actual.length} mismatch\nActual: ${actual[i]}\nTruth: ${truth[i]}\n\nFILE: $actualFile
+"""
+          .trim(),
     );
   }
 }

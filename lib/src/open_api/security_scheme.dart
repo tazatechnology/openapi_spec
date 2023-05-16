@@ -40,12 +40,14 @@ class SecurityScheme with _$SecurityScheme {
   // ------------------------------------------
 
   const factory SecurityScheme.http({
-    /// A description for security scheme.
-    String? description,
-
     /// The name of the HTTP Authorization scheme to be used in the Authorization header
     required String scheme,
+
+    /// A hint to the client to identify how the bearer token is formatted.
     required String bearerFormat,
+
+    /// A description for security scheme.
+    String? description,
   }) = _SecuritySchemeHttp;
 
   // ------------------------------------------

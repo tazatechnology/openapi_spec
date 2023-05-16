@@ -2856,13 +2856,13 @@ mixin _$Contact {
   /// The identifying name of the contact person/organization.
   String? get name => throw _privateConstructorUsedError;
 
-  /// The URL pointing to the contact information.
-  /// This must be in the form of a URL.
-  String? get url => throw _privateConstructorUsedError;
-
   /// The email address of the contact person/organization.
   /// This must be in the form of an email address.
   String? get email => throw _privateConstructorUsedError;
+
+  /// The URL pointing to the contact information.
+  /// This must be in the form of a URL.
+  String? get url => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -2874,7 +2874,7 @@ abstract class $ContactCopyWith<$Res> {
   factory $ContactCopyWith(Contact value, $Res Function(Contact) then) =
       _$ContactCopyWithImpl<$Res, Contact>;
   @useResult
-  $Res call({String? name, String? url, String? email});
+  $Res call({String? name, String? email, String? url});
 }
 
 /// @nodoc
@@ -2891,21 +2891,21 @@ class _$ContactCopyWithImpl<$Res, $Val extends Contact>
   @override
   $Res call({
     Object? name = freezed,
-    Object? url = freezed,
     Object? email = freezed,
+    Object? url = freezed,
   }) {
     return _then(_value.copyWith(
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -2918,7 +2918,7 @@ abstract class _$$_ContactCopyWith<$Res> implements $ContactCopyWith<$Res> {
       __$$_ContactCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? name, String? url, String? email});
+  $Res call({String? name, String? email, String? url});
 }
 
 /// @nodoc
@@ -2932,21 +2932,21 @@ class __$$_ContactCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? url = freezed,
     Object? email = freezed,
+    Object? url = freezed,
   }) {
     return _then(_$_Contact(
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: freezed == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -2955,7 +2955,7 @@ class __$$_ContactCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Contact implements _Contact {
-  const _$_Contact({this.name, this.url, this.email});
+  const _$_Contact({this.name, this.email, this.url});
 
   factory _$_Contact.fromJson(Map<String, dynamic> json) =>
       _$$_ContactFromJson(json);
@@ -2964,19 +2964,19 @@ class _$_Contact implements _Contact {
   @override
   final String? name;
 
-  /// The URL pointing to the contact information.
-  /// This must be in the form of a URL.
-  @override
-  final String? url;
-
   /// The email address of the contact person/organization.
   /// This must be in the form of an email address.
   @override
   final String? email;
 
+  /// The URL pointing to the contact information.
+  /// This must be in the form of a URL.
+  @override
+  final String? url;
+
   @override
   String toString() {
-    return 'Contact(name: $name, url: $url, email: $email)';
+    return 'Contact(name: $name, email: $email, url: $url)';
   }
 
   @override
@@ -2985,13 +2985,13 @@ class _$_Contact implements _Contact {
         (other.runtimeType == runtimeType &&
             other is _$_Contact &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, url, email);
+  int get hashCode => Object.hash(runtimeType, name, email, url);
 
   @JsonKey(ignore: true)
   @override
@@ -3010,8 +3010,8 @@ class _$_Contact implements _Contact {
 abstract class _Contact implements Contact {
   const factory _Contact(
       {final String? name,
-      final String? url,
-      final String? email}) = _$_Contact;
+      final String? email,
+      final String? url}) = _$_Contact;
 
   factory _Contact.fromJson(Map<String, dynamic> json) = _$_Contact.fromJson;
 
@@ -3021,14 +3021,14 @@ abstract class _Contact implements Contact {
   String? get name;
   @override
 
-  /// The URL pointing to the contact information.
-  /// This must be in the form of a URL.
-  String? get url;
-  @override
-
   /// The email address of the contact person/organization.
   /// This must be in the form of an email address.
   String? get email;
+  @override
+
+  /// The URL pointing to the contact information.
+  /// This must be in the form of a URL.
+  String? get url;
   @override
   @JsonKey(ignore: true)
   _$$_ContactCopyWith<_$_Contact> get copyWith =>
@@ -5568,6 +5568,7 @@ mixin _$Parameter {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   bool? get deprecated => throw _privateConstructorUsedError;
+  String? get style => throw _privateConstructorUsedError;
   bool? get explode => throw _privateConstructorUsedError;
   bool? get allowReserved => throw _privateConstructorUsedError;
   Schema? get schema => throw _privateConstructorUsedError;
@@ -5578,6 +5579,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5587,6 +5589,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5596,6 +5599,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5604,6 +5608,7 @@ mixin _$Parameter {
             String name,
             String? description,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5617,6 +5622,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -5626,6 +5632,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -5635,12 +5642,13 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult? Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
   }) =>
       throw _privateConstructorUsedError;
@@ -5651,6 +5659,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -5660,6 +5669,7 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -5669,12 +5679,13 @@ mixin _$Parameter {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
     required TResult orElse(),
   }) =>
@@ -5719,6 +5730,7 @@ abstract class $ParameterCopyWith<$Res> {
       {String name,
       String? description,
       bool? deprecated,
+      String? style,
       bool? explode,
       bool? allowReserved,
       Schema? schema});
@@ -5742,6 +5754,7 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
     Object? name = null,
     Object? description = freezed,
     Object? deprecated = freezed,
+    Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? schema = freezed,
@@ -5759,6 +5772,10 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      style: freezed == style
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as String?,
       explode: freezed == explode
           ? _value.explode
           : explode // ignore: cast_nullable_to_non_nullable
@@ -5800,6 +5817,7 @@ abstract class _$$_PropertyCookieCopyWith<$Res>
       String? description,
       bool? required,
       bool? deprecated,
+      String? style,
       bool? explode,
       bool? allowReserved,
       Schema? schema});
@@ -5823,6 +5841,7 @@ class __$$_PropertyCookieCopyWithImpl<$Res>
     Object? description = freezed,
     Object? required = freezed,
     Object? deprecated = freezed,
+    Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? schema = freezed,
@@ -5844,6 +5863,10 @@ class __$$_PropertyCookieCopyWithImpl<$Res>
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      style: freezed == style
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as String?,
       explode: freezed == explode
           ? _value.explode
           : explode // ignore: cast_nullable_to_non_nullable
@@ -5868,6 +5891,7 @@ class _$_PropertyCookie extends _PropertyCookie {
       this.description,
       this.required,
       this.deprecated,
+      this.style,
       this.explode,
       this.allowReserved,
       this.schema,
@@ -5887,6 +5911,8 @@ class _$_PropertyCookie extends _PropertyCookie {
   @override
   final bool? deprecated;
   @override
+  final String? style;
+  @override
   final bool? explode;
   @override
   final bool? allowReserved;
@@ -5898,7 +5924,7 @@ class _$_PropertyCookie extends _PropertyCookie {
 
   @override
   String toString() {
-    return 'Parameter.cookie(name: $name, description: $description, required: $required, deprecated: $deprecated, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.cookie(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
   }
 
   @override
@@ -5913,6 +5939,7 @@ class _$_PropertyCookie extends _PropertyCookie {
                 other.required == required) &&
             (identical(other.deprecated, deprecated) ||
                 other.deprecated == deprecated) &&
+            (identical(other.style, style) || other.style == style) &&
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
@@ -5922,7 +5949,7 @@ class _$_PropertyCookie extends _PropertyCookie {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, required,
-      deprecated, explode, allowReserved, schema);
+      deprecated, style, explode, allowReserved, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -5938,6 +5965,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5947,6 +5975,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5956,6 +5985,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -5964,12 +5994,13 @@ class _$_PropertyCookie extends _PropertyCookie {
             String name,
             String? description,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
         path,
   }) {
-    return cookie(name, description, required, deprecated, explode,
+    return cookie(name, description, required, deprecated, style, explode,
         allowReserved, schema);
   }
 
@@ -5981,6 +6012,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -5990,6 +6022,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -5999,15 +6032,16 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult? Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
   }) {
-    return cookie?.call(name, description, required, deprecated, explode,
+    return cookie?.call(name, description, required, deprecated, style, explode,
         allowReserved, schema);
   }
 
@@ -6019,6 +6053,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6028,6 +6063,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6037,17 +6073,18 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (cookie != null) {
-      return cookie(name, description, required, deprecated, explode,
+      return cookie(name, description, required, deprecated, style, explode,
           allowReserved, schema);
     }
     return orElse();
@@ -6104,6 +6141,7 @@ abstract class _PropertyCookie extends Parameter {
       final String? description,
       final bool? required,
       final bool? deprecated,
+      final String? style,
       final bool? explode,
       final bool? allowReserved,
       final Schema? schema}) = _$_PropertyCookie;
@@ -6119,6 +6157,8 @@ abstract class _PropertyCookie extends Parameter {
   bool? get required;
   @override
   bool? get deprecated;
+  @override
+  String? get style;
   @override
   bool? get explode;
   @override
@@ -6144,6 +6184,7 @@ abstract class _$$_PropertyHeaderCopyWith<$Res>
       String? description,
       bool? required,
       bool? deprecated,
+      String? style,
       bool? explode,
       bool? allowReserved,
       Schema? schema});
@@ -6167,6 +6208,7 @@ class __$$_PropertyHeaderCopyWithImpl<$Res>
     Object? description = freezed,
     Object? required = freezed,
     Object? deprecated = freezed,
+    Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? schema = freezed,
@@ -6188,6 +6230,10 @@ class __$$_PropertyHeaderCopyWithImpl<$Res>
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      style: freezed == style
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as String?,
       explode: freezed == explode
           ? _value.explode
           : explode // ignore: cast_nullable_to_non_nullable
@@ -6212,6 +6258,7 @@ class _$_PropertyHeader extends _PropertyHeader {
       this.description,
       this.required,
       this.deprecated,
+      this.style,
       this.explode,
       this.allowReserved,
       this.schema,
@@ -6231,6 +6278,8 @@ class _$_PropertyHeader extends _PropertyHeader {
   @override
   final bool? deprecated;
   @override
+  final String? style;
+  @override
   final bool? explode;
   @override
   final bool? allowReserved;
@@ -6242,7 +6291,7 @@ class _$_PropertyHeader extends _PropertyHeader {
 
   @override
   String toString() {
-    return 'Parameter.header(name: $name, description: $description, required: $required, deprecated: $deprecated, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.header(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
   }
 
   @override
@@ -6257,6 +6306,7 @@ class _$_PropertyHeader extends _PropertyHeader {
                 other.required == required) &&
             (identical(other.deprecated, deprecated) ||
                 other.deprecated == deprecated) &&
+            (identical(other.style, style) || other.style == style) &&
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
@@ -6266,7 +6316,7 @@ class _$_PropertyHeader extends _PropertyHeader {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, required,
-      deprecated, explode, allowReserved, schema);
+      deprecated, style, explode, allowReserved, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -6282,6 +6332,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6291,6 +6342,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6300,6 +6352,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6308,12 +6361,13 @@ class _$_PropertyHeader extends _PropertyHeader {
             String name,
             String? description,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
         path,
   }) {
-    return header(name, description, required, deprecated, explode,
+    return header(name, description, required, deprecated, style, explode,
         allowReserved, schema);
   }
 
@@ -6325,6 +6379,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6334,6 +6389,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6343,15 +6399,16 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult? Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
   }) {
-    return header?.call(name, description, required, deprecated, explode,
+    return header?.call(name, description, required, deprecated, style, explode,
         allowReserved, schema);
   }
 
@@ -6363,6 +6420,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6372,6 +6430,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6381,17 +6440,18 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (header != null) {
-      return header(name, description, required, deprecated, explode,
+      return header(name, description, required, deprecated, style, explode,
           allowReserved, schema);
     }
     return orElse();
@@ -6448,6 +6508,7 @@ abstract class _PropertyHeader extends Parameter {
       final String? description,
       final bool? required,
       final bool? deprecated,
+      final String? style,
       final bool? explode,
       final bool? allowReserved,
       final Schema? schema}) = _$_PropertyHeader;
@@ -6463,6 +6524,8 @@ abstract class _PropertyHeader extends Parameter {
   bool? get required;
   @override
   bool? get deprecated;
+  @override
+  String? get style;
   @override
   bool? get explode;
   @override
@@ -6488,6 +6551,7 @@ abstract class _$$_PropertyQueryCopyWith<$Res>
       String? description,
       bool? required,
       bool? deprecated,
+      String? style,
       bool? explode,
       bool? allowReserved,
       Schema? schema});
@@ -6511,6 +6575,7 @@ class __$$_PropertyQueryCopyWithImpl<$Res>
     Object? description = freezed,
     Object? required = freezed,
     Object? deprecated = freezed,
+    Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? schema = freezed,
@@ -6532,6 +6597,10 @@ class __$$_PropertyQueryCopyWithImpl<$Res>
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      style: freezed == style
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as String?,
       explode: freezed == explode
           ? _value.explode
           : explode // ignore: cast_nullable_to_non_nullable
@@ -6556,6 +6625,7 @@ class _$_PropertyQuery extends _PropertyQuery {
       this.description,
       this.required,
       this.deprecated,
+      this.style,
       this.explode,
       this.allowReserved,
       this.schema,
@@ -6575,6 +6645,8 @@ class _$_PropertyQuery extends _PropertyQuery {
   @override
   final bool? deprecated;
   @override
+  final String? style;
+  @override
   final bool? explode;
   @override
   final bool? allowReserved;
@@ -6586,7 +6658,7 @@ class _$_PropertyQuery extends _PropertyQuery {
 
   @override
   String toString() {
-    return 'Parameter.query(name: $name, description: $description, required: $required, deprecated: $deprecated, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.query(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
   }
 
   @override
@@ -6601,6 +6673,7 @@ class _$_PropertyQuery extends _PropertyQuery {
                 other.required == required) &&
             (identical(other.deprecated, deprecated) ||
                 other.deprecated == deprecated) &&
+            (identical(other.style, style) || other.style == style) &&
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
@@ -6610,7 +6683,7 @@ class _$_PropertyQuery extends _PropertyQuery {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, required,
-      deprecated, explode, allowReserved, schema);
+      deprecated, style, explode, allowReserved, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -6626,6 +6699,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6635,6 +6709,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6644,6 +6719,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6652,12 +6728,13 @@ class _$_PropertyQuery extends _PropertyQuery {
             String name,
             String? description,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
         path,
   }) {
-    return query(name, description, required, deprecated, explode,
+    return query(name, description, required, deprecated, style, explode,
         allowReserved, schema);
   }
 
@@ -6669,6 +6746,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6678,6 +6756,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6687,15 +6766,16 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult? Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
   }) {
-    return query?.call(name, description, required, deprecated, explode,
+    return query?.call(name, description, required, deprecated, style, explode,
         allowReserved, schema);
   }
 
@@ -6707,6 +6787,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6716,6 +6797,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -6725,17 +6807,18 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (query != null) {
-      return query(name, description, required, deprecated, explode,
+      return query(name, description, required, deprecated, style, explode,
           allowReserved, schema);
     }
     return orElse();
@@ -6792,6 +6875,7 @@ abstract class _PropertyQuery extends Parameter {
       final String? description,
       final bool? required,
       final bool? deprecated,
+      final String? style,
       final bool? explode,
       final bool? allowReserved,
       final Schema? schema}) = _$_PropertyQuery;
@@ -6807,6 +6891,8 @@ abstract class _PropertyQuery extends Parameter {
   bool? get required;
   @override
   bool? get deprecated;
+  @override
+  String? get style;
   @override
   bool? get explode;
   @override
@@ -6831,6 +6917,7 @@ abstract class _$$_PropertyPathCopyWith<$Res>
       {String name,
       String? description,
       bool? deprecated,
+      String? style,
       bool? explode,
       bool? allowReserved,
       Schema? schema});
@@ -6853,6 +6940,7 @@ class __$$_PropertyPathCopyWithImpl<$Res>
     Object? name = null,
     Object? description = freezed,
     Object? deprecated = freezed,
+    Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? schema = freezed,
@@ -6870,6 +6958,10 @@ class __$$_PropertyPathCopyWithImpl<$Res>
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
               as bool?,
+      style: freezed == style
+          ? _value.style
+          : style // ignore: cast_nullable_to_non_nullable
+              as String?,
       explode: freezed == explode
           ? _value.explode
           : explode // ignore: cast_nullable_to_non_nullable
@@ -6893,6 +6985,7 @@ class _$_PropertyPath extends _PropertyPath {
       {required this.name,
       this.description,
       this.deprecated,
+      this.style,
       this.explode,
       this.allowReserved,
       this.schema,
@@ -6910,6 +7003,8 @@ class _$_PropertyPath extends _PropertyPath {
   @override
   final bool? deprecated;
   @override
+  final String? style;
+  @override
   final bool? explode;
   @override
   final bool? allowReserved;
@@ -6921,7 +7016,7 @@ class _$_PropertyPath extends _PropertyPath {
 
   @override
   String toString() {
-    return 'Parameter.path(name: $name, description: $description, deprecated: $deprecated, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.path(name: $name, description: $description, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
   }
 
   @override
@@ -6934,6 +7029,7 @@ class _$_PropertyPath extends _PropertyPath {
                 other.description == description) &&
             (identical(other.deprecated, deprecated) ||
                 other.deprecated == deprecated) &&
+            (identical(other.style, style) || other.style == style) &&
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
@@ -6943,7 +7039,7 @@ class _$_PropertyPath extends _PropertyPath {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, deprecated,
-      explode, allowReserved, schema);
+      style, explode, allowReserved, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -6959,6 +7055,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6968,6 +7065,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6977,6 +7075,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
@@ -6985,12 +7084,14 @@ class _$_PropertyPath extends _PropertyPath {
             String name,
             String? description,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)
         path,
   }) {
-    return path(name, description, deprecated, explode, allowReserved, schema);
+    return path(
+        name, description, deprecated, style, explode, allowReserved, schema);
   }
 
   @override
@@ -7001,6 +7102,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -7010,6 +7112,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -7019,16 +7122,17 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult? Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
   }) {
     return path?.call(
-        name, description, deprecated, explode, allowReserved, schema);
+        name, description, deprecated, style, explode, allowReserved, schema);
   }
 
   @override
@@ -7039,6 +7143,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -7048,6 +7153,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
@@ -7057,18 +7163,19 @@ class _$_PropertyPath extends _PropertyPath {
             String? description,
             bool? required,
             bool? deprecated,
+            String? style,
             bool? explode,
             bool? allowReserved,
             Schema? schema)?
         query,
     TResult Function(String name, String? description, bool? deprecated,
-            bool? explode, bool? allowReserved, Schema? schema)?
+            String? style, bool? explode, bool? allowReserved, Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (path != null) {
       return path(
-          name, description, deprecated, explode, allowReserved, schema);
+          name, description, deprecated, style, explode, allowReserved, schema);
     }
     return orElse();
   }
@@ -7123,6 +7230,7 @@ abstract class _PropertyPath extends Parameter {
       {required final String name,
       final String? description,
       final bool? deprecated,
+      final String? style,
       final bool? explode,
       final bool? allowReserved,
       final Schema? schema}) = _$_PropertyPath;
@@ -7137,6 +7245,8 @@ abstract class _PropertyPath extends Parameter {
   String? get description;
   @override
   bool? get deprecated;
+  @override
+  String? get style;
   @override
   bool? get explode;
   @override
@@ -7981,24 +8091,24 @@ RequestBody _$RequestBodyFromJson(Map<String, dynamic> json) {
 mixin _$RequestBody {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? description, Map<String, MediaType>? content,
-            bool? required)
+    TResult Function(String? description, bool? required,
+            Map<String, MediaType>? content)
         $default, {
     required TResult Function(RequestBody ref) reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description, Map<String, MediaType>? content,
-            bool? required)?
+    TResult? Function(String? description, bool? required,
+            Map<String, MediaType>? content)?
         $default, {
     TResult? Function(RequestBody ref)? reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description, Map<String, MediaType>? content,
-            bool? required)?
+    TResult Function(String? description, bool? required,
+            Map<String, MediaType>? content)?
         $default, {
     TResult Function(RequestBody ref)? reference,
     required TResult orElse(),
@@ -8051,7 +8161,7 @@ abstract class _$$_RequestBodyCopyWith<$Res> {
       __$$_RequestBodyCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {String? description, Map<String, MediaType>? content, bool? required});
+      {String? description, bool? required, Map<String, MediaType>? content});
 }
 
 /// @nodoc
@@ -8066,22 +8176,22 @@ class __$$_RequestBodyCopyWithImpl<$Res>
   @override
   $Res call({
     Object? description = freezed,
-    Object? content = freezed,
     Object? required = freezed,
+    Object? content = freezed,
   }) {
     return _then(_$_RequestBody(
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      content: freezed == content
-          ? _value._content
-          : content // ignore: cast_nullable_to_non_nullable
-              as Map<String, MediaType>?,
       required: freezed == required
           ? _value.required
           : required // ignore: cast_nullable_to_non_nullable
               as bool?,
+      content: freezed == content
+          ? _value._content
+          : content // ignore: cast_nullable_to_non_nullable
+              as Map<String, MediaType>?,
     ));
   }
 }
@@ -8091,8 +8201,8 @@ class __$$_RequestBodyCopyWithImpl<$Res>
 class _$_RequestBody implements _RequestBody {
   const _$_RequestBody(
       {this.description,
-      final Map<String, MediaType>? content,
       this.required,
+      final Map<String, MediaType>? content,
       final String? $type})
       : _content = content,
         $type = $type ?? 'default';
@@ -8103,6 +8213,10 @@ class _$_RequestBody implements _RequestBody {
   /// A brief description of the request body.
   @override
   final String? description;
+
+  /// Determines if the request body is required in the request.
+  @override
+  final bool? required;
 
   /// The content of the request body.
   final Map<String, MediaType>? _content;
@@ -8117,16 +8231,12 @@ class _$_RequestBody implements _RequestBody {
     return EqualUnmodifiableMapView(value);
   }
 
-  /// Determines if the request body is required in the request.
-  @override
-  final bool? required;
-
   @JsonKey(name: 'unionType')
   final String $type;
 
   @override
   String toString() {
-    return 'RequestBody(description: $description, content: $content, required: $required)';
+    return 'RequestBody(description: $description, required: $required, content: $content)';
   }
 
   @override
@@ -8136,15 +8246,15 @@ class _$_RequestBody implements _RequestBody {
             other is _$_RequestBody &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
             (identical(other.required, required) ||
-                other.required == required));
+                other.required == required) &&
+            const DeepCollectionEquality().equals(other._content, _content));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description,
-      const DeepCollectionEquality().hash(_content), required);
+  int get hashCode => Object.hash(runtimeType, description, required,
+      const DeepCollectionEquality().hash(_content));
 
   @JsonKey(ignore: true)
   @override
@@ -8155,36 +8265,36 @@ class _$_RequestBody implements _RequestBody {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? description, Map<String, MediaType>? content,
-            bool? required)
+    TResult Function(String? description, bool? required,
+            Map<String, MediaType>? content)
         $default, {
     required TResult Function(RequestBody ref) reference,
   }) {
-    return $default(description, content, required);
+    return $default(description, required, content);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description, Map<String, MediaType>? content,
-            bool? required)?
+    TResult? Function(String? description, bool? required,
+            Map<String, MediaType>? content)?
         $default, {
     TResult? Function(RequestBody ref)? reference,
   }) {
-    return $default?.call(description, content, required);
+    return $default?.call(description, required, content);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description, Map<String, MediaType>? content,
-            bool? required)?
+    TResult Function(String? description, bool? required,
+            Map<String, MediaType>? content)?
         $default, {
     TResult Function(RequestBody ref)? reference,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(description, content, required);
+      return $default(description, required, content);
     }
     return orElse();
   }
@@ -8231,8 +8341,8 @@ class _$_RequestBody implements _RequestBody {
 abstract class _RequestBody implements RequestBody {
   const factory _RequestBody(
       {final String? description,
-      final Map<String, MediaType>? content,
-      final bool? required}) = _$_RequestBody;
+      final bool? required,
+      final Map<String, MediaType>? content}) = _$_RequestBody;
 
   factory _RequestBody.fromJson(Map<String, dynamic> json) =
       _$_RequestBody.fromJson;
@@ -8240,11 +8350,11 @@ abstract class _RequestBody implements RequestBody {
   /// A brief description of the request body.
   String? get description;
 
-  /// The content of the request body.
-  Map<String, MediaType>? get content;
-
   /// Determines if the request body is required in the request.
   bool? get required;
+
+  /// The content of the request body.
+  Map<String, MediaType>? get content;
   @JsonKey(ignore: true)
   _$$_RequestBodyCopyWith<_$_RequestBody> get copyWith =>
       throw _privateConstructorUsedError;
@@ -8333,8 +8443,8 @@ class _$_RequestBodyReference implements _RequestBodyReference {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String? description, Map<String, MediaType>? content,
-            bool? required)
+    TResult Function(String? description, bool? required,
+            Map<String, MediaType>? content)
         $default, {
     required TResult Function(RequestBody ref) reference,
   }) {
@@ -8344,8 +8454,8 @@ class _$_RequestBodyReference implements _RequestBodyReference {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description, Map<String, MediaType>? content,
-            bool? required)?
+    TResult? Function(String? description, bool? required,
+            Map<String, MediaType>? content)?
         $default, {
     TResult? Function(RequestBody ref)? reference,
   }) {
@@ -8355,8 +8465,8 @@ class _$_RequestBodyReference implements _RequestBodyReference {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description, Map<String, MediaType>? content,
-            bool? required)?
+    TResult Function(String? description, bool? required,
+            Map<String, MediaType>? content)?
         $default, {
     TResult Function(RequestBody ref)? reference,
     required TResult orElse(),
@@ -12657,7 +12767,7 @@ mixin _$SecurityScheme {
             @JsonKey(name: 'in') ApiKeyLocation location)
         apiKey,
     required TResult Function(
-            String? description, String scheme, String bearerFormat)
+            String scheme, String bearerFormat, String? description)
         http,
     required TResult Function(String? description) mutualTLS,
     required TResult Function(String? description, OAuthFlows flows) oauth2,
@@ -12671,7 +12781,7 @@ mixin _$SecurityScheme {
     TResult? Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult? Function(String? description, String scheme, String bearerFormat)?
+    TResult? Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult? Function(String? description)? mutualTLS,
     TResult? Function(String? description, OAuthFlows flows)? oauth2,
@@ -12685,7 +12795,7 @@ mixin _$SecurityScheme {
     TResult Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult Function(String? description, String scheme, String bearerFormat)?
+    TResult Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult Function(String? description)? mutualTLS,
     TResult Function(String? description, OAuthFlows flows)? oauth2,
@@ -12872,7 +12982,7 @@ class _$_SecuritySchemeApiKey implements _SecuritySchemeApiKey {
             @JsonKey(name: 'in') ApiKeyLocation location)
         apiKey,
     required TResult Function(
-            String? description, String scheme, String bearerFormat)
+            String scheme, String bearerFormat, String? description)
         http,
     required TResult Function(String? description) mutualTLS,
     required TResult Function(String? description, OAuthFlows flows) oauth2,
@@ -12889,7 +12999,7 @@ class _$_SecuritySchemeApiKey implements _SecuritySchemeApiKey {
     TResult? Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult? Function(String? description, String scheme, String bearerFormat)?
+    TResult? Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult? Function(String? description)? mutualTLS,
     TResult? Function(String? description, OAuthFlows flows)? oauth2,
@@ -12906,7 +13016,7 @@ class _$_SecuritySchemeApiKey implements _SecuritySchemeApiKey {
     TResult Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult Function(String? description, String scheme, String bearerFormat)?
+    TResult Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult Function(String? description)? mutualTLS,
     TResult Function(String? description, OAuthFlows flows)? oauth2,
@@ -13003,7 +13113,7 @@ abstract class _$$_SecuritySchemeHttpCopyWith<$Res>
       __$$_SecuritySchemeHttpCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description, String scheme, String bearerFormat});
+  $Res call({String scheme, String bearerFormat, String? description});
 }
 
 /// @nodoc
@@ -13017,15 +13127,11 @@ class __$$_SecuritySchemeHttpCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
     Object? scheme = null,
     Object? bearerFormat = null,
+    Object? description = freezed,
   }) {
     return _then(_$_SecuritySchemeHttp(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       scheme: null == scheme
           ? _value.scheme
           : scheme // ignore: cast_nullable_to_non_nullable
@@ -13034,6 +13140,10 @@ class __$$_SecuritySchemeHttpCopyWithImpl<$Res>
           ? _value.bearerFormat
           : bearerFormat // ignore: cast_nullable_to_non_nullable
               as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -13042,31 +13152,33 @@ class __$$_SecuritySchemeHttpCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
   const _$_SecuritySchemeHttp(
-      {this.description,
-      required this.scheme,
+      {required this.scheme,
       required this.bearerFormat,
+      this.description,
       final String? $type})
       : $type = $type ?? 'http';
 
   factory _$_SecuritySchemeHttp.fromJson(Map<String, dynamic> json) =>
       _$$_SecuritySchemeHttpFromJson(json);
 
-  /// A description for security scheme.
-  @override
-  final String? description;
-
   /// The name of the HTTP Authorization scheme to be used in the Authorization header
   @override
   final String scheme;
+
+  /// A hint to the client to identify how the bearer token is formatted.
   @override
   final String bearerFormat;
+
+  /// A description for security scheme.
+  @override
+  final String? description;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'SecurityScheme.http(description: $description, scheme: $scheme, bearerFormat: $bearerFormat)';
+    return 'SecurityScheme.http(scheme: $scheme, bearerFormat: $bearerFormat, description: $description)';
   }
 
   @override
@@ -13074,17 +13186,17 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SecuritySchemeHttp &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.scheme, scheme) || other.scheme == scheme) &&
             (identical(other.bearerFormat, bearerFormat) ||
-                other.bearerFormat == bearerFormat));
+                other.bearerFormat == bearerFormat) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, description, scheme, bearerFormat);
+      Object.hash(runtimeType, scheme, bearerFormat, description);
 
   @JsonKey(ignore: true)
   @override
@@ -13100,7 +13212,7 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
             @JsonKey(name: 'in') ApiKeyLocation location)
         apiKey,
     required TResult Function(
-            String? description, String scheme, String bearerFormat)
+            String scheme, String bearerFormat, String? description)
         http,
     required TResult Function(String? description) mutualTLS,
     required TResult Function(String? description, OAuthFlows flows) oauth2,
@@ -13108,7 +13220,7 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
             String? description, @JsonKey(name: 'openIdConnectUrl') String url)
         openIdConnect,
   }) {
-    return http(description, scheme, bearerFormat);
+    return http(scheme, bearerFormat, description);
   }
 
   @override
@@ -13117,7 +13229,7 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
     TResult? Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult? Function(String? description, String scheme, String bearerFormat)?
+    TResult? Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult? Function(String? description)? mutualTLS,
     TResult? Function(String? description, OAuthFlows flows)? oauth2,
@@ -13125,7 +13237,7 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
             String? description, @JsonKey(name: 'openIdConnectUrl') String url)?
         openIdConnect,
   }) {
-    return http?.call(description, scheme, bearerFormat);
+    return http?.call(scheme, bearerFormat, description);
   }
 
   @override
@@ -13134,7 +13246,7 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
     TResult Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult Function(String? description, String scheme, String bearerFormat)?
+    TResult Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult Function(String? description)? mutualTLS,
     TResult Function(String? description, OAuthFlows flows)? oauth2,
@@ -13144,7 +13256,7 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
     required TResult orElse(),
   }) {
     if (http != null) {
-      return http(description, scheme, bearerFormat);
+      return http(scheme, bearerFormat, description);
     }
     return orElse();
   }
@@ -13199,21 +13311,22 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
 
 abstract class _SecuritySchemeHttp implements SecurityScheme {
   const factory _SecuritySchemeHttp(
-      {final String? description,
-      required final String scheme,
-      required final String bearerFormat}) = _$_SecuritySchemeHttp;
+      {required final String scheme,
+      required final String bearerFormat,
+      final String? description}) = _$_SecuritySchemeHttp;
 
   factory _SecuritySchemeHttp.fromJson(Map<String, dynamic> json) =
       _$_SecuritySchemeHttp.fromJson;
 
+  /// The name of the HTTP Authorization scheme to be used in the Authorization header
+  String get scheme;
+
+  /// A hint to the client to identify how the bearer token is formatted.
+  String get bearerFormat;
   @override
 
   /// A description for security scheme.
   String? get description;
-
-  /// The name of the HTTP Authorization scheme to be used in the Authorization header
-  String get scheme;
-  String get bearerFormat;
   @override
   @JsonKey(ignore: true)
   _$$_SecuritySchemeHttpCopyWith<_$_SecuritySchemeHttp> get copyWith =>
@@ -13302,7 +13415,7 @@ class _$_SecuritySchemeMutualTLS implements _SecuritySchemeMutualTLS {
             @JsonKey(name: 'in') ApiKeyLocation location)
         apiKey,
     required TResult Function(
-            String? description, String scheme, String bearerFormat)
+            String scheme, String bearerFormat, String? description)
         http,
     required TResult Function(String? description) mutualTLS,
     required TResult Function(String? description, OAuthFlows flows) oauth2,
@@ -13319,7 +13432,7 @@ class _$_SecuritySchemeMutualTLS implements _SecuritySchemeMutualTLS {
     TResult? Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult? Function(String? description, String scheme, String bearerFormat)?
+    TResult? Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult? Function(String? description)? mutualTLS,
     TResult? Function(String? description, OAuthFlows flows)? oauth2,
@@ -13336,7 +13449,7 @@ class _$_SecuritySchemeMutualTLS implements _SecuritySchemeMutualTLS {
     TResult Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult Function(String? description, String scheme, String bearerFormat)?
+    TResult Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult Function(String? description)? mutualTLS,
     TResult Function(String? description, OAuthFlows flows)? oauth2,
@@ -13518,7 +13631,7 @@ class _$_SecuritySchemeOauth2 implements _SecuritySchemeOauth2 {
             @JsonKey(name: 'in') ApiKeyLocation location)
         apiKey,
     required TResult Function(
-            String? description, String scheme, String bearerFormat)
+            String scheme, String bearerFormat, String? description)
         http,
     required TResult Function(String? description) mutualTLS,
     required TResult Function(String? description, OAuthFlows flows) oauth2,
@@ -13535,7 +13648,7 @@ class _$_SecuritySchemeOauth2 implements _SecuritySchemeOauth2 {
     TResult? Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult? Function(String? description, String scheme, String bearerFormat)?
+    TResult? Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult? Function(String? description)? mutualTLS,
     TResult? Function(String? description, OAuthFlows flows)? oauth2,
@@ -13552,7 +13665,7 @@ class _$_SecuritySchemeOauth2 implements _SecuritySchemeOauth2 {
     TResult Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult Function(String? description, String scheme, String bearerFormat)?
+    TResult Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult Function(String? description)? mutualTLS,
     TResult Function(String? description, OAuthFlows flows)? oauth2,
@@ -13734,7 +13847,7 @@ class _$_SecuritySchemeOpenIdConnect implements _SecuritySchemeOpenIdConnect {
             @JsonKey(name: 'in') ApiKeyLocation location)
         apiKey,
     required TResult Function(
-            String? description, String scheme, String bearerFormat)
+            String scheme, String bearerFormat, String? description)
         http,
     required TResult Function(String? description) mutualTLS,
     required TResult Function(String? description, OAuthFlows flows) oauth2,
@@ -13751,7 +13864,7 @@ class _$_SecuritySchemeOpenIdConnect implements _SecuritySchemeOpenIdConnect {
     TResult? Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult? Function(String? description, String scheme, String bearerFormat)?
+    TResult? Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult? Function(String? description)? mutualTLS,
     TResult? Function(String? description, OAuthFlows flows)? oauth2,
@@ -13768,7 +13881,7 @@ class _$_SecuritySchemeOpenIdConnect implements _SecuritySchemeOpenIdConnect {
     TResult Function(String name, String? description,
             @JsonKey(name: 'in') ApiKeyLocation location)?
         apiKey,
-    TResult Function(String? description, String scheme, String bearerFormat)?
+    TResult Function(String scheme, String bearerFormat, String? description)?
         http,
     TResult Function(String? description)? mutualTLS,
     TResult Function(String? description, OAuthFlows flows)? oauth2,
