@@ -1,30 +1,30 @@
 {
   "openapi": "3.0.1",
+  "info": {
+    "title": "USPTO Data Set API",
+    "description": "The Data Set API (DSAPI) allows the public users to discover and search USPTO exported data sets. This is a generic API that allows USPTO users to make any CSV based data files searchable through API. With the help of GET call, it returns the list of data fields that are searchable. With the help of POST call, data can be fetched based on the filters on the field names. Please note that POST call is used to search the actual data. The reason for the POST call is that it allows users to specify any complex search criteria without worry about the GET size limitations as well as encoding of the input parameters.",
+    "contact": {
+      "name": "Open Data Portal",
+      "email": "developer@uspto.gov",
+      "url": "https://developer.uspto.gov"
+    },
+    "version": "1.0.0"
+  },
   "servers": [
     {
       "url": "{scheme}://developer.uspto.gov/ds-api",
       "variables": {
         "scheme": {
-          "description": "The Data Set API is accessible via https and http",
           "enum": [
             "https",
             "http"
           ],
-          "default": "https"
+          "default": "https",
+          "description": "The Data Set API is accessible via https and http"
         }
       }
     }
   ],
-  "info": {
-    "description": "The Data Set API (DSAPI) allows the public users to discover and search USPTO exported data sets. This is a generic API that allows USPTO users to make any CSV based data files searchable through API. With the help of GET call, it returns the list of data fields that are searchable. With the help of POST call, data can be fetched based on the filters on the field names. Please note that POST call is used to search the actual data. The reason for the POST call is that it allows users to specify any complex search criteria without worry about the GET size limitations as well as encoding of the input parameters.",
-    "version": "1.0.0",
-    "title": "USPTO Data Set API",
-    "contact": {
-      "name": "Open Data Portal",
-      "url": "https://developer.uspto.gov",
-      "email": "developer@uspto.gov"
-    }
-  },
   "tags": [
     {
       "name": "metadata",
@@ -41,8 +41,8 @@
         "tags": [
           "metadata"
         ],
-        "operationId": "list-data-sets",
         "summary": "List available data sets",
+        "operationId": "list-data-sets",
         "responses": {
           "200": {
             "description": "Returns a list of data sets",
@@ -158,6 +158,35 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "criteria"
+                ],
+                "type": "object",
+                "properties": {
+                  "criteria": {
+                    "type": "string",
+                    "description": "Uses Lucene Query Syntax in the format of propertyName:value, propertyName:[num1 TO num2] and date range format: propertyName:[yyyyMMdd TO yyyyMMdd]. In the response please see the 'docs' element which has the list of record objects. Each record structure would consist of all the fields and their corresponding values.",
+                    "default": "*:*"
+                  },
+                  "start": {
+                    "type": "integer",
+                    "description": "Starting record number. Default value is 0.",
+                    "default": 0
+                  },
+                  "rows": {
+                    "type": "integer",
+                    "description": "Specify number of rows to be returned. If you run the search with default values, in the response you will see 'numFound' attribute which will tell the number of records available in the dataset.",
+                    "default": 100
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "successful operation",
@@ -177,35 +206,6 @@
           },
           "404": {
             "description": "No matching record found for the given criteria."
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "criteria": {
-                    "description": "Uses Lucene Query Syntax in the format of propertyName:value, propertyName:[num1 TO num2] and date range format: propertyName:[yyyyMMdd TO yyyyMMdd]. In the response please see the 'docs' element which has the list of record objects. Each record structure would consist of all the fields and their corresponding values.",
-                    "type": "string",
-                    "default": "*:*"
-                  },
-                  "start": {
-                    "description": "Starting record number. Default value is 0.",
-                    "type": "integer",
-                    "default": 0
-                  },
-                  "rows": {
-                    "description": "Specify number of rows to be returned. If you run the search with default values, in the response you will see 'numFound' attribute which will tell the number of records available in the dataset.",
-                    "type": "integer",
-                    "default": 100
-                  }
-                },
-                "required": [
-                  "criteria"
-                ]
-              }
-            }
           }
         }
       }
@@ -234,13 +234,13 @@
                 },
                 "apiUrl": {
                   "type": "string",
-                  "format": "uriref",
-                  "description": "The URL describing the dataset's fields"
+                  "description": "The URL describing the dataset's fields",
+                  "format": "uriref"
                 },
                 "apiDocumentationUrl": {
                   "type": "string",
-                  "format": "uriref",
-                  "description": "A URL to the API console for each API"
+                  "description": "A URL to the API console for each API",
+                  "format": "uriref"
                 }
               }
             }

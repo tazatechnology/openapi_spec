@@ -6,124 +6,6 @@ part of 'index.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ArrayItemsString _$$_ArrayItemsStringFromJson(Map<String, dynamic> json) =>
-    _$_ArrayItemsString(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      format: $enumDecodeNullable(_$StringFormatEnumMap, json['format']),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_ArrayItemsStringToJson(_$_ArrayItemsString instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('format', _$StringFormatEnumMap[instance.format]);
-  val['type'] = instance.$type;
-  return val;
-}
-
-const _$StringFormatEnumMap = {
-  StringFormat.byte: 'byte',
-  StringFormat.binary: 'binary',
-  StringFormat.date: 'date',
-  StringFormat.datetime: 'date-time',
-  StringFormat.password: 'password',
-};
-
-_$_ArrayItemsInteger _$$_ArrayItemsIntegerFromJson(Map<String, dynamic> json) =>
-    _$_ArrayItemsInteger(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      format: $enumDecodeNullable(_$IntegerFormatEnumMap, json['format']),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_ArrayItemsIntegerToJson(
-    _$_ArrayItemsInteger instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('format', _$IntegerFormatEnumMap[instance.format]);
-  val['type'] = instance.$type;
-  return val;
-}
-
-const _$IntegerFormatEnumMap = {
-  IntegerFormat.int32: 'int32',
-  IntegerFormat.int64: 'int64',
-};
-
-_$_ArrayItemsNumber _$$_ArrayItemsNumberFromJson(Map<String, dynamic> json) =>
-    _$_ArrayItemsNumber(
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      format: $enumDecodeNullable(_$NumberFormatEnumMap, json['format']),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_ArrayItemsNumberToJson(_$_ArrayItemsNumber instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('format', _$NumberFormatEnumMap[instance.format]);
-  val['type'] = instance.$type;
-  return val;
-}
-
-const _$NumberFormatEnumMap = {
-  NumberFormat.float: 'float',
-  NumberFormat.double: 'double',
-};
-
-_$_ArrayItemsReference _$$_ArrayItemsReferenceFromJson(
-        Map<String, dynamic> json) =>
-    _$_ArrayItemsReference(
-      ref: json['ref'] as String,
-      xml: json['xml'] == null
-          ? null
-          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      $type: json['type'] as String?,
-    );
-
-Map<String, dynamic> _$$_ArrayItemsReferenceToJson(
-    _$_ArrayItemsReference instance) {
-  final val = <String, dynamic>{
-    'ref': instance.ref,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  val['type'] = instance.$type;
-  return val;
-}
-
 _$_OAuthFlows _$$_OAuthFlowsFromJson(Map<String, dynamic> json) =>
     _$_OAuthFlows(
       implicit: json['implicit'] == null
@@ -665,6 +547,7 @@ _$_PropertyCookie _$$_PropertyCookieFromJson(Map<String, dynamic> json) =>
       style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
+      example: json['example'] as String?,
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
@@ -688,6 +571,7 @@ Map<String, dynamic> _$$_PropertyCookieToJson(_$_PropertyCookie instance) {
   writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
+  writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
   val['in'] = instance.$type;
   return val;
@@ -702,6 +586,7 @@ _$_PropertyHeader _$$_PropertyHeaderFromJson(Map<String, dynamic> json) =>
       style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
+      example: json['example'] as String?,
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
@@ -725,6 +610,7 @@ Map<String, dynamic> _$$_PropertyHeaderToJson(_$_PropertyHeader instance) {
   writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
+  writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
   val['in'] = instance.$type;
   return val;
@@ -739,6 +625,7 @@ _$_PropertyQuery _$$_PropertyQueryFromJson(Map<String, dynamic> json) =>
       style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
+      example: json['example'] as String?,
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
@@ -762,6 +649,7 @@ Map<String, dynamic> _$$_PropertyQueryToJson(_$_PropertyQuery instance) {
   writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
+  writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
   val['in'] = instance.$type;
   return val;
@@ -775,6 +663,7 @@ _$_PropertyPath _$$_PropertyPathFromJson(Map<String, dynamic> json) =>
       style: json['style'] as String?,
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
+      example: json['example'] as String?,
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
@@ -797,6 +686,7 @@ Map<String, dynamic> _$$_PropertyPathToJson(_$_PropertyPath instance) {
   writeNotNull('style', instance.style);
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
+  writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
   val['in'] = instance.$type;
   return val;
@@ -1083,6 +973,15 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
   return val;
 }
 
+const _$StringFormatEnumMap = {
+  StringFormat.byte: 'byte',
+  StringFormat.binary: 'binary',
+  StringFormat.date: 'date',
+  StringFormat.datetime: 'date-time',
+  StringFormat.password: 'password',
+  StringFormat.uriRef: 'uriref',
+};
+
 _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
     _$_SchemaInteger(
       xml: json['xml'] == null
@@ -1122,6 +1021,11 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
   val['type'] = instance.$type;
   return val;
 }
+
+const _$IntegerFormatEnumMap = {
+  IntegerFormat.int32: 'int32',
+  IntegerFormat.int64: 'int64',
+};
 
 _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
     _$_SchemaNumber(
@@ -1163,6 +1067,11 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
   return val;
 }
 
+const _$NumberFormatEnumMap = {
+  NumberFormat.float: 'float',
+  NumberFormat.double: 'double',
+};
+
 _$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
     _$_SchemaEnum(
       title: json['title'] as String?,
@@ -1196,7 +1105,7 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
-      items: ArrayItems.fromJson(json['items'] as Map<String, dynamic>),
+      items: Schema.fromJson(json['items'] as Map<String, dynamic>),
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
@@ -1385,15 +1294,15 @@ Map<String, dynamic> _$$_ServerToJson(_$_Server instance) {
 _$_ServerVariable _$$_ServerVariableFromJson(Map<String, dynamic> json) =>
     _$_ServerVariable(
       enumValue:
-          (json['enumValue'] as List<dynamic>).map((e) => e as String).toList(),
-      defaultValue: json['defaultValue'] as String,
+          (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
+      defaultValue: json['default'] as String,
       description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_ServerVariableToJson(_$_ServerVariable instance) {
   final val = <String, dynamic>{
-    'enumValue': instance.enumValue,
-    'defaultValue': instance.defaultValue,
+    'enum': instance.enumValue,
+    'default': instance.defaultValue,
   };
 
   void writeNotNull(String key, dynamic value) {

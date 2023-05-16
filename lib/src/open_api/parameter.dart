@@ -22,6 +22,7 @@ class Parameter with _$Parameter {
     String? style,
     bool? explode,
     bool? allowReserved,
+    String? example,
     Schema? schema,
   }) = _PropertyCookie;
 
@@ -38,6 +39,7 @@ class Parameter with _$Parameter {
     String? style,
     bool? explode,
     bool? allowReserved,
+    String? example,
     Schema? schema,
   }) = _PropertyHeader;
 
@@ -54,6 +56,7 @@ class Parameter with _$Parameter {
     String? style,
     bool? explode,
     bool? allowReserved,
+    String? example,
     Schema? schema,
   }) = _PropertyQuery;
 
@@ -69,6 +72,7 @@ class Parameter with _$Parameter {
     String? style,
     bool? explode,
     bool? allowReserved,
+    String? example,
     Schema? schema,
   }) = _PropertyPath;
 

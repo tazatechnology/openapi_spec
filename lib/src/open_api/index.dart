@@ -13,7 +13,6 @@ import 'package:openapi_spec/src/generators/index.dart';
 part 'index.g.dart';
 part 'index.freezed.dart';
 
-part 'array_items.dart';
 part 'oauth_flow.dart';
 part 'callback.dart';
 part 'components.dart';

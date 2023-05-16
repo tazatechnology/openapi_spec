@@ -126,7 +126,7 @@ class Schema with _$Schema {
   /// A generic [Schema] schema of array type
   const factory Schema.array({
     Xml? xml,
-    required ArrayItems items,
+    required Schema items,
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,

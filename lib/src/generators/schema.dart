@@ -235,10 +235,13 @@ class SchemaGenerator extends BaseGenerator {
           c += "required ";
         }
         final type = p.items.map(
+          (i) => 'List',
+          boolean: (i) => 'List<bool>',
           string: (i) => 'List<String>',
           integer: (i) => 'List<int>',
           number: (i) => 'List<double>',
-          reference: (i) => 'List<${i.ref}>',
+          enumeration: (i) => 'List<String>',
+          array: (i) => 'List',
         );
         c += "$type ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);

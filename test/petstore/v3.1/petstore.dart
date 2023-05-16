@@ -73,13 +73,13 @@ final schemaPet = Schema(
     ),
     'photoUrls': Schema.array(
       xml: Xml(wrapped: true),
-      items: ArrayItems.string(
+      items: Schema.string(
         xml: Xml(name: 'photoUrl'),
       ),
     ),
     'tags': Schema.array(
       xml: Xml(wrapped: true),
-      items: ArrayItems.reference(ref: 'Tag'),
+      items: Schema(ref: 'Tag'),
     ),
     'status': Schema.enumeration(
       description: 'pet status in the store',
@@ -159,7 +159,7 @@ final schemaCustomer = Schema(
       example: 'fehguy',
     ),
     'address': Schema.array(
-      items: ArrayItems.reference(ref: 'Address'),
+      items: Schema(ref: 'Address'),
       xml: Xml(
         name: 'addresses',
         wrapped: true,
@@ -371,12 +371,12 @@ final spec = OpenApi(
             content: {
               'application/json': MediaType(
                 schema: Schema.array(
-                  items: ArrayItems.reference(ref: 'Pet'),
+                  items: Schema(ref: 'Pet'),
                 ),
               ),
               'application/xml': MediaType(
                 schema: Schema.array(
-                  items: ArrayItems.reference(ref: 'Pet'),
+                  items: Schema(ref: 'Pet'),
                 ),
               ),
             },
@@ -408,7 +408,7 @@ final spec = OpenApi(
             description: 'Tags to filter by',
             required: false,
             explode: true,
-            schema: Schema.array(items: ArrayItems.string()),
+            schema: Schema.array(items: Schema.string()),
           ),
         ],
         responses: {
@@ -417,12 +417,12 @@ final spec = OpenApi(
             content: {
               'application/json': MediaType(
                 schema: Schema.array(
-                  items: ArrayItems.reference(ref: 'Pet'),
+                  items: Schema(ref: 'Pet'),
                 ),
               ),
               'application/xml': MediaType(
                 schema: Schema.array(
-                  items: ArrayItems.reference(ref: 'Pet'),
+                  items: Schema(ref: 'Pet'),
                 ),
               ),
             },
@@ -781,7 +781,7 @@ final spec = OpenApi(
           content: {
             'application/json': MediaType(
               schema: Schema.array(
-                items: ArrayItems.reference(ref: 'User'),
+                items: Schema(ref: 'User'),
               ),
             ),
           },
@@ -993,7 +993,7 @@ final spec = OpenApi(
         content: {
           'application/json': MediaType(
             schema: Schema.array(
-              items: ArrayItems.reference(ref: 'User'),
+              items: Schema(ref: 'User'),
             ),
           ),
         },

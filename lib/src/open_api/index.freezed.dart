@@ -14,852 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ArrayItems _$ArrayItemsFromJson(Map<String, dynamic> json) {
-  switch (json['type']) {
-    case 'string':
-      return _ArrayItemsString.fromJson(json);
-    case 'integer':
-      return _ArrayItemsInteger.fromJson(json);
-    case 'number':
-      return _ArrayItemsNumber.fromJson(json);
-    case 'reference':
-      return _ArrayItemsReference.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(
-          json, 'type', 'ArrayItems', 'Invalid union type "${json['type']}"!');
-  }
-}
-
-/// @nodoc
-mixin _$ArrayItems {
-  Xml? get xml => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Xml? xml, StringFormat? format) string,
-    required TResult Function(Xml? xml, IntegerFormat? format) integer,
-    required TResult Function(Xml? xml, NumberFormat? format) number,
-    required TResult Function(String ref, Xml? xml) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Xml? xml, StringFormat? format)? string,
-    TResult? Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult? Function(Xml? xml, NumberFormat? format)? number,
-    TResult? Function(String ref, Xml? xml)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Xml? xml, StringFormat? format)? string,
-    TResult Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult Function(Xml? xml, NumberFormat? format)? number,
-    TResult Function(String ref, Xml? xml)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_ArrayItemsString value) string,
-    required TResult Function(_ArrayItemsInteger value) integer,
-    required TResult Function(_ArrayItemsNumber value) number,
-    required TResult Function(_ArrayItemsReference value) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ArrayItemsString value)? string,
-    TResult? Function(_ArrayItemsInteger value)? integer,
-    TResult? Function(_ArrayItemsNumber value)? number,
-    TResult? Function(_ArrayItemsReference value)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ArrayItemsString value)? string,
-    TResult Function(_ArrayItemsInteger value)? integer,
-    TResult Function(_ArrayItemsNumber value)? number,
-    TResult Function(_ArrayItemsReference value)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ArrayItemsCopyWith<ArrayItems> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ArrayItemsCopyWith<$Res> {
-  factory $ArrayItemsCopyWith(
-          ArrayItems value, $Res Function(ArrayItems) then) =
-      _$ArrayItemsCopyWithImpl<$Res, ArrayItems>;
-  @useResult
-  $Res call({Xml? xml});
-
-  $XmlCopyWith<$Res>? get xml;
-}
-
-/// @nodoc
-class _$ArrayItemsCopyWithImpl<$Res, $Val extends ArrayItems>
-    implements $ArrayItemsCopyWith<$Res> {
-  _$ArrayItemsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? xml = freezed,
-  }) {
-    return _then(_value.copyWith(
-      xml: freezed == xml
-          ? _value.xml
-          : xml // ignore: cast_nullable_to_non_nullable
-              as Xml?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $XmlCopyWith<$Res>? get xml {
-    if (_value.xml == null) {
-      return null;
-    }
-
-    return $XmlCopyWith<$Res>(_value.xml!, (value) {
-      return _then(_value.copyWith(xml: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$_ArrayItemsStringCopyWith<$Res>
-    implements $ArrayItemsCopyWith<$Res> {
-  factory _$$_ArrayItemsStringCopyWith(
-          _$_ArrayItemsString value, $Res Function(_$_ArrayItemsString) then) =
-      __$$_ArrayItemsStringCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Xml? xml, StringFormat? format});
-
-  @override
-  $XmlCopyWith<$Res>? get xml;
-}
-
-/// @nodoc
-class __$$_ArrayItemsStringCopyWithImpl<$Res>
-    extends _$ArrayItemsCopyWithImpl<$Res, _$_ArrayItemsString>
-    implements _$$_ArrayItemsStringCopyWith<$Res> {
-  __$$_ArrayItemsStringCopyWithImpl(
-      _$_ArrayItemsString _value, $Res Function(_$_ArrayItemsString) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? xml = freezed,
-    Object? format = freezed,
-  }) {
-    return _then(_$_ArrayItemsString(
-      xml: freezed == xml
-          ? _value.xml
-          : xml // ignore: cast_nullable_to_non_nullable
-              as Xml?,
-      format: freezed == format
-          ? _value.format
-          : format // ignore: cast_nullable_to_non_nullable
-              as StringFormat?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ArrayItemsString implements _ArrayItemsString {
-  const _$_ArrayItemsString({this.xml, this.format, final String? $type})
-      : $type = $type ?? 'string';
-
-  factory _$_ArrayItemsString.fromJson(Map<String, dynamic> json) =>
-      _$$_ArrayItemsStringFromJson(json);
-
-  @override
-  final Xml? xml;
-  @override
-  final StringFormat? format;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ArrayItems.string(xml: $xml, format: $format)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ArrayItemsString &&
-            (identical(other.xml, xml) || other.xml == xml) &&
-            (identical(other.format, format) || other.format == format));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, xml, format);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ArrayItemsStringCopyWith<_$_ArrayItemsString> get copyWith =>
-      __$$_ArrayItemsStringCopyWithImpl<_$_ArrayItemsString>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Xml? xml, StringFormat? format) string,
-    required TResult Function(Xml? xml, IntegerFormat? format) integer,
-    required TResult Function(Xml? xml, NumberFormat? format) number,
-    required TResult Function(String ref, Xml? xml) reference,
-  }) {
-    return string(xml, format);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Xml? xml, StringFormat? format)? string,
-    TResult? Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult? Function(Xml? xml, NumberFormat? format)? number,
-    TResult? Function(String ref, Xml? xml)? reference,
-  }) {
-    return string?.call(xml, format);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Xml? xml, StringFormat? format)? string,
-    TResult Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult Function(Xml? xml, NumberFormat? format)? number,
-    TResult Function(String ref, Xml? xml)? reference,
-    required TResult orElse(),
-  }) {
-    if (string != null) {
-      return string(xml, format);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_ArrayItemsString value) string,
-    required TResult Function(_ArrayItemsInteger value) integer,
-    required TResult Function(_ArrayItemsNumber value) number,
-    required TResult Function(_ArrayItemsReference value) reference,
-  }) {
-    return string(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ArrayItemsString value)? string,
-    TResult? Function(_ArrayItemsInteger value)? integer,
-    TResult? Function(_ArrayItemsNumber value)? number,
-    TResult? Function(_ArrayItemsReference value)? reference,
-  }) {
-    return string?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ArrayItemsString value)? string,
-    TResult Function(_ArrayItemsInteger value)? integer,
-    TResult Function(_ArrayItemsNumber value)? number,
-    TResult Function(_ArrayItemsReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (string != null) {
-      return string(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ArrayItemsStringToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ArrayItemsString implements ArrayItems {
-  const factory _ArrayItemsString(
-      {final Xml? xml, final StringFormat? format}) = _$_ArrayItemsString;
-
-  factory _ArrayItemsString.fromJson(Map<String, dynamic> json) =
-      _$_ArrayItemsString.fromJson;
-
-  @override
-  Xml? get xml;
-  StringFormat? get format;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ArrayItemsStringCopyWith<_$_ArrayItemsString> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ArrayItemsIntegerCopyWith<$Res>
-    implements $ArrayItemsCopyWith<$Res> {
-  factory _$$_ArrayItemsIntegerCopyWith(_$_ArrayItemsInteger value,
-          $Res Function(_$_ArrayItemsInteger) then) =
-      __$$_ArrayItemsIntegerCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Xml? xml, IntegerFormat? format});
-
-  @override
-  $XmlCopyWith<$Res>? get xml;
-}
-
-/// @nodoc
-class __$$_ArrayItemsIntegerCopyWithImpl<$Res>
-    extends _$ArrayItemsCopyWithImpl<$Res, _$_ArrayItemsInteger>
-    implements _$$_ArrayItemsIntegerCopyWith<$Res> {
-  __$$_ArrayItemsIntegerCopyWithImpl(
-      _$_ArrayItemsInteger _value, $Res Function(_$_ArrayItemsInteger) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? xml = freezed,
-    Object? format = freezed,
-  }) {
-    return _then(_$_ArrayItemsInteger(
-      xml: freezed == xml
-          ? _value.xml
-          : xml // ignore: cast_nullable_to_non_nullable
-              as Xml?,
-      format: freezed == format
-          ? _value.format
-          : format // ignore: cast_nullable_to_non_nullable
-              as IntegerFormat?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ArrayItemsInteger implements _ArrayItemsInteger {
-  const _$_ArrayItemsInteger({this.xml, this.format, final String? $type})
-      : $type = $type ?? 'integer';
-
-  factory _$_ArrayItemsInteger.fromJson(Map<String, dynamic> json) =>
-      _$$_ArrayItemsIntegerFromJson(json);
-
-  @override
-  final Xml? xml;
-  @override
-  final IntegerFormat? format;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ArrayItems.integer(xml: $xml, format: $format)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ArrayItemsInteger &&
-            (identical(other.xml, xml) || other.xml == xml) &&
-            (identical(other.format, format) || other.format == format));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, xml, format);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ArrayItemsIntegerCopyWith<_$_ArrayItemsInteger> get copyWith =>
-      __$$_ArrayItemsIntegerCopyWithImpl<_$_ArrayItemsInteger>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Xml? xml, StringFormat? format) string,
-    required TResult Function(Xml? xml, IntegerFormat? format) integer,
-    required TResult Function(Xml? xml, NumberFormat? format) number,
-    required TResult Function(String ref, Xml? xml) reference,
-  }) {
-    return integer(xml, format);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Xml? xml, StringFormat? format)? string,
-    TResult? Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult? Function(Xml? xml, NumberFormat? format)? number,
-    TResult? Function(String ref, Xml? xml)? reference,
-  }) {
-    return integer?.call(xml, format);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Xml? xml, StringFormat? format)? string,
-    TResult Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult Function(Xml? xml, NumberFormat? format)? number,
-    TResult Function(String ref, Xml? xml)? reference,
-    required TResult orElse(),
-  }) {
-    if (integer != null) {
-      return integer(xml, format);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_ArrayItemsString value) string,
-    required TResult Function(_ArrayItemsInteger value) integer,
-    required TResult Function(_ArrayItemsNumber value) number,
-    required TResult Function(_ArrayItemsReference value) reference,
-  }) {
-    return integer(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ArrayItemsString value)? string,
-    TResult? Function(_ArrayItemsInteger value)? integer,
-    TResult? Function(_ArrayItemsNumber value)? number,
-    TResult? Function(_ArrayItemsReference value)? reference,
-  }) {
-    return integer?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ArrayItemsString value)? string,
-    TResult Function(_ArrayItemsInteger value)? integer,
-    TResult Function(_ArrayItemsNumber value)? number,
-    TResult Function(_ArrayItemsReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (integer != null) {
-      return integer(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ArrayItemsIntegerToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ArrayItemsInteger implements ArrayItems {
-  const factory _ArrayItemsInteger(
-      {final Xml? xml, final IntegerFormat? format}) = _$_ArrayItemsInteger;
-
-  factory _ArrayItemsInteger.fromJson(Map<String, dynamic> json) =
-      _$_ArrayItemsInteger.fromJson;
-
-  @override
-  Xml? get xml;
-  IntegerFormat? get format;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ArrayItemsIntegerCopyWith<_$_ArrayItemsInteger> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ArrayItemsNumberCopyWith<$Res>
-    implements $ArrayItemsCopyWith<$Res> {
-  factory _$$_ArrayItemsNumberCopyWith(
-          _$_ArrayItemsNumber value, $Res Function(_$_ArrayItemsNumber) then) =
-      __$$_ArrayItemsNumberCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Xml? xml, NumberFormat? format});
-
-  @override
-  $XmlCopyWith<$Res>? get xml;
-}
-
-/// @nodoc
-class __$$_ArrayItemsNumberCopyWithImpl<$Res>
-    extends _$ArrayItemsCopyWithImpl<$Res, _$_ArrayItemsNumber>
-    implements _$$_ArrayItemsNumberCopyWith<$Res> {
-  __$$_ArrayItemsNumberCopyWithImpl(
-      _$_ArrayItemsNumber _value, $Res Function(_$_ArrayItemsNumber) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? xml = freezed,
-    Object? format = freezed,
-  }) {
-    return _then(_$_ArrayItemsNumber(
-      xml: freezed == xml
-          ? _value.xml
-          : xml // ignore: cast_nullable_to_non_nullable
-              as Xml?,
-      format: freezed == format
-          ? _value.format
-          : format // ignore: cast_nullable_to_non_nullable
-              as NumberFormat?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ArrayItemsNumber implements _ArrayItemsNumber {
-  const _$_ArrayItemsNumber({this.xml, this.format, final String? $type})
-      : $type = $type ?? 'number';
-
-  factory _$_ArrayItemsNumber.fromJson(Map<String, dynamic> json) =>
-      _$$_ArrayItemsNumberFromJson(json);
-
-  @override
-  final Xml? xml;
-  @override
-  final NumberFormat? format;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ArrayItems.number(xml: $xml, format: $format)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ArrayItemsNumber &&
-            (identical(other.xml, xml) || other.xml == xml) &&
-            (identical(other.format, format) || other.format == format));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, xml, format);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ArrayItemsNumberCopyWith<_$_ArrayItemsNumber> get copyWith =>
-      __$$_ArrayItemsNumberCopyWithImpl<_$_ArrayItemsNumber>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Xml? xml, StringFormat? format) string,
-    required TResult Function(Xml? xml, IntegerFormat? format) integer,
-    required TResult Function(Xml? xml, NumberFormat? format) number,
-    required TResult Function(String ref, Xml? xml) reference,
-  }) {
-    return number(xml, format);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Xml? xml, StringFormat? format)? string,
-    TResult? Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult? Function(Xml? xml, NumberFormat? format)? number,
-    TResult? Function(String ref, Xml? xml)? reference,
-  }) {
-    return number?.call(xml, format);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Xml? xml, StringFormat? format)? string,
-    TResult Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult Function(Xml? xml, NumberFormat? format)? number,
-    TResult Function(String ref, Xml? xml)? reference,
-    required TResult orElse(),
-  }) {
-    if (number != null) {
-      return number(xml, format);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_ArrayItemsString value) string,
-    required TResult Function(_ArrayItemsInteger value) integer,
-    required TResult Function(_ArrayItemsNumber value) number,
-    required TResult Function(_ArrayItemsReference value) reference,
-  }) {
-    return number(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ArrayItemsString value)? string,
-    TResult? Function(_ArrayItemsInteger value)? integer,
-    TResult? Function(_ArrayItemsNumber value)? number,
-    TResult? Function(_ArrayItemsReference value)? reference,
-  }) {
-    return number?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ArrayItemsString value)? string,
-    TResult Function(_ArrayItemsInteger value)? integer,
-    TResult Function(_ArrayItemsNumber value)? number,
-    TResult Function(_ArrayItemsReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (number != null) {
-      return number(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ArrayItemsNumberToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ArrayItemsNumber implements ArrayItems {
-  const factory _ArrayItemsNumber(
-      {final Xml? xml, final NumberFormat? format}) = _$_ArrayItemsNumber;
-
-  factory _ArrayItemsNumber.fromJson(Map<String, dynamic> json) =
-      _$_ArrayItemsNumber.fromJson;
-
-  @override
-  Xml? get xml;
-  NumberFormat? get format;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ArrayItemsNumberCopyWith<_$_ArrayItemsNumber> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ArrayItemsReferenceCopyWith<$Res>
-    implements $ArrayItemsCopyWith<$Res> {
-  factory _$$_ArrayItemsReferenceCopyWith(_$_ArrayItemsReference value,
-          $Res Function(_$_ArrayItemsReference) then) =
-      __$$_ArrayItemsReferenceCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String ref, Xml? xml});
-
-  @override
-  $XmlCopyWith<$Res>? get xml;
-}
-
-/// @nodoc
-class __$$_ArrayItemsReferenceCopyWithImpl<$Res>
-    extends _$ArrayItemsCopyWithImpl<$Res, _$_ArrayItemsReference>
-    implements _$$_ArrayItemsReferenceCopyWith<$Res> {
-  __$$_ArrayItemsReferenceCopyWithImpl(_$_ArrayItemsReference _value,
-      $Res Function(_$_ArrayItemsReference) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? ref = null,
-    Object? xml = freezed,
-  }) {
-    return _then(_$_ArrayItemsReference(
-      ref: null == ref
-          ? _value.ref
-          : ref // ignore: cast_nullable_to_non_nullable
-              as String,
-      xml: freezed == xml
-          ? _value.xml
-          : xml // ignore: cast_nullable_to_non_nullable
-              as Xml?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ArrayItemsReference implements _ArrayItemsReference {
-  const _$_ArrayItemsReference(
-      {required this.ref, this.xml, final String? $type})
-      : $type = $type ?? 'reference';
-
-  factory _$_ArrayItemsReference.fromJson(Map<String, dynamic> json) =>
-      _$$_ArrayItemsReferenceFromJson(json);
-
-  @override
-  final String ref;
-  @override
-  final Xml? xml;
-
-  @JsonKey(name: 'type')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ArrayItems.reference(ref: $ref, xml: $xml)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ArrayItemsReference &&
-            (identical(other.ref, ref) || other.ref == ref) &&
-            (identical(other.xml, xml) || other.xml == xml));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, ref, xml);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ArrayItemsReferenceCopyWith<_$_ArrayItemsReference> get copyWith =>
-      __$$_ArrayItemsReferenceCopyWithImpl<_$_ArrayItemsReference>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Xml? xml, StringFormat? format) string,
-    required TResult Function(Xml? xml, IntegerFormat? format) integer,
-    required TResult Function(Xml? xml, NumberFormat? format) number,
-    required TResult Function(String ref, Xml? xml) reference,
-  }) {
-    return reference(ref, xml);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Xml? xml, StringFormat? format)? string,
-    TResult? Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult? Function(Xml? xml, NumberFormat? format)? number,
-    TResult? Function(String ref, Xml? xml)? reference,
-  }) {
-    return reference?.call(ref, xml);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Xml? xml, StringFormat? format)? string,
-    TResult Function(Xml? xml, IntegerFormat? format)? integer,
-    TResult Function(Xml? xml, NumberFormat? format)? number,
-    TResult Function(String ref, Xml? xml)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(ref, xml);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_ArrayItemsString value) string,
-    required TResult Function(_ArrayItemsInteger value) integer,
-    required TResult Function(_ArrayItemsNumber value) number,
-    required TResult Function(_ArrayItemsReference value) reference,
-  }) {
-    return reference(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ArrayItemsString value)? string,
-    TResult? Function(_ArrayItemsInteger value)? integer,
-    TResult? Function(_ArrayItemsNumber value)? number,
-    TResult? Function(_ArrayItemsReference value)? reference,
-  }) {
-    return reference?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ArrayItemsString value)? string,
-    TResult Function(_ArrayItemsInteger value)? integer,
-    TResult Function(_ArrayItemsNumber value)? number,
-    TResult Function(_ArrayItemsReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ArrayItemsReferenceToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ArrayItemsReference implements ArrayItems {
-  const factory _ArrayItemsReference(
-      {required final String ref, final Xml? xml}) = _$_ArrayItemsReference;
-
-  factory _ArrayItemsReference.fromJson(Map<String, dynamic> json) =
-      _$_ArrayItemsReference.fromJson;
-
-  String get ref;
-  @override
-  Xml? get xml;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ArrayItemsReferenceCopyWith<_$_ArrayItemsReference> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 OAuthFlows _$OAuthFlowsFromJson(Map<String, dynamic> json) {
   return _OAuthFlows.fromJson(json);
 }
@@ -5708,6 +4862,7 @@ mixin _$Parameter {
   String? get style => throw _privateConstructorUsedError;
   bool? get explode => throw _privateConstructorUsedError;
   bool? get allowReserved => throw _privateConstructorUsedError;
+  String? get example => throw _privateConstructorUsedError;
   Schema? get schema => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -5719,6 +4874,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         cookie,
     required TResult Function(
@@ -5729,6 +4885,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         header,
     required TResult Function(
@@ -5739,6 +4896,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         query,
     required TResult Function(
@@ -5748,6 +4906,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         path,
   }) =>
@@ -5762,6 +4921,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult? Function(
@@ -5772,6 +4932,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult? Function(
@@ -5782,10 +4943,18 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult? Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult? Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
   }) =>
       throw _privateConstructorUsedError;
@@ -5799,6 +4968,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult Function(
@@ -5809,6 +4979,7 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult Function(
@@ -5819,10 +4990,18 @@ mixin _$Parameter {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
     required TResult orElse(),
   }) =>
@@ -5870,6 +5049,7 @@ abstract class $ParameterCopyWith<$Res> {
       String? style,
       bool? explode,
       bool? allowReserved,
+      String? example,
       Schema? schema});
 
   $SchemaCopyWith<$Res>? get schema;
@@ -5894,6 +5074,7 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
     Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
+    Object? example = freezed,
     Object? schema = freezed,
   }) {
     return _then(_value.copyWith(
@@ -5921,6 +5102,10 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
           ? _value.allowReserved
           : allowReserved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as String?,
       schema: freezed == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
@@ -5957,6 +5142,7 @@ abstract class _$$_PropertyCookieCopyWith<$Res>
       String? style,
       bool? explode,
       bool? allowReserved,
+      String? example,
       Schema? schema});
 
   @override
@@ -5981,6 +5167,7 @@ class __$$_PropertyCookieCopyWithImpl<$Res>
     Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
+    Object? example = freezed,
     Object? schema = freezed,
   }) {
     return _then(_$_PropertyCookie(
@@ -6012,6 +5199,10 @@ class __$$_PropertyCookieCopyWithImpl<$Res>
           ? _value.allowReserved
           : allowReserved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as String?,
       schema: freezed == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
@@ -6031,6 +5222,7 @@ class _$_PropertyCookie extends _PropertyCookie {
       this.style,
       this.explode,
       this.allowReserved,
+      this.example,
       this.schema,
       final String? $type})
       : $type = $type ?? 'cookie',
@@ -6054,6 +5246,8 @@ class _$_PropertyCookie extends _PropertyCookie {
   @override
   final bool? allowReserved;
   @override
+  final String? example;
+  @override
   final Schema? schema;
 
   @JsonKey(name: 'in')
@@ -6061,7 +5255,7 @@ class _$_PropertyCookie extends _PropertyCookie {
 
   @override
   String toString() {
-    return 'Parameter.cookie(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.cookie(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, example: $example, schema: $schema)';
   }
 
   @override
@@ -6080,13 +5274,14 @@ class _$_PropertyCookie extends _PropertyCookie {
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
+            (identical(other.example, example) || other.example == example) &&
             (identical(other.schema, schema) || other.schema == schema));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, required,
-      deprecated, style, explode, allowReserved, schema);
+      deprecated, style, explode, allowReserved, example, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -6105,6 +5300,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         cookie,
     required TResult Function(
@@ -6115,6 +5311,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         header,
     required TResult Function(
@@ -6125,6 +5322,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         query,
     required TResult Function(
@@ -6134,11 +5332,12 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         path,
   }) {
     return cookie(name, description, required, deprecated, style, explode,
-        allowReserved, schema);
+        allowReserved, example, schema);
   }
 
   @override
@@ -6152,6 +5351,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult? Function(
@@ -6162,6 +5362,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult? Function(
@@ -6172,14 +5373,22 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult? Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult? Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
   }) {
     return cookie?.call(name, description, required, deprecated, style, explode,
-        allowReserved, schema);
+        allowReserved, example, schema);
   }
 
   @override
@@ -6193,6 +5402,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult Function(
@@ -6203,6 +5413,7 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult Function(
@@ -6213,16 +5424,24 @@ class _$_PropertyCookie extends _PropertyCookie {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (cookie != null) {
       return cookie(name, description, required, deprecated, style, explode,
-          allowReserved, schema);
+          allowReserved, example, schema);
     }
     return orElse();
   }
@@ -6281,6 +5500,7 @@ abstract class _PropertyCookie extends Parameter {
       final String? style,
       final bool? explode,
       final bool? allowReserved,
+      final String? example,
       final Schema? schema}) = _$_PropertyCookie;
   const _PropertyCookie._() : super._();
 
@@ -6300,6 +5520,8 @@ abstract class _PropertyCookie extends Parameter {
   bool? get explode;
   @override
   bool? get allowReserved;
+  @override
+  String? get example;
   @override
   Schema? get schema;
   @override
@@ -6324,6 +5546,7 @@ abstract class _$$_PropertyHeaderCopyWith<$Res>
       String? style,
       bool? explode,
       bool? allowReserved,
+      String? example,
       Schema? schema});
 
   @override
@@ -6348,6 +5571,7 @@ class __$$_PropertyHeaderCopyWithImpl<$Res>
     Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
+    Object? example = freezed,
     Object? schema = freezed,
   }) {
     return _then(_$_PropertyHeader(
@@ -6379,6 +5603,10 @@ class __$$_PropertyHeaderCopyWithImpl<$Res>
           ? _value.allowReserved
           : allowReserved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as String?,
       schema: freezed == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
@@ -6398,6 +5626,7 @@ class _$_PropertyHeader extends _PropertyHeader {
       this.style,
       this.explode,
       this.allowReserved,
+      this.example,
       this.schema,
       final String? $type})
       : $type = $type ?? 'header',
@@ -6421,6 +5650,8 @@ class _$_PropertyHeader extends _PropertyHeader {
   @override
   final bool? allowReserved;
   @override
+  final String? example;
+  @override
   final Schema? schema;
 
   @JsonKey(name: 'in')
@@ -6428,7 +5659,7 @@ class _$_PropertyHeader extends _PropertyHeader {
 
   @override
   String toString() {
-    return 'Parameter.header(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.header(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, example: $example, schema: $schema)';
   }
 
   @override
@@ -6447,13 +5678,14 @@ class _$_PropertyHeader extends _PropertyHeader {
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
+            (identical(other.example, example) || other.example == example) &&
             (identical(other.schema, schema) || other.schema == schema));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, required,
-      deprecated, style, explode, allowReserved, schema);
+      deprecated, style, explode, allowReserved, example, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -6472,6 +5704,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         cookie,
     required TResult Function(
@@ -6482,6 +5715,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         header,
     required TResult Function(
@@ -6492,6 +5726,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         query,
     required TResult Function(
@@ -6501,11 +5736,12 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         path,
   }) {
     return header(name, description, required, deprecated, style, explode,
-        allowReserved, schema);
+        allowReserved, example, schema);
   }
 
   @override
@@ -6519,6 +5755,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult? Function(
@@ -6529,6 +5766,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult? Function(
@@ -6539,14 +5777,22 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult? Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult? Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
   }) {
     return header?.call(name, description, required, deprecated, style, explode,
-        allowReserved, schema);
+        allowReserved, example, schema);
   }
 
   @override
@@ -6560,6 +5806,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult Function(
@@ -6570,6 +5817,7 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult Function(
@@ -6580,16 +5828,24 @@ class _$_PropertyHeader extends _PropertyHeader {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (header != null) {
       return header(name, description, required, deprecated, style, explode,
-          allowReserved, schema);
+          allowReserved, example, schema);
     }
     return orElse();
   }
@@ -6648,6 +5904,7 @@ abstract class _PropertyHeader extends Parameter {
       final String? style,
       final bool? explode,
       final bool? allowReserved,
+      final String? example,
       final Schema? schema}) = _$_PropertyHeader;
   const _PropertyHeader._() : super._();
 
@@ -6667,6 +5924,8 @@ abstract class _PropertyHeader extends Parameter {
   bool? get explode;
   @override
   bool? get allowReserved;
+  @override
+  String? get example;
   @override
   Schema? get schema;
   @override
@@ -6691,6 +5950,7 @@ abstract class _$$_PropertyQueryCopyWith<$Res>
       String? style,
       bool? explode,
       bool? allowReserved,
+      String? example,
       Schema? schema});
 
   @override
@@ -6715,6 +5975,7 @@ class __$$_PropertyQueryCopyWithImpl<$Res>
     Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
+    Object? example = freezed,
     Object? schema = freezed,
   }) {
     return _then(_$_PropertyQuery(
@@ -6746,6 +6007,10 @@ class __$$_PropertyQueryCopyWithImpl<$Res>
           ? _value.allowReserved
           : allowReserved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as String?,
       schema: freezed == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
@@ -6765,6 +6030,7 @@ class _$_PropertyQuery extends _PropertyQuery {
       this.style,
       this.explode,
       this.allowReserved,
+      this.example,
       this.schema,
       final String? $type})
       : $type = $type ?? 'query',
@@ -6788,6 +6054,8 @@ class _$_PropertyQuery extends _PropertyQuery {
   @override
   final bool? allowReserved;
   @override
+  final String? example;
+  @override
   final Schema? schema;
 
   @JsonKey(name: 'in')
@@ -6795,7 +6063,7 @@ class _$_PropertyQuery extends _PropertyQuery {
 
   @override
   String toString() {
-    return 'Parameter.query(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.query(name: $name, description: $description, required: $required, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, example: $example, schema: $schema)';
   }
 
   @override
@@ -6814,13 +6082,14 @@ class _$_PropertyQuery extends _PropertyQuery {
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
+            (identical(other.example, example) || other.example == example) &&
             (identical(other.schema, schema) || other.schema == schema));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, required,
-      deprecated, style, explode, allowReserved, schema);
+      deprecated, style, explode, allowReserved, example, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -6839,6 +6108,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         cookie,
     required TResult Function(
@@ -6849,6 +6119,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         header,
     required TResult Function(
@@ -6859,6 +6130,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         query,
     required TResult Function(
@@ -6868,11 +6140,12 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         path,
   }) {
     return query(name, description, required, deprecated, style, explode,
-        allowReserved, schema);
+        allowReserved, example, schema);
   }
 
   @override
@@ -6886,6 +6159,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult? Function(
@@ -6896,6 +6170,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult? Function(
@@ -6906,14 +6181,22 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult? Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult? Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
   }) {
     return query?.call(name, description, required, deprecated, style, explode,
-        allowReserved, schema);
+        allowReserved, example, schema);
   }
 
   @override
@@ -6927,6 +6210,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult Function(
@@ -6937,6 +6221,7 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult Function(
@@ -6947,16 +6232,24 @@ class _$_PropertyQuery extends _PropertyQuery {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (query != null) {
       return query(name, description, required, deprecated, style, explode,
-          allowReserved, schema);
+          allowReserved, example, schema);
     }
     return orElse();
   }
@@ -7015,6 +6308,7 @@ abstract class _PropertyQuery extends Parameter {
       final String? style,
       final bool? explode,
       final bool? allowReserved,
+      final String? example,
       final Schema? schema}) = _$_PropertyQuery;
   const _PropertyQuery._() : super._();
 
@@ -7034,6 +6328,8 @@ abstract class _PropertyQuery extends Parameter {
   bool? get explode;
   @override
   bool? get allowReserved;
+  @override
+  String? get example;
   @override
   Schema? get schema;
   @override
@@ -7057,6 +6353,7 @@ abstract class _$$_PropertyPathCopyWith<$Res>
       String? style,
       bool? explode,
       bool? allowReserved,
+      String? example,
       Schema? schema});
 
   @override
@@ -7080,6 +6377,7 @@ class __$$_PropertyPathCopyWithImpl<$Res>
     Object? style = freezed,
     Object? explode = freezed,
     Object? allowReserved = freezed,
+    Object? example = freezed,
     Object? schema = freezed,
   }) {
     return _then(_$_PropertyPath(
@@ -7107,6 +6405,10 @@ class __$$_PropertyPathCopyWithImpl<$Res>
           ? _value.allowReserved
           : allowReserved // ignore: cast_nullable_to_non_nullable
               as bool?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
+              as String?,
       schema: freezed == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
@@ -7125,6 +6427,7 @@ class _$_PropertyPath extends _PropertyPath {
       this.style,
       this.explode,
       this.allowReserved,
+      this.example,
       this.schema,
       final String? $type})
       : $type = $type ?? 'path',
@@ -7146,6 +6449,8 @@ class _$_PropertyPath extends _PropertyPath {
   @override
   final bool? allowReserved;
   @override
+  final String? example;
+  @override
   final Schema? schema;
 
   @JsonKey(name: 'in')
@@ -7153,7 +6458,7 @@ class _$_PropertyPath extends _PropertyPath {
 
   @override
   String toString() {
-    return 'Parameter.path(name: $name, description: $description, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, schema: $schema)';
+    return 'Parameter.path(name: $name, description: $description, deprecated: $deprecated, style: $style, explode: $explode, allowReserved: $allowReserved, example: $example, schema: $schema)';
   }
 
   @override
@@ -7170,13 +6475,14 @@ class _$_PropertyPath extends _PropertyPath {
             (identical(other.explode, explode) || other.explode == explode) &&
             (identical(other.allowReserved, allowReserved) ||
                 other.allowReserved == allowReserved) &&
+            (identical(other.example, example) || other.example == example) &&
             (identical(other.schema, schema) || other.schema == schema));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, description, deprecated,
-      style, explode, allowReserved, schema);
+      style, explode, allowReserved, example, schema);
 
   @JsonKey(ignore: true)
   @override
@@ -7195,6 +6501,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         cookie,
     required TResult Function(
@@ -7205,6 +6512,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         header,
     required TResult Function(
@@ -7215,6 +6523,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         query,
     required TResult Function(
@@ -7224,11 +6533,12 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)
         path,
   }) {
-    return path(
-        name, description, deprecated, style, explode, allowReserved, schema);
+    return path(name, description, deprecated, style, explode, allowReserved,
+        example, schema);
   }
 
   @override
@@ -7242,6 +6552,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult? Function(
@@ -7252,6 +6563,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult? Function(
@@ -7262,14 +6574,22 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult? Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult? Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
   }) {
-    return path?.call(
-        name, description, deprecated, style, explode, allowReserved, schema);
+    return path?.call(name, description, deprecated, style, explode,
+        allowReserved, example, schema);
   }
 
   @override
@@ -7283,6 +6603,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         cookie,
     TResult Function(
@@ -7293,6 +6614,7 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         header,
     TResult Function(
@@ -7303,16 +6625,24 @@ class _$_PropertyPath extends _PropertyPath {
             String? style,
             bool? explode,
             bool? allowReserved,
+            String? example,
             Schema? schema)?
         query,
-    TResult Function(String name, String? description, bool? deprecated,
-            String? style, bool? explode, bool? allowReserved, Schema? schema)?
+    TResult Function(
+            String name,
+            String? description,
+            bool? deprecated,
+            String? style,
+            bool? explode,
+            bool? allowReserved,
+            String? example,
+            Schema? schema)?
         path,
     required TResult orElse(),
   }) {
     if (path != null) {
-      return path(
-          name, description, deprecated, style, explode, allowReserved, schema);
+      return path(name, description, deprecated, style, explode, allowReserved,
+          example, schema);
     }
     return orElse();
   }
@@ -7370,6 +6700,7 @@ abstract class _PropertyPath extends Parameter {
       final String? style,
       final bool? explode,
       final bool? allowReserved,
+      final String? example,
       final Schema? schema}) = _$_PropertyPath;
   const _PropertyPath._() : super._();
 
@@ -7388,6 +6719,8 @@ abstract class _PropertyPath extends Parameter {
   bool? get explode;
   @override
   bool? get allowReserved;
+  @override
+  String? get example;
   @override
   Schema? get schema;
   @override
@@ -9242,7 +8575,7 @@ mixin _$Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -9259,7 +8592,8 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9295,18 +8629,14 @@ mixin _$Schema {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -9323,7 +8653,8 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9359,18 +8690,14 @@ mixin _$Schema {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -9790,7 +9117,7 @@ class _$_Schema implements _Schema {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return $default(title, description, ref, allOf, required, discriminator,
         externalDocs, properties, additionalProperties, xml);
@@ -9811,7 +9138,8 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9847,18 +9175,14 @@ class _$_Schema implements _Schema {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return $default?.call(title, description, ref, allOf, required,
         discriminator, externalDocs, properties, additionalProperties, xml);
@@ -9879,7 +9203,8 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9915,18 +9240,14 @@ class _$_Schema implements _Schema {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -10226,7 +9547,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return boolean(xml, title, description, defaultValue);
   }
@@ -10246,7 +9567,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10282,18 +9604,14 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return boolean?.call(xml, title, description, defaultValue);
   }
@@ -10313,7 +9631,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10349,18 +9668,14 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if (boolean != null) {
@@ -10668,7 +9983,7 @@ class _$_SchemaString implements _SchemaString {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return string(xml, title, description, defaultValue, format, example,
         minLength, maxLength);
@@ -10689,7 +10004,8 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10725,18 +10041,14 @@ class _$_SchemaString implements _SchemaString {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return string?.call(xml, title, description, defaultValue, format, example,
         minLength, maxLength);
@@ -10757,7 +10069,8 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10793,18 +10106,14 @@ class _$_SchemaString implements _SchemaString {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if (string != null) {
@@ -11152,7 +10461,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return integer(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -11173,7 +10482,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11209,18 +10519,14 @@ class _$_SchemaInteger implements _SchemaInteger {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return integer?.call(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -11241,7 +10547,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11277,18 +10584,14 @@ class _$_SchemaInteger implements _SchemaInteger {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if (integer != null) {
@@ -11639,7 +10942,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return number(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -11660,7 +10963,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11696,18 +11000,14 @@ class _$_SchemaNumber implements _SchemaNumber {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return number?.call(xml, title, description, defaultValue, format, example,
         minimum, exclusiveMinimum, maximum, exclusiveMaximum);
@@ -11728,7 +11028,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11764,18 +11065,14 @@ class _$_SchemaNumber implements _SchemaNumber {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if (number != null) {
@@ -12057,7 +11354,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return enumeration(title, description, example, defaultValue, values);
   }
@@ -12077,7 +11374,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12113,18 +11411,14 @@ class _$_SchemaEnum implements _SchemaEnum {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return enumeration?.call(title, description, example, defaultValue, values);
   }
@@ -12144,7 +11438,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12180,18 +11475,14 @@ class _$_SchemaEnum implements _SchemaEnum {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if (enumeration != null) {
@@ -12290,7 +11581,7 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   @useResult
   $Res call(
       {Xml? xml,
-      ArrayItems items,
+      Schema items,
       String? title,
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
@@ -12299,7 +11590,7 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       int? maxLength});
 
   $XmlCopyWith<$Res>? get xml;
-  $ArrayItemsCopyWith<$Res> get items;
+  $SchemaCopyWith<$Res> get items;
 }
 
 /// @nodoc
@@ -12330,7 +11621,7 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as ArrayItems,
+              as Schema,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -12372,8 +11663,8 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $ArrayItemsCopyWith<$Res> get items {
-    return $ArrayItemsCopyWith<$Res>(_value.items, (value) {
+  $SchemaCopyWith<$Res> get items {
+    return $SchemaCopyWith<$Res>(_value.items, (value) {
       return _then(_value.copyWith(items: value));
     });
   }
@@ -12402,7 +11693,7 @@ class _$_SchemaArray implements _SchemaArray {
   @override
   final Xml? xml;
   @override
-  final ArrayItems items;
+  final Schema items;
   @override
   final String? title;
   @override
@@ -12538,7 +11829,7 @@ class _$_SchemaArray implements _SchemaArray {
             @JsonKey(name: 'default') String? defaultValue,
             @JsonKey(name: 'enum') List<String> values)
         enumeration,
-    required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
+    required TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
     return array(xml, items, title, description, defaultValue, example,
         minLength, maxLength);
@@ -12559,7 +11850,8 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12595,18 +11887,14 @@ class _$_SchemaArray implements _SchemaArray {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult? Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult? Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult? Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
   }) {
     return array?.call(xml, items, title, description, defaultValue, example,
         minLength, maxLength);
@@ -12627,7 +11915,8 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description,
+            @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12663,18 +11952,14 @@ class _$_SchemaArray implements _SchemaArray {
             double? maximum,
             double? exclusiveMaximum)?
         number,
-    TResult Function(String? title, String? description, String? example, @JsonKey(name: 'default') String? defaultValue, @JsonKey(name: 'enum') List<String> values)?
-        enumeration,
     TResult Function(
-            Xml? xml,
-            ArrayItems items,
             String? title,
             String? description,
-            @JsonKey(name: 'default') List<dynamic>? defaultValue,
-            List<dynamic>? example,
-            int? minLength,
-            int? maxLength)?
-        array,
+            String? example,
+            @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(name: 'enum') List<String> values)?
+        enumeration,
+    TResult Function(Xml? xml, Schema items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength)? array,
     required TResult orElse(),
   }) {
     if (array != null) {
@@ -12741,7 +12026,7 @@ class _$_SchemaArray implements _SchemaArray {
 abstract class _SchemaArray implements Schema {
   const factory _SchemaArray(
       {final Xml? xml,
-      required final ArrayItems items,
+      required final Schema items,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
@@ -12753,7 +12038,7 @@ abstract class _SchemaArray implements Schema {
       _$_SchemaArray.fromJson;
 
   Xml? get xml;
-  ArrayItems get items;
+  Schema get items;
   @override
   String? get title;
   @override
@@ -14380,12 +13665,14 @@ ServerVariable _$ServerVariableFromJson(Map<String, dynamic> json) {
 mixin _$ServerVariable {
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
+  @JsonKey(name: 'enum')
   List<String> get enumValue => throw _privateConstructorUsedError;
 
   /// The default value to use for substitution, which SHALL be sent if an alternate
   /// value is not supplied. Note this behavior is different than the Schema Object's
   /// treatment of default values, because in those cases parameter values are optional.
   /// If the enum is defined, the value must exist in the enum's values.
+  @JsonKey(name: 'default')
   String get defaultValue => throw _privateConstructorUsedError;
 
   /// An optional string describing the host designated by the URL.
@@ -14403,7 +13690,10 @@ abstract class $ServerVariableCopyWith<$Res> {
           ServerVariable value, $Res Function(ServerVariable) then) =
       _$ServerVariableCopyWithImpl<$Res, ServerVariable>;
   @useResult
-  $Res call({List<String> enumValue, String defaultValue, String? description});
+  $Res call(
+      {@JsonKey(name: 'enum') List<String> enumValue,
+      @JsonKey(name: 'default') String defaultValue,
+      String? description});
 }
 
 /// @nodoc
@@ -14448,7 +13738,10 @@ abstract class _$$_ServerVariableCopyWith<$Res>
       __$$_ServerVariableCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> enumValue, String defaultValue, String? description});
+  $Res call(
+      {@JsonKey(name: 'enum') List<String> enumValue,
+      @JsonKey(name: 'default') String defaultValue,
+      String? description});
 }
 
 /// @nodoc
@@ -14487,8 +13780,8 @@ class __$$_ServerVariableCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ServerVariable implements _ServerVariable {
   const _$_ServerVariable(
-      {required final List<String> enumValue,
-      required this.defaultValue,
+      {@JsonKey(name: 'enum') required final List<String> enumValue,
+      @JsonKey(name: 'default') required this.defaultValue,
       this.description})
       : _enumValue = enumValue;
 
@@ -14502,6 +13795,7 @@ class _$_ServerVariable implements _ServerVariable {
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
   @override
+  @JsonKey(name: 'enum')
   List<String> get enumValue {
     if (_enumValue is EqualUnmodifiableListView) return _enumValue;
     // ignore: implicit_dynamic_type
@@ -14513,6 +13807,7 @@ class _$_ServerVariable implements _ServerVariable {
   /// treatment of default values, because in those cases parameter values are optional.
   /// If the enum is defined, the value must exist in the enum's values.
   @override
+  @JsonKey(name: 'default')
   final String defaultValue;
 
   /// An optional string describing the host designated by the URL.
@@ -14561,8 +13856,8 @@ class _$_ServerVariable implements _ServerVariable {
 
 abstract class _ServerVariable implements ServerVariable {
   const factory _ServerVariable(
-      {required final List<String> enumValue,
-      required final String defaultValue,
+      {@JsonKey(name: 'enum') required final List<String> enumValue,
+      @JsonKey(name: 'default') required final String defaultValue,
       final String? description}) = _$_ServerVariable;
 
   factory _ServerVariable.fromJson(Map<String, dynamic> json) =
@@ -14572,6 +13867,7 @@ abstract class _ServerVariable implements ServerVariable {
 
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
+  @JsonKey(name: 'enum')
   List<String> get enumValue;
   @override
 
@@ -14579,6 +13875,7 @@ abstract class _ServerVariable implements ServerVariable {
   /// value is not supplied. Note this behavior is different than the Schema Object's
   /// treatment of default values, because in those cases parameter values are optional.
   /// If the enum is defined, the value must exist in the enum's values.
+  @JsonKey(name: 'default')
   String get defaultValue;
   @override
 

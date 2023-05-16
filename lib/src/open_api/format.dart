@@ -15,6 +15,8 @@ enum StringFormat {
   datetime,
   @JsonValue('password')
   password,
+  @JsonValue('uriref')
+  uriRef,
 }
 
 // ==========================================
