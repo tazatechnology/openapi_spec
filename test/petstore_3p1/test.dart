@@ -57,13 +57,13 @@ void main() {
     });
 
     /// Test code generation of OpenAPI spec defined models
-    test('Generate Schema Code', () {
-      spec.generate(
+    test('Generate Schema Code', () async {
+      await spec.generate(
         package: 'petstore',
         destination: genSchemaDir,
       );
 
-      spec.generate(
+      await spec.generate(
         package: 'petstore',
         destination: genSchemaSingleDir,
         singleSchemaFile: true,
@@ -71,23 +71,23 @@ void main() {
     });
 
     // /// Test code generation of OpenAPI spec defined client
-    // test('Generate Client Code', () {
-    //   spec.generate(
+    // test('Generate Client Code', () async {
+    //   await spec.generate(
     //     package: 'petstore',
     //     destination: genClientDir,
     //   );
     // });
 
     // /// Test code generation of OpenAPI spec defined server
-    // test('Generate Server code', () {
-    //   spec.generate(
+    // test('Generate Server code', () async {
+    //   await spec.generate(
     //     destination: genServerDir,
     //   );
     // });
 
     // /// Test code generation of OpenAPI spec defined server
-    // test('Generate Client/Server code', () {
-    //   spec.generate(
+    // test('Generate Client/Server code', () async {
+    //   await spec.generate(
     //     destination: genAllDir,
     //   );
     // });

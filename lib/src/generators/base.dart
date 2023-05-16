@@ -32,5 +32,5 @@ abstract class BaseGenerator {
   }
 
   /// Method to generate file(s)
-  void generate();
+  Future<void> generate();
 }

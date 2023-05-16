@@ -25,7 +25,7 @@ class SchemaGenerator extends BaseGenerator {
   // ------------------------------------------
 
   @override
-  void generate() async {
+  Future<void> generate() async {
     final schemas = spec.components?.schemas;
     if (schemas == null) {
       return;
@@ -130,6 +130,7 @@ class SchemaGenerator extends BaseGenerator {
     file.writeAsStringSync("""
     ${firstPass ? '' : '}'}) = _$name;
 
+    /// $name object creation from a JSON representation
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
 
     /// Perform validations on the schema property values
