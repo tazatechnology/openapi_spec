@@ -39,7 +39,7 @@ class Operation with _$Operation {
 
     /// A map of possible out-of band callbacks related to the parent operation.
     /// The key is a unique identifier for the [ApiCallback] Object.
-    List<ApiCallback>? callbacks,
+    @_ApiCallbackMapConverter() Map<String, ApiCallback>? callbacks,
 
     /// Declares this operation to be deprecated.
     bool? deprecated,

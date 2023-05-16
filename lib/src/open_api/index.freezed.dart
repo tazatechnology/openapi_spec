@@ -1363,16 +1363,14 @@ abstract class _OAuthFlowAuthorizationCode implements OAuthFlow {
       get copyWith => throw _privateConstructorUsedError;
 }
 
-ApiCallback _$ApiCallbackFromJson(Map<String, dynamic> json) {
-  return _ApiCallback.fromJson(json);
-}
-
 /// @nodoc
 mixin _$ApiCallback {
-  /// Text
-  String? get description => throw _privateConstructorUsedError;
+  /// The name of the callback
+  String get name => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  /// The callback expression to evaluate and operation to perform
+  Map<String, PathItem> get expression => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $ApiCallbackCopyWith<ApiCallback> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1384,7 +1382,7 @@ abstract class $ApiCallbackCopyWith<$Res> {
           ApiCallback value, $Res Function(ApiCallback) then) =
       _$ApiCallbackCopyWithImpl<$Res, ApiCallback>;
   @useResult
-  $Res call({String? description});
+  $Res call({String name, Map<String, PathItem> expression});
 }
 
 /// @nodoc
@@ -1400,13 +1398,18 @@ class _$ApiCallbackCopyWithImpl<$Res, $Val extends ApiCallback>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = null,
+    Object? expression = null,
   }) {
     return _then(_value.copyWith(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      expression: null == expression
+          ? _value.expression
+          : expression // ignore: cast_nullable_to_non_nullable
+              as Map<String, PathItem>,
     ) as $Val);
   }
 }
@@ -1419,7 +1422,7 @@ abstract class _$$_ApiCallbackCopyWith<$Res>
       __$$_ApiCallbackCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? description});
+  $Res call({String name, Map<String, PathItem> expression});
 }
 
 /// @nodoc
@@ -1433,32 +1436,47 @@ class __$$_ApiCallbackCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = freezed,
+    Object? name = null,
+    Object? expression = null,
   }) {
     return _then(_$_ApiCallback(
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      expression: null == expression
+          ? _value._expression
+          : expression // ignore: cast_nullable_to_non_nullable
+              as Map<String, PathItem>,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_ApiCallback implements _ApiCallback {
-  const _$_ApiCallback({this.description});
+  const _$_ApiCallback(
+      {required this.name, required final Map<String, PathItem> expression})
+      : _expression = expression;
 
-  factory _$_ApiCallback.fromJson(Map<String, dynamic> json) =>
-      _$$_ApiCallbackFromJson(json);
-
-  /// Text
+  /// The name of the callback
   @override
-  final String? description;
+  final String name;
+
+  /// The callback expression to evaluate and operation to perform
+  final Map<String, PathItem> _expression;
+
+  /// The callback expression to evaluate and operation to perform
+  @override
+  Map<String, PathItem> get expression {
+    if (_expression is EqualUnmodifiableMapView) return _expression;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_expression);
+  }
 
   @override
   String toString() {
-    return 'ApiCallback(description: $description)';
+    return 'ApiCallback(name: $name, expression: $expression)';
   }
 
   @override
@@ -1466,38 +1484,35 @@ class _$_ApiCallback implements _ApiCallback {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ApiCallback &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other._expression, _expression));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description);
+  int get hashCode => Object.hash(
+      runtimeType, name, const DeepCollectionEquality().hash(_expression));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_ApiCallbackCopyWith<_$_ApiCallback> get copyWith =>
       __$$_ApiCallbackCopyWithImpl<_$_ApiCallback>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ApiCallbackToJson(
-      this,
-    );
-  }
 }
 
 abstract class _ApiCallback implements ApiCallback {
-  const factory _ApiCallback({final String? description}) = _$_ApiCallback;
-
-  factory _ApiCallback.fromJson(Map<String, dynamic> json) =
-      _$_ApiCallback.fromJson;
+  const factory _ApiCallback(
+      {required final String name,
+      required final Map<String, PathItem> expression}) = _$_ApiCallback;
 
   @override
 
-  /// Text
-  String? get description;
+  /// The name of the callback
+  String get name;
+  @override
+
+  /// The callback expression to evaluate and operation to perform
+  Map<String, PathItem> get expression;
   @override
   @JsonKey(ignore: true)
   _$$_ApiCallbackCopyWith<_$_ApiCallback> get copyWith =>
@@ -1537,6 +1552,7 @@ mixin _$Components {
   Map<String, Link>? get links => throw _privateConstructorUsedError;
 
   /// A set of reusable [ApiCallback] objects.
+  @_ApiCallbackMapConverter()
   Map<String, ApiCallback>? get callbacks => throw _privateConstructorUsedError;
 
   /// A set of reusable [PathItem] objects.
@@ -1563,7 +1579,7 @@ abstract class $ComponentsCopyWith<$Res> {
       Map<String, Header>? headers,
       Map<String, SecurityScheme>? securitySchemes,
       Map<String, Link>? links,
-      Map<String, ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() Map<String, ApiCallback>? callbacks,
       Map<String, PathItem>? pathItems});
 }
 
@@ -1653,7 +1669,7 @@ abstract class _$$_ComponentsCopyWith<$Res>
       Map<String, Header>? headers,
       Map<String, SecurityScheme>? securitySchemes,
       Map<String, Link>? links,
-      Map<String, ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() Map<String, ApiCallback>? callbacks,
       Map<String, PathItem>? pathItems});
 }
 
@@ -1736,7 +1752,7 @@ class _$_Components implements _Components {
       final Map<String, Header>? headers,
       final Map<String, SecurityScheme>? securitySchemes,
       final Map<String, Link>? links,
-      final Map<String, ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() final Map<String, ApiCallback>? callbacks,
       final Map<String, PathItem>? pathItems})
       : _schemas = schemas,
         _responses = responses,
@@ -1861,6 +1877,7 @@ class _$_Components implements _Components {
 
   /// A set of reusable [ApiCallback] objects.
   @override
+  @_ApiCallbackMapConverter()
   Map<String, ApiCallback>? get callbacks {
     final value = _callbacks;
     if (value == null) return null;
@@ -1949,7 +1966,7 @@ abstract class _Components implements Components {
       final Map<String, Header>? headers,
       final Map<String, SecurityScheme>? securitySchemes,
       final Map<String, Link>? links,
-      final Map<String, ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() final Map<String, ApiCallback>? callbacks,
       final Map<String, PathItem>? pathItems}) = _$_Components;
 
   factory _Components.fromJson(Map<String, dynamic> json) =
@@ -1990,6 +2007,7 @@ abstract class _Components implements Components {
   @override
 
   /// A set of reusable [ApiCallback] objects.
+  @_ApiCallbackMapConverter()
   Map<String, ApiCallback>? get callbacks;
   @override
 
@@ -4303,7 +4321,8 @@ mixin _$Operation {
 
   /// A map of possible out-of band callbacks related to the parent operation.
   /// The key is a unique identifier for the [ApiCallback] Object.
-  List<ApiCallback>? get callbacks => throw _privateConstructorUsedError;
+  @_ApiCallbackMapConverter()
+  Map<String, ApiCallback>? get callbacks => throw _privateConstructorUsedError;
 
   /// Declares this operation to be deprecated.
   bool? get deprecated => throw _privateConstructorUsedError;
@@ -4337,7 +4356,7 @@ abstract class $OperationCopyWith<$Res> {
       List<Parameter>? parameters,
       RequestBody? requestBody,
       Map<String, Response>? responses,
-      List<ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() Map<String, ApiCallback>? callbacks,
       bool? deprecated,
       List<Security>? security,
       List<Server>? servers});
@@ -4408,7 +4427,7 @@ class _$OperationCopyWithImpl<$Res, $Val extends Operation>
       callbacks: freezed == callbacks
           ? _value.callbacks
           : callbacks // ignore: cast_nullable_to_non_nullable
-              as List<ApiCallback>?,
+              as Map<String, ApiCallback>?,
       deprecated: freezed == deprecated
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
@@ -4465,7 +4484,7 @@ abstract class _$$_OperationCopyWith<$Res> implements $OperationCopyWith<$Res> {
       List<Parameter>? parameters,
       RequestBody? requestBody,
       Map<String, Response>? responses,
-      List<ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() Map<String, ApiCallback>? callbacks,
       bool? deprecated,
       List<Security>? security,
       List<Server>? servers});
@@ -4536,7 +4555,7 @@ class __$$_OperationCopyWithImpl<$Res>
       callbacks: freezed == callbacks
           ? _value._callbacks
           : callbacks // ignore: cast_nullable_to_non_nullable
-              as List<ApiCallback>?,
+              as Map<String, ApiCallback>?,
       deprecated: freezed == deprecated
           ? _value.deprecated
           : deprecated // ignore: cast_nullable_to_non_nullable
@@ -4565,7 +4584,7 @@ class _$_Operation implements _Operation {
       final List<Parameter>? parameters,
       this.requestBody,
       final Map<String, Response>? responses,
-      final List<ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() final Map<String, ApiCallback>? callbacks,
       this.deprecated,
       final List<Security>? security,
       final List<Server>? servers})
@@ -4646,17 +4665,18 @@ class _$_Operation implements _Operation {
 
   /// A map of possible out-of band callbacks related to the parent operation.
   /// The key is a unique identifier for the [ApiCallback] Object.
-  final List<ApiCallback>? _callbacks;
+  final Map<String, ApiCallback>? _callbacks;
 
   /// A map of possible out-of band callbacks related to the parent operation.
   /// The key is a unique identifier for the [ApiCallback] Object.
   @override
-  List<ApiCallback>? get callbacks {
+  @_ApiCallbackMapConverter()
+  Map<String, ApiCallback>? get callbacks {
     final value = _callbacks;
     if (value == null) return null;
-    if (_callbacks is EqualUnmodifiableListView) return _callbacks;
+    if (_callbacks is EqualUnmodifiableMapView) return _callbacks;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// Declares this operation to be deprecated.
@@ -4767,7 +4787,7 @@ abstract class _Operation implements Operation {
       final List<Parameter>? parameters,
       final RequestBody? requestBody,
       final Map<String, Response>? responses,
-      final List<ApiCallback>? callbacks,
+      @_ApiCallbackMapConverter() final Map<String, ApiCallback>? callbacks,
       final bool? deprecated,
       final List<Security>? security,
       final List<Server>? servers}) = _$_Operation;
@@ -4815,7 +4835,8 @@ abstract class _Operation implements Operation {
 
   /// A map of possible out-of band callbacks related to the parent operation.
   /// The key is a unique identifier for the [ApiCallback] Object.
-  List<ApiCallback>? get callbacks;
+  @_ApiCallbackMapConverter()
+  Map<String, ApiCallback>? get callbacks;
   @override
 
   /// Declares this operation to be deprecated.

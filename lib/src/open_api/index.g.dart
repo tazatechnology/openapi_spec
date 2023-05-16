@@ -148,24 +148,6 @@ Map<String, dynamic> _$$_OAuthFlowAuthorizationCodeToJson(
   return val;
 }
 
-_$_ApiCallback _$$_ApiCallbackFromJson(Map<String, dynamic> json) =>
-    _$_ApiCallback(
-      description: json['description'] as String?,
-    );
-
-Map<String, dynamic> _$$_ApiCallbackToJson(_$_ApiCallback instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
-
 _$_Components _$$_ComponentsFromJson(Map<String, dynamic> json) =>
     _$_Components(
       schemas: (json['schemas'] as Map<String, dynamic>?)?.map(
@@ -193,9 +175,9 @@ _$_Components _$$_ComponentsFromJson(Map<String, dynamic> json) =>
       links: (json['links'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Link.fromJson(e as Map<String, dynamic>)),
       ),
-      callbacks: (json['callbacks'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, ApiCallback.fromJson(e as Map<String, dynamic>)),
-      ),
+      callbacks: _$JsonConverterFromJson<Map<String, dynamic>,
+              Map<String, ApiCallback>>(
+          json['callbacks'], const _ApiCallbackMapConverter().fromJson),
       pathItems: (json['pathItems'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, PathItem.fromJson(e as Map<String, dynamic>)),
       ),
@@ -226,11 +208,25 @@ Map<String, dynamic> _$$_ComponentsToJson(_$_Components instance) {
       instance.securitySchemes?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull('links', instance.links?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
-      'callbacks', instance.callbacks?.map((k, e) => MapEntry(k, e.toJson())));
+      'callbacks',
+      _$JsonConverterToJson<Map<String, dynamic>, Map<String, ApiCallback>>(
+          instance.callbacks, const _ApiCallbackMapConverter().toJson));
   writeNotNull(
       'pathItems', instance.pathItems?.map((k, e) => MapEntry(k, e.toJson())));
   return val;
 }
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);
 
 _$_Contact _$$_ContactFromJson(Map<String, dynamic> json) => _$_Contact(
       name: json['name'] as String?,
@@ -499,9 +495,9 @@ _$_Operation _$$_OperationFromJson(Map<String, dynamic> json) => _$_Operation(
       responses: (json['responses'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Response.fromJson(e as Map<String, dynamic>)),
       ),
-      callbacks: (json['callbacks'] as List<dynamic>?)
-          ?.map((e) => ApiCallback.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      callbacks: _$JsonConverterFromJson<Map<String, dynamic>,
+              Map<String, ApiCallback>>(
+          json['callbacks'], const _ApiCallbackMapConverter().fromJson),
       deprecated: json['deprecated'] as bool?,
       security: (json['security'] as List<dynamic>?)
           ?.map((e) => Security.fromJson(e as Map<String, dynamic>))
@@ -531,7 +527,9 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
   writeNotNull(
       'responses', instance.responses?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull(
-      'callbacks', instance.callbacks?.map((e) => e.toJson()).toList());
+      'callbacks',
+      _$JsonConverterToJson<Map<String, dynamic>, Map<String, ApiCallback>>(
+          instance.callbacks, const _ApiCallbackMapConverter().toJson));
   writeNotNull('deprecated', instance.deprecated);
   writeNotNull('security', instance.security?.map((e) => e.toJson()).toList());
   writeNotNull('servers', instance.servers?.map((e) => e.toJson()).toList());
@@ -979,6 +977,7 @@ const _$StringFormatEnumMap = {
   StringFormat.date: 'date',
   StringFormat.datetime: 'date-time',
   StringFormat.password: 'password',
+  StringFormat.uri: 'uri',
   StringFormat.uriRef: 'uriref',
 };
 

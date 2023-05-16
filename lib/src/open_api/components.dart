@@ -36,7 +36,7 @@ class Components with _$Components {
     Map<String, Link>? links,
 
     /// A set of reusable [ApiCallback] objects.
-    Map<String, ApiCallback>? callbacks,
+    @_ApiCallbackMapConverter() Map<String, ApiCallback>? callbacks,
 
     /// A set of reusable [PathItem] objects.
     Map<String, PathItem>? pathItems,
