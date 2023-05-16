@@ -9053,6 +9053,7 @@ mixin _$Schema {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9113,6 +9114,7 @@ mixin _$Schema {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9176,6 +9178,7 @@ mixin _$Schema {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9320,6 +9323,7 @@ abstract class _$$_SchemaCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       {String? title,
       String? description,
       String? ref,
+      List<Schema>? allOf,
       List<String>? required,
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
@@ -9346,6 +9350,7 @@ class __$$_SchemaCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? ref = freezed,
+    Object? allOf = freezed,
     Object? required = freezed,
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
@@ -9366,6 +9371,10 @@ class __$$_SchemaCopyWithImpl<$Res>
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
               as String?,
+      allOf: freezed == allOf
+          ? _value._allOf
+          : allOf // ignore: cast_nullable_to_non_nullable
+              as List<Schema>?,
       required: freezed == required
           ? _value._required
           : required // ignore: cast_nullable_to_non_nullable
@@ -9449,6 +9458,7 @@ class _$_Schema implements _Schema {
       {this.title,
       this.description,
       this.ref,
+      final List<Schema>? allOf,
       final List<String>? required,
       this.discriminator,
       this.externalDocs,
@@ -9456,7 +9466,8 @@ class _$_Schema implements _Schema {
       this.additionalProperties,
       this.xml,
       final String? $type})
-      : _required = required,
+      : _allOf = allOf,
+        _required = required,
         _properties = properties,
         $type = $type ?? 'default';
 
@@ -9474,6 +9485,19 @@ class _$_Schema implements _Schema {
   /// Reference to a schema definition
   @override
   final String? ref;
+
+  ///
+  final List<Schema>? _allOf;
+
+  ///
+  @override
+  List<Schema>? get allOf {
+    final value = _allOf;
+    if (value == null) return null;
+    if (_allOf is EqualUnmodifiableListView) return _allOf;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   /// The required properties of the schema
   final List<String>? _required;
@@ -9524,7 +9548,7 @@ class _$_Schema implements _Schema {
 
   @override
   String toString() {
-    return 'Schema(title: $title, description: $description, ref: $ref, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
+    return 'Schema(title: $title, description: $description, ref: $ref, allOf: $allOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, additionalProperties: $additionalProperties, xml: $xml)';
   }
 
   @override
@@ -9536,6 +9560,7 @@ class _$_Schema implements _Schema {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.ref, ref) || other.ref == ref) &&
+            const DeepCollectionEquality().equals(other._allOf, _allOf) &&
             const DeepCollectionEquality().equals(other._required, _required) &&
             (identical(other.discriminator, discriminator) ||
                 other.discriminator == discriminator) &&
@@ -9555,6 +9580,7 @@ class _$_Schema implements _Schema {
       title,
       description,
       ref,
+      const DeepCollectionEquality().hash(_allOf),
       const DeepCollectionEquality().hash(_required),
       discriminator,
       externalDocs,
@@ -9575,6 +9601,7 @@ class _$_Schema implements _Schema {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9628,7 +9655,7 @@ class _$_Schema implements _Schema {
         enumeration,
     required TResult Function(Xml? xml, ArrayItems items, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minLength, int? maxLength) array,
   }) {
-    return $default(title, description, ref, required, discriminator,
+    return $default(title, description, ref, allOf, required, discriminator,
         externalDocs, properties, additionalProperties, xml);
   }
 
@@ -9639,6 +9666,7 @@ class _$_Schema implements _Schema {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9695,8 +9723,8 @@ class _$_Schema implements _Schema {
             int? maxLength)?
         array,
   }) {
-    return $default?.call(title, description, ref, required, discriminator,
-        externalDocs, properties, additionalProperties, xml);
+    return $default?.call(title, description, ref, allOf, required,
+        discriminator, externalDocs, properties, additionalProperties, xml);
   }
 
   @override
@@ -9706,6 +9734,7 @@ class _$_Schema implements _Schema {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9764,7 +9793,7 @@ class _$_Schema implements _Schema {
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(title, description, ref, required, discriminator,
+      return $default(title, description, ref, allOf, required, discriminator,
           externalDocs, properties, additionalProperties, xml);
     }
     return orElse();
@@ -9829,6 +9858,7 @@ abstract class _Schema implements Schema {
       {final String? title,
       final String? description,
       final String? ref,
+      final List<Schema>? allOf,
       final List<String>? required,
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
@@ -9849,6 +9879,9 @@ abstract class _Schema implements Schema {
 
   /// Reference to a schema definition
   String? get ref;
+
+  ///
+  List<Schema>? get allOf;
 
   /// The required properties of the schema
   List<String>? get required;
@@ -10004,6 +10037,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10067,6 +10101,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10133,6 +10168,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10443,6 +10479,7 @@ class _$_SchemaString implements _SchemaString {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10507,6 +10544,7 @@ class _$_SchemaString implements _SchemaString {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10574,6 +10612,7 @@ class _$_SchemaString implements _SchemaString {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10924,6 +10963,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10988,6 +11028,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11055,6 +11096,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11408,6 +11450,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11472,6 +11515,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11539,6 +11583,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11823,6 +11868,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11886,6 +11932,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11952,6 +11999,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12301,6 +12349,7 @@ class _$_SchemaArray implements _SchemaArray {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12365,6 +12414,7 @@ class _$_SchemaArray implements _SchemaArray {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12432,6 +12482,7 @@ class _$_SchemaArray implements _SchemaArray {
             String? title,
             String? description,
             String? ref,
+            List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,

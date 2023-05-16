@@ -194,10 +194,10 @@
             "$ref": "#/components/schemas/NewPet"
           },
           {
-            "type": "object",
             "required": [
               "id"
             ],
+            "type": "object",
             "properties": {
               "id": {
                 "type": "integer",
@@ -208,10 +208,10 @@
         ]
       },
       "NewPet": {
-        "type": "object",
         "required": [
           "name"
         ],
+        "type": "object",
         "properties": {
           "name": {
             "type": "string"
@@ -222,11 +222,11 @@
         }
       },
       "Error": {
-        "type": "object",
         "required": [
           "code",
           "message"
         ],
+        "type": "object",
         "properties": {
           "code": {
             "type": "integer",

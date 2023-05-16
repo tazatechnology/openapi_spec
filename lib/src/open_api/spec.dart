@@ -347,6 +347,11 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
     m.remove('type');
   }
 
+  // When other keys are defined, object is implied
+  if (m.containsKey('type') && m['allOf'] != null) {
+    m.remove('type');
+  }
+
   // Always place the type property of schema object
   if (m.containsKey('type') && m['type'] is String) {
     m = {'type': m['type'], ...m..remove('type')};

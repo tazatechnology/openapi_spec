@@ -21,6 +21,9 @@ class Schema with _$Schema {
     /// Reference to a schema definition
     String? ref,
 
+    ///
+    List<Schema>? allOf,
+
     /// The required properties of the schema
     List<String>? required,
 

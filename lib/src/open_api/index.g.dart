@@ -957,6 +957,9 @@ _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
       title: json['title'] as String?,
       description: json['description'] as String?,
       ref: json['ref'] as String?,
+      allOf: (json['allOf'] as List<dynamic>?)
+          ?.map((e) => Schema.fromJson(e as Map<String, dynamic>))
+          .toList(),
       required: (json['required'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -992,6 +995,7 @@ Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('ref', instance.ref);
+  writeNotNull('allOf', instance.allOf?.map((e) => e.toJson()).toList());
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
   writeNotNull('externalDocs', instance.externalDocs?.toJson());

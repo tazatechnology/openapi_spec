@@ -27,7 +27,7 @@ void main() {
       });
 
       /// Ensure ability to parse JSON to Dart
-      test('JSON/YAML -> Dart', () {
+      test('${isJson ? 'JSON' : 'YAML'} -> Dart', () {
         // Read the spec file
         final spec = OpenApi.fromFile(
           source: e.absolute.path,
