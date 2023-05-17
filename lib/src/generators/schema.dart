@@ -82,9 +82,14 @@ class SchemaGenerator extends BaseGenerator {
           mode: FileMode.append,
         );
       }
-      _writeSchema(
-        name: s,
-        schema: schemas[s]!,
+
+      schemas[s]?.mapOrNull(
+        (schema) {
+          _writeSchema(name: s, schema: schema);
+        },
+        enumeration: (schema) {
+          _writeEnumeration(name: s, schema: schema);
+        },
       );
     }
   }
@@ -97,11 +102,7 @@ class SchemaGenerator extends BaseGenerator {
     required String name,
     required Schema schema,
   }) {
-    final s = schema.mapOrNull((value) => value);
-
-    if (s == null) {
-      return;
-    }
+    final s = schema.mapOrNull((s) => s)!;
 
     // Class header
     file.writeAsStringSync("""
@@ -269,5 +270,35 @@ class SchemaGenerator extends BaseGenerator {
       },
     );
     return validations;
+  }
+
+  // ------------------------------------------
+  // METHOD: _writeEnumeration
+  // ------------------------------------------
+
+  void _writeEnumeration({
+    required String name,
+    required Schema schema,
+  }) {
+    final s = schema.mapOrNull((_) {}, enumeration: (s) => s)!;
+
+    file.writeAsStringSync("""
+    /// ==========================================
+    /// ENUM: $name
+    /// ==========================================
+    
+    /// ${s.description ?? 'No Description'}
+    enum $name {
+    """, mode: FileMode.append);
+
+    // Loop through enum values
+    for (var v in s.values) {
+      file.writeAsStringSync("""
+    @JsonValue('$v')
+    ${v.snakeCase},
+    """, mode: FileMode.append);
+    }
+
+    file.writeAsStringSync('}', mode: FileMode.append);
   }
 }
