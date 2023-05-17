@@ -85,9 +85,10 @@ class Schema with _$Schema {
     IntegerFormat? format,
     int? example,
     int? minimum,
-    int? exclusiveMinimum,
+    bool? exclusiveMinimum,
     int? maximum,
-    int? exclusiveMaximum,
+    bool? exclusiveMaximum,
+    int? multipleOf,
     @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaInteger;
 
@@ -104,9 +105,10 @@ class Schema with _$Schema {
     NumberFormat? format,
     double? example,
     double? minimum,
-    double? exclusiveMinimum,
+    bool? exclusiveMinimum,
     double? maximum,
-    double? exclusiveMaximum,
+    bool? exclusiveMaximum,
+    double? multipleOf,
     @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaNumber;
 

@@ -206,7 +206,16 @@ class SchemaGenerator extends BaseGenerator {
         /// Determine if there are any validations
         if (p.minLength != null) {
           validations.add(
-            "if ($name.length < ${p.minLength}) return 'The value of $name cannot be less than ${p.minLength} characters';",
+            """if ($name.length  < ${p.maxLength}) {
+            return 'The value of $name cannot be less than ${p.minLength} characters';
+            }""",
+          );
+        }
+        if (p.maxLength != null) {
+          validations.add(
+            """if ($name.length  > ${p.maxLength}) {
+            return "The length of '$name' cannot be greater than ${p.maxLength} characters";
+            }""",
           );
         }
       },
@@ -222,6 +231,19 @@ class SchemaGenerator extends BaseGenerator {
         }
         c += "int ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
+
+        /// Determine if there are any validations
+        validations.addAll(
+          _numericValidations(
+            name: name,
+            nullable: nullable,
+            minimum: p.minimum,
+            maximum: p.maximum,
+            exclusiveMinimum: p.exclusiveMinimum,
+            exclusiveMaximum: p.exclusiveMaximum,
+            multipleOf: p.multipleOf,
+          ),
+        );
       },
       number: (p) {
         bool hasDefault = p.defaultValue != null;
@@ -235,6 +257,19 @@ class SchemaGenerator extends BaseGenerator {
         }
         c += "double ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
+
+        /// Determine if there are any validations
+        validations.addAll(
+          _numericValidations(
+            name: name,
+            nullable: nullable,
+            minimum: p.minimum,
+            maximum: p.maximum,
+            exclusiveMinimum: p.exclusiveMinimum,
+            exclusiveMaximum: p.exclusiveMaximum,
+            multipleOf: p.multipleOf,
+          ),
+        );
       },
       array: (p) {
         bool hasDefault = p.defaultValue != null;
@@ -354,5 +389,39 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     file.writeAsStringSync('}', mode: FileMode.append);
+  }
+
+  // ------------------------------------------
+  // METHOD: _numericValidations
+  // ------------------------------------------
+
+  List<String> _numericValidations({
+    required String name,
+    required bool nullable,
+    required num? minimum,
+    required num? maximum,
+    required num? multipleOf,
+    required bool? exclusiveMinimum,
+    required bool? exclusiveMaximum,
+  }) {
+    List<String> out = [];
+
+    final nullName = nullable ? '$name != null && $name!' : name;
+
+    if (minimum != null) {
+      final operator = exclusiveMinimum ?? false ? '<=' : '<';
+      final message = "The value of '$name' cannot be $operator $minimum";
+      out.add('if ($nullName $operator $minimum) {return "$message";}');
+    }
+    if (maximum != null) {
+      final operator = exclusiveMaximum ?? false ? '>=' : '>';
+      final message = "The value of '$name' cannot be $operator $maximum";
+      out.add('if ($nullName $operator $maximum) {return "$message";}');
+    }
+    if (multipleOf != null) {
+      final message = "The value of '$name' must be a multiple of $multipleOf";
+      out.add('if ($nullName % $multipleOf != 0) {return "$message";}');
+    }
+    return out;
   }
 }

@@ -990,9 +990,10 @@ _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
       format: $enumDecodeNullable(_$IntegerFormatEnumMap, json['format']),
       example: json['example'] as int?,
       minimum: json['minimum'] as int?,
-      exclusiveMinimum: json['exclusiveMinimum'] as int?,
+      exclusiveMinimum: json['exclusiveMinimum'] as bool?,
       maximum: json['maximum'] as int?,
-      exclusiveMaximum: json['exclusiveMaximum'] as int?,
+      exclusiveMaximum: json['exclusiveMaximum'] as bool?,
+      multipleOf: json['multipleOf'] as int?,
       ref: _fromSchemaRef(json['ref'] as String?),
       $type: json['type'] as String?,
     );
@@ -1016,6 +1017,7 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
+  writeNotNull('multipleOf', instance.multipleOf);
   writeNotNull('ref', _toSchemaRef(instance.ref));
   val['type'] = instance.$type;
   return val;
@@ -1037,9 +1039,10 @@ _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
       format: $enumDecodeNullable(_$NumberFormatEnumMap, json['format']),
       example: (json['example'] as num?)?.toDouble(),
       minimum: (json['minimum'] as num?)?.toDouble(),
-      exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
+      exclusiveMinimum: json['exclusiveMinimum'] as bool?,
       maximum: (json['maximum'] as num?)?.toDouble(),
-      exclusiveMaximum: (json['exclusiveMaximum'] as num?)?.toDouble(),
+      exclusiveMaximum: json['exclusiveMaximum'] as bool?,
+      multipleOf: (json['multipleOf'] as num?)?.toDouble(),
       ref: _fromSchemaRef(json['ref'] as String?),
       $type: json['type'] as String?,
     );
@@ -1063,6 +1066,7 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
+  writeNotNull('multipleOf', instance.multipleOf);
   writeNotNull('ref', _toSchemaRef(instance.ref));
   val['type'] = instance.$type;
   return val;
