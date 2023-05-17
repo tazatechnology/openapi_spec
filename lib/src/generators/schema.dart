@@ -131,6 +131,7 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync('{', mode: FileMode.append);
       }
       final v = _writeProperty(
+        jsonName: p,
         name: p.camelCase,
         property: props![p]!,
         required: s.required?.contains(p) ?? false,
@@ -142,7 +143,7 @@ class SchemaGenerator extends BaseGenerator {
     file.writeAsStringSync("""
     ${firstPass ? '' : '}'}) = _$name;
 
-    /// $name object creation from a JSON representation
+    /// Object construction from a JSON representation
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
 
     /// Perform validations on the schema property values
@@ -159,11 +160,14 @@ class SchemaGenerator extends BaseGenerator {
   // ------------------------------------------
 
   List<String> _writeProperty({
+    required String jsonName,
     required String name,
     required Schema property,
     required bool required,
   }) {
     final validations = <String>[];
+
+    final jsonKey = "@JsonKey(name: '$jsonName') ";
 
     (String, bool) propHeader(
       dynamic defaultValue,
@@ -172,6 +176,9 @@ class SchemaGenerator extends BaseGenerator {
       bool hasDefault = defaultValue != null;
       bool nullable = !hasDefault && !required;
       String c = "/// ${description ?? 'No Description'} \n";
+      if (jsonName != name) {
+        c += jsonKey;
+      }
       if (hasDefault) {
         c += "@Default($defaultValue) ";
       }
@@ -185,6 +192,11 @@ class SchemaGenerator extends BaseGenerator {
       object: (p) {
         bool nullable = !required;
         String c = "/// ${p.description ?? 'No Description'} \n";
+
+        if (jsonName != name) {
+          c += jsonKey;
+        }
+
         if (required) {
           c += "required ";
         }
@@ -296,6 +308,10 @@ class SchemaGenerator extends BaseGenerator {
           throw Exception(
             "\n\n'${p.defaultValue}' is not a valid enumeration for '$name' (${p.values}).\n",
           );
+        }
+
+        if (jsonName != name) {
+          c += jsonKey;
         }
 
         if (ref == null) {
