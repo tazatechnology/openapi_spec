@@ -943,6 +943,7 @@ _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
       example: json['example'] as String?,
       minLength: json['minLength'] as int?,
       maxLength: json['maxLength'] as int?,
+      ref: _fromSchemaRef(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -963,6 +964,7 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);
+  writeNotNull('ref', _toSchemaRef(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -991,6 +993,7 @@ _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
       exclusiveMinimum: json['exclusiveMinimum'] as int?,
       maximum: json['maximum'] as int?,
       exclusiveMaximum: json['exclusiveMaximum'] as int?,
+      ref: _fromSchemaRef(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1013,6 +1016,7 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
+  writeNotNull('ref', _toSchemaRef(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1036,6 +1040,7 @@ _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
       exclusiveMinimum: (json['exclusiveMinimum'] as num?)?.toDouble(),
       maximum: (json['maximum'] as num?)?.toDouble(),
       exclusiveMaximum: (json['exclusiveMaximum'] as num?)?.toDouble(),
+      ref: _fromSchemaRef(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1058,6 +1063,7 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('maximum', instance.maximum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
+  writeNotNull('ref', _toSchemaRef(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1073,7 +1079,9 @@ _$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       example: json['example'] as String?,
       defaultValue: json['default'] as String?,
-      values: (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
+      values:
+          (json['enum'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      ref: _fromSchemaRef(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1090,7 +1098,8 @@ Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
   writeNotNull('description', instance.description);
   writeNotNull('example', instance.example);
   writeNotNull('default', instance.defaultValue);
-  val['enum'] = instance.values;
+  writeNotNull('enum', instance.values);
+  writeNotNull('ref', _toSchemaRef(instance.ref));
   val['type'] = instance.$type;
   return val;
 }

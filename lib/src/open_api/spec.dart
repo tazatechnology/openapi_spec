@@ -281,7 +281,7 @@ class OpenApi with _$OpenApi {
         package: package.snakeCase,
         destination: destination,
         separate: !singleSchemaFile,
-      ).generate();
+      ).generate(replace: replace);
     }
 
     // Apply the Dart formatting and fix logic

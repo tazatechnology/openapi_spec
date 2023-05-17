@@ -12,8 +12,8 @@ class SchemaGenerator extends BaseGenerator {
     required this.separate,
   }) {
     schemaDirectory = Directory(p.join(parentDirectory.path, 'schema'));
-    file = File(p.join(schemaDirectory.path, '_schema.dart'));
-    index = File(p.join(schemaDirectory.path, 'index.dart'));
+    file = File(p.join(schemaDirectory.path, 'schema.dart'));
+    index = File(p.join(schemaDirectory.path, 'schema_index.dart'));
   }
   late File file;
   late final File index;
@@ -52,8 +52,8 @@ class SchemaGenerator extends BaseGenerator {
 
       import 'package:freezed_annotation/freezed_annotation.dart';
 
-      part 'index.g.dart';
-      part 'index.freezed.dart';\n
+      part 'schema_index.g.dart';
+      part 'schema_index.freezed.dart';\n
       """);
 
     if (!separate) {
@@ -63,32 +63,35 @@ class SchemaGenerator extends BaseGenerator {
         mode: FileMode.append,
       );
       index.writeAsStringSync(
-        "part '_schema.dart';\n",
+        "part 'schema.dart';\n",
         mode: FileMode.append,
       );
     }
 
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
+      final filename = s.snakeCase;
+      final name = s.pascalCase;
+
       if (separate) {
-        file = File(p.join(schemaDirectory.path, '_${s.snakeCase}.dart'));
+        file = File(p.join(schemaDirectory.path, '$filename.dart'));
         file.writeAsStringSync(getHeader());
         file.writeAsStringSync(
           'part of $schemaPackage;\n\n',
           mode: FileMode.append,
         );
         index.writeAsStringSync(
-          "part '_${s.snakeCase}.dart';\n",
+          "part '$filename.dart';\n",
           mode: FileMode.append,
         );
       }
 
       schemas[s]?.mapOrNull(
         object: (schema) {
-          _writeObject(name: s, schema: schema);
+          _writeObject(name: name, schema: schema);
         },
         enumeration: (schema) {
-          _writeEnumeration(name: s, schema: schema);
+          _writeEnumeration(name: name, schema: schema);
         },
       );
     }
@@ -106,9 +109,9 @@ class SchemaGenerator extends BaseGenerator {
 
     // Class header
     file.writeAsStringSync("""
-    /// ==========================================
-    /// CLASS: $name
-    /// ==========================================
+    // ==========================================
+    // CLASS: $name
+    // ==========================================
     
     /// ${s.description ?? 'No Description'}
     @freezed
@@ -128,7 +131,7 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync('{', mode: FileMode.append);
       }
       final v = _writeProperty(
-        name: p,
+        name: p.camelCase,
         property: props![p]!,
         required: s.required?.contains(p) ?? false,
       );
@@ -263,16 +266,55 @@ class SchemaGenerator extends BaseGenerator {
         // TODO implement Map
       },
       enumeration: (p) {
+        if (p.ref != null &&
+            !(spec.components?.schemas?.keys.contains(p.ref) ?? true)) {
+          throw Exception(
+            "\n\n'${p.ref}' is not a valid component schema reference\n",
+          );
+        }
+        final ref =
+            spec.components?.schemas?[p.ref]?.mapOrNull(enumeration: (s) => s);
+
+        if (ref != null) {
+          p = ref.copyWith(
+            ref: p.ref,
+            title: p.title ?? ref.title,
+            description: p.description ?? ref.description,
+            defaultValue: p.defaultValue ?? ref.defaultValue,
+            example: p.example ?? ref.example,
+          );
+        }
+
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required;
         String c = "/// ${p.description ?? 'No Description'} \n";
-        if (p.defaultValue != null) {
-          c += "@Default(${p.defaultValue}) ";
+
+        // Ensure default value is valid
+        if (hasDefault && !(p.values?.contains(p.defaultValue) ?? true)) {
+          throw Exception(
+            "\n\n'${p.defaultValue}' is not a valid enumeration for '$name' (${p.values}).\n",
+          );
         }
-        if (required) {
-          c += "required ";
+
+        if (ref == null) {
+          if (p.defaultValue != null) {
+            c += "@Default(${p.defaultValue}) ";
+          }
+          if (required) {
+            c += "required ";
+          }
+          c += "String ${nullable ? '?' : ''} $name,\n\n";
+        } else {
+          if (p.defaultValue != null) {
+            final value = p.defaultValue!.replaceAll('.', '').camelCase;
+            c += "@Default(${p.ref}.$value) ";
+          }
+          if (required) {
+            c += "required ";
+          }
+          c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
         }
-        c += "String ${nullable ? '?' : ''} $name,\n\n";
+
         file.writeAsStringSync(c, mode: FileMode.append);
       },
     );
@@ -288,21 +330,26 @@ class SchemaGenerator extends BaseGenerator {
     required Schema schema,
   }) {
     final s = schema.mapOrNull(enumeration: (s) => s)!;
+    final values = s.values;
+
+    if (values == null) {
+      return;
+    }
 
     file.writeAsStringSync("""
-    /// ==========================================
-    /// ENUM: $name
-    /// ==========================================
+    // ==========================================
+    // ENUM: $name
+    // ==========================================
     
     /// ${s.description ?? 'No Description'}
     enum $name {
     """, mode: FileMode.append);
 
     // Loop through enum values
-    for (var v in s.values) {
+    for (var v in values) {
       file.writeAsStringSync("""
     @JsonValue('$v')
-    ${v.snakeCase},
+    ${v.replaceAll('.', '').camelCase},
     """, mode: FileMode.append);
     }
 

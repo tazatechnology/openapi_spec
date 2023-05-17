@@ -69,6 +69,7 @@ class Schema with _$Schema {
     String? example,
     int? minLength,
     int? maxLength,
+    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaString;
 
   // ------------------------------------------
@@ -87,6 +88,7 @@ class Schema with _$Schema {
     int? exclusiveMinimum,
     int? maximum,
     int? exclusiveMaximum,
+    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaInteger;
 
   // ------------------------------------------
@@ -105,6 +107,7 @@ class Schema with _$Schema {
     double? exclusiveMinimum,
     double? maximum,
     double? exclusiveMaximum,
+    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaNumber;
 
   // ------------------------------------------
@@ -116,7 +119,9 @@ class Schema with _$Schema {
     String? description,
     String? example,
     @JsonKey(name: 'default') String? defaultValue,
-    @JsonKey(name: 'enum') required List<String> values,
+    // TODO - should not be defined with ref, add assert
+    @JsonKey(name: 'enum') List<String>? values,
+    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaEnum;
 
   // ------------------------------------------
