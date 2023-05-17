@@ -116,12 +116,12 @@ class Schema with _$Schema {
   // FACTORY: Schema.enumeration
   // ------------------------------------------
 
+  @Assert('values == null || ref == null', 'Cannot define both values and ref')
   const factory Schema.enumeration({
     String? title,
     String? description,
     String? example,
     @JsonKey(name: 'default') String? defaultValue,
-    // TODO - should not be defined with ref, add assert
     @JsonKey(name: 'enum') List<String>? values,
     @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
   }) = _SchemaEnum;
@@ -155,7 +155,7 @@ class Schema with _$Schema {
         Map? defaultValue,
     Map? example,
     @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps)
-        Schema? valueType,
+        Schema? valueSchema,
   }) = _SchemaMap;
 
   /// Convert from JSON representation

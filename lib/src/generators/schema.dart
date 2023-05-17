@@ -165,6 +165,22 @@ class SchemaGenerator extends BaseGenerator {
   }) {
     final validations = <String>[];
 
+    (String, bool) propHeader(
+      dynamic defaultValue,
+      String? description,
+    ) {
+      bool hasDefault = defaultValue != null;
+      bool nullable = !hasDefault && !required;
+      String c = "/// ${description ?? 'No Description'} \n";
+      if (hasDefault) {
+        c += "@Default($defaultValue) ";
+      }
+      if (required) {
+        c += "required ";
+      }
+      return (c, nullable);
+    }
+
     property.map(
       object: (p) {
         bool nullable = !required;
@@ -178,28 +194,12 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       boolean: (p) {
-        bool hasDefault = p.defaultValue != null;
-        bool nullable = !hasDefault && !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
-        if (p.defaultValue != null) {
-          c += "@Default(${p.defaultValue}) ";
-        }
-        if (required) {
-          c += "required ";
-        }
+        var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "bool ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       string: (p) {
-        bool hasDefault = p.defaultValue != null;
-        bool nullable = !hasDefault && !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
-        if (p.defaultValue != null) {
-          c += "@Default(${p.defaultValue}) ";
-        }
-        if (required) {
-          c += "required ";
-        }
+        var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
 
@@ -220,15 +220,7 @@ class SchemaGenerator extends BaseGenerator {
         }
       },
       integer: (p) {
-        bool hasDefault = p.defaultValue != null;
-        bool nullable = !hasDefault && !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
-        if (p.defaultValue != null) {
-          c += "@Default(${p.defaultValue}) ";
-        }
-        if (required) {
-          c += "required ";
-        }
+        var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "int ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
 
@@ -246,15 +238,7 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       number: (p) {
-        bool hasDefault = p.defaultValue != null;
-        bool nullable = !hasDefault && !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
-        if (p.defaultValue != null) {
-          c += "@Default(${p.defaultValue}) ";
-        }
-        if (required) {
-          c += "required ";
-        }
+        var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "double ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
 
@@ -272,33 +256,16 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       array: (p) {
-        bool hasDefault = p.defaultValue != null;
-        bool nullable = !hasDefault && !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
-        if (p.defaultValue != null) {
-          c += "@Default(${p.defaultValue}) ";
-        }
-        if (required) {
-          c += "required ";
-        }
-        final type = p.items.map(
-          object: (i) => 'List<dynamic>',
-          boolean: (i) => 'List<bool>',
-          string: (i) => 'List<String>',
-          integer: (i) => 'List<int>',
-          number: (i) => 'List<double>',
-          enumeration: (i) => 'List<String>',
-          array: (i) => 'List<dynamic>',
-          map: (i) {
-            // TODO implement map types
-            return 'List<Map>';
-          },
-        );
-        c += "$type ${nullable ? '?' : ''} $name,\n\n";
+        var (c, nullable) = propHeader(p.defaultValue, p.description);
+        var itemType = _getDartType(p.items);
+        c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       map: (p) {
-        // TODO implement Map
+        var (c, nullable) = propHeader(p.defaultValue, p.description);
+        var valueType = _getDartType(p.valueSchema);
+        c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
+        file.writeAsStringSync(c, mode: FileMode.append);
       },
       enumeration: (p) {
         if (p.ref != null &&
@@ -389,6 +356,30 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     file.writeAsStringSync('}', mode: FileMode.append);
+  }
+
+  // ------------------------------------------
+  // METHOD: _getDartType
+  // ------------------------------------------
+
+  String _getDartType(Schema? s) {
+    final t = s?.map(
+      object: (i) => i.ref ?? 'dynamic',
+      boolean: (i) => 'bool',
+      string: (i) => 'String',
+      integer: (i) => 'int',
+      number: (i) => 'double',
+      enumeration: (i) => i.ref ?? 'String',
+      array: (i) {
+        final itemType = _getDartType(i.items);
+        return 'List<$itemType>';
+      },
+      map: (i) {
+        final valueType = _getDartType(i.valueSchema);
+        return 'Map<String,$valueType>';
+      },
+    );
+    return t ?? 'dynamic';
   }
 
   // ------------------------------------------

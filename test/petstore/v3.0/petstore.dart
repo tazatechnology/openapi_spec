@@ -618,7 +618,7 @@ final spec = OpenApi(
             content: {
               'application/json': MediaType(
                 schema: Schema.map(
-                  valueType: Schema.integer(
+                  valueSchema: Schema.integer(
                     format: IntegerFormat.int32,
                   ),
                 ),

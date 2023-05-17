@@ -1152,7 +1152,7 @@ _$_SchemaMap _$$_SchemaMapFromJson(Map<String, dynamic> json) => _$_SchemaMap(
       description: json['description'] as String?,
       defaultValue: json['default'] as Map<String, dynamic>?,
       example: json['example'] as Map<String, dynamic>?,
-      valueType: _fromMapProps(json['additionalProperties']),
+      valueSchema: _fromMapProps(json['additionalProperties']),
       $type: json['type'] as String?,
     );
 
@@ -1170,7 +1170,7 @@ Map<String, dynamic> _$$_SchemaMapToJson(_$_SchemaMap instance) {
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
   writeNotNull('example', instance.example);
-  writeNotNull('additionalProperties', _toMapProps(instance.valueType));
+  writeNotNull('additionalProperties', _toMapProps(instance.valueSchema));
   val['type'] = instance.$type;
   return val;
 }
