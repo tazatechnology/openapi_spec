@@ -795,14 +795,14 @@ Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
 _$_RequestBodyReference _$$_RequestBodyReferenceFromJson(
         Map<String, dynamic> json) =>
     _$_RequestBodyReference(
-      ref: RequestBody.fromJson(json['ref'] as Map<String, dynamic>),
+      ref: _fromRequestRef(json['ref'] as String),
       $type: json['unionType'] as String?,
     );
 
 Map<String, dynamic> _$$_RequestBodyReferenceToJson(
         _$_RequestBodyReference instance) =>
     <String, dynamic>{
-      'ref': instance.ref.toJson(),
+      'ref': _toRequestRef(instance.ref),
       'unionType': instance.$type,
     };
 
@@ -856,7 +856,7 @@ Map<String, dynamic> _$$_ResponseReferenceToJson(
 _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
       title: json['title'] as String?,
       description: json['description'] as String?,
-      ref: json['ref'] as String?,
+      ref: _fromSchemaRef(json['ref'] as String?),
       allOf: (json['allOf'] as List<dynamic>?)
           ?.map((e) => Schema.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -894,7 +894,7 @@ Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
 
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
-  writeNotNull('ref', instance.ref);
+  writeNotNull('ref', _toSchemaRef(instance.ref));
   writeNotNull('allOf', instance.allOf?.map((e) => e.toJson()).toList());
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
@@ -1293,16 +1293,13 @@ Map<String, dynamic> _$$_ServerToJson(_$_Server instance) {
 _$_ServerVariable _$$_ServerVariableFromJson(Map<String, dynamic> json) =>
     _$_ServerVariable(
       enumValue:
-          (json['enum'] as List<dynamic>).map((e) => e as String).toList(),
+          (json['enum'] as List<dynamic>?)?.map((e) => e as String).toList(),
       defaultValue: json['default'] as String,
       description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_ServerVariableToJson(_$_ServerVariable instance) {
-  final val = <String, dynamic>{
-    'enum': instance.enumValue,
-    'default': instance.defaultValue,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1310,6 +1307,8 @@ Map<String, dynamic> _$$_ServerVariableToJson(_$_ServerVariable instance) {
     }
   }
 
+  writeNotNull('enum', instance.enumValue);
+  val['default'] = instance.defaultValue;
   writeNotNull('description', instance.description);
   return val;
 }

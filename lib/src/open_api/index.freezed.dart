@@ -7585,7 +7585,10 @@ mixin _$RequestBody {
     TResult Function(String? description, bool? required,
             Map<String, MediaType>? content)
         $default, {
-    required TResult Function(RequestBody ref) reference,
+    required TResult Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)
+        reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -7593,7 +7596,10 @@ mixin _$RequestBody {
     TResult? Function(String? description, bool? required,
             Map<String, MediaType>? content)?
         $default, {
-    TResult? Function(RequestBody ref)? reference,
+    TResult? Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)?
+        reference,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -7601,7 +7607,10 @@ mixin _$RequestBody {
     TResult Function(String? description, bool? required,
             Map<String, MediaType>? content)?
         $default, {
-    TResult Function(RequestBody ref)? reference,
+    TResult Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)?
+        reference,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -7759,7 +7768,10 @@ class _$_RequestBody implements _RequestBody {
     TResult Function(String? description, bool? required,
             Map<String, MediaType>? content)
         $default, {
-    required TResult Function(RequestBody ref) reference,
+    required TResult Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)
+        reference,
   }) {
     return $default(description, required, content);
   }
@@ -7770,7 +7782,10 @@ class _$_RequestBody implements _RequestBody {
     TResult? Function(String? description, bool? required,
             Map<String, MediaType>? content)?
         $default, {
-    TResult? Function(RequestBody ref)? reference,
+    TResult? Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)?
+        reference,
   }) {
     return $default?.call(description, required, content);
   }
@@ -7781,7 +7796,10 @@ class _$_RequestBody implements _RequestBody {
     TResult Function(String? description, bool? required,
             Map<String, MediaType>? content)?
         $default, {
-    TResult Function(RequestBody ref)? reference,
+    TResult Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)?
+        reference,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -7857,9 +7875,8 @@ abstract class _$$_RequestBodyReferenceCopyWith<$Res> {
           $Res Function(_$_RequestBodyReference) then) =
       __$$_RequestBodyReferenceCopyWithImpl<$Res>;
   @useResult
-  $Res call({RequestBody ref});
-
-  $RequestBodyCopyWith<$Res> get ref;
+  $Res call(
+      {@JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef) String ref});
 }
 
 /// @nodoc
@@ -7879,30 +7896,26 @@ class __$$_RequestBodyReferenceCopyWithImpl<$Res>
       ref: null == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
-              as RequestBody,
+              as String,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RequestBodyCopyWith<$Res> get ref {
-    return $RequestBodyCopyWith<$Res>(_value.ref, (value) {
-      return _then(_value.copyWith(ref: value));
-    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$_RequestBodyReference implements _RequestBodyReference {
-  const _$_RequestBodyReference({required this.ref, final String? $type})
+  const _$_RequestBodyReference(
+      {@JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+          required this.ref,
+      final String? $type})
       : $type = $type ?? 'reference';
 
   factory _$_RequestBodyReference.fromJson(Map<String, dynamic> json) =>
       _$$_RequestBodyReferenceFromJson(json);
 
   @override
-  final RequestBody ref;
+  @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+  final String ref;
 
   @JsonKey(name: 'unionType')
   final String $type;
@@ -7937,7 +7950,10 @@ class _$_RequestBodyReference implements _RequestBodyReference {
     TResult Function(String? description, bool? required,
             Map<String, MediaType>? content)
         $default, {
-    required TResult Function(RequestBody ref) reference,
+    required TResult Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)
+        reference,
   }) {
     return reference(ref);
   }
@@ -7948,7 +7964,10 @@ class _$_RequestBodyReference implements _RequestBodyReference {
     TResult? Function(String? description, bool? required,
             Map<String, MediaType>? content)?
         $default, {
-    TResult? Function(RequestBody ref)? reference,
+    TResult? Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)?
+        reference,
   }) {
     return reference?.call(ref);
   }
@@ -7959,7 +7978,10 @@ class _$_RequestBodyReference implements _RequestBodyReference {
     TResult Function(String? description, bool? required,
             Map<String, MediaType>? content)?
         $default, {
-    TResult Function(RequestBody ref)? reference,
+    TResult Function(
+            @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+                String ref)?
+        reference,
     required TResult orElse(),
   }) {
     if (reference != null) {
@@ -8008,13 +8030,15 @@ class _$_RequestBodyReference implements _RequestBodyReference {
 }
 
 abstract class _RequestBodyReference implements RequestBody {
-  const factory _RequestBodyReference({required final RequestBody ref}) =
-      _$_RequestBodyReference;
+  const factory _RequestBodyReference(
+      {@JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+          required final String ref}) = _$_RequestBodyReference;
 
   factory _RequestBodyReference.fromJson(Map<String, dynamic> json) =
       _$_RequestBodyReference.fromJson;
 
-  RequestBody get ref;
+  @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+  String get ref;
   @JsonKey(ignore: true)
   _$$_RequestBodyReferenceCopyWith<_$_RequestBodyReference> get copyWith =>
       throw _privateConstructorUsedError;
@@ -8543,7 +8567,8 @@ mixin _$Schema {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -8552,8 +8577,7 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8604,7 +8628,8 @@ mixin _$Schema {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -8613,8 +8638,7 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -8665,7 +8689,8 @@ mixin _$Schema {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -8674,8 +8699,7 @@ mixin _$Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -8807,7 +8831,7 @@ abstract class _$$_SchemaCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   $Res call(
       {String? title,
       String? description,
-      String? ref,
+      @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
       List<Schema>? allOf,
       List<String>? required,
       Discriminator? discriminator,
@@ -8942,7 +8966,7 @@ class _$_Schema implements _Schema {
   const _$_Schema(
       {this.title,
       this.description,
-      this.ref,
+      @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) this.ref,
       final List<Schema>? allOf,
       final List<String>? required,
       this.discriminator,
@@ -8969,6 +8993,7 @@ class _$_Schema implements _Schema {
 
   /// Reference to a schema definition
   @override
+  @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
   final String? ref;
 
   ///
@@ -9085,7 +9110,8 @@ class _$_Schema implements _Schema {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9094,8 +9120,7 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9150,7 +9175,8 @@ class _$_Schema implements _Schema {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9159,8 +9185,7 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9215,7 +9240,8 @@ class _$_Schema implements _Schema {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9224,8 +9250,7 @@ class _$_Schema implements _Schema {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9336,7 +9361,8 @@ abstract class _Schema implements Schema {
   const factory _Schema(
       {final String? title,
       final String? description,
-      final String? ref,
+      @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+          final String? ref,
       final List<Schema>? allOf,
       final List<String>? required,
       final Discriminator? discriminator,
@@ -9357,6 +9383,7 @@ abstract class _Schema implements Schema {
   String? get description;
 
   /// Reference to a schema definition
+  @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
   String? get ref;
 
   ///
@@ -9515,7 +9542,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9524,8 +9552,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9579,7 +9606,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9588,8 +9616,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9643,7 +9670,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9652,8 +9680,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9951,7 +9978,8 @@ class _$_SchemaString implements _SchemaString {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -9960,8 +9988,7 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10016,7 +10043,8 @@ class _$_SchemaString implements _SchemaString {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10025,8 +10053,7 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10081,7 +10108,8 @@ class _$_SchemaString implements _SchemaString {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10090,8 +10118,7 @@ class _$_SchemaString implements _SchemaString {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10429,7 +10456,8 @@ class _$_SchemaInteger implements _SchemaInteger {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10438,8 +10466,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10494,7 +10521,8 @@ class _$_SchemaInteger implements _SchemaInteger {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10503,8 +10531,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10559,7 +10586,8 @@ class _$_SchemaInteger implements _SchemaInteger {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10568,8 +10596,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10910,7 +10937,8 @@ class _$_SchemaNumber implements _SchemaNumber {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10919,8 +10947,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10975,7 +11002,8 @@ class _$_SchemaNumber implements _SchemaNumber {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -10984,8 +11012,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11040,7 +11067,8 @@ class _$_SchemaNumber implements _SchemaNumber {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11049,8 +11077,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11322,7 +11349,8 @@ class _$_SchemaEnum implements _SchemaEnum {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11331,8 +11359,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11386,7 +11413,8 @@ class _$_SchemaEnum implements _SchemaEnum {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11395,8 +11423,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11450,7 +11477,8 @@ class _$_SchemaEnum implements _SchemaEnum {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11459,8 +11487,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11797,7 +11824,8 @@ class _$_SchemaArray implements _SchemaArray {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11806,8 +11834,7 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)
         $default, {
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+    required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11862,7 +11889,8 @@ class _$_SchemaArray implements _SchemaArray {
     TResult? Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11871,8 +11899,7 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11927,7 +11954,8 @@ class _$_SchemaArray implements _SchemaArray {
     TResult Function(
             String? title,
             String? description,
-            String? ref,
+            @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
+                String? ref,
             List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
@@ -11936,8 +11964,7 @@ class _$_SchemaArray implements _SchemaArray {
             Schema? additionalProperties,
             Xml? xml)?
         $default, {
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+    TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') bool? defaultValue)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -13687,7 +13714,7 @@ mixin _$ServerVariable {
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
   @JsonKey(name: 'enum')
-  List<String> get enumValue => throw _privateConstructorUsedError;
+  List<String>? get enumValue => throw _privateConstructorUsedError;
 
   /// The default value to use for substitution, which SHALL be sent if an alternate
   /// value is not supplied. Note this behavior is different than the Schema Object's
@@ -13712,7 +13739,7 @@ abstract class $ServerVariableCopyWith<$Res> {
       _$ServerVariableCopyWithImpl<$Res, ServerVariable>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'enum') List<String> enumValue,
+      {@JsonKey(name: 'enum') List<String>? enumValue,
       @JsonKey(name: 'default') String defaultValue,
       String? description});
 }
@@ -13730,15 +13757,15 @@ class _$ServerVariableCopyWithImpl<$Res, $Val extends ServerVariable>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? enumValue = null,
+    Object? enumValue = freezed,
     Object? defaultValue = null,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      enumValue: null == enumValue
+      enumValue: freezed == enumValue
           ? _value.enumValue
           : enumValue // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
       defaultValue: null == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
@@ -13760,7 +13787,7 @@ abstract class _$$_ServerVariableCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'enum') List<String> enumValue,
+      {@JsonKey(name: 'enum') List<String>? enumValue,
       @JsonKey(name: 'default') String defaultValue,
       String? description});
 }
@@ -13776,15 +13803,15 @@ class __$$_ServerVariableCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? enumValue = null,
+    Object? enumValue = freezed,
     Object? defaultValue = null,
     Object? description = freezed,
   }) {
     return _then(_$_ServerVariable(
-      enumValue: null == enumValue
+      enumValue: freezed == enumValue
           ? _value._enumValue
           : enumValue // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
       defaultValue: null == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
@@ -13801,7 +13828,7 @@ class __$$_ServerVariableCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ServerVariable implements _ServerVariable {
   const _$_ServerVariable(
-      {@JsonKey(name: 'enum') required final List<String> enumValue,
+      {@JsonKey(name: 'enum') final List<String>? enumValue,
       @JsonKey(name: 'default') required this.defaultValue,
       this.description})
       : _enumValue = enumValue;
@@ -13811,16 +13838,18 @@ class _$_ServerVariable implements _ServerVariable {
 
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
-  final List<String> _enumValue;
+  final List<String>? _enumValue;
 
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
   @override
   @JsonKey(name: 'enum')
-  List<String> get enumValue {
+  List<String>? get enumValue {
+    final value = _enumValue;
+    if (value == null) return null;
     if (_enumValue is EqualUnmodifiableListView) return _enumValue;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_enumValue);
+    return EqualUnmodifiableListView(value);
   }
 
   /// The default value to use for substitution, which SHALL be sent if an alternate
@@ -13877,7 +13906,7 @@ class _$_ServerVariable implements _ServerVariable {
 
 abstract class _ServerVariable implements ServerVariable {
   const factory _ServerVariable(
-      {@JsonKey(name: 'enum') required final List<String> enumValue,
+      {@JsonKey(name: 'enum') final List<String>? enumValue,
       @JsonKey(name: 'default') required final String defaultValue,
       final String? description}) = _$_ServerVariable;
 
@@ -13889,7 +13918,7 @@ abstract class _ServerVariable implements ServerVariable {
   /// An enumeration of string values to be used if the substitution
   /// options are from a limited set. The array must not be empty.
   @JsonKey(name: 'enum')
-  List<String> get enumValue;
+  List<String>? get enumValue;
   @override
 
   /// The default value to use for substitution, which SHALL be sent if an alternate

@@ -10,7 +10,7 @@ class ServerVariable with _$ServerVariable {
   const factory ServerVariable({
     /// An enumeration of string values to be used if the substitution
     /// options are from a limited set. The array must not be empty.
-    @JsonKey(name: 'enum') required List<String> enumValue,
+    @JsonKey(name: 'enum') List<String>? enumValue,
 
     /// The default value to use for substitution, which SHALL be sent if an alternate
     /// value is not supplied. Note this behavior is different than the Schema Object's

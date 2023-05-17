@@ -25,13 +25,21 @@ class SchemaGenerator extends BaseGenerator {
   // ------------------------------------------
 
   @override
-  Future<void> generate() async {
+  Future<void> generate({
+    bool replace = false,
+  }) async {
     final schemas = spec.components?.schemas;
     if (schemas == null) {
       return;
     }
 
     String schemaPackage = '${package}_schema';
+
+    if (replace) {
+      if (schemaDirectory.existsSync() && replace) {
+        schemaDirectory.deleteSync(recursive: true);
+      }
+    }
 
     if (!schemaDirectory.existsSync()) {
       schemaDirectory.createSync();

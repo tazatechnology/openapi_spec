@@ -19,7 +19,7 @@ class Schema with _$Schema {
     String? description,
 
     /// Reference to a schema definition
-    String? ref,
+    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
 
     ///
     List<Schema>? allOf,
@@ -137,4 +137,18 @@ class Schema with _$Schema {
 
   /// Convert from JSON representation
   factory Schema.fromJson(Map<String, dynamic> json) => _$SchemaFromJson(json);
+}
+
+String? _toSchemaRef(String? ref) {
+  if (ref == null) {
+    return ref;
+  }
+  return '#/components/schemas/${ref.split('/').last}';
+}
+
+String? _fromSchemaRef(String? ref) {
+  if (ref == null) {
+    return ref;
+  }
+  return ref.split('/').last;
 }

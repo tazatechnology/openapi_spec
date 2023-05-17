@@ -23,7 +23,8 @@ class RequestBody with _$RequestBody {
   // ------------------------------------------
 
   const factory RequestBody.reference({
-    required RequestBody ref,
+    @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
+        required String ref,
   }) = _RequestBodyReference;
 
   // ------------------------------------------
@@ -33,4 +34,12 @@ class RequestBody with _$RequestBody {
   /// Construct an instance of [RequestBody] from a JSON map
   factory RequestBody.fromJson(Map<String, dynamic> json) =>
       _$RequestBodyFromJson(json);
+}
+
+String _toRequestRef(String ref) {
+  return '#/components/requestBodies/${ref.split('/').last}';
+}
+
+String _fromRequestRef(String ref) {
+  return ref.split('/').last;
 }

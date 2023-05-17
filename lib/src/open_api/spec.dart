@@ -125,7 +125,7 @@ class OpenApi with _$OpenApi {
   Map<String, dynamic> toJson() {
     if (paths == null && components == null && webhooks == null) {
       throw Exception(
-        'OpenAPI spec must contain at least one of the following: paths, components, or webhooks',
+        '\n\nOpenAPI spec must contain at least one of the following: paths, components, or webhooks\n',
       );
     }
 
@@ -270,21 +270,19 @@ class OpenApi with _$OpenApi {
     // Ensure that the folder exists
     final d = Directory(destination);
 
-    if (d.existsSync() && replace) {
-      d.deleteSync(recursive: true);
-    }
-
     if (!d.existsSync()) {
       d.createSync(recursive: true);
     }
 
     // Generate the schemas
-    await SchemaGenerator(
-      spec: this,
-      package: package.snakeCase,
-      destination: destination,
-      separate: !singleSchemaFile,
-    ).generate();
+    if (components?.schemas?.isNotEmpty ?? false) {
+      await SchemaGenerator(
+        spec: this,
+        package: package.snakeCase,
+        destination: destination,
+        separate: !singleSchemaFile,
+      ).generate();
+    }
 
     // Apply the Dart formatting and fix logic
     if (format) {
@@ -314,7 +312,7 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
         m['\$ref'] = v;
       } else {
         // Assume component schema is the reference
-        m['\$ref'] = '#/components/schemas/$v';
+        m['\$ref'] = v;
       }
     }
     // Update type definitions
