@@ -9,9 +9,9 @@ part of openapi_models;
 ///
 /// https://swagger.io/specification/#schema-object
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
-@Freezed(unionKey: 'type', fallbackUnion: 'default')
+@Freezed(unionKey: 'type', fallbackUnion: 'object')
 class Schema with _$Schema {
-  const factory Schema({
+  const factory Schema.object({
     /// A summary title of the schema
     String? title,
 
@@ -43,7 +43,7 @@ class Schema with _$Schema {
 
     /// Adds additional metadata to describe the XML representation of this property.
     Xml? xml,
-  }) = _Schema;
+  }) = _SchemaObject;
 
   // ------------------------------------------
   // FACTORY: Schema.boolean

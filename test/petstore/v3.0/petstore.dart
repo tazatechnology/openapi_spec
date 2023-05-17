@@ -31,7 +31,7 @@ final userTag = Tag(
 // Define schemas
 // ==========================================
 
-final schemaTag = Schema(
+final schemaTag = Schema.object(
   xml: Xml(name: 'tag'),
   properties: {
     'id': Schema.integer(
@@ -41,7 +41,7 @@ final schemaTag = Schema(
   },
 );
 
-final schemaCategory = Schema(
+final schemaCategory = Schema.object(
   xml: Xml(name: 'category'),
   properties: {
     'id': Schema.integer(
@@ -54,7 +54,7 @@ final schemaCategory = Schema(
   },
 );
 
-final schemaPet = Schema(
+final schemaPet = Schema.object(
   xml: Xml(name: 'pet'),
   required: [
     'name',
@@ -68,7 +68,7 @@ final schemaPet = Schema(
     'name': Schema.string(
       example: 'doggie',
     ),
-    'category': Schema(
+    'category': Schema.object(
       ref: 'Category',
     ),
     'photoUrls': Schema.array(
@@ -79,7 +79,7 @@ final schemaPet = Schema(
     ),
     'tags': Schema.array(
       xml: Xml(wrapped: true),
-      items: Schema(ref: 'Tag'),
+      items: Schema.object(ref: 'Tag'),
     ),
     'status': Schema.enumeration(
       description: 'pet status in the store',
@@ -88,7 +88,7 @@ final schemaPet = Schema(
   },
 );
 
-final schemaOrder = Schema(
+final schemaOrder = Schema.object(
   xml: Xml(name: 'order'),
   properties: {
     'id': Schema.integer(
@@ -115,7 +115,7 @@ final schemaOrder = Schema(
   },
 );
 
-final schemaUser = Schema(
+final schemaUser = Schema.object(
   xml: Xml(name: 'user'),
   properties: {
     'id': Schema.integer(
@@ -148,7 +148,7 @@ final schemaUser = Schema(
   },
 );
 
-final schemaCustomer = Schema(
+final schemaCustomer = Schema.object(
   xml: Xml(name: 'customer'),
   properties: {
     'id': Schema.integer(
@@ -159,7 +159,7 @@ final schemaCustomer = Schema(
       example: 'fehguy',
     ),
     'address': Schema.array(
-      items: Schema(ref: 'Address'),
+      items: Schema.object(ref: 'Address'),
       xml: Xml(
         name: 'addresses',
         wrapped: true,
@@ -168,7 +168,7 @@ final schemaCustomer = Schema(
   },
 );
 
-final schemaAddress = Schema(
+final schemaAddress = Schema.object(
   xml: Xml(name: 'address'),
   properties: {
     'street': Schema.string(
@@ -186,7 +186,7 @@ final schemaAddress = Schema(
   },
 );
 
-final schemaApiResponse = Schema(
+final schemaApiResponse = Schema.object(
   xml: Xml(name: '##default'),
   properties: {
     'code': Schema.integer(
@@ -261,13 +261,13 @@ final spec = OpenApi(
           description: 'Update an existent pet in the store',
           content: {
             'application/json': MediaType(
-              schema: Schema(ref: 'Pet'),
+              schema: Schema.object(ref: 'Pet'),
             ),
             'application/xml': MediaType(
-              schema: Schema(ref: 'Pet'),
+              schema: Schema.object(ref: 'Pet'),
             ),
             'application/x-www-form-urlencoded': MediaType(
-              schema: Schema(ref: 'Pet'),
+              schema: Schema.object(ref: 'Pet'),
             ),
           },
         ),
@@ -276,10 +276,10 @@ final spec = OpenApi(
             description: 'Successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'Pet'),
+                schema: Schema.object(ref: 'Pet'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'Pet'),
+                schema: Schema.object(ref: 'Pet'),
               ),
             },
           ),
@@ -310,13 +310,13 @@ final spec = OpenApi(
           description: 'Create a new pet in the store',
           content: {
             'application/json': MediaType(
-              schema: Schema(ref: 'Pet'),
+              schema: Schema.object(ref: 'Pet'),
             ),
             'application/xml': MediaType(
-              schema: Schema(ref: 'Pet'),
+              schema: Schema.object(ref: 'Pet'),
             ),
             'application/x-www-form-urlencoded': MediaType(
-              schema: Schema(ref: 'Pet'),
+              schema: Schema.object(ref: 'Pet'),
             ),
           },
         ),
@@ -325,10 +325,10 @@ final spec = OpenApi(
             description: 'Successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'Pet'),
+                schema: Schema.object(ref: 'Pet'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'Pet'),
+                schema: Schema.object(ref: 'Pet'),
               ),
             },
           ),
@@ -371,12 +371,12 @@ final spec = OpenApi(
             content: {
               'application/json': MediaType(
                 schema: Schema.array(
-                  items: Schema(ref: 'Pet'),
+                  items: Schema.object(ref: 'Pet'),
                 ),
               ),
               'application/xml': MediaType(
                 schema: Schema.array(
-                  items: Schema(ref: 'Pet'),
+                  items: Schema.object(ref: 'Pet'),
                 ),
               ),
             },
@@ -417,12 +417,12 @@ final spec = OpenApi(
             content: {
               'application/json': MediaType(
                 schema: Schema.array(
-                  items: Schema(ref: 'Pet'),
+                  items: Schema.object(ref: 'Pet'),
                 ),
               ),
               'application/xml': MediaType(
                 schema: Schema.array(
-                  items: Schema(ref: 'Pet'),
+                  items: Schema.object(ref: 'Pet'),
                 ),
               ),
             },
@@ -461,10 +461,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'Pet'),
+                schema: Schema.object(ref: 'Pet'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'Pet'),
+                schema: Schema.object(ref: 'Pet'),
               ),
             },
           ),
@@ -589,7 +589,7 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(
+                schema: Schema.object(
                   ref: 'ApiResponse',
                 ),
               ),
@@ -617,7 +617,7 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(
+                schema: Schema.object(
                   additionalProperties: Schema.integer(
                     format: IntegerFormat.int32,
                   ),
@@ -642,13 +642,13 @@ final spec = OpenApi(
         requestBody: RequestBody(
           content: {
             'application/json': MediaType(
-              schema: Schema(ref: 'Order'),
+              schema: Schema.object(ref: 'Order'),
             ),
             'application/xml': MediaType(
-              schema: Schema(ref: 'Order'),
+              schema: Schema.object(ref: 'Order'),
             ),
             'application/x-www-form-urlencoded': MediaType(
-              schema: Schema(ref: 'Order'),
+              schema: Schema.object(ref: 'Order'),
             ),
           },
         ),
@@ -657,7 +657,7 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(
+                schema: Schema.object(
                   ref: 'Order',
                 ),
               ),
@@ -692,10 +692,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'Order'),
+                schema: Schema.object(ref: 'Order'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'Order'),
+                schema: Schema.object(ref: 'Order'),
               ),
             },
           ),
@@ -744,13 +744,13 @@ final spec = OpenApi(
           description: 'Created user object',
           content: {
             'application/json': MediaType(
-              schema: Schema(ref: 'User'),
+              schema: Schema.object(ref: 'User'),
             ),
             'application/xml': MediaType(
-              schema: Schema(ref: 'User'),
+              schema: Schema.object(ref: 'User'),
             ),
             'application/x-www-form-urlencoded': MediaType(
-              schema: Schema(ref: 'User'),
+              schema: Schema.object(ref: 'User'),
             ),
           },
         ),
@@ -759,10 +759,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'User'),
+                schema: Schema.object(ref: 'User'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'User'),
+                schema: Schema.object(ref: 'User'),
               ),
             },
           )
@@ -781,7 +781,7 @@ final spec = OpenApi(
           content: {
             'application/json': MediaType(
               schema: Schema.array(
-                items: Schema(ref: 'User'),
+                items: Schema.object(ref: 'User'),
               ),
             ),
           },
@@ -791,10 +791,10 @@ final spec = OpenApi(
             description: 'Successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'User'),
+                schema: Schema.object(ref: 'User'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'User'),
+                schema: Schema.object(ref: 'User'),
               ),
             },
           ),
@@ -895,10 +895,10 @@ final spec = OpenApi(
             description: 'successful operation',
             content: {
               'application/json': MediaType(
-                schema: Schema(ref: 'User'),
+                schema: Schema.object(ref: 'User'),
               ),
               'application/xml': MediaType(
-                schema: Schema(ref: 'User'),
+                schema: Schema.object(ref: 'User'),
               ),
             },
           ),
@@ -926,13 +926,13 @@ final spec = OpenApi(
           description: 'Update an existent user in the store',
           content: {
             'application/json': MediaType(
-              schema: Schema(ref: 'User'),
+              schema: Schema.object(ref: 'User'),
             ),
             'application/xml': MediaType(
-              schema: Schema(ref: 'User'),
+              schema: Schema.object(ref: 'User'),
             ),
             'application/x-www-form-urlencoded': MediaType(
-              schema: Schema(ref: 'User'),
+              schema: Schema.object(ref: 'User'),
             ),
           },
         ),
@@ -981,10 +981,10 @@ final spec = OpenApi(
         description: 'Pet object that needs to be added to the store',
         content: {
           'application/json': MediaType(
-            schema: Schema(ref: 'Pet'),
+            schema: Schema.object(ref: 'Pet'),
           ),
           'application/xml': MediaType(
-            schema: Schema(ref: 'Pet'),
+            schema: Schema.object(ref: 'Pet'),
           ),
         },
       ),
@@ -993,7 +993,7 @@ final spec = OpenApi(
         content: {
           'application/json': MediaType(
             schema: Schema.array(
-              items: Schema(ref: 'User'),
+              items: Schema.object(ref: 'User'),
             ),
           ),
         },

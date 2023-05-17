@@ -84,8 +84,8 @@ class SchemaGenerator extends BaseGenerator {
       }
 
       schemas[s]?.mapOrNull(
-        (schema) {
-          _writeSchema(name: s, schema: schema);
+        object: (schema) {
+          _writeObject(name: s, schema: schema);
         },
         enumeration: (schema) {
           _writeEnumeration(name: s, schema: schema);
@@ -95,14 +95,14 @@ class SchemaGenerator extends BaseGenerator {
   }
 
   // ------------------------------------------
-  // METHOD: _writeSchema
+  // METHOD: _writeObject
   // ------------------------------------------
 
-  void _writeSchema({
+  void _writeObject({
     required String name,
     required Schema schema,
   }) {
-    final s = schema.mapOrNull((s) => s)!;
+    final s = schema.mapOrNull(object: (s) => s)!;
 
     // Class header
     file.writeAsStringSync("""
@@ -163,7 +163,7 @@ class SchemaGenerator extends BaseGenerator {
     final validations = <String>[];
 
     property.map(
-      (p) {
+      object: (p) {
         bool nullable = !required;
         String c = "/// ${p.description ?? 'No Description'} \n";
         if (required) {
@@ -171,6 +171,8 @@ class SchemaGenerator extends BaseGenerator {
         }
         if (p.ref != null) {
           c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
+        } else if (p.additionalProperties != null) {
+          // TODO implement Map
         }
         file.writeAsStringSync(c, mode: FileMode.append);
       },
@@ -244,13 +246,13 @@ class SchemaGenerator extends BaseGenerator {
           c += "required ";
         }
         final type = p.items.map(
-          (i) => 'List',
+          object: (i) => 'List<dynamic>',
           boolean: (i) => 'List<bool>',
           string: (i) => 'List<String>',
           integer: (i) => 'List<int>',
           number: (i) => 'List<double>',
           enumeration: (i) => 'List<String>',
-          array: (i) => 'List',
+          array: (i) => 'List<dynamic>',
         );
         c += "$type ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -280,7 +282,7 @@ class SchemaGenerator extends BaseGenerator {
     required String name,
     required Schema schema,
   }) {
-    final s = schema.mapOrNull((_) {}, enumeration: (s) => s)!;
+    final s = schema.mapOrNull(enumeration: (s) => s)!;
 
     file.writeAsStringSync("""
     /// ==========================================

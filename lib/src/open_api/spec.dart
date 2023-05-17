@@ -318,8 +318,6 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
     // Update type definitions
     if (e.key == 'type' && e.value == 'enumeration') {
       m['type'] = 'string';
-    } else if (e.key == 'type' && e.value == 'default') {
-      m['type'] = 'object';
     }
     // Remove null values
     if (e.value == null) {
@@ -425,9 +423,7 @@ Map<String, dynamic> _formatSpecFromJson(
     return x;
   } else {
     if (m.containsKey('type')) {
-      if (m['type'] == 'object') {
-        m['type'] = 'default';
-      } else if (m['type'] == 'string' && m.containsKey('enum')) {
+      if (m['type'] == 'string' && m.containsKey('enum')) {
         m['type'] = 'enumeration';
       }
     } else if (oAuthTypes.contains(parentKey)) {

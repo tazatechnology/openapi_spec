@@ -853,7 +853,8 @@ Map<String, dynamic> _$$_ResponseReferenceToJson(
       'unionType': instance.$type,
     };
 
-_$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
+_$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
+    _$_SchemaObject(
       title: json['title'] as String?,
       description: json['description'] as String?,
       ref: _fromSchemaRef(json['ref'] as String?),
@@ -883,7 +884,7 @@ _$_Schema _$$_SchemaFromJson(Map<String, dynamic> json) => _$_Schema(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaToJson(_$_Schema instance) {
+Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
