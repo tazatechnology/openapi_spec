@@ -171,8 +171,6 @@ class SchemaGenerator extends BaseGenerator {
         }
         if (p.ref != null) {
           c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
-        } else if (p.additionalProperties != null) {
-          // TODO implement Map
         }
         file.writeAsStringSync(c, mode: FileMode.append);
       },
@@ -253,9 +251,16 @@ class SchemaGenerator extends BaseGenerator {
           number: (i) => 'List<double>',
           enumeration: (i) => 'List<String>',
           array: (i) => 'List<dynamic>',
+          map: (i) {
+            // TODO implement map types
+            return 'List<Map>';
+          },
         );
         c += "$type ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
+      },
+      map: (p) {
+        // TODO implement Map
       },
       enumeration: (p) {
         bool hasDefault = p.defaultValue != null;

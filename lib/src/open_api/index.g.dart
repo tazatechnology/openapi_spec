@@ -874,10 +874,6 @@ _$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
       properties: (json['properties'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Schema.fromJson(e as Map<String, dynamic>)),
       ),
-      additionalProperties: json['additionalProperties'] == null
-          ? null
-          : Schema.fromJson(
-              json['additionalProperties'] as Map<String, dynamic>),
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -902,7 +898,6 @@ Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
   writeNotNull('externalDocs', instance.externalDocs?.toJson());
   writeNotNull('properties',
       instance.properties?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('additionalProperties', instance.additionalProperties?.toJson());
   writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;
   return val;
@@ -1132,6 +1127,37 @@ Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
   writeNotNull('minItems', instance.minItems);
   writeNotNull('maxItems', instance.maxItems);
   val['items'] = instance.items.toJson();
+  val['type'] = instance.$type;
+  return val;
+}
+
+_$_SchemaMap _$$_SchemaMapFromJson(Map<String, dynamic> json) => _$_SchemaMap(
+      xml: json['xml'] == null
+          ? null
+          : Xml.fromJson(json['xml'] as Map<String, dynamic>),
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      defaultValue: json['default'] as Map<String, dynamic>?,
+      example: json['example'] as Map<String, dynamic>?,
+      valueType: _fromMapProps(json['additionalProperties']),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$_SchemaMapToJson(_$_SchemaMap instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('xml', instance.xml?.toJson());
+  writeNotNull('title', instance.title);
+  writeNotNull('description', instance.description);
+  writeNotNull('default', instance.defaultValue);
+  writeNotNull('example', instance.example);
+  writeNotNull('additionalProperties', _toMapProps(instance.valueType));
   val['type'] = instance.$type;
   return val;
 }

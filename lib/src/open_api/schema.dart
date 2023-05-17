@@ -39,7 +39,7 @@ class Schema with _$Schema {
     Map<String, Schema>? properties,
 
     /// Any extra properties to add to this schema
-    Schema? additionalProperties,
+    // Schema? additionalProperties,
 
     /// Adds additional metadata to describe the XML representation of this property.
     Xml? xml,
@@ -123,7 +123,7 @@ class Schema with _$Schema {
   // FACTORY: Schema.array
   // ------------------------------------------
 
-  /// A generic [Schema] schema of array type
+  /// A generic [Schema] of array type
   const factory Schema.array({
     Xml? xml,
     String? title,
@@ -134,6 +134,22 @@ class Schema with _$Schema {
     int? maxItems,
     required Schema items,
   }) = _SchemaArray;
+
+  // ------------------------------------------
+  // FACTORY: Schema.map
+  // ------------------------------------------
+
+  /// A generic [Schema] of map type
+  const factory Schema.map({
+    Xml? xml,
+    String? title,
+    String? description,
+    @JsonKey(name: 'default')
+        Map? defaultValue,
+    Map? example,
+    @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps)
+        Schema? valueType,
+  }) = _SchemaMap;
 
   /// Convert from JSON representation
   factory Schema.fromJson(Map<String, dynamic> json) => _$SchemaFromJson(json);
@@ -151,4 +167,21 @@ String? _fromSchemaRef(String? ref) {
     return ref;
   }
   return ref.split('/').last;
+}
+
+/// additionalProperties can be a schema or boolean, need to serialize separately
+dynamic _toMapProps(Schema? props) {
+  if (props == null) {
+    return true;
+  } else {
+    return props.toJson();
+  }
+}
+
+Schema? _fromMapProps(dynamic props) {
+  if (props is Map<String, dynamic>) {
+    return Schema.fromJson(props);
+  } else {
+    return null;
+  }
 }
