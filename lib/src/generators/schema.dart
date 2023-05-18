@@ -152,11 +152,11 @@ class SchemaGenerator extends BaseGenerator {
     file.writeAsStringSync("""
     ${firstPass ? '' : '}'}) = _$name;
 
-    /// List of all property names of schema
-    static const List<String> props = ${json.encode(propNames).replaceAll('"', "'")};
-
     /// Object construction from a JSON representation
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
+
+    /// List of all property names of schema
+    static const List<String> propertyNames = ${json.encode(propNames).replaceAll('"', "'")};
 
     /// Perform validations on the schema property values
     String? validateSchema(){
@@ -233,17 +233,22 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
 
         /// Determine if there are any validations
+        final nullName =
+            nullable ? '$name != null && $name!.length' : '$name.length';
+
         if (p.minLength != null) {
+          final operator = p.exclusiveMinimum ?? false ? '<=' : '<';
           validations.add(
-            """if ($name.length  < ${p.maxLength}) {
-            return 'The value of $name cannot be less than ${p.minLength} characters';
+            """if ($nullName < ${p.minLength}) {
+            return "The value of '$name' cannot be $operator ${p.minLength} characters";
             }""",
           );
         }
         if (p.maxLength != null) {
+          final operator = p.exclusiveMaximum ?? false ? '>=' : '>';
           validations.add(
-            """if ($name.length  > ${p.maxLength}) {
-            return "The length of '$name' cannot be greater than ${p.maxLength} characters";
+            """if ($nullName $operator ${p.maxLength}) {
+            return "The length of '$name' cannot be $operator ${p.maxLength} characters";
             }""",
           );
         }

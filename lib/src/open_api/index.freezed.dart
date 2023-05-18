@@ -8591,6 +8591,8 @@ mixin _$Schema {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -8603,8 +8605,8 @@ mixin _$Schema {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -8619,8 +8621,8 @@ mixin _$Schema {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -8658,6 +8660,8 @@ mixin _$Schema {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -8670,8 +8674,8 @@ mixin _$Schema {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -8686,8 +8690,8 @@ mixin _$Schema {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -8725,6 +8729,8 @@ mixin _$Schema {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -8737,8 +8743,8 @@ mixin _$Schema {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -8753,8 +8759,8 @@ mixin _$Schema {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9132,6 +9138,8 @@ class _$_SchemaObject implements _SchemaObject {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -9144,8 +9152,8 @@ class _$_SchemaObject implements _SchemaObject {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9160,8 +9168,8 @@ class _$_SchemaObject implements _SchemaObject {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9203,6 +9211,8 @@ class _$_SchemaObject implements _SchemaObject {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -9215,8 +9225,8 @@ class _$_SchemaObject implements _SchemaObject {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9231,8 +9241,8 @@ class _$_SchemaObject implements _SchemaObject {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9274,6 +9284,8 @@ class _$_SchemaObject implements _SchemaObject {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -9286,8 +9298,8 @@ class _$_SchemaObject implements _SchemaObject {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9302,8 +9314,8 @@ class _$_SchemaObject implements _SchemaObject {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9584,6 +9596,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -9596,8 +9610,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9612,8 +9626,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9654,6 +9668,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -9666,8 +9682,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9682,8 +9698,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9724,6 +9740,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -9736,8 +9754,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9752,8 +9770,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -9866,6 +9884,8 @@ abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? example,
       int? minLength,
       int? maxLength,
+      bool? exclusiveMinimum,
+      bool? exclusiveMaximum,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref});
 
   $XmlCopyWith<$Res>? get xml;
@@ -9890,6 +9910,8 @@ class __$$_SchemaStringCopyWithImpl<$Res>
     Object? example = freezed,
     Object? minLength = freezed,
     Object? maxLength = freezed,
+    Object? exclusiveMinimum = freezed,
+    Object? exclusiveMaximum = freezed,
     Object? ref = freezed,
   }) {
     return _then(_$_SchemaString(
@@ -9925,6 +9947,14 @@ class __$$_SchemaStringCopyWithImpl<$Res>
           ? _value.maxLength
           : maxLength // ignore: cast_nullable_to_non_nullable
               as int?,
+      exclusiveMinimum: freezed == exclusiveMinimum
+          ? _value.exclusiveMinimum
+          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      exclusiveMaximum: freezed == exclusiveMaximum
+          ? _value.exclusiveMaximum
+          : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
+              as bool?,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -9957,6 +9987,8 @@ class _$_SchemaString implements _SchemaString {
       this.example,
       this.minLength,
       this.maxLength,
+      this.exclusiveMinimum,
+      this.exclusiveMaximum,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) this.ref,
       final String? $type})
       : $type = $type ?? 'string';
@@ -9982,6 +10014,10 @@ class _$_SchemaString implements _SchemaString {
   @override
   final int? maxLength;
   @override
+  final bool? exclusiveMinimum;
+  @override
+  final bool? exclusiveMaximum;
+  @override
   @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
   final String? ref;
 
@@ -9990,7 +10026,7 @@ class _$_SchemaString implements _SchemaString {
 
   @override
   String toString() {
-    return 'Schema.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, ref: $ref)';
+    return 'Schema.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, ref: $ref)';
   }
 
   @override
@@ -10010,13 +10046,28 @@ class _$_SchemaString implements _SchemaString {
                 other.minLength == minLength) &&
             (identical(other.maxLength, maxLength) ||
                 other.maxLength == maxLength) &&
+            (identical(other.exclusiveMinimum, exclusiveMinimum) ||
+                other.exclusiveMinimum == exclusiveMinimum) &&
+            (identical(other.exclusiveMaximum, exclusiveMaximum) ||
+                other.exclusiveMaximum == exclusiveMaximum) &&
             (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, xml, title, description,
-      defaultValue, format, example, minLength, maxLength, ref);
+  int get hashCode => Object.hash(
+      runtimeType,
+      xml,
+      title,
+      description,
+      defaultValue,
+      format,
+      example,
+      minLength,
+      maxLength,
+      exclusiveMinimum,
+      exclusiveMaximum,
+      ref);
 
   @JsonKey(ignore: true)
   @override
@@ -10052,6 +10103,8 @@ class _$_SchemaString implements _SchemaString {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -10064,8 +10117,8 @@ class _$_SchemaString implements _SchemaString {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10080,8 +10133,8 @@ class _$_SchemaString implements _SchemaString {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10092,7 +10145,7 @@ class _$_SchemaString implements _SchemaString {
     required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema) map,
   }) {
     return string(xml, title, description, defaultValue, format, example,
-        minLength, maxLength, ref);
+        minLength, maxLength, exclusiveMinimum, exclusiveMaximum, ref);
   }
 
   @override
@@ -10123,6 +10176,8 @@ class _$_SchemaString implements _SchemaString {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -10135,8 +10190,8 @@ class _$_SchemaString implements _SchemaString {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10151,8 +10206,8 @@ class _$_SchemaString implements _SchemaString {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10163,7 +10218,7 @@ class _$_SchemaString implements _SchemaString {
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema)? map,
   }) {
     return string?.call(xml, title, description, defaultValue, format, example,
-        minLength, maxLength, ref);
+        minLength, maxLength, exclusiveMinimum, exclusiveMaximum, ref);
   }
 
   @override
@@ -10194,6 +10249,8 @@ class _$_SchemaString implements _SchemaString {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -10206,8 +10263,8 @@ class _$_SchemaString implements _SchemaString {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10222,8 +10279,8 @@ class _$_SchemaString implements _SchemaString {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10236,7 +10293,7 @@ class _$_SchemaString implements _SchemaString {
   }) {
     if (string != null) {
       return string(xml, title, description, defaultValue, format, example,
-          minLength, maxLength, ref);
+          minLength, maxLength, exclusiveMinimum, exclusiveMaximum, ref);
     }
     return orElse();
   }
@@ -10309,6 +10366,8 @@ abstract class _SchemaString implements Schema {
       final String? example,
       final int? minLength,
       final int? maxLength,
+      final bool? exclusiveMinimum,
+      final bool? exclusiveMaximum,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
           final String? ref}) = _$_SchemaString;
 
@@ -10326,6 +10385,8 @@ abstract class _SchemaString implements Schema {
   String? get example;
   int? get minLength;
   int? get maxLength;
+  bool? get exclusiveMinimum;
+  bool? get exclusiveMaximum;
   @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
   String? get ref;
   @override
@@ -10350,8 +10411,8 @@ abstract class _$$_SchemaIntegerCopyWith<$Res>
       IntegerFormat? format,
       int? example,
       int? minimum,
-      bool? exclusiveMinimum,
       int? maximum,
+      bool? exclusiveMinimum,
       bool? exclusiveMaximum,
       int? multipleOf,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref});
@@ -10377,8 +10438,8 @@ class __$$_SchemaIntegerCopyWithImpl<$Res>
     Object? format = freezed,
     Object? example = freezed,
     Object? minimum = freezed,
-    Object? exclusiveMinimum = freezed,
     Object? maximum = freezed,
+    Object? exclusiveMinimum = freezed,
     Object? exclusiveMaximum = freezed,
     Object? multipleOf = freezed,
     Object? ref = freezed,
@@ -10412,14 +10473,14 @@ class __$$_SchemaIntegerCopyWithImpl<$Res>
           ? _value.minimum
           : minimum // ignore: cast_nullable_to_non_nullable
               as int?,
-      exclusiveMinimum: freezed == exclusiveMinimum
-          ? _value.exclusiveMinimum
-          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
-              as bool?,
       maximum: freezed == maximum
           ? _value.maximum
           : maximum // ignore: cast_nullable_to_non_nullable
               as int?,
+      exclusiveMinimum: freezed == exclusiveMinimum
+          ? _value.exclusiveMinimum
+          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
+              as bool?,
       exclusiveMaximum: freezed == exclusiveMaximum
           ? _value.exclusiveMaximum
           : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
@@ -10459,8 +10520,8 @@ class _$_SchemaInteger implements _SchemaInteger {
       this.format,
       this.example,
       this.minimum,
-      this.exclusiveMinimum,
       this.maximum,
+      this.exclusiveMinimum,
       this.exclusiveMaximum,
       this.multipleOf,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) this.ref,
@@ -10486,9 +10547,9 @@ class _$_SchemaInteger implements _SchemaInteger {
   @override
   final int? minimum;
   @override
-  final bool? exclusiveMinimum;
-  @override
   final int? maximum;
+  @override
+  final bool? exclusiveMinimum;
   @override
   final bool? exclusiveMaximum;
   @override
@@ -10502,7 +10563,7 @@ class _$_SchemaInteger implements _SchemaInteger {
 
   @override
   String toString() {
-    return 'Schema.integer(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
+    return 'Schema.integer(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, maximum: $maximum, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
   }
 
   @override
@@ -10519,9 +10580,9 @@ class _$_SchemaInteger implements _SchemaInteger {
             (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
+            (identical(other.maximum, maximum) || other.maximum == maximum) &&
             (identical(other.exclusiveMinimum, exclusiveMinimum) ||
                 other.exclusiveMinimum == exclusiveMinimum) &&
-            (identical(other.maximum, maximum) || other.maximum == maximum) &&
             (identical(other.exclusiveMaximum, exclusiveMaximum) ||
                 other.exclusiveMaximum == exclusiveMaximum) &&
             (identical(other.multipleOf, multipleOf) ||
@@ -10540,8 +10601,8 @@ class _$_SchemaInteger implements _SchemaInteger {
       format,
       example,
       minimum,
-      exclusiveMinimum,
       maximum,
+      exclusiveMinimum,
       exclusiveMaximum,
       multipleOf,
       ref);
@@ -10580,6 +10641,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -10592,8 +10655,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10608,8 +10671,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10620,7 +10683,7 @@ class _$_SchemaInteger implements _SchemaInteger {
     required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema) map,
   }) {
     return integer(xml, title, description, defaultValue, format, example,
-        minimum, exclusiveMinimum, maximum, exclusiveMaximum, multipleOf, ref);
+        minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf, ref);
   }
 
   @override
@@ -10651,6 +10714,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -10663,8 +10728,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10679,8 +10744,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10691,7 +10756,7 @@ class _$_SchemaInteger implements _SchemaInteger {
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema)? map,
   }) {
     return integer?.call(xml, title, description, defaultValue, format, example,
-        minimum, exclusiveMinimum, maximum, exclusiveMaximum, multipleOf, ref);
+        minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf, ref);
   }
 
   @override
@@ -10722,6 +10787,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -10734,8 +10801,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10750,8 +10817,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10771,8 +10838,8 @@ class _$_SchemaInteger implements _SchemaInteger {
           format,
           example,
           minimum,
-          exclusiveMinimum,
           maximum,
+          exclusiveMinimum,
           exclusiveMaximum,
           multipleOf,
           ref);
@@ -10847,8 +10914,8 @@ abstract class _SchemaInteger implements Schema {
       final IntegerFormat? format,
       final int? example,
       final int? minimum,
-      final bool? exclusiveMinimum,
       final int? maximum,
+      final bool? exclusiveMinimum,
       final bool? exclusiveMaximum,
       final int? multipleOf,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10867,8 +10934,8 @@ abstract class _SchemaInteger implements Schema {
   IntegerFormat? get format;
   int? get example;
   int? get minimum;
-  bool? get exclusiveMinimum;
   int? get maximum;
+  bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
   int? get multipleOf;
   @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -10894,8 +10961,8 @@ abstract class _$$_SchemaNumberCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       NumberFormat? format,
       double? example,
       double? minimum,
-      bool? exclusiveMinimum,
       double? maximum,
+      bool? exclusiveMinimum,
       bool? exclusiveMaximum,
       double? multipleOf,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref});
@@ -10921,8 +10988,8 @@ class __$$_SchemaNumberCopyWithImpl<$Res>
     Object? format = freezed,
     Object? example = freezed,
     Object? minimum = freezed,
-    Object? exclusiveMinimum = freezed,
     Object? maximum = freezed,
+    Object? exclusiveMinimum = freezed,
     Object? exclusiveMaximum = freezed,
     Object? multipleOf = freezed,
     Object? ref = freezed,
@@ -10956,14 +11023,14 @@ class __$$_SchemaNumberCopyWithImpl<$Res>
           ? _value.minimum
           : minimum // ignore: cast_nullable_to_non_nullable
               as double?,
-      exclusiveMinimum: freezed == exclusiveMinimum
-          ? _value.exclusiveMinimum
-          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
-              as bool?,
       maximum: freezed == maximum
           ? _value.maximum
           : maximum // ignore: cast_nullable_to_non_nullable
               as double?,
+      exclusiveMinimum: freezed == exclusiveMinimum
+          ? _value.exclusiveMinimum
+          : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
+              as bool?,
       exclusiveMaximum: freezed == exclusiveMaximum
           ? _value.exclusiveMaximum
           : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
@@ -11003,8 +11070,8 @@ class _$_SchemaNumber implements _SchemaNumber {
       this.format,
       this.example,
       this.minimum,
-      this.exclusiveMinimum,
       this.maximum,
+      this.exclusiveMinimum,
       this.exclusiveMaximum,
       this.multipleOf,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) this.ref,
@@ -11030,9 +11097,9 @@ class _$_SchemaNumber implements _SchemaNumber {
   @override
   final double? minimum;
   @override
-  final bool? exclusiveMinimum;
-  @override
   final double? maximum;
+  @override
+  final bool? exclusiveMinimum;
   @override
   final bool? exclusiveMaximum;
   @override
@@ -11046,7 +11113,7 @@ class _$_SchemaNumber implements _SchemaNumber {
 
   @override
   String toString() {
-    return 'Schema.number(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
+    return 'Schema.number(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, maximum: $maximum, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
   }
 
   @override
@@ -11063,9 +11130,9 @@ class _$_SchemaNumber implements _SchemaNumber {
             (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
+            (identical(other.maximum, maximum) || other.maximum == maximum) &&
             (identical(other.exclusiveMinimum, exclusiveMinimum) ||
                 other.exclusiveMinimum == exclusiveMinimum) &&
-            (identical(other.maximum, maximum) || other.maximum == maximum) &&
             (identical(other.exclusiveMaximum, exclusiveMaximum) ||
                 other.exclusiveMaximum == exclusiveMaximum) &&
             (identical(other.multipleOf, multipleOf) ||
@@ -11084,8 +11151,8 @@ class _$_SchemaNumber implements _SchemaNumber {
       format,
       example,
       minimum,
-      exclusiveMinimum,
       maximum,
+      exclusiveMinimum,
       exclusiveMaximum,
       multipleOf,
       ref);
@@ -11124,6 +11191,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -11136,8 +11205,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11152,8 +11221,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11164,7 +11233,7 @@ class _$_SchemaNumber implements _SchemaNumber {
     required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema) map,
   }) {
     return number(xml, title, description, defaultValue, format, example,
-        minimum, exclusiveMinimum, maximum, exclusiveMaximum, multipleOf, ref);
+        minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf, ref);
   }
 
   @override
@@ -11195,6 +11264,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -11207,8 +11278,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11223,8 +11294,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11235,7 +11306,7 @@ class _$_SchemaNumber implements _SchemaNumber {
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema)? map,
   }) {
     return number?.call(xml, title, description, defaultValue, format, example,
-        minimum, exclusiveMinimum, maximum, exclusiveMaximum, multipleOf, ref);
+        minimum, maximum, exclusiveMinimum, exclusiveMaximum, multipleOf, ref);
   }
 
   @override
@@ -11266,6 +11337,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -11278,8 +11351,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11294,8 +11367,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11315,8 +11388,8 @@ class _$_SchemaNumber implements _SchemaNumber {
           format,
           example,
           minimum,
-          exclusiveMinimum,
           maximum,
+          exclusiveMinimum,
           exclusiveMaximum,
           multipleOf,
           ref);
@@ -11391,8 +11464,8 @@ abstract class _SchemaNumber implements Schema {
       final NumberFormat? format,
       final double? example,
       final double? minimum,
-      final bool? exclusiveMinimum,
       final double? maximum,
+      final bool? exclusiveMinimum,
       final bool? exclusiveMaximum,
       final double? multipleOf,
       @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11411,8 +11484,8 @@ abstract class _SchemaNumber implements Schema {
   NumberFormat? get format;
   double? get example;
   double? get minimum;
-  bool? get exclusiveMinimum;
   double? get maximum;
+  bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
   double? get multipleOf;
   @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11591,6 +11664,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -11603,8 +11678,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11619,8 +11694,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11661,6 +11736,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -11673,8 +11750,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11689,8 +11766,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11732,6 +11809,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -11744,8 +11823,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -11760,8 +11839,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12094,6 +12173,8 @@ class _$_SchemaArray implements _SchemaArray {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -12106,8 +12187,8 @@ class _$_SchemaArray implements _SchemaArray {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12122,8 +12203,8 @@ class _$_SchemaArray implements _SchemaArray {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12165,6 +12246,8 @@ class _$_SchemaArray implements _SchemaArray {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -12177,8 +12260,8 @@ class _$_SchemaArray implements _SchemaArray {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12193,8 +12276,8 @@ class _$_SchemaArray implements _SchemaArray {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12236,6 +12319,8 @@ class _$_SchemaArray implements _SchemaArray {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -12248,8 +12333,8 @@ class _$_SchemaArray implements _SchemaArray {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12264,8 +12349,8 @@ class _$_SchemaArray implements _SchemaArray {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12586,6 +12671,8 @@ class _$_SchemaMap implements _SchemaMap {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)
         string,
@@ -12598,8 +12685,8 @@ class _$_SchemaMap implements _SchemaMap {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12614,8 +12701,8 @@ class _$_SchemaMap implements _SchemaMap {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12656,6 +12743,8 @@ class _$_SchemaMap implements _SchemaMap {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -12668,8 +12757,8 @@ class _$_SchemaMap implements _SchemaMap {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12684,8 +12773,8 @@ class _$_SchemaMap implements _SchemaMap {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12727,6 +12816,8 @@ class _$_SchemaMap implements _SchemaMap {
             String? example,
             int? minLength,
             int? maxLength,
+            bool? exclusiveMinimum,
+            bool? exclusiveMaximum,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
                 String? ref)?
         string,
@@ -12739,8 +12830,8 @@ class _$_SchemaMap implements _SchemaMap {
             IntegerFormat? format,
             int? example,
             int? minimum,
-            bool? exclusiveMinimum,
             int? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
@@ -12755,8 +12846,8 @@ class _$_SchemaMap implements _SchemaMap {
             NumberFormat? format,
             double? example,
             double? minimum,
-            bool? exclusiveMinimum,
             double? maximum,
+            bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
             @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef)
