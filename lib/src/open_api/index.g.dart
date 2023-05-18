@@ -911,6 +911,7 @@ _$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as bool?,
+      example: json['example'] as bool?,
       $type: json['type'] as String?,
     );
 
@@ -927,6 +928,7 @@ Map<String, dynamic> _$$_SchemaBooleanToJson(_$_SchemaBoolean instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('example', instance.example);
   val['type'] = instance.$type;
   return val;
 }

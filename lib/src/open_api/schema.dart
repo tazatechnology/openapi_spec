@@ -54,6 +54,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') bool? defaultValue,
+    bool? example,
   }) = _SchemaBoolean;
 
   // ------------------------------------------

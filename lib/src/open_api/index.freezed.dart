@@ -8579,7 +8579,7 @@ mixin _$Schema {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8648,7 +8648,7 @@ mixin _$Schema {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -8717,7 +8717,7 @@ mixin _$Schema {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9126,7 +9126,7 @@ class _$_SchemaObject implements _SchemaObject {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9199,7 +9199,7 @@ class _$_SchemaObject implements _SchemaObject {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9272,7 +9272,7 @@ class _$_SchemaObject implements _SchemaObject {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9458,7 +9458,8 @@ abstract class _$$_SchemaBooleanCopyWith<$Res>
       {Xml? xml,
       String? title,
       String? description,
-      @JsonKey(name: 'default') bool? defaultValue});
+      @JsonKey(name: 'default') bool? defaultValue,
+      bool? example});
 
   $XmlCopyWith<$Res>? get xml;
 }
@@ -9478,6 +9479,7 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? example = freezed,
   }) {
     return _then(_$_SchemaBoolean(
       xml: freezed == xml
@@ -9495,6 +9497,10 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      example: freezed == example
+          ? _value.example
+          : example // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
   }
@@ -9520,6 +9526,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.example,
       final String? $type})
       : $type = $type ?? 'boolean';
 
@@ -9535,13 +9542,15 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   @override
   @JsonKey(name: 'default')
   final bool? defaultValue;
+  @override
+  final bool? example;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Schema.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue)';
+    return 'Schema.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example)';
   }
 
   @override
@@ -9554,13 +9563,14 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
-                other.defaultValue == defaultValue));
+                other.defaultValue == defaultValue) &&
+            (identical(other.example, example) || other.example == example));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, xml, title, description, defaultValue);
+      Object.hash(runtimeType, xml, title, description, defaultValue, example);
 
   @JsonKey(ignore: true)
   @override
@@ -9584,7 +9594,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9637,7 +9647,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
     required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items) array,
     required TResult Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema) map,
   }) {
-    return boolean(xml, title, description, defaultValue);
+    return boolean(xml, title, description, defaultValue, example);
   }
 
   @override
@@ -9656,7 +9666,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9709,7 +9719,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') List<dynamic>? defaultValue, List<dynamic>? example, int? minItems, int? maxItems, Schema items)? array,
     TResult? Function(Xml? xml, String? title, String? description, @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue, Map<dynamic, dynamic>? example, @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps) Schema? valueSchema)? map,
   }) {
-    return boolean?.call(xml, title, description, defaultValue);
+    return boolean?.call(xml, title, description, defaultValue, example);
   }
 
   @override
@@ -9728,7 +9738,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9783,7 +9793,7 @@ class _$_SchemaBoolean implements _SchemaBoolean {
     required TResult orElse(),
   }) {
     if (boolean != null) {
-      return boolean(xml, title, description, defaultValue);
+      return boolean(xml, title, description, defaultValue, example);
     }
     return orElse();
   }
@@ -9850,7 +9860,8 @@ abstract class _SchemaBoolean implements Schema {
       {final Xml? xml,
       final String? title,
       final String? description,
-      @JsonKey(name: 'default') final bool? defaultValue}) = _$_SchemaBoolean;
+      @JsonKey(name: 'default') final bool? defaultValue,
+      final bool? example}) = _$_SchemaBoolean;
 
   factory _SchemaBoolean.fromJson(Map<String, dynamic> json) =
       _$_SchemaBoolean.fromJson;
@@ -9862,6 +9873,7 @@ abstract class _SchemaBoolean implements Schema {
   String? get description;
   @JsonKey(name: 'default')
   bool? get defaultValue;
+  bool? get example;
   @override
   @JsonKey(ignore: true)
   _$$_SchemaBooleanCopyWith<_$_SchemaBoolean> get copyWith =>
@@ -10091,7 +10103,7 @@ class _$_SchemaString implements _SchemaString {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10164,7 +10176,7 @@ class _$_SchemaString implements _SchemaString {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10237,7 +10249,7 @@ class _$_SchemaString implements _SchemaString {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10629,7 +10641,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10702,7 +10714,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10775,7 +10787,7 @@ class _$_SchemaInteger implements _SchemaInteger {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11179,7 +11191,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11252,7 +11264,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11325,7 +11337,7 @@ class _$_SchemaNumber implements _SchemaNumber {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11652,7 +11664,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11724,7 +11736,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11797,7 +11809,7 @@ class _$_SchemaEnum implements _SchemaEnum {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12161,7 +12173,7 @@ class _$_SchemaArray implements _SchemaArray {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -12234,7 +12246,7 @@ class _$_SchemaArray implements _SchemaArray {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12307,7 +12319,7 @@ class _$_SchemaArray implements _SchemaArray {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12659,7 +12671,7 @@ class _$_SchemaMap implements _SchemaMap {
             Xml? xml)
         object,
     required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -12731,7 +12743,7 @@ class _$_SchemaMap implements _SchemaMap {
             Xml? xml)?
         object,
     TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12804,7 +12816,7 @@ class _$_SchemaMap implements _SchemaMap {
             Xml? xml)?
         object,
     TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue)?
+            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
         boolean,
     TResult Function(
             Xml? xml,
