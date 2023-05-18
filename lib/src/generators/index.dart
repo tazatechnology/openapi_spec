@@ -1,5 +1,6 @@
 library openapi_generators;
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:openapi_spec/src/open_api/index.dart';

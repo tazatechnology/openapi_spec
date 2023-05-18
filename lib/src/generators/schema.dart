@@ -116,32 +116,44 @@ class SchemaGenerator extends BaseGenerator {
     /// ${s.description ?? 'No Description'}
     @freezed
     class $name with _\$$name  {
+      
+      
       const $name._();
 
       const factory $name (
     """, mode: FileMode.append);
 
+    // Store the toMap string for later
+    String toMap = '';
+
     // Loop through properties
     final props = s.properties;
+    final propNames = props?.keys.toList() ?? <String>[];
     bool firstPass = true;
     List<String> validations = [];
-    for (final p in (props?.keys.toList() ?? <String>[])) {
+    for (final propName in propNames) {
+      final dartName = propName.camelCase;
       if (firstPass) {
         firstPass = false;
         file.writeAsStringSync('{', mode: FileMode.append);
       }
       final v = _writeProperty(
-        jsonName: p,
-        name: p.camelCase,
-        property: props![p]!,
-        required: s.required?.contains(p) ?? false,
+        name: dartName,
+        jsonName: propName,
+        property: props![propName]!,
+        required: s.required?.contains(propName) ?? false,
       );
       validations.addAll(v);
+
+      toMap += "'$propName': $dartName,\n";
     }
 
     // Class footer
     file.writeAsStringSync("""
     ${firstPass ? '' : '}'}) = _$name;
+
+    /// List of all property names of schema
+    static const List<String> props = ${json.encode(propNames).replaceAll('"', "'")};
 
     /// Object construction from a JSON representation
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
@@ -150,6 +162,11 @@ class SchemaGenerator extends BaseGenerator {
     String? validateSchema(){
       ${validations.isEmpty ? '' : validations.join('\n')}
       return null;
+    }
+  
+    /// Map representation of object (not serialized)
+    Map<String,dynamic> toMap(){
+      return {$toMap};
     }
     }\n
     """, mode: FileMode.append);
