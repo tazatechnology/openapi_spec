@@ -384,6 +384,15 @@ class $clientName {
             """;
           }
         },
+        map: (s) {
+          // Handle deserialization for map of objects
+          if (s.valueSchema?.ref != null) {
+            decoder = """
+              final map = json.decode(r.body) as Map<String, dynamic>;
+              return map.map((k, v) => MapEntry(k, ${s.valueSchema?.ref}.fromJson(v)));
+            """;
+          }
+        },
       );
       if (decoder.isEmpty && returnType != 'void') {
         decoder = "return json.decode(r.body);";
