@@ -241,6 +241,7 @@ class $clientName {
     List<String> inputDescription = [];
     List<String> queryParams = [];
     List<String> headerParams = [];
+    String decoder = '';
 
     // Determine the method name based on a series of checks
     String methodName = '${method.name}_$path'.camelCase;
@@ -364,6 +365,17 @@ class $clientName {
       rSchema?.dereference(components: spec.components?.schemas);
       dType = rSchema?.toDartType();
       returnType = dType ?? returnType;
+
+      // Determine the decode strategy
+      // NOTE: Handle other response types besides JSON
+      rSchema?.maybeMap(
+        object: (s) {
+          decoder = "return ${s.ref}.fromJson(json.decode(r.body));";
+        },
+        orElse: () {
+          decoder = "return json.decode(r.body);";
+        },
+      );
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -462,8 +474,8 @@ class $clientName {
           $headerCode
           $queryCode
         );
-      }
-      
+        $decoder
+      }\n
       """, mode: FileMode.append);
   }
 
