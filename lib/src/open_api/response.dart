@@ -58,6 +58,7 @@ class Response with _$Response {
       );
     }
     return rRef.copyWith(
+      ref: ref,
       description: description.isEmpty ? rRef.description : description,
     );
   }

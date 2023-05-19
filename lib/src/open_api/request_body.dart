@@ -52,6 +52,7 @@ class RequestBody with _$RequestBody {
       );
     }
     return rRef.copyWith(
+      ref: ref,
       description: description ?? rRef.description,
     );
   }

@@ -50,6 +50,7 @@ class Example with _$Example {
       );
     }
     return pRef.copyWith(
+      ref: ref,
       summary: summary ?? pRef.summary,
       description: description ?? pRef.description,
     );

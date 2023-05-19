@@ -34,8 +34,6 @@ class ClientGenerator extends BaseGenerator {
   Future<void> generate({
     bool replace = false,
   }) async {
-    String clientPackage = '${package}_client';
-
     if (replace) {
       if (clientDirectory.existsSync() && replace) {
         clientDirectory.deleteSync(recursive: true);
@@ -93,7 +91,7 @@ class $clientName {
     required String path,
     required bool? secure,
     required HttpMethod method,
-    Map<String, String> queryParams = const {},
+    Map<String, dynamic> queryParameters = const {},
     Map<String, String> headers = const {},
     ContentType requestType = ContentType.json,
     ContentType responseType = ContentType.json,
@@ -119,9 +117,9 @@ class $clientName {
     // Build the request URI
     Uri uri;
     if (secure) {
-      uri = Uri.https(host, path, queryParams);
+      uri = Uri.https(host, path, queryParameters);
     } else {
-      uri = Uri.http(host, path, queryParams);
+      uri = Uri.http(host, path, queryParameters);
     }
 
     // Define the request type being sent to server
@@ -241,7 +239,8 @@ class $clientName {
     // Keep track of method inputs
     List<String> input = [];
     List<String> inputDescription = [];
-    List<String> queryParam = [];
+    List<String> queryParams = [];
+    List<String> headerParams = [];
 
     // Determine the method name based on a series of checks
     String methodName = '${method.name}_$path'.camelCase;
@@ -290,7 +289,7 @@ class $clientName {
           input.add("String ${e.key.camelCase} = '${e.value.defaultValue}'");
         }
         inputDescription.add(
-          "${e.key.camelCase}: ${e.value.description ?? 'No description'}",
+          "`${e.key.camelCase}`: ${e.value.description ?? 'No description'}",
         );
         // Update the host definition
         hostDecoded =
@@ -333,7 +332,7 @@ class $clientName {
         input.add("$dType? request");
       }
       inputDescription.add(
-        "request: ${request.description ?? 'No description'}",
+        "`request`: ${request.description ?? 'No description'}",
       );
     }
 
@@ -377,20 +376,44 @@ class $clientName {
         throw Exception('Parameter name is required: $param');
       }
       final pName = param.name!;
-      param.mapOrNull(
+      param.map(
         cookie: (p) {
           // Do nothing
         },
         header: (p) {
-          //
+          String hCode = "'${p.name}': ${pName.camelCase}";
+          String pType = p.schema?.toDartType() ?? 'dynamic';
+          if (p.required == true) {
+            pType = 'required $pType';
+          } else {
+            pType = '$pType?';
+            hCode = 'if (${pName.camelCase} != null) $hCode';
+          }
+          input.add('$pType ${pName.camelCase}');
+          inputDescription.add(
+            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+          );
+          headerParams.add(hCode);
         },
         query: (p) {
-          //
+          String qCode = "'${p.name}': ${pName.camelCase}";
+          String pType = p.schema?.toDartType() ?? 'dynamic';
+          if (p.required == true) {
+            pType = 'required $pType';
+          } else {
+            pType = '$pType?';
+            qCode = 'if (${pName.camelCase} != null) $qCode';
+          }
+          input.add('$pType ${pName.camelCase}');
+          inputDescription.add(
+            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+          );
+          queryParams.add(qCode);
         },
         path: (p) {
           input.add('required String ${pName.camelCase}');
           inputDescription.add(
-            "${pName.camelCase}: ${p.description ?? 'No description'}",
+            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
           );
           // Update the path definition
           path = path.replaceAll('{${p.name}}', '\${${pName.camelCase}}');
@@ -407,6 +430,14 @@ class $clientName {
     if (input.isNotEmpty) {
       inputCode = "{${input.join(',')},}";
     }
+    String queryCode = '';
+    if (queryParams.isNotEmpty) {
+      queryCode = "queryParameters: {${queryParams.join(',')},},";
+    }
+    String headerCode = '';
+    if (headerParams.isNotEmpty) {
+      headerCode = "headers: {${headerParams.join(',')},},";
+    }
 
     // Write the client method
     file.writeAsStringSync("""
@@ -418,9 +449,9 @@ class $clientName {
       /// 
       /// ${inputDescription.join('\n///\n/// ')}
       /// 
-      /// ${method.name.toUpperCase()} $uriDecoded
+      /// `${method.name.toUpperCase()}` `$uriDecoded`
       Future<$returnType> $methodName($inputCode) async {
-        
+
         final ${returnType == 'void' ? '_' : 'r'} = await _request(
           host: '$hostDecoded',
           path: '$path',
@@ -428,6 +459,8 @@ class $clientName {
           method: $method,
           requestType: $requestType,
           responseType: $responseType,
+          $headerCode
+          $queryCode
         );
       }
       

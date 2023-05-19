@@ -191,7 +191,7 @@ class Schema with _$Schema {
         "\n\n'$ref' is not a valid component schema body reference\n",
       );
     }
-    return sRef;
+    return sRef.copyWith(ref: ref);
   }
 
   // ------------------------------------------
