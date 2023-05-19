@@ -54,7 +54,7 @@ class Response with _$Response {
     final rRef = components?[ref?.split('/').last];
     if (rRef == null) {
       throw Exception(
-        "\n\n'$ref' is not a valid component parameter reference\n",
+        "\n\n'$ref' is not a valid component response reference\n",
       );
     }
     return rRef.copyWith(
@@ -63,7 +63,7 @@ class Response with _$Response {
   }
 }
 
-/// Custom converter to handle parameter references
+/// Custom converter to handle response references
 class _ResponseRefConverter implements JsonConverter<String?, String?> {
   const _ResponseRefConverter();
 

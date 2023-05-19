@@ -182,33 +182,31 @@ class $clientName {
 
     for (final e in (spec.paths ?? <String, PathItem>{}).entries) {
       final path = e.key;
-      final pathItem = e.value;
-      pathItem.mapOrNull((p) {
-        Map<HttpMethod, Operation?> operations = {};
-        operations[HttpMethod.get] = p.get;
-        operations[HttpMethod.put] = p.put;
-        operations[HttpMethod.post] = p.post;
-        operations[HttpMethod.delete] = p.delete;
-        operations[HttpMethod.options] = p.options;
-        operations[HttpMethod.head] = p.head;
-        operations[HttpMethod.patch] = p.patch;
-        operations[HttpMethod.trace] = p.trace;
-        for (final e in operations.entries.where((e) => e.value != null)) {
-          final o = e.value!;
-          Server? server;
-          if (o.servers != null && (o.servers?.isNotEmpty ?? false)) {
-            server = o.servers!.first;
-          } else if (p.servers != null && (p.servers?.isNotEmpty ?? false)) {
-            server = p.servers!.first;
-          }
-          _writeMethod(
-            path: path,
-            method: e.key,
-            operation: e.value!,
-            server: server,
-          );
+      final p = e.value;
+      Map<HttpMethod, Operation?> operations = {};
+      operations[HttpMethod.get] = p.get;
+      operations[HttpMethod.put] = p.put;
+      operations[HttpMethod.post] = p.post;
+      operations[HttpMethod.delete] = p.delete;
+      operations[HttpMethod.options] = p.options;
+      operations[HttpMethod.head] = p.head;
+      operations[HttpMethod.patch] = p.patch;
+      operations[HttpMethod.trace] = p.trace;
+      for (final e in operations.entries.where((e) => e.value != null)) {
+        final o = e.value!;
+        Server? server;
+        if (o.servers != null && (o.servers?.isNotEmpty ?? false)) {
+          server = o.servers!.first;
+        } else if (p.servers != null && (p.servers?.isNotEmpty ?? false)) {
+          server = p.servers!.first;
         }
-      });
+        _writeMethod(
+          path: path,
+          method: e.key,
+          operation: e.value!,
+          server: server,
+        );
+      }
     }
 
     // Client footer
@@ -292,7 +290,9 @@ class $clientName {
     // Determine the request and the content type
     ContentType requestType = ContentType.json;
 
-    final request = _getRequest(operation)?.mapOrNull((v) => v);
+    final request = operation.requestBody?.dereference(
+      components: spec.components?.requestBodies,
+    );
 
     if (request != null) {
       String? dType;
@@ -324,7 +324,7 @@ class $clientName {
     // Determine the response and content type
     String returnType = 'void';
     ContentType responseType = ContentType.json;
-    final response = _getResponse(operation);
+    final response = _getSuccessResponse(operation);
     if (response != null) {
       String? dType;
       if (response.content != null) {
@@ -415,26 +415,10 @@ class $clientName {
   }
 
   // ------------------------------------------
-  // METHOD: _getRequest
+  // METHOD: _getSuccessResponse
   // ------------------------------------------
 
-  RequestBody? _getRequest(Operation o) {
-    if (o.requestBody != null) {
-      return o.requestBody?.map(
-        (value) => value,
-        reference: (r) {
-          return spec.components?.requestBodies?[r.ref];
-        },
-      );
-    }
-    return null;
-  }
-
-  // ------------------------------------------
-  // METHOD: _getResponse
-  // ------------------------------------------
-
-  Response? _getResponse(Operation o) {
+  Response? _getSuccessResponse(Operation o) {
     final code = o.responses?.keys.firstWhereOrNull(
       (c) => c.startsWith('2'),
     );

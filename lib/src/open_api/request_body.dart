@@ -5,8 +5,14 @@ part of openapi_models;
 // ==========================================
 
 /// Text
-@Freezed(fallbackUnion: 'default')
+@freezed
 class RequestBody with _$RequestBody {
+  const RequestBody._();
+
+  // ------------------------------------------
+  // FACTORY: RequestBody
+  // ------------------------------------------
+
   const factory RequestBody({
     /// A brief description of the request body.
     String? description,
@@ -16,15 +22,10 @@ class RequestBody with _$RequestBody {
 
     /// The content of the request body.
     Map<String, MediaType>? content,
+
+    /// Reference to a response defined in [Components.requestBodies]
+    @_RequestRefConverter() String? ref,
   }) = _RequestBody;
-
-  // ------------------------------------------
-  // FACTORY: RequestBody.reference
-  // ------------------------------------------
-
-  const factory RequestBody.reference({
-    @_RequestRefConverter() required String ref,
-  }) = _RequestBodyReference;
 
   // ------------------------------------------
   // FACTORY: RequestBody.fromJson
@@ -33,19 +34,44 @@ class RequestBody with _$RequestBody {
   /// Construct an instance of [RequestBody] from a JSON map
   factory RequestBody.fromJson(Map<String, dynamic> json) =>
       _$RequestBodyFromJson(json);
+
+  // ------------------------------------------
+  // METHOD: dereference
+  // ------------------------------------------
+
+  RequestBody dereference({
+    required Map<String, RequestBody>? components,
+  }) {
+    if (ref == null) {
+      return this;
+    }
+    final rRef = components?[ref?.split('/').last];
+    if (rRef == null) {
+      throw Exception(
+        "\n\n'$ref' is not a valid component request body reference\n",
+      );
+    }
+    return rRef.copyWith(
+      description: description ?? rRef.description,
+    );
+  }
 }
 
-/// Custom converter to handle schema references
-class _RequestRefConverter implements JsonConverter<String, String> {
+/// Custom converter to handle parameter references
+class _RequestRefConverter implements JsonConverter<String?, String?> {
   const _RequestRefConverter();
 
   @override
-  String toJson(String ref) {
-    return '#/components/requestBodies/${ref.split('/').last}';
+  String? toJson(String? ref) {
+    if (ref == null) {
+      return ref;
+    } else {
+      return '#/components/requestBodies/${ref.split('/').last}';
+    }
   }
 
   @override
-  String fromJson(String ref) {
-    return ref.split('/').last;
+  String? fromJson(String? ref) {
+    return ref == null ? ref : ref.split('/').last;
   }
 }

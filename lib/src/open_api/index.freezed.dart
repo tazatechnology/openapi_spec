@@ -2523,68 +2523,43 @@ abstract class _Encoding implements Encoding {
 }
 
 Example _$ExampleFromJson(Map<String, dynamic> json) {
-  switch (json['unionType']) {
-    case 'reference':
-      return _ExampleReference.fromJson(json);
-
-    default:
-      return ExampleObject.fromJson(json);
-  }
+  return ExampleObject.fromJson(json);
 }
 
 /// @nodoc
 mixin _$Example {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? summary, String? description, dynamic value,
-            String? externalValue)
-        $default, {
-    required TResult Function(String ref) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? summary, String? description, dynamic value,
-            String? externalValue)?
-        $default, {
-    TResult? Function(String ref)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? summary, String? description, dynamic value,
-            String? externalValue)?
-        $default, {
-    TResult Function(String ref)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(ExampleObject value) $default, {
-    required TResult Function(_ExampleReference value) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(ExampleObject value)? $default, {
-    TResult? Function(_ExampleReference value)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(ExampleObject value)? $default, {
-    TResult Function(_ExampleReference value)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  /// Short description for the example.
+  String? get summary => throw _privateConstructorUsedError;
+
+  /// Long description for the example.
+  String? get description => throw _privateConstructorUsedError;
+
+  /// Embedded literal example
+  dynamic get value => throw _privateConstructorUsedError;
+
+  /// A URI that points to the literal example.
+  String? get externalValue => throw _privateConstructorUsedError;
+
+  /// Reference to a response defined in [Components.examples]
+  @_ExampleRefConverter()
+  String? get ref => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ExampleCopyWith<Example> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ExampleCopyWith<$Res> {
   factory $ExampleCopyWith(Example value, $Res Function(Example) then) =
       _$ExampleCopyWithImpl<$Res, Example>;
+  @useResult
+  $Res call(
+      {String? summary,
+      String? description,
+      dynamic value,
+      String? externalValue,
+      @_ExampleRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -2596,19 +2571,55 @@ class _$ExampleCopyWithImpl<$Res, $Val extends Example>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? summary = freezed,
+    Object? description = freezed,
+    Object? value = freezed,
+    Object? externalValue = freezed,
+    Object? ref = freezed,
+  }) {
+    return _then(_value.copyWith(
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      value: freezed == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      externalValue: freezed == externalValue
+          ? _value.externalValue
+          : externalValue // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$ExampleObjectCopyWith<$Res> {
+abstract class _$$ExampleObjectCopyWith<$Res>
+    implements $ExampleCopyWith<$Res> {
   factory _$$ExampleObjectCopyWith(
           _$ExampleObject value, $Res Function(_$ExampleObject) then) =
       __$$ExampleObjectCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
       {String? summary,
       String? description,
       dynamic value,
-      String? externalValue});
+      String? externalValue,
+      @_ExampleRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -2626,6 +2637,7 @@ class __$$ExampleObjectCopyWithImpl<$Res>
     Object? description = freezed,
     Object? value = freezed,
     Object? externalValue = freezed,
+    Object? ref = freezed,
   }) {
     return _then(_$ExampleObject(
       summary: freezed == summary
@@ -2644,20 +2656,24 @@ class __$$ExampleObjectCopyWithImpl<$Res>
           ? _value.externalValue
           : externalValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ExampleObject implements ExampleObject {
+class _$ExampleObject extends ExampleObject {
   const _$ExampleObject(
       {this.summary,
       this.description,
       this.value,
       this.externalValue,
-      final String? $type})
-      : $type = $type ?? 'default';
+      @_ExampleRefConverter() this.ref})
+      : super._();
 
   factory _$ExampleObject.fromJson(Map<String, dynamic> json) =>
       _$$ExampleObjectFromJson(json);
@@ -2678,12 +2694,14 @@ class _$ExampleObject implements ExampleObject {
   @override
   final String? externalValue;
 
-  @JsonKey(name: 'unionType')
-  final String $type;
+  /// Reference to a response defined in [Components.examples]
+  @override
+  @_ExampleRefConverter()
+  final String? ref;
 
   @override
   String toString() {
-    return 'Example(summary: $summary, description: $description, value: $value, externalValue: $externalValue)';
+    return 'Example(summary: $summary, description: $description, value: $value, externalValue: $externalValue, ref: $ref)';
   }
 
   @override
@@ -2696,87 +2714,20 @@ class _$ExampleObject implements ExampleObject {
                 other.description == description) &&
             const DeepCollectionEquality().equals(other.value, value) &&
             (identical(other.externalValue, externalValue) ||
-                other.externalValue == externalValue));
+                other.externalValue == externalValue) &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, summary, description,
-      const DeepCollectionEquality().hash(value), externalValue);
+      const DeepCollectionEquality().hash(value), externalValue, ref);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ExampleObjectCopyWith<_$ExampleObject> get copyWith =>
       __$$ExampleObjectCopyWithImpl<_$ExampleObject>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? summary, String? description, dynamic value,
-            String? externalValue)
-        $default, {
-    required TResult Function(String ref) reference,
-  }) {
-    return $default(summary, description, value, externalValue);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? summary, String? description, dynamic value,
-            String? externalValue)?
-        $default, {
-    TResult? Function(String ref)? reference,
-  }) {
-    return $default?.call(summary, description, value, externalValue);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? summary, String? description, dynamic value,
-            String? externalValue)?
-        $default, {
-    TResult Function(String ref)? reference,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(summary, description, value, externalValue);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(ExampleObject value) $default, {
-    required TResult Function(_ExampleReference value) reference,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(ExampleObject value)? $default, {
-    TResult? Function(_ExampleReference value)? reference,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(ExampleObject value)? $default, {
-    TResult Function(_ExampleReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -2786,187 +2737,42 @@ class _$ExampleObject implements ExampleObject {
   }
 }
 
-abstract class ExampleObject implements Example {
+abstract class ExampleObject extends Example {
   const factory ExampleObject(
       {final String? summary,
       final String? description,
       final dynamic value,
-      final String? externalValue}) = _$ExampleObject;
+      final String? externalValue,
+      @_ExampleRefConverter() final String? ref}) = _$ExampleObject;
+  const ExampleObject._() : super._();
 
   factory ExampleObject.fromJson(Map<String, dynamic> json) =
       _$ExampleObject.fromJson;
 
+  @override
+
   /// Short description for the example.
   String? get summary;
+  @override
 
   /// Long description for the example.
   String? get description;
+  @override
 
   /// Embedded literal example
   dynamic get value;
+  @override
 
   /// A URI that points to the literal example.
   String? get externalValue;
+  @override
+
+  /// Reference to a response defined in [Components.examples]
+  @_ExampleRefConverter()
+  String? get ref;
+  @override
   @JsonKey(ignore: true)
   _$$ExampleObjectCopyWith<_$ExampleObject> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_ExampleReferenceCopyWith<$Res> {
-  factory _$$_ExampleReferenceCopyWith(
-          _$_ExampleReference value, $Res Function(_$_ExampleReference) then) =
-      __$$_ExampleReferenceCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String ref});
-}
-
-/// @nodoc
-class __$$_ExampleReferenceCopyWithImpl<$Res>
-    extends _$ExampleCopyWithImpl<$Res, _$_ExampleReference>
-    implements _$$_ExampleReferenceCopyWith<$Res> {
-  __$$_ExampleReferenceCopyWithImpl(
-      _$_ExampleReference _value, $Res Function(_$_ExampleReference) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? ref = null,
-  }) {
-    return _then(_$_ExampleReference(
-      ref: null == ref
-          ? _value.ref
-          : ref // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ExampleReference implements _ExampleReference {
-  const _$_ExampleReference({required this.ref, final String? $type})
-      : $type = $type ?? 'reference';
-
-  factory _$_ExampleReference.fromJson(Map<String, dynamic> json) =>
-      _$$_ExampleReferenceFromJson(json);
-
-  @override
-  final String ref;
-
-  @JsonKey(name: 'unionType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Example.reference(ref: $ref)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ExampleReference &&
-            (identical(other.ref, ref) || other.ref == ref));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, ref);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ExampleReferenceCopyWith<_$_ExampleReference> get copyWith =>
-      __$$_ExampleReferenceCopyWithImpl<_$_ExampleReference>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? summary, String? description, dynamic value,
-            String? externalValue)
-        $default, {
-    required TResult Function(String ref) reference,
-  }) {
-    return reference(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? summary, String? description, dynamic value,
-            String? externalValue)?
-        $default, {
-    TResult? Function(String ref)? reference,
-  }) {
-    return reference?.call(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? summary, String? description, dynamic value,
-            String? externalValue)?
-        $default, {
-    TResult Function(String ref)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(ref);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(ExampleObject value) $default, {
-    required TResult Function(_ExampleReference value) reference,
-  }) {
-    return reference(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(ExampleObject value)? $default, {
-    TResult? Function(_ExampleReference value)? reference,
-  }) {
-    return reference?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(ExampleObject value)? $default, {
-    TResult Function(_ExampleReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ExampleReferenceToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ExampleReference implements Example {
-  const factory _ExampleReference({required final String ref}) =
-      _$_ExampleReference;
-
-  factory _ExampleReference.fromJson(Map<String, dynamic> json) =
-      _$_ExampleReference.fromJson;
-
-  String get ref;
-  @JsonKey(ignore: true)
-  _$$_ExampleReferenceCopyWith<_$_ExampleReference> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6895,119 +6701,62 @@ abstract class _ParameterPath extends Parameter {
 }
 
 PathItem _$PathItemFromJson(Map<String, dynamic> json) {
-  switch (json['unionType']) {
-    case 'reference':
-      return _PathItemReference.fromJson(json);
-
-    default:
-      return _PathItem.fromJson(json);
-  }
+  return _PathItem.fromJson(json);
 }
 
 /// @nodoc
 mixin _$PathItem {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)
-        $default, {
-    required TResult Function(String ref) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)?
-        $default, {
-    TResult? Function(String ref)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)?
-        $default, {
-    TResult Function(String ref)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_PathItem value) $default, {
-    required TResult Function(_PathItemReference value) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_PathItem value)? $default, {
-    TResult? Function(_PathItemReference value)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_PathItem value)? $default, {
-    TResult Function(_PathItemReference value)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  /// An optional, string summary, intended to apply to all operations in this Path.
+  String? get summary => throw _privateConstructorUsedError;
+
+  /// An optional, string description, intended to apply to all operations in this Path.
+  String? get description => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get get => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get put => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get post => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get delete => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get options => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get head => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get patch => throw _privateConstructorUsedError;
+
+  /// A definition of a GET operation on this Path.
+  Operation? get trace => throw _privateConstructorUsedError;
+
+  /// An alternative [Server] array to service all operations in this Path.
+  List<Server>? get servers => throw _privateConstructorUsedError;
+
+  /// A list of parameters that are applicable for all the operations described under this Path.
+  /// These parameters can be overridden at the operation level, but cannot be removed there.
+  List<Parameter>? get parameters => throw _privateConstructorUsedError;
+
+  /// Reference to a response defined in [Components.pathItems]
+  @_PathRefConverter()
+  String? get ref => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PathItemCopyWith<PathItem> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $PathItemCopyWith<$Res> {
   factory $PathItemCopyWith(PathItem value, $Res Function(PathItem) then) =
       _$PathItemCopyWithImpl<$Res, PathItem>;
-}
-
-/// @nodoc
-class _$PathItemCopyWithImpl<$Res, $Val extends PathItem>
-    implements $PathItemCopyWith<$Res> {
-  _$PathItemCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$_PathItemCopyWith<$Res> {
-  factory _$$_PathItemCopyWith(
-          _$_PathItem value, $Res Function(_$_PathItem) then) =
-      __$$_PathItemCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {String? summary,
@@ -7021,7 +6770,8 @@ abstract class _$$_PathItemCopyWith<$Res> {
       Operation? patch,
       Operation? trace,
       List<Server>? servers,
-      List<Parameter>? parameters});
+      List<Parameter>? parameters,
+      @_PathRefConverter() String? ref});
 
   $OperationCopyWith<$Res>? get get;
   $OperationCopyWith<$Res>? get put;
@@ -7030,6 +6780,226 @@ abstract class _$$_PathItemCopyWith<$Res> {
   $OperationCopyWith<$Res>? get options;
   $OperationCopyWith<$Res>? get head;
   $OperationCopyWith<$Res>? get patch;
+  $OperationCopyWith<$Res>? get trace;
+}
+
+/// @nodoc
+class _$PathItemCopyWithImpl<$Res, $Val extends PathItem>
+    implements $PathItemCopyWith<$Res> {
+  _$PathItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? summary = freezed,
+    Object? description = freezed,
+    Object? get = freezed,
+    Object? put = freezed,
+    Object? post = freezed,
+    Object? delete = freezed,
+    Object? options = freezed,
+    Object? head = freezed,
+    Object? patch = freezed,
+    Object? trace = freezed,
+    Object? servers = freezed,
+    Object? parameters = freezed,
+    Object? ref = freezed,
+  }) {
+    return _then(_value.copyWith(
+      summary: freezed == summary
+          ? _value.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      get: freezed == get
+          ? _value.get
+          : get // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      put: freezed == put
+          ? _value.put
+          : put // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      post: freezed == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      delete: freezed == delete
+          ? _value.delete
+          : delete // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      options: freezed == options
+          ? _value.options
+          : options // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      head: freezed == head
+          ? _value.head
+          : head // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      patch: freezed == patch
+          ? _value.patch
+          : patch // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      trace: freezed == trace
+          ? _value.trace
+          : trace // ignore: cast_nullable_to_non_nullable
+              as Operation?,
+      servers: freezed == servers
+          ? _value.servers
+          : servers // ignore: cast_nullable_to_non_nullable
+              as List<Server>?,
+      parameters: freezed == parameters
+          ? _value.parameters
+          : parameters // ignore: cast_nullable_to_non_nullable
+              as List<Parameter>?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get get {
+    if (_value.get == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.get!, (value) {
+      return _then(_value.copyWith(get: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get put {
+    if (_value.put == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.put!, (value) {
+      return _then(_value.copyWith(put: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get post {
+    if (_value.post == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.post!, (value) {
+      return _then(_value.copyWith(post: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get delete {
+    if (_value.delete == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.delete!, (value) {
+      return _then(_value.copyWith(delete: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get options {
+    if (_value.options == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.options!, (value) {
+      return _then(_value.copyWith(options: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get head {
+    if (_value.head == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.head!, (value) {
+      return _then(_value.copyWith(head: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get patch {
+    if (_value.patch == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.patch!, (value) {
+      return _then(_value.copyWith(patch: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperationCopyWith<$Res>? get trace {
+    if (_value.trace == null) {
+      return null;
+    }
+
+    return $OperationCopyWith<$Res>(_value.trace!, (value) {
+      return _then(_value.copyWith(trace: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_PathItemCopyWith<$Res> implements $PathItemCopyWith<$Res> {
+  factory _$$_PathItemCopyWith(
+          _$_PathItem value, $Res Function(_$_PathItem) then) =
+      __$$_PathItemCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? summary,
+      String? description,
+      Operation? get,
+      Operation? put,
+      Operation? post,
+      Operation? delete,
+      Operation? options,
+      Operation? head,
+      Operation? patch,
+      Operation? trace,
+      List<Server>? servers,
+      List<Parameter>? parameters,
+      @_PathRefConverter() String? ref});
+
+  @override
+  $OperationCopyWith<$Res>? get get;
+  @override
+  $OperationCopyWith<$Res>? get put;
+  @override
+  $OperationCopyWith<$Res>? get post;
+  @override
+  $OperationCopyWith<$Res>? get delete;
+  @override
+  $OperationCopyWith<$Res>? get options;
+  @override
+  $OperationCopyWith<$Res>? get head;
+  @override
+  $OperationCopyWith<$Res>? get patch;
+  @override
   $OperationCopyWith<$Res>? get trace;
 }
 
@@ -7056,6 +7026,7 @@ class __$$_PathItemCopyWithImpl<$Res>
     Object? trace = freezed,
     Object? servers = freezed,
     Object? parameters = freezed,
+    Object? ref = freezed,
   }) {
     return _then(_$_PathItem(
       summary: freezed == summary
@@ -7106,109 +7077,17 @@ class __$$_PathItemCopyWithImpl<$Res>
           ? _value._parameters
           : parameters // ignore: cast_nullable_to_non_nullable
               as List<Parameter>?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get get {
-    if (_value.get == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.get!, (value) {
-      return _then(_value.copyWith(get: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get put {
-    if (_value.put == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.put!, (value) {
-      return _then(_value.copyWith(put: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get post {
-    if (_value.post == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.post!, (value) {
-      return _then(_value.copyWith(post: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get delete {
-    if (_value.delete == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.delete!, (value) {
-      return _then(_value.copyWith(delete: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get options {
-    if (_value.options == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.options!, (value) {
-      return _then(_value.copyWith(options: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get head {
-    if (_value.head == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.head!, (value) {
-      return _then(_value.copyWith(head: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get patch {
-    if (_value.patch == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.patch!, (value) {
-      return _then(_value.copyWith(patch: value));
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OperationCopyWith<$Res>? get trace {
-    if (_value.trace == null) {
-      return null;
-    }
-
-    return $OperationCopyWith<$Res>(_value.trace!, (value) {
-      return _then(_value.copyWith(trace: value));
-    });
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_PathItem implements _PathItem {
+class _$_PathItem extends _PathItem {
   const _$_PathItem(
       {this.summary,
       this.description,
@@ -7222,10 +7101,10 @@ class _$_PathItem implements _PathItem {
       this.trace,
       final List<Server>? servers,
       final List<Parameter>? parameters,
-      final String? $type})
+      @_PathRefConverter() this.ref})
       : _servers = servers,
         _parameters = parameters,
-        $type = $type ?? 'default';
+        super._();
 
   factory _$_PathItem.fromJson(Map<String, dynamic> json) =>
       _$$_PathItemFromJson(json);
@@ -7298,12 +7177,14 @@ class _$_PathItem implements _PathItem {
     return EqualUnmodifiableListView(value);
   }
 
-  @JsonKey(name: 'unionType')
-  final String $type;
+  /// Reference to a response defined in [Components.pathItems]
+  @override
+  @_PathRefConverter()
+  final String? ref;
 
   @override
   String toString() {
-    return 'PathItem(summary: $summary, description: $description, get: $get, put: $put, post: $post, delete: $delete, options: $options, head: $head, patch: $patch, trace: $trace, servers: $servers, parameters: $parameters)';
+    return 'PathItem(summary: $summary, description: $description, get: $get, put: $put, post: $post, delete: $delete, options: $options, head: $head, patch: $patch, trace: $trace, servers: $servers, parameters: $parameters, ref: $ref)';
   }
 
   @override
@@ -7324,7 +7205,8 @@ class _$_PathItem implements _PathItem {
             (identical(other.trace, trace) || other.trace == trace) &&
             const DeepCollectionEquality().equals(other._servers, _servers) &&
             const DeepCollectionEquality()
-                .equals(other._parameters, _parameters));
+                .equals(other._parameters, _parameters) &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
@@ -7342,117 +7224,14 @@ class _$_PathItem implements _PathItem {
       patch,
       trace,
       const DeepCollectionEquality().hash(_servers),
-      const DeepCollectionEquality().hash(_parameters));
+      const DeepCollectionEquality().hash(_parameters),
+      ref);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_PathItemCopyWith<_$_PathItem> get copyWith =>
       __$$_PathItemCopyWithImpl<_$_PathItem>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)
-        $default, {
-    required TResult Function(String ref) reference,
-  }) {
-    return $default(summary, description, get, put, post, delete, options, head,
-        patch, trace, servers, parameters);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)?
-        $default, {
-    TResult? Function(String ref)? reference,
-  }) {
-    return $default?.call(summary, description, get, put, post, delete, options,
-        head, patch, trace, servers, parameters);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)?
-        $default, {
-    TResult Function(String ref)? reference,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(summary, description, get, put, post, delete, options,
-          head, patch, trace, servers, parameters);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_PathItem value) $default, {
-    required TResult Function(_PathItemReference value) reference,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_PathItem value)? $default, {
-    TResult? Function(_PathItemReference value)? reference,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_PathItem value)? $default, {
-    TResult Function(_PathItemReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -7462,7 +7241,7 @@ class _$_PathItem implements _PathItem {
   }
 }
 
-abstract class _PathItem implements PathItem {
+abstract class _PathItem extends PathItem {
   const factory _PathItem(
       {final String? summary,
       final String? description,
@@ -7475,300 +7254,95 @@ abstract class _PathItem implements PathItem {
       final Operation? patch,
       final Operation? trace,
       final List<Server>? servers,
-      final List<Parameter>? parameters}) = _$_PathItem;
+      final List<Parameter>? parameters,
+      @_PathRefConverter() final String? ref}) = _$_PathItem;
+  const _PathItem._() : super._();
 
   factory _PathItem.fromJson(Map<String, dynamic> json) = _$_PathItem.fromJson;
 
+  @override
+
   /// An optional, string summary, intended to apply to all operations in this Path.
   String? get summary;
+  @override
 
   /// An optional, string description, intended to apply to all operations in this Path.
   String? get description;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get get;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get put;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get post;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get delete;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get options;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get head;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get patch;
+  @override
 
   /// A definition of a GET operation on this Path.
   Operation? get trace;
+  @override
 
   /// An alternative [Server] array to service all operations in this Path.
   List<Server>? get servers;
+  @override
 
   /// A list of parameters that are applicable for all the operations described under this Path.
   /// These parameters can be overridden at the operation level, but cannot be removed there.
   List<Parameter>? get parameters;
+  @override
+
+  /// Reference to a response defined in [Components.pathItems]
+  @_PathRefConverter()
+  String? get ref;
+  @override
   @JsonKey(ignore: true)
   _$$_PathItemCopyWith<_$_PathItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-/// @nodoc
-abstract class _$$_PathItemReferenceCopyWith<$Res> {
-  factory _$$_PathItemReferenceCopyWith(_$_PathItemReference value,
-          $Res Function(_$_PathItemReference) then) =
-      __$$_PathItemReferenceCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String ref});
-}
-
-/// @nodoc
-class __$$_PathItemReferenceCopyWithImpl<$Res>
-    extends _$PathItemCopyWithImpl<$Res, _$_PathItemReference>
-    implements _$$_PathItemReferenceCopyWith<$Res> {
-  __$$_PathItemReferenceCopyWithImpl(
-      _$_PathItemReference _value, $Res Function(_$_PathItemReference) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? ref = null,
-  }) {
-    return _then(_$_PathItemReference(
-      ref: null == ref
-          ? _value.ref
-          : ref // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_PathItemReference implements _PathItemReference {
-  const _$_PathItemReference({required this.ref, final String? $type})
-      : $type = $type ?? 'reference';
-
-  factory _$_PathItemReference.fromJson(Map<String, dynamic> json) =>
-      _$$_PathItemReferenceFromJson(json);
-
-  @override
-  final String ref;
-
-  @JsonKey(name: 'unionType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'PathItem.reference(ref: $ref)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_PathItemReference &&
-            (identical(other.ref, ref) || other.ref == ref));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, ref);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_PathItemReferenceCopyWith<_$_PathItemReference> get copyWith =>
-      __$$_PathItemReferenceCopyWithImpl<_$_PathItemReference>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)
-        $default, {
-    required TResult Function(String ref) reference,
-  }) {
-    return reference(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)?
-        $default, {
-    TResult? Function(String ref)? reference,
-  }) {
-    return reference?.call(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            String? summary,
-            String? description,
-            Operation? get,
-            Operation? put,
-            Operation? post,
-            Operation? delete,
-            Operation? options,
-            Operation? head,
-            Operation? patch,
-            Operation? trace,
-            List<Server>? servers,
-            List<Parameter>? parameters)?
-        $default, {
-    TResult Function(String ref)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(ref);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_PathItem value) $default, {
-    required TResult Function(_PathItemReference value) reference,
-  }) {
-    return reference(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_PathItem value)? $default, {
-    TResult? Function(_PathItemReference value)? reference,
-  }) {
-    return reference?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_PathItem value)? $default, {
-    TResult Function(_PathItemReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_PathItemReferenceToJson(
-      this,
-    );
-  }
-}
-
-abstract class _PathItemReference implements PathItem {
-  const factory _PathItemReference({required final String ref}) =
-      _$_PathItemReference;
-
-  factory _PathItemReference.fromJson(Map<String, dynamic> json) =
-      _$_PathItemReference.fromJson;
-
-  String get ref;
-  @JsonKey(ignore: true)
-  _$$_PathItemReferenceCopyWith<_$_PathItemReference> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 RequestBody _$RequestBodyFromJson(Map<String, dynamic> json) {
-  switch (json['unionType']) {
-    case 'reference':
-      return _RequestBodyReference.fromJson(json);
-
-    default:
-      return _RequestBody.fromJson(json);
-  }
+  return _RequestBody.fromJson(json);
 }
 
 /// @nodoc
 mixin _$RequestBody {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? description, bool? required,
-            Map<String, MediaType>? content)
-        $default, {
-    required TResult Function(@_RequestRefConverter() String ref) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description, bool? required,
-            Map<String, MediaType>? content)?
-        $default, {
-    TResult? Function(@_RequestRefConverter() String ref)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description, bool? required,
-            Map<String, MediaType>? content)?
-        $default, {
-    TResult Function(@_RequestRefConverter() String ref)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_RequestBody value) $default, {
-    required TResult Function(_RequestBodyReference value) reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_RequestBody value)? $default, {
-    TResult? Function(_RequestBodyReference value)? reference,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_RequestBody value)? $default, {
-    TResult Function(_RequestBodyReference value)? reference,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  /// A brief description of the request body.
+  String? get description => throw _privateConstructorUsedError;
+
+  /// Determines if the request body is required in the request.
+  bool? get required => throw _privateConstructorUsedError;
+
+  /// The content of the request body.
+  Map<String, MediaType>? get content => throw _privateConstructorUsedError;
+
+  /// Reference to a response defined in [Components.requestBodies]
+  @_RequestRefConverter()
+  String? get ref => throw _privateConstructorUsedError;
+
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RequestBodyCopyWith<RequestBody> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -7776,6 +7350,12 @@ abstract class $RequestBodyCopyWith<$Res> {
   factory $RequestBodyCopyWith(
           RequestBody value, $Res Function(RequestBody) then) =
       _$RequestBodyCopyWithImpl<$Res, RequestBody>;
+  @useResult
+  $Res call(
+      {String? description,
+      bool? required,
+      Map<String, MediaType>? content,
+      @_RequestRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -7787,16 +7367,49 @@ class _$RequestBodyCopyWithImpl<$Res, $Val extends RequestBody>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = freezed,
+    Object? required = freezed,
+    Object? content = freezed,
+    Object? ref = freezed,
+  }) {
+    return _then(_value.copyWith(
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      required: freezed == required
+          ? _value.required
+          : required // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      content: freezed == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as Map<String, MediaType>?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_RequestBodyCopyWith<$Res> {
+abstract class _$$_RequestBodyCopyWith<$Res>
+    implements $RequestBodyCopyWith<$Res> {
   factory _$$_RequestBodyCopyWith(
           _$_RequestBody value, $Res Function(_$_RequestBody) then) =
       __$$_RequestBodyCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
-      {String? description, bool? required, Map<String, MediaType>? content});
+      {String? description,
+      bool? required,
+      Map<String, MediaType>? content,
+      @_RequestRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -7813,6 +7426,7 @@ class __$$_RequestBodyCopyWithImpl<$Res>
     Object? description = freezed,
     Object? required = freezed,
     Object? content = freezed,
+    Object? ref = freezed,
   }) {
     return _then(_$_RequestBody(
       description: freezed == description
@@ -7827,20 +7441,24 @@ class __$$_RequestBodyCopyWithImpl<$Res>
           ? _value._content
           : content // ignore: cast_nullable_to_non_nullable
               as Map<String, MediaType>?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_RequestBody implements _RequestBody {
+class _$_RequestBody extends _RequestBody {
   const _$_RequestBody(
       {this.description,
       this.required,
       final Map<String, MediaType>? content,
-      final String? $type})
+      @_RequestRefConverter() this.ref})
       : _content = content,
-        $type = $type ?? 'default';
+        super._();
 
   factory _$_RequestBody.fromJson(Map<String, dynamic> json) =>
       _$$_RequestBodyFromJson(json);
@@ -7866,12 +7484,14 @@ class _$_RequestBody implements _RequestBody {
     return EqualUnmodifiableMapView(value);
   }
 
-  @JsonKey(name: 'unionType')
-  final String $type;
+  /// Reference to a response defined in [Components.requestBodies]
+  @override
+  @_RequestRefConverter()
+  final String? ref;
 
   @override
   String toString() {
-    return 'RequestBody(description: $description, required: $required, content: $content)';
+    return 'RequestBody(description: $description, required: $required, content: $content, ref: $ref)';
   }
 
   @override
@@ -7883,87 +7503,20 @@ class _$_RequestBody implements _RequestBody {
                 other.description == description) &&
             (identical(other.required, required) ||
                 other.required == required) &&
-            const DeepCollectionEquality().equals(other._content, _content));
+            const DeepCollectionEquality().equals(other._content, _content) &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, description, required,
-      const DeepCollectionEquality().hash(_content));
+      const DeepCollectionEquality().hash(_content), ref);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_RequestBodyCopyWith<_$_RequestBody> get copyWith =>
       __$$_RequestBodyCopyWithImpl<_$_RequestBody>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? description, bool? required,
-            Map<String, MediaType>? content)
-        $default, {
-    required TResult Function(@_RequestRefConverter() String ref) reference,
-  }) {
-    return $default(description, required, content);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description, bool? required,
-            Map<String, MediaType>? content)?
-        $default, {
-    TResult? Function(@_RequestRefConverter() String ref)? reference,
-  }) {
-    return $default?.call(description, required, content);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description, bool? required,
-            Map<String, MediaType>? content)?
-        $default, {
-    TResult Function(@_RequestRefConverter() String ref)? reference,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(description, required, content);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_RequestBody value) $default, {
-    required TResult Function(_RequestBodyReference value) reference,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_RequestBody value)? $default, {
-    TResult? Function(_RequestBodyReference value)? reference,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_RequestBody value)? $default, {
-    TResult Function(_RequestBodyReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -7973,188 +7526,37 @@ class _$_RequestBody implements _RequestBody {
   }
 }
 
-abstract class _RequestBody implements RequestBody {
+abstract class _RequestBody extends RequestBody {
   const factory _RequestBody(
       {final String? description,
       final bool? required,
-      final Map<String, MediaType>? content}) = _$_RequestBody;
+      final Map<String, MediaType>? content,
+      @_RequestRefConverter() final String? ref}) = _$_RequestBody;
+  const _RequestBody._() : super._();
 
   factory _RequestBody.fromJson(Map<String, dynamic> json) =
       _$_RequestBody.fromJson;
 
+  @override
+
   /// A brief description of the request body.
   String? get description;
+  @override
 
   /// Determines if the request body is required in the request.
   bool? get required;
+  @override
 
   /// The content of the request body.
   Map<String, MediaType>? get content;
+  @override
+
+  /// Reference to a response defined in [Components.requestBodies]
+  @_RequestRefConverter()
+  String? get ref;
+  @override
   @JsonKey(ignore: true)
   _$$_RequestBodyCopyWith<_$_RequestBody> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_RequestBodyReferenceCopyWith<$Res> {
-  factory _$$_RequestBodyReferenceCopyWith(_$_RequestBodyReference value,
-          $Res Function(_$_RequestBodyReference) then) =
-      __$$_RequestBodyReferenceCopyWithImpl<$Res>;
-  @useResult
-  $Res call({@_RequestRefConverter() String ref});
-}
-
-/// @nodoc
-class __$$_RequestBodyReferenceCopyWithImpl<$Res>
-    extends _$RequestBodyCopyWithImpl<$Res, _$_RequestBodyReference>
-    implements _$$_RequestBodyReferenceCopyWith<$Res> {
-  __$$_RequestBodyReferenceCopyWithImpl(_$_RequestBodyReference _value,
-      $Res Function(_$_RequestBodyReference) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? ref = null,
-  }) {
-    return _then(_$_RequestBodyReference(
-      ref: null == ref
-          ? _value.ref
-          : ref // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_RequestBodyReference implements _RequestBodyReference {
-  const _$_RequestBodyReference(
-      {@_RequestRefConverter() required this.ref, final String? $type})
-      : $type = $type ?? 'reference';
-
-  factory _$_RequestBodyReference.fromJson(Map<String, dynamic> json) =>
-      _$$_RequestBodyReferenceFromJson(json);
-
-  @override
-  @_RequestRefConverter()
-  final String ref;
-
-  @JsonKey(name: 'unionType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'RequestBody.reference(ref: $ref)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_RequestBodyReference &&
-            (identical(other.ref, ref) || other.ref == ref));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, ref);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_RequestBodyReferenceCopyWith<_$_RequestBodyReference> get copyWith =>
-      __$$_RequestBodyReferenceCopyWithImpl<_$_RequestBodyReference>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? description, bool? required,
-            Map<String, MediaType>? content)
-        $default, {
-    required TResult Function(@_RequestRefConverter() String ref) reference,
-  }) {
-    return reference(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? description, bool? required,
-            Map<String, MediaType>? content)?
-        $default, {
-    TResult? Function(@_RequestRefConverter() String ref)? reference,
-  }) {
-    return reference?.call(ref);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? description, bool? required,
-            Map<String, MediaType>? content)?
-        $default, {
-    TResult Function(@_RequestRefConverter() String ref)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(ref);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_RequestBody value) $default, {
-    required TResult Function(_RequestBodyReference value) reference,
-  }) {
-    return reference(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_RequestBody value)? $default, {
-    TResult? Function(_RequestBodyReference value)? reference,
-  }) {
-    return reference?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_RequestBody value)? $default, {
-    TResult Function(_RequestBodyReference value)? reference,
-    required TResult orElse(),
-  }) {
-    if (reference != null) {
-      return reference(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_RequestBodyReferenceToJson(
-      this,
-    );
-  }
-}
-
-abstract class _RequestBodyReference implements RequestBody {
-  const factory _RequestBodyReference(
-          {@_RequestRefConverter() required final String ref}) =
-      _$_RequestBodyReference;
-
-  factory _RequestBodyReference.fromJson(Map<String, dynamic> json) =
-      _$_RequestBodyReference.fromJson;
-
-  @_RequestRefConverter()
-  String get ref;
-  @JsonKey(ignore: true)
-  _$$_RequestBodyReferenceCopyWith<_$_RequestBodyReference> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

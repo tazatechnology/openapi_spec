@@ -295,7 +295,7 @@ _$ExampleObject _$$ExampleObjectFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       value: json['value'],
       externalValue: json['externalValue'] as String?,
-      $type: json['unionType'] as String?,
+      ref: const _ExampleRefConverter().fromJson(json['ref'] as String?),
     );
 
 Map<String, dynamic> _$$ExampleObjectToJson(_$ExampleObject instance) {
@@ -311,21 +311,9 @@ Map<String, dynamic> _$$ExampleObjectToJson(_$ExampleObject instance) {
   writeNotNull('description', instance.description);
   writeNotNull('value', instance.value);
   writeNotNull('externalValue', instance.externalValue);
-  val['unionType'] = instance.$type;
+  writeNotNull('ref', const _ExampleRefConverter().toJson(instance.ref));
   return val;
 }
-
-_$_ExampleReference _$$_ExampleReferenceFromJson(Map<String, dynamic> json) =>
-    _$_ExampleReference(
-      ref: json['ref'] as String,
-      $type: json['unionType'] as String?,
-    );
-
-Map<String, dynamic> _$$_ExampleReferenceToJson(_$_ExampleReference instance) =>
-    <String, dynamic>{
-      'ref': instance.ref,
-      'unionType': instance.$type,
-    };
 
 _$_ExternalDocs _$$_ExternalDocsFromJson(Map<String, dynamic> json) =>
     _$_ExternalDocs(
@@ -727,7 +715,7 @@ _$_PathItem _$$_PathItemFromJson(Map<String, dynamic> json) => _$_PathItem(
       parameters: (json['parameters'] as List<dynamic>?)
           ?.map((e) => Parameter.fromJson(e as Map<String, dynamic>))
           .toList(),
-      $type: json['unionType'] as String?,
+      ref: const _PathRefConverter().fromJson(json['ref'] as String?),
     );
 
 Map<String, dynamic> _$$_PathItemToJson(_$_PathItem instance) {
@@ -752,22 +740,9 @@ Map<String, dynamic> _$$_PathItemToJson(_$_PathItem instance) {
   writeNotNull('servers', instance.servers?.map((e) => e.toJson()).toList());
   writeNotNull(
       'parameters', instance.parameters?.map((e) => e.toJson()).toList());
-  val['unionType'] = instance.$type;
+  writeNotNull('ref', const _PathRefConverter().toJson(instance.ref));
   return val;
 }
-
-_$_PathItemReference _$$_PathItemReferenceFromJson(Map<String, dynamic> json) =>
-    _$_PathItemReference(
-      ref: json['ref'] as String,
-      $type: json['unionType'] as String?,
-    );
-
-Map<String, dynamic> _$$_PathItemReferenceToJson(
-        _$_PathItemReference instance) =>
-    <String, dynamic>{
-      'ref': instance.ref,
-      'unionType': instance.$type,
-    };
 
 _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
     _$_RequestBody(
@@ -776,7 +751,7 @@ _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
       content: (json['content'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, MediaType.fromJson(e as Map<String, dynamic>)),
       ),
-      $type: json['unionType'] as String?,
+      ref: const _RequestRefConverter().fromJson(json['ref'] as String?),
     );
 
 Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
@@ -792,23 +767,9 @@ Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
   writeNotNull('required', instance.required);
   writeNotNull(
       'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
-  val['unionType'] = instance.$type;
+  writeNotNull('ref', const _RequestRefConverter().toJson(instance.ref));
   return val;
 }
-
-_$_RequestBodyReference _$$_RequestBodyReferenceFromJson(
-        Map<String, dynamic> json) =>
-    _$_RequestBodyReference(
-      ref: const _RequestRefConverter().fromJson(json['ref'] as String),
-      $type: json['unionType'] as String?,
-    );
-
-Map<String, dynamic> _$$_RequestBodyReferenceToJson(
-        _$_RequestBodyReference instance) =>
-    <String, dynamic>{
-      'ref': const _RequestRefConverter().toJson(instance.ref),
-      'unionType': instance.$type,
-    };
 
 _$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
       description: json['description'] as String? ?? '',

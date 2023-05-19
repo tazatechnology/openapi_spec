@@ -351,14 +351,12 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
   // Only a reference, no need for object annotation
   if (m.containsKey('\$ref') &&
       m.containsKey('type') &&
-      (m['type'] == 'object' || m['type'] == 'reference')) {
+      (m['type'] == 'object')) {
     m.remove('type');
   }
 
   // Only a reference, no need for location annotation
-  if (m.containsKey('\$ref') &&
-      m.containsKey(_unionKeyParams) &&
-      (m[_unionKeyParams] == 'reference')) {
+  if (m.containsKey('\$ref') && m.containsKey(_unionKeyParams)) {
     m.remove(_unionKeyParams);
   }
 
@@ -445,11 +443,7 @@ Map<String, dynamic> _formatSpecFromJson(
 
   // Return a parsable reference object
   if (m.containsKey('\$ref')) {
-    final x = {
-      'ref': m['\$ref'],
-      'type': 'reference',
-      _unionKey: 'reference',
-    };
+    final x = {'ref': m['\$ref']};
     return x;
   } else {
     if (m.containsKey('type')) {
