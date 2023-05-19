@@ -97,7 +97,7 @@ class $clientName {
     ContentType responseType = ContentType.json,
     Object? body,
   }) async {
-    final timer = Stopwatch()..start();
+    // final timer = Stopwatch()..start();
 
     // Use the user provided host if server host not available
     if (host.isEmpty){
@@ -335,6 +335,8 @@ class $clientName {
       inputDescription.add(
         "`request`: ${request.description ?? 'No description'}",
       );
+
+      // TODO - handle serialization of request body
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -368,14 +370,24 @@ class $clientName {
 
       // Determine the decode strategy
       // NOTE: Handle other response types besides JSON
-      rSchema?.maybeMap(
+      rSchema?.mapOrNull(
         object: (s) {
+          // Handle deserialization of single object
           decoder = "return ${s.ref}.fromJson(json.decode(r.body));";
         },
-        orElse: () {
-          decoder = "return json.decode(r.body);";
+        array: (s) {
+          // Handle deserialization for array of objects
+          if (s.items.ref != null) {
+            decoder = """
+              final list = json.decode(r.body) as List;
+              return list.map((e) => ${s.items.ref}.fromJson(e)).toList();
+            """;
+          }
         },
       );
+      if (decoder.isEmpty && returnType != 'void') {
+        decoder = "return json.decode(r.body);";
+      }
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
