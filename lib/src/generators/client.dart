@@ -194,17 +194,31 @@ class $clientName {
       operations[HttpMethod.trace] = p.trace;
       for (final e in operations.entries.where((e) => e.value != null)) {
         final o = e.value!;
+        // Determine which server to use
         Server? server;
         if (o.servers != null && (o.servers?.isNotEmpty ?? false)) {
           server = o.servers!.first;
         } else if (p.servers != null && (p.servers?.isNotEmpty ?? false)) {
           server = p.servers!.first;
         }
+        // Determine which parameters to apply
+        // First add the path item parameters, then override with operation
+        Map<String, Parameter> parameters = {};
+        final allParams = (p.parameters ?? []) + (o.parameters ?? []);
+        parameters.addAll(
+          allParams.asMap().map((_, v) {
+            final param = v.dereference(
+              components: spec.components?.parameters,
+            );
+            return MapEntry((param.name).toString(), param);
+          }),
+        );
         _writeMethod(
           path: path,
           method: e.key,
           operation: e.value!,
           server: server,
+          parameters: parameters.values.toList(),
         );
       }
     }
@@ -222,6 +236,7 @@ class $clientName {
     required HttpMethod method,
     required Operation operation,
     required Server? server,
+    required List<Parameter> parameters,
   }) {
     // Keep track of method inputs
     List<String> input = [];
@@ -296,17 +311,21 @@ class $clientName {
 
     if (request != null) {
       String? dType;
+      Schema? rSchema;
       final content = request.content;
       if (content?.containsKey(keyMultipart) ?? false) {
         requestType = ContentType.multipart;
-        dType = content?[keyMultipart]?.schema?.toDartType();
+        rSchema = content?[keyMultipart]?.schema;
       } else if (content?.containsKey(keyJson) ?? false) {
         requestType = ContentType.json;
-        dType = content?[keyJson]?.schema?.toDartType();
+        rSchema = content?[keyJson]?.schema;
       } else if (content?.containsKey(keyXml) ?? false) {
         requestType = ContentType.xml;
-        dType = content?[keyXml]?.schema?.toDartType();
+        rSchema = content?[keyXml]?.schema;
       }
+
+      rSchema?.dereference(components: spec.components?.schemas);
+      dType = rSchema?.toDartType();
 
       if (dType != null) {
         input.add('required $dType request');
@@ -317,6 +336,7 @@ class $clientName {
         "request: ${request.description ?? 'No description'}",
       );
     }
+
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     // Response
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -327,20 +347,23 @@ class $clientName {
     final response = _getSuccessResponse(operation);
     if (response != null) {
       String? dType;
+      Schema? rSchema;
       if (response.content != null) {
         final content = response.content;
         if (content?.containsKey(keyMultipart) ?? false) {
           responseType = ContentType.multipart;
-          dType = content?[keyMultipart]?.schema?.toDartType();
+          rSchema = content?[keyMultipart]?.schema;
         } else if (content?.containsKey(keyJson) ?? false) {
           responseType = ContentType.json;
-          dType = content?[keyJson]?.schema?.toDartType();
+          rSchema = content?[keyJson]?.schema;
           returnType = dType ?? returnType;
         } else if (content?.containsKey(keyXml) ?? false) {
           responseType = ContentType.xml;
-          dType = content?[keyXml]?.schema?.toDartType();
+          rSchema = content?[keyXml]?.schema;
         }
       }
+      rSchema?.dereference(components: spec.components?.schemas);
+      dType = rSchema?.toDartType();
       returnType = dType ?? returnType;
     }
 
@@ -349,10 +372,7 @@ class $clientName {
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
     // Determine if path contains dynamic variables
-    for (var param in (operation.parameters ?? <Parameter>[])) {
-      param = param.dereference(
-        components: spec.components?.parameters,
-      );
+    for (var param in parameters) {
       if (param.name == null) {
         throw Exception('Parameter name is required: $param');
       }

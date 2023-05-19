@@ -11,6 +11,8 @@ part of openapi_models;
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
 @Freezed(unionKey: 'type', fallbackUnion: 'object')
 class Schema with _$Schema {
+  const Schema._();
+
   const factory Schema.object({
     /// A summary title of the schema
     String? title,
@@ -55,6 +57,7 @@ class Schema with _$Schema {
     String? description,
     @JsonKey(name: 'default') bool? defaultValue,
     bool? example,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaBoolean;
 
   // ------------------------------------------
@@ -143,6 +146,7 @@ class Schema with _$Schema {
     int? minItems,
     int? maxItems,
     required Schema items,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaArray;
 
   // ------------------------------------------
@@ -161,42 +165,40 @@ class Schema with _$Schema {
         toJson: _toMapProps,
         fromJson: _fromMapProps)
     Schema? valueSchema,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaMap;
+
+  // ------------------------------------------
+  // FACTORY: Schema.fromJson
+  // ------------------------------------------
 
   /// Convert from JSON representation
   factory Schema.fromJson(Map<String, dynamic> json) => _$SchemaFromJson(json);
-}
 
-/// Custom converter to handle schema references
-class _SchemaRefConverter implements JsonConverter<String?, String?> {
-  const _SchemaRefConverter();
+  // ------------------------------------------
+  // METHOD: dereference
+  // ------------------------------------------
 
-  @override
-  String? toJson(String? ref) {
+  Schema dereference({
+    required Map<String, Schema>? components,
+  }) {
     if (ref == null) {
-      return ref;
-    } else {
-      return '#/components/schemas/${ref.split('/').last}';
+      return this;
     }
+    final sRef = components?[ref?.split('/').last];
+    if (sRef == null) {
+      throw Exception(
+        "\n\n'$ref' is not a valid component schema body reference\n",
+      );
+    }
+    return sRef;
   }
 
-  @override
-  String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
-  }
-}
+  // ------------------------------------------
+  // METHOD: toDartType
+  // ------------------------------------------
 
-/// additionalProperties can be a schema or boolean, need to serialize separately
-dynamic _toMapProps(Schema? props) {
-  return props == null ? true : props.toJson();
-}
-
-Schema? _fromMapProps(dynamic props) {
-  return props is Map<String, dynamic> ? Schema.fromJson(props) : null;
-}
-
-extension SchemaExtension on Schema {
-  /// Get the dart type for this schema
+  /// Return a proper Dart type for this schema
   String toDartType() {
     return map(
       object: (s) {
@@ -227,4 +229,32 @@ extension SchemaExtension on Schema {
       },
     );
   }
+}
+
+/// Custom converter to handle schema references
+class _SchemaRefConverter implements JsonConverter<String?, String?> {
+  const _SchemaRefConverter();
+
+  @override
+  String? toJson(String? ref) {
+    if (ref == null) {
+      return ref;
+    } else {
+      return '#/components/schemas/${ref.split('/').last}';
+    }
+  }
+
+  @override
+  String? fromJson(String? ref) {
+    return ref == null ? ref : ref.split('/').last;
+  }
+}
+
+/// additionalProperties can be a schema or boolean, need to serialize separately
+dynamic _toMapProps(Schema? props) {
+  return props == null ? true : props.toJson();
+}
+
+Schema? _fromMapProps(dynamic props) {
+  return props is Map<String, dynamic> ? Schema.fromJson(props) : null;
 }

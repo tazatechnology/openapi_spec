@@ -864,6 +864,7 @@ _$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       defaultValue: json['default'] as bool?,
       example: json['example'] as bool?,
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -881,6 +882,7 @@ Map<String, dynamic> _$$_SchemaBooleanToJson(_$_SchemaBoolean instance) {
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
   writeNotNull('example', instance.example);
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1078,6 +1080,7 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
       minItems: json['minItems'] as int?,
       maxItems: json['maxItems'] as int?,
       items: Schema.fromJson(json['items'] as Map<String, dynamic>),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1098,6 +1101,7 @@ Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
   writeNotNull('minItems', instance.minItems);
   writeNotNull('maxItems', instance.maxItems);
   val['items'] = instance.items.toJson();
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1111,6 +1115,7 @@ _$_SchemaMap _$$_SchemaMapFromJson(Map<String, dynamic> json) => _$_SchemaMap(
       defaultValue: json['default'] as Map<String, dynamic>?,
       example: json['example'] as Map<String, dynamic>?,
       valueSchema: _fromMapProps(json['additionalProperties']),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1129,6 +1134,7 @@ Map<String, dynamic> _$$_SchemaMapToJson(_$_SchemaMap instance) {
   writeNotNull('default', instance.defaultValue);
   writeNotNull('example', instance.example);
   writeNotNull('additionalProperties', _toMapProps(instance.valueSchema));
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }

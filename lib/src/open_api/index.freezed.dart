@@ -7877,6 +7877,10 @@ mixin _$Schema {
 
   /// A short description of the schema
   String? get description => throw _privateConstructorUsedError;
+
+  /// Reference to a schema definition
+  @_SchemaRefConverter()
+  String? get ref => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -7890,8 +7894,13 @@ mixin _$Schema {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -7950,7 +7959,8 @@ mixin _$Schema {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -7962,7 +7972,8 @@ mixin _$Schema {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) =>
       throw _privateConstructorUsedError;
@@ -7979,8 +7990,13 @@ mixin _$Schema {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -8039,7 +8055,8 @@ mixin _$Schema {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -8051,7 +8068,8 @@ mixin _$Schema {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) =>
       throw _privateConstructorUsedError;
@@ -8068,8 +8086,13 @@ mixin _$Schema {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -8128,7 +8151,8 @@ mixin _$Schema {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -8140,7 +8164,8 @@ mixin _$Schema {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) =>
@@ -8192,7 +8217,8 @@ abstract class $SchemaCopyWith<$Res> {
   factory $SchemaCopyWith(Schema value, $Res Function(Schema) then) =
       _$SchemaCopyWithImpl<$Res, Schema>;
   @useResult
-  $Res call({String? title, String? description});
+  $Res call(
+      {String? title, String? description, @_SchemaRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -8210,6 +8236,7 @@ class _$SchemaCopyWithImpl<$Res, $Val extends Schema>
   $Res call({
     Object? title = freezed,
     Object? description = freezed,
+    Object? ref = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -8219,6 +8246,10 @@ class _$SchemaCopyWithImpl<$Res, $Val extends Schema>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -8347,7 +8378,7 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaObject implements _SchemaObject {
+class _$_SchemaObject extends _SchemaObject {
   const _$_SchemaObject(
       {this.title,
       this.description,
@@ -8362,7 +8393,8 @@ class _$_SchemaObject implements _SchemaObject {
       : _allOf = allOf,
         _required = required,
         _properties = properties,
-        $type = $type ?? 'object';
+        $type = $type ?? 'object',
+        super._();
 
   factory _$_SchemaObject.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaObjectFromJson(json);
@@ -8497,8 +8529,13 @@ class _$_SchemaObject implements _SchemaObject {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8557,7 +8594,8 @@ class _$_SchemaObject implements _SchemaObject {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -8569,7 +8607,8 @@ class _$_SchemaObject implements _SchemaObject {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
     return object(title, description, ref, allOf, required, discriminator,
@@ -8590,8 +8629,13 @@ class _$_SchemaObject implements _SchemaObject {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -8650,7 +8694,8 @@ class _$_SchemaObject implements _SchemaObject {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -8662,7 +8707,8 @@ class _$_SchemaObject implements _SchemaObject {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return object?.call(title, description, ref, allOf, required, discriminator,
@@ -8683,8 +8729,13 @@ class _$_SchemaObject implements _SchemaObject {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -8743,7 +8794,8 @@ class _$_SchemaObject implements _SchemaObject {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -8755,7 +8807,8 @@ class _$_SchemaObject implements _SchemaObject {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -8823,7 +8876,7 @@ class _$_SchemaObject implements _SchemaObject {
   }
 }
 
-abstract class _SchemaObject implements Schema {
+abstract class _SchemaObject extends Schema {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
@@ -8834,6 +8887,7 @@ abstract class _SchemaObject implements Schema {
       final ExternalDocs? externalDocs,
       final Map<String, Schema>? properties,
       final Xml? xml}) = _$_SchemaObject;
+  const _SchemaObject._() : super._();
 
   factory _SchemaObject.fromJson(Map<String, dynamic> json) =
       _$_SchemaObject.fromJson;
@@ -8846,6 +8900,7 @@ abstract class _SchemaObject implements Schema {
 
   /// A short description of the schema
   String? get description;
+  @override
 
   /// Reference to a schema definition
   @_SchemaRefConverter()
@@ -8891,7 +8946,8 @@ abstract class _$$_SchemaBooleanCopyWith<$Res>
       String? title,
       String? description,
       @JsonKey(name: 'default') bool? defaultValue,
-      bool? example});
+      bool? example,
+      @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
 }
@@ -8912,6 +8968,7 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
     Object? description = freezed,
     Object? defaultValue = freezed,
     Object? example = freezed,
+    Object? ref = freezed,
   }) {
     return _then(_$_SchemaBoolean(
       xml: freezed == xml
@@ -8934,6 +8991,10 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as bool?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -8952,15 +9013,17 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaBoolean implements _SchemaBoolean {
+class _$_SchemaBoolean extends _SchemaBoolean {
   const _$_SchemaBoolean(
       {this.xml,
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
       this.example,
+      @_SchemaRefConverter() this.ref,
       final String? $type})
-      : $type = $type ?? 'boolean';
+      : $type = $type ?? 'boolean',
+        super._();
 
   factory _$_SchemaBoolean.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaBooleanFromJson(json);
@@ -8976,13 +9039,16 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   final bool? defaultValue;
   @override
   final bool? example;
+  @override
+  @_SchemaRefConverter()
+  final String? ref;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Schema.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example)';
+    return 'Schema.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, ref: $ref)';
   }
 
   @override
@@ -8996,13 +9062,14 @@ class _$_SchemaBoolean implements _SchemaBoolean {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
-            (identical(other.example, example) || other.example == example));
+            (identical(other.example, example) || other.example == example) &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, xml, title, description, defaultValue, example);
+  int get hashCode => Object.hash(
+      runtimeType, xml, title, description, defaultValue, example, ref);
 
   @JsonKey(ignore: true)
   @override
@@ -9024,8 +9091,13 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9084,7 +9156,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -9096,10 +9169,11 @@ class _$_SchemaBoolean implements _SchemaBoolean {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
-    return boolean(xml, title, description, defaultValue, example);
+    return boolean(xml, title, description, defaultValue, example, ref);
   }
 
   @override
@@ -9116,8 +9190,13 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9176,7 +9255,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -9188,10 +9268,11 @@ class _$_SchemaBoolean implements _SchemaBoolean {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
-    return boolean?.call(xml, title, description, defaultValue, example);
+    return boolean?.call(xml, title, description, defaultValue, example, ref);
   }
 
   @override
@@ -9208,8 +9289,13 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9268,7 +9354,8 @@ class _$_SchemaBoolean implements _SchemaBoolean {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -9280,12 +9367,13 @@ class _$_SchemaBoolean implements _SchemaBoolean {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
     if (boolean != null) {
-      return boolean(xml, title, description, defaultValue, example);
+      return boolean(xml, title, description, defaultValue, example, ref);
     }
     return orElse();
   }
@@ -9347,13 +9435,15 @@ class _$_SchemaBoolean implements _SchemaBoolean {
   }
 }
 
-abstract class _SchemaBoolean implements Schema {
+abstract class _SchemaBoolean extends Schema {
   const factory _SchemaBoolean(
       {final Xml? xml,
       final String? title,
       final String? description,
       @JsonKey(name: 'default') final bool? defaultValue,
-      final bool? example}) = _$_SchemaBoolean;
+      final bool? example,
+      @_SchemaRefConverter() final String? ref}) = _$_SchemaBoolean;
+  const _SchemaBoolean._() : super._();
 
   factory _SchemaBoolean.fromJson(Map<String, dynamic> json) =
       _$_SchemaBoolean.fromJson;
@@ -9366,6 +9456,9 @@ abstract class _SchemaBoolean implements Schema {
   @JsonKey(name: 'default')
   bool? get defaultValue;
   bool? get example;
+  @override
+  @_SchemaRefConverter()
+  String? get ref;
   @override
   @JsonKey(ignore: true)
   _$$_SchemaBooleanCopyWith<_$_SchemaBoolean> get copyWith =>
@@ -9481,7 +9574,7 @@ class __$$_SchemaStringCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaString implements _SchemaString {
+class _$_SchemaString extends _SchemaString {
   const _$_SchemaString(
       {this.xml,
       this.title,
@@ -9495,7 +9588,8 @@ class _$_SchemaString implements _SchemaString {
       this.exclusiveMaximum,
       @_SchemaRefConverter() this.ref,
       final String? $type})
-      : $type = $type ?? 'string';
+      : $type = $type ?? 'string',
+        super._();
 
   factory _$_SchemaString.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaStringFromJson(json);
@@ -9593,8 +9687,13 @@ class _$_SchemaString implements _SchemaString {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9653,7 +9752,8 @@ class _$_SchemaString implements _SchemaString {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -9665,7 +9765,8 @@ class _$_SchemaString implements _SchemaString {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
     return string(xml, title, description, defaultValue, format, example,
@@ -9686,8 +9787,13 @@ class _$_SchemaString implements _SchemaString {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9746,7 +9852,8 @@ class _$_SchemaString implements _SchemaString {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -9758,7 +9865,8 @@ class _$_SchemaString implements _SchemaString {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return string?.call(xml, title, description, defaultValue, format, example,
@@ -9779,8 +9887,13 @@ class _$_SchemaString implements _SchemaString {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9839,7 +9952,8 @@ class _$_SchemaString implements _SchemaString {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -9851,7 +9965,8 @@ class _$_SchemaString implements _SchemaString {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -9919,7 +10034,7 @@ class _$_SchemaString implements _SchemaString {
   }
 }
 
-abstract class _SchemaString implements Schema {
+abstract class _SchemaString extends Schema {
   const factory _SchemaString(
       {final Xml? xml,
       final String? title,
@@ -9932,6 +10047,7 @@ abstract class _SchemaString implements Schema {
       final bool? exclusiveMinimum,
       final bool? exclusiveMaximum,
       @_SchemaRefConverter() final String? ref}) = _$_SchemaString;
+  const _SchemaString._() : super._();
 
   factory _SchemaString.fromJson(Map<String, dynamic> json) =
       _$_SchemaString.fromJson;
@@ -9949,6 +10065,7 @@ abstract class _SchemaString implements Schema {
   int? get maxLength;
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
+  @override
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -10073,7 +10190,7 @@ class __$$_SchemaIntegerCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaInteger implements _SchemaInteger {
+class _$_SchemaInteger extends _SchemaInteger {
   const _$_SchemaInteger(
       {this.xml,
       this.title,
@@ -10088,7 +10205,8 @@ class _$_SchemaInteger implements _SchemaInteger {
       this.multipleOf,
       @_SchemaRefConverter() this.ref,
       final String? $type})
-      : $type = $type ?? 'integer';
+      : $type = $type ?? 'integer',
+        super._();
 
   factory _$_SchemaInteger.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaIntegerFromJson(json);
@@ -10189,8 +10307,13 @@ class _$_SchemaInteger implements _SchemaInteger {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10249,7 +10372,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -10261,7 +10385,8 @@ class _$_SchemaInteger implements _SchemaInteger {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
     return integer(xml, title, description, defaultValue, format, example,
@@ -10282,8 +10407,13 @@ class _$_SchemaInteger implements _SchemaInteger {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10342,7 +10472,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -10354,7 +10485,8 @@ class _$_SchemaInteger implements _SchemaInteger {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return integer?.call(xml, title, description, defaultValue, format, example,
@@ -10375,8 +10507,13 @@ class _$_SchemaInteger implements _SchemaInteger {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10435,7 +10572,8 @@ class _$_SchemaInteger implements _SchemaInteger {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -10447,7 +10585,8 @@ class _$_SchemaInteger implements _SchemaInteger {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -10526,7 +10665,7 @@ class _$_SchemaInteger implements _SchemaInteger {
   }
 }
 
-abstract class _SchemaInteger implements Schema {
+abstract class _SchemaInteger extends Schema {
   const factory _SchemaInteger(
       {final Xml? xml,
       final String? title,
@@ -10540,6 +10679,7 @@ abstract class _SchemaInteger implements Schema {
       final bool? exclusiveMaximum,
       final int? multipleOf,
       @_SchemaRefConverter() final String? ref}) = _$_SchemaInteger;
+  const _SchemaInteger._() : super._();
 
   factory _SchemaInteger.fromJson(Map<String, dynamic> json) =
       _$_SchemaInteger.fromJson;
@@ -10558,6 +10698,7 @@ abstract class _SchemaInteger implements Schema {
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
   int? get multipleOf;
+  @override
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -10681,7 +10822,7 @@ class __$$_SchemaNumberCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaNumber implements _SchemaNumber {
+class _$_SchemaNumber extends _SchemaNumber {
   const _$_SchemaNumber(
       {this.xml,
       this.title,
@@ -10696,7 +10837,8 @@ class _$_SchemaNumber implements _SchemaNumber {
       this.multipleOf,
       @_SchemaRefConverter() this.ref,
       final String? $type})
-      : $type = $type ?? 'number';
+      : $type = $type ?? 'number',
+        super._();
 
   factory _$_SchemaNumber.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaNumberFromJson(json);
@@ -10797,8 +10939,13 @@ class _$_SchemaNumber implements _SchemaNumber {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10857,7 +11004,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -10869,7 +11017,8 @@ class _$_SchemaNumber implements _SchemaNumber {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
     return number(xml, title, description, defaultValue, format, example,
@@ -10890,8 +11039,13 @@ class _$_SchemaNumber implements _SchemaNumber {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10950,7 +11104,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -10962,7 +11117,8 @@ class _$_SchemaNumber implements _SchemaNumber {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return number?.call(xml, title, description, defaultValue, format, example,
@@ -10983,8 +11139,13 @@ class _$_SchemaNumber implements _SchemaNumber {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11043,7 +11204,8 @@ class _$_SchemaNumber implements _SchemaNumber {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -11055,7 +11217,8 @@ class _$_SchemaNumber implements _SchemaNumber {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -11134,7 +11297,7 @@ class _$_SchemaNumber implements _SchemaNumber {
   }
 }
 
-abstract class _SchemaNumber implements Schema {
+abstract class _SchemaNumber extends Schema {
   const factory _SchemaNumber(
       {final Xml? xml,
       final String? title,
@@ -11148,6 +11311,7 @@ abstract class _SchemaNumber implements Schema {
       final bool? exclusiveMaximum,
       final double? multipleOf,
       @_SchemaRefConverter() final String? ref}) = _$_SchemaNumber;
+  const _SchemaNumber._() : super._();
 
   factory _SchemaNumber.fromJson(Map<String, dynamic> json) =
       _$_SchemaNumber.fromJson;
@@ -11166,6 +11330,7 @@ abstract class _SchemaNumber implements Schema {
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
   double? get multipleOf;
+  @override
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -11239,7 +11404,7 @@ class __$$_SchemaEnumCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaEnum implements _SchemaEnum {
+class _$_SchemaEnum extends _SchemaEnum {
   const _$_SchemaEnum(
       {this.title,
       this.description,
@@ -11251,7 +11416,8 @@ class _$_SchemaEnum implements _SchemaEnum {
       : assert(
             values == null || ref == null, 'Cannot define both values and ref'),
         _values = values,
-        $type = $type ?? 'enumeration';
+        $type = $type ?? 'enumeration',
+        super._();
 
   factory _$_SchemaEnum.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaEnumFromJson(json);
@@ -11328,8 +11494,13 @@ class _$_SchemaEnum implements _SchemaEnum {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11388,7 +11559,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -11400,7 +11572,8 @@ class _$_SchemaEnum implements _SchemaEnum {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
     return enumeration(title, description, example, defaultValue, values, ref);
@@ -11420,8 +11593,13 @@ class _$_SchemaEnum implements _SchemaEnum {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11480,7 +11658,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -11492,7 +11671,8 @@ class _$_SchemaEnum implements _SchemaEnum {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return enumeration?.call(
@@ -11513,8 +11693,13 @@ class _$_SchemaEnum implements _SchemaEnum {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11573,7 +11758,8 @@ class _$_SchemaEnum implements _SchemaEnum {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -11585,7 +11771,8 @@ class _$_SchemaEnum implements _SchemaEnum {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -11653,7 +11840,7 @@ class _$_SchemaEnum implements _SchemaEnum {
   }
 }
 
-abstract class _SchemaEnum implements Schema {
+abstract class _SchemaEnum extends Schema {
   const factory _SchemaEnum(
       {final String? title,
       final String? description,
@@ -11661,6 +11848,7 @@ abstract class _SchemaEnum implements Schema {
       @JsonKey(name: 'default') final String? defaultValue,
       @JsonKey(name: 'enum') final List<String>? values,
       @_SchemaRefConverter() final String? ref}) = _$_SchemaEnum;
+  const _SchemaEnum._() : super._();
 
   factory _SchemaEnum.fromJson(Map<String, dynamic> json) =
       _$_SchemaEnum.fromJson;
@@ -11674,6 +11862,7 @@ abstract class _SchemaEnum implements Schema {
   String? get defaultValue;
   @JsonKey(name: 'enum')
   List<String>? get values;
+  @override
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -11697,7 +11886,8 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       List<dynamic>? example,
       int? minItems,
       int? maxItems,
-      Schema items});
+      Schema items,
+      @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
   $SchemaCopyWith<$Res> get items;
@@ -11722,6 +11912,7 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
     Object? minItems = freezed,
     Object? maxItems = freezed,
     Object? items = null,
+    Object? ref = freezed,
   }) {
     return _then(_$_SchemaArray(
       xml: freezed == xml
@@ -11756,6 +11947,10 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as Schema,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -11782,7 +11977,7 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaArray implements _SchemaArray {
+class _$_SchemaArray extends _SchemaArray {
   const _$_SchemaArray(
       {this.xml,
       this.title,
@@ -11792,10 +11987,12 @@ class _$_SchemaArray implements _SchemaArray {
       this.minItems,
       this.maxItems,
       required this.items,
+      @_SchemaRefConverter() this.ref,
       final String? $type})
       : _defaultValue = defaultValue,
         _example = example,
-        $type = $type ?? 'array';
+        $type = $type ?? 'array',
+        super._();
 
   factory _$_SchemaArray.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaArrayFromJson(json);
@@ -11833,13 +12030,16 @@ class _$_SchemaArray implements _SchemaArray {
   final int? maxItems;
   @override
   final Schema items;
+  @override
+  @_SchemaRefConverter()
+  final String? ref;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Schema.array(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minItems: $minItems, maxItems: $maxItems, items: $items)';
+    return 'Schema.array(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minItems: $minItems, maxItems: $maxItems, items: $items, ref: $ref)';
   }
 
   @override
@@ -11858,7 +12058,8 @@ class _$_SchemaArray implements _SchemaArray {
                 other.minItems == minItems) &&
             (identical(other.maxItems, maxItems) ||
                 other.maxItems == maxItems) &&
-            (identical(other.items, items) || other.items == items));
+            (identical(other.items, items) || other.items == items) &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
@@ -11872,7 +12073,8 @@ class _$_SchemaArray implements _SchemaArray {
       const DeepCollectionEquality().hash(_example),
       minItems,
       maxItems,
-      items);
+      items,
+      ref);
 
   @JsonKey(ignore: true)
   @override
@@ -11894,8 +12096,13 @@ class _$_SchemaArray implements _SchemaArray {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11954,7 +12161,8 @@ class _$_SchemaArray implements _SchemaArray {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -11966,11 +12174,12 @@ class _$_SchemaArray implements _SchemaArray {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
     return array(xml, title, description, defaultValue, example, minItems,
-        maxItems, items);
+        maxItems, items, ref);
   }
 
   @override
@@ -11987,8 +12196,13 @@ class _$_SchemaArray implements _SchemaArray {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12047,7 +12261,8 @@ class _$_SchemaArray implements _SchemaArray {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -12059,11 +12274,12 @@ class _$_SchemaArray implements _SchemaArray {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return array?.call(xml, title, description, defaultValue, example, minItems,
-        maxItems, items);
+        maxItems, items, ref);
   }
 
   @override
@@ -12080,8 +12296,13 @@ class _$_SchemaArray implements _SchemaArray {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12140,7 +12361,8 @@ class _$_SchemaArray implements _SchemaArray {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -12152,13 +12374,14 @@ class _$_SchemaArray implements _SchemaArray {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
     if (array != null) {
       return array(xml, title, description, defaultValue, example, minItems,
-          maxItems, items);
+          maxItems, items, ref);
     }
     return orElse();
   }
@@ -12220,7 +12443,7 @@ class _$_SchemaArray implements _SchemaArray {
   }
 }
 
-abstract class _SchemaArray implements Schema {
+abstract class _SchemaArray extends Schema {
   const factory _SchemaArray(
       {final Xml? xml,
       final String? title,
@@ -12229,7 +12452,9 @@ abstract class _SchemaArray implements Schema {
       final List<dynamic>? example,
       final int? minItems,
       final int? maxItems,
-      required final Schema items}) = _$_SchemaArray;
+      required final Schema items,
+      @_SchemaRefConverter() final String? ref}) = _$_SchemaArray;
+  const _SchemaArray._() : super._();
 
   factory _SchemaArray.fromJson(Map<String, dynamic> json) =
       _$_SchemaArray.fromJson;
@@ -12245,6 +12470,9 @@ abstract class _SchemaArray implements Schema {
   int? get minItems;
   int? get maxItems;
   Schema get items;
+  @override
+  @_SchemaRefConverter()
+  String? get ref;
   @override
   @JsonKey(ignore: true)
   _$$_SchemaArrayCopyWith<_$_SchemaArray> get copyWith =>
@@ -12268,7 +12496,8 @@ abstract class _$$_SchemaMapCopyWith<$Res> implements $SchemaCopyWith<$Res> {
           name: 'additionalProperties',
           toJson: _toMapProps,
           fromJson: _fromMapProps)
-      Schema? valueSchema});
+      Schema? valueSchema,
+      @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
   $SchemaCopyWith<$Res>? get valueSchema;
@@ -12291,6 +12520,7 @@ class __$$_SchemaMapCopyWithImpl<$Res>
     Object? defaultValue = freezed,
     Object? example = freezed,
     Object? valueSchema = freezed,
+    Object? ref = freezed,
   }) {
     return _then(_$_SchemaMap(
       xml: freezed == xml
@@ -12317,6 +12547,10 @@ class __$$_SchemaMapCopyWithImpl<$Res>
           ? _value.valueSchema
           : valueSchema // ignore: cast_nullable_to_non_nullable
               as Schema?,
+      ref: freezed == ref
+          ? _value.ref
+          : ref // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
@@ -12347,7 +12581,7 @@ class __$$_SchemaMapCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SchemaMap implements _SchemaMap {
+class _$_SchemaMap extends _SchemaMap {
   const _$_SchemaMap(
       {this.xml,
       this.title,
@@ -12359,10 +12593,12 @@ class _$_SchemaMap implements _SchemaMap {
           toJson: _toMapProps,
           fromJson: _fromMapProps)
       this.valueSchema,
+      @_SchemaRefConverter() this.ref,
       final String? $type})
       : _defaultValue = defaultValue,
         _example = example,
-        $type = $type ?? 'map';
+        $type = $type ?? 'map',
+        super._();
 
   factory _$_SchemaMap.fromJson(Map<String, dynamic> json) =>
       _$$_SchemaMapFromJson(json);
@@ -12400,13 +12636,16 @@ class _$_SchemaMap implements _SchemaMap {
       toJson: _toMapProps,
       fromJson: _fromMapProps)
   final Schema? valueSchema;
+  @override
+  @_SchemaRefConverter()
+  final String? ref;
 
   @JsonKey(name: 'type')
   final String $type;
 
   @override
   String toString() {
-    return 'Schema.map(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, valueSchema: $valueSchema)';
+    return 'Schema.map(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, valueSchema: $valueSchema, ref: $ref)';
   }
 
   @override
@@ -12422,7 +12661,8 @@ class _$_SchemaMap implements _SchemaMap {
                 .equals(other._defaultValue, _defaultValue) &&
             const DeepCollectionEquality().equals(other._example, _example) &&
             (identical(other.valueSchema, valueSchema) ||
-                other.valueSchema == valueSchema));
+                other.valueSchema == valueSchema) &&
+            (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
@@ -12434,7 +12674,8 @@ class _$_SchemaMap implements _SchemaMap {
       description,
       const DeepCollectionEquality().hash(_defaultValue),
       const DeepCollectionEquality().hash(_example),
-      valueSchema);
+      valueSchema,
+      ref);
 
   @JsonKey(ignore: true)
   @override
@@ -12456,8 +12697,13 @@ class _$_SchemaMap implements _SchemaMap {
             Map<String, Schema>? properties,
             Xml? xml)
         object,
-    required TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)
+    required TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -12516,7 +12762,8 @@ class _$_SchemaMap implements _SchemaMap {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)
+            Schema items,
+            @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -12528,10 +12775,12 @@ class _$_SchemaMap implements _SchemaMap {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)
         map,
   }) {
-    return map(xml, title, description, defaultValue, example, valueSchema);
+    return map(
+        xml, title, description, defaultValue, example, valueSchema, ref);
   }
 
   @override
@@ -12548,8 +12797,13 @@ class _$_SchemaMap implements _SchemaMap {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult? Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult? Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12608,7 +12862,8 @@ class _$_SchemaMap implements _SchemaMap {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -12620,11 +12875,12 @@ class _$_SchemaMap implements _SchemaMap {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return map?.call(
-        xml, title, description, defaultValue, example, valueSchema);
+        xml, title, description, defaultValue, example, valueSchema, ref);
   }
 
   @override
@@ -12641,8 +12897,13 @@ class _$_SchemaMap implements _SchemaMap {
             Map<String, Schema>? properties,
             Xml? xml)?
         object,
-    TResult Function(Xml? xml, String? title, String? description,
-            @JsonKey(name: 'default') bool? defaultValue, bool? example)?
+    TResult Function(
+            Xml? xml,
+            String? title,
+            String? description,
+            @JsonKey(name: 'default') bool? defaultValue,
+            bool? example,
+            @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12701,7 +12962,8 @@ class _$_SchemaMap implements _SchemaMap {
             List<dynamic>? example,
             int? minItems,
             int? maxItems,
-            Schema items)?
+            Schema items,
+            @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -12713,12 +12975,14 @@ class _$_SchemaMap implements _SchemaMap {
                 name: 'additionalProperties',
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
-            Schema? valueSchema)?
+            Schema? valueSchema,
+            @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
     if (map != null) {
-      return map(xml, title, description, defaultValue, example, valueSchema);
+      return map(
+          xml, title, description, defaultValue, example, valueSchema, ref);
     }
     return orElse();
   }
@@ -12780,7 +13044,7 @@ class _$_SchemaMap implements _SchemaMap {
   }
 }
 
-abstract class _SchemaMap implements Schema {
+abstract class _SchemaMap extends Schema {
   const factory _SchemaMap(
       {final Xml? xml,
       final String? title,
@@ -12791,7 +13055,9 @@ abstract class _SchemaMap implements Schema {
           name: 'additionalProperties',
           toJson: _toMapProps,
           fromJson: _fromMapProps)
-      final Schema? valueSchema}) = _$_SchemaMap;
+      final Schema? valueSchema,
+      @_SchemaRefConverter() final String? ref}) = _$_SchemaMap;
+  const _SchemaMap._() : super._();
 
   factory _SchemaMap.fromJson(Map<String, dynamic> json) =
       _$_SchemaMap.fromJson;
@@ -12809,6 +13075,9 @@ abstract class _SchemaMap implements Schema {
       toJson: _toMapProps,
       fromJson: _fromMapProps)
   Schema? get valueSchema;
+  @override
+  @_SchemaRefConverter()
+  String? get ref;
   @override
   @JsonKey(ignore: true)
   _$$_SchemaMapCopyWith<_$_SchemaMap> get copyWith =>

@@ -207,6 +207,10 @@ class SchemaGenerator extends BaseGenerator {
 
     property.map(
       object: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              object: (s) => s,
+              orElse: () => p,
+            );
         bool nullable = !required;
         String c = "/// ${p.description ?? 'No Description'} \n";
 
@@ -223,11 +227,19 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       boolean: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              boolean: (s) => s,
+              orElse: () => p,
+            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "bool ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       string: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              string: (s) => s,
+              orElse: () => p,
+            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -254,6 +266,10 @@ class SchemaGenerator extends BaseGenerator {
         }
       },
       integer: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              integer: (s) => s,
+              orElse: () => p,
+            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "int ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -272,6 +288,10 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       number: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              number: (s) => s,
+              orElse: () => p,
+            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "double ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -290,24 +310,30 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       array: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              array: (s) => s,
+              orElse: () => p,
+            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         var itemType = p.items.toDartType();
         c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       map: (p) {
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              map: (s) => s,
+              orElse: () => p,
+            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         var valueType = p.valueSchema?.toDartType() ?? 'dynamic';
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       enumeration: (p) {
-        if (p.ref != null &&
-            !(spec.components?.schemas?.keys.contains(p.ref) ?? true)) {
-          throw Exception(
-            "\n\n'${p.ref}' is not a valid component schema reference\n",
-          );
-        }
+        p = p.dereference(components: spec.components?.schemas).maybeMap(
+              enumeration: (s) => s,
+              orElse: () => p,
+            );
         final ref =
             spec.components?.schemas?[p.ref]?.mapOrNull(enumeration: (s) => s);
 
