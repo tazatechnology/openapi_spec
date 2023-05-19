@@ -9,11 +9,17 @@ part of openapi_models;
 /// The container maps a HTTP response code to the expected response.
 ///
 /// https://swagger.io/specification/#response-object
-@Freezed(fallbackUnion: 'default')
+@freezed
 class Response with _$Response {
+  const Response._();
+
+  // ------------------------------------------
+  // FACTORY: Response
+  // ------------------------------------------
+
   const factory Response({
     /// A description of the response
-    required String description,
+    @Default('') String description,
 
     /// Maps a header name to its definition. RFC7230 states header names are case insensitive.
     Map<String, Header>? headers,
@@ -23,12 +29,55 @@ class Response with _$Response {
 
     /// A map containing descriptions of potential response payloads.
     Map<String, Link>? links,
+
+    /// Reference to a response defined in [Components.responses]
+    @_ResponseRefConverter() String? ref,
   }) = _Response;
 
-  const factory Response.reference({
-    required Response ref,
-  }) = _ResponseReference;
+  // ------------------------------------------
+  // FACTORY: Response.fromJson
+  // ------------------------------------------
 
   factory Response.fromJson(Map<String, dynamic> json) =>
       _$ResponseFromJson(json);
+
+  // ------------------------------------------
+  // METHOD: dereference
+  // ------------------------------------------
+
+  Response dereference({
+    required Map<String, Response>? components,
+  }) {
+    if (ref == null) {
+      return this;
+    }
+    final rRef = components?[ref?.split('/').last];
+    if (rRef == null) {
+      throw Exception(
+        "\n\n'$ref' is not a valid component parameter reference\n",
+      );
+    }
+    return rRef.copyWith(
+      description: description.isEmpty ? rRef.description : description,
+    );
+  }
+}
+
+/// Custom converter to handle parameter references
+class _ResponseRefConverter implements JsonConverter<String?, String?> {
+  const _ResponseRefConverter();
+
+  @override
+  String? toJson(String? ref) {
+    if (ref == null) {
+      return ref;
+    } else {
+      return '#/components/responses/${ref.split('/').last}';
+    }
+  }
+
+  @override
+  String? fromJson(String? ref) {
+    return ref == null ? ref : ref.split('/').last;
+  }
 }

@@ -19,7 +19,7 @@ class Schema with _$Schema {
     String? description,
 
     /// Reference to a schema definition
-    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
+    @_SchemaRefConverter() String? ref,
 
     ///
     List<Schema>? allOf,
@@ -72,7 +72,7 @@ class Schema with _$Schema {
     int? maxLength,
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
-    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaString;
 
   // ------------------------------------------
@@ -92,7 +92,7 @@ class Schema with _$Schema {
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
     int? multipleOf,
-    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaInteger;
 
   // ------------------------------------------
@@ -112,7 +112,7 @@ class Schema with _$Schema {
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
     double? multipleOf,
-    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaNumber;
 
   // ------------------------------------------
@@ -126,7 +126,7 @@ class Schema with _$Schema {
     String? example,
     @JsonKey(name: 'default') String? defaultValue,
     @JsonKey(name: 'enum') List<String>? values,
-    @JsonKey(toJson: _toSchemaRef, fromJson: _fromSchemaRef) String? ref,
+    @_SchemaRefConverter() String? ref,
   }) = _SchemaEnum;
 
   // ------------------------------------------
@@ -154,44 +154,77 @@ class Schema with _$Schema {
     Xml? xml,
     String? title,
     String? description,
-    @JsonKey(name: 'default')
-        Map? defaultValue,
+    @JsonKey(name: 'default') Map? defaultValue,
     Map? example,
-    @JsonKey(name: 'additionalProperties', toJson: _toMapProps, fromJson: _fromMapProps)
-        Schema? valueSchema,
+    @JsonKey(
+        name: 'additionalProperties',
+        toJson: _toMapProps,
+        fromJson: _fromMapProps)
+    Schema? valueSchema,
   }) = _SchemaMap;
 
   /// Convert from JSON representation
   factory Schema.fromJson(Map<String, dynamic> json) => _$SchemaFromJson(json);
 }
 
-String? _toSchemaRef(String? ref) {
-  if (ref == null) {
-    return ref;
-  }
-  return '#/components/schemas/${ref.split('/').last}';
-}
+/// Custom converter to handle schema references
+class _SchemaRefConverter implements JsonConverter<String?, String?> {
+  const _SchemaRefConverter();
 
-String? _fromSchemaRef(String? ref) {
-  if (ref == null) {
-    return ref;
+  @override
+  String? toJson(String? ref) {
+    if (ref == null) {
+      return ref;
+    } else {
+      return '#/components/schemas/${ref.split('/').last}';
+    }
   }
-  return ref.split('/').last;
+
+  @override
+  String? fromJson(String? ref) {
+    return ref == null ? ref : ref.split('/').last;
+  }
 }
 
 /// additionalProperties can be a schema or boolean, need to serialize separately
 dynamic _toMapProps(Schema? props) {
-  if (props == null) {
-    return true;
-  } else {
-    return props.toJson();
-  }
+  return props == null ? true : props.toJson();
 }
 
 Schema? _fromMapProps(dynamic props) {
-  if (props is Map<String, dynamic>) {
-    return Schema.fromJson(props);
-  } else {
-    return null;
+  return props is Map<String, dynamic> ? Schema.fromJson(props) : null;
+}
+
+extension SchemaExtension on Schema {
+  /// Get the dart type for this schema
+  String toDartType() {
+    return map(
+      object: (s) {
+        return s.ref ?? 'Map<String,dynamic>';
+      },
+      boolean: (s) {
+        return 'bool';
+      },
+      string: (s) {
+        return 'String';
+      },
+      integer: (s) {
+        return 'int';
+      },
+      number: (s) {
+        return 'double';
+      },
+      enumeration: (s) {
+        return s.ref ?? 'String';
+      },
+      array: (s) {
+        final itemType = s.items.toDartType();
+        return 'List<$itemType>';
+      },
+      map: (s) {
+        final valueType = s.valueSchema?.toDartType() ?? 'dynamic';
+        return 'Map<String,$valueType>';
+      },
+    );
   }
 }

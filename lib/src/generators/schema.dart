@@ -46,7 +46,7 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     index.writeAsStringSync("""
-      // GENERATED CODE - DO NOT MODIFY BY HAND
+      ${getHeader()}
 
       library $schemaPackage;
 
@@ -291,13 +291,13 @@ class SchemaGenerator extends BaseGenerator {
       },
       array: (p) {
         var (c, nullable) = propHeader(p.defaultValue, p.description);
-        var itemType = _getDartType(p.items);
+        var itemType = p.items.toDartType();
         c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       map: (p) {
         var (c, nullable) = propHeader(p.defaultValue, p.description);
-        var valueType = _getDartType(p.valueSchema);
+        var valueType = p.valueSchema?.toDartType() ?? 'dynamic';
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
@@ -394,30 +394,6 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     file.writeAsStringSync('}', mode: FileMode.append);
-  }
-
-  // ------------------------------------------
-  // METHOD: _getDartType
-  // ------------------------------------------
-
-  String _getDartType(Schema? s) {
-    final t = s?.map(
-      object: (i) => i.ref ?? 'dynamic',
-      boolean: (i) => 'bool',
-      string: (i) => 'String',
-      integer: (i) => 'int',
-      number: (i) => 'double',
-      enumeration: (i) => i.ref ?? 'String',
-      array: (i) {
-        final itemType = _getDartType(i.items);
-        return 'List<$itemType>';
-      },
-      map: (i) {
-        final valueType = _getDartType(i.valueSchema);
-        return 'Map<String,$valueType>';
-      },
-    );
-    return t ?? 'dynamic';
   }
 
   // ------------------------------------------

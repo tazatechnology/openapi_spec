@@ -282,6 +282,27 @@ class OpenApi with _$OpenApi {
         destination: destination,
         separate: !singleSchemaFile,
       ).generate(replace: replace);
+    } else {
+      // ignore: avoid_print
+      print(
+        'No schemas found in OpenAPI spec - Not generating schema library!',
+      );
+    }
+
+    // Generate client
+    if (client) {
+      if (paths == null || (paths?.isEmpty ?? true)) {
+        // ignore: avoid_print
+        print(
+          'No client paths/operations found in OpenAPI spec - Not generating client library!',
+        );
+      } else {
+        await ClientGenerator(
+          spec: this,
+          package: package.snakeCase,
+          destination: destination,
+        ).generate(replace: replace);
+      }
     }
 
     // Apply the Dart formatting and fix logic
@@ -332,6 +353,13 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
       m.containsKey('type') &&
       (m['type'] == 'object' || m['type'] == 'reference')) {
     m.remove('type');
+  }
+
+  // Only a reference, no need for location annotation
+  if (m.containsKey('\$ref') &&
+      m.containsKey(_unionKeyParams) &&
+      (m[_unionKeyParams] == 'reference')) {
+    m.remove(_unionKeyParams);
   }
 
   // When other keys are defined, object is implied

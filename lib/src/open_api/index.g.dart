@@ -536,9 +536,9 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
   return val;
 }
 
-_$_PropertyCookie _$$_PropertyCookieFromJson(Map<String, dynamic> json) =>
-    _$_PropertyCookie(
-      name: json['name'] as String,
+_$_ParameterCookie _$$_ParameterCookieFromJson(Map<String, dynamic> json) =>
+    _$_ParameterCookie(
+      name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
       deprecated: json['deprecated'] as bool?,
@@ -549,13 +549,12 @@ _$_PropertyCookie _$$_PropertyCookieFromJson(Map<String, dynamic> json) =>
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
+      ref: const _ParamRefConverter().fromJson(json['ref'] as String?),
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_PropertyCookieToJson(_$_PropertyCookie instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+Map<String, dynamic> _$$_ParameterCookieToJson(_$_ParameterCookie instance) {
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -563,6 +562,7 @@ Map<String, dynamic> _$$_PropertyCookieToJson(_$_PropertyCookie instance) {
     }
   }
 
+  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('deprecated', instance.deprecated);
@@ -571,13 +571,14 @@ Map<String, dynamic> _$$_PropertyCookieToJson(_$_PropertyCookie instance) {
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
+  writeNotNull('ref', const _ParamRefConverter().toJson(instance.ref));
   val['in'] = instance.$type;
   return val;
 }
 
-_$_PropertyHeader _$$_PropertyHeaderFromJson(Map<String, dynamic> json) =>
-    _$_PropertyHeader(
-      name: json['name'] as String,
+_$_ParameterHeader _$$_ParameterHeaderFromJson(Map<String, dynamic> json) =>
+    _$_ParameterHeader(
+      name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
       deprecated: json['deprecated'] as bool?,
@@ -588,13 +589,12 @@ _$_PropertyHeader _$$_PropertyHeaderFromJson(Map<String, dynamic> json) =>
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
+      ref: const _ParamRefConverter().fromJson(json['ref'] as String?),
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_PropertyHeaderToJson(_$_PropertyHeader instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+Map<String, dynamic> _$$_ParameterHeaderToJson(_$_ParameterHeader instance) {
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -602,6 +602,7 @@ Map<String, dynamic> _$$_PropertyHeaderToJson(_$_PropertyHeader instance) {
     }
   }
 
+  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('deprecated', instance.deprecated);
@@ -610,13 +611,14 @@ Map<String, dynamic> _$$_PropertyHeaderToJson(_$_PropertyHeader instance) {
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
+  writeNotNull('ref', const _ParamRefConverter().toJson(instance.ref));
   val['in'] = instance.$type;
   return val;
 }
 
-_$_PropertyQuery _$$_PropertyQueryFromJson(Map<String, dynamic> json) =>
-    _$_PropertyQuery(
-      name: json['name'] as String,
+_$_ParameterQuery _$$_ParameterQueryFromJson(Map<String, dynamic> json) =>
+    _$_ParameterQuery(
+      name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
       deprecated: json['deprecated'] as bool?,
@@ -627,13 +629,12 @@ _$_PropertyQuery _$$_PropertyQueryFromJson(Map<String, dynamic> json) =>
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
+      ref: const _ParamRefConverter().fromJson(json['ref'] as String?),
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_PropertyQueryToJson(_$_PropertyQuery instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+Map<String, dynamic> _$$_ParameterQueryToJson(_$_ParameterQuery instance) {
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -641,6 +642,7 @@ Map<String, dynamic> _$$_PropertyQueryToJson(_$_PropertyQuery instance) {
     }
   }
 
+  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('required', instance.required);
   writeNotNull('deprecated', instance.deprecated);
@@ -649,13 +651,14 @@ Map<String, dynamic> _$$_PropertyQueryToJson(_$_PropertyQuery instance) {
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
+  writeNotNull('ref', const _ParamRefConverter().toJson(instance.ref));
   val['in'] = instance.$type;
   return val;
 }
 
-_$_PropertyPath _$$_PropertyPathFromJson(Map<String, dynamic> json) =>
-    _$_PropertyPath(
-      name: json['name'] as String,
+_$_ParameterPath _$$_ParameterPathFromJson(Map<String, dynamic> json) =>
+    _$_ParameterPath(
+      name: json['name'] as String?,
       description: json['description'] as String?,
       deprecated: json['deprecated'] as bool?,
       style: json['style'] as String?,
@@ -665,13 +668,12 @@ _$_PropertyPath _$$_PropertyPathFromJson(Map<String, dynamic> json) =>
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
+      ref: const _ParamRefConverter().fromJson(json['ref'] as String?),
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_PropertyPathToJson(_$_PropertyPath instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
+Map<String, dynamic> _$$_ParameterPathToJson(_$_ParameterPath instance) {
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -679,6 +681,7 @@ Map<String, dynamic> _$$_PropertyPathToJson(_$_PropertyPath instance) {
     }
   }
 
+  writeNotNull('name', instance.name);
   writeNotNull('description', instance.description);
   writeNotNull('deprecated', instance.deprecated);
   writeNotNull('style', instance.style);
@@ -686,6 +689,7 @@ Map<String, dynamic> _$$_PropertyPathToJson(_$_PropertyPath instance) {
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('example', instance.example);
   writeNotNull('schema', instance.schema?.toJson());
+  writeNotNull('ref', const _ParamRefConverter().toJson(instance.ref));
   val['in'] = instance.$type;
   return val;
 }
@@ -795,19 +799,19 @@ Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
 _$_RequestBodyReference _$$_RequestBodyReferenceFromJson(
         Map<String, dynamic> json) =>
     _$_RequestBodyReference(
-      ref: _fromRequestRef(json['ref'] as String),
+      ref: const _RequestRefConverter().fromJson(json['ref'] as String),
       $type: json['unionType'] as String?,
     );
 
 Map<String, dynamic> _$$_RequestBodyReferenceToJson(
         _$_RequestBodyReference instance) =>
     <String, dynamic>{
-      'ref': _toRequestRef(instance.ref),
+      'ref': const _RequestRefConverter().toJson(instance.ref),
       'unionType': instance.$type,
     };
 
 _$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
-      description: json['description'] as String,
+      description: json['description'] as String? ?? '',
       headers: (json['headers'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Header.fromJson(e as Map<String, dynamic>)),
       ),
@@ -817,7 +821,7 @@ _$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
       links: (json['links'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Link.fromJson(e as Map<String, dynamic>)),
       ),
-      $type: json['unionType'] as String?,
+      ref: const _ResponseRefConverter().fromJson(json['ref'] as String?),
     );
 
 Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) {
@@ -836,28 +840,15 @@ Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) {
   writeNotNull(
       'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
   writeNotNull('links', instance.links?.map((k, e) => MapEntry(k, e.toJson())));
-  val['unionType'] = instance.$type;
+  writeNotNull('ref', const _ResponseRefConverter().toJson(instance.ref));
   return val;
 }
-
-_$_ResponseReference _$$_ResponseReferenceFromJson(Map<String, dynamic> json) =>
-    _$_ResponseReference(
-      ref: Response.fromJson(json['ref'] as Map<String, dynamic>),
-      $type: json['unionType'] as String?,
-    );
-
-Map<String, dynamic> _$$_ResponseReferenceToJson(
-        _$_ResponseReference instance) =>
-    <String, dynamic>{
-      'ref': instance.ref.toJson(),
-      'unionType': instance.$type,
-    };
 
 _$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
     _$_SchemaObject(
       title: json['title'] as String?,
       description: json['description'] as String?,
-      ref: _fromSchemaRef(json['ref'] as String?),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       allOf: (json['allOf'] as List<dynamic>?)
           ?.map((e) => Schema.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -891,7 +882,7 @@ Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
 
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
-  writeNotNull('ref', _toSchemaRef(instance.ref));
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   writeNotNull('allOf', instance.allOf?.map((e) => e.toJson()).toList());
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
@@ -947,7 +938,7 @@ _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
       maxLength: json['maxLength'] as int?,
       exclusiveMinimum: json['exclusiveMinimum'] as bool?,
       exclusiveMaximum: json['exclusiveMaximum'] as bool?,
-      ref: _fromSchemaRef(json['ref'] as String?),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -970,7 +961,7 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
   writeNotNull('maxLength', instance.maxLength);
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  writeNotNull('ref', _toSchemaRef(instance.ref));
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1000,7 +991,7 @@ _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
       exclusiveMinimum: json['exclusiveMinimum'] as bool?,
       exclusiveMaximum: json['exclusiveMaximum'] as bool?,
       multipleOf: json['multipleOf'] as int?,
-      ref: _fromSchemaRef(json['ref'] as String?),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1024,7 +1015,7 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
   writeNotNull('multipleOf', instance.multipleOf);
-  writeNotNull('ref', _toSchemaRef(instance.ref));
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1049,7 +1040,7 @@ _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
       exclusiveMinimum: json['exclusiveMinimum'] as bool?,
       exclusiveMaximum: json['exclusiveMaximum'] as bool?,
       multipleOf: (json['multipleOf'] as num?)?.toDouble(),
-      ref: _fromSchemaRef(json['ref'] as String?),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1073,7 +1064,7 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
   writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
   writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
   writeNotNull('multipleOf', instance.multipleOf);
-  writeNotNull('ref', _toSchemaRef(instance.ref));
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }
@@ -1091,7 +1082,7 @@ _$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
       defaultValue: json['default'] as String?,
       values:
           (json['enum'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      ref: _fromSchemaRef(json['ref'] as String?),
+      ref: const _SchemaRefConverter().fromJson(json['ref'] as String?),
       $type: json['type'] as String?,
     );
 
@@ -1109,7 +1100,7 @@ Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
   writeNotNull('example', instance.example);
   writeNotNull('default', instance.defaultValue);
   writeNotNull('enum', instance.values);
-  writeNotNull('ref', _toSchemaRef(instance.ref));
+  writeNotNull('ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
   return val;
 }

@@ -23,8 +23,7 @@ class RequestBody with _$RequestBody {
   // ------------------------------------------
 
   const factory RequestBody.reference({
-    @JsonKey(toJson: _toRequestRef, fromJson: _fromRequestRef)
-        required String ref,
+    @_RequestRefConverter() required String ref,
   }) = _RequestBodyReference;
 
   // ------------------------------------------
@@ -36,10 +35,17 @@ class RequestBody with _$RequestBody {
       _$RequestBodyFromJson(json);
 }
 
-String _toRequestRef(String ref) {
-  return '#/components/requestBodies/${ref.split('/').last}';
-}
+/// Custom converter to handle schema references
+class _RequestRefConverter implements JsonConverter<String, String> {
+  const _RequestRefConverter();
 
-String _fromRequestRef(String ref) {
-  return ref.split('/').last;
+  @override
+  String toJson(String ref) {
+    return '#/components/requestBodies/${ref.split('/').last}';
+  }
+
+  @override
+  String fromJson(String ref) {
+    return ref.split('/').last;
+  }
 }
