@@ -309,6 +309,7 @@ class $clientName {
       components: spec.components?.requestBodies,
     );
 
+    String body = '';
     if (request != null) {
       String? dType;
       Schema? rSchema;
@@ -336,7 +337,7 @@ class $clientName {
         "`request`: ${request.description ?? 'No description'}",
       );
 
-      // TODO - handle serialization of request body
+      body = 'body: request,';
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -368,8 +369,13 @@ class $clientName {
       dType = rSchema?.toDartType();
       returnType = dType ?? returnType;
 
+      if (responseType != ContentType.json) {
+        throw UnimplementedError(
+          '\n\nOnly JSON response parsing is currently implemented:\n\n$response',
+        );
+      }
+
       // Determine the decode strategy
-      // NOTE: Handle other response types besides JSON
       rSchema?.mapOrNull(
         object: (s) {
           // Handle deserialization of single object
@@ -492,6 +498,7 @@ class $clientName {
           method: $method,
           requestType: $requestType,
           responseType: $responseType,
+          $body
           $headerCode
           $queryCode
         );
