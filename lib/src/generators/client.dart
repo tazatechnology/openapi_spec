@@ -50,6 +50,7 @@ class ClientGenerator extends BaseGenerator {
     }
 
     final clientName = '${package.titleCase}Client';
+    final clientException = '${clientName}Exception';
 
     // Determine which type of authentication to use
     List<String> authInputs = [];
@@ -73,6 +74,7 @@ class ClientGenerator extends BaseGenerator {
     file.writeAsStringSync("""
 ${getHeader()}
 
+import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
@@ -86,6 +88,34 @@ enum ContentType { json, multipart, xml }
 
 /// Enum of supported authentication types
 enum AuthType { keyQuery, keyHeader, keyCookie, openId }
+
+/// HTTP exception handler for $clientName
+class $clientException implements HttpException {
+  $clientException({
+    required this.message,
+    required this.uri,
+    required this.method,
+    this.code,
+    this.data,
+  });
+  final String message;
+  final Uri uri;
+  final HttpMethod method;
+  final int? code;
+  final Object? data;
+
+  @override
+  String toString() {
+    final s = JsonEncoder.withIndent('  ').convert({
+      'uri': uri.toString(),
+      'method': method.name.toUpperCase(),
+      'code': code,
+      'message': message,
+      'data': data.toString(),
+    });
+    return '$clientException(\$s)';
+  }
+}
 
 // ==========================================
 // CLASS: $clientName
@@ -210,17 +240,49 @@ class $clientName {
         try {
           request.body = json.encode(body);
         } catch (e) {
-          // Handle bad body
+          // Handle request encoding error
+          throw PineconeClientException(
+            uri: uri,
+            method: method,
+            message: 'Could not encode: \${body.runtimeType}',
+            data: e,
+          ).toString();
         }
       }
       request.headers.addAll(headers);
       response = await http.Response.fromStream(await _client.send(request));
     } catch (e) {
-      // Handle error
+      // Handle response errors
+      throw $clientException(
+        uri: uri,
+        method: method,
+        message: 'Response error',
+        data: e,
+      ).toString();
     }
     
-    return response;
-  }
+    // Check for successful response
+    if ((response.statusCode ~/ 100) == 2) {
+      return response;
+    }
+
+    // Attempt to decode unsuccessful response body
+    Object? rBody;
+    try {
+      rBody = jsonDecode(response.body);
+    } catch (e) {
+      // pass
+    }
+
+    // Handle unsuccessful response
+    throw $clientException(
+      uri: uri,
+      method: method,
+      message: 'Unsuccessful response',
+      code: response.statusCode,
+      data: rBody ?? response.body,
+    ).toString();
+  }\n
 """);
 
     for (final e in (spec.paths ?? <String, PathItem>{}).entries) {
@@ -510,7 +572,11 @@ class $clientName {
         },
       );
       if (decoder.isEmpty && returnType != 'void') {
-        decoder = "return json.decode(r.body);";
+        if (returnType.contains('List') || returnType.contains('Map')) {
+          decoder = "return  $returnType.from(json.decode(r.body));";
+        } else {
+          decoder = "return  json.decode(r.body);";
+        }
       }
     }
 
