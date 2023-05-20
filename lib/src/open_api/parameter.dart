@@ -111,6 +111,9 @@ class Parameter with _$Parameter {
         "\n\n'$ref' is not a valid component parameter reference\n",
       );
     }
+
+    _checkReferenceTypes(ref, pRef, this);
+
     return pRef.copyWith(
       description: description ?? pRef.description,
     );

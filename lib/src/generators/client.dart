@@ -63,8 +63,7 @@ class ClientGenerator extends BaseGenerator {
         authVariables.add('final String $apiKeyVar;');
       }
     }
-
-    // Determine the code
+    // Generate auth input code
     String authInputCode = '';
     if (authInputs.isNotEmpty) {
       authInputCode = "${authInputs.join(',')},";
@@ -142,14 +141,17 @@ class $clientName {
   }) async {
     // final timer = Stopwatch()..start();
 
-    // Use the user provided host if server host not available
-    if (host.isEmpty){
-      host = _host ?? '';
+    // Override with the user provided host
+    // Else, default to server host defined in spec
+    if (_host?.isNotEmpty ?? false) {
+      host = _host!;
     }
 
     // Ensure a host is provided
     if (host.isEmpty) {
-      throw Exception('Host is required, but none provided');
+      throw Exception(
+        '\\n\\nHost is required, but none defined in spec or provided by user\\n',
+      );
     }
 
     // Determine the connection type

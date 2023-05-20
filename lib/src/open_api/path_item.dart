@@ -76,6 +76,9 @@ class PathItem with _$PathItem {
         "\n\n'$ref' is not a valid component path item reference\n",
       );
     }
+
+    _checkReferenceTypes(ref, pRef, this);
+
     return pRef.copyWith(
       ref: ref,
       summary: summary ?? pRef.summary,

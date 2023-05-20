@@ -57,6 +57,9 @@ class Response with _$Response {
         "\n\n'$ref' is not a valid component response reference\n",
       );
     }
+
+    _checkReferenceTypes(ref, rRef, this);
+
     return rRef.copyWith(
       ref: ref,
       description: description.isEmpty ? rRef.description : description,

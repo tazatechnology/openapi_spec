@@ -43,16 +43,19 @@ class Example with _$Example {
     if (ref == null) {
       return this;
     }
-    final pRef = components?[ref?.split('/').last];
-    if (pRef == null) {
+    final eRef = components?[ref?.split('/').last];
+    if (eRef == null) {
       throw Exception(
         "\n\n'$ref' is not a valid component example reference\n",
       );
     }
-    return pRef.copyWith(
+
+    _checkReferenceTypes(ref, eRef, this);
+
+    return eRef.copyWith(
       ref: ref,
-      summary: summary ?? pRef.summary,
-      description: description ?? pRef.description,
+      summary: summary ?? eRef.summary,
+      description: description ?? eRef.description,
     );
   }
 }

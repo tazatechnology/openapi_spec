@@ -40,3 +40,14 @@ part 'server_variable.dart';
 part 'spec.dart';
 part 'tag.dart';
 part 'xml.dart';
+
+// Ensures that users specify references with the same types
+void _checkReferenceTypes(name, ref, self) {
+  final sRefType = ref.runtimeType.toString().replaceAll(r'_$_', '');
+  final sType = self.runtimeType.toString().replaceAll(r'_$_', '');
+  if (ref.runtimeType != self.runtimeType) {
+    throw Exception(
+      "\n\n'$name' type mismatch\n\nSchema component type: $sRefType\n\nUser specified reference type: $sType\n",
+    );
+  }
+}

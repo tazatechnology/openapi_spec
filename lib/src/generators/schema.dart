@@ -334,18 +334,6 @@ class SchemaGenerator extends BaseGenerator {
               enumeration: (s) => s,
               orElse: () => p,
             );
-        final ref =
-            spec.components?.schemas?[p.ref]?.mapOrNull(enumeration: (s) => s);
-
-        if (ref != null) {
-          p = ref.copyWith(
-            ref: p.ref,
-            title: p.title ?? ref.title,
-            description: p.description ?? ref.description,
-            defaultValue: p.defaultValue ?? ref.defaultValue,
-            example: p.example ?? ref.example,
-          );
-        }
 
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required;
@@ -362,8 +350,8 @@ class SchemaGenerator extends BaseGenerator {
           c += jsonKey;
         }
 
-        if (ref == null) {
-          if (p.defaultValue != null) {
+        if (p.ref == null) {
+          if (p.defaultValue != null && !required) {
             c += "@Default(${p.defaultValue}) ";
           }
           if (required) {
@@ -371,7 +359,7 @@ class SchemaGenerator extends BaseGenerator {
           }
           c += "String ${nullable ? '?' : ''} $name,\n\n";
         } else {
-          if (p.defaultValue != null) {
+          if (p.defaultValue != null && !required) {
             final value = p.defaultValue!.replaceAll('.', '').camelCase;
             c += "@Default(${p.ref}.$value) ";
           }

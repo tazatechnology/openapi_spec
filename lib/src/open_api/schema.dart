@@ -185,13 +185,61 @@ class Schema with _$Schema {
     if (ref == null) {
       return this;
     }
-    final sRef = components?[ref?.split('/').last];
+    var sRef = components?[ref?.split('/').last];
     if (sRef == null) {
       throw Exception(
         "\n\n'$ref' is not a valid component schema body reference\n",
       );
     }
-    return sRef.copyWith(ref: ref);
+
+    _checkReferenceTypes(ref, sRef, this);
+
+    return map(
+      object: (s) {
+        return (sRef as _SchemaObject).copyWith(
+          ref: ref,
+        );
+      },
+      boolean: (s) {
+        return (sRef as _SchemaBoolean).copyWith(
+          ref: ref,
+        );
+      },
+      string: (s) {
+        return (sRef as _SchemaString).copyWith(
+          ref: ref,
+        );
+      },
+      integer: (s) {
+        return (sRef as _SchemaInteger).copyWith(
+          ref: ref,
+        );
+      },
+      number: (s) {
+        return (sRef as _SchemaNumber).copyWith(
+          ref: ref,
+        );
+      },
+      enumeration: (s) {
+        return (sRef as _SchemaEnum).copyWith(
+          ref: ref,
+          title: s.title ?? sRef.title,
+          description: s.description ?? sRef.description,
+          defaultValue: s.defaultValue ?? sRef.defaultValue,
+          example: s.example ?? sRef.example,
+        );
+      },
+      array: (s) {
+        return (sRef as _SchemaArray).copyWith(
+          ref: ref,
+        );
+      },
+      map: (s) {
+        return (sRef as _SchemaMap).copyWith(
+          ref: ref,
+        );
+      },
+    );
   }
 
   // ------------------------------------------
