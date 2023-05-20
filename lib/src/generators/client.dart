@@ -6,9 +6,14 @@ enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 /// Enum of supported content types
 enum ContentType { json, multipart, xml }
 
+/// Enum of supported authentication types
+enum AuthType { keyQuery, keyHeader, keyCookie, openId }
+
 final keyMultipart = 'multipart/form-data';
 final keyJson = 'application/json';
 final keyXml = 'application/xml';
+
+final apiKeyVar = 'apiKey';
 
 // ==========================================
 // CLASS: ClientGenerator
@@ -46,6 +51,25 @@ class ClientGenerator extends BaseGenerator {
 
     final clientName = '${package.titleCase}Client';
 
+    // Determine which type of authentication to use
+    List<String> authInputs = [];
+    List<String> authVariables = [];
+    final globalAuth = _determineAuth(spec.security);
+    if (globalAuth != null && globalAuth.isNotEmpty) {
+      if (globalAuth.keys.contains(AuthType.keyQuery) ||
+          globalAuth.keys.contains(AuthType.keyHeader) ||
+          globalAuth.keys.contains(AuthType.keyCookie)) {
+        authInputs.add('required this.$apiKeyVar');
+        authVariables.add('final String $apiKeyVar;');
+      }
+    }
+
+    // Determine the code
+    String authInputCode = '';
+    if (authInputs.isNotEmpty) {
+      authInputCode = "${authInputs.join(',')},";
+    }
+
     // Client header
     file.writeAsStringSync("""
 ${getHeader()}
@@ -61,18 +85,27 @@ enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 /// Enum of supported content types
 enum ContentType { json, multipart, xml }
 
+/// Enum of supported authentication types
+enum AuthType { keyQuery, keyHeader, keyCookie, openId }
+
 // ==========================================
 // CLASS: $clientName
 // ==========================================
 
 /// Client for ${spec.info.title}
+/// 
+/// `host`: Override host URL - else defaults to server host defined in spec
+/// 
+/// `client`: Override HTTP client to use for requests
 class $clientName {
   $clientName({
+    $authInputCode
     String? host,
-  }){
+    http.Client? client,
+  }) {
     _host = host;
     // Create a retry client
-    _client = RetryClient(http.Client());
+    _client = RetryClient(client ?? http.Client());
   }
 
   /// User provided override for host URL
@@ -80,6 +113,16 @@ class $clientName {
 
   /// Internal HTTP client
   late final http.Client _client;
+  
+  /// Authentication related variables
+  ${authVariables.join('\n')}
+
+  // ------------------------------------------
+  // METHOD: endSession
+  // ------------------------------------------
+
+  /// Close the HTTP client and end session
+  void endSession() => _client.close();
 
   // ------------------------------------------
   // METHOD: _request
@@ -211,18 +254,58 @@ class $clientName {
             return MapEntry((param.name).toString(), param);
           }),
         );
+        // Determine the auth for this operation, else defer to global setting
+        var auth = _determineAuth(o.security) ?? globalAuth;
+
+        // Write the method
         _writeMethod(
           path: path,
           method: e.key,
           operation: e.value!,
           server: server,
           parameters: parameters.values.toList(),
+          auth: auth ?? {},
         );
       }
     }
 
     // Client footer
     file.writeAsStringSync('}\n', mode: FileMode.append);
+  }
+
+  // ------------------------------------------
+  // METHOD: _determineAuth
+  // ------------------------------------------
+
+  Map<AuthType, SecurityScheme>? _determineAuth(
+    List<Security>? security,
+  ) {
+    final schemes = spec.components?.securitySchemes;
+    if (security == null || schemes == null) {
+      return null;
+    }
+    final auth = <AuthType, SecurityScheme>{};
+    for (final s in security) {
+      if (schemes.containsKey(s.name)) {
+        final scheme = schemes[s.name];
+        scheme?.mapOrNull(
+          apiKey: (a) {
+            switch (a.location) {
+              case ApiKeyLocation.query:
+                auth[AuthType.keyQuery] = scheme;
+              case ApiKeyLocation.header:
+                auth[AuthType.keyHeader] = scheme;
+              case ApiKeyLocation.cookie:
+                auth[AuthType.keyCookie] = scheme;
+            }
+          },
+          openIdConnect: (a) {
+            auth[AuthType.openId] = scheme;
+          },
+        );
+      }
+    }
+    return auth;
   }
 
   // ------------------------------------------
@@ -235,6 +318,7 @@ class $clientName {
     required Operation operation,
     required Server? server,
     required List<Parameter> parameters,
+    required Map<AuthType, SecurityScheme> auth,
   }) {
     // Keep track of method inputs
     List<String> input = [];
@@ -251,6 +335,29 @@ class $clientName {
       methodName = operation.summary!.camelCase;
     } else if (operation.description != null) {
       methodName = operation.description!.camelCase;
+    }
+
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    // Authentication
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+    for (final a in auth.keys) {
+      final s = auth[a];
+      final name = s?.mapOrNull(
+        apiKey: (value) => value.name,
+      );
+
+      switch (a) {
+        case AuthType.keyQuery:
+          queryParams.add("'$name': $apiKeyVar");
+        case AuthType.keyHeader:
+          headerParams.add("'$name': $apiKeyVar");
+        case AuthType.keyCookie:
+        // Do something
+        case AuthType.openId:
+        // Do something
+        default:
+      }
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
