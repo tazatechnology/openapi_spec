@@ -346,7 +346,20 @@ class SchemaGenerator extends BaseGenerator {
           );
         }
 
-        if (jsonName != name) {
+        String? unknownFallback;
+        if (p.unknownValue != null) {
+          unknownFallback = '${p.ref}.${p.unknownValue?.camelCase}';
+        } else if (nullable) {
+          unknownFallback = 'JsonKey.nullForUndefinedEnumValue';
+        }
+        if (unknownFallback != null) {
+          if (jsonName != name) {
+            c +=
+                "@JsonKey(name: '$jsonName', unknownEnumValue: $unknownFallback) ";
+          } else {
+            c += "@JsonKey(unknownEnumValue: $unknownFallback) ";
+          }
+        } else if (jsonName != name) {
           c += jsonKey;
         }
 
@@ -366,6 +379,7 @@ class SchemaGenerator extends BaseGenerator {
           if (required) {
             c += "required ";
           }
+
           c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
         }
 

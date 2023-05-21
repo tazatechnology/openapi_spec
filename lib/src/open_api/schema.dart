@@ -128,6 +128,7 @@ class Schema with _$Schema {
     String? description,
     String? example,
     @JsonKey(name: 'default') String? defaultValue,
+    @JsonKey(includeToJson: false, includeFromJson: false) String? unknownValue,
     @JsonKey(name: 'enum') List<String>? values,
     @_SchemaRefConverter() String? ref,
   }) = _SchemaEnum;

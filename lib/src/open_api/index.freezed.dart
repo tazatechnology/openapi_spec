@@ -7948,6 +7948,8 @@ mixin _$Schema {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -8044,6 +8046,8 @@ mixin _$Schema {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -8140,6 +8144,8 @@ mixin _$Schema {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -8583,6 +8589,8 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -8683,6 +8691,8 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -8783,6 +8793,8 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -9145,6 +9157,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -9244,6 +9258,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -9343,6 +9359,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -9741,6 +9759,8 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -9841,6 +9861,8 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -9941,6 +9963,8 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -10361,6 +10385,8 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -10461,6 +10487,8 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -10561,6 +10589,8 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -10993,6 +11023,8 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -11093,6 +11125,8 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -11193,6 +11227,8 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -11351,6 +11387,8 @@ abstract class _$$_SchemaEnumCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? description,
       String? example,
       @JsonKey(name: 'default') String? defaultValue,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      String? unknownValue,
       @JsonKey(name: 'enum') List<String>? values,
       @_SchemaRefConverter() String? ref});
 }
@@ -11370,6 +11408,7 @@ class __$$_SchemaEnumCopyWithImpl<$Res>
     Object? description = freezed,
     Object? example = freezed,
     Object? defaultValue = freezed,
+    Object? unknownValue = freezed,
     Object? values = freezed,
     Object? ref = freezed,
   }) {
@@ -11389,6 +11428,10 @@ class __$$_SchemaEnumCopyWithImpl<$Res>
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
+              as String?,
+      unknownValue: freezed == unknownValue
+          ? _value.unknownValue
+          : unknownValue // ignore: cast_nullable_to_non_nullable
               as String?,
       values: freezed == values
           ? _value._values
@@ -11410,6 +11453,7 @@ class _$_SchemaEnum extends _SchemaEnum {
       this.description,
       this.example,
       @JsonKey(name: 'default') this.defaultValue,
+      @JsonKey(includeToJson: false, includeFromJson: false) this.unknownValue,
       @JsonKey(name: 'enum') final List<String>? values,
       @_SchemaRefConverter() this.ref,
       final String? $type})
@@ -11431,6 +11475,9 @@ class _$_SchemaEnum extends _SchemaEnum {
   @override
   @JsonKey(name: 'default')
   final String? defaultValue;
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  final String? unknownValue;
   final List<String>? _values;
   @override
   @JsonKey(name: 'enum')
@@ -11451,7 +11498,7 @@ class _$_SchemaEnum extends _SchemaEnum {
 
   @override
   String toString() {
-    return 'Schema.enumeration(title: $title, description: $description, example: $example, defaultValue: $defaultValue, values: $values, ref: $ref)';
+    return 'Schema.enumeration(title: $title, description: $description, example: $example, defaultValue: $defaultValue, unknownValue: $unknownValue, values: $values, ref: $ref)';
   }
 
   @override
@@ -11465,14 +11512,23 @@ class _$_SchemaEnum extends _SchemaEnum {
             (identical(other.example, example) || other.example == example) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.unknownValue, unknownValue) ||
+                other.unknownValue == unknownValue) &&
             const DeepCollectionEquality().equals(other._values, _values) &&
             (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, example,
-      defaultValue, const DeepCollectionEquality().hash(_values), ref);
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      description,
+      example,
+      defaultValue,
+      unknownValue,
+      const DeepCollectionEquality().hash(_values),
+      ref);
 
   @JsonKey(ignore: true)
   @override
@@ -11548,6 +11604,8 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -11576,7 +11634,8 @@ class _$_SchemaEnum extends _SchemaEnum {
             @_SchemaRefConverter() String? ref)
         map,
   }) {
-    return enumeration(title, description, example, defaultValue, values, ref);
+    return enumeration(
+        title, description, example, defaultValue, unknownValue, values, ref);
   }
 
   @override
@@ -11647,6 +11706,8 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -11676,7 +11737,7 @@ class _$_SchemaEnum extends _SchemaEnum {
         map,
   }) {
     return enumeration?.call(
-        title, description, example, defaultValue, values, ref);
+        title, description, example, defaultValue, unknownValue, values, ref);
   }
 
   @override
@@ -11747,6 +11808,8 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -11778,7 +11841,7 @@ class _$_SchemaEnum extends _SchemaEnum {
   }) {
     if (enumeration != null) {
       return enumeration(
-          title, description, example, defaultValue, values, ref);
+          title, description, example, defaultValue, unknownValue, values, ref);
     }
     return orElse();
   }
@@ -11846,6 +11909,8 @@ abstract class _SchemaEnum extends Schema {
       final String? description,
       final String? example,
       @JsonKey(name: 'default') final String? defaultValue,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      final String? unknownValue,
       @JsonKey(name: 'enum') final List<String>? values,
       @_SchemaRefConverter() final String? ref}) = _$_SchemaEnum;
   const _SchemaEnum._() : super._();
@@ -11860,6 +11925,8 @@ abstract class _SchemaEnum extends Schema {
   String? get example;
   @JsonKey(name: 'default')
   String? get defaultValue;
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  String? get unknownValue;
   @JsonKey(name: 'enum')
   List<String>? get values;
   @override
@@ -12150,6 +12217,8 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -12250,6 +12319,8 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -12350,6 +12421,8 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -12751,6 +12824,8 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)
         enumeration,
@@ -12851,6 +12926,8 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
@@ -12951,6 +13028,8 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             String? example,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(includeToJson: false, includeFromJson: false)
+            String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
             @_SchemaRefConverter() String? ref)?
         enumeration,
