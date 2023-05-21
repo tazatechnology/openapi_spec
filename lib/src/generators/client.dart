@@ -238,7 +238,7 @@ class $clientName {
         request = http.Request(method.name, uri);
         request = request as http.Request;
         try {
-          request.body = json.encode(body);
+          request.body = json.encode(body ?? {});
         } catch (e) {
           // Handle request encoding error
           throw PineconeClientException(
@@ -499,7 +499,7 @@ class $clientName {
       rSchema?.dereference(components: spec.components?.schemas);
       dType = rSchema?.toDartType();
 
-      if (dType != null) {
+      if (dType != null && request.required == true) {
         input.add('required $dType request');
       } else {
         input.add("$dType? request");
