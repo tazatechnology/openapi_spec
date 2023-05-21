@@ -9,6 +9,7 @@ pubspec.lock
 # Ignore build artifacts
 build/
 tmp/
+docs/
 
 # MacOS
 .DS_Store
