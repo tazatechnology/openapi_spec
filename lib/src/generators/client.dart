@@ -520,7 +520,12 @@ class $clientName {
         rSchema = content?[keyXml]?.schema;
       }
 
-      rSchema?.dereference(components: spec.components?.schemas);
+      // try {
+      //   rSchema?.dereference(components: spec.components?.schemas);
+      // } catch (e) {
+      //   // Skip - might need to gracefully handle this some other way
+      // }
+
       dType = rSchema?.toDartType();
 
       if (dType != null && request.required == true) {

@@ -86,14 +86,23 @@ class SchemaGenerator extends BaseGenerator {
         );
       }
 
-      schemas[s]?.mapOrNull(
-        object: (schema) {
-          _writeObject(name: name, schema: schema);
-        },
-        enumeration: (schema) {
-          _writeEnumeration(name: name, schema: schema);
-        },
-      );
+      schemas[s]?.mapOrNull(object: (schema) {
+        _writeObject(name: name, schema: schema);
+      }, enumeration: (schema) {
+        _writeEnumeration(name: name, schema: schema);
+      }, array: (schema) {
+        final iType = schema.items.ref ?? 'dynamic';
+        file.writeAsStringSync(
+          'typedef $name = List<$iType>;',
+          mode: FileMode.append,
+        );
+      }, map: (schema) {
+        final vType = schema.valueSchema?.ref ?? 'dynamic';
+        file.writeAsStringSync(
+          'typedef $name = Map<String,$vType>;',
+          mode: FileMode.append,
+        );
+      });
     }
   }
 
