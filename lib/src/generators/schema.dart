@@ -10,6 +10,7 @@ class SchemaGenerator extends BaseGenerator {
     required super.destination,
     required super.package,
     required this.separate,
+    this.onSchemaName,
   }) {
     schemaDirectory = Directory(p.join(parentDirectory.path, 'schema'));
     file = File(p.join(schemaDirectory.path, 'schema.dart'));
@@ -19,6 +20,7 @@ class SchemaGenerator extends BaseGenerator {
   late final File index;
   late final Directory schemaDirectory;
   final bool separate;
+  final String? Function(String)? onSchemaName;
 
   // ------------------------------------------
   // METHOD: generate
@@ -71,7 +73,17 @@ class SchemaGenerator extends BaseGenerator {
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
       final filename = s.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
-      final name = s.pascalCase;
+      String name = s.pascalCase;
+
+      if (onSchemaName != null) {
+        final userSchemaName = onSchemaName!(name);
+        if (userSchemaName == null) {
+          // Indicates a user request to skip this schema
+          continue;
+        } else {
+          name = userSchemaName;
+        }
+      }
 
       if (separate) {
         file = File(p.join(schemaDirectory.path, '$filename.dart'));
