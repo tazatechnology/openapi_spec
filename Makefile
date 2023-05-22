@@ -28,6 +28,7 @@ example:
 
 test: 
 	@dart pub get && \
+	rm -rf test/tmp && \
 	dart format \
 		--set-exit-if-changed lib && \
 	dart analyze lib \

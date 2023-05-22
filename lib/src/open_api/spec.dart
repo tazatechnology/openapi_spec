@@ -343,6 +343,12 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
     }
   }
 
+  // Handle all of
+  if (m.containsKey('allOf')) {
+    // Generated in the from json parsing, not required
+    m.remove('\$ref');
+  }
+
   // Only a reference, no need for object annotation
   if (m.containsKey('\$ref') &&
       m.containsKey('type') &&
@@ -435,6 +441,17 @@ Map<String, dynamic> _formatSpecFromJson(
     'clientCredentials',
     'authorizationCode'
   ];
+
+  // Handle allOf
+  if (m.containsKey('allOf')) {
+    var s = _SchemaConverter().fromJson(m).mapOrNull(object: (s) {
+      return s.copyWith(ref: s.allOf?.firstOrNull?.ref);
+    });
+    if (s != null) {
+      m.clear();
+      m.addAll(s.toJson());
+    }
+  }
 
   // Return a parsable reference object
   if (m.containsKey('\$ref')) {

@@ -120,6 +120,7 @@ class SchemaGenerator extends BaseGenerator {
       
       const $name._();
 
+      /// Factory constructor for $name
       const factory $name (
     """, mode: FileMode.append);
 
@@ -356,7 +357,7 @@ class SchemaGenerator extends BaseGenerator {
         if (unknownFallback != null) {
           if (jsonName != name) {
             c +=
-                "@JsonKey(name: '$jsonName', unknownEnumValue: $unknownFallback) ";
+                "@JsonKey(name: '$jsonName', unknownEnumValue: $unknownFallback,) ";
           } else {
             c += "@JsonKey(unknownEnumValue: $unknownFallback) ";
           }
