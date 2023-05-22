@@ -186,10 +186,7 @@ class SchemaGenerator extends BaseGenerator {
 
     final jsonKey = "@JsonKey(name: '$jsonName') ";
 
-    (String, bool) propHeader(
-      dynamic defaultValue,
-      String? description,
-    ) {
+    (String, bool) propHeader(dynamic defaultValue, String? description) {
       bool hasDefault = defaultValue != null;
       bool nullable = !hasDefault && !required;
       String c = "/// ${description ?? 'No Description'} \n";
@@ -197,7 +194,11 @@ class SchemaGenerator extends BaseGenerator {
         c += jsonKey;
       }
       if (hasDefault) {
-        c += "@Default($defaultValue) ";
+        if (defaultValue is String) {
+          c += "@Default('$defaultValue') ";
+        } else {
+          c += "@Default($defaultValue) ";
+        }
       }
       if (required) {
         c += "required ";
@@ -365,7 +366,7 @@ class SchemaGenerator extends BaseGenerator {
 
         if (p.ref == null) {
           if (p.defaultValue != null && !required) {
-            c += "@Default(${p.defaultValue}) ";
+            c += "@Default('${p.defaultValue}') ";
           }
           if (required) {
             c += "required ";

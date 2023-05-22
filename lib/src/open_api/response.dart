@@ -31,7 +31,7 @@ class Response with _$Response {
     Map<String, Link>? links,
 
     /// Reference to a response defined in [Components.responses]
-    @_ResponseRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_ResponseRefConverter() String? ref,
   }) = _Response;
 
   // ------------------------------------------

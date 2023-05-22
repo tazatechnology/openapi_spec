@@ -26,7 +26,7 @@ class Parameter with _$Parameter {
     bool? allowReserved,
     String? example,
     Schema? schema,
-    @_ParamRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = _ParameterCookie;
 
   // ------------------------------------------
@@ -46,7 +46,7 @@ class Parameter with _$Parameter {
     bool? allowReserved,
     String? example,
     Schema? schema,
-    @_ParamRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = _ParameterHeader;
 
   // ------------------------------------------
@@ -66,7 +66,7 @@ class Parameter with _$Parameter {
     bool? allowReserved,
     String? example,
     Schema? schema,
-    @_ParamRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = _ParameterQuery;
 
   // ------------------------------------------
@@ -85,7 +85,7 @@ class Parameter with _$Parameter {
     bool? allowReserved,
     String? example,
     Schema? schema,
-    @_ParamRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = _ParameterPath;
 
   // ------------------------------------------

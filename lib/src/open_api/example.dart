@@ -27,7 +27,7 @@ class Example with _$Example {
     String? externalValue,
 
     /// Reference to a response defined in [Components.examples]
-    @_ExampleRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_ExampleRefConverter() String? ref,
   }) = ExampleObject;
 
   factory Example.fromJson(Map<String, dynamic> json) =>

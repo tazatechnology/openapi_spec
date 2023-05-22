@@ -24,7 +24,7 @@ class RequestBody with _$RequestBody {
     Map<String, MediaType>? content,
 
     /// Reference to a response defined in [Components.requestBodies]
-    @_RequestRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_RequestRefConverter() String? ref,
   }) = _RequestBody;
 
   // ------------------------------------------

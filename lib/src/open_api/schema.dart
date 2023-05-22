@@ -21,10 +21,10 @@ class Schema with _$Schema {
     String? description,
 
     /// Reference to a schema definition
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
 
-    ///
-    List<Schema>? allOf,
+    /// The allOf definition
+    @_SchemaListConverter() List<Schema>? allOf,
 
     /// The required properties of the schema
     List<String>? required,
@@ -57,7 +57,7 @@ class Schema with _$Schema {
     String? description,
     @JsonKey(name: 'default') bool? defaultValue,
     bool? example,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaBoolean;
 
   // ------------------------------------------
@@ -75,7 +75,7 @@ class Schema with _$Schema {
     int? maxLength,
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaString;
 
   // ------------------------------------------
@@ -95,7 +95,7 @@ class Schema with _$Schema {
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
     int? multipleOf,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaInteger;
 
   // ------------------------------------------
@@ -115,7 +115,7 @@ class Schema with _$Schema {
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
     double? multipleOf,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaNumber;
 
   // ------------------------------------------
@@ -130,7 +130,7 @@ class Schema with _$Schema {
     @JsonKey(name: 'default') String? defaultValue,
     @JsonKey(includeToJson: false, includeFromJson: false) String? unknownValue,
     @JsonKey(name: 'enum') List<String>? values,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaEnum;
 
   // ------------------------------------------
@@ -147,7 +147,7 @@ class Schema with _$Schema {
     int? minItems,
     int? maxItems,
     required Schema items,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaArray;
 
   // ------------------------------------------
@@ -166,7 +166,7 @@ class Schema with _$Schema {
         toJson: _toMapProps,
         fromJson: _fromMapProps)
     Schema? valueSchema,
-    @_SchemaRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaMap;
 
   // ------------------------------------------
@@ -280,6 +280,19 @@ class Schema with _$Schema {
   }
 }
 
+/// additionalProperties can be a schema or boolean, need to serialize separately
+dynamic _toMapProps(Schema? props) {
+  return props == null ? true : props.toJson();
+}
+
+Schema? _fromMapProps(dynamic props) {
+  return props is Map<String, dynamic> ? Schema.fromJson(props) : null;
+}
+
+// ==========================================
+// CLASS: SchemaRefConverter
+// ==========================================
+
 /// Custom converter to handle schema references
 class _SchemaRefConverter implements JsonConverter<String?, String?> {
   const _SchemaRefConverter();
@@ -299,11 +312,75 @@ class _SchemaRefConverter implements JsonConverter<String?, String?> {
   }
 }
 
-/// additionalProperties can be a schema or boolean, need to serialize separately
-dynamic _toMapProps(Schema? props) {
-  return props == null ? true : props.toJson();
+// ==========================================
+// CLASS: SchemaConverter
+// ==========================================
+
+/// Custom converter to handle schema references
+class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
+  const _SchemaConverter();
+
+  @override
+  Map<String, dynamic> toJson(Schema s) {
+    return s.toJson();
+  }
+
+  @override
+  Schema fromJson(Map<String, dynamic> json) {
+    if (json.containsKey('enum') && json['enum'].isNotEmpty) {
+      return _SchemaEnum.fromJson(json);
+    } else {
+      return Schema.fromJson(json);
+    }
+  }
 }
 
-Schema? _fromMapProps(dynamic props) {
-  return props is Map<String, dynamic> ? Schema.fromJson(props) : null;
+// ==========================================
+// CLASS: SchemaMapConverter
+// ==========================================
+
+/// Custom converter to handle dynamic key names
+class _SchemaMapConverter
+    implements JsonConverter<Map<String, Schema>, Map<String, dynamic>> {
+  const _SchemaMapConverter();
+
+  @override
+  Map<String, Schema> fromJson(Map<String, dynamic> json) {
+    Map<String, Schema> out = {};
+    for (final key in json.keys) {
+      out[key] = _SchemaConverter().fromJson(json[key]);
+    }
+    return out;
+  }
+
+  @override
+  Map<String, dynamic> toJson(Map<String, Schema> data) {
+    Map<String, dynamic> out = {};
+    for (final k in data.keys) {
+      out[k] = _SchemaConverter().toJson(data[k]!);
+    }
+    return out;
+  }
+}
+
+// ==========================================
+// CLASS: SchemaListConverter
+// ==========================================
+
+/// Custom converter to handle dynamic key names
+class _SchemaListConverter
+    implements JsonConverter<List<Schema>, List<dynamic>> {
+  const _SchemaListConverter();
+
+  @override
+  List<Schema> fromJson(List<dynamic> json) {
+    return json
+        .map((e) => _SchemaConverter().fromJson(Map<String, dynamic>.from(e)))
+        .toList();
+  }
+
+  @override
+  List<Map<String, dynamic>> toJson(List<Schema> data) {
+    return data.map((e) => _SchemaConverter().toJson(e)).toList();
+  }
 }

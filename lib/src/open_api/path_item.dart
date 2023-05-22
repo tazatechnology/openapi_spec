@@ -54,7 +54,7 @@ class PathItem with _$PathItem {
     List<Parameter>? parameters,
 
     /// Reference to a response defined in [Components.pathItems]
-    @_PathRefConverter() String? ref,
+    @JsonKey(name: '\$ref') @_PathRefConverter() String? ref,
   }) = _PathItem;
 
   factory PathItem.fromJson(Map<String, dynamic> json) =>

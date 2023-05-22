@@ -1526,6 +1526,7 @@ Components _$ComponentsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Components {
   /// A set of reusable [Schema] objects.
+  @_SchemaMapConverter()
   Map<String, Schema>? get schemas => throw _privateConstructorUsedError;
 
   /// A set of reusable [Response] objects.
@@ -1571,7 +1572,7 @@ abstract class $ComponentsCopyWith<$Res> {
       _$ComponentsCopyWithImpl<$Res, Components>;
   @useResult
   $Res call(
-      {Map<String, Schema>? schemas,
+      {@_SchemaMapConverter() Map<String, Schema>? schemas,
       Map<String, Response>? responses,
       Map<String, Parameter>? parameters,
       Map<String, Example>? examples,
@@ -1661,7 +1662,7 @@ abstract class _$$_ComponentsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<String, Schema>? schemas,
+      {@_SchemaMapConverter() Map<String, Schema>? schemas,
       Map<String, Response>? responses,
       Map<String, Parameter>? parameters,
       Map<String, Example>? examples,
@@ -1744,7 +1745,7 @@ class __$$_ComponentsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Components implements _Components {
   const _$_Components(
-      {final Map<String, Schema>? schemas,
+      {@_SchemaMapConverter() final Map<String, Schema>? schemas,
       final Map<String, Response>? responses,
       final Map<String, Parameter>? parameters,
       final Map<String, Example>? examples,
@@ -1773,6 +1774,7 @@ class _$_Components implements _Components {
 
   /// A set of reusable [Schema] objects.
   @override
+  @_SchemaMapConverter()
   Map<String, Schema>? get schemas {
     final value = _schemas;
     if (value == null) return null;
@@ -1958,7 +1960,7 @@ class _$_Components implements _Components {
 
 abstract class _Components implements Components {
   const factory _Components(
-      {final Map<String, Schema>? schemas,
+      {@_SchemaMapConverter() final Map<String, Schema>? schemas,
       final Map<String, Response>? responses,
       final Map<String, Parameter>? parameters,
       final Map<String, Example>? examples,
@@ -1975,6 +1977,7 @@ abstract class _Components implements Components {
   @override
 
   /// A set of reusable [Schema] objects.
+  @_SchemaMapConverter()
   Map<String, Schema>? get schemas;
   @override
 
@@ -2541,6 +2544,7 @@ mixin _$Example {
   String? get externalValue => throw _privateConstructorUsedError;
 
   /// Reference to a response defined in [Components.examples]
+  @JsonKey(name: '\$ref')
   @_ExampleRefConverter()
   String? get ref => throw _privateConstructorUsedError;
 
@@ -2559,7 +2563,7 @@ abstract class $ExampleCopyWith<$Res> {
       String? description,
       dynamic value,
       String? externalValue,
-      @_ExampleRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ExampleRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -2619,7 +2623,7 @@ abstract class _$$ExampleObjectCopyWith<$Res>
       String? description,
       dynamic value,
       String? externalValue,
-      @_ExampleRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ExampleRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -2672,7 +2676,7 @@ class _$ExampleObject extends ExampleObject {
       this.description,
       this.value,
       this.externalValue,
-      @_ExampleRefConverter() this.ref})
+      @JsonKey(name: '\$ref') @_ExampleRefConverter() this.ref})
       : super._();
 
   factory _$ExampleObject.fromJson(Map<String, dynamic> json) =>
@@ -2696,6 +2700,7 @@ class _$ExampleObject extends ExampleObject {
 
   /// Reference to a response defined in [Components.examples]
   @override
+  @JsonKey(name: '\$ref')
   @_ExampleRefConverter()
   final String? ref;
 
@@ -2739,11 +2744,12 @@ class _$ExampleObject extends ExampleObject {
 
 abstract class ExampleObject extends Example {
   const factory ExampleObject(
-      {final String? summary,
-      final String? description,
-      final dynamic value,
-      final String? externalValue,
-      @_ExampleRefConverter() final String? ref}) = _$ExampleObject;
+          {final String? summary,
+          final String? description,
+          final dynamic value,
+          final String? externalValue,
+          @JsonKey(name: '\$ref') @_ExampleRefConverter() final String? ref}) =
+      _$ExampleObject;
   const ExampleObject._() : super._();
 
   factory ExampleObject.fromJson(Map<String, dynamic> json) =
@@ -2768,6 +2774,7 @@ abstract class ExampleObject extends Example {
   @override
 
   /// Reference to a response defined in [Components.examples]
+  @JsonKey(name: '\$ref')
   @_ExampleRefConverter()
   String? get ref;
   @override
@@ -3640,6 +3647,8 @@ Link _$LinkFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Link {
   /// A relative or absolute URI reference to an OAS operation.
+  @JsonKey(name: '\$ref')
+  @_LinkRefConverter()
   String? get ref => throw _privateConstructorUsedError;
 
   /// The name of an existing, resolvable OAS operation,
@@ -3661,7 +3670,9 @@ abstract class $LinkCopyWith<$Res> {
       _$LinkCopyWithImpl<$Res, Link>;
   @useResult
   $Res call(
-      {String? ref, String? operationId, Map<String, String>? parameters});
+      {@JsonKey(name: '\$ref') @_LinkRefConverter() String? ref,
+      String? operationId,
+      Map<String, String>? parameters});
 }
 
 /// @nodoc
@@ -3705,7 +3716,9 @@ abstract class _$$_LinkCopyWith<$Res> implements $LinkCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? ref, String? operationId, Map<String, String>? parameters});
+      {@JsonKey(name: '\$ref') @_LinkRefConverter() String? ref,
+      String? operationId,
+      Map<String, String>? parameters});
 }
 
 /// @nodoc
@@ -3742,13 +3755,17 @@ class __$$_LinkCopyWithImpl<$Res> extends _$LinkCopyWithImpl<$Res, _$_Link>
 @JsonSerializable()
 class _$_Link implements _Link {
   const _$_Link(
-      {this.ref, this.operationId, final Map<String, String>? parameters})
+      {@JsonKey(name: '\$ref') @_LinkRefConverter() this.ref,
+      this.operationId,
+      final Map<String, String>? parameters})
       : _parameters = parameters;
 
   factory _$_Link.fromJson(Map<String, dynamic> json) => _$$_LinkFromJson(json);
 
   /// A relative or absolute URI reference to an OAS operation.
   @override
+  @JsonKey(name: '\$ref')
+  @_LinkRefConverter()
   final String? ref;
 
   /// The name of an existing, resolvable OAS operation,
@@ -3809,7 +3826,7 @@ class _$_Link implements _Link {
 
 abstract class _Link implements Link {
   const factory _Link(
-      {final String? ref,
+      {@JsonKey(name: '\$ref') @_LinkRefConverter() final String? ref,
       final String? operationId,
       final Map<String, String>? parameters}) = _$_Link;
 
@@ -3818,6 +3835,8 @@ abstract class _Link implements Link {
   @override
 
   /// A relative or absolute URI reference to an OAS operation.
+  @JsonKey(name: '\$ref')
+  @_LinkRefConverter()
   String? get ref;
   @override
 
@@ -4691,6 +4710,7 @@ mixin _$Parameter {
   bool? get allowReserved => throw _privateConstructorUsedError;
   String? get example => throw _privateConstructorUsedError;
   Schema? get schema => throw _privateConstructorUsedError;
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4705,7 +4725,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         cookie,
     required TResult Function(
             String? name,
@@ -4717,7 +4737,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         header,
     required TResult Function(
             String? name,
@@ -4729,7 +4749,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         query,
     required TResult Function(
             String? name,
@@ -4740,7 +4760,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         path,
   }) =>
       throw _privateConstructorUsedError;
@@ -4756,7 +4776,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult? Function(
             String? name,
@@ -4768,7 +4788,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult? Function(
             String? name,
@@ -4780,7 +4800,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult? Function(
             String? name,
@@ -4791,7 +4811,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
   }) =>
       throw _privateConstructorUsedError;
@@ -4807,7 +4827,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult Function(
             String? name,
@@ -4819,7 +4839,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult Function(
             String? name,
@@ -4831,7 +4851,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult Function(
             String? name,
@@ -4842,7 +4862,7 @@ mixin _$Parameter {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
     required TResult orElse(),
   }) =>
@@ -4892,7 +4912,7 @@ abstract class $ParameterCopyWith<$Res> {
       bool? allowReserved,
       String? example,
       Schema? schema,
-      @_ParamRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   $SchemaCopyWith<$Res>? get schema;
 }
@@ -4991,7 +5011,7 @@ abstract class _$$_ParameterCookieCopyWith<$Res>
       bool? allowReserved,
       String? example,
       Schema? schema,
-      @_ParamRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
   $SchemaCopyWith<$Res>? get schema;
@@ -5077,7 +5097,7 @@ class _$_ParameterCookie extends _ParameterCookie {
       this.allowReserved,
       this.example,
       this.schema,
-      @_ParamRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
             'Must provide either name or ref'),
@@ -5108,6 +5128,7 @@ class _$_ParameterCookie extends _ParameterCookie {
   @override
   final Schema? schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   final String? ref;
 
@@ -5164,7 +5185,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         cookie,
     required TResult Function(
             String? name,
@@ -5176,7 +5197,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         header,
     required TResult Function(
             String? name,
@@ -5188,7 +5209,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         query,
     required TResult Function(
             String? name,
@@ -5199,7 +5220,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         path,
   }) {
     return cookie(name, description, required, deprecated, style, explode,
@@ -5219,7 +5240,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult? Function(
             String? name,
@@ -5231,7 +5252,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult? Function(
             String? name,
@@ -5243,7 +5264,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult? Function(
             String? name,
@@ -5254,7 +5275,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
   }) {
     return cookie?.call(name, description, required, deprecated, style, explode,
@@ -5274,7 +5295,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult Function(
             String? name,
@@ -5286,7 +5307,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult Function(
             String? name,
@@ -5298,7 +5319,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult Function(
             String? name,
@@ -5309,7 +5330,7 @@ class _$_ParameterCookie extends _ParameterCookie {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
     required TResult orElse(),
   }) {
@@ -5367,16 +5388,17 @@ class _$_ParameterCookie extends _ParameterCookie {
 
 abstract class _ParameterCookie extends Parameter {
   const factory _ParameterCookie(
-      {final String? name,
-      final String? description,
-      final bool? required,
-      final bool? deprecated,
-      final String? style,
-      final bool? explode,
-      final bool? allowReserved,
-      final String? example,
-      final Schema? schema,
-      @_ParamRefConverter() final String? ref}) = _$_ParameterCookie;
+          {final String? name,
+          final String? description,
+          final bool? required,
+          final bool? deprecated,
+          final String? style,
+          final bool? explode,
+          final bool? allowReserved,
+          final String? example,
+          final Schema? schema,
+          @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
+      _$_ParameterCookie;
   const _ParameterCookie._() : super._();
 
   factory _ParameterCookie.fromJson(Map<String, dynamic> json) =
@@ -5400,6 +5422,7 @@ abstract class _ParameterCookie extends Parameter {
   @override
   Schema? get schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref;
   @override
@@ -5426,7 +5449,7 @@ abstract class _$$_ParameterHeaderCopyWith<$Res>
       bool? allowReserved,
       String? example,
       Schema? schema,
-      @_ParamRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
   $SchemaCopyWith<$Res>? get schema;
@@ -5512,7 +5535,7 @@ class _$_ParameterHeader extends _ParameterHeader {
       this.allowReserved,
       this.example,
       this.schema,
-      @_ParamRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
             'Must provide either name or ref'),
@@ -5543,6 +5566,7 @@ class _$_ParameterHeader extends _ParameterHeader {
   @override
   final Schema? schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   final String? ref;
 
@@ -5599,7 +5623,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         cookie,
     required TResult Function(
             String? name,
@@ -5611,7 +5635,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         header,
     required TResult Function(
             String? name,
@@ -5623,7 +5647,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         query,
     required TResult Function(
             String? name,
@@ -5634,7 +5658,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         path,
   }) {
     return header(name, description, required, deprecated, style, explode,
@@ -5654,7 +5678,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult? Function(
             String? name,
@@ -5666,7 +5690,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult? Function(
             String? name,
@@ -5678,7 +5702,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult? Function(
             String? name,
@@ -5689,7 +5713,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
   }) {
     return header?.call(name, description, required, deprecated, style, explode,
@@ -5709,7 +5733,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult Function(
             String? name,
@@ -5721,7 +5745,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult Function(
             String? name,
@@ -5733,7 +5757,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult Function(
             String? name,
@@ -5744,7 +5768,7 @@ class _$_ParameterHeader extends _ParameterHeader {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
     required TResult orElse(),
   }) {
@@ -5802,16 +5826,17 @@ class _$_ParameterHeader extends _ParameterHeader {
 
 abstract class _ParameterHeader extends Parameter {
   const factory _ParameterHeader(
-      {final String? name,
-      final String? description,
-      final bool? required,
-      final bool? deprecated,
-      final String? style,
-      final bool? explode,
-      final bool? allowReserved,
-      final String? example,
-      final Schema? schema,
-      @_ParamRefConverter() final String? ref}) = _$_ParameterHeader;
+          {final String? name,
+          final String? description,
+          final bool? required,
+          final bool? deprecated,
+          final String? style,
+          final bool? explode,
+          final bool? allowReserved,
+          final String? example,
+          final Schema? schema,
+          @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
+      _$_ParameterHeader;
   const _ParameterHeader._() : super._();
 
   factory _ParameterHeader.fromJson(Map<String, dynamic> json) =
@@ -5835,6 +5860,7 @@ abstract class _ParameterHeader extends Parameter {
   @override
   Schema? get schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref;
   @override
@@ -5861,7 +5887,7 @@ abstract class _$$_ParameterQueryCopyWith<$Res>
       bool? allowReserved,
       String? example,
       Schema? schema,
-      @_ParamRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
   $SchemaCopyWith<$Res>? get schema;
@@ -5947,7 +5973,7 @@ class _$_ParameterQuery extends _ParameterQuery {
       this.allowReserved,
       this.example,
       this.schema,
-      @_ParamRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
             'Must provide either name or ref'),
@@ -5978,6 +6004,7 @@ class _$_ParameterQuery extends _ParameterQuery {
   @override
   final Schema? schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   final String? ref;
 
@@ -6034,7 +6061,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         cookie,
     required TResult Function(
             String? name,
@@ -6046,7 +6073,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         header,
     required TResult Function(
             String? name,
@@ -6058,7 +6085,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         query,
     required TResult Function(
             String? name,
@@ -6069,7 +6096,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         path,
   }) {
     return query(name, description, required, deprecated, style, explode,
@@ -6089,7 +6116,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult? Function(
             String? name,
@@ -6101,7 +6128,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult? Function(
             String? name,
@@ -6113,7 +6140,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult? Function(
             String? name,
@@ -6124,7 +6151,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
   }) {
     return query?.call(name, description, required, deprecated, style, explode,
@@ -6144,7 +6171,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult Function(
             String? name,
@@ -6156,7 +6183,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult Function(
             String? name,
@@ -6168,7 +6195,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult Function(
             String? name,
@@ -6179,7 +6206,7 @@ class _$_ParameterQuery extends _ParameterQuery {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
     required TResult orElse(),
   }) {
@@ -6237,16 +6264,17 @@ class _$_ParameterQuery extends _ParameterQuery {
 
 abstract class _ParameterQuery extends Parameter {
   const factory _ParameterQuery(
-      {final String? name,
-      final String? description,
-      final bool? required,
-      final bool? deprecated,
-      final String? style,
-      final bool? explode,
-      final bool? allowReserved,
-      final String? example,
-      final Schema? schema,
-      @_ParamRefConverter() final String? ref}) = _$_ParameterQuery;
+          {final String? name,
+          final String? description,
+          final bool? required,
+          final bool? deprecated,
+          final String? style,
+          final bool? explode,
+          final bool? allowReserved,
+          final String? example,
+          final Schema? schema,
+          @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
+      _$_ParameterQuery;
   const _ParameterQuery._() : super._();
 
   factory _ParameterQuery.fromJson(Map<String, dynamic> json) =
@@ -6270,6 +6298,7 @@ abstract class _ParameterQuery extends Parameter {
   @override
   Schema? get schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref;
   @override
@@ -6295,7 +6324,7 @@ abstract class _$$_ParameterPathCopyWith<$Res>
       bool? allowReserved,
       String? example,
       Schema? schema,
-      @_ParamRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
   $SchemaCopyWith<$Res>? get schema;
@@ -6375,7 +6404,7 @@ class _$_ParameterPath extends _ParameterPath {
       this.allowReserved,
       this.example,
       this.schema,
-      @_ParamRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
             'Must provide either name or ref'),
@@ -6404,6 +6433,7 @@ class _$_ParameterPath extends _ParameterPath {
   @override
   final Schema? schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   final String? ref;
 
@@ -6458,7 +6488,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         cookie,
     required TResult Function(
             String? name,
@@ -6470,7 +6500,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         header,
     required TResult Function(
             String? name,
@@ -6482,7 +6512,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         query,
     required TResult Function(
             String? name,
@@ -6493,7 +6523,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)
         path,
   }) {
     return path(name, description, deprecated, style, explode, allowReserved,
@@ -6513,7 +6543,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult? Function(
             String? name,
@@ -6525,7 +6555,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult? Function(
             String? name,
@@ -6537,7 +6567,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult? Function(
             String? name,
@@ -6548,7 +6578,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
   }) {
     return path?.call(name, description, deprecated, style, explode,
@@ -6568,7 +6598,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         cookie,
     TResult Function(
             String? name,
@@ -6580,7 +6610,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         header,
     TResult Function(
             String? name,
@@ -6592,7 +6622,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         query,
     TResult Function(
             String? name,
@@ -6603,7 +6633,7 @@ class _$_ParameterPath extends _ParameterPath {
             bool? allowReserved,
             String? example,
             Schema? schema,
-            @_ParamRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref)?
         path,
     required TResult orElse(),
   }) {
@@ -6661,15 +6691,16 @@ class _$_ParameterPath extends _ParameterPath {
 
 abstract class _ParameterPath extends Parameter {
   const factory _ParameterPath(
-      {final String? name,
-      final String? description,
-      final bool? deprecated,
-      final String? style,
-      final bool? explode,
-      final bool? allowReserved,
-      final String? example,
-      final Schema? schema,
-      @_ParamRefConverter() final String? ref}) = _$_ParameterPath;
+          {final String? name,
+          final String? description,
+          final bool? deprecated,
+          final String? style,
+          final bool? explode,
+          final bool? allowReserved,
+          final String? example,
+          final Schema? schema,
+          @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
+      _$_ParameterPath;
   const _ParameterPath._() : super._();
 
   factory _ParameterPath.fromJson(Map<String, dynamic> json) =
@@ -6692,6 +6723,7 @@ abstract class _ParameterPath extends Parameter {
   @override
   Schema? get schema;
   @override
+  @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref;
   @override
@@ -6744,6 +6776,7 @@ mixin _$PathItem {
   List<Parameter>? get parameters => throw _privateConstructorUsedError;
 
   /// Reference to a response defined in [Components.pathItems]
+  @JsonKey(name: '\$ref')
   @_PathRefConverter()
   String? get ref => throw _privateConstructorUsedError;
 
@@ -6771,7 +6804,7 @@ abstract class $PathItemCopyWith<$Res> {
       Operation? trace,
       List<Server>? servers,
       List<Parameter>? parameters,
-      @_PathRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_PathRefConverter() String? ref});
 
   $OperationCopyWith<$Res>? get get;
   $OperationCopyWith<$Res>? get put;
@@ -6983,7 +7016,7 @@ abstract class _$$_PathItemCopyWith<$Res> implements $PathItemCopyWith<$Res> {
       Operation? trace,
       List<Server>? servers,
       List<Parameter>? parameters,
-      @_PathRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_PathRefConverter() String? ref});
 
   @override
   $OperationCopyWith<$Res>? get get;
@@ -7101,7 +7134,7 @@ class _$_PathItem extends _PathItem {
       this.trace,
       final List<Server>? servers,
       final List<Parameter>? parameters,
-      @_PathRefConverter() this.ref})
+      @JsonKey(name: '\$ref') @_PathRefConverter() this.ref})
       : _servers = servers,
         _parameters = parameters,
         super._();
@@ -7179,6 +7212,7 @@ class _$_PathItem extends _PathItem {
 
   /// Reference to a response defined in [Components.pathItems]
   @override
+  @JsonKey(name: '\$ref')
   @_PathRefConverter()
   final String? ref;
 
@@ -7243,19 +7277,20 @@ class _$_PathItem extends _PathItem {
 
 abstract class _PathItem extends PathItem {
   const factory _PathItem(
-      {final String? summary,
-      final String? description,
-      final Operation? get,
-      final Operation? put,
-      final Operation? post,
-      final Operation? delete,
-      final Operation? options,
-      final Operation? head,
-      final Operation? patch,
-      final Operation? trace,
-      final List<Server>? servers,
-      final List<Parameter>? parameters,
-      @_PathRefConverter() final String? ref}) = _$_PathItem;
+          {final String? summary,
+          final String? description,
+          final Operation? get,
+          final Operation? put,
+          final Operation? post,
+          final Operation? delete,
+          final Operation? options,
+          final Operation? head,
+          final Operation? patch,
+          final Operation? trace,
+          final List<Server>? servers,
+          final List<Parameter>? parameters,
+          @JsonKey(name: '\$ref') @_PathRefConverter() final String? ref}) =
+      _$_PathItem;
   const _PathItem._() : super._();
 
   factory _PathItem.fromJson(Map<String, dynamic> json) = _$_PathItem.fromJson;
@@ -7312,6 +7347,7 @@ abstract class _PathItem extends PathItem {
   @override
 
   /// Reference to a response defined in [Components.pathItems]
+  @JsonKey(name: '\$ref')
   @_PathRefConverter()
   String? get ref;
   @override
@@ -7336,6 +7372,7 @@ mixin _$RequestBody {
   Map<String, MediaType>? get content => throw _privateConstructorUsedError;
 
   /// Reference to a response defined in [Components.requestBodies]
+  @JsonKey(name: '\$ref')
   @_RequestRefConverter()
   String? get ref => throw _privateConstructorUsedError;
 
@@ -7355,7 +7392,7 @@ abstract class $RequestBodyCopyWith<$Res> {
       {String? description,
       bool? required,
       Map<String, MediaType>? content,
-      @_RequestRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_RequestRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -7409,7 +7446,7 @@ abstract class _$$_RequestBodyCopyWith<$Res>
       {String? description,
       bool? required,
       Map<String, MediaType>? content,
-      @_RequestRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_RequestRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -7456,7 +7493,7 @@ class _$_RequestBody extends _RequestBody {
       {this.description,
       this.required,
       final Map<String, MediaType>? content,
-      @_RequestRefConverter() this.ref})
+      @JsonKey(name: '\$ref') @_RequestRefConverter() this.ref})
       : _content = content,
         super._();
 
@@ -7486,6 +7523,7 @@ class _$_RequestBody extends _RequestBody {
 
   /// Reference to a response defined in [Components.requestBodies]
   @override
+  @JsonKey(name: '\$ref')
   @_RequestRefConverter()
   final String? ref;
 
@@ -7528,10 +7566,11 @@ class _$_RequestBody extends _RequestBody {
 
 abstract class _RequestBody extends RequestBody {
   const factory _RequestBody(
-      {final String? description,
-      final bool? required,
-      final Map<String, MediaType>? content,
-      @_RequestRefConverter() final String? ref}) = _$_RequestBody;
+          {final String? description,
+          final bool? required,
+          final Map<String, MediaType>? content,
+          @JsonKey(name: '\$ref') @_RequestRefConverter() final String? ref}) =
+      _$_RequestBody;
   const _RequestBody._() : super._();
 
   factory _RequestBody.fromJson(Map<String, dynamic> json) =
@@ -7552,6 +7591,7 @@ abstract class _RequestBody extends RequestBody {
   @override
 
   /// Reference to a response defined in [Components.requestBodies]
+  @JsonKey(name: '\$ref')
   @_RequestRefConverter()
   String? get ref;
   @override
@@ -7579,6 +7619,7 @@ mixin _$Response {
   Map<String, Link>? get links => throw _privateConstructorUsedError;
 
   /// Reference to a response defined in [Components.responses]
+  @JsonKey(name: '\$ref')
   @_ResponseRefConverter()
   String? get ref => throw _privateConstructorUsedError;
 
@@ -7598,7 +7639,7 @@ abstract class $ResponseCopyWith<$Res> {
       Map<String, Header>? headers,
       Map<String, MediaType>? content,
       Map<String, Link>? links,
-      @_ResponseRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ResponseRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -7657,7 +7698,7 @@ abstract class _$$_ResponseCopyWith<$Res> implements $ResponseCopyWith<$Res> {
       Map<String, Header>? headers,
       Map<String, MediaType>? content,
       Map<String, Link>? links,
-      @_ResponseRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_ResponseRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -7710,7 +7751,7 @@ class _$_Response extends _Response {
       final Map<String, Header>? headers,
       final Map<String, MediaType>? content,
       final Map<String, Link>? links,
-      @_ResponseRefConverter() this.ref})
+      @JsonKey(name: '\$ref') @_ResponseRefConverter() this.ref})
       : _headers = headers,
         _content = content,
         _links = links,
@@ -7765,6 +7806,7 @@ class _$_Response extends _Response {
 
   /// Reference to a response defined in [Components.responses]
   @override
+  @JsonKey(name: '\$ref')
   @_ResponseRefConverter()
   final String? ref;
 
@@ -7812,11 +7854,12 @@ class _$_Response extends _Response {
 
 abstract class _Response extends Response {
   const factory _Response(
-      {final String description,
-      final Map<String, Header>? headers,
-      final Map<String, MediaType>? content,
-      final Map<String, Link>? links,
-      @_ResponseRefConverter() final String? ref}) = _$_Response;
+          {final String description,
+          final Map<String, Header>? headers,
+          final Map<String, MediaType>? content,
+          final Map<String, Link>? links,
+          @JsonKey(name: '\$ref') @_ResponseRefConverter() final String? ref}) =
+      _$_Response;
   const _Response._() : super._();
 
   factory _Response.fromJson(Map<String, dynamic> json) = _$_Response.fromJson;
@@ -7840,6 +7883,7 @@ abstract class _Response extends Response {
   @override
 
   /// Reference to a response defined in [Components.responses]
+  @JsonKey(name: '\$ref')
   @_ResponseRefConverter()
   String? get ref;
   @override
@@ -7879,6 +7923,7 @@ mixin _$Schema {
   String? get description => throw _privateConstructorUsedError;
 
   /// Reference to a schema definition
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -7886,8 +7931,8 @@ mixin _$Schema {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -7900,7 +7945,7 @@ mixin _$Schema {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -7913,7 +7958,7 @@ mixin _$Schema {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -7927,7 +7972,7 @@ mixin _$Schema {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -7941,7 +7986,7 @@ mixin _$Schema {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -7951,7 +7996,7 @@ mixin _$Schema {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -7962,7 +8007,7 @@ mixin _$Schema {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -7975,7 +8020,7 @@ mixin _$Schema {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) =>
       throw _privateConstructorUsedError;
@@ -7984,8 +8029,8 @@ mixin _$Schema {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -7998,7 +8043,7 @@ mixin _$Schema {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -8011,7 +8056,7 @@ mixin _$Schema {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -8025,7 +8070,7 @@ mixin _$Schema {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -8039,7 +8084,7 @@ mixin _$Schema {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -8049,7 +8094,7 @@ mixin _$Schema {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -8060,7 +8105,7 @@ mixin _$Schema {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -8073,7 +8118,7 @@ mixin _$Schema {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) =>
       throw _privateConstructorUsedError;
@@ -8082,8 +8127,8 @@ mixin _$Schema {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8096,7 +8141,7 @@ mixin _$Schema {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -8109,7 +8154,7 @@ mixin _$Schema {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -8123,7 +8168,7 @@ mixin _$Schema {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -8137,7 +8182,7 @@ mixin _$Schema {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -8147,7 +8192,7 @@ mixin _$Schema {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -8158,7 +8203,7 @@ mixin _$Schema {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -8171,7 +8216,7 @@ mixin _$Schema {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) =>
@@ -8224,7 +8269,9 @@ abstract class $SchemaCopyWith<$Res> {
       _$SchemaCopyWithImpl<$Res, Schema>;
   @useResult
   $Res call(
-      {String? title, String? description, @_SchemaRefConverter() String? ref});
+      {String? title,
+      String? description,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -8271,8 +8318,8 @@ abstract class _$$_SchemaObjectCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   $Res call(
       {String? title,
       String? description,
-      @_SchemaRefConverter() String? ref,
-      List<Schema>? allOf,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+      @_SchemaListConverter() List<Schema>? allOf,
       List<String>? required,
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
@@ -8388,8 +8435,8 @@ class _$_SchemaObject extends _SchemaObject {
   const _$_SchemaObject(
       {this.title,
       this.description,
-      @_SchemaRefConverter() this.ref,
-      final List<Schema>? allOf,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
+      @_SchemaListConverter() final List<Schema>? allOf,
       final List<String>? required,
       this.discriminator,
       this.externalDocs,
@@ -8415,14 +8462,16 @@ class _$_SchemaObject extends _SchemaObject {
 
   /// Reference to a schema definition
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
-  ///
+  /// The allOf definition
   final List<Schema>? _allOf;
 
-  ///
+  /// The allOf definition
   @override
+  @_SchemaListConverter()
   List<Schema>? get allOf {
     final value = _allOf;
     if (value == null) return null;
@@ -8527,8 +8576,8 @@ class _$_SchemaObject extends _SchemaObject {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8541,7 +8590,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -8554,7 +8603,7 @@ class _$_SchemaObject extends _SchemaObject {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -8568,7 +8617,7 @@ class _$_SchemaObject extends _SchemaObject {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -8582,7 +8631,7 @@ class _$_SchemaObject extends _SchemaObject {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -8592,7 +8641,7 @@ class _$_SchemaObject extends _SchemaObject {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -8603,7 +8652,7 @@ class _$_SchemaObject extends _SchemaObject {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -8616,7 +8665,7 @@ class _$_SchemaObject extends _SchemaObject {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return object(title, description, ref, allOf, required, discriminator,
@@ -8629,8 +8678,8 @@ class _$_SchemaObject extends _SchemaObject {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8643,7 +8692,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -8656,7 +8705,7 @@ class _$_SchemaObject extends _SchemaObject {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -8670,7 +8719,7 @@ class _$_SchemaObject extends _SchemaObject {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -8684,7 +8733,7 @@ class _$_SchemaObject extends _SchemaObject {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -8694,7 +8743,7 @@ class _$_SchemaObject extends _SchemaObject {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -8705,7 +8754,7 @@ class _$_SchemaObject extends _SchemaObject {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -8718,7 +8767,7 @@ class _$_SchemaObject extends _SchemaObject {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return object?.call(title, description, ref, allOf, required, discriminator,
@@ -8731,8 +8780,8 @@ class _$_SchemaObject extends _SchemaObject {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8745,7 +8794,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -8758,7 +8807,7 @@ class _$_SchemaObject extends _SchemaObject {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -8772,7 +8821,7 @@ class _$_SchemaObject extends _SchemaObject {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -8786,7 +8835,7 @@ class _$_SchemaObject extends _SchemaObject {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -8796,7 +8845,7 @@ class _$_SchemaObject extends _SchemaObject {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -8807,7 +8856,7 @@ class _$_SchemaObject extends _SchemaObject {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -8820,7 +8869,7 @@ class _$_SchemaObject extends _SchemaObject {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -8892,8 +8941,8 @@ abstract class _SchemaObject extends Schema {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
-      @_SchemaRefConverter() final String? ref,
-      final List<Schema>? allOf,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref,
+      @_SchemaListConverter() final List<Schema>? allOf,
       final List<String>? required,
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
@@ -8915,10 +8964,12 @@ abstract class _SchemaObject extends Schema {
   @override
 
   /// Reference to a schema definition
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
 
-  ///
+  /// The allOf definition
+  @_SchemaListConverter()
   List<Schema>? get allOf;
 
   /// The required properties of the schema
@@ -8959,7 +9010,7 @@ abstract class _$$_SchemaBooleanCopyWith<$Res>
       String? description,
       @JsonKey(name: 'default') bool? defaultValue,
       bool? example,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
 }
@@ -9032,7 +9083,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
       this.example,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'boolean',
         super._();
@@ -9052,6 +9103,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
   @override
   final bool? example;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -9095,8 +9147,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9109,7 +9161,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9122,7 +9174,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -9136,7 +9188,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -9150,7 +9202,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -9160,7 +9212,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -9171,7 +9223,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -9184,7 +9236,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return boolean(xml, title, description, defaultValue, example, ref);
@@ -9196,8 +9248,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9210,7 +9262,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9223,7 +9275,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -9237,7 +9289,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -9251,7 +9303,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -9261,7 +9313,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -9272,7 +9324,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -9285,7 +9337,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return boolean?.call(xml, title, description, defaultValue, example, ref);
@@ -9297,8 +9349,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9311,7 +9363,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9324,7 +9376,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -9338,7 +9390,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -9352,7 +9404,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -9362,7 +9414,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -9373,7 +9425,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -9386,7 +9438,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -9455,12 +9507,13 @@ class _$_SchemaBoolean extends _SchemaBoolean {
 
 abstract class _SchemaBoolean extends Schema {
   const factory _SchemaBoolean(
-      {final Xml? xml,
-      final String? title,
-      final String? description,
-      @JsonKey(name: 'default') final bool? defaultValue,
-      final bool? example,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaBoolean;
+          {final Xml? xml,
+          final String? title,
+          final String? description,
+          @JsonKey(name: 'default') final bool? defaultValue,
+          final bool? example,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaBoolean;
   const _SchemaBoolean._() : super._();
 
   factory _SchemaBoolean.fromJson(Map<String, dynamic> json) =
@@ -9475,6 +9528,7 @@ abstract class _SchemaBoolean extends Schema {
   bool? get defaultValue;
   bool? get example;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -9501,7 +9555,7 @@ abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       int? maxLength,
       bool? exclusiveMinimum,
       bool? exclusiveMaximum,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
 }
@@ -9604,7 +9658,7 @@ class _$_SchemaString extends _SchemaString {
       this.maxLength,
       this.exclusiveMinimum,
       this.exclusiveMaximum,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'string',
         super._();
@@ -9634,6 +9688,7 @@ class _$_SchemaString extends _SchemaString {
   @override
   final bool? exclusiveMaximum;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -9697,8 +9752,8 @@ class _$_SchemaString extends _SchemaString {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9711,7 +9766,7 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -9724,7 +9779,7 @@ class _$_SchemaString extends _SchemaString {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -9738,7 +9793,7 @@ class _$_SchemaString extends _SchemaString {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -9752,7 +9807,7 @@ class _$_SchemaString extends _SchemaString {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -9762,7 +9817,7 @@ class _$_SchemaString extends _SchemaString {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -9773,7 +9828,7 @@ class _$_SchemaString extends _SchemaString {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -9786,7 +9841,7 @@ class _$_SchemaString extends _SchemaString {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return string(xml, title, description, defaultValue, format, example,
@@ -9799,8 +9854,8 @@ class _$_SchemaString extends _SchemaString {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9813,7 +9868,7 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -9826,7 +9881,7 @@ class _$_SchemaString extends _SchemaString {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -9840,7 +9895,7 @@ class _$_SchemaString extends _SchemaString {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -9854,7 +9909,7 @@ class _$_SchemaString extends _SchemaString {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -9864,7 +9919,7 @@ class _$_SchemaString extends _SchemaString {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -9875,7 +9930,7 @@ class _$_SchemaString extends _SchemaString {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -9888,7 +9943,7 @@ class _$_SchemaString extends _SchemaString {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return string?.call(xml, title, description, defaultValue, format, example,
@@ -9901,8 +9956,8 @@ class _$_SchemaString extends _SchemaString {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9915,7 +9970,7 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -9928,7 +9983,7 @@ class _$_SchemaString extends _SchemaString {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -9942,7 +9997,7 @@ class _$_SchemaString extends _SchemaString {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -9956,7 +10011,7 @@ class _$_SchemaString extends _SchemaString {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -9966,7 +10021,7 @@ class _$_SchemaString extends _SchemaString {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -9977,7 +10032,7 @@ class _$_SchemaString extends _SchemaString {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -9990,7 +10045,7 @@ class _$_SchemaString extends _SchemaString {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -10060,17 +10115,18 @@ class _$_SchemaString extends _SchemaString {
 
 abstract class _SchemaString extends Schema {
   const factory _SchemaString(
-      {final Xml? xml,
-      final String? title,
-      final String? description,
-      @JsonKey(name: 'default') final String? defaultValue,
-      final StringFormat? format,
-      final String? example,
-      final int? minLength,
-      final int? maxLength,
-      final bool? exclusiveMinimum,
-      final bool? exclusiveMaximum,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaString;
+          {final Xml? xml,
+          final String? title,
+          final String? description,
+          @JsonKey(name: 'default') final String? defaultValue,
+          final StringFormat? format,
+          final String? example,
+          final int? minLength,
+          final int? maxLength,
+          final bool? exclusiveMinimum,
+          final bool? exclusiveMaximum,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaString;
   const _SchemaString._() : super._();
 
   factory _SchemaString.fromJson(Map<String, dynamic> json) =
@@ -10090,6 +10146,7 @@ abstract class _SchemaString extends Schema {
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -10118,7 +10175,7 @@ abstract class _$$_SchemaIntegerCopyWith<$Res>
       bool? exclusiveMinimum,
       bool? exclusiveMaximum,
       int? multipleOf,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
 }
@@ -10227,7 +10284,7 @@ class _$_SchemaInteger extends _SchemaInteger {
       this.exclusiveMinimum,
       this.exclusiveMaximum,
       this.multipleOf,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'integer',
         super._();
@@ -10259,6 +10316,7 @@ class _$_SchemaInteger extends _SchemaInteger {
   @override
   final int? multipleOf;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -10323,8 +10381,8 @@ class _$_SchemaInteger extends _SchemaInteger {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10337,7 +10395,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10350,7 +10408,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -10364,7 +10422,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -10378,7 +10436,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -10388,7 +10446,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -10399,7 +10457,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -10412,7 +10470,7 @@ class _$_SchemaInteger extends _SchemaInteger {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return integer(xml, title, description, defaultValue, format, example,
@@ -10425,8 +10483,8 @@ class _$_SchemaInteger extends _SchemaInteger {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10439,7 +10497,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -10452,7 +10510,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -10466,7 +10524,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -10480,7 +10538,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -10490,7 +10548,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -10501,7 +10559,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -10514,7 +10572,7 @@ class _$_SchemaInteger extends _SchemaInteger {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return integer?.call(xml, title, description, defaultValue, format, example,
@@ -10527,8 +10585,8 @@ class _$_SchemaInteger extends _SchemaInteger {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10541,7 +10599,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -10554,7 +10612,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -10568,7 +10626,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -10582,7 +10640,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -10592,7 +10650,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -10603,7 +10661,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -10616,7 +10674,7 @@ class _$_SchemaInteger extends _SchemaInteger {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -10697,18 +10755,19 @@ class _$_SchemaInteger extends _SchemaInteger {
 
 abstract class _SchemaInteger extends Schema {
   const factory _SchemaInteger(
-      {final Xml? xml,
-      final String? title,
-      final String? description,
-      @JsonKey(name: 'default') final int? defaultValue,
-      final IntegerFormat? format,
-      final int? example,
-      final int? minimum,
-      final int? maximum,
-      final bool? exclusiveMinimum,
-      final bool? exclusiveMaximum,
-      final int? multipleOf,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaInteger;
+          {final Xml? xml,
+          final String? title,
+          final String? description,
+          @JsonKey(name: 'default') final int? defaultValue,
+          final IntegerFormat? format,
+          final int? example,
+          final int? minimum,
+          final int? maximum,
+          final bool? exclusiveMinimum,
+          final bool? exclusiveMaximum,
+          final int? multipleOf,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaInteger;
   const _SchemaInteger._() : super._();
 
   factory _SchemaInteger.fromJson(Map<String, dynamic> json) =
@@ -10729,6 +10788,7 @@ abstract class _SchemaInteger extends Schema {
   bool? get exclusiveMaximum;
   int? get multipleOf;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -10756,7 +10816,7 @@ abstract class _$$_SchemaNumberCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       bool? exclusiveMinimum,
       bool? exclusiveMaximum,
       double? multipleOf,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
 }
@@ -10865,7 +10925,7 @@ class _$_SchemaNumber extends _SchemaNumber {
       this.exclusiveMinimum,
       this.exclusiveMaximum,
       this.multipleOf,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'number',
         super._();
@@ -10897,6 +10957,7 @@ class _$_SchemaNumber extends _SchemaNumber {
   @override
   final double? multipleOf;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -10961,8 +11022,8 @@ class _$_SchemaNumber extends _SchemaNumber {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10975,7 +11036,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -10988,7 +11049,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -11002,7 +11063,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -11016,7 +11077,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -11026,7 +11087,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -11037,7 +11098,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -11050,7 +11111,7 @@ class _$_SchemaNumber extends _SchemaNumber {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return number(xml, title, description, defaultValue, format, example,
@@ -11063,8 +11124,8 @@ class _$_SchemaNumber extends _SchemaNumber {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11077,7 +11138,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11090,7 +11151,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -11104,7 +11165,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -11118,7 +11179,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -11128,7 +11189,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -11139,7 +11200,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -11152,7 +11213,7 @@ class _$_SchemaNumber extends _SchemaNumber {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return number?.call(xml, title, description, defaultValue, format, example,
@@ -11165,8 +11226,8 @@ class _$_SchemaNumber extends _SchemaNumber {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11179,7 +11240,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11192,7 +11253,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -11206,7 +11267,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -11220,7 +11281,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -11230,7 +11291,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -11241,7 +11302,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -11254,7 +11315,7 @@ class _$_SchemaNumber extends _SchemaNumber {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -11335,18 +11396,19 @@ class _$_SchemaNumber extends _SchemaNumber {
 
 abstract class _SchemaNumber extends Schema {
   const factory _SchemaNumber(
-      {final Xml? xml,
-      final String? title,
-      final String? description,
-      @JsonKey(name: 'default') final double? defaultValue,
-      final NumberFormat? format,
-      final double? example,
-      final double? minimum,
-      final double? maximum,
-      final bool? exclusiveMinimum,
-      final bool? exclusiveMaximum,
-      final double? multipleOf,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaNumber;
+          {final Xml? xml,
+          final String? title,
+          final String? description,
+          @JsonKey(name: 'default') final double? defaultValue,
+          final NumberFormat? format,
+          final double? example,
+          final double? minimum,
+          final double? maximum,
+          final bool? exclusiveMinimum,
+          final bool? exclusiveMaximum,
+          final double? multipleOf,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaNumber;
   const _SchemaNumber._() : super._();
 
   factory _SchemaNumber.fromJson(Map<String, dynamic> json) =
@@ -11367,6 +11429,7 @@ abstract class _SchemaNumber extends Schema {
   bool? get exclusiveMaximum;
   double? get multipleOf;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -11390,7 +11453,7 @@ abstract class _$$_SchemaEnumCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       @JsonKey(includeToJson: false, includeFromJson: false)
       String? unknownValue,
       @JsonKey(name: 'enum') List<String>? values,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 }
 
 /// @nodoc
@@ -11455,7 +11518,7 @@ class _$_SchemaEnum extends _SchemaEnum {
       @JsonKey(name: 'default') this.defaultValue,
       @JsonKey(includeToJson: false, includeFromJson: false) this.unknownValue,
       @JsonKey(name: 'enum') final List<String>? values,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : assert(
             values == null || ref == null, 'Cannot define both values and ref'),
@@ -11490,6 +11553,7 @@ class _$_SchemaEnum extends _SchemaEnum {
   }
 
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -11542,8 +11606,8 @@ class _$_SchemaEnum extends _SchemaEnum {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11556,7 +11620,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -11569,7 +11633,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -11583,7 +11647,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -11597,7 +11661,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -11607,7 +11671,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -11618,7 +11682,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -11631,7 +11695,7 @@ class _$_SchemaEnum extends _SchemaEnum {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return enumeration(
@@ -11644,8 +11708,8 @@ class _$_SchemaEnum extends _SchemaEnum {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11658,7 +11722,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -11671,7 +11735,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -11685,7 +11749,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -11699,7 +11763,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -11709,7 +11773,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -11720,7 +11784,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -11733,7 +11797,7 @@ class _$_SchemaEnum extends _SchemaEnum {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return enumeration?.call(
@@ -11746,8 +11810,8 @@ class _$_SchemaEnum extends _SchemaEnum {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11760,7 +11824,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -11773,7 +11837,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -11787,7 +11851,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -11801,7 +11865,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -11811,7 +11875,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -11822,7 +11886,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -11835,7 +11899,7 @@ class _$_SchemaEnum extends _SchemaEnum {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -11905,14 +11969,15 @@ class _$_SchemaEnum extends _SchemaEnum {
 
 abstract class _SchemaEnum extends Schema {
   const factory _SchemaEnum(
-      {final String? title,
-      final String? description,
-      final String? example,
-      @JsonKey(name: 'default') final String? defaultValue,
-      @JsonKey(includeToJson: false, includeFromJson: false)
-      final String? unknownValue,
-      @JsonKey(name: 'enum') final List<String>? values,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaEnum;
+          {final String? title,
+          final String? description,
+          final String? example,
+          @JsonKey(name: 'default') final String? defaultValue,
+          @JsonKey(includeToJson: false, includeFromJson: false)
+          final String? unknownValue,
+          @JsonKey(name: 'enum') final List<String>? values,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaEnum;
   const _SchemaEnum._() : super._();
 
   factory _SchemaEnum.fromJson(Map<String, dynamic> json) =
@@ -11930,6 +11995,7 @@ abstract class _SchemaEnum extends Schema {
   @JsonKey(name: 'enum')
   List<String>? get values;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -11954,7 +12020,7 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       int? minItems,
       int? maxItems,
       Schema items,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
   $SchemaCopyWith<$Res> get items;
@@ -12054,7 +12120,7 @@ class _$_SchemaArray extends _SchemaArray {
       this.minItems,
       this.maxItems,
       required this.items,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : _defaultValue = defaultValue,
         _example = example,
@@ -12098,6 +12164,7 @@ class _$_SchemaArray extends _SchemaArray {
   @override
   final Schema items;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -12155,8 +12222,8 @@ class _$_SchemaArray extends _SchemaArray {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12169,7 +12236,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -12182,7 +12249,7 @@ class _$_SchemaArray extends _SchemaArray {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -12196,7 +12263,7 @@ class _$_SchemaArray extends _SchemaArray {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -12210,7 +12277,7 @@ class _$_SchemaArray extends _SchemaArray {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -12220,7 +12287,7 @@ class _$_SchemaArray extends _SchemaArray {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -12231,7 +12298,7 @@ class _$_SchemaArray extends _SchemaArray {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -12244,7 +12311,7 @@ class _$_SchemaArray extends _SchemaArray {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return array(xml, title, description, defaultValue, example, minItems,
@@ -12257,8 +12324,8 @@ class _$_SchemaArray extends _SchemaArray {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12271,7 +12338,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12284,7 +12351,7 @@ class _$_SchemaArray extends _SchemaArray {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -12298,7 +12365,7 @@ class _$_SchemaArray extends _SchemaArray {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -12312,7 +12379,7 @@ class _$_SchemaArray extends _SchemaArray {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -12322,7 +12389,7 @@ class _$_SchemaArray extends _SchemaArray {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -12333,7 +12400,7 @@ class _$_SchemaArray extends _SchemaArray {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -12346,7 +12413,7 @@ class _$_SchemaArray extends _SchemaArray {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return array?.call(xml, title, description, defaultValue, example, minItems,
@@ -12359,8 +12426,8 @@ class _$_SchemaArray extends _SchemaArray {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12373,7 +12440,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12386,7 +12453,7 @@ class _$_SchemaArray extends _SchemaArray {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -12400,7 +12467,7 @@ class _$_SchemaArray extends _SchemaArray {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -12414,7 +12481,7 @@ class _$_SchemaArray extends _SchemaArray {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -12424,7 +12491,7 @@ class _$_SchemaArray extends _SchemaArray {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -12435,7 +12502,7 @@ class _$_SchemaArray extends _SchemaArray {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -12448,7 +12515,7 @@ class _$_SchemaArray extends _SchemaArray {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -12518,15 +12585,16 @@ class _$_SchemaArray extends _SchemaArray {
 
 abstract class _SchemaArray extends Schema {
   const factory _SchemaArray(
-      {final Xml? xml,
-      final String? title,
-      final String? description,
-      @JsonKey(name: 'default') final List<dynamic>? defaultValue,
-      final List<dynamic>? example,
-      final int? minItems,
-      final int? maxItems,
-      required final Schema items,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaArray;
+          {final Xml? xml,
+          final String? title,
+          final String? description,
+          @JsonKey(name: 'default') final List<dynamic>? defaultValue,
+          final List<dynamic>? example,
+          final int? minItems,
+          final int? maxItems,
+          required final Schema items,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaArray;
   const _SchemaArray._() : super._();
 
   factory _SchemaArray.fromJson(Map<String, dynamic> json) =
@@ -12544,6 +12612,7 @@ abstract class _SchemaArray extends Schema {
   int? get maxItems;
   Schema get items;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override
@@ -12570,7 +12639,7 @@ abstract class _$$_SchemaMapCopyWith<$Res> implements $SchemaCopyWith<$Res> {
           toJson: _toMapProps,
           fromJson: _fromMapProps)
       Schema? valueSchema,
-      @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
   $SchemaCopyWith<$Res>? get valueSchema;
@@ -12666,7 +12735,7 @@ class _$_SchemaMap extends _SchemaMap {
           toJson: _toMapProps,
           fromJson: _fromMapProps)
       this.valueSchema,
-      @_SchemaRefConverter() this.ref,
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : _defaultValue = defaultValue,
         _example = example,
@@ -12710,6 +12779,7 @@ class _$_SchemaMap extends _SchemaMap {
       fromJson: _fromMapProps)
   final Schema? valueSchema;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   final String? ref;
 
@@ -12762,8 +12832,8 @@ class _$_SchemaMap extends _SchemaMap {
     required TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12776,7 +12846,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         boolean,
     required TResult Function(
             Xml? xml,
@@ -12789,7 +12859,7 @@ class _$_SchemaMap extends _SchemaMap {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         string,
     required TResult Function(
             Xml? xml,
@@ -12803,7 +12873,7 @@ class _$_SchemaMap extends _SchemaMap {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         integer,
     required TResult Function(
             Xml? xml,
@@ -12817,7 +12887,7 @@ class _$_SchemaMap extends _SchemaMap {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         number,
     required TResult Function(
             String? title,
@@ -12827,7 +12897,7 @@ class _$_SchemaMap extends _SchemaMap {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         enumeration,
     required TResult Function(
             Xml? xml,
@@ -12838,7 +12908,7 @@ class _$_SchemaMap extends _SchemaMap {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         array,
     required TResult Function(
             Xml? xml,
@@ -12851,7 +12921,7 @@ class _$_SchemaMap extends _SchemaMap {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
     return map(
@@ -12864,8 +12934,8 @@ class _$_SchemaMap extends _SchemaMap {
     TResult? Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12878,7 +12948,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult? Function(
             Xml? xml,
@@ -12891,7 +12961,7 @@ class _$_SchemaMap extends _SchemaMap {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult? Function(
             Xml? xml,
@@ -12905,7 +12975,7 @@ class _$_SchemaMap extends _SchemaMap {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult? Function(
             Xml? xml,
@@ -12919,7 +12989,7 @@ class _$_SchemaMap extends _SchemaMap {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult? Function(
             String? title,
@@ -12929,7 +12999,7 @@ class _$_SchemaMap extends _SchemaMap {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult? Function(
             Xml? xml,
@@ -12940,7 +13010,7 @@ class _$_SchemaMap extends _SchemaMap {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult? Function(
             Xml? xml,
@@ -12953,7 +13023,7 @@ class _$_SchemaMap extends _SchemaMap {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
     return map?.call(
@@ -12966,8 +13036,8 @@ class _$_SchemaMap extends _SchemaMap {
     TResult Function(
             String? title,
             String? description,
-            @_SchemaRefConverter() String? ref,
-            List<Schema>? allOf,
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+            @_SchemaListConverter() List<Schema>? allOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12980,7 +13050,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             @JsonKey(name: 'default') bool? defaultValue,
             bool? example,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         boolean,
     TResult Function(
             Xml? xml,
@@ -12993,7 +13063,7 @@ class _$_SchemaMap extends _SchemaMap {
             int? maxLength,
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         string,
     TResult Function(
             Xml? xml,
@@ -13007,7 +13077,7 @@ class _$_SchemaMap extends _SchemaMap {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             int? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         integer,
     TResult Function(
             Xml? xml,
@@ -13021,7 +13091,7 @@ class _$_SchemaMap extends _SchemaMap {
             bool? exclusiveMinimum,
             bool? exclusiveMaximum,
             double? multipleOf,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         number,
     TResult Function(
             String? title,
@@ -13031,7 +13101,7 @@ class _$_SchemaMap extends _SchemaMap {
             @JsonKey(includeToJson: false, includeFromJson: false)
             String? unknownValue,
             @JsonKey(name: 'enum') List<String>? values,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         enumeration,
     TResult Function(
             Xml? xml,
@@ -13042,7 +13112,7 @@ class _$_SchemaMap extends _SchemaMap {
             int? minItems,
             int? maxItems,
             Schema items,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         array,
     TResult Function(
             Xml? xml,
@@ -13055,7 +13125,7 @@ class _$_SchemaMap extends _SchemaMap {
                 toJson: _toMapProps,
                 fromJson: _fromMapProps)
             Schema? valueSchema,
-            @_SchemaRefConverter() String? ref)?
+            @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
     required TResult orElse(),
   }) {
@@ -13125,17 +13195,18 @@ class _$_SchemaMap extends _SchemaMap {
 
 abstract class _SchemaMap extends Schema {
   const factory _SchemaMap(
-      {final Xml? xml,
-      final String? title,
-      final String? description,
-      @JsonKey(name: 'default') final Map<dynamic, dynamic>? defaultValue,
-      final Map<dynamic, dynamic>? example,
-      @JsonKey(
-          name: 'additionalProperties',
-          toJson: _toMapProps,
-          fromJson: _fromMapProps)
-      final Schema? valueSchema,
-      @_SchemaRefConverter() final String? ref}) = _$_SchemaMap;
+          {final Xml? xml,
+          final String? title,
+          final String? description,
+          @JsonKey(name: 'default') final Map<dynamic, dynamic>? defaultValue,
+          final Map<dynamic, dynamic>? example,
+          @JsonKey(
+              name: 'additionalProperties',
+              toJson: _toMapProps,
+              fromJson: _fromMapProps)
+          final Schema? valueSchema,
+          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
+      _$_SchemaMap;
   const _SchemaMap._() : super._();
 
   factory _SchemaMap.fromJson(Map<String, dynamic> json) =
@@ -13155,6 +13226,7 @@ abstract class _SchemaMap extends Schema {
       fromJson: _fromMapProps)
   Schema? get valueSchema;
   @override
+  @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
   String? get ref;
   @override

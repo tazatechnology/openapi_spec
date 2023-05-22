@@ -12,7 +12,7 @@ part of openapi_models;
 class Components with _$Components {
   const factory Components({
     /// A set of reusable [Schema] objects.
-    Map<String, Schema>? schemas,
+    @_SchemaMapConverter() Map<String, Schema>? schemas,
 
     /// A set of reusable [Response] objects.
     Map<String, Response>? responses,

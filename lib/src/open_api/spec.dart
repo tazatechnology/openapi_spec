@@ -3,6 +3,9 @@ part of openapi_models;
 /// Standardized JSON encoder for the OpenAPI spec
 final _encoder = JsonEncoder.withIndent('  ');
 
+// Used as internal tracker of all schemas in the spec (for parsing purposes)
+Map<String, dynamic> _schema = {};
+
 // ==========================================
 // CLASS: OpenApi
 // ==========================================
@@ -79,6 +82,7 @@ class OpenApi with _$OpenApi {
       raw = json.decode((file.readAsStringSync()));
     } else if (ext.contains('yaml')) {
       raw = yaml.loadYaml((file.readAsStringSync()));
+      raw = json.decode(json.encode(raw));
     } else {
       throw Exception('Unsupported file type: $ext');
     }
@@ -92,6 +96,7 @@ class OpenApi with _$OpenApi {
 
   /// Create an [OpenApi] object from a JSON representation of an OpenAPI
   factory OpenApi.fromJson(Map<String, dynamic> json) {
+    _schema = json['components']?['schemas'] ?? {};
     final d = _formatSpecFromJson(json);
     return OpenApi(
       version: d.containsKey('openapi') ? d['openapi'] : null,
@@ -326,16 +331,6 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
     ..removeWhere((k, v) => k == _unionKey);
 
   for (final e in m.entries.toList()) {
-    // Update references
-    if (e.key == 'ref') {
-      final v = m.remove(e.key);
-      if (v.toString().startsWith('#')) {
-        m['\$ref'] = v;
-      } else {
-        // Assume component schema is the reference
-        m['\$ref'] = v;
-      }
-    }
     // Update type definitions
     if (e.key == 'type' && e.value == 'enumeration') {
       m['type'] = 'string';
@@ -443,8 +438,15 @@ Map<String, dynamic> _formatSpecFromJson(
 
   // Return a parsable reference object
   if (m.containsKey('\$ref')) {
-    final x = {'ref': m['\$ref']};
-    return x;
+    final ref = m['\$ref'].toString().split('/').last;
+    if (_schema.containsKey(ref)) {
+      _SchemaConverter().fromJson(_schema[ref]).mapOrNull(
+        enumeration: (_) {
+          m['type'] = 'enumeration';
+        },
+      );
+    }
+    return m;
   } else {
     if (m.containsKey('type')) {
       if (m['type'] == 'string' && m.containsKey('enum')) {

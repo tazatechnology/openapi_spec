@@ -27,10 +27,10 @@ example:
 	dart run example/example.dart
 
 test: 
-	dart pub get && \
+	@dart pub get && \
 	dart format \
-		--set-exit-if-changed . && \
-	dart analyze \
+		--set-exit-if-changed lib && \
+	dart analyze lib \
 		--fatal-infos && \
 	clear && dart test
 
