@@ -3,6 +3,7 @@
 **BETA** - This package is in beta and is subject to change.  Please file issues for any bugs or feature requests.
 
 [![Pub](https://img.shields.io/pub/v/openapi_spec.svg)](https://pub.dev/packages/openapi_spec)
+[![Test](https://github.com/tazatechnology/openapi_spec/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/tazatechnology/openapi_spec/actions/workflows/test.yaml)
 [![Publish](https://github.com/tazatechnology/openapi_spec/actions/workflows/publish.yaml/badge.svg)](https://github.com/tazatechnology/openapi_spec/actions/workflows/publish.yaml)
 
 [openapi_spec](https://pub.dev/packages/openapi_spec) is a Dart package for working with [OpenAPI specifications](https://swagger.io/specification/) to do a whole host of things, including:

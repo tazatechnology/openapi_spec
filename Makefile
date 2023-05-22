@@ -27,6 +27,11 @@ example:
 	dart run example/example.dart
 
 test: 
+	dart pub get && \
+	dart format \
+		--set-exit-if-changed . && \
+	dart analyze \
+		--fatal-infos && \
 	clear && dart test
 
 coverage: 
