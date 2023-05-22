@@ -70,7 +70,7 @@ class SchemaGenerator extends BaseGenerator {
 
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
-      final filename = s.snakeCase;
+      final filename = s.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
       final name = s.pascalCase;
 
       if (separate) {
