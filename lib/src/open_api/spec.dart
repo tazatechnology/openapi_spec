@@ -267,12 +267,12 @@ class OpenApi with _$OpenApi {
     String package = 'my_api',
     required String destination,
     bool client = false,
+    bool server = false,
+    bool singleSchemaFile = false,
+    bool replaceOutput = false,
+    bool formatOutput = true,
     String? Function(String)? onSchemaName,
     String? Function(String)? onClientMethodName,
-    bool server = false,
-    bool replace = false,
-    bool singleSchemaFile = false,
-    bool format = true,
   }) async {
     // Ensure that the folder exists
     final d = Directory(destination);
@@ -289,7 +289,7 @@ class OpenApi with _$OpenApi {
         destination: destination,
         separate: !singleSchemaFile,
         onSchemaName: onSchemaName,
-      ).generate(replace: replace);
+      ).generate(replaceOutput: replaceOutput);
     } else {
       // ignore: avoid_print
       print(
@@ -310,12 +310,12 @@ class OpenApi with _$OpenApi {
           package: package.snakeCase,
           destination: destination,
           onClientMethodName: onClientMethodName,
-        ).generate(replace: replace);
+        ).generate(replaceOutput: replaceOutput);
       }
     }
 
     // Apply the Dart formatting and fix logic
-    if (format) {
+    if (formatOutput) {
       await Process.run('dart', ['fix', '--apply', d.absolute.path]);
       await Process.run('dart', ['format', d.absolute.path]);
     }

@@ -32,5 +32,5 @@ abstract class BaseGenerator {
   }
 
   /// Method to generate file(s)
-  Future<void> generate({bool replace = false});
+  Future<void> generate({bool replaceOutput = false});
 }

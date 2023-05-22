@@ -28,7 +28,7 @@ class SchemaGenerator extends BaseGenerator {
 
   @override
   Future<void> generate({
-    bool replace = false,
+    bool replaceOutput = false,
   }) async {
     final schemas = spec.components?.schemas;
     if (schemas == null) {
@@ -37,8 +37,8 @@ class SchemaGenerator extends BaseGenerator {
 
     String schemaPackage = '${package}_schema';
 
-    if (replace) {
-      if (schemaDirectory.existsSync() && replace) {
+    if (replaceOutput) {
+      if (schemaDirectory.existsSync() && replaceOutput) {
         schemaDirectory.deleteSync(recursive: true);
       }
     }

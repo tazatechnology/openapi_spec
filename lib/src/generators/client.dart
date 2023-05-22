@@ -39,10 +39,10 @@ class ClientGenerator extends BaseGenerator {
 
   @override
   Future<void> generate({
-    bool replace = false,
+    bool replaceOutput = false,
   }) async {
-    if (replace) {
-      if (clientDirectory.existsSync() && replace) {
+    if (replaceOutput) {
+      if (clientDirectory.existsSync() && replaceOutput) {
         clientDirectory.deleteSync(recursive: true);
       }
     }
