@@ -7933,6 +7933,7 @@ mixin _$Schema {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8031,6 +8032,7 @@ mixin _$Schema {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8129,6 +8131,7 @@ mixin _$Schema {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8320,6 +8323,7 @@ abstract class _$$_SchemaObjectCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? description,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
       @_SchemaListConverter() List<Schema>? allOf,
+      @_SchemaListConverter() List<Schema>? anyOf,
       List<String>? required,
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
@@ -8346,6 +8350,7 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
     Object? description = freezed,
     Object? ref = freezed,
     Object? allOf = freezed,
+    Object? anyOf = freezed,
     Object? required = freezed,
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
@@ -8368,6 +8373,10 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
       allOf: freezed == allOf
           ? _value._allOf
           : allOf // ignore: cast_nullable_to_non_nullable
+              as List<Schema>?,
+      anyOf: freezed == anyOf
+          ? _value._anyOf
+          : anyOf // ignore: cast_nullable_to_non_nullable
               as List<Schema>?,
       required: freezed == required
           ? _value._required
@@ -8437,6 +8446,7 @@ class _$_SchemaObject extends _SchemaObject {
       this.description,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       @_SchemaListConverter() final List<Schema>? allOf,
+      @_SchemaListConverter() final List<Schema>? anyOf,
       final List<String>? required,
       this.discriminator,
       this.externalDocs,
@@ -8444,6 +8454,7 @@ class _$_SchemaObject extends _SchemaObject {
       this.xml,
       final String? $type})
       : _allOf = allOf,
+        _anyOf = anyOf,
         _required = required,
         _properties = properties,
         $type = $type ?? 'object',
@@ -8476,6 +8487,20 @@ class _$_SchemaObject extends _SchemaObject {
     final value = _allOf;
     if (value == null) return null;
     if (_allOf is EqualUnmodifiableListView) return _allOf;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// The anyOf definition
+  final List<Schema>? _anyOf;
+
+  /// The anyOf definition
+  @override
+  @_SchemaListConverter()
+  List<Schema>? get anyOf {
+    final value = _anyOf;
+    if (value == null) return null;
+    if (_anyOf is EqualUnmodifiableListView) return _anyOf;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -8527,7 +8552,7 @@ class _$_SchemaObject extends _SchemaObject {
 
   @override
   String toString() {
-    return 'Schema.object(title: $title, description: $description, ref: $ref, allOf: $allOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
+    return 'Schema.object(title: $title, description: $description, ref: $ref, allOf: $allOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
   }
 
   @override
@@ -8540,6 +8565,7 @@ class _$_SchemaObject extends _SchemaObject {
                 other.description == description) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             const DeepCollectionEquality().equals(other._allOf, _allOf) &&
+            const DeepCollectionEquality().equals(other._anyOf, _anyOf) &&
             const DeepCollectionEquality().equals(other._required, _required) &&
             (identical(other.discriminator, discriminator) ||
                 other.discriminator == discriminator) &&
@@ -8558,6 +8584,7 @@ class _$_SchemaObject extends _SchemaObject {
       description,
       ref,
       const DeepCollectionEquality().hash(_allOf),
+      const DeepCollectionEquality().hash(_anyOf),
       const DeepCollectionEquality().hash(_required),
       discriminator,
       externalDocs,
@@ -8578,6 +8605,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8668,8 +8696,8 @@ class _$_SchemaObject extends _SchemaObject {
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)
         map,
   }) {
-    return object(title, description, ref, allOf, required, discriminator,
-        externalDocs, properties, xml);
+    return object(title, description, ref, allOf, anyOf, required,
+        discriminator, externalDocs, properties, xml);
   }
 
   @override
@@ -8680,6 +8708,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8770,8 +8799,8 @@ class _$_SchemaObject extends _SchemaObject {
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref)?
         map,
   }) {
-    return object?.call(title, description, ref, allOf, required, discriminator,
-        externalDocs, properties, xml);
+    return object?.call(title, description, ref, allOf, anyOf, required,
+        discriminator, externalDocs, properties, xml);
   }
 
   @override
@@ -8782,6 +8811,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -8874,8 +8904,8 @@ class _$_SchemaObject extends _SchemaObject {
     required TResult orElse(),
   }) {
     if (object != null) {
-      return object(title, description, ref, allOf, required, discriminator,
-          externalDocs, properties, xml);
+      return object(title, description, ref, allOf, anyOf, required,
+          discriminator, externalDocs, properties, xml);
     }
     return orElse();
   }
@@ -8943,6 +8973,7 @@ abstract class _SchemaObject extends Schema {
       final String? description,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref,
       @_SchemaListConverter() final List<Schema>? allOf,
+      @_SchemaListConverter() final List<Schema>? anyOf,
       final List<String>? required,
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
@@ -8971,6 +9002,10 @@ abstract class _SchemaObject extends Schema {
   /// The allOf definition
   @_SchemaListConverter()
   List<Schema>? get allOf;
+
+  /// The anyOf definition
+  @_SchemaListConverter()
+  List<Schema>? get anyOf;
 
   /// The required properties of the schema
   List<String>? get required;
@@ -9149,6 +9184,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9250,6 +9286,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9351,6 +9388,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9754,6 +9792,7 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9856,6 +9895,7 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -9958,6 +9998,7 @@ class _$_SchemaString extends _SchemaString {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10383,6 +10424,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10485,6 +10527,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -10587,6 +10630,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11024,6 +11068,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11126,6 +11171,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11228,6 +11274,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11608,6 +11655,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11710,6 +11758,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -11812,6 +11861,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12224,6 +12274,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12326,6 +12377,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12428,6 +12480,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12834,6 +12887,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -12936,6 +12990,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,
@@ -13038,6 +13093,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? description,
             @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
             @_SchemaListConverter() List<Schema>? allOf,
+            @_SchemaListConverter() List<Schema>? anyOf,
             List<String>? required,
             Discriminator? discriminator,
             ExternalDocs? externalDocs,

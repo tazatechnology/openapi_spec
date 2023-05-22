@@ -207,6 +207,11 @@ class SchemaGenerator extends BaseGenerator {
       return (c, nullable);
     }
 
+    // Ensure description is free of new line characters
+    property = property.copyWith(
+      description: property.description?.replaceAll('\n', '').trim(),
+    );
+
     property.map(
       object: (p) {
         p = p.dereference(components: spec.components?.schemas).maybeMap(
@@ -225,6 +230,8 @@ class SchemaGenerator extends BaseGenerator {
         }
         if (p.ref != null) {
           c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
+        } else if (p.anyOf != null) {
+          c += "dynamic ${nullable ? '?' : ''} $name,\n\n";
         }
         file.writeAsStringSync(c, mode: FileMode.append);
       },

@@ -814,6 +814,8 @@ _$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
       allOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['allOf'], const _SchemaListConverter().fromJson),
+      anyOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
+          json['anyOf'], const _SchemaListConverter().fromJson),
       required: (json['required'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -849,6 +851,10 @@ Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
       'allOf',
       _$JsonConverterToJson<List<dynamic>, List<Schema>>(
           instance.allOf, const _SchemaListConverter().toJson));
+  writeNotNull(
+      'anyOf',
+      _$JsonConverterToJson<List<dynamic>, List<Schema>>(
+          instance.anyOf, const _SchemaListConverter().toJson));
   writeNotNull('required', instance.required);
   writeNotNull('discriminator', instance.discriminator?.toJson());
   writeNotNull('externalDocs', instance.externalDocs?.toJson());

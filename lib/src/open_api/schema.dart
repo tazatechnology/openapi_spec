@@ -26,6 +26,9 @@ class Schema with _$Schema {
     /// The allOf definition
     @_SchemaListConverter() List<Schema>? allOf,
 
+    /// The anyOf definition
+    @_SchemaListConverter() List<Schema>? anyOf,
+
     /// The required properties of the schema
     List<String>? required,
 
