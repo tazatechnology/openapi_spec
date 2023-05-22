@@ -24,12 +24,14 @@ class ClientGenerator extends BaseGenerator {
     required super.spec,
     required super.destination,
     required super.package,
+    this.onClientMethodName,
   }) {
     clientDirectory = Directory(p.join(parentDirectory.path, 'client'));
     file = File(p.join(clientDirectory.path, 'client.dart'));
   }
   late File file;
   late final Directory clientDirectory;
+  final String? Function(String)? onClientMethodName;
 
   // ------------------------------------------
   // METHOD: generate
@@ -241,7 +243,7 @@ class $clientName {
           request.body = json.encode(body ?? {});
         } catch (e) {
           // Handle request encoding error
-          throw PineconeClientException(
+          throw $clientException(
             uri: uri,
             method: method,
             message: 'Could not encode: \${body.runtimeType}',
@@ -391,6 +393,10 @@ class $clientName {
     List<String> headerParams = [];
     String decoder = '';
 
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    // Method Name
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
     // Determine the method name based on a series of checks
     String methodName = '${method.name}_$path'.camelCase;
     if (operation.id != null) {
@@ -399,6 +405,17 @@ class $clientName {
       methodName = operation.summary!.camelCase;
     } else if (operation.description != null) {
       methodName = operation.description!.camelCase;
+    }
+
+    // Allow user to override the default name
+    if (onClientMethodName != null) {
+      final userMethodName = onClientMethodName!(methodName);
+      if (userMethodName == null) {
+        // Indicates a user request to skip this method
+        return;
+      } else {
+        methodName = userMethodName;
+      }
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -429,9 +446,11 @@ class $clientName {
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
     // Extract the description
-    String description = operation.summary ?? '';
+    String description = (operation.summary ?? '').replaceAll('\n', ' ');
+
     if (operation.description != null) {
-      description += '\n///\n/// ${operation.description ?? ''}';
+      description +=
+          '\n///\n/// ${(operation.description ?? '').replaceAll('\n', ' ')}';
     }
     if (description.isEmpty) {
       description = 'No description provided';
@@ -448,7 +467,12 @@ class $clientName {
     final uri = serverUri.scheme == 'https'
         ? Uri.https(host, path)
         : Uri.http(host, path);
-    final uriDecoded = Uri.decodeFull(uri.toString());
+    String uriDecoded = Uri.decodeFull(uri.toString());
+    if (!uriDecoded.startsWith('http://') &&
+        !uriDecoded.startsWith('https://')) {
+      // Implies no host defined, make a better doc string
+      uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
+    }
     final secure = host.isEmpty ? null : serverUri.scheme == 'https';
 
     // Determine if server contains dynamic variables
@@ -500,9 +524,13 @@ class $clientName {
       dType = rSchema?.toDartType();
 
       if (dType != null && request.required == true) {
-        input.add('required $dType request');
+        input.add('required ${dType.pascalCase} request');
       } else {
-        input.add("$dType? request");
+        if (dType == null) {
+          input.add("dynamic request");
+        } else {
+          input.add("${dType.pascalCase}? request");
+        }
       }
       inputDescription.add(
         "`request`: ${request.description ?? 'No description'}",
@@ -550,7 +578,11 @@ class $clientName {
       rSchema?.mapOrNull(
         object: (s) {
           // Handle deserialization of single object
-          decoder = "return ${s.ref}.fromJson(json.decode(r.body));";
+          if (s.ref != null) {
+            decoder = "return ${s.ref}.fromJson(json.decode(r.body));";
+          } else {
+            decoder = "return json.decode(r.body);";
+          }
         },
         array: (s) {
           // Handle deserialization for array of objects
@@ -661,7 +693,7 @@ class $clientName {
 
       /// $description
       /// 
-      /// ${inputDescription.join('\n///\n/// ')}
+      /// ${inputDescription.map((e) => e.replaceAll('\n', ' ')).join('\n///\n/// ')}
       /// 
       /// `${method.name.toUpperCase()}` `$uriDecoded`
       Future<$returnType> $methodName($inputCode) async {

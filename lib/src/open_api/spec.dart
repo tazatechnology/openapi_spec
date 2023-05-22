@@ -267,6 +267,7 @@ class OpenApi with _$OpenApi {
     String package = 'my_api',
     required String destination,
     bool client = false,
+    String? Function(String)? onClientMethodName,
     bool server = false,
     bool replace = false,
     bool singleSchemaFile = false,
@@ -306,6 +307,7 @@ class OpenApi with _$OpenApi {
           spec: this,
           package: package.snakeCase,
           destination: destination,
+          onClientMethodName: onClientMethodName,
         ).generate(replace: replace);
       }
     }

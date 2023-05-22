@@ -325,6 +325,21 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
 
   @override
   Map<String, dynamic> toJson(Schema s) {
+    if (s.ref != null) {
+      final refMap = {'\$ref': _SchemaRefConverter().toJson(s.ref)};
+      return s.maybeMap(
+        object: (i) {
+          if (i.allOf == null && i.anyOf == null) {
+            return refMap;
+          } else {
+            return s.toJson();
+          }
+        },
+        orElse: () {
+          return refMap;
+        },
+      );
+    }
     return s.toJson();
   }
 
