@@ -271,7 +271,12 @@ class OpenApi with _$OpenApi {
     bool singleSchemaFile = false,
     bool replaceOutput = false,
     bool formatOutput = true,
+    bool quiet = false,
+    bool includeVersion = true,
     String? Function(String)? onSchemaName,
+    String Function(String, List<String>)? onSchemaUnionName,
+    String? Function(String, List<String>)? onSchemaUnionKey,
+    String Function(String)? onSchemaPropertyName,
     String? Function(String)? onClientMethodName,
   }) async {
     // Ensure that the folder exists
@@ -282,14 +287,21 @@ class OpenApi with _$OpenApi {
     }
 
     // Generate the schemas
+    SchemaGenerator? schemaGenerator;
     if (components?.schemas?.isNotEmpty ?? false) {
-      await SchemaGenerator(
+      schemaGenerator = SchemaGenerator(
         spec: this,
         package: package.snakeCase,
         destination: destination,
         separate: !singleSchemaFile,
+        quiet: quiet,
+        includeVersion: includeVersion,
         onSchemaName: onSchemaName,
-      ).generate(replaceOutput: replaceOutput);
+        onSchemaPropertyName: onSchemaPropertyName,
+        onSchemaUnionName: onSchemaUnionName,
+        onSchemaUnionKey: onSchemaUnionKey,
+      );
+      await schemaGenerator.generate(replaceOutput: replaceOutput);
     } else {
       // ignore: avoid_print
       print(
@@ -309,7 +321,10 @@ class OpenApi with _$OpenApi {
           spec: this,
           package: package.snakeCase,
           destination: destination,
+          quiet: quiet,
+          includeVersion: includeVersion,
           onClientMethodName: onClientMethodName,
+          schemaGenerator: schemaGenerator,
         ).generate(replaceOutput: replaceOutput);
       }
     }

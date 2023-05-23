@@ -10,7 +10,12 @@ class SchemaGenerator extends BaseGenerator {
     required super.destination,
     required super.package,
     required this.separate,
+    required super.quiet,
+    required super.includeVersion,
     this.onSchemaName,
+    this.onSchemaUnionName,
+    this.onSchemaUnionKey,
+    this.onSchemaPropertyName,
   }) {
     schemaDirectory = Directory(p.join(parentDirectory.path, 'schema'));
     file = File(p.join(schemaDirectory.path, 'schema.dart'));
@@ -21,6 +26,16 @@ class SchemaGenerator extends BaseGenerator {
   late final Directory schemaDirectory;
   final bool separate;
   final String? Function(String)? onSchemaName;
+  final String Function(String, List<String>)? onSchemaUnionName;
+  final String? Function(String, List<String>)? onSchemaUnionKey;
+  final String Function(String)? onSchemaPropertyName;
+
+  // Internal tracker of union types
+  final Map<String, List<String>> _unions = {};
+
+  // External getter for unions
+  Map<String, List<String>> get unions =>
+      Map<String, List<String>>.unmodifiable(_unions);
 
   // ------------------------------------------
   // METHOD: generate
@@ -70,6 +85,10 @@ class SchemaGenerator extends BaseGenerator {
       );
     }
 
+    // Determine if there are any union definitions
+    // Will check for unions in schemas, responses, and requests
+    _searchForUnions();
+
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
       final filename = s.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
@@ -79,6 +98,7 @@ class SchemaGenerator extends BaseGenerator {
         final userSchemaName = onSchemaName!(name);
         if (userSchemaName == null) {
           // Indicates a user request to skip this schema
+          printLog('Skip Schema Model', name);
           continue;
         } else {
           name = userSchemaName;
@@ -98,24 +118,140 @@ class SchemaGenerator extends BaseGenerator {
         );
       }
 
-      schemas[s]?.mapOrNull(object: (schema) {
-        _writeObject(name: name, schema: schema);
-      }, enumeration: (schema) {
-        _writeEnumeration(name: name, schema: schema);
-      }, array: (schema) {
-        final iType = schema.items.ref ?? 'dynamic';
-        file.writeAsStringSync(
-          'typedef $name = List<$iType>;',
-          mode: FileMode.append,
-        );
-      }, map: (schema) {
-        final vType = schema.valueSchema?.ref ?? 'dynamic';
-        file.writeAsStringSync(
-          'typedef $name = Map<String,$vType>;',
-          mode: FileMode.append,
-        );
-      });
+      // Write individual schema definitions
+      schemas[s]?.mapOrNull(
+        object: (schema) {
+          _writeObject(name: name, schema: schema);
+        },
+        enumeration: (schema) {
+          _writeEnumeration(name: name, schema: schema);
+        },
+        array: (schema) {
+          final iType = schema.items.ref ?? 'dynamic';
+          file.writeAsStringSync(
+            'typedef $name = List<$iType>;',
+            mode: FileMode.append,
+          );
+        },
+        map: (schema) {
+          final vType = schema.valueSchema?.ref ?? 'dynamic';
+          file.writeAsStringSync(
+            'typedef $name = Map<String,$vType>;',
+            mode: FileMode.append,
+          );
+        },
+      );
     }
+
+    // Write union schema definitions
+    for (final u in _unions.keys) {
+      String filename = u.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
+      if (filename.startsWith('union') && !filename.startsWith('union_')) {
+        filename = filename.replaceAll('union', 'union_');
+      }
+
+      if (separate) {
+        file = File(p.join(schemaDirectory.path, '$filename.dart'));
+        file.writeAsStringSync(getHeader());
+        file.writeAsStringSync(
+          'part of $schemaPackage;\n\n',
+          mode: FileMode.append,
+        );
+        index.writeAsStringSync(
+          "part '$filename.dart';\n",
+          mode: FileMode.append,
+        );
+      }
+
+      _writeUnion(
+        union: u,
+        schemas: _unions[u]!,
+      );
+    }
+  }
+
+  // ------------------------------------------
+  // METHOD: _writeUnion
+  // ------------------------------------------
+
+  void _writeUnion({
+    required String union,
+    required List<String> schemas,
+  }) {
+    printLog('Create Union Schema', union);
+
+    // Determine the schema union key
+    final unionKey = onSchemaUnionKey?.call(union, schemas) ?? 'type';
+
+    // Union header
+    file.writeAsStringSync("""
+    // ==========================================
+    // CLASS: $union
+    // ==========================================
+    
+    /// Union class for ${schemas.map((e) => '[$e]').join(', ')}
+    @Freezed(unionKey: '$unionKey')
+    class $union with _\$$union  {
+      const $union._();\n
+    """, mode: FileMode.append);
+
+    // Used to remove the common part of the union name
+    // Make sure that this base is indeed in all schemas, else ignore
+    String unionBase = union.replaceAll('Union', '').trim();
+    if (schemas.any((e) => !e.contains(unionBase))) {
+      unionBase = '';
+    }
+
+    // Loop through each union
+    for (final s in schemas) {
+      final uSubClass = s.replaceAll(unionBase, '').trim();
+      final uClass = "$union.$uSubClass";
+
+      /// Class header
+      file.writeAsStringSync("""
+      // ------------------------------------------
+      // UNION: $s
+      // ------------------------------------------
+      
+      /// Union constructor for [$s]
+      const factory $uClass({
+      """, mode: FileMode.append);
+
+      // Write each property of the union type
+      final schema = spec.components?.schemas?[s]?.mapOrNull(object: (o) => o);
+
+      if (schema == null) {
+        throw Exception("\n\nUnion schema '$s' not found in components\n");
+      }
+
+      // Loop through properties
+      final props = schema.properties;
+      final propNames = props?.keys.toList() ?? <String>[];
+      List<String> validations = [];
+      for (final propName in propNames) {
+        var dartName = propName.camelCase;
+        dartName = onSchemaPropertyName?.call(dartName) ?? dartName;
+        final v = _writeProperty(
+          name: dartName,
+          jsonName: propName,
+          property: props![propName]!,
+          required: schema.required?.contains(propName) ?? false,
+        );
+        validations.addAll(v);
+      }
+
+      /// Class Footer
+      file.writeAsStringSync("}) = _$union$uSubClass;\n\n",
+          mode: FileMode.append);
+    }
+
+    // Union footer
+    file.writeAsStringSync("""
+    /// Object construction from a JSON representation
+    factory $union.fromJson(Map<String, dynamic> json) => _\$${union}FromJson(json);
+
+    }\n
+    """, mode: FileMode.append);
   }
 
   // ------------------------------------------
@@ -154,7 +290,8 @@ class SchemaGenerator extends BaseGenerator {
     bool firstPass = true;
     List<String> validations = [];
     for (final propName in propNames) {
-      final dartName = propName.camelCase;
+      var dartName = propName.camelCase;
+      dartName = onSchemaPropertyName?.call(dartName) ?? dartName;
       if (firstPass) {
         firstPass = false;
         file.writeAsStringSync('{', mode: FileMode.append);
@@ -240,7 +377,19 @@ class SchemaGenerator extends BaseGenerator {
               orElse: () => p,
             );
         bool nullable = !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
+        String c = "/// ${p.description ?? 'No Description'}\n";
+
+        List<String> unionSchemas = [];
+        if (p.anyOf != null) {
+          unionSchemas = p.anyOf!
+              .map((e) => e.ref?.toString().split('/').last)
+              .where((e) => e != null)
+              .map((e) => e.toString())
+              .toList();
+          if (unionSchemas.isNotEmpty) {
+            c += "/// Any of: ${unionSchemas.map((e) => '[$e]').join(',')}\n";
+          }
+        }
 
         if (jsonName != name) {
           c += jsonKey;
@@ -251,7 +400,12 @@ class SchemaGenerator extends BaseGenerator {
         }
         if (p.ref != null) {
           c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
-        } else if (p.anyOf != null) {
+        } else if (unionSchemas.isNotEmpty) {
+          final unionName = _unions.keys
+                  .firstWhereOrNull((e) => _unions[e]!.equals(unionSchemas)) ??
+              'dynamic';
+          c += "$unionName ${nullable ? '?' : ''} $name,\n\n";
+        } else {
           c += "dynamic ${nullable ? '?' : ''} $name,\n\n";
         }
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -486,5 +640,144 @@ class SchemaGenerator extends BaseGenerator {
       out.add('if ($nullName % $multipleOf != 0) {return "$message";}');
     }
     return out;
+  }
+
+  // ------------------------------------------
+  // METHOD: _searchForUnions
+  // ------------------------------------------
+
+  void _searchForUnions() {
+    void checkAnyOf(List<Schema>? schemas) {
+      if (schemas == null) {
+        return;
+      }
+      final unionSchemas = schemas
+          .map((e) => e.ref?.toString().split('/').last)
+          .where((e) => e != null)
+          .map((e) => e.toString())
+          .toList();
+      if (unionSchemas.isNotEmpty) {
+        _updateUnionMap(unionSchemas);
+      }
+    }
+
+    // Check for unions in component schemas
+    for (final s in (spec.components?.schemas?.keys ?? <String>[])) {
+      spec.components?.schemas?[s]?.mapOrNull(
+        object: (o) {
+          final props = o.properties;
+          final propNames = props?.keys.toList() ?? <String>[];
+          for (final pName in propNames) {
+            o.properties![pName]?.mapOrNull(
+              object: (p) => checkAnyOf(p.anyOf),
+            );
+          }
+        },
+      );
+    }
+
+    // Check for unions in component responses
+    for (final key in (spec.components?.responses?.keys ?? <String>[])) {
+      final r = spec.components?.responses?[key];
+      for (final c in (r?.content?.values ?? <MediaType>[])) {
+        c.schema?.mapOrNull(
+          object: (p) => checkAnyOf(p.anyOf),
+        );
+      }
+    }
+
+    // Check for unions in component requests
+    for (final key in (spec.components?.requestBodies?.keys ?? <String>[])) {
+      final r = spec.components?.requestBodies?[key];
+      for (final c in (r?.content?.values ?? <MediaType>[])) {
+        c.schema?.mapOrNull(
+          object: (p) => checkAnyOf(p.anyOf),
+        );
+      }
+    }
+
+    // Check for unions in path rquests/responses
+    for (final p in (spec.paths?.values ?? <PathItem>[])) {
+      // Responses
+      p.get?.responses?.forEach((_, r) {
+        r.content?.values.toList().forEach(
+            (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+      });
+      p.put?.responses?.forEach((_, r) {
+        r.content?.values.toList().forEach(
+            (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+      });
+      p.post?.responses?.forEach((_, r) {
+        r.content?.values.toList().forEach(
+            (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+      });
+      // Requests
+      p.get?.requestBody?.content?.values.toList().forEach(
+          (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+      p.put?.requestBody?.content?.values.toList().forEach(
+          (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+      p.post?.requestBody?.content?.values.toList().forEach(
+          (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+    }
+  }
+
+  // ------------------------------------------
+  // METHOD: _updateUnionMap
+  // ------------------------------------------
+
+  void _updateUnionMap(List<String> schemas) {
+    // Simply find the longest common string, starting from the end
+    // Naive approach to arrive at a union name - allow user to override
+
+    // Check if any sub-schemas are needed by the user
+    if (!schemas.any((e) => onSchemaName?.call(e) != null)) {
+      // Implies are sub-schemas were not request by user, don't create union
+      return;
+    }
+
+    // Use the snake schema names to find a common name
+    final schemasSnake = schemas.map((e) => e.snakeCase.split('_'));
+    final minLength = schemasSnake.map((e) => e.length).reduce(math.min);
+    int? index;
+    for (var i = 1; i < minLength; i++) {
+      if (schemasSnake.map((e) => e[e.length - i]).toSet().length == 1) {
+        index = i;
+      } else {
+        break;
+      }
+    }
+
+    String name;
+    if (index == null) {
+      // Could not arrive at a common name, use a default
+      name = 'UnionSchema';
+    } else {
+      final commonWords =
+          schemasSnake.first.sublist(schemasSnake.first.length - index);
+      final commonName = commonWords.map((e) => e.titleCase).join();
+      name = 'Union$commonName';
+    }
+
+    bool alreadyDefined =
+        _unions.values.map((e) => e.equals(schemas)).any((e) => e);
+
+    if (!alreadyDefined) {
+      final userUnionName = onSchemaUnionName?.call(name, schemas);
+      if (userUnionName != null && userUnionName != name) {
+        printLog('Rename Union Schema', '$name -> $userUnionName');
+        name = userUnionName;
+      }
+
+      // Ensure name is unique
+      int i = 1;
+      final basename = name;
+      while (_unions.containsKey(name)) {
+        i += 1;
+        name = '$basename$i';
+      }
+
+      // Write to union map
+      _unions[name] = schemas;
+    }
   }
 }

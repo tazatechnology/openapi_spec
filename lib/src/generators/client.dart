@@ -24,6 +24,9 @@ class ClientGenerator extends BaseGenerator {
     required super.spec,
     required super.destination,
     required super.package,
+    required super.quiet,
+    required super.includeVersion,
+    required this.schemaGenerator,
     this.onClientMethodName,
   }) {
     clientDirectory = Directory(p.join(parentDirectory.path, 'client'));
@@ -32,6 +35,7 @@ class ClientGenerator extends BaseGenerator {
   late File file;
   late final Directory clientDirectory;
   final String? Function(String)? onClientMethodName;
+  final SchemaGenerator? schemaGenerator;
 
   // ------------------------------------------
   // METHOD: generate
@@ -412,6 +416,7 @@ class $clientName {
       final userMethodName = onClientMethodName!(methodName);
       if (userMethodName == null) {
         // Indicates a user request to skip this method
+        printLog('Skip Client Method', methodName);
         return;
       } else {
         methodName = userMethodName;
@@ -526,7 +531,7 @@ class $clientName {
         // Skip - might need to gracefully handle this some other way
       }
 
-      dType = rSchema?.toDartType();
+      dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
 
       if (dType != null && request.required == true) {
         input.add('required ${dType.pascalCase} request');
@@ -570,9 +575,8 @@ class $clientName {
         }
       }
       rSchema?.dereference(components: spec.components?.schemas);
-      dType = rSchema?.toDartType();
+      dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
       returnType = dType ?? returnType;
-
       if (responseType != ContentType.json) {
         throw UnimplementedError(
           '\n\nOnly JSON response parsing is currently implemented:\n\n$response',
@@ -608,6 +612,7 @@ class $clientName {
           }
         },
       );
+
       if (decoder.isEmpty && returnType != 'void') {
         if (returnType.contains('List') || returnType.contains('Map')) {
           decoder = "return  $returnType.from(json.decode(r.body));";
@@ -690,6 +695,14 @@ class $clientName {
       headerCode = "headers: {${headerParams.join(',')},},";
     }
 
+    String inputDescriptionStr = inputDescription
+        .map((e) => e.replaceAll('\n', ' '))
+        .join('\n///\n/// ');
+
+    if (inputDescriptionStr.isNotEmpty) {
+      inputDescriptionStr = '\n/// $inputDescriptionStr\n///';
+    }
+
     // Write the client method
     file.writeAsStringSync("""
       // ------------------------------------------
@@ -697,9 +710,7 @@ class $clientName {
       // ------------------------------------------
 
       /// $description
-      /// 
-      /// ${inputDescription.map((e) => e.replaceAll('\n', ' ')).join('\n///\n/// ')}
-      /// 
+      /// $inputDescriptionStr
       /// `${method.name.toUpperCase()}` `$uriDecoded`
       Future<$returnType> $methodName($inputCode) async {
 

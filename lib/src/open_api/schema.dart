@@ -251,9 +251,21 @@ class Schema with _$Schema {
   // ------------------------------------------
 
   /// Return a proper Dart type for this schema
-  String toDartType() {
+  String toDartType({
+    Map<String, List<String>>? unions,
+  }) {
     return map(
       object: (s) {
+        if (s.anyOf != null && unions != null) {
+          final subSchemas = s.anyOf!.map((e) => e.toDartType()).toList();
+          for (final e in unions.entries) {
+            if (subSchemas.any((s) => !e.value.contains(s))) {
+              continue;
+            } else {
+              return e.key;
+            }
+          }
+        }
         return s.ref ?? 'Map<String,dynamic>';
       },
       boolean: (s) {
