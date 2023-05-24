@@ -19,7 +19,7 @@ class SchemaGenerator extends BaseGenerator {
   }) {
     schemaDirectory = Directory(p.join(parentDirectory.path, 'schema'));
     file = File(p.join(schemaDirectory.path, 'schema.dart'));
-    index = File(p.join(schemaDirectory.path, 'schema_index.dart'));
+    index = File(p.join(schemaDirectory.path, 'schema.dart'));
   }
   late File file;
   late final File index;
@@ -69,8 +69,8 @@ class SchemaGenerator extends BaseGenerator {
 
       import 'package:freezed_annotation/freezed_annotation.dart';
 
-      part 'schema_index.g.dart';
-      part 'schema_index.freezed.dart';\n
+      part 'schema.g.dart';
+      part 'schema.freezed.dart';\n
       """);
 
     if (!separate) {
@@ -207,16 +207,6 @@ class SchemaGenerator extends BaseGenerator {
       final uSubClass = s.replaceAll(unionBase, '').trim();
       final uClass = "$union.$uSubClass";
 
-      /// Class header
-      file.writeAsStringSync("""
-      // ------------------------------------------
-      // UNION: $s
-      // ------------------------------------------
-      
-      /// Union constructor for [$s]
-      const factory $uClass({
-      """, mode: FileMode.append);
-
       // Write each property of the union type
       final schema = spec.components?.schemas?[s]?.mapOrNull(object: (o) => o);
 
@@ -224,7 +214,28 @@ class SchemaGenerator extends BaseGenerator {
         throw Exception("\n\nUnion schema '$s' not found in components\n");
       }
 
-      // Loop through properties
+      // Attempt to get the union value based on the key
+      String? unionValue = schema.properties?[unionKey]?.mapOrNull(
+        string: (s) => s.defaultValue,
+        enumeration: (s) => s.defaultValue,
+      );
+      if (unionValue != null) {
+        unionValue = "\n@FreezedUnionValue('$unionValue')";
+      } else {
+        unionValue = '';
+      }
+
+      /// Class header
+      file.writeAsStringSync("""
+      // ------------------------------------------
+      // UNION: $s
+      // ------------------------------------------
+      
+      /// Union constructor for [$s] $unionValue
+      const factory $uClass({
+      """, mode: FileMode.append);
+
+      // Loop over all properties
       final props = schema.properties;
       final propNames = props?.keys.toList() ?? <String>[];
       List<String> validations = [];
@@ -730,9 +741,11 @@ class SchemaGenerator extends BaseGenerator {
     // Naive approach to arrive at a union name - allow user to override
 
     // Check if any sub-schemas are needed by the user
-    if (!schemas.any((e) => onSchemaName?.call(e) != null)) {
-      // Implies are sub-schemas were not request by user, don't create union
-      return;
+    if (onSchemaName != null) {
+      if (schemas.any((e) => onSchemaName?.call(e) == null)) {
+        // Implies some sub-schemas were not requested by user, don't create union
+        return;
+      }
     }
 
     // Use the snake schema names to find a common name

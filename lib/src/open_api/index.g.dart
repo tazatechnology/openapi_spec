@@ -526,6 +526,95 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
   return val;
 }
 
+_$_OpenId _$$_OpenIdFromJson(Map<String, dynamic> json) => _$_OpenId(
+      issuer: json['issuer'] as String?,
+      authorizationEndpoint: json['authorization_endpoint'] as String?,
+      tokenEndpoint: json['token_endpoint'] as String?,
+      deviceAuthorizationEndpoint:
+          json['device_authorization_endpoint'] as String?,
+      userinfoEndpoint: json['userinfo_endpoint'] as String?,
+      mfaChallengeEndpoint: json['mfa_challenge_endpoint'] as String?,
+      jwksUri: json['jwks_uri'] as String?,
+      registrationEndpoint: json['registration_endpoint'] as String?,
+      revocationEndpoint: json['revocation_endpoint'] as String?,
+      scopesSupported: (json['scopes_supported'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      responseTypesSupported:
+          (json['response_types_supported'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+      codeChallengeMethodsSupported:
+          (json['code_challenge_methods_supported'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+      responseModesSupported:
+          (json['response_modes_supported'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+      subjectTypesSupported: (json['subject_types_supported'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      idTokenSigningAlgValuesSupported:
+          (json['id_token_signing_alg_values_supported'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+      tokenEndpointAuthMethodsSupported:
+          (json['token_endpoint_auth_methods_supported'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+      claimsSupported: (json['claims_supported'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      requestUriParameterSupported:
+          json['request_uri_parameter_supported'] as bool?,
+      requestParameterSupported: json['request_parameter_supported'] as bool?,
+      tokenEndpointAuthSigningAlgValuesSupported:
+          (json['token_endpoint_auth_signing_alg_values_supported']
+                  as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+    );
+
+Map<String, dynamic> _$$_OpenIdToJson(_$_OpenId instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('issuer', instance.issuer);
+  writeNotNull('authorization_endpoint', instance.authorizationEndpoint);
+  writeNotNull('token_endpoint', instance.tokenEndpoint);
+  writeNotNull(
+      'device_authorization_endpoint', instance.deviceAuthorizationEndpoint);
+  writeNotNull('userinfo_endpoint', instance.userinfoEndpoint);
+  writeNotNull('mfa_challenge_endpoint', instance.mfaChallengeEndpoint);
+  writeNotNull('jwks_uri', instance.jwksUri);
+  writeNotNull('registration_endpoint', instance.registrationEndpoint);
+  writeNotNull('revocation_endpoint', instance.revocationEndpoint);
+  writeNotNull('scopes_supported', instance.scopesSupported);
+  writeNotNull('response_types_supported', instance.responseTypesSupported);
+  writeNotNull('code_challenge_methods_supported',
+      instance.codeChallengeMethodsSupported);
+  writeNotNull('response_modes_supported', instance.responseModesSupported);
+  writeNotNull('subject_types_supported', instance.subjectTypesSupported);
+  writeNotNull('id_token_signing_alg_values_supported',
+      instance.idTokenSigningAlgValuesSupported);
+  writeNotNull('token_endpoint_auth_methods_supported',
+      instance.tokenEndpointAuthMethodsSupported);
+  writeNotNull('claims_supported', instance.claimsSupported);
+  writeNotNull(
+      'request_uri_parameter_supported', instance.requestUriParameterSupported);
+  writeNotNull(
+      'request_parameter_supported', instance.requestParameterSupported);
+  writeNotNull('token_endpoint_auth_signing_alg_values_supported',
+      instance.tokenEndpointAuthSigningAlgValuesSupported);
+  return val;
+}
+
 _$_ParameterCookie _$$_ParameterCookieFromJson(Map<String, dynamic> json) =>
     _$_ParameterCookie(
       name: json['name'] as String?,

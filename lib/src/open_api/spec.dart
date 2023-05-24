@@ -310,6 +310,8 @@ class OpenApi with _$OpenApi {
     }
 
     // Generate client
+    ClientGenerator? clientGenerator;
+
     if (client) {
       if (paths == null || (paths?.isEmpty ?? true)) {
         // ignore: avoid_print
@@ -317,7 +319,7 @@ class OpenApi with _$OpenApi {
           'No client paths/operations found in OpenAPI spec - Not generating client library!',
         );
       } else {
-        await ClientGenerator(
+        clientGenerator = ClientGenerator(
           spec: this,
           package: package.snakeCase,
           destination: destination,
@@ -325,7 +327,8 @@ class OpenApi with _$OpenApi {
           includeVersion: includeVersion,
           onClientMethodName: onClientMethodName,
           schemaGenerator: schemaGenerator,
-        ).generate(replaceOutput: replaceOutput);
+        );
+        await clientGenerator.generate(replaceOutput: replaceOutput);
       }
     }
 

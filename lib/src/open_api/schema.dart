@@ -265,8 +265,12 @@ class Schema with _$Schema {
               return e.key;
             }
           }
+        } else if (s.ref != null) {
+          return s.ref!;
+        } else if (s.properties != null || s.anyOf != null) {
+          return 'Map<String,dynamic>';
         }
-        return s.ref ?? 'Map<String,dynamic>';
+        return 'dynamic';
       },
       boolean: (s) {
         return 'bool';

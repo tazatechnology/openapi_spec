@@ -14,6 +14,7 @@ final keyJson = 'application/json';
 final keyXml = 'application/xml';
 
 final apiKeyVar = 'apiKey';
+final accessTokenVar = 'accessToken';
 
 // ==========================================
 // CLASS: ClientGenerator
@@ -58,16 +59,66 @@ class ClientGenerator extends BaseGenerator {
     final clientName = '${package.titleCase}Client';
     final clientException = '${clientName}Exception';
 
-    // Determine which type of authentication to use
+    // Determine which security schemes are defined in API spec
+    Map<AuthType, SecurityScheme>? security = {};
+    for (final e
+        in (spec.components?.securitySchemes ?? <String, SecurityScheme>{})
+            .entries) {
+      e.value.mapOrNull(
+        apiKey: (a) {
+          switch (a.location) {
+            case ApiKeyLocation.cookie:
+              security[AuthType.keyCookie] = e.value;
+            case ApiKeyLocation.header:
+              security[AuthType.keyHeader] = e.value;
+            case ApiKeyLocation.query:
+              security[AuthType.keyQuery] = e.value;
+          }
+        },
+        openIdConnect: (o) {
+          security[AuthType.openId] = e.value;
+        },
+      );
+    }
+
+    // Check if there is a global security scheme to apply to all endpoints
+    final globalAuth = _determineGlobalAuth(spec.security);
+
+    // Codify client inputs depending on security scheme
     List<String> authInputs = [];
     List<String> authVariables = [];
-    final globalAuth = _determineAuth(spec.security);
-    if (globalAuth != null && globalAuth.isNotEmpty) {
-      if (globalAuth.keys.contains(AuthType.keyQuery) ||
-          globalAuth.keys.contains(AuthType.keyHeader) ||
-          globalAuth.keys.contains(AuthType.keyCookie)) {
+    String authRequestHeader = '';
+    if (security.isNotEmpty) {
+      if (security.keys.contains(AuthType.keyQuery) ||
+          security.keys.contains(AuthType.keyHeader) ||
+          security.keys.contains(AuthType.keyCookie)) {
         authInputs.add('required this.$apiKeyVar');
         authVariables.add('final String $apiKeyVar;');
+      }
+      if (security.keys.contains(AuthType.openId)) {
+        await security[AuthType.openId]?.mapOrNull(
+          openIdConnect: (o) async {
+            // OpenId openIdConfig = const OpenId();
+            // try {
+            //   final response = await http.Client().get(Uri.parse(o.url));
+            //   openIdConfig = OpenId.fromJson(json.decode(response.body));
+            // } catch (e) {
+            //   printLog(
+            //     'OpenID',
+            //     'Unable to retrieve OpenID configuration from: ${o.url}',
+            //   );
+            // }
+            // print(openIdConfig);
+            authInputs.add('required this.$accessTokenVar');
+            authVariables.add('String $accessTokenVar;');
+            authRequestHeader = """
+            /// Add access to token to request headers
+            if ($accessTokenVar.isNotEmpty){
+              headers[HttpHeaders.authorizationHeader] = 'Bearer \$$accessTokenVar';
+            }
+            """;
+          },
+        );
       }
     }
     // Generate auth input code
@@ -84,7 +135,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
-import '../schema/schema_index.dart';
+import '../schema/schema.dart';
 
 /// Enum of HTTP methods
 enum HttpMethod { get, put, post, delete, options, head, patch, trace }
@@ -102,22 +153,30 @@ class $clientException implements HttpException {
     required this.uri,
     required this.method,
     this.code,
-    this.data,
+    this.body,
   });
+  @override
   final String message;
+  @override
   final Uri uri;
   final HttpMethod method;
   final int? code;
-  final Object? data;
+  final Object? body;
 
   @override
   String toString() {
+    Object? data;
+    try {
+      data = body is String ? jsonDecode(body as String) : body.toString();
+    } catch (e) {
+      data = body.toString();
+    }
     final s = JsonEncoder.withIndent('  ').convert({
       'uri': uri.toString(),
       'method': method.name.toUpperCase(),
       'code': code,
       'message': message,
-      'data': data.toString(),
+      'body': data,
     });
     return '$clientException(\$s)';
   }
@@ -135,21 +194,20 @@ class $clientException implements HttpException {
 class $clientName {
   $clientName({
     $authInputCode
-    String? host,
+    this.host,
     http.Client? client,
   }) {
-    _host = host;
     // Create a retry client
     _client = RetryClient(client ?? http.Client());
   }
 
   /// User provided override for host URL
-  late final String? _host;
+  late final String? host;
 
   /// Internal HTTP client
   late final http.Client _client;
   
-  /// Authentication related variables
+  ${authVariables.isEmpty ? '' : '/// Authentication related variables'}
   ${authVariables.join('\n')}
 
   // ------------------------------------------
@@ -158,6 +216,26 @@ class $clientName {
 
   /// Close the HTTP client and end session
   void endSession() => _client.close();
+
+  // ------------------------------------------
+  // METHOD: onRequest
+  // ------------------------------------------
+
+  /// Middleware for HTTP requests (user can override)
+  ///
+  /// The request can be of type [http.Request] or [http.MultipartRequest]
+  Future<http.BaseRequest> onRequest(http.BaseRequest request) async {
+    return request;
+  }
+
+  // ------------------------------------------
+  // METHOD: onResponse
+  // ------------------------------------------
+
+  /// Middleware for HTTP responses (user can override)
+  Future<http.Response> onResponse(http.Response response) async {
+    return response;
+  }
 
   // ------------------------------------------
   // METHOD: _request
@@ -169,8 +247,8 @@ class $clientName {
     required String path,
     required bool? secure,
     required HttpMethod method,
-    Map<String, dynamic> queryParameters = const {},
-    Map<String, String> headers = const {},
+    Map<String, dynamic> queryParams = const {},
+    Map<String, String> headerParams = const {},
     ContentType requestType = ContentType.json,
     ContentType responseType = ContentType.json,
     Object? body,
@@ -178,9 +256,10 @@ class $clientName {
     // final timer = Stopwatch()..start();
 
     // Override with the user provided host
-    // Else, default to server host defined in spec
-    if (_host?.isNotEmpty ?? false) {
-      host = _host!;
+    if (host.isEmpty) {
+      host = this.host ?? '';
+    } else if (host.isNotEmpty && this.host != null) {
+      host = this.host ?? host;
     }
 
     // Ensure a host is provided
@@ -191,40 +270,41 @@ class $clientName {
     }
 
     // Determine the connection type
-    if (secure == null) {
-      secure = Uri.parse(_host ?? '').scheme == 'https';
-    }
+    secure ??= Uri.parse(host).scheme == 'https';
 
     // Build the request URI
     Uri uri;
+    host = Uri.parse(host).host;
     if (secure) {
-      uri = Uri.https(host, path, queryParameters);
+      uri = Uri.https(host, path, queryParams.isEmpty ? null : queryParams);
     } else {
-      uri = Uri.http(host, path, queryParameters);
+      uri = Uri.http(host, path, queryParams.isEmpty ? null : queryParams);
     }
 
+    // Build the headers
+    Map<String, String> headers = {}..addAll(headerParams);
+    
+    $authRequestHeader
+    
     // Define the request type being sent to server
     switch (requestType) {
       case ContentType.json:
-        headers['content-type'] = '$keyJson';
+        headers[HttpHeaders.contentTypeHeader] = 'application/json';
       case ContentType.multipart:
-        headers['content-type'] = '$keyMultipart';
+        headers[HttpHeaders.contentTypeHeader] = 'multipart/form-data';
       case ContentType.xml:
-        headers['content-type'] = '$keyXml';
+        headers[HttpHeaders.contentTypeHeader] = 'application/xml';
     }
 
     // Define the response type expected to receive from server
     switch (responseType) {
       case ContentType.json:
-        headers['accept'] = '$keyJson';
+        headers[HttpHeaders.acceptHeader] = 'application/json';
       case ContentType.multipart:
-        headers['accept'] = '$keyMultipart';
+        headers[HttpHeaders.acceptHeader] = 'multipart/form-data';
       case ContentType.xml:
-        headers['accept'] = '$keyXml';
+        headers[HttpHeaders.acceptHeader] = 'application/xml';
     }
-
-    // Build the headers
-
 
     // Build the request object
     late http.Response response;
@@ -251,33 +331,35 @@ class $clientName {
             uri: uri,
             method: method,
             message: 'Could not encode: \${body.runtimeType}',
-            data: e,
+            body: e,
           ).toString();
         }
       }
+
+      // Add request headers
       request.headers.addAll(headers);
+
+      // Handle user request middleware
+      request = await onRequest(request);
+
+      // Submit request
       response = await http.Response.fromStream(await _client.send(request));
+
+      // Handle user response middleware
+      response = await onResponse(response);
     } catch (e) {
-      // Handle response errors
+      // Handle request and response errors
       throw $clientException(
         uri: uri,
         method: method,
         message: 'Response error',
-        data: e,
+        body: e,
       ).toString();
     }
-    
+
     // Check for successful response
     if ((response.statusCode ~/ 100) == 2) {
       return response;
-    }
-
-    // Attempt to decode unsuccessful response body
-    Object? rBody;
-    try {
-      rBody = jsonDecode(response.body);
-    } catch (e) {
-      // pass
     }
 
     // Handle unsuccessful response
@@ -286,7 +368,7 @@ class $clientName {
       method: method,
       message: 'Unsuccessful response',
       code: response.statusCode,
-      data: rBody ?? response.body,
+      body: response.body,
     ).toString();
   }\n
 """);
@@ -325,7 +407,7 @@ class $clientName {
           }),
         );
         // Determine the auth for this operation, else defer to global setting
-        var auth = _determineAuth(o.security) ?? globalAuth;
+        var auth = _determineGlobalAuth(o.security) ?? globalAuth;
 
         // Write the method
         _writeMethod(
@@ -347,7 +429,7 @@ class $clientName {
   // METHOD: _determineAuth
   // ------------------------------------------
 
-  Map<AuthType, SecurityScheme>? _determineAuth(
+  Map<AuthType, SecurityScheme>? _determineGlobalAuth(
     List<Security>? security,
   ) {
     final schemes = spec.components?.securitySchemes;
@@ -419,7 +501,7 @@ class $clientName {
         printLog('Skip Client Method', methodName);
         return;
       } else {
-        methodName = userMethodName;
+        methodName = userMethodName.camelCase;
       }
     }
 
@@ -534,12 +616,12 @@ class $clientName {
       dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
 
       if (dType != null && request.required == true) {
-        input.add('required ${dType.pascalCase} request');
+        input.add('required $dType request');
       } else {
         if (dType == null) {
           input.add("dynamic request");
         } else {
-          input.add("${dType.pascalCase}? request");
+          input.add("$dType? request");
         }
       }
       inputDescription.add(
@@ -590,7 +672,11 @@ class $clientName {
           if (s.ref != null) {
             decoder = "return ${s.ref}.fromJson(json.decode(r.body));";
           } else {
-            decoder = "return json.decode(r.body);";
+            // Just return the whole response and allow user to handle
+            if (returnType == 'dynamic') {
+              returnType = 'http.Response';
+              decoder = "return r;";
+            }
           }
         },
         array: (s) {
@@ -672,7 +758,7 @@ class $clientName {
             "`${pName.camelCase}`: ${p.description ?? 'No description'}",
           );
           // Update the path definition
-          path = path.replaceAll('{${p.name}}', '\${${pName.camelCase}}');
+          path = path.replaceAll('{${p.name}}', '\$${pName.camelCase}');
         },
       );
     }
@@ -688,11 +774,11 @@ class $clientName {
     }
     String queryCode = '';
     if (queryParams.isNotEmpty) {
-      queryCode = "queryParameters: {${queryParams.join(',')},},";
+      queryCode = "queryParams: {${queryParams.join(',')},},";
     }
     String headerCode = '';
     if (headerParams.isNotEmpty) {
-      headerCode = "headers: {${headerParams.join(',')},},";
+      headerCode = "headerParams: {${headerParams.join(',')},},";
     }
 
     String inputDescriptionStr = inputDescription

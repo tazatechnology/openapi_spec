@@ -4683,6 +4683,900 @@ abstract class _Operation implements Operation {
       throw _privateConstructorUsedError;
 }
 
+OpenId _$OpenIdFromJson(Map<String, dynamic> json) {
+  return _OpenId.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OpenId {
+  /// Text
+  String? get issuer => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'authorization_endpoint')
+  String? get authorizationEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'token_endpoint')
+  String? get tokenEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'device_authorization_endpoint')
+  String? get deviceAuthorizationEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'userinfo_endpoint')
+  String? get userinfoEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'mfa_challenge_endpoint')
+  String? get mfaChallengeEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'jwks_uri')
+  String? get jwksUri => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'registration_endpoint')
+  String? get registrationEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'revocation_endpoint')
+  String? get revocationEndpoint => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'scopes_supported')
+  List<String>? get scopesSupported => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'response_types_supported')
+  List<String>? get responseTypesSupported =>
+      throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'code_challenge_methods_supported')
+  List<String>? get codeChallengeMethodsSupported =>
+      throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'response_modes_supported')
+  List<String>? get responseModesSupported =>
+      throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'subject_types_supported')
+  List<String>? get subjectTypesSupported => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'id_token_signing_alg_values_supported')
+  List<String>? get idTokenSigningAlgValuesSupported =>
+      throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'token_endpoint_auth_methods_supported')
+  List<String>? get tokenEndpointAuthMethodsSupported =>
+      throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'claims_supported')
+  List<String>? get claimsSupported => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'request_uri_parameter_supported')
+  bool? get requestUriParameterSupported => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'request_parameter_supported')
+  bool? get requestParameterSupported => throw _privateConstructorUsedError;
+
+  /// Text
+  @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+  List<String>? get tokenEndpointAuthSigningAlgValuesSupported =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OpenIdCopyWith<OpenId> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OpenIdCopyWith<$Res> {
+  factory $OpenIdCopyWith(OpenId value, $Res Function(OpenId) then) =
+      _$OpenIdCopyWithImpl<$Res, OpenId>;
+  @useResult
+  $Res call(
+      {String? issuer,
+      @JsonKey(name: 'authorization_endpoint') String? authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') String? tokenEndpoint,
+      @JsonKey(name: 'device_authorization_endpoint')
+      String? deviceAuthorizationEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') String? userinfoEndpoint,
+      @JsonKey(name: 'mfa_challenge_endpoint') String? mfaChallengeEndpoint,
+      @JsonKey(name: 'jwks_uri') String? jwksUri,
+      @JsonKey(name: 'registration_endpoint') String? registrationEndpoint,
+      @JsonKey(name: 'revocation_endpoint') String? revocationEndpoint,
+      @JsonKey(name: 'scopes_supported') List<String>? scopesSupported,
+      @JsonKey(name: 'response_types_supported')
+      List<String>? responseTypesSupported,
+      @JsonKey(name: 'code_challenge_methods_supported')
+      List<String>? codeChallengeMethodsSupported,
+      @JsonKey(name: 'response_modes_supported')
+      List<String>? responseModesSupported,
+      @JsonKey(name: 'subject_types_supported')
+      List<String>? subjectTypesSupported,
+      @JsonKey(name: 'id_token_signing_alg_values_supported')
+      List<String>? idTokenSigningAlgValuesSupported,
+      @JsonKey(name: 'token_endpoint_auth_methods_supported')
+      List<String>? tokenEndpointAuthMethodsSupported,
+      @JsonKey(name: 'claims_supported') List<String>? claimsSupported,
+      @JsonKey(name: 'request_uri_parameter_supported')
+      bool? requestUriParameterSupported,
+      @JsonKey(name: 'request_parameter_supported')
+      bool? requestParameterSupported,
+      @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+      List<String>? tokenEndpointAuthSigningAlgValuesSupported});
+}
+
+/// @nodoc
+class _$OpenIdCopyWithImpl<$Res, $Val extends OpenId>
+    implements $OpenIdCopyWith<$Res> {
+  _$OpenIdCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? issuer = freezed,
+    Object? authorizationEndpoint = freezed,
+    Object? tokenEndpoint = freezed,
+    Object? deviceAuthorizationEndpoint = freezed,
+    Object? userinfoEndpoint = freezed,
+    Object? mfaChallengeEndpoint = freezed,
+    Object? jwksUri = freezed,
+    Object? registrationEndpoint = freezed,
+    Object? revocationEndpoint = freezed,
+    Object? scopesSupported = freezed,
+    Object? responseTypesSupported = freezed,
+    Object? codeChallengeMethodsSupported = freezed,
+    Object? responseModesSupported = freezed,
+    Object? subjectTypesSupported = freezed,
+    Object? idTokenSigningAlgValuesSupported = freezed,
+    Object? tokenEndpointAuthMethodsSupported = freezed,
+    Object? claimsSupported = freezed,
+    Object? requestUriParameterSupported = freezed,
+    Object? requestParameterSupported = freezed,
+    Object? tokenEndpointAuthSigningAlgValuesSupported = freezed,
+  }) {
+    return _then(_value.copyWith(
+      issuer: freezed == issuer
+          ? _value.issuer
+          : issuer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      authorizationEndpoint: freezed == authorizationEndpoint
+          ? _value.authorizationEndpoint
+          : authorizationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tokenEndpoint: freezed == tokenEndpoint
+          ? _value.tokenEndpoint
+          : tokenEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceAuthorizationEndpoint: freezed == deviceAuthorizationEndpoint
+          ? _value.deviceAuthorizationEndpoint
+          : deviceAuthorizationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userinfoEndpoint: freezed == userinfoEndpoint
+          ? _value.userinfoEndpoint
+          : userinfoEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mfaChallengeEndpoint: freezed == mfaChallengeEndpoint
+          ? _value.mfaChallengeEndpoint
+          : mfaChallengeEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      jwksUri: freezed == jwksUri
+          ? _value.jwksUri
+          : jwksUri // ignore: cast_nullable_to_non_nullable
+              as String?,
+      registrationEndpoint: freezed == registrationEndpoint
+          ? _value.registrationEndpoint
+          : registrationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      revocationEndpoint: freezed == revocationEndpoint
+          ? _value.revocationEndpoint
+          : revocationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scopesSupported: freezed == scopesSupported
+          ? _value.scopesSupported
+          : scopesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      responseTypesSupported: freezed == responseTypesSupported
+          ? _value.responseTypesSupported
+          : responseTypesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      codeChallengeMethodsSupported: freezed == codeChallengeMethodsSupported
+          ? _value.codeChallengeMethodsSupported
+          : codeChallengeMethodsSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      responseModesSupported: freezed == responseModesSupported
+          ? _value.responseModesSupported
+          : responseModesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      subjectTypesSupported: freezed == subjectTypesSupported
+          ? _value.subjectTypesSupported
+          : subjectTypesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      idTokenSigningAlgValuesSupported: freezed ==
+              idTokenSigningAlgValuesSupported
+          ? _value.idTokenSigningAlgValuesSupported
+          : idTokenSigningAlgValuesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      tokenEndpointAuthMethodsSupported: freezed ==
+              tokenEndpointAuthMethodsSupported
+          ? _value.tokenEndpointAuthMethodsSupported
+          : tokenEndpointAuthMethodsSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      claimsSupported: freezed == claimsSupported
+          ? _value.claimsSupported
+          : claimsSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      requestUriParameterSupported: freezed == requestUriParameterSupported
+          ? _value.requestUriParameterSupported
+          : requestUriParameterSupported // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      requestParameterSupported: freezed == requestParameterSupported
+          ? _value.requestParameterSupported
+          : requestParameterSupported // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tokenEndpointAuthSigningAlgValuesSupported: freezed ==
+              tokenEndpointAuthSigningAlgValuesSupported
+          ? _value.tokenEndpointAuthSigningAlgValuesSupported
+          : tokenEndpointAuthSigningAlgValuesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_OpenIdCopyWith<$Res> implements $OpenIdCopyWith<$Res> {
+  factory _$$_OpenIdCopyWith(_$_OpenId value, $Res Function(_$_OpenId) then) =
+      __$$_OpenIdCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? issuer,
+      @JsonKey(name: 'authorization_endpoint') String? authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') String? tokenEndpoint,
+      @JsonKey(name: 'device_authorization_endpoint')
+      String? deviceAuthorizationEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') String? userinfoEndpoint,
+      @JsonKey(name: 'mfa_challenge_endpoint') String? mfaChallengeEndpoint,
+      @JsonKey(name: 'jwks_uri') String? jwksUri,
+      @JsonKey(name: 'registration_endpoint') String? registrationEndpoint,
+      @JsonKey(name: 'revocation_endpoint') String? revocationEndpoint,
+      @JsonKey(name: 'scopes_supported') List<String>? scopesSupported,
+      @JsonKey(name: 'response_types_supported')
+      List<String>? responseTypesSupported,
+      @JsonKey(name: 'code_challenge_methods_supported')
+      List<String>? codeChallengeMethodsSupported,
+      @JsonKey(name: 'response_modes_supported')
+      List<String>? responseModesSupported,
+      @JsonKey(name: 'subject_types_supported')
+      List<String>? subjectTypesSupported,
+      @JsonKey(name: 'id_token_signing_alg_values_supported')
+      List<String>? idTokenSigningAlgValuesSupported,
+      @JsonKey(name: 'token_endpoint_auth_methods_supported')
+      List<String>? tokenEndpointAuthMethodsSupported,
+      @JsonKey(name: 'claims_supported') List<String>? claimsSupported,
+      @JsonKey(name: 'request_uri_parameter_supported')
+      bool? requestUriParameterSupported,
+      @JsonKey(name: 'request_parameter_supported')
+      bool? requestParameterSupported,
+      @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+      List<String>? tokenEndpointAuthSigningAlgValuesSupported});
+}
+
+/// @nodoc
+class __$$_OpenIdCopyWithImpl<$Res>
+    extends _$OpenIdCopyWithImpl<$Res, _$_OpenId>
+    implements _$$_OpenIdCopyWith<$Res> {
+  __$$_OpenIdCopyWithImpl(_$_OpenId _value, $Res Function(_$_OpenId) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? issuer = freezed,
+    Object? authorizationEndpoint = freezed,
+    Object? tokenEndpoint = freezed,
+    Object? deviceAuthorizationEndpoint = freezed,
+    Object? userinfoEndpoint = freezed,
+    Object? mfaChallengeEndpoint = freezed,
+    Object? jwksUri = freezed,
+    Object? registrationEndpoint = freezed,
+    Object? revocationEndpoint = freezed,
+    Object? scopesSupported = freezed,
+    Object? responseTypesSupported = freezed,
+    Object? codeChallengeMethodsSupported = freezed,
+    Object? responseModesSupported = freezed,
+    Object? subjectTypesSupported = freezed,
+    Object? idTokenSigningAlgValuesSupported = freezed,
+    Object? tokenEndpointAuthMethodsSupported = freezed,
+    Object? claimsSupported = freezed,
+    Object? requestUriParameterSupported = freezed,
+    Object? requestParameterSupported = freezed,
+    Object? tokenEndpointAuthSigningAlgValuesSupported = freezed,
+  }) {
+    return _then(_$_OpenId(
+      issuer: freezed == issuer
+          ? _value.issuer
+          : issuer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      authorizationEndpoint: freezed == authorizationEndpoint
+          ? _value.authorizationEndpoint
+          : authorizationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tokenEndpoint: freezed == tokenEndpoint
+          ? _value.tokenEndpoint
+          : tokenEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceAuthorizationEndpoint: freezed == deviceAuthorizationEndpoint
+          ? _value.deviceAuthorizationEndpoint
+          : deviceAuthorizationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userinfoEndpoint: freezed == userinfoEndpoint
+          ? _value.userinfoEndpoint
+          : userinfoEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mfaChallengeEndpoint: freezed == mfaChallengeEndpoint
+          ? _value.mfaChallengeEndpoint
+          : mfaChallengeEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      jwksUri: freezed == jwksUri
+          ? _value.jwksUri
+          : jwksUri // ignore: cast_nullable_to_non_nullable
+              as String?,
+      registrationEndpoint: freezed == registrationEndpoint
+          ? _value.registrationEndpoint
+          : registrationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      revocationEndpoint: freezed == revocationEndpoint
+          ? _value.revocationEndpoint
+          : revocationEndpoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scopesSupported: freezed == scopesSupported
+          ? _value._scopesSupported
+          : scopesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      responseTypesSupported: freezed == responseTypesSupported
+          ? _value._responseTypesSupported
+          : responseTypesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      codeChallengeMethodsSupported: freezed == codeChallengeMethodsSupported
+          ? _value._codeChallengeMethodsSupported
+          : codeChallengeMethodsSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      responseModesSupported: freezed == responseModesSupported
+          ? _value._responseModesSupported
+          : responseModesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      subjectTypesSupported: freezed == subjectTypesSupported
+          ? _value._subjectTypesSupported
+          : subjectTypesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      idTokenSigningAlgValuesSupported: freezed ==
+              idTokenSigningAlgValuesSupported
+          ? _value._idTokenSigningAlgValuesSupported
+          : idTokenSigningAlgValuesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      tokenEndpointAuthMethodsSupported: freezed ==
+              tokenEndpointAuthMethodsSupported
+          ? _value._tokenEndpointAuthMethodsSupported
+          : tokenEndpointAuthMethodsSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      claimsSupported: freezed == claimsSupported
+          ? _value._claimsSupported
+          : claimsSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      requestUriParameterSupported: freezed == requestUriParameterSupported
+          ? _value.requestUriParameterSupported
+          : requestUriParameterSupported // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      requestParameterSupported: freezed == requestParameterSupported
+          ? _value.requestParameterSupported
+          : requestParameterSupported // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tokenEndpointAuthSigningAlgValuesSupported: freezed ==
+              tokenEndpointAuthSigningAlgValuesSupported
+          ? _value._tokenEndpointAuthSigningAlgValuesSupported
+          : tokenEndpointAuthSigningAlgValuesSupported // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_OpenId implements _OpenId {
+  const _$_OpenId(
+      {this.issuer,
+      @JsonKey(name: 'authorization_endpoint') this.authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') this.tokenEndpoint,
+      @JsonKey(name: 'device_authorization_endpoint')
+      this.deviceAuthorizationEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') this.userinfoEndpoint,
+      @JsonKey(name: 'mfa_challenge_endpoint') this.mfaChallengeEndpoint,
+      @JsonKey(name: 'jwks_uri') this.jwksUri,
+      @JsonKey(name: 'registration_endpoint') this.registrationEndpoint,
+      @JsonKey(name: 'revocation_endpoint') this.revocationEndpoint,
+      @JsonKey(name: 'scopes_supported') final List<String>? scopesSupported,
+      @JsonKey(name: 'response_types_supported')
+      final List<String>? responseTypesSupported,
+      @JsonKey(name: 'code_challenge_methods_supported')
+      final List<String>? codeChallengeMethodsSupported,
+      @JsonKey(name: 'response_modes_supported')
+      final List<String>? responseModesSupported,
+      @JsonKey(name: 'subject_types_supported')
+      final List<String>? subjectTypesSupported,
+      @JsonKey(name: 'id_token_signing_alg_values_supported')
+      final List<String>? idTokenSigningAlgValuesSupported,
+      @JsonKey(name: 'token_endpoint_auth_methods_supported')
+      final List<String>? tokenEndpointAuthMethodsSupported,
+      @JsonKey(name: 'claims_supported') final List<String>? claimsSupported,
+      @JsonKey(name: 'request_uri_parameter_supported')
+      this.requestUriParameterSupported,
+      @JsonKey(name: 'request_parameter_supported')
+      this.requestParameterSupported,
+      @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+      final List<String>? tokenEndpointAuthSigningAlgValuesSupported})
+      : _scopesSupported = scopesSupported,
+        _responseTypesSupported = responseTypesSupported,
+        _codeChallengeMethodsSupported = codeChallengeMethodsSupported,
+        _responseModesSupported = responseModesSupported,
+        _subjectTypesSupported = subjectTypesSupported,
+        _idTokenSigningAlgValuesSupported = idTokenSigningAlgValuesSupported,
+        _tokenEndpointAuthMethodsSupported = tokenEndpointAuthMethodsSupported,
+        _claimsSupported = claimsSupported,
+        _tokenEndpointAuthSigningAlgValuesSupported =
+            tokenEndpointAuthSigningAlgValuesSupported;
+
+  factory _$_OpenId.fromJson(Map<String, dynamic> json) =>
+      _$$_OpenIdFromJson(json);
+
+  /// Text
+  @override
+  final String? issuer;
+
+  /// Text
+  @override
+  @JsonKey(name: 'authorization_endpoint')
+  final String? authorizationEndpoint;
+
+  /// Text
+  @override
+  @JsonKey(name: 'token_endpoint')
+  final String? tokenEndpoint;
+
+  /// Text
+  @override
+  @JsonKey(name: 'device_authorization_endpoint')
+  final String? deviceAuthorizationEndpoint;
+
+  /// Text
+  @override
+  @JsonKey(name: 'userinfo_endpoint')
+  final String? userinfoEndpoint;
+
+  /// Text
+  @override
+  @JsonKey(name: 'mfa_challenge_endpoint')
+  final String? mfaChallengeEndpoint;
+
+  /// Text
+  @override
+  @JsonKey(name: 'jwks_uri')
+  final String? jwksUri;
+
+  /// Text
+  @override
+  @JsonKey(name: 'registration_endpoint')
+  final String? registrationEndpoint;
+
+  /// Text
+  @override
+  @JsonKey(name: 'revocation_endpoint')
+  final String? revocationEndpoint;
+
+  /// Text
+  final List<String>? _scopesSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'scopes_supported')
+  List<String>? get scopesSupported {
+    final value = _scopesSupported;
+    if (value == null) return null;
+    if (_scopesSupported is EqualUnmodifiableListView) return _scopesSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _responseTypesSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'response_types_supported')
+  List<String>? get responseTypesSupported {
+    final value = _responseTypesSupported;
+    if (value == null) return null;
+    if (_responseTypesSupported is EqualUnmodifiableListView)
+      return _responseTypesSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _codeChallengeMethodsSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'code_challenge_methods_supported')
+  List<String>? get codeChallengeMethodsSupported {
+    final value = _codeChallengeMethodsSupported;
+    if (value == null) return null;
+    if (_codeChallengeMethodsSupported is EqualUnmodifiableListView)
+      return _codeChallengeMethodsSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _responseModesSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'response_modes_supported')
+  List<String>? get responseModesSupported {
+    final value = _responseModesSupported;
+    if (value == null) return null;
+    if (_responseModesSupported is EqualUnmodifiableListView)
+      return _responseModesSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _subjectTypesSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'subject_types_supported')
+  List<String>? get subjectTypesSupported {
+    final value = _subjectTypesSupported;
+    if (value == null) return null;
+    if (_subjectTypesSupported is EqualUnmodifiableListView)
+      return _subjectTypesSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _idTokenSigningAlgValuesSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'id_token_signing_alg_values_supported')
+  List<String>? get idTokenSigningAlgValuesSupported {
+    final value = _idTokenSigningAlgValuesSupported;
+    if (value == null) return null;
+    if (_idTokenSigningAlgValuesSupported is EqualUnmodifiableListView)
+      return _idTokenSigningAlgValuesSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _tokenEndpointAuthMethodsSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'token_endpoint_auth_methods_supported')
+  List<String>? get tokenEndpointAuthMethodsSupported {
+    final value = _tokenEndpointAuthMethodsSupported;
+    if (value == null) return null;
+    if (_tokenEndpointAuthMethodsSupported is EqualUnmodifiableListView)
+      return _tokenEndpointAuthMethodsSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  final List<String>? _claimsSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'claims_supported')
+  List<String>? get claimsSupported {
+    final value = _claimsSupported;
+    if (value == null) return null;
+    if (_claimsSupported is EqualUnmodifiableListView) return _claimsSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// Text
+  @override
+  @JsonKey(name: 'request_uri_parameter_supported')
+  final bool? requestUriParameterSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'request_parameter_supported')
+  final bool? requestParameterSupported;
+
+  /// Text
+  final List<String>? _tokenEndpointAuthSigningAlgValuesSupported;
+
+  /// Text
+  @override
+  @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+  List<String>? get tokenEndpointAuthSigningAlgValuesSupported {
+    final value = _tokenEndpointAuthSigningAlgValuesSupported;
+    if (value == null) return null;
+    if (_tokenEndpointAuthSigningAlgValuesSupported
+        is EqualUnmodifiableListView)
+      return _tokenEndpointAuthSigningAlgValuesSupported;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'OpenId(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, deviceAuthorizationEndpoint: $deviceAuthorizationEndpoint, userinfoEndpoint: $userinfoEndpoint, mfaChallengeEndpoint: $mfaChallengeEndpoint, jwksUri: $jwksUri, registrationEndpoint: $registrationEndpoint, revocationEndpoint: $revocationEndpoint, scopesSupported: $scopesSupported, responseTypesSupported: $responseTypesSupported, codeChallengeMethodsSupported: $codeChallengeMethodsSupported, responseModesSupported: $responseModesSupported, subjectTypesSupported: $subjectTypesSupported, idTokenSigningAlgValuesSupported: $idTokenSigningAlgValuesSupported, tokenEndpointAuthMethodsSupported: $tokenEndpointAuthMethodsSupported, claimsSupported: $claimsSupported, requestUriParameterSupported: $requestUriParameterSupported, requestParameterSupported: $requestParameterSupported, tokenEndpointAuthSigningAlgValuesSupported: $tokenEndpointAuthSigningAlgValuesSupported)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_OpenId &&
+            (identical(other.issuer, issuer) || other.issuer == issuer) &&
+            (identical(other.authorizationEndpoint, authorizationEndpoint) ||
+                other.authorizationEndpoint == authorizationEndpoint) &&
+            (identical(other.tokenEndpoint, tokenEndpoint) ||
+                other.tokenEndpoint == tokenEndpoint) &&
+            (identical(other.deviceAuthorizationEndpoint,
+                    deviceAuthorizationEndpoint) ||
+                other.deviceAuthorizationEndpoint ==
+                    deviceAuthorizationEndpoint) &&
+            (identical(other.userinfoEndpoint, userinfoEndpoint) ||
+                other.userinfoEndpoint == userinfoEndpoint) &&
+            (identical(other.mfaChallengeEndpoint, mfaChallengeEndpoint) ||
+                other.mfaChallengeEndpoint == mfaChallengeEndpoint) &&
+            (identical(other.jwksUri, jwksUri) || other.jwksUri == jwksUri) &&
+            (identical(other.registrationEndpoint, registrationEndpoint) ||
+                other.registrationEndpoint == registrationEndpoint) &&
+            (identical(other.revocationEndpoint, revocationEndpoint) ||
+                other.revocationEndpoint == revocationEndpoint) &&
+            const DeepCollectionEquality()
+                .equals(other._scopesSupported, _scopesSupported) &&
+            const DeepCollectionEquality().equals(
+                other._responseTypesSupported, _responseTypesSupported) &&
+            const DeepCollectionEquality().equals(
+                other._codeChallengeMethodsSupported,
+                _codeChallengeMethodsSupported) &&
+            const DeepCollectionEquality().equals(
+                other._responseModesSupported, _responseModesSupported) &&
+            const DeepCollectionEquality()
+                .equals(other._subjectTypesSupported, _subjectTypesSupported) &&
+            const DeepCollectionEquality().equals(
+                other._idTokenSigningAlgValuesSupported,
+                _idTokenSigningAlgValuesSupported) &&
+            const DeepCollectionEquality().equals(
+                other._tokenEndpointAuthMethodsSupported,
+                _tokenEndpointAuthMethodsSupported) &&
+            const DeepCollectionEquality()
+                .equals(other._claimsSupported, _claimsSupported) &&
+            (identical(other.requestUriParameterSupported,
+                    requestUriParameterSupported) ||
+                other.requestUriParameterSupported ==
+                    requestUriParameterSupported) &&
+            (identical(other.requestParameterSupported,
+                    requestParameterSupported) ||
+                other.requestParameterSupported == requestParameterSupported) &&
+            const DeepCollectionEquality().equals(
+                other._tokenEndpointAuthSigningAlgValuesSupported,
+                _tokenEndpointAuthSigningAlgValuesSupported));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        issuer,
+        authorizationEndpoint,
+        tokenEndpoint,
+        deviceAuthorizationEndpoint,
+        userinfoEndpoint,
+        mfaChallengeEndpoint,
+        jwksUri,
+        registrationEndpoint,
+        revocationEndpoint,
+        const DeepCollectionEquality().hash(_scopesSupported),
+        const DeepCollectionEquality().hash(_responseTypesSupported),
+        const DeepCollectionEquality().hash(_codeChallengeMethodsSupported),
+        const DeepCollectionEquality().hash(_responseModesSupported),
+        const DeepCollectionEquality().hash(_subjectTypesSupported),
+        const DeepCollectionEquality().hash(_idTokenSigningAlgValuesSupported),
+        const DeepCollectionEquality().hash(_tokenEndpointAuthMethodsSupported),
+        const DeepCollectionEquality().hash(_claimsSupported),
+        requestUriParameterSupported,
+        requestParameterSupported,
+        const DeepCollectionEquality()
+            .hash(_tokenEndpointAuthSigningAlgValuesSupported)
+      ]);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_OpenIdCopyWith<_$_OpenId> get copyWith =>
+      __$$_OpenIdCopyWithImpl<_$_OpenId>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_OpenIdToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OpenId implements OpenId {
+  const factory _OpenId(
+      {final String? issuer,
+      @JsonKey(name: 'authorization_endpoint')
+      final String? authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') final String? tokenEndpoint,
+      @JsonKey(name: 'device_authorization_endpoint')
+      final String? deviceAuthorizationEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') final String? userinfoEndpoint,
+      @JsonKey(name: 'mfa_challenge_endpoint')
+      final String? mfaChallengeEndpoint,
+      @JsonKey(name: 'jwks_uri') final String? jwksUri,
+      @JsonKey(name: 'registration_endpoint')
+      final String? registrationEndpoint,
+      @JsonKey(name: 'revocation_endpoint') final String? revocationEndpoint,
+      @JsonKey(name: 'scopes_supported') final List<String>? scopesSupported,
+      @JsonKey(name: 'response_types_supported')
+      final List<String>? responseTypesSupported,
+      @JsonKey(name: 'code_challenge_methods_supported')
+      final List<String>? codeChallengeMethodsSupported,
+      @JsonKey(name: 'response_modes_supported')
+      final List<String>? responseModesSupported,
+      @JsonKey(name: 'subject_types_supported')
+      final List<String>? subjectTypesSupported,
+      @JsonKey(name: 'id_token_signing_alg_values_supported')
+      final List<String>? idTokenSigningAlgValuesSupported,
+      @JsonKey(name: 'token_endpoint_auth_methods_supported')
+      final List<String>? tokenEndpointAuthMethodsSupported,
+      @JsonKey(name: 'claims_supported') final List<String>? claimsSupported,
+      @JsonKey(name: 'request_uri_parameter_supported')
+      final bool? requestUriParameterSupported,
+      @JsonKey(name: 'request_parameter_supported')
+      final bool? requestParameterSupported,
+      @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+      final List<String>?
+          tokenEndpointAuthSigningAlgValuesSupported}) = _$_OpenId;
+
+  factory _OpenId.fromJson(Map<String, dynamic> json) = _$_OpenId.fromJson;
+
+  @override
+
+  /// Text
+  String? get issuer;
+  @override
+
+  /// Text
+  @JsonKey(name: 'authorization_endpoint')
+  String? get authorizationEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'token_endpoint')
+  String? get tokenEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'device_authorization_endpoint')
+  String? get deviceAuthorizationEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'userinfo_endpoint')
+  String? get userinfoEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'mfa_challenge_endpoint')
+  String? get mfaChallengeEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'jwks_uri')
+  String? get jwksUri;
+  @override
+
+  /// Text
+  @JsonKey(name: 'registration_endpoint')
+  String? get registrationEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'revocation_endpoint')
+  String? get revocationEndpoint;
+  @override
+
+  /// Text
+  @JsonKey(name: 'scopes_supported')
+  List<String>? get scopesSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'response_types_supported')
+  List<String>? get responseTypesSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'code_challenge_methods_supported')
+  List<String>? get codeChallengeMethodsSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'response_modes_supported')
+  List<String>? get responseModesSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'subject_types_supported')
+  List<String>? get subjectTypesSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'id_token_signing_alg_values_supported')
+  List<String>? get idTokenSigningAlgValuesSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'token_endpoint_auth_methods_supported')
+  List<String>? get tokenEndpointAuthMethodsSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'claims_supported')
+  List<String>? get claimsSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'request_uri_parameter_supported')
+  bool? get requestUriParameterSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'request_parameter_supported')
+  bool? get requestParameterSupported;
+  @override
+
+  /// Text
+  @JsonKey(name: 'token_endpoint_auth_signing_alg_values_supported')
+  List<String>? get tokenEndpointAuthSigningAlgValuesSupported;
+  @override
+  @JsonKey(ignore: true)
+  _$$_OpenIdCopyWith<_$_OpenId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Parameter _$ParameterFromJson(Map<String, dynamic> json) {
   switch (json['in']) {
     case 'cookie':

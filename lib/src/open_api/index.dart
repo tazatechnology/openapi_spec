@@ -28,6 +28,7 @@ part 'license.dart';
 part 'link.dart';
 part 'media_type.dart';
 part 'operation.dart';
+part 'openid_config.dart';
 part 'parameter.dart';
 part 'path_item.dart';
 part 'request_body.dart';
