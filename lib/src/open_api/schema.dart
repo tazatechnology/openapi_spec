@@ -253,6 +253,7 @@ class Schema with _$Schema {
   /// Return a proper Dart type for this schema
   String toDartType({
     Map<String, List<String>>? unions,
+    bool addNullCheck = false,
   }) {
     return map(
       object: (s) {
@@ -282,7 +283,10 @@ class Schema with _$Schema {
         return 'int';
       },
       number: (s) {
-        return 'double';
+        if (addNullCheck && s.defaultValue == null) {
+          return 'num?';
+        }
+        return 'num';
       },
       enumeration: (s) {
         return s.ref ?? 'String';

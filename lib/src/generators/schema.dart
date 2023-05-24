@@ -202,6 +202,9 @@ class SchemaGenerator extends BaseGenerator {
       unionBase = '';
     }
 
+    // Keep track of all enum values
+    List<String> unionValues = [];
+
     // Loop through each union
     for (final s in schemas) {
       final uSubClass = s.replaceAll(unionBase, '').trim();
@@ -220,6 +223,7 @@ class SchemaGenerator extends BaseGenerator {
         enumeration: (s) => s.defaultValue,
       );
       if (unionValue != null) {
+        unionValues.add(unionValue);
         unionValue = "\n@FreezedUnionValue('$unionValue')";
       } else {
         unionValue = '';
@@ -256,12 +260,27 @@ class SchemaGenerator extends BaseGenerator {
           mode: FileMode.append);
     }
 
+    String unionValuesEnum = '';
+    if (unionValues.isNotEmpty) {
+      unionValuesEnum = """
+      // ==========================================
+      // ENUM: ${union}Type
+      // ==========================================
+
+      enum ${union}Type {
+        ${unionValues.map((e) => "@JsonValue('$e')\n${e.camelCase},").join('\n')}
+      }
+      """;
+    }
+
     // Union footer
     file.writeAsStringSync("""
     /// Object construction from a JSON representation
     factory $union.fromJson(Map<String, dynamic> json) => _\$${union}FromJson(json);
 
     }\n
+
+    $unionValuesEnum
     """, mode: FileMode.append);
   }
 
@@ -520,7 +539,11 @@ class SchemaGenerator extends BaseGenerator {
               orElse: () => p,
             );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
-        var valueType = p.valueSchema?.toDartType() ?? 'dynamic';
+        var valueType = p.valueSchema?.toDartType(
+              addNullCheck: true,
+              unions: _unions,
+            ) ??
+            'dynamic';
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },

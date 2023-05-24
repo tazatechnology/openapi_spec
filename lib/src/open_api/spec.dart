@@ -470,8 +470,11 @@ Map<String, dynamic> _formatSpecFromJson(
       return s.copyWith(ref: s.allOf?.firstOrNull?.ref);
     });
     if (s != null) {
+      final newData = s.toJson();
+      newData['default'] = m['default'];
+      newData['description'] = m['description'];
       m.clear();
-      m.addAll(s.toJson());
+      m.addAll(newData);
     }
   }
 
