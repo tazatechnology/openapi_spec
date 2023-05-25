@@ -12,3 +12,4 @@ part 'base.dart';
 part 'client.dart';
 part 'schema.dart';
 part 'server.dart';
+part 'validation.dart';

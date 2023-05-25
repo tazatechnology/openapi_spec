@@ -242,7 +242,7 @@ class SchemaGenerator extends BaseGenerator {
       // Loop over all properties
       final props = schema.properties;
       final propNames = props?.keys.toList() ?? <String>[];
-      List<String> validations = [];
+      List<SchemaValidation> validations = [];
       for (final propName in propNames) {
         var dartName = propName.camelCase;
         dartName = onSchemaPropertyName?.call(dartName) ?? dartName;
@@ -252,7 +252,9 @@ class SchemaGenerator extends BaseGenerator {
           property: props![propName]!,
           required: schema.required?.contains(propName) ?? false,
         );
-        validations.addAll(v);
+        if (v != null && v.operations.isNotEmpty) {
+          validations.add(v);
+        }
       }
 
       /// Class Footer
@@ -318,7 +320,7 @@ class SchemaGenerator extends BaseGenerator {
     final props = s.properties;
     final propNames = props?.keys.toList() ?? <String>[];
     bool firstPass = true;
-    List<String> validations = [];
+    List<SchemaValidation> validations = [];
     for (final propName in propNames) {
       var dartName = propName.camelCase;
       dartName = onSchemaPropertyName?.call(dartName) ?? dartName;
@@ -332,9 +334,21 @@ class SchemaGenerator extends BaseGenerator {
         property: props![propName]!,
         required: s.required?.contains(propName) ?? false,
       );
-      validations.addAll(v);
+      if (v != null && v.operations.isNotEmpty) {
+        validations.add(v);
+      }
 
       toMap += "'$propName': $dartName,\n";
+    }
+
+    String validationConstants = '';
+    if (validations.isNotEmpty) {
+      validationConstants = '/// Validation constants\n';
+      validationConstants += validations
+          .fold(<String, num>{}, (p, e) => p..addAll(e.constants))
+          .entries
+          .map((e) => 'static const ${e.key} = ${e.value};')
+          .join('\n');
     }
 
     // Class footer
@@ -347,9 +361,11 @@ class SchemaGenerator extends BaseGenerator {
     /// List of all property names of schema
     static const List<String> propertyNames = ${json.encode(propNames).replaceAll('"', "'")};
 
+    $validationConstants
+
     /// Perform validations on the schema property values
     String? validateSchema(){
-      ${validations.isEmpty ? '' : validations.join('\n')}
+      ${validations.isEmpty ? '' : validations.fold(<String>[], (p, e) => p + e.operations).join('\n')}
       return null;
     }
   
@@ -365,13 +381,14 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _writeProperty
   // ------------------------------------------
 
-  List<String> _writeProperty({
+  SchemaValidation? _writeProperty({
     required String jsonName,
     required String name,
     required Schema property,
     required bool required,
   }) {
-    final validations = <String>[];
+    // The validation to perform for this property
+    SchemaValidation? validation;
 
     final jsonKey = "@JsonKey(name: '$jsonName') ";
 
@@ -458,26 +475,14 @@ class SchemaGenerator extends BaseGenerator {
         c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
 
-        /// Determine if there are any validations
-        final nullName =
-            nullable ? '$name != null && $name!.length' : '$name.length';
-
-        if (p.minLength != null) {
-          final operator = p.exclusiveMinimum ?? false ? '<=' : '<';
-          validations.add(
-            """if ($nullName < ${p.minLength}) {
-            return "The value of '$name' cannot be $operator ${p.minLength} characters";
-            }""",
-          );
-        }
-        if (p.maxLength != null) {
-          final operator = p.exclusiveMaximum ?? false ? '>=' : '>';
-          validations.add(
-            """if ($nullName $operator ${p.maxLength}) {
-            return "The length of '$name' cannot be $operator ${p.maxLength} characters";
-            }""",
-          );
-        }
+        validation = SchemaValidation.string(
+          name: name,
+          minLength: p.minLength,
+          maxLength: p.maxLength,
+          exclusiveMinimum: p.exclusiveMinimum,
+          exclusiveMaximum: p.exclusiveMaximum,
+          nullable: nullable,
+        );
       },
       integer: (p) {
         p = p.dereference(components: spec.components?.schemas).maybeMap(
@@ -489,16 +494,14 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
 
         /// Determine if there are any validations
-        validations.addAll(
-          _numericValidations(
-            name: name,
-            nullable: nullable,
-            minimum: p.minimum,
-            maximum: p.maximum,
-            exclusiveMinimum: p.exclusiveMinimum,
-            exclusiveMaximum: p.exclusiveMaximum,
-            multipleOf: p.multipleOf,
-          ),
+        validation = SchemaValidation.numeric(
+          name: name,
+          nullable: nullable,
+          minimum: p.minimum,
+          maximum: p.maximum,
+          exclusiveMinimum: p.exclusiveMinimum,
+          exclusiveMaximum: p.exclusiveMaximum,
+          multipleOf: p.multipleOf,
         );
       },
       number: (p) {
@@ -511,16 +514,14 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
 
         /// Determine if there are any validations
-        validations.addAll(
-          _numericValidations(
-            name: name,
-            nullable: nullable,
-            minimum: p.minimum,
-            maximum: p.maximum,
-            exclusiveMinimum: p.exclusiveMinimum,
-            exclusiveMaximum: p.exclusiveMaximum,
-            multipleOf: p.multipleOf,
-          ),
+        validation = SchemaValidation.numeric(
+          name: name,
+          nullable: nullable,
+          minimum: p.minimum,
+          maximum: p.maximum,
+          exclusiveMinimum: p.exclusiveMinimum,
+          exclusiveMaximum: p.exclusiveMaximum,
+          multipleOf: p.multipleOf,
         );
       },
       array: (p) {
@@ -600,7 +601,7 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
       },
     );
-    return validations;
+    return validation;
   }
 
   // ------------------------------------------
@@ -636,40 +637,6 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     file.writeAsStringSync('}', mode: FileMode.append);
-  }
-
-  // ------------------------------------------
-  // METHOD: _numericValidations
-  // ------------------------------------------
-
-  List<String> _numericValidations({
-    required String name,
-    required bool nullable,
-    required num? minimum,
-    required num? maximum,
-    required num? multipleOf,
-    required bool? exclusiveMinimum,
-    required bool? exclusiveMaximum,
-  }) {
-    List<String> out = [];
-
-    final nullName = nullable ? '$name != null && $name!' : name;
-
-    if (minimum != null) {
-      final operator = exclusiveMinimum ?? false ? '<=' : '<';
-      final message = "The value of '$name' cannot be $operator $minimum";
-      out.add('if ($nullName $operator $minimum) {return "$message";}');
-    }
-    if (maximum != null) {
-      final operator = exclusiveMaximum ?? false ? '>=' : '>';
-      final message = "The value of '$name' cannot be $operator $maximum";
-      out.add('if ($nullName $operator $maximum) {return "$message";}');
-    }
-    if (multipleOf != null) {
-      final message = "The value of '$name' must be a multiple of $multipleOf";
-      out.add('if ($nullName % $multipleOf != 0) {return "$message";}');
-    }
-    return out;
   }
 
   // ------------------------------------------

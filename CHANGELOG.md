@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0
+
+* Infrastructure to support automatic union types
+* Addition of custom schema converter middleware
+* Capability to add request/response client middleware
+* Parsing now handles `anyOf` and `allOf` schema properties
+* Add validation values to schema definition as constants
+
 ## 0.1.0
 
 * Initial release of `openapi_spec` - **Beta**
