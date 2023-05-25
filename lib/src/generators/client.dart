@@ -608,14 +608,25 @@ class $clientName {
       }
 
       try {
-        rSchema?.dereference(components: spec.components?.schemas);
+        rSchema = rSchema?.dereference(components: spec.components?.schemas);
       } catch (e) {
         // Skip - might need to gracefully handle this some other way
       }
 
+      bool isRequestRequired = request.required == true;
+
+      // If a schema is an empty object, ignore
+      rSchema?.mapOrNull(
+        object: (s) {
+          if ((s.properties?.isEmpty ?? false)) {
+            isRequestRequired = false;
+          }
+        },
+      );
+
       dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
 
-      if (dType != null && request.required == true) {
+      if (dType != null && isRequestRequired) {
         input.add('required $dType request');
       } else {
         if (dType == null) {
