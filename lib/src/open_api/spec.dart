@@ -266,18 +266,11 @@ class OpenApi with _$OpenApi {
   Future<void> generate({
     String package = 'my_api',
     required String destination,
-    bool client = false,
-    bool server = false,
-    bool singleSchemaFile = false,
-    bool replaceOutput = false,
     bool formatOutput = true,
     bool quiet = false,
-    bool includeVersion = true,
-    String? Function(String)? onSchemaName,
-    String Function(String, List<String>)? onSchemaUnionName,
-    String? Function(String, List<String>)? onSchemaUnionKey,
-    String Function(String)? onSchemaPropertyName,
-    String? Function(String)? onClientMethodName,
+    SchemaGeneratorOptions schemaOptions = const SchemaGeneratorOptions(),
+    ClientGeneratorOptions clientOptions = const ClientGeneratorOptions(),
+    ServerGeneratorOptions serverOptions = const ServerGeneratorOptions(),
   }) async {
     // Ensure that the folder exists
     final d = Directory(destination);
@@ -293,15 +286,10 @@ class OpenApi with _$OpenApi {
         spec: this,
         package: package.snakeCase,
         destination: destination,
-        separate: !singleSchemaFile,
         quiet: quiet,
-        includeVersion: includeVersion,
-        onSchemaName: onSchemaName,
-        onSchemaPropertyName: onSchemaPropertyName,
-        onSchemaUnionName: onSchemaUnionName,
-        onSchemaUnionKey: onSchemaUnionKey,
+        options: schemaOptions,
       );
-      await schemaGenerator.generate(replaceOutput: replaceOutput);
+      await schemaGenerator.generate();
     } else {
       // ignore: avoid_print
       print(
@@ -312,7 +300,7 @@ class OpenApi with _$OpenApi {
     // Generate client
     ClientGenerator? clientGenerator;
 
-    if (client) {
+    if (clientOptions.enabled) {
       if (paths == null || (paths?.isEmpty ?? true)) {
         // ignore: avoid_print
         print(
@@ -324,11 +312,10 @@ class OpenApi with _$OpenApi {
           package: package.snakeCase,
           destination: destination,
           quiet: quiet,
-          includeVersion: includeVersion,
-          onClientMethodName: onClientMethodName,
+          options: clientOptions,
           schemaGenerator: schemaGenerator,
         );
-        await clientGenerator.generate(replaceOutput: replaceOutput);
+        await clientGenerator.generate();
       }
     }
 

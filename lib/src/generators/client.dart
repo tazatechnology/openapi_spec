@@ -26,16 +26,18 @@ class ClientGenerator extends BaseGenerator {
     required super.destination,
     required super.package,
     required super.quiet,
-    required super.includeVersion,
+    required this.options,
     required this.schemaGenerator,
-    this.onClientMethodName,
   }) {
     clientDirectory = Directory(p.join(parentDirectory.path, 'client'));
     file = File(p.join(clientDirectory.path, 'client.dart'));
   }
   late File file;
   late final Directory clientDirectory;
-  final String? Function(String)? onClientMethodName;
+
+  @override
+  final ClientGeneratorOptions options;
+
   final SchemaGenerator? schemaGenerator;
 
   // ------------------------------------------
@@ -43,11 +45,9 @@ class ClientGenerator extends BaseGenerator {
   // ------------------------------------------
 
   @override
-  Future<void> generate({
-    bool replaceOutput = false,
-  }) async {
-    if (replaceOutput) {
-      if (clientDirectory.existsSync() && replaceOutput) {
+  Future<void> generate() async {
+    if (options.replaceOutput) {
+      if (clientDirectory.existsSync() && options.replaceOutput) {
         clientDirectory.deleteSync(recursive: true);
       }
     }
@@ -498,8 +498,8 @@ class $clientName {
     }
 
     // Allow user to override the default name
-    if (onClientMethodName != null) {
-      final userMethodName = onClientMethodName!(methodName);
+    if (options.onClientMethodName != null) {
+      final userMethodName = options.onClientMethodName!(methodName);
       if (userMethodName == null) {
         // Indicates a user request to skip this method
         printLog('Skip Client Method', methodName);

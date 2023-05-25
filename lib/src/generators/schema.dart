@@ -9,13 +9,8 @@ class SchemaGenerator extends BaseGenerator {
     required super.spec,
     required super.destination,
     required super.package,
-    required this.separate,
+    required this.options,
     required super.quiet,
-    required super.includeVersion,
-    this.onSchemaName,
-    this.onSchemaUnionName,
-    this.onSchemaUnionKey,
-    this.onSchemaPropertyName,
   }) {
     schemaDirectory = Directory(p.join(parentDirectory.path, 'schema'));
     file = File(p.join(schemaDirectory.path, 'schema.dart'));
@@ -24,11 +19,9 @@ class SchemaGenerator extends BaseGenerator {
   late File file;
   late final File index;
   late final Directory schemaDirectory;
-  final bool separate;
-  final String? Function(String)? onSchemaName;
-  final String Function(String, List<String>)? onSchemaUnionName;
-  final String? Function(String, List<String>)? onSchemaUnionKey;
-  final String Function(String)? onSchemaPropertyName;
+
+  @override
+  final SchemaGeneratorOptions options;
 
   // Internal tracker of union types
   final Map<String, List<String>> _unions = {};
@@ -42,9 +35,7 @@ class SchemaGenerator extends BaseGenerator {
   // ------------------------------------------
 
   @override
-  Future<void> generate({
-    bool replaceOutput = false,
-  }) async {
+  Future<void> generate() async {
     final schemas = spec.components?.schemas;
     if (schemas == null) {
       return;
@@ -52,8 +43,8 @@ class SchemaGenerator extends BaseGenerator {
 
     String schemaPackage = '${package}_schema';
 
-    if (replaceOutput) {
-      if (schemaDirectory.existsSync() && replaceOutput) {
+    if (options.replaceOutput) {
+      if (schemaDirectory.existsSync() && options.replaceOutput) {
         schemaDirectory.deleteSync(recursive: true);
       }
     }
@@ -73,7 +64,7 @@ class SchemaGenerator extends BaseGenerator {
       part 'schema.freezed.dart';\n
       """);
 
-    if (!separate) {
+    if (options.singleFile) {
       file.writeAsStringSync(getHeader());
       file.writeAsStringSync(
         'part of $schemaPackage;\n\n',
@@ -94,8 +85,8 @@ class SchemaGenerator extends BaseGenerator {
       final filename = s.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
       String name = s.pascalCase;
 
-      if (onSchemaName != null) {
-        final userSchemaName = onSchemaName!(name);
+      if (options.onSchemaName != null) {
+        final userSchemaName = options.onSchemaName!(name);
         if (userSchemaName == null) {
           // Indicates a user request to skip this schema
           printLog('Skip Schema Model', name);
@@ -105,7 +96,7 @@ class SchemaGenerator extends BaseGenerator {
         }
       }
 
-      if (separate) {
+      if (!options.singleFile) {
         file = File(p.join(schemaDirectory.path, '$filename.dart'));
         file.writeAsStringSync(getHeader());
         file.writeAsStringSync(
@@ -150,7 +141,7 @@ class SchemaGenerator extends BaseGenerator {
         filename = filename.replaceAll('union', 'union_');
       }
 
-      if (separate) {
+      if (!options.singleFile) {
         file = File(p.join(schemaDirectory.path, '$filename.dart'));
         file.writeAsStringSync(getHeader());
         file.writeAsStringSync(
@@ -181,7 +172,7 @@ class SchemaGenerator extends BaseGenerator {
     printLog('Create Union Schema', union);
 
     // Determine the schema union key
-    final unionKey = onSchemaUnionKey?.call(union, schemas) ?? 'type';
+    final unionKey = options.onSchemaUnionKey?.call(union, schemas) ?? 'type';
 
     // Union header
     file.writeAsStringSync("""
@@ -245,7 +236,7 @@ class SchemaGenerator extends BaseGenerator {
       List<SchemaValidation> validations = [];
       for (final propName in propNames) {
         var dartName = propName.camelCase;
-        dartName = onSchemaPropertyName?.call(dartName) ?? dartName;
+        dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
         final v = _writeProperty(
           name: dartName,
           jsonName: propName,
@@ -323,7 +314,7 @@ class SchemaGenerator extends BaseGenerator {
     List<SchemaValidation> validations = [];
     for (final propName in propNames) {
       var dartName = propName.camelCase;
-      dartName = onSchemaPropertyName?.call(dartName) ?? dartName;
+      dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
       if (firstPass) {
         firstPass = false;
         file.writeAsStringSync('{', mode: FileMode.append);
@@ -727,8 +718,8 @@ class SchemaGenerator extends BaseGenerator {
     // Naive approach to arrive at a union name - allow user to override
 
     // Check if any sub-schemas are needed by the user
-    if (onSchemaName != null) {
-      if (schemas.any((e) => onSchemaName?.call(e) == null)) {
+    if (options.onSchemaName != null) {
+      if (schemas.any((e) => options.onSchemaName?.call(e) == null)) {
         // Implies some sub-schemas were not requested by user, don't create union
         return;
       }
@@ -761,7 +752,7 @@ class SchemaGenerator extends BaseGenerator {
         _unions.values.map((e) => e.equals(schemas)).any((e) => e);
 
     if (!alreadyDefined) {
-      final userUnionName = onSchemaUnionName?.call(name, schemas);
+      final userUnionName = options.onSchemaUnionName?.call(name, schemas);
       if (userUnionName != null && userUnionName != name) {
         printLog('Rename Union Schema', '$name -> $userUnionName');
         name = userUnionName;

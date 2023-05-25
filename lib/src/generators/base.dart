@@ -1,6 +1,21 @@
 part of openapi_generators;
 
 // ==========================================
+// CLASS: BaseGeneratorOptions
+// ==========================================
+
+abstract class BaseGeneratorOptions {
+  const BaseGeneratorOptions({
+    required this.enabled,
+    this.replaceOutput = false,
+    this.includeVersion = true,
+  });
+  final bool enabled;
+  final bool replaceOutput;
+  final bool includeVersion;
+}
+
+// ==========================================
 // CLASS: BaseGenerator
 // ==========================================
 
@@ -10,7 +25,6 @@ abstract class BaseGenerator {
     required String destination,
     required this.package,
     required this.quiet,
-    required this.includeVersion,
   }) {
     parentDirectory = Directory(destination);
   }
@@ -19,12 +33,13 @@ abstract class BaseGenerator {
   late final Directory parentDirectory;
   final String package;
   final bool quiet;
-  final bool includeVersion;
+
+  BaseGeneratorOptions get options;
 
   /// Method to generate file(s)
   String getHeader() {
     String version = '';
-    if (includeVersion) {
+    if (options.includeVersion) {
       version = "// API VERSION: ${spec.info.version.replaceAll('\n', '//')}\n";
     }
 
@@ -41,7 +56,7 @@ $version
   }
 
   /// Method to generate file(s)
-  Future<void> generate({bool replaceOutput = false});
+  Future<void> generate();
 
   void printLog(String title, String message) {
     if (!quiet) {

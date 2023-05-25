@@ -3,7 +3,7 @@
 ## 0.2.0
 
 * Infrastructure to support automatic union types
-* Addition of custom schema converter middleware
+* Addition of customizable generator options
 * Capability to add request/response client middleware
 * Parsing now handles `anyOf` and `allOf` schema properties
 * Add validation values to schema definition as constants

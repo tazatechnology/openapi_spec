@@ -21,7 +21,7 @@ void main() {
 
     final genSchemaDir = p.join(tmp.path, 'gen_schema');
     final genSchemaSingleDir = p.join(tmp.path, 'gen_schema_single');
-    // final genClientDir = p.join(tmp.path, 'gen_client');
+    final genClientDir = p.join(tmp.path, 'gen_client');
     // final genServerDir = p.join(tmp.path, 'gen_serve');
     // final genAllDir = p.join(tmp.path, 'gen_all');
 
@@ -78,17 +78,22 @@ void main() {
         await spec.generate(
           package: 'petstore',
           destination: genSchemaSingleDir,
-          singleSchemaFile: true,
+          schemaOptions: SchemaGeneratorOptions(
+            singleFile: true,
+          ),
         );
       });
 
-      // /// Test code generation of OpenAPI spec defined client
-      // test('Generate Client Code', () async {
-      //   await spec.generate(
-      //     package: 'petstore',
-      //     destination: genClientDir,
-      //   );
-      // });
+      /// Test code generation of OpenAPI spec defined client
+      test('Generate Client Code', () async {
+        await spec.generate(
+          package: 'petstore',
+          destination: genClientDir,
+          clientOptions: ClientGeneratorOptions(
+            enabled: true,
+          ),
+        );
+      });
 
       // /// Test code generation of OpenAPI spec defined server
       // test('Generate Server code', () async {

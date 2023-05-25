@@ -1,3 +1,5 @@
+part of openapi_generators;
+
 /// https://dart.dev/language/keywords
 const keywords = {
   'abstract',
