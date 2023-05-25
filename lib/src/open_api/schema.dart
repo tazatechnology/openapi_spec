@@ -72,6 +72,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
+    @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     StringFormat? format,
     String? example,
     int? minLength,
@@ -91,6 +92,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') int? defaultValue,
+    @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     IntegerFormat? format,
     int? example,
     int? minimum,
@@ -111,6 +113,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') double? defaultValue,
+    @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     NumberFormat? format,
     double? example,
     double? minimum,
@@ -253,7 +256,6 @@ class Schema with _$Schema {
   /// Return a proper Dart type for this schema
   String toDartType({
     Map<String, List<String>>? unions,
-    bool addNullCheck = false,
   }) {
     return map(
       object: (s) {
@@ -283,10 +285,7 @@ class Schema with _$Schema {
         return 'int';
       },
       number: (s) {
-        if (addNullCheck && s.defaultValue == null) {
-          return 'num?';
-        }
-        return 'num';
+        return 'double';
       },
       enumeration: (s) {
         return s.ref ?? 'String';

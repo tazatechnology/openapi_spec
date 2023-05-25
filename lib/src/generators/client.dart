@@ -274,7 +274,11 @@ class $clientName {
 
     // Build the request URI
     Uri uri;
-    host = Uri.parse(host).host;
+    if (host.contains('http')) {
+      host = Uri.parse(host).host;
+    } else {
+      host = Uri.parse(Uri.https(host).toString()).host;
+    }
     if (secure) {
       uri = Uri.https(host, path, queryParams.isEmpty ? null : queryParams);
     } else {

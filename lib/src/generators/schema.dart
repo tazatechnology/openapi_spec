@@ -539,11 +539,7 @@ class SchemaGenerator extends BaseGenerator {
               orElse: () => p,
             );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
-        var valueType = p.valueSchema?.toDartType(
-              addNullCheck: true,
-              unions: _unions,
-            ) ??
-            'dynamic';
+        var valueType = p.valueSchema?.toDartType(unions: _unions) ?? 'dynamic';
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },

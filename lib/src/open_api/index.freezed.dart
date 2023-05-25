@@ -8847,6 +8847,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -8860,6 +8861,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -8874,6 +8876,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -8946,6 +8949,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -8959,6 +8963,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -8973,6 +8978,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -9045,6 +9051,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -9058,6 +9065,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -9072,6 +9080,7 @@ mixin _$Schema {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -9519,6 +9528,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -9532,6 +9542,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -9546,6 +9557,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -9622,6 +9634,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -9635,6 +9648,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -9649,6 +9663,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -9725,6 +9740,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -9738,6 +9754,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -9752,6 +9769,7 @@ class _$_SchemaObject extends _SchemaObject {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -10098,6 +10116,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -10111,6 +10130,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -10125,6 +10145,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -10200,6 +10221,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -10213,6 +10235,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -10227,6 +10250,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -10302,6 +10326,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -10315,6 +10340,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -10329,6 +10355,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -10481,6 +10508,7 @@ abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') String? defaultValue,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       StringFormat? format,
       String? example,
       int? minLength,
@@ -10584,7 +10612,7 @@ class _$_SchemaString extends _SchemaString {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
-      this.format,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       this.example,
       this.minLength,
       this.maxLength,
@@ -10608,6 +10636,7 @@ class _$_SchemaString extends _SchemaString {
   @JsonKey(name: 'default')
   final String? defaultValue;
   @override
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final StringFormat? format;
   @override
   final String? example;
@@ -10706,6 +10735,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -10719,6 +10749,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -10733,6 +10764,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -10809,6 +10841,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -10822,6 +10855,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -10836,6 +10870,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -10912,6 +10947,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -10925,6 +10961,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -10939,6 +10976,7 @@ class _$_SchemaString extends _SchemaString {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -11054,6 +11092,7 @@ abstract class _SchemaString extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final String? defaultValue,
+          @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final StringFormat? format,
           final String? example,
           final int? minLength,
@@ -11074,6 +11113,7 @@ abstract class _SchemaString extends Schema {
   String? get description;
   @JsonKey(name: 'default')
   String? get defaultValue;
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   StringFormat? get format;
   String? get example;
   int? get minLength;
@@ -11103,6 +11143,7 @@ abstract class _$$_SchemaIntegerCopyWith<$Res>
       String? title,
       String? description,
       @JsonKey(name: 'default') int? defaultValue,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       IntegerFormat? format,
       int? example,
       int? minimum,
@@ -11212,7 +11253,7 @@ class _$_SchemaInteger extends _SchemaInteger {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
-      this.format,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       this.example,
       this.minimum,
       this.maximum,
@@ -11237,6 +11278,7 @@ class _$_SchemaInteger extends _SchemaInteger {
   @JsonKey(name: 'default')
   final int? defaultValue;
   @override
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final IntegerFormat? format;
   @override
   final int? example;
@@ -11338,6 +11380,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -11351,6 +11394,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -11365,6 +11409,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -11441,6 +11486,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -11454,6 +11500,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -11468,6 +11515,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -11544,6 +11592,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -11557,6 +11606,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -11571,6 +11621,7 @@ class _$_SchemaInteger extends _SchemaInteger {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -11697,6 +11748,7 @@ abstract class _SchemaInteger extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final int? defaultValue,
+          @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final IntegerFormat? format,
           final int? example,
           final int? minimum,
@@ -11718,6 +11770,7 @@ abstract class _SchemaInteger extends Schema {
   String? get description;
   @JsonKey(name: 'default')
   int? get defaultValue;
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   IntegerFormat? get format;
   int? get example;
   int? get minimum;
@@ -11747,6 +11800,7 @@ abstract class _$$_SchemaNumberCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') double? defaultValue,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       NumberFormat? format,
       double? example,
       double? minimum,
@@ -11856,7 +11910,7 @@ class _$_SchemaNumber extends _SchemaNumber {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
-      this.format,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       this.example,
       this.minimum,
       this.maximum,
@@ -11881,6 +11935,7 @@ class _$_SchemaNumber extends _SchemaNumber {
   @JsonKey(name: 'default')
   final double? defaultValue;
   @override
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final NumberFormat? format;
   @override
   final double? example;
@@ -11982,6 +12037,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -11995,6 +12051,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -12009,6 +12066,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -12085,6 +12143,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -12098,6 +12157,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -12112,6 +12172,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -12188,6 +12249,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -12201,6 +12263,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -12215,6 +12278,7 @@ class _$_SchemaNumber extends _SchemaNumber {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -12341,6 +12405,7 @@ abstract class _SchemaNumber extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final double? defaultValue,
+          @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final NumberFormat? format,
           final double? example,
           final double? minimum,
@@ -12362,6 +12427,7 @@ abstract class _SchemaNumber extends Schema {
   String? get description;
   @JsonKey(name: 'default')
   double? get defaultValue;
+  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   NumberFormat? get format;
   double? get example;
   double? get minimum;
@@ -12569,6 +12635,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -12582,6 +12649,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -12596,6 +12664,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -12672,6 +12741,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -12685,6 +12755,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -12699,6 +12770,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -12775,6 +12847,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -12788,6 +12861,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -12802,6 +12876,7 @@ class _$_SchemaEnum extends _SchemaEnum {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -13188,6 +13263,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -13201,6 +13277,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -13215,6 +13292,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -13291,6 +13369,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -13304,6 +13383,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -13318,6 +13398,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -13394,6 +13475,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -13407,6 +13489,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -13421,6 +13504,7 @@ class _$_SchemaArray extends _SchemaArray {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -13801,6 +13885,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -13814,6 +13899,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -13828,6 +13914,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -13904,6 +13991,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -13917,6 +14005,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -13931,6 +14020,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
@@ -14007,6 +14097,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') String? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             StringFormat? format,
             String? example,
             int? minLength,
@@ -14020,6 +14111,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') int? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             IntegerFormat? format,
             int? example,
             int? minimum,
@@ -14034,6 +14126,7 @@ class _$_SchemaMap extends _SchemaMap {
             String? title,
             String? description,
             @JsonKey(name: 'default') double? defaultValue,
+            @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
             NumberFormat? format,
             double? example,
             double? minimum,
