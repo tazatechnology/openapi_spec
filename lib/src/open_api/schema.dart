@@ -1,5 +1,10 @@
 part of openapi_models;
 
+/// Custom converters to handle numeric types
+/// In case JSON is not properly formatted
+int? _fromJsonInt(num? jsonValue) => jsonValue?.toInt();
+double? _fromJsonDouble(num? jsonValue) => jsonValue?.toDouble();
+
 // ==========================================
 // CLASS: Schema
 // ==========================================
@@ -75,8 +80,8 @@ class Schema with _$Schema {
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     StringFormat? format,
     String? example,
-    int? minLength,
-    int? maxLength,
+    @JsonKey(fromJson: _fromJsonInt) int? minLength,
+    @JsonKey(fromJson: _fromJsonInt) int? maxLength,
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
@@ -91,15 +96,15 @@ class Schema with _$Schema {
     Xml? xml,
     String? title,
     String? description,
-    @JsonKey(name: 'default') int? defaultValue,
+    @JsonKey(name: 'default', fromJson: _fromJsonInt) int? defaultValue,
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     IntegerFormat? format,
-    int? example,
-    int? minimum,
-    int? maximum,
+    @JsonKey(fromJson: _fromJsonInt) int? example,
+    @JsonKey(fromJson: _fromJsonInt) int? minimum,
+    @JsonKey(fromJson: _fromJsonInt) int? maximum,
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
-    int? multipleOf,
+    @JsonKey(fromJson: _fromJsonInt) int? multipleOf,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaInteger;
 
@@ -112,15 +117,15 @@ class Schema with _$Schema {
     Xml? xml,
     String? title,
     String? description,
-    @JsonKey(name: 'default') double? defaultValue,
+    @JsonKey(name: 'default', fromJson: _fromJsonDouble) double? defaultValue,
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     NumberFormat? format,
-    double? example,
-    double? minimum,
-    double? maximum,
+    @JsonKey(fromJson: _fromJsonDouble) double? example,
+    @JsonKey(fromJson: _fromJsonDouble) double? minimum,
+    @JsonKey(fromJson: _fromJsonDouble) double? maximum,
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
-    double? multipleOf,
+    @JsonKey(fromJson: _fromJsonDouble) double? multipleOf,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaNumber;
 
@@ -150,8 +155,8 @@ class Schema with _$Schema {
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
     List? example,
-    int? minItems,
-    int? maxItems,
+    @JsonKey(fromJson: _fromJsonInt) int? minItems,
+    @JsonKey(fromJson: _fromJsonInt) int? maxItems,
     required Schema items,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaArray;
@@ -344,6 +349,7 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
 
   @override
   Map<String, dynamic> toJson(Schema s) {
+    // Handle references
     if (s.ref != null) {
       final refMap = {'\$ref': _SchemaRefConverter().toJson(s.ref)};
       return s.maybeMap(
@@ -354,12 +360,13 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
             return s.toJson();
           }
         },
-        orElse: () {
-          return refMap;
-        },
+        orElse: () => refMap,
       );
     }
-    return s.toJson();
+    // Conditional handling of scheme types
+    return s.maybeMap(
+      orElse: () => s.toJson(),
+    );
   }
 
   @override

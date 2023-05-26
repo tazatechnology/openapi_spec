@@ -9235,8 +9235,8 @@ abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       StringFormat? format,
       String? example,
-      int? minLength,
-      int? maxLength,
+      @JsonKey(fromJson: _fromJsonInt) int? minLength,
+      @JsonKey(fromJson: _fromJsonInt) int? maxLength,
       bool? exclusiveMinimum,
       bool? exclusiveMaximum,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
@@ -9338,8 +9338,8 @@ class _$_SchemaString extends _SchemaString {
       @JsonKey(name: 'default') this.defaultValue,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       this.example,
-      this.minLength,
-      this.maxLength,
+      @JsonKey(fromJson: _fromJsonInt) this.minLength,
+      @JsonKey(fromJson: _fromJsonInt) this.maxLength,
       this.exclusiveMinimum,
       this.exclusiveMaximum,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
@@ -9365,8 +9365,10 @@ class _$_SchemaString extends _SchemaString {
   @override
   final String? example;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? minLength;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? maxLength;
   @override
   final bool? exclusiveMinimum;
@@ -9497,8 +9499,8 @@ abstract class _SchemaString extends Schema {
           @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final StringFormat? format,
           final String? example,
-          final int? minLength,
-          final int? maxLength,
+          @JsonKey(fromJson: _fromJsonInt) final int? minLength,
+          @JsonKey(fromJson: _fromJsonInt) final int? maxLength,
           final bool? exclusiveMinimum,
           final bool? exclusiveMaximum,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
@@ -9518,7 +9520,9 @@ abstract class _SchemaString extends Schema {
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   StringFormat? get format;
   String? get example;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get minLength;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get maxLength;
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
@@ -9544,15 +9548,15 @@ abstract class _$$_SchemaIntegerCopyWith<$Res>
       {Xml? xml,
       String? title,
       String? description,
-      @JsonKey(name: 'default') int? defaultValue,
+      @JsonKey(name: 'default', fromJson: _fromJsonInt) int? defaultValue,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       IntegerFormat? format,
-      int? example,
-      int? minimum,
-      int? maximum,
+      @JsonKey(fromJson: _fromJsonInt) int? example,
+      @JsonKey(fromJson: _fromJsonInt) int? minimum,
+      @JsonKey(fromJson: _fromJsonInt) int? maximum,
       bool? exclusiveMinimum,
       bool? exclusiveMaximum,
-      int? multipleOf,
+      @JsonKey(fromJson: _fromJsonInt) int? multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
@@ -9654,14 +9658,14 @@ class _$_SchemaInteger extends _SchemaInteger {
       {this.xml,
       this.title,
       this.description,
-      @JsonKey(name: 'default') this.defaultValue,
+      @JsonKey(name: 'default', fromJson: _fromJsonInt) this.defaultValue,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
-      this.example,
-      this.minimum,
-      this.maximum,
+      @JsonKey(fromJson: _fromJsonInt) this.example,
+      @JsonKey(fromJson: _fromJsonInt) this.minimum,
+      @JsonKey(fromJson: _fromJsonInt) this.maximum,
       this.exclusiveMinimum,
       this.exclusiveMaximum,
-      this.multipleOf,
+      @JsonKey(fromJson: _fromJsonInt) this.multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'integer',
@@ -9677,22 +9681,26 @@ class _$_SchemaInteger extends _SchemaInteger {
   @override
   final String? description;
   @override
-  @JsonKey(name: 'default')
+  @JsonKey(name: 'default', fromJson: _fromJsonInt)
   final int? defaultValue;
   @override
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final IntegerFormat? format;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? example;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? minimum;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? maximum;
   @override
   final bool? exclusiveMinimum;
   @override
   final bool? exclusiveMaximum;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? multipleOf;
   @override
   @JsonKey(name: '\$ref')
@@ -9813,20 +9821,21 @@ class _$_SchemaInteger extends _SchemaInteger {
 
 abstract class _SchemaInteger extends Schema {
   const factory _SchemaInteger(
-          {final Xml? xml,
-          final String? title,
-          final String? description,
-          @JsonKey(name: 'default') final int? defaultValue,
-          @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
-          final IntegerFormat? format,
-          final int? example,
-          final int? minimum,
-          final int? maximum,
-          final bool? exclusiveMinimum,
-          final bool? exclusiveMaximum,
-          final int? multipleOf,
-          @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
-      _$_SchemaInteger;
+      {final Xml? xml,
+      final String? title,
+      final String? description,
+      @JsonKey(name: 'default', fromJson: _fromJsonInt) final int? defaultValue,
+      @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
+      final IntegerFormat? format,
+      @JsonKey(fromJson: _fromJsonInt) final int? example,
+      @JsonKey(fromJson: _fromJsonInt) final int? minimum,
+      @JsonKey(fromJson: _fromJsonInt) final int? maximum,
+      final bool? exclusiveMinimum,
+      final bool? exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) final int? multipleOf,
+      @JsonKey(name: '\$ref')
+      @_SchemaRefConverter()
+      final String? ref}) = _$_SchemaInteger;
   const _SchemaInteger._() : super._();
 
   factory _SchemaInteger.fromJson(Map<String, dynamic> json) =
@@ -9837,15 +9846,19 @@ abstract class _SchemaInteger extends Schema {
   String? get title;
   @override
   String? get description;
-  @JsonKey(name: 'default')
+  @JsonKey(name: 'default', fromJson: _fromJsonInt)
   int? get defaultValue;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   IntegerFormat? get format;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get example;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get minimum;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get maximum;
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get multipleOf;
   @override
   @JsonKey(name: '\$ref')
@@ -9868,15 +9881,15 @@ abstract class _$$_SchemaNumberCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       {Xml? xml,
       String? title,
       String? description,
-      @JsonKey(name: 'default') double? defaultValue,
+      @JsonKey(name: 'default', fromJson: _fromJsonDouble) double? defaultValue,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       NumberFormat? format,
-      double? example,
-      double? minimum,
-      double? maximum,
+      @JsonKey(fromJson: _fromJsonDouble) double? example,
+      @JsonKey(fromJson: _fromJsonDouble) double? minimum,
+      @JsonKey(fromJson: _fromJsonDouble) double? maximum,
       bool? exclusiveMinimum,
       bool? exclusiveMaximum,
-      double? multipleOf,
+      @JsonKey(fromJson: _fromJsonDouble) double? multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
@@ -9978,14 +9991,14 @@ class _$_SchemaNumber extends _SchemaNumber {
       {this.xml,
       this.title,
       this.description,
-      @JsonKey(name: 'default') this.defaultValue,
+      @JsonKey(name: 'default', fromJson: _fromJsonDouble) this.defaultValue,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
-      this.example,
-      this.minimum,
-      this.maximum,
+      @JsonKey(fromJson: _fromJsonDouble) this.example,
+      @JsonKey(fromJson: _fromJsonDouble) this.minimum,
+      @JsonKey(fromJson: _fromJsonDouble) this.maximum,
       this.exclusiveMinimum,
       this.exclusiveMaximum,
-      this.multipleOf,
+      @JsonKey(fromJson: _fromJsonDouble) this.multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'number',
@@ -10001,22 +10014,26 @@ class _$_SchemaNumber extends _SchemaNumber {
   @override
   final String? description;
   @override
-  @JsonKey(name: 'default')
+  @JsonKey(name: 'default', fromJson: _fromJsonDouble)
   final double? defaultValue;
   @override
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final NumberFormat? format;
   @override
+  @JsonKey(fromJson: _fromJsonDouble)
   final double? example;
   @override
+  @JsonKey(fromJson: _fromJsonDouble)
   final double? minimum;
   @override
+  @JsonKey(fromJson: _fromJsonDouble)
   final double? maximum;
   @override
   final bool? exclusiveMinimum;
   @override
   final bool? exclusiveMaximum;
   @override
+  @JsonKey(fromJson: _fromJsonDouble)
   final double? multipleOf;
   @override
   @JsonKey(name: '\$ref')
@@ -10140,15 +10157,16 @@ abstract class _SchemaNumber extends Schema {
           {final Xml? xml,
           final String? title,
           final String? description,
-          @JsonKey(name: 'default') final double? defaultValue,
+          @JsonKey(name: 'default', fromJson: _fromJsonDouble)
+          final double? defaultValue,
           @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final NumberFormat? format,
-          final double? example,
-          final double? minimum,
-          final double? maximum,
+          @JsonKey(fromJson: _fromJsonDouble) final double? example,
+          @JsonKey(fromJson: _fromJsonDouble) final double? minimum,
+          @JsonKey(fromJson: _fromJsonDouble) final double? maximum,
           final bool? exclusiveMinimum,
           final bool? exclusiveMaximum,
-          final double? multipleOf,
+          @JsonKey(fromJson: _fromJsonDouble) final double? multipleOf,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$_SchemaNumber;
   const _SchemaNumber._() : super._();
@@ -10161,15 +10179,19 @@ abstract class _SchemaNumber extends Schema {
   String? get title;
   @override
   String? get description;
-  @JsonKey(name: 'default')
+  @JsonKey(name: 'default', fromJson: _fromJsonDouble)
   double? get defaultValue;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   NumberFormat? get format;
+  @JsonKey(fromJson: _fromJsonDouble)
   double? get example;
+  @JsonKey(fromJson: _fromJsonDouble)
   double? get minimum;
+  @JsonKey(fromJson: _fromJsonDouble)
   double? get maximum;
   bool? get exclusiveMinimum;
   bool? get exclusiveMaximum;
+  @JsonKey(fromJson: _fromJsonDouble)
   double? get multipleOf;
   @override
   @JsonKey(name: '\$ref')
@@ -10450,8 +10472,8 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
       List<dynamic>? example,
-      int? minItems,
-      int? maxItems,
+      @JsonKey(fromJson: _fromJsonInt) int? minItems,
+      @JsonKey(fromJson: _fromJsonInt) int? maxItems,
       Schema items,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
@@ -10550,8 +10572,8 @@ class _$_SchemaArray extends _SchemaArray {
       this.description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
       final List<dynamic>? example,
-      this.minItems,
-      this.maxItems,
+      @JsonKey(fromJson: _fromJsonInt) this.minItems,
+      @JsonKey(fromJson: _fromJsonInt) this.maxItems,
       required this.items,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
@@ -10591,8 +10613,10 @@ class _$_SchemaArray extends _SchemaArray {
   }
 
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? minItems;
   @override
+  @JsonKey(fromJson: _fromJsonInt)
   final int? maxItems;
   @override
   final Schema items;
@@ -10713,8 +10737,8 @@ abstract class _SchemaArray extends Schema {
           final String? description,
           @JsonKey(name: 'default') final List<dynamic>? defaultValue,
           final List<dynamic>? example,
-          final int? minItems,
-          final int? maxItems,
+          @JsonKey(fromJson: _fromJsonInt) final int? minItems,
+          @JsonKey(fromJson: _fromJsonInt) final int? maxItems,
           required final Schema items,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$_SchemaArray;
@@ -10731,7 +10755,9 @@ abstract class _SchemaArray extends Schema {
   @JsonKey(name: 'default')
   List<dynamic>? get defaultValue;
   List<dynamic>? get example;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get minItems;
+  @JsonKey(fromJson: _fromJsonInt)
   int? get maxItems;
   Schema get items;
   @override
