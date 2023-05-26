@@ -92,24 +92,13 @@ class ClientGenerator extends BaseGenerator {
       if (security.keys.contains(AuthType.keyQuery) ||
           security.keys.contains(AuthType.keyHeader) ||
           security.keys.contains(AuthType.keyCookie)) {
-        authInputs.add('required this.$apiKeyVar');
+        authInputs.add("this.$apiKeyVar = ''");
         authVariables.add('final String $apiKeyVar;');
       }
       if (security.keys.contains(AuthType.openId)) {
         await security[AuthType.openId]?.mapOrNull(
           openIdConnect: (o) async {
-            // OpenId openIdConfig = const OpenId();
-            // try {
-            //   final response = await http.Client().get(Uri.parse(o.url));
-            //   openIdConfig = OpenId.fromJson(json.decode(response.body));
-            // } catch (e) {
-            //   printLog(
-            //     'OpenID',
-            //     'Unable to retrieve OpenID configuration from: ${o.url}',
-            //   );
-            // }
-            // print(openIdConfig);
-            authInputs.add('required this.$accessTokenVar');
+            authInputs.add("this.$accessTokenVar = ''");
             authVariables.add('String $accessTokenVar;');
             authRequestHeader = """
             /// Add access to token to request headers
@@ -253,8 +242,6 @@ class $clientName {
     ContentType responseType = ContentType.json,
     Object? body,
   }) async {
-    // final timer = Stopwatch()..start();
-
     // Override with the user provided host
     if (host.isEmpty) {
       host = this.host ?? '';
