@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+* Added protections for numeric value JSON parsing
+
 ## 0.2.0
 
 * Infrastructure to support automatic union types
