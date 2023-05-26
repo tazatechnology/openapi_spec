@@ -53,27 +53,24 @@ class SchemaGenerator extends BaseGenerator {
       schemaDirectory.createSync();
     }
 
-    index.writeAsStringSync("""
-      ${getHeader()}
-
-      library $schemaPackage;
-
+    final importCode = """
       import 'package:freezed_annotation/freezed_annotation.dart';
 
       part 'schema.g.dart';
       part 'schema.freezed.dart';\n
-      """);
+    """;
 
     if (options.singleFile) {
       file.writeAsStringSync(getHeader());
-      file.writeAsStringSync(
-        'part of $schemaPackage;\n\n',
-        mode: FileMode.append,
-      );
-      index.writeAsStringSync(
-        "part 'schema.dart';\n",
-        mode: FileMode.append,
-      );
+      file.writeAsStringSync(importCode, mode: FileMode.append);
+    } else {
+      index.writeAsStringSync("""
+      ${getHeader()}
+
+      library $schemaPackage;
+
+      $importCode
+      """);
     }
 
     // Determine if there are any union definitions
@@ -558,7 +555,7 @@ class SchemaGenerator extends BaseGenerator {
         } else if (nullable) {
           unknownFallback = 'JsonKey.nullForUndefinedEnumValue';
         }
-        if (unknownFallback != null) {
+        if (unknownFallback != null && p.ref != null) {
           if (jsonName != name) {
             c +=
                 "@JsonKey(name: '$jsonName', unknownEnumValue: $unknownFallback,) ";

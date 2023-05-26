@@ -321,8 +321,16 @@ class OpenApi with _$OpenApi {
 
     // Apply the Dart formatting and fix logic
     if (formatOutput) {
-      await Process.run('dart', ['fix', '--apply', d.absolute.path]);
-      await Process.run('dart', ['format', d.absolute.path]);
+      final resultFix =
+          await Process.run('dart', ['fix', '--apply', d.absolute.path]);
+      final resultFormat =
+          await Process.run('dart', ['format', d.absolute.path]);
+      if (resultFix.exitCode != 0) {
+        throw ('\n\nError running dart fix:\n${resultFix.stderr}\n');
+      }
+      if (resultFormat.exitCode != 0) {
+        throw ('\n\nError running dart fix:\n${resultFormat.stderr}\n');
+      }
     }
   }
 }
