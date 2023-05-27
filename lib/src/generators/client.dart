@@ -298,7 +298,9 @@ class $clientName {
         request = http.Request(method.name, uri);
         request = request as http.Request;
         try {
-          request.body = json.encode(body ?? {});
+          if (body != null) {
+            request.body = json.encode(body);
+          }
         } catch (e) {
           // Handle request encoding error
           throw $clientException(
