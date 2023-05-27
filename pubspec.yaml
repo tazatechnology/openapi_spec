@@ -1,6 +1,6 @@
 name: openapi_spec
 description: OpenAPI Specification generator using native Dart code, as well as an all-in-one parser of existing specifications.
-version: 0.2.1
+version: 0.3.0
 maintainer: Taza Technology LLC
 repository: https://github.com/tazatechnology/openapi_spec
 issue_tracker: https://github.com/tazatechnology/openapi_spec/issues
@@ -18,7 +18,7 @@ dependencies:
   path: ^1.8.3
   
   # For generated client code
-  intl: ">=0.17.0"
+  intl: ">=0.17.0 <1.0.0"
   http: ">=0.13.0 <2.0.0"
   recase: ^4.1.0
   
