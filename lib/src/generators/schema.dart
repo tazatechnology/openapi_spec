@@ -324,8 +324,13 @@ class SchemaGenerator extends BaseGenerator {
 
       prop.maybeMap(
         object: (value) {
-          if (schemaNames.contains(prop.toDartType())) {
-            toMap += "'$propName': $dartName.toMap(),\n";
+          if (schemaNames.contains(prop.toDartType(unions: _unions))) {
+            if (s.required?.contains(propName) == true ||
+                value.defaultValue != null) {
+              toMap += "'$propName': $dartName.toMap(),\n";
+            } else {
+              toMap += "'$propName': $dartName?.toMap(),\n";
+            }
           } else {
             toMap += "'$propName': $dartName,\n";
           }
