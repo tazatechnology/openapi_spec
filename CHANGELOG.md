@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+* Fix nullable toMap bug
+
 ## 0.3.0
 
 * Addition of server generator
