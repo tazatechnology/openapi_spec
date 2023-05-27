@@ -6,7 +6,6 @@ part of openapi_generators;
 
 class SchemaGeneratorOptions extends BaseGeneratorOptions {
   const SchemaGeneratorOptions({
-    super.replaceOutput,
     super.includeVersion,
     this.singleFile = false,
     this.onSchemaName,

@@ -8487,6 +8487,9 @@ mixin _$Schema {
   /// A short description of the schema
   String? get description => throw _privateConstructorUsedError;
 
+  /// The default value code to place into `@Default()`
+  Object? get defaultValue => throw _privateConstructorUsedError;
+
   /// Reference to a schema definition
   @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
@@ -8589,6 +8592,7 @@ abstract class _$$_SchemaObjectCopyWith<$Res> implements $SchemaCopyWith<$Res> {
   $Res call(
       {String? title,
       String? description,
+      String? defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
       @_SchemaListConverter() List<Schema>? allOf,
       @_SchemaListConverter() List<Schema>? anyOf,
@@ -8616,6 +8620,7 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? description = freezed,
+    Object? defaultValue = freezed,
     Object? ref = freezed,
     Object? allOf = freezed,
     Object? anyOf = freezed,
@@ -8633,6 +8638,10 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      defaultValue: freezed == defaultValue
+          ? _value.defaultValue
+          : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
       ref: freezed == ref
           ? _value.ref
@@ -8712,6 +8721,7 @@ class _$_SchemaObject extends _SchemaObject {
   const _$_SchemaObject(
       {this.title,
       this.description,
+      this.defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       @_SchemaListConverter() final List<Schema>? allOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
@@ -8738,6 +8748,10 @@ class _$_SchemaObject extends _SchemaObject {
   /// A short description of the schema
   @override
   final String? description;
+
+  /// The default value code to place into `@Default()`
+  @override
+  final String? defaultValue;
 
   /// Reference to a schema definition
   @override
@@ -8820,7 +8834,7 @@ class _$_SchemaObject extends _SchemaObject {
 
   @override
   String toString() {
-    return 'Schema.object(title: $title, description: $description, ref: $ref, allOf: $allOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
+    return 'Schema.object(title: $title, description: $description, defaultValue: $defaultValue, ref: $ref, allOf: $allOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
   }
 
   @override
@@ -8831,6 +8845,8 @@ class _$_SchemaObject extends _SchemaObject {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.defaultValue, defaultValue) ||
+                other.defaultValue == defaultValue) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             const DeepCollectionEquality().equals(other._allOf, _allOf) &&
             const DeepCollectionEquality().equals(other._anyOf, _anyOf) &&
@@ -8850,6 +8866,7 @@ class _$_SchemaObject extends _SchemaObject {
       runtimeType,
       title,
       description,
+      defaultValue,
       ref,
       const DeepCollectionEquality().hash(_allOf),
       const DeepCollectionEquality().hash(_anyOf),
@@ -8926,6 +8943,7 @@ abstract class _SchemaObject extends Schema {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
+      final String? defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref,
       @_SchemaListConverter() final List<Schema>? allOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
@@ -8947,6 +8965,10 @@ abstract class _SchemaObject extends Schema {
 
   /// A short description of the schema
   String? get description;
+  @override
+
+  /// The default value code to place into `@Default()`
+  String? get defaultValue;
   @override
 
   /// Reference to a schema definition
@@ -9207,6 +9229,7 @@ abstract class _SchemaBoolean extends Schema {
   String? get title;
   @override
   String? get description;
+  @override
   @JsonKey(name: 'default')
   bool? get defaultValue;
   bool? get example;
@@ -9515,6 +9538,7 @@ abstract class _SchemaString extends Schema {
   String? get title;
   @override
   String? get description;
+  @override
   @JsonKey(name: 'default')
   String? get defaultValue;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
@@ -9846,6 +9870,7 @@ abstract class _SchemaInteger extends Schema {
   String? get title;
   @override
   String? get description;
+  @override
   @JsonKey(name: 'default', fromJson: _fromJsonInt)
   int? get defaultValue;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
@@ -10179,6 +10204,7 @@ abstract class _SchemaNumber extends Schema {
   String? get title;
   @override
   String? get description;
+  @override
   @JsonKey(name: 'default', fromJson: _fromJsonDouble)
   double? get defaultValue;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
@@ -10443,6 +10469,7 @@ abstract class _SchemaEnum extends Schema {
   @override
   String? get description;
   String? get example;
+  @override
   @JsonKey(name: 'default')
   String? get defaultValue;
   @JsonKey(includeToJson: false, includeFromJson: false)
@@ -10752,6 +10779,7 @@ abstract class _SchemaArray extends Schema {
   String? get title;
   @override
   String? get description;
+  @override
   @JsonKey(name: 'default')
   List<dynamic>? get defaultValue;
   List<dynamic>? get example;
@@ -11056,6 +11084,7 @@ abstract class _SchemaMap extends Schema {
   String? get title;
   @override
   String? get description;
+  @override
   @JsonKey(name: 'default')
   Map<dynamic, dynamic>? get defaultValue;
   Map<dynamic, dynamic>? get example;

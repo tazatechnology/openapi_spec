@@ -900,6 +900,7 @@ _$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
     _$_SchemaObject(
       title: json['title'] as String?,
       description: json['description'] as String?,
+      defaultValue: json['defaultValue'] as String?,
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
       allOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['allOf'], const _SchemaListConverter().fromJson),
@@ -935,6 +936,7 @@ Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
 
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
+  writeNotNull('defaultValue', instance.defaultValue);
   writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
   writeNotNull(
       'allOf',

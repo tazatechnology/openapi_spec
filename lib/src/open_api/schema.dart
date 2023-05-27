@@ -25,6 +25,9 @@ class Schema with _$Schema {
     /// A short description of the schema
     String? description,
 
+    /// The default value code to place into `@Default()`
+    String? defaultValue,
+
     /// Reference to a schema definition
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
 
@@ -210,6 +213,7 @@ class Schema with _$Schema {
       object: (s) {
         return (sRef as _SchemaObject).copyWith(
           ref: ref,
+          defaultValue: s.defaultValue,
         );
       },
       boolean: (s) {

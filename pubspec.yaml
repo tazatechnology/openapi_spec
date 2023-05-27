@@ -18,8 +18,8 @@ dependencies:
   path: ^1.8.3
   
   # For generated client code
-  intl: ^0.18.1
-  http: ">=0.13.5 <2.0.0"
+  intl: ">=0.17.0"
+  http: ">=0.13.0 <2.0.0"
   recase: ^4.1.0
   
 dev_dependencies:

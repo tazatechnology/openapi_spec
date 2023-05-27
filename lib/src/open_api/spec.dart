@@ -268,15 +268,27 @@ class OpenApi with _$OpenApi {
     required String destination,
     bool formatOutput = true,
     bool quiet = false,
+    bool replace = false,
     SchemaGeneratorOptions schemaOptions = const SchemaGeneratorOptions(),
     ClientGeneratorOptions clientOptions = const ClientGeneratorOptions(),
     ServerGeneratorOptions serverOptions = const ServerGeneratorOptions(),
   }) async {
     // Ensure that the folder exists
-    final d = Directory(destination);
+    final dir = Directory(destination);
+    final dirPath = p.normalize(dir.absolute.path);
 
-    if (!d.existsSync()) {
-      d.createSync(recursive: true);
+    if (dir.existsSync()) {
+      if (replace) {
+        await dir.delete(recursive: true);
+      } else {
+        throw Exception(
+          'Destination directory already exists: $dirPath\n\nEither remove it or set the "replace" option to true to delete the existing destination\n',
+        );
+      }
+    }
+
+    if (!dir.existsSync()) {
+      dir.createSync(recursive: true);
     }
 
     // Generate the schemas
@@ -293,21 +305,18 @@ class OpenApi with _$OpenApi {
     } else {
       // ignore: avoid_print
       print(
-        'No schemas found in OpenAPI spec - Not generating schema library!',
+        'No schemas found in OpenAPI spec - Not generating schema library.',
       );
     }
-
-    // Generate client
-    ClientGenerator? clientGenerator;
 
     if (clientOptions.enabled) {
       if (paths == null || (paths?.isEmpty ?? true)) {
         // ignore: avoid_print
         print(
-          'No client paths/operations found in OpenAPI spec - Not generating client library!',
+          'No client paths/operations found in OpenAPI spec - Not generating client library.',
         );
       } else {
-        clientGenerator = ClientGenerator(
+        final clientGenerator = ClientGenerator(
           spec: this,
           package: package.snakeCase,
           destination: destination,
@@ -319,12 +328,30 @@ class OpenApi with _$OpenApi {
       }
     }
 
+    if (serverOptions.enabled) {
+      if (paths == null || (paths?.isEmpty ?? true)) {
+        // ignore: avoid_print
+        print(
+          'No client paths/operations found in OpenAPI spec - Not generating server library.',
+        );
+      } else {
+        final serverGenerator = ServerGenerator(
+          spec: this,
+          package: package.snakeCase,
+          destination: destination,
+          quiet: quiet,
+          options: serverOptions,
+        );
+        await serverGenerator.generate();
+      }
+    }
+
     // Apply the Dart formatting and fix logic
     if (formatOutput) {
       final resultFix =
-          await Process.run('dart', ['fix', '--apply', d.absolute.path]);
+          await Process.run('dart', ['fix', '--apply', dir.absolute.path]);
       final resultFormat =
-          await Process.run('dart', ['format', d.absolute.path]);
+          await Process.run('dart', ['format', dir.absolute.path]);
       if (resultFix.exitCode != 0) {
         throw ('\n\nError running dart fix:\n${resultFix.stderr}\n');
       }

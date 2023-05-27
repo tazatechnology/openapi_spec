@@ -1,14 +1,5 @@
 part of openapi_generators;
 
-/// Enum of HTTP methods
-enum HttpMethod { get, put, post, delete, options, head, patch, trace }
-
-/// Enum of supported content types
-enum ContentType { json, multipart, xml }
-
-/// Enum of supported authentication types
-enum AuthType { keyQuery, keyHeader, keyCookie, openId }
-
 final keyMultipart = 'multipart/form-data';
 final keyJson = 'application/json';
 final keyXml = 'application/xml';
@@ -29,11 +20,9 @@ class ClientGenerator extends BaseGenerator {
     required this.options,
     required this.schemaGenerator,
   }) {
-    clientDirectory = Directory(p.join(parentDirectory.path, 'client'));
-    file = File(p.join(clientDirectory.path, 'client.dart'));
+    file = File(p.join(parentDirectory.path, 'client.dart'));
   }
   late File file;
-  late final Directory clientDirectory;
 
   @override
   final ClientGeneratorOptions options;
@@ -46,16 +35,6 @@ class ClientGenerator extends BaseGenerator {
 
   @override
   Future<void> generate() async {
-    if (options.replaceOutput) {
-      if (clientDirectory.existsSync() && options.replaceOutput) {
-        clientDirectory.deleteSync(recursive: true);
-      }
-    }
-
-    if (!clientDirectory.existsSync()) {
-      clientDirectory.createSync();
-    }
-
     final clientName = '${package.titleCase}Client';
     final clientException = '${clientName}Exception';
 
@@ -124,7 +103,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
-import '../schema/schema.dart';
+import 'schema/schema.dart';
 
 /// Enum of HTTP methods
 enum HttpMethod { get, put, post, delete, options, head, patch, trace }
@@ -134,6 +113,10 @@ enum ContentType { json, multipart, xml }
 
 /// Enum of supported authentication types
 enum AuthType { keyQuery, keyHeader, keyCookie, openId }
+
+// ==========================================
+// CLASS: $clientException
+// ==========================================
 
 /// HTTP exception handler for $clientName
 class $clientException implements HttpException {
@@ -262,9 +245,9 @@ class $clientName {
     // Build the request URI
     Uri uri;
     if (host.contains('http')) {
-      host = Uri.parse(host).host;
+      host = Uri.parse(host).authority;
     } else {
-      host = Uri.parse(Uri.https(host).toString()).host;
+      host = Uri.parse(Uri.https(host).toString()).authority;
     }
     if (secure) {
       uri = Uri.https(host, path, queryParams.isEmpty ? null : queryParams);
@@ -474,19 +457,17 @@ class $clientName {
     // Method Name
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
-    // Determine the method name based on a series of checks
-    String methodName = '${method.name}_$path'.camelCase;
+    // Attempt to arrive at a default method name
+    String methodName;
     if (operation.id != null) {
       methodName = operation.id!.camelCase;
-    } else if (operation.summary != null) {
-      methodName = operation.summary!.camelCase;
-    } else if (operation.description != null) {
-      methodName = operation.description!.camelCase;
+    } else {
+      methodName = '${method.name}_$path'.camelCase;
     }
 
     // Allow user to override the default name
-    if (options.onClientMethodName != null) {
-      final userMethodName = options.onClientMethodName!(methodName);
+    if (options.onMethodName != null) {
+      final userMethodName = options.onMethodName!(methodName);
       if (userMethodName == null) {
         // Indicates a user request to skip this method
         printLog('Skip Client Method', methodName);
@@ -572,6 +553,61 @@ class $clientName {
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    // Parameters
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+    // Determine if path contains dynamic variables
+    for (var param in parameters) {
+      if (param.name == null) {
+        throw Exception('Parameter name is required: $param');
+      }
+      final pName = param.name!;
+      param.map(
+        cookie: (p) {
+          // Do nothing
+        },
+        header: (p) {
+          String hCode = "'${p.name}': ${pName.camelCase}";
+          String pType = p.schema?.toDartType() ?? 'dynamic';
+          if (p.required == true) {
+            pType = 'required $pType';
+          } else {
+            pType = '$pType?';
+            hCode = 'if (${pName.camelCase} != null) $hCode';
+          }
+          input.add('$pType ${pName.camelCase}');
+          inputDescription.add(
+            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+          );
+          headerParams.add(hCode);
+        },
+        query: (p) {
+          String qCode = "'${p.name}': ${pName.camelCase}";
+          String pType = p.schema?.toDartType() ?? 'dynamic';
+          if (p.required == true) {
+            pType = 'required $pType';
+          } else {
+            pType = '$pType?';
+            qCode = 'if (${pName.camelCase} != null) $qCode';
+          }
+          input.add('$pType ${pName.camelCase}');
+          inputDescription.add(
+            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+          );
+          queryParams.add(qCode);
+        },
+        path: (p) {
+          input.add('required String ${pName.camelCase}');
+          inputDescription.add(
+            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+          );
+          // Update the path definition
+          path = path.replaceAll('{${p.name}}', '\$${pName.camelCase}');
+        },
+      );
+    }
+
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     // Request
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
@@ -616,6 +652,11 @@ class $clientName {
       );
 
       dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
+
+      // Check for multipart
+      if (requestType == ContentType.multipart) {
+        dType = 'List<http.MultipartFile>';
+      }
 
       if (dType != null && isRequestRequired) {
         input.add('required $dType request');
@@ -708,61 +749,6 @@ class $clientName {
           decoder = "return  json.decode(r.body);";
         }
       }
-    }
-
-    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-    // Parameters
-    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
-
-    // Determine if path contains dynamic variables
-    for (var param in parameters) {
-      if (param.name == null) {
-        throw Exception('Parameter name is required: $param');
-      }
-      final pName = param.name!;
-      param.map(
-        cookie: (p) {
-          // Do nothing
-        },
-        header: (p) {
-          String hCode = "'${p.name}': ${pName.camelCase}";
-          String pType = p.schema?.toDartType() ?? 'dynamic';
-          if (p.required == true) {
-            pType = 'required $pType';
-          } else {
-            pType = '$pType?';
-            hCode = 'if (${pName.camelCase} != null) $hCode';
-          }
-          input.add('$pType ${pName.camelCase}');
-          inputDescription.add(
-            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
-          );
-          headerParams.add(hCode);
-        },
-        query: (p) {
-          String qCode = "'${p.name}': ${pName.camelCase}";
-          String pType = p.schema?.toDartType() ?? 'dynamic';
-          if (p.required == true) {
-            pType = 'required $pType';
-          } else {
-            pType = '$pType?';
-            qCode = 'if (${pName.camelCase} != null) $qCode';
-          }
-          input.add('$pType ${pName.camelCase}');
-          inputDescription.add(
-            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
-          );
-          queryParams.add(qCode);
-        },
-        path: (p) {
-          input.add('required String ${pName.camelCase}');
-          inputDescription.add(
-            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
-          );
-          // Update the path definition
-          path = path.replaceAll('{${p.name}}', '\$${pName.camelCase}');
-        },
-      );
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -

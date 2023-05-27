@@ -12,6 +12,7 @@ part 'base.dart';
 part 'keywords.dart';
 part 'client.dart';
 part 'client_options.dart';
+part 'enums.dart';
 part 'schema.dart';
 part 'schema_options.dart';
 part 'server.dart';

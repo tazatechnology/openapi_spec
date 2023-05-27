@@ -7,10 +7,9 @@ part of openapi_generators;
 class ClientGeneratorOptions extends BaseGeneratorOptions {
   const ClientGeneratorOptions({
     super.enabled = false,
-    super.replaceOutput,
     super.includeVersion,
-    this.onClientMethodName,
+    this.onMethodName,
   });
 
-  final String? Function(String)? onClientMethodName;
+  final String? Function(String)? onMethodName;
 }

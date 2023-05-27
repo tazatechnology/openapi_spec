@@ -43,12 +43,6 @@ class SchemaGenerator extends BaseGenerator {
 
     String schemaPackage = '${package}_schema';
 
-    if (options.replaceOutput) {
-      if (schemaDirectory.existsSync() && options.replaceOutput) {
-        schemaDirectory.deleteSync(recursive: true);
-      }
-    }
-
     if (!schemaDirectory.existsSync()) {
       schemaDirectory.createSync();
     }
@@ -309,6 +303,7 @@ class SchemaGenerator extends BaseGenerator {
     final propNames = props?.keys.toList() ?? <String>[];
     bool firstPass = true;
     List<SchemaValidation> validations = [];
+    final schemaNames = (spec.components?.schemas?.keys ?? []).toList();
     for (final propName in propNames) {
       var dartName = propName.camelCase;
       dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
@@ -316,17 +311,29 @@ class SchemaGenerator extends BaseGenerator {
         firstPass = false;
         file.writeAsStringSync('{', mode: FileMode.append);
       }
+      final prop = props![propName]!;
       final v = _writeProperty(
         name: dartName,
         jsonName: propName,
-        property: props![propName]!,
+        property: prop,
         required: s.required?.contains(propName) ?? false,
       );
       if (v != null && v.operations.isNotEmpty) {
         validations.add(v);
       }
 
-      toMap += "'$propName': $dartName,\n";
+      prop.maybeMap(
+        object: (value) {
+          if (schemaNames.contains(prop.toDartType())) {
+            toMap += "'$propName': $dartName.toMap(),\n";
+          } else {
+            toMap += "'$propName': $dartName,\n";
+          }
+        },
+        orElse: () {
+          toMap += "'$propName': $dartName,\n";
+        },
+      );
     }
 
     String validationConstants = '';
@@ -387,7 +394,7 @@ class SchemaGenerator extends BaseGenerator {
       if (jsonName != name) {
         c += jsonKey;
       }
-      if (hasDefault) {
+      if (hasDefault && !required) {
         if (defaultValue is String) {
           c += "@Default('$defaultValue') ";
         } else {
@@ -411,7 +418,7 @@ class SchemaGenerator extends BaseGenerator {
               object: (s) => s,
               orElse: () => p,
             );
-        bool nullable = !required;
+        bool nullable = !required && p.defaultValue == null;
         String c = "/// ${p.description ?? 'No Description'}\n";
 
         List<String> unionSchemas = [];
@@ -430,9 +437,14 @@ class SchemaGenerator extends BaseGenerator {
           c += jsonKey;
         }
 
+        if (p.defaultValue != null) {
+          c += "@Default(${p.defaultValue}) ";
+        }
+
         if (required) {
           c += "required ";
         }
+
         if (p.ref != null) {
           c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
         } else if (unionSchemas.isNotEmpty) {

@@ -7,11 +7,9 @@ part of openapi_generators;
 abstract class BaseGeneratorOptions {
   const BaseGeneratorOptions({
     required this.enabled,
-    this.replaceOutput = false,
-    this.includeVersion = true,
+    this.includeVersion = false,
   });
   final bool enabled;
-  final bool replaceOutput;
   final bool includeVersion;
 }
 
