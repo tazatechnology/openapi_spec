@@ -11581,7 +11581,8 @@ abstract class _$$_SecuritySchemeHttpCopyWith<$Res>
       __$$_SecuritySchemeHttpCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String scheme, String bearerFormat, String? description});
+  $Res call(
+      {HttpSecurityScheme scheme, String? bearerFormat, String? description});
 }
 
 /// @nodoc
@@ -11596,18 +11597,18 @@ class __$$_SecuritySchemeHttpCopyWithImpl<$Res>
   @override
   $Res call({
     Object? scheme = null,
-    Object? bearerFormat = null,
+    Object? bearerFormat = freezed,
     Object? description = freezed,
   }) {
     return _then(_$_SecuritySchemeHttp(
       scheme: null == scheme
           ? _value.scheme
           : scheme // ignore: cast_nullable_to_non_nullable
-              as String,
-      bearerFormat: null == bearerFormat
+              as HttpSecurityScheme,
+      bearerFormat: freezed == bearerFormat
           ? _value.bearerFormat
           : bearerFormat // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -11621,7 +11622,7 @@ class __$$_SecuritySchemeHttpCopyWithImpl<$Res>
 class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
   const _$_SecuritySchemeHttp(
       {required this.scheme,
-      required this.bearerFormat,
+      this.bearerFormat,
       this.description,
       final String? $type})
       : $type = $type ?? 'http';
@@ -11631,11 +11632,11 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
 
   /// The name of the HTTP Authorization scheme to be used in the Authorization header
   @override
-  final String scheme;
+  final HttpSecurityScheme scheme;
 
   /// A hint to the client to identify how the bearer token is formatted.
   @override
-  final String bearerFormat;
+  final String? bearerFormat;
 
   /// A description for security scheme.
   @override
@@ -11723,18 +11724,18 @@ class _$_SecuritySchemeHttp implements _SecuritySchemeHttp {
 
 abstract class _SecuritySchemeHttp implements SecurityScheme {
   const factory _SecuritySchemeHttp(
-      {required final String scheme,
-      required final String bearerFormat,
+      {required final HttpSecurityScheme scheme,
+      final String? bearerFormat,
       final String? description}) = _$_SecuritySchemeHttp;
 
   factory _SecuritySchemeHttp.fromJson(Map<String, dynamic> json) =
       _$_SecuritySchemeHttp.fromJson;
 
   /// The name of the HTTP Authorization scheme to be used in the Authorization header
-  String get scheme;
+  HttpSecurityScheme get scheme;
 
   /// A hint to the client to identify how the bearer token is formatted.
-  String get bearerFormat;
+  String? get bearerFormat;
   @override
 
   /// A description for security scheme.

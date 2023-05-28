@@ -13,6 +13,13 @@ enum ApiKeyLocation {
   cookie,
 }
 
+enum HttpSecurityScheme {
+  @JsonValue('basic')
+  basic,
+  @JsonValue('bearer')
+  bearer,
+}
+
 // ==========================================
 // CLASS: SecurityScheme
 // ==========================================
@@ -41,10 +48,10 @@ class SecurityScheme with _$SecurityScheme {
 
   const factory SecurityScheme.http({
     /// The name of the HTTP Authorization scheme to be used in the Authorization header
-    required String scheme,
+    required HttpSecurityScheme scheme,
 
     /// A hint to the client to identify how the bearer token is formatted.
-    required String bearerFormat,
+    String? bearerFormat,
 
     /// A description for security scheme.
     String? description,

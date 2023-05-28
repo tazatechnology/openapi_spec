@@ -1284,8 +1284,8 @@ const _$ApiKeyLocationEnumMap = {
 _$_SecuritySchemeHttp _$$_SecuritySchemeHttpFromJson(
         Map<String, dynamic> json) =>
     _$_SecuritySchemeHttp(
-      scheme: json['scheme'] as String,
-      bearerFormat: json['bearerFormat'] as String,
+      scheme: $enumDecode(_$HttpSecuritySchemeEnumMap, json['scheme']),
+      bearerFormat: json['bearerFormat'] as String?,
       description: json['description'] as String?,
       $type: json['type'] as String?,
     );
@@ -1293,8 +1293,7 @@ _$_SecuritySchemeHttp _$$_SecuritySchemeHttpFromJson(
 Map<String, dynamic> _$$_SecuritySchemeHttpToJson(
     _$_SecuritySchemeHttp instance) {
   final val = <String, dynamic>{
-    'scheme': instance.scheme,
-    'bearerFormat': instance.bearerFormat,
+    'scheme': _$HttpSecuritySchemeEnumMap[instance.scheme]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -1303,10 +1302,16 @@ Map<String, dynamic> _$$_SecuritySchemeHttpToJson(
     }
   }
 
+  writeNotNull('bearerFormat', instance.bearerFormat);
   writeNotNull('description', instance.description);
   val['type'] = instance.$type;
   return val;
 }
+
+const _$HttpSecuritySchemeEnumMap = {
+  HttpSecurityScheme.basic: 'basic',
+  HttpSecurityScheme.bearer: 'bearer',
+};
 
 _$_SecuritySchemeMutualTLS _$$_SecuritySchemeMutualTLSFromJson(
         Map<String, dynamic> json) =>

@@ -1,11 +1,9 @@
 part of openapi_generators;
 
-final keyMultipart = 'multipart/form-data';
-final keyJson = 'application/json';
-final keyXml = 'application/xml';
-
 final apiKeyVar = 'apiKey';
 final accessTokenVar = 'accessToken';
+final usernameVar = 'username';
+final passwordVar = 'password';
 
 // ==========================================
 // CLASS: ClientGenerator
@@ -54,6 +52,13 @@ class ClientGenerator extends BaseGenerator {
               security[AuthType.keyQuery] = e.value;
           }
         },
+        http: (o) {
+          if (o.scheme == HttpSecurityScheme.basic) {
+            security[AuthType.httpBasic] = e.value;
+          } else if (o.scheme == HttpSecurityScheme.bearer) {
+            security[AuthType.httpBearer] = e.value;
+          }
+        },
         openIdConnect: (o) {
           security[AuthType.openId] = e.value;
         },
@@ -74,6 +79,12 @@ class ClientGenerator extends BaseGenerator {
         authInputs.add("this.$apiKeyVar = ''");
         authVariables.add('final String $apiKeyVar;');
       }
+      if (security.keys.contains(AuthType.httpBasic)) {
+        authInputs.add("this.$usernameVar = ''");
+        authVariables.add('final String $usernameVar;');
+        authInputs.add("this.$passwordVar = ''");
+        authVariables.add('final String $passwordVar;');
+      }
       if (security.keys.contains(AuthType.openId)) {
         await security[AuthType.openId]?.mapOrNull(
           openIdConnect: (o) async {
@@ -82,7 +93,7 @@ class ClientGenerator extends BaseGenerator {
             authRequestHeader = """
             /// Add access to token to request headers
             if ($accessTokenVar.isNotEmpty){
-              headers[HttpHeaders.authorizationHeader] = 'Bearer \$$accessTokenVar';
+              headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$accessTokenVar';
             }
             """;
           },
@@ -99,7 +110,7 @@ class ClientGenerator extends BaseGenerator {
     file.writeAsStringSync("""
 ${getHeader()}
 
-import 'dart:io';
+import 'dart:io' as io;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
@@ -111,15 +122,12 @@ enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 /// Enum of supported content types
 enum ContentType { json, multipart, xml }
 
-/// Enum of supported authentication types
-enum AuthType { keyQuery, keyHeader, keyCookie, openId }
-
 // ==========================================
 // CLASS: $clientException
 // ==========================================
 
 /// HTTP exception handler for $clientName
-class $clientException implements HttpException {
+class $clientException implements io.HttpException {
   $clientException({
     required this.message,
     required this.uri,
@@ -263,21 +271,21 @@ class $clientName {
     // Define the request type being sent to server
     switch (requestType) {
       case ContentType.json:
-        headers[HttpHeaders.contentTypeHeader] = 'application/json';
+        headers['${HttpHeaders.contentTypeHeader}'] = 'application/json';
       case ContentType.multipart:
-        headers[HttpHeaders.contentTypeHeader] = 'multipart/form-data';
+        headers['${HttpHeaders.contentTypeHeader}'] = 'multipart/form-data';
       case ContentType.xml:
-        headers[HttpHeaders.contentTypeHeader] = 'application/xml';
+        headers['${HttpHeaders.contentTypeHeader}'] = 'application/xml';
     }
 
     // Define the response type expected to receive from server
     switch (responseType) {
       case ContentType.json:
-        headers[HttpHeaders.acceptHeader] = 'application/json';
+        headers['${HttpHeaders.acceptHeader}'] = 'application/json';
       case ContentType.multipart:
-        headers[HttpHeaders.acceptHeader] = 'multipart/form-data';
+        headers['${HttpHeaders.acceptHeader}'] = 'multipart/form-data';
       case ContentType.xml:
-        headers[HttpHeaders.acceptHeader] = 'application/xml';
+        headers['${HttpHeaders.acceptHeader}'] = 'application/xml';
     }
 
     // Build the request object
@@ -427,6 +435,14 @@ class $clientName {
                 auth[AuthType.keyCookie] = scheme;
             }
           },
+          http: (a) {
+            switch (a.scheme) {
+              case HttpSecurityScheme.basic:
+                auth[AuthType.httpBasic] = scheme;
+              case HttpSecurityScheme.bearer:
+                auth[AuthType.httpBearer] = scheme;
+            }
+          },
           openIdConnect: (a) {
             auth[AuthType.openId] = scheme;
           },
@@ -489,16 +505,17 @@ class $clientName {
         apiKey: (value) => value.name,
       );
 
-      switch (a) {
-        case AuthType.keyQuery:
-          queryParams.add("'$name': $apiKeyVar");
-        case AuthType.keyHeader:
-          headerParams.add("'$name': $apiKeyVar");
-        case AuthType.keyCookie:
-        // Do something
-        case AuthType.openId:
-        // Do something
-        default:
+      if (a == AuthType.keyQuery) {
+        queryParams.add("if ($apiKeyVar.isNotEmpty) '$name': $apiKeyVar");
+      }
+      if (a == AuthType.keyHeader) {
+        headerParams.add("if ($apiKeyVar.isNotEmpty) '$name': $apiKeyVar");
+      }
+      if (a == AuthType.httpBasic) {
+        final creds =
+            r"'Basic ${base64Encode(utf8.encode('$username:$password'))}'";
+        headerParams.add(
+            "if ($usernameVar.isNotEmpty && $passwordVar.isNotEmpty) '${HttpHeaders.authorizationHeader}': $creds");
       }
     }
 
@@ -625,15 +642,15 @@ class $clientName {
       String? dType;
       Schema? rSchema;
       final content = request.content;
-      if (content?.containsKey(keyMultipart) ?? false) {
+      if (content?.containsKey(ContentType.multipart.mimeType) ?? false) {
         requestType = ContentType.multipart;
-        rSchema = content?[keyMultipart]?.schema;
-      } else if (content?.containsKey(keyJson) ?? false) {
+        rSchema = content?[ContentType.multipart.mimeType]?.schema;
+      } else if (content?.containsKey(ContentType.json.mimeType) ?? false) {
         requestType = ContentType.json;
-        rSchema = content?[keyJson]?.schema;
-      } else if (content?.containsKey(keyXml) ?? false) {
+        rSchema = content?[ContentType.json.mimeType]?.schema;
+      } else if (content?.containsKey(ContentType.xml.mimeType) ?? false) {
         requestType = ContentType.xml;
-        rSchema = content?[keyXml]?.schema;
+        rSchema = content?[ContentType.xml.mimeType]?.schema;
       }
 
       try {
@@ -689,16 +706,16 @@ class $clientName {
       Schema? rSchema;
       if (response.content != null) {
         final content = response.content;
-        if (content?.containsKey(keyMultipart) ?? false) {
+        if (content?.containsKey(ContentType.multipart.mimeType) ?? false) {
           responseType = ContentType.multipart;
-          rSchema = content?[keyMultipart]?.schema;
-        } else if (content?.containsKey(keyJson) ?? false) {
+          rSchema = content?[ContentType.multipart.mimeType]?.schema;
+        } else if (content?.containsKey(ContentType.json.mimeType) ?? false) {
           responseType = ContentType.json;
-          rSchema = content?[keyJson]?.schema;
+          rSchema = content?[ContentType.json.mimeType]?.schema;
           returnType = dType ?? returnType;
-        } else if (content?.containsKey(keyXml) ?? false) {
+        } else if (content?.containsKey(ContentType.xml.mimeType) ?? false) {
           responseType = ContentType.xml;
-          rSchema = content?[keyXml]?.schema;
+          rSchema = content?[ContentType.xml.mimeType]?.schema;
         }
       }
       rSchema?.dereference(components: spec.components?.schemas);
