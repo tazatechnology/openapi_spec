@@ -119,19 +119,6 @@ import 'schema/schema.dart';
 /// Enum of HTTP methods
 enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 
-/// Enum of supported content types
-enum ContentType {
-  textPlain,
-  textCsv,
-  textCss,
-  textHtml,
-  textXml,
-  json,
-  xml,
-  binary,
-  multipart,
-}
-
 // ==========================================
 // CLASS: $clientException
 // ==========================================
@@ -239,8 +226,9 @@ class $clientName {
     required HttpMethod method,
     Map<String, dynamic> queryParams = const {},
     Map<String, String> headerParams = const {},
-    ContentType requestType = ContentType.json,
-    ContentType responseType = ContentType.json,
+    bool isMultipart = false,
+    String requestType = '',
+    String responseType = '',
     Object? body,
   }) async {
     // Override with the user provided host
@@ -279,30 +267,20 @@ class $clientName {
     $authRequestHeader
     
     // Define the request type being sent to server
-    switch (requestType) {
-      case ContentType.json:
-        headers['${HttpHeaders.contentTypeHeader}'] = 'application/json';
-      case ContentType.multipart:
-        headers['${HttpHeaders.contentTypeHeader}'] = 'multipart/form-data';
-      case ContentType.xml:
-        headers['${HttpHeaders.contentTypeHeader}'] = 'application/xml';
+    if (requestType.isNotEmpty){
+      headers['${HttpHeaders.contentTypeHeader}'] = requestType;
     }
-
+    
     // Define the response type expected to receive from server
-    switch (responseType) {
-      case ContentType.json:
-        headers['${HttpHeaders.acceptHeader}'] = 'application/json';
-      case ContentType.multipart:
-        headers['${HttpHeaders.acceptHeader}'] = 'multipart/form-data';
-      case ContentType.xml:
-        headers['${HttpHeaders.acceptHeader}'] = 'application/xml';
+    if (responseType.isNotEmpty){
+      headers['${HttpHeaders.acceptHeader}'] = responseType;
     }
 
     // Build the request object
     late http.Response response;
     try {
       http.BaseRequest request;
-      if (requestType == ContentType.multipart) {
+      if (isMultipart) {
         // Handle multipart request
         request = http.MultipartRequest(method.name, uri);
         request = request as http.MultipartRequest;
@@ -641,7 +619,7 @@ class $clientName {
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
     // Determine the request and the content type
-    ContentType requestType = ContentType.json;
+    String requestType = '';
 
     final request = operation.requestBody?.dereference(
       components: spec.components?.requestBodies,
@@ -651,18 +629,13 @@ class $clientName {
     if (request != null) {
       String? dType;
       Schema? rSchema;
-      final content = request.content;
-      if (content?.containsKey(ContentType.multipart.mimeType) ?? false) {
-        requestType = ContentType.multipart;
-        rSchema = content?[ContentType.multipart.mimeType]?.schema;
-      } else if (content?.containsKey(ContentType.json.mimeType) ?? false) {
-        requestType = ContentType.json;
-        rSchema = content?[ContentType.json.mimeType]?.schema;
-      } else if (content?.containsKey(ContentType.xml.mimeType) ?? false) {
-        requestType = ContentType.xml;
-        rSchema = content?[ContentType.xml.mimeType]?.schema;
+      for (final k in request.content?.keys ?? <String>[]) {
+        rSchema = request.content?[k]?.schema;
+        if (rSchema != null || k.contains('multipart')) {
+          requestType = k;
+          break;
+        }
       }
-
       try {
         rSchema = rSchema?.dereference(components: spec.components?.schemas);
       } catch (e) {
@@ -683,7 +656,7 @@ class $clientName {
       dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
 
       // Check for multipart
-      if (requestType == ContentType.multipart) {
+      if (requestType.contains('multipart')) {
         dType = 'List<http.MultipartFile>';
       }
 
@@ -709,33 +682,21 @@ class $clientName {
 
     // Determine the response and content type
     String returnType = 'void';
-    ContentType responseType = ContentType.json;
+    String responseType = '';
     final response = _getSuccessResponse(operation);
     if (response != null) {
       String? dType;
       Schema? rSchema;
-      if (response.content != null) {
-        final content = response.content;
-        if (content?.containsKey(ContentType.multipart.mimeType) ?? false) {
-          responseType = ContentType.multipart;
-          rSchema = content?[ContentType.multipart.mimeType]?.schema;
-        } else if (content?.containsKey(ContentType.json.mimeType) ?? false) {
-          responseType = ContentType.json;
-          rSchema = content?[ContentType.json.mimeType]?.schema;
-          returnType = dType ?? returnType;
-        } else if (content?.containsKey(ContentType.xml.mimeType) ?? false) {
-          responseType = ContentType.xml;
-          rSchema = content?[ContentType.xml.mimeType]?.schema;
+      for (final k in response.content?.keys ?? <String>[]) {
+        rSchema = response.content?[k]?.schema;
+        if (rSchema != null) {
+          responseType = k;
+          break;
         }
       }
       rSchema?.dereference(components: spec.components?.schemas);
       dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
       returnType = dType ?? returnType;
-      if (responseType != ContentType.json) {
-        throw UnimplementedError(
-          '\n\nOnly JSON response parsing is currently implemented:\n\n$response',
-        );
-      }
 
       // Determine the decode strategy
       rSchema?.mapOrNull(
@@ -822,8 +783,9 @@ class $clientName {
           path: '$path',
           secure: $secure,
           method: $method,
-          requestType: $requestType,
-          responseType: $responseType,
+          isMultipart: ${requestType.contains('multipart')},
+          requestType: ${requestType.isEmpty ? "''" : "'$requestType'"},
+          responseType: ${responseType.isEmpty ? "''" : "'$responseType'"},
           $body
           $headerCode
           $queryCode

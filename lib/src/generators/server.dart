@@ -268,6 +268,13 @@ class $serverName {
     Operation operation,
     List<Parameter> parameters,
   ) {
+    // Track the headers
+    Map<String, String> headers = {};
+
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+    // Method Name
+    // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
     // Attempt to arrive at a default method name
     String methodName;
     if (operation.id != null) {
@@ -302,8 +309,14 @@ class $serverName {
       components: spec.components?.requestBodies,
     );
 
-    final requestRef =
-        request?.content?['application/json']?.schema?.toDartType();
+    String? requestRef;
+    for (final k in request?.content?.keys ?? <String>[]) {
+      if (request?.content?[k]?.schema != null) {
+        headers[HttpHeaders.contentTypeHeader] = k;
+        requestRef = request?.content?[k]?.schema?.toDartType();
+        break;
+      }
+    }
 
     String decodeRequest = '';
     if (requestRef != null) {
@@ -332,8 +345,16 @@ class $serverName {
     }
 
     // Check for a reference response
-    final responseSchema = response?.content?['application/json']?.schema;
-    String? responseRef = responseSchema?.toDartType();
+    Schema? responseSchema;
+    String? responseRef;
+    for (final k in response?.content?.keys ?? <String>[]) {
+      responseSchema = response?.content?[k]?.schema;
+      if (responseSchema != null) {
+        headers[HttpHeaders.contentTypeHeader] = k;
+        break;
+      }
+    }
+    responseRef = responseSchema?.toDartType();
 
     // Check for a non-reference response
     // Allows user to return any Response object
@@ -371,6 +392,16 @@ class $serverName {
     // Handler
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
+    // Create header code
+    String headerCode = '';
+    if (headers.isNotEmpty) {
+      headerCode = ',headers: {';
+      for (final e in headers.entries) {
+        headerCode += "'${e.key}': '${e.value}',";
+      }
+      headerCode += '},';
+    }
+
     String bodyCall = '';
     String bodyReturn = '';
     if (responseRef == null) {
@@ -378,7 +409,7 @@ class $serverName {
     } else {
       bodyCall = """$decodeRequest
       final result = await $methodName($inputs);""";
-      bodyReturn = ',body: _encodeResponse(request,result)';
+      bodyReturn = 'body: _encodeResponse(request,result),';
     }
 
     data.handler = """
@@ -387,6 +418,7 @@ class $serverName {
           $bodyCall
           return Response(
             ${code ?? 200}
+            $headerCode
             $bodyReturn
           );
         } catch (e) {
