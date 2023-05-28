@@ -120,7 +120,17 @@ import 'schema/schema.dart';
 enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 
 /// Enum of supported content types
-enum ContentType { json, multipart, xml }
+enum ContentType {
+  textPlain,
+  textCsv,
+  textCss,
+  textHtml,
+  textXml,
+  json,
+  xml,
+  binary,
+  multipart,
+}
 
 // ==========================================
 // CLASS: $clientException
