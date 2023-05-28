@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+* Improved content type support
+
 ## 0.3.2
 
 * Add HTTP basic auth client generator support
