@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+* Add HTTP basic auth client generator support
+
 ## 0.3.1
 
 * Fix nullable toMap bug
