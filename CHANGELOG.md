@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.4
+
+* Support nullable schema field
+* Add Union scheme type decode logic to client generation
+
 ## 0.3.3
 
 * Improved content type support
