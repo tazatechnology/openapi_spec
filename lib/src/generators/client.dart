@@ -702,8 +702,8 @@ class $clientName {
       rSchema?.mapOrNull(
         object: (s) {
           // Handle deserialization of single object
-          if (s.ref != null) {
-            decoder = "return ${s.ref}.fromJson(json.decode(r.body));";
+          if (s.ref != null || returnType.startsWith('Union')) {
+            decoder = "return $returnType.fromJson(json.decode(r.body));";
           } else {
             // Just return the whole response and allow user to handle
             if (returnType == 'dynamic') {
