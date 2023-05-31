@@ -245,6 +245,10 @@ class $clientName {
       );
     }
 
+    // Ensure query parameters are properly encoded
+    queryParams = queryParams.map(
+        (key, value) => MapEntry(key, Uri.encodeComponent(value.toString())));
+
     // Determine the connection type
     secure ??= Uri.parse(host).scheme == 'https';
 
