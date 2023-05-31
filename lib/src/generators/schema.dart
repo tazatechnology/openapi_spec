@@ -394,7 +394,7 @@ class SchemaGenerator extends BaseGenerator {
 
     (String, bool) propHeader(dynamic defaultValue, String? description) {
       bool hasDefault = defaultValue != null;
-      bool nullable = !hasDefault && !required;
+      bool nullable = (!hasDefault && !required) || property.nullable == true;
       String c = "/// ${description ?? 'No Description'} \n";
       if (jsonName != name) {
         c += jsonKey;

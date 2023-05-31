@@ -51,6 +51,9 @@ class Schema with _$Schema {
     /// The properties of the schema
     Map<String, Schema>? properties,
 
+    /// Define if this scheme is nullable
+    bool? nullable,
+
     /// Any extra properties to add to this schema
     // Schema? additionalProperties,
 
@@ -67,6 +70,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') bool? defaultValue,
+    bool? nullable,
     bool? example,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaBoolean;
@@ -80,6 +84,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') String? defaultValue,
+    bool? nullable,
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     StringFormat? format,
     String? example,
@@ -100,6 +105,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default', fromJson: _fromJsonInt) int? defaultValue,
+    bool? nullable,
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     IntegerFormat? format,
     @JsonKey(fromJson: _fromJsonInt) int? example,
@@ -121,6 +127,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default', fromJson: _fromJsonDouble) double? defaultValue,
+    bool? nullable,
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     NumberFormat? format,
     @JsonKey(fromJson: _fromJsonDouble) double? example,
@@ -142,6 +149,7 @@ class Schema with _$Schema {
     String? description,
     String? example,
     @JsonKey(name: 'default') String? defaultValue,
+    bool? nullable,
     @JsonKey(includeToJson: false, includeFromJson: false) String? unknownValue,
     @JsonKey(name: 'enum') List<String>? values,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
@@ -157,6 +165,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
+    bool? nullable,
     List? example,
     @JsonKey(fromJson: _fromJsonInt) int? minItems,
     @JsonKey(fromJson: _fromJsonInt) int? maxItems,
@@ -174,6 +183,7 @@ class Schema with _$Schema {
     String? title,
     String? description,
     @JsonKey(name: 'default') Map? defaultValue,
+    bool? nullable,
     Map? example,
     @JsonKey(
         name: 'additionalProperties',
@@ -274,38 +284,51 @@ class Schema with _$Schema {
             if (subSchemas.any((s) => !e.value.contains(s))) {
               continue;
             } else {
-              return e.key;
+              if (s.nullable == true) {
+                return '${e.key}?';
+              } else {
+                return e.key;
+              }
             }
           }
         } else if (s.ref != null) {
-          return s.ref!;
+          if (s.nullable == true) {
+            return '${s.ref}?';
+          } else {
+            return s.ref!;
+          }
         } else if (s.properties != null || s.anyOf != null) {
           return 'Map<String,dynamic>';
         }
         return 'dynamic';
       },
       boolean: (s) {
-        return 'bool';
+        return s.nullable == true ? 'bool?' : 'bool';
       },
       string: (s) {
-        return 'String';
+        return s.nullable == true ? 'String?' : 'String';
       },
       integer: (s) {
-        return 'int';
+        return s.nullable == true ? 'int?' : 'int';
       },
       number: (s) {
-        return 'double';
+        return s.nullable == true ? 'double?' : 'double';
       },
       enumeration: (s) {
         return s.ref ?? 'String';
       },
       array: (s) {
         final itemType = s.items.toDartType();
-        return 'List<$itemType>';
+        return s.nullable == true ? 'List<$itemType>?' : 'List<$itemType>';
       },
       map: (s) {
-        final valueType = s.valueSchema?.toDartType() ?? 'dynamic';
-        return 'Map<String,$valueType>';
+        String valueType = s.valueSchema?.toDartType() ?? 'dynamic';
+        if (valueType != 'dynamic' && s.valueSchema?.nullable == true) {
+          valueType = '$valueType?';
+        }
+        return s.nullable == true
+            ? 'Map<String,$valueType>?'
+            : 'Map<String,$valueType>';
       },
     );
   }

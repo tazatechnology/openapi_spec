@@ -919,6 +919,7 @@ _$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
       properties: (json['properties'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Schema.fromJson(e as Map<String, dynamic>)),
       ),
+      nullable: json['nullable'] as bool?,
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -951,6 +952,7 @@ Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
   writeNotNull('externalDocs', instance.externalDocs?.toJson());
   writeNotNull('properties',
       instance.properties?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('xml', instance.xml?.toJson());
   val['type'] = instance.$type;
   return val;
@@ -964,6 +966,7 @@ _$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as bool?,
+      nullable: json['nullable'] as bool?,
       example: json['example'] as bool?,
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
       $type: json['type'] as String?,
@@ -982,6 +985,7 @@ Map<String, dynamic> _$$_SchemaBooleanToJson(_$_SchemaBoolean instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('example', instance.example);
   writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
@@ -996,6 +1000,7 @@ _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as String?,
+      nullable: json['nullable'] as bool?,
       format: $enumDecodeNullable(_$StringFormatEnumMap, json['format'],
           unknownValue: JsonKey.nullForUndefinedEnumValue),
       example: json['example'] as String?,
@@ -1020,6 +1025,7 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('format', _$StringFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
@@ -1054,6 +1060,7 @@ _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: _fromJsonInt(json['default'] as num?),
+      nullable: json['nullable'] as bool?,
       format: $enumDecodeNullable(_$IntegerFormatEnumMap, json['format'],
           unknownValue: JsonKey.nullForUndefinedEnumValue),
       example: _fromJsonInt(json['example'] as num?),
@@ -1079,6 +1086,7 @@ Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('format', _$IntegerFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minimum', instance.minimum);
@@ -1104,6 +1112,7 @@ _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: _fromJsonDouble(json['default'] as num?),
+      nullable: json['nullable'] as bool?,
       format: $enumDecodeNullable(_$NumberFormatEnumMap, json['format'],
           unknownValue: JsonKey.nullForUndefinedEnumValue),
       example: _fromJsonDouble(json['example'] as num?),
@@ -1129,6 +1138,7 @@ Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('format', _$NumberFormatEnumMap[instance.format]);
   writeNotNull('example', instance.example);
   writeNotNull('minimum', instance.minimum);
@@ -1152,6 +1162,7 @@ _$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       example: json['example'] as String?,
       defaultValue: json['default'] as String?,
+      nullable: json['nullable'] as bool?,
       values:
           (json['enum'] as List<dynamic>?)?.map((e) => e as String).toList(),
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
@@ -1171,6 +1182,7 @@ Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
   writeNotNull('description', instance.description);
   writeNotNull('example', instance.example);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('enum', instance.values);
   writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
   val['type'] = instance.$type;
@@ -1185,6 +1197,7 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
+      nullable: json['nullable'] as bool?,
       example: json['example'] as List<dynamic>?,
       minItems: _fromJsonInt(json['minItems'] as num?),
       maxItems: _fromJsonInt(json['maxItems'] as num?),
@@ -1206,6 +1219,7 @@ Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('example', instance.example);
   writeNotNull('minItems', instance.minItems);
   writeNotNull('maxItems', instance.maxItems);
@@ -1222,6 +1236,7 @@ _$_SchemaMap _$$_SchemaMapFromJson(Map<String, dynamic> json) => _$_SchemaMap(
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'] as Map<String, dynamic>?,
+      nullable: json['nullable'] as bool?,
       example: json['example'] as Map<String, dynamic>?,
       valueSchema: _fromMapProps(json['additionalProperties']),
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
@@ -1241,6 +1256,7 @@ Map<String, dynamic> _$$_SchemaMapToJson(_$_SchemaMap instance) {
   writeNotNull('title', instance.title);
   writeNotNull('description', instance.description);
   writeNotNull('default', instance.defaultValue);
+  writeNotNull('nullable', instance.nullable);
   writeNotNull('example', instance.example);
   writeNotNull('additionalProperties', _toMapProps(instance.valueSchema));
   writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));

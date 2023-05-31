@@ -8495,6 +8495,9 @@ mixin _$Schema {
   @_SchemaRefConverter()
   String? get ref => throw _privateConstructorUsedError;
 
+  /// Define if this scheme is nullable
+  bool? get nullable => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_SchemaObject value) object,
@@ -8545,7 +8548,8 @@ abstract class $SchemaCopyWith<$Res> {
   $Res call(
       {String? title,
       String? description,
-      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
+      @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
+      bool? nullable});
 }
 
 /// @nodoc
@@ -8564,6 +8568,7 @@ class _$SchemaCopyWithImpl<$Res, $Val extends Schema>
     Object? title = freezed,
     Object? description = freezed,
     Object? ref = freezed,
+    Object? nullable = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -8578,6 +8583,10 @@ class _$SchemaCopyWithImpl<$Res, $Val extends Schema>
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
               as String?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -8600,6 +8609,7 @@ abstract class _$$_SchemaObjectCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
       Map<String, Schema>? properties,
+      bool? nullable,
       Xml? xml});
 
   $DiscriminatorCopyWith<$Res>? get discriminator;
@@ -8628,6 +8638,7 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
     Object? discriminator = freezed,
     Object? externalDocs = freezed,
     Object? properties = freezed,
+    Object? nullable = freezed,
     Object? xml = freezed,
   }) {
     return _then(_$_SchemaObject(
@@ -8671,6 +8682,10 @@ class __$$_SchemaObjectCopyWithImpl<$Res>
           ? _value._properties
           : properties // ignore: cast_nullable_to_non_nullable
               as Map<String, Schema>?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       xml: freezed == xml
           ? _value.xml
           : xml // ignore: cast_nullable_to_non_nullable
@@ -8729,6 +8744,7 @@ class _$_SchemaObject extends _SchemaObject {
       this.discriminator,
       this.externalDocs,
       final Map<String, Schema>? properties,
+      this.nullable,
       this.xml,
       final String? $type})
       : _allOf = allOf,
@@ -8823,6 +8839,10 @@ class _$_SchemaObject extends _SchemaObject {
     return EqualUnmodifiableMapView(value);
   }
 
+  /// Define if this scheme is nullable
+  @override
+  final bool? nullable;
+
   /// Any extra properties to add to this schema
 // Schema? additionalProperties,
   /// Adds additional metadata to describe the XML representation of this property.
@@ -8834,7 +8854,7 @@ class _$_SchemaObject extends _SchemaObject {
 
   @override
   String toString() {
-    return 'Schema.object(title: $title, description: $description, defaultValue: $defaultValue, ref: $ref, allOf: $allOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, xml: $xml)';
+    return 'Schema.object(title: $title, description: $description, defaultValue: $defaultValue, ref: $ref, allOf: $allOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, nullable: $nullable, xml: $xml)';
   }
 
   @override
@@ -8857,6 +8877,8 @@ class _$_SchemaObject extends _SchemaObject {
                 other.externalDocs == externalDocs) &&
             const DeepCollectionEquality()
                 .equals(other._properties, _properties) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             (identical(other.xml, xml) || other.xml == xml));
   }
 
@@ -8874,6 +8896,7 @@ class _$_SchemaObject extends _SchemaObject {
       discriminator,
       externalDocs,
       const DeepCollectionEquality().hash(_properties),
+      nullable,
       xml);
 
   @JsonKey(ignore: true)
@@ -8951,6 +8974,7 @@ abstract class _SchemaObject extends Schema {
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
       final Map<String, Schema>? properties,
+      final bool? nullable,
       final Xml? xml}) = _$_SchemaObject;
   const _SchemaObject._() : super._();
 
@@ -8997,6 +9021,10 @@ abstract class _SchemaObject extends Schema {
 
   /// The properties of the schema
   Map<String, Schema>? get properties;
+  @override
+
+  /// Define if this scheme is nullable
+  bool? get nullable;
 
   /// Any extra properties to add to this schema
 // Schema? additionalProperties,
@@ -9021,6 +9049,7 @@ abstract class _$$_SchemaBooleanCopyWith<$Res>
       String? title,
       String? description,
       @JsonKey(name: 'default') bool? defaultValue,
+      bool? nullable,
       bool? example,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
@@ -9042,6 +9071,7 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? example = freezed,
     Object? ref = freezed,
   }) {
@@ -9061,6 +9091,10 @@ class __$$_SchemaBooleanCopyWithImpl<$Res>
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
               as bool?,
       example: freezed == example
           ? _value.example
@@ -9094,6 +9128,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.nullable,
       this.example,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
@@ -9113,6 +9148,8 @@ class _$_SchemaBoolean extends _SchemaBoolean {
   @JsonKey(name: 'default')
   final bool? defaultValue;
   @override
+  final bool? nullable;
+  @override
   final bool? example;
   @override
   @JsonKey(name: '\$ref')
@@ -9124,7 +9161,7 @@ class _$_SchemaBoolean extends _SchemaBoolean {
 
   @override
   String toString() {
-    return 'Schema.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, ref: $ref)';
+    return 'Schema.boolean(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, example: $example, ref: $ref)';
   }
 
   @override
@@ -9138,14 +9175,16 @@ class _$_SchemaBoolean extends _SchemaBoolean {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.ref, ref) || other.ref == ref));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, xml, title, description, defaultValue, example, ref);
+  int get hashCode => Object.hash(runtimeType, xml, title, description,
+      defaultValue, nullable, example, ref);
 
   @JsonKey(ignore: true)
   @override
@@ -9216,6 +9255,7 @@ abstract class _SchemaBoolean extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final bool? defaultValue,
+          final bool? nullable,
           final bool? example,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$_SchemaBoolean;
@@ -9232,6 +9272,8 @@ abstract class _SchemaBoolean extends Schema {
   @override
   @JsonKey(name: 'default')
   bool? get defaultValue;
+  @override
+  bool? get nullable;
   bool? get example;
   @override
   @JsonKey(name: '\$ref')
@@ -9255,6 +9297,7 @@ abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') String? defaultValue,
+      bool? nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       StringFormat? format,
       String? example,
@@ -9282,6 +9325,7 @@ class __$$_SchemaStringCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? format = freezed,
     Object? example = freezed,
     Object? minLength = freezed,
@@ -9307,6 +9351,10 @@ class __$$_SchemaStringCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       format: freezed == format
           ? _value.format
           : format // ignore: cast_nullable_to_non_nullable
@@ -9359,6 +9407,7 @@ class _$_SchemaString extends _SchemaString {
       this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
+      this.nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minLength,
@@ -9382,6 +9431,8 @@ class _$_SchemaString extends _SchemaString {
   @override
   @JsonKey(name: 'default')
   final String? defaultValue;
+  @override
+  final bool? nullable;
   @override
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final StringFormat? format;
@@ -9407,7 +9458,7 @@ class _$_SchemaString extends _SchemaString {
 
   @override
   String toString() {
-    return 'Schema.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, ref: $ref)';
+    return 'Schema.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, ref: $ref)';
   }
 
   @override
@@ -9421,6 +9472,8 @@ class _$_SchemaString extends _SchemaString {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minLength, minLength) ||
@@ -9442,6 +9495,7 @@ class _$_SchemaString extends _SchemaString {
       title,
       description,
       defaultValue,
+      nullable,
       format,
       example,
       minLength,
@@ -9519,6 +9573,7 @@ abstract class _SchemaString extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final String? defaultValue,
+          final bool? nullable,
           @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final StringFormat? format,
           final String? example,
@@ -9541,6 +9596,8 @@ abstract class _SchemaString extends Schema {
   @override
   @JsonKey(name: 'default')
   String? get defaultValue;
+  @override
+  bool? get nullable;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   StringFormat? get format;
   String? get example;
@@ -9573,6 +9630,7 @@ abstract class _$$_SchemaIntegerCopyWith<$Res>
       String? title,
       String? description,
       @JsonKey(name: 'default', fromJson: _fromJsonInt) int? defaultValue,
+      bool? nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       IntegerFormat? format,
       @JsonKey(fromJson: _fromJsonInt) int? example,
@@ -9601,6 +9659,7 @@ class __$$_SchemaIntegerCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? format = freezed,
     Object? example = freezed,
     Object? minimum = freezed,
@@ -9627,6 +9686,10 @@ class __$$_SchemaIntegerCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as int?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       format: freezed == format
           ? _value.format
           : format // ignore: cast_nullable_to_non_nullable
@@ -9683,6 +9746,7 @@ class _$_SchemaInteger extends _SchemaInteger {
       this.title,
       this.description,
       @JsonKey(name: 'default', fromJson: _fromJsonInt) this.defaultValue,
+      this.nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       @JsonKey(fromJson: _fromJsonInt) this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minimum,
@@ -9707,6 +9771,8 @@ class _$_SchemaInteger extends _SchemaInteger {
   @override
   @JsonKey(name: 'default', fromJson: _fromJsonInt)
   final int? defaultValue;
+  @override
+  final bool? nullable;
   @override
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final IntegerFormat? format;
@@ -9736,7 +9802,7 @@ class _$_SchemaInteger extends _SchemaInteger {
 
   @override
   String toString() {
-    return 'Schema.integer(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, maximum: $maximum, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
+    return 'Schema.integer(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, format: $format, example: $example, minimum: $minimum, maximum: $maximum, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
   }
 
   @override
@@ -9750,6 +9816,8 @@ class _$_SchemaInteger extends _SchemaInteger {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
@@ -9771,6 +9839,7 @@ class _$_SchemaInteger extends _SchemaInteger {
       title,
       description,
       defaultValue,
+      nullable,
       format,
       example,
       minimum,
@@ -9849,6 +9918,7 @@ abstract class _SchemaInteger extends Schema {
       final String? title,
       final String? description,
       @JsonKey(name: 'default', fromJson: _fromJsonInt) final int? defaultValue,
+      final bool? nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       final IntegerFormat? format,
       @JsonKey(fromJson: _fromJsonInt) final int? example,
@@ -9873,6 +9943,8 @@ abstract class _SchemaInteger extends Schema {
   @override
   @JsonKey(name: 'default', fromJson: _fromJsonInt)
   int? get defaultValue;
+  @override
+  bool? get nullable;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   IntegerFormat? get format;
   @JsonKey(fromJson: _fromJsonInt)
@@ -9907,6 +9979,7 @@ abstract class _$$_SchemaNumberCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default', fromJson: _fromJsonDouble) double? defaultValue,
+      bool? nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       NumberFormat? format,
       @JsonKey(fromJson: _fromJsonDouble) double? example,
@@ -9935,6 +10008,7 @@ class __$$_SchemaNumberCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? format = freezed,
     Object? example = freezed,
     Object? minimum = freezed,
@@ -9961,6 +10035,10 @@ class __$$_SchemaNumberCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as double?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       format: freezed == format
           ? _value.format
           : format // ignore: cast_nullable_to_non_nullable
@@ -10017,6 +10095,7 @@ class _$_SchemaNumber extends _SchemaNumber {
       this.title,
       this.description,
       @JsonKey(name: 'default', fromJson: _fromJsonDouble) this.defaultValue,
+      this.nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
       @JsonKey(fromJson: _fromJsonDouble) this.example,
       @JsonKey(fromJson: _fromJsonDouble) this.minimum,
@@ -10041,6 +10120,8 @@ class _$_SchemaNumber extends _SchemaNumber {
   @override
   @JsonKey(name: 'default', fromJson: _fromJsonDouble)
   final double? defaultValue;
+  @override
+  final bool? nullable;
   @override
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final NumberFormat? format;
@@ -10070,7 +10151,7 @@ class _$_SchemaNumber extends _SchemaNumber {
 
   @override
   String toString() {
-    return 'Schema.number(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, format: $format, example: $example, minimum: $minimum, maximum: $maximum, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
+    return 'Schema.number(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, format: $format, example: $example, minimum: $minimum, maximum: $maximum, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, multipleOf: $multipleOf, ref: $ref)';
   }
 
   @override
@@ -10084,6 +10165,8 @@ class _$_SchemaNumber extends _SchemaNumber {
                 other.description == description) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             (identical(other.format, format) || other.format == format) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
@@ -10105,6 +10188,7 @@ class _$_SchemaNumber extends _SchemaNumber {
       title,
       description,
       defaultValue,
+      nullable,
       format,
       example,
       minimum,
@@ -10184,6 +10268,7 @@ abstract class _SchemaNumber extends Schema {
           final String? description,
           @JsonKey(name: 'default', fromJson: _fromJsonDouble)
           final double? defaultValue,
+          final bool? nullable,
           @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final NumberFormat? format,
           @JsonKey(fromJson: _fromJsonDouble) final double? example,
@@ -10207,6 +10292,8 @@ abstract class _SchemaNumber extends Schema {
   @override
   @JsonKey(name: 'default', fromJson: _fromJsonDouble)
   double? get defaultValue;
+  @override
+  bool? get nullable;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   NumberFormat? get format;
   @JsonKey(fromJson: _fromJsonDouble)
@@ -10241,6 +10328,7 @@ abstract class _$$_SchemaEnumCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? description,
       String? example,
       @JsonKey(name: 'default') String? defaultValue,
+      bool? nullable,
       @JsonKey(includeToJson: false, includeFromJson: false)
       String? unknownValue,
       @JsonKey(name: 'enum') List<String>? values,
@@ -10262,6 +10350,7 @@ class __$$_SchemaEnumCopyWithImpl<$Res>
     Object? description = freezed,
     Object? example = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? unknownValue = freezed,
     Object? values = freezed,
     Object? ref = freezed,
@@ -10283,6 +10372,10 @@ class __$$_SchemaEnumCopyWithImpl<$Res>
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       unknownValue: freezed == unknownValue
           ? _value.unknownValue
           : unknownValue // ignore: cast_nullable_to_non_nullable
@@ -10307,6 +10400,7 @@ class _$_SchemaEnum extends _SchemaEnum {
       this.description,
       this.example,
       @JsonKey(name: 'default') this.defaultValue,
+      this.nullable,
       @JsonKey(includeToJson: false, includeFromJson: false) this.unknownValue,
       @JsonKey(name: 'enum') final List<String>? values,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
@@ -10329,6 +10423,8 @@ class _$_SchemaEnum extends _SchemaEnum {
   @override
   @JsonKey(name: 'default')
   final String? defaultValue;
+  @override
+  final bool? nullable;
   @override
   @JsonKey(includeToJson: false, includeFromJson: false)
   final String? unknownValue;
@@ -10353,7 +10449,7 @@ class _$_SchemaEnum extends _SchemaEnum {
 
   @override
   String toString() {
-    return 'Schema.enumeration(title: $title, description: $description, example: $example, defaultValue: $defaultValue, unknownValue: $unknownValue, values: $values, ref: $ref)';
+    return 'Schema.enumeration(title: $title, description: $description, example: $example, defaultValue: $defaultValue, nullable: $nullable, unknownValue: $unknownValue, values: $values, ref: $ref)';
   }
 
   @override
@@ -10367,6 +10463,8 @@ class _$_SchemaEnum extends _SchemaEnum {
             (identical(other.example, example) || other.example == example) &&
             (identical(other.defaultValue, defaultValue) ||
                 other.defaultValue == defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             (identical(other.unknownValue, unknownValue) ||
                 other.unknownValue == unknownValue) &&
             const DeepCollectionEquality().equals(other._values, _values) &&
@@ -10381,6 +10479,7 @@ class _$_SchemaEnum extends _SchemaEnum {
       description,
       example,
       defaultValue,
+      nullable,
       unknownValue,
       const DeepCollectionEquality().hash(_values),
       ref);
@@ -10454,6 +10553,7 @@ abstract class _SchemaEnum extends Schema {
           final String? description,
           final String? example,
           @JsonKey(name: 'default') final String? defaultValue,
+          final bool? nullable,
           @JsonKey(includeToJson: false, includeFromJson: false)
           final String? unknownValue,
           @JsonKey(name: 'enum') final List<String>? values,
@@ -10472,6 +10572,8 @@ abstract class _SchemaEnum extends Schema {
   @override
   @JsonKey(name: 'default')
   String? get defaultValue;
+  @override
+  bool? get nullable;
   @JsonKey(includeToJson: false, includeFromJson: false)
   String? get unknownValue;
   @JsonKey(name: 'enum')
@@ -10498,6 +10600,7 @@ abstract class _$$_SchemaArrayCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
+      bool? nullable,
       List<dynamic>? example,
       @JsonKey(fromJson: _fromJsonInt) int? minItems,
       @JsonKey(fromJson: _fromJsonInt) int? maxItems,
@@ -10523,6 +10626,7 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? example = freezed,
     Object? minItems = freezed,
     Object? maxItems = freezed,
@@ -10546,6 +10650,10 @@ class __$$_SchemaArrayCopyWithImpl<$Res>
           ? _value._defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       example: freezed == example
           ? _value._example
           : example // ignore: cast_nullable_to_non_nullable
@@ -10598,6 +10706,7 @@ class _$_SchemaArray extends _SchemaArray {
       this.title,
       this.description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
+      this.nullable,
       final List<dynamic>? example,
       @JsonKey(fromJson: _fromJsonInt) this.minItems,
       @JsonKey(fromJson: _fromJsonInt) this.maxItems,
@@ -10629,6 +10738,8 @@ class _$_SchemaArray extends _SchemaArray {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final bool? nullable;
   final List<dynamic>? _example;
   @override
   List<dynamic>? get example {
@@ -10657,7 +10768,7 @@ class _$_SchemaArray extends _SchemaArray {
 
   @override
   String toString() {
-    return 'Schema.array(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, minItems: $minItems, maxItems: $maxItems, items: $items, ref: $ref)';
+    return 'Schema.array(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, example: $example, minItems: $minItems, maxItems: $maxItems, items: $items, ref: $ref)';
   }
 
   @override
@@ -10671,6 +10782,8 @@ class _$_SchemaArray extends _SchemaArray {
                 other.description == description) &&
             const DeepCollectionEquality()
                 .equals(other._defaultValue, _defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             const DeepCollectionEquality().equals(other._example, _example) &&
             (identical(other.minItems, minItems) ||
                 other.minItems == minItems) &&
@@ -10688,6 +10801,7 @@ class _$_SchemaArray extends _SchemaArray {
       title,
       description,
       const DeepCollectionEquality().hash(_defaultValue),
+      nullable,
       const DeepCollectionEquality().hash(_example),
       minItems,
       maxItems,
@@ -10763,6 +10877,7 @@ abstract class _SchemaArray extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final List<dynamic>? defaultValue,
+          final bool? nullable,
           final List<dynamic>? example,
           @JsonKey(fromJson: _fromJsonInt) final int? minItems,
           @JsonKey(fromJson: _fromJsonInt) final int? maxItems,
@@ -10782,6 +10897,8 @@ abstract class _SchemaArray extends Schema {
   @override
   @JsonKey(name: 'default')
   List<dynamic>? get defaultValue;
+  @override
+  bool? get nullable;
   List<dynamic>? get example;
   @JsonKey(fromJson: _fromJsonInt)
   int? get minItems;
@@ -10810,6 +10927,7 @@ abstract class _$$_SchemaMapCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       String? title,
       String? description,
       @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue,
+      bool? nullable,
       Map<dynamic, dynamic>? example,
       @JsonKey(
           name: 'additionalProperties',
@@ -10837,6 +10955,7 @@ class __$$_SchemaMapCopyWithImpl<$Res>
     Object? title = freezed,
     Object? description = freezed,
     Object? defaultValue = freezed,
+    Object? nullable = freezed,
     Object? example = freezed,
     Object? valueSchema = freezed,
     Object? ref = freezed,
@@ -10858,6 +10977,10 @@ class __$$_SchemaMapCopyWithImpl<$Res>
           ? _value._defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
               as Map<dynamic, dynamic>?,
+      nullable: freezed == nullable
+          ? _value.nullable
+          : nullable // ignore: cast_nullable_to_non_nullable
+              as bool?,
       example: freezed == example
           ? _value._example
           : example // ignore: cast_nullable_to_non_nullable
@@ -10906,6 +11029,7 @@ class _$_SchemaMap extends _SchemaMap {
       this.title,
       this.description,
       @JsonKey(name: 'default') final Map<dynamic, dynamic>? defaultValue,
+      this.nullable,
       final Map<dynamic, dynamic>? example,
       @JsonKey(
           name: 'additionalProperties',
@@ -10939,6 +11063,8 @@ class _$_SchemaMap extends _SchemaMap {
     return EqualUnmodifiableMapView(value);
   }
 
+  @override
+  final bool? nullable;
   final Map<dynamic, dynamic>? _example;
   @override
   Map<dynamic, dynamic>? get example {
@@ -10965,7 +11091,7 @@ class _$_SchemaMap extends _SchemaMap {
 
   @override
   String toString() {
-    return 'Schema.map(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, example: $example, valueSchema: $valueSchema, ref: $ref)';
+    return 'Schema.map(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, example: $example, valueSchema: $valueSchema, ref: $ref)';
   }
 
   @override
@@ -10979,6 +11105,8 @@ class _$_SchemaMap extends _SchemaMap {
                 other.description == description) &&
             const DeepCollectionEquality()
                 .equals(other._defaultValue, _defaultValue) &&
+            (identical(other.nullable, nullable) ||
+                other.nullable == nullable) &&
             const DeepCollectionEquality().equals(other._example, _example) &&
             (identical(other.valueSchema, valueSchema) ||
                 other.valueSchema == valueSchema) &&
@@ -10993,6 +11121,7 @@ class _$_SchemaMap extends _SchemaMap {
       title,
       description,
       const DeepCollectionEquality().hash(_defaultValue),
+      nullable,
       const DeepCollectionEquality().hash(_example),
       valueSchema,
       ref);
@@ -11066,6 +11195,7 @@ abstract class _SchemaMap extends Schema {
           final String? title,
           final String? description,
           @JsonKey(name: 'default') final Map<dynamic, dynamic>? defaultValue,
+          final bool? nullable,
           final Map<dynamic, dynamic>? example,
           @JsonKey(
               name: 'additionalProperties',
@@ -11087,6 +11217,8 @@ abstract class _SchemaMap extends Schema {
   @override
   @JsonKey(name: 'default')
   Map<dynamic, dynamic>? get defaultValue;
+  @override
+  bool? get nullable;
   Map<dynamic, dynamic>? get example;
   @JsonKey(
       name: 'additionalProperties',
