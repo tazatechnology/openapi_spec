@@ -95,7 +95,6 @@ class ServerGenerator extends BaseGenerator {
         operationRouterCode += "router.$m('$p', $h,);\n";
         operationDocs += '\n/// $d\n///\n/// `$M $p`\n///\n/// `$s`\n///';
       }
-      operationInputCode = '{$operationInputCode}';
     }
 
     // Server header
@@ -151,11 +150,15 @@ class $serverException {
 ///
 class $serverName {
   $operationDocs
-  $serverName(
+  $serverName({
+    this.includeUnexpectedErrorData = true,
     $operationInputCode
-  ) {
+  }) {
     $operationRouterCode
   }
+
+  /// Option to include error data from unexpected server errors
+  final bool includeUnexpectedErrorData;
 
   /// The router for the server
   final Router router = Router();
@@ -233,7 +236,8 @@ class $serverName {
         message: 'Unexpected server error',
         code: HttpStatus.internalServerError,
         data: {
-          'error': e.toString(),
+          if (includeUnexpectedErrorData)
+            'error': e.toString(),
         },
       ).toResponse();
     }
@@ -251,7 +255,8 @@ class $serverName {
         message: 'Failed to parse request',
         code: HttpStatus.badRequest,
         data: {
-          'error': e.toString(),
+          if (includeUnexpectedErrorData)
+            'error': e.toString(),
         },
       ).toResponse();
     }
