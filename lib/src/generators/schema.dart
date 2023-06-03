@@ -335,6 +335,20 @@ class SchemaGenerator extends BaseGenerator {
             toMap += "'$propName': $dartName,\n";
           }
         },
+        array: (value) {
+          if (schemaNames.contains(value.items.toDartType(unions: _unions))) {
+            if (s.required?.contains(propName) == true ||
+                value.defaultValue != null) {
+              toMap +=
+                  "'$propName': $dartName.map((e) => e.toMap()).toList(),\n";
+            } else {
+              toMap +=
+                  "'$propName': $dartName?.map((e) => e.toMap()).toList(),\n";
+            }
+          } else {
+            toMap += "'$propName': $dartName,\n";
+          }
+        },
         orElse: () {
           toMap += "'$propName': $dartName,\n";
         },
