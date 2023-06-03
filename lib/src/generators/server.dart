@@ -151,14 +151,18 @@ class $serverException {
 class $serverName {
   $operationDocs
   $serverName({
-    this.includeUnexpectedErrorData = true,
+    this.onBadRequest,
+    this.onException,
     $operationInputCode
   }) {
     $operationRouterCode
   }
 
-  /// Option to include error data from unexpected server errors
-  final bool includeUnexpectedErrorData;
+  /// Intercept bad request errors
+  final Future<Response> Function(Object, StackTrace)? onBadRequest;
+
+  /// Intercept any server errors
+  final Future<Response> Function(Object, StackTrace)? onException;
 
   /// The router for the server
   final Router router = Router();
@@ -228,17 +232,16 @@ class $serverName {
   // METHOD: _handleException
   // ------------------------------------------
 
-  Response _handleException(Object e) {
+  Future<Response> _handleException(Object e, StackTrace s) async {
+    if (onException != null) {
+      return await onException!(e, s);
+    }
     if (e is GrokServerException) {
       return e.toResponse();
     } else {
       return GrokServerException(
         message: 'Unexpected server error',
         code: HttpStatus.internalServerError,
-        data: {
-          if (includeUnexpectedErrorData)
-            'error': e.toString(),
-        },
       ).toResponse();
     }
   }
@@ -247,17 +250,16 @@ class $serverName {
   // METHOD: _handleBadRequest
   // ------------------------------------------
 
-  Response _handleBadRequest(Object e) {
+  Future<Response> _handleBadRequest(Object e, StackTrace s) async {
+    if (onBadRequest != null) {
+      return await onBadRequest!(e, s);
+    }
     if (e is GrokServerException) {
       return e.toResponse();
     } else {
       return GrokServerException(
         message: 'Failed to parse request',
         code: HttpStatus.badRequest,
-        data: {
-          if (includeUnexpectedErrorData)
-            'error': e.toString(),
-        },
       ).toResponse();
     }
   }
@@ -329,8 +331,8 @@ class $serverName {
       $requestRef requestBody;
       try{
         requestBody = $requestRef.fromJson(await _decodeRequest(request),);
-      } catch (e) {
-        return _handleBadRequest(e);
+      } catch (e, s) {
+        return await _handleBadRequest(e, s);
       }""";
     }
 
@@ -426,8 +428,8 @@ class $serverName {
             $headerCode
             $bodyReturn
           );
-        } catch (e) {
-          return _handleException(e);
+        } catch (e, s) {
+          return await _handleException(e, s);
         }
       }
     """;
