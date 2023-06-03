@@ -595,13 +595,20 @@ class $clientName {
         query: (p) {
           String qCode = "'${p.name}': ${pName.camelCase}";
           String pType = p.schema?.toDartType() ?? 'dynamic';
+          Object? pDefaultValue = p.schema?.defaultValue;
           if (p.required == true) {
             pType = 'required $pType';
           } else {
-            pType = '$pType?';
-            qCode = 'if (${pName.camelCase} != null) $qCode';
+            if (pDefaultValue == null) {
+              pType = '$pType?';
+              qCode = 'if (${pName.camelCase} != null) $qCode';
+            }
           }
-          input.add('$pType ${pName.camelCase}');
+          if (pDefaultValue != null) {
+            input.add('$pType ${pName.camelCase} = $pDefaultValue');
+          } else {
+            input.add('$pType ${pName.camelCase}');
+          }
           inputDescription.add(
             "`${pName.camelCase}`: ${p.description ?? 'No description'}",
           );
