@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.6
+
+* Add onBadRequest and onException server callbacks
+* Update to the lints 2.1.1
+
 ## 0.3.5
 
 * Ensure all properties honor the toMap operation
