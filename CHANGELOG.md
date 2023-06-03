@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5
+
+* Ensure all properties honor the toMap operation
+* Add default value for query params in client generation
+* Option to include unexpected error data in failed responses
+
 ## 0.3.4
 
 * Support nullable schema field
