@@ -339,12 +339,25 @@ class SchemaGenerator extends BaseGenerator {
           if (schemaNames.contains(value.items.toDartType(unions: _unions))) {
             if (s.required?.contains(propName) == true ||
                 value.defaultValue != null) {
-              toMap +=
-                  "'$propName': $dartName.map((e) => e.toMap()).toList(),\n";
+              toMap += "'$propName': $dartName";
             } else {
-              toMap +=
-                  "'$propName': $dartName?.map((e) => e.toMap()).toList(),\n";
+              toMap += "'$propName': $dartName?";
             }
+            toMap += '.map((e) => e.toMap()).toList(),\n';
+          } else {
+            toMap += "'$propName': $dartName,\n";
+          }
+        },
+        map: (value) {
+          if (schemaNames
+              .contains(value.valueSchema?.toDartType(unions: _unions))) {
+            if (s.required?.contains(propName) == true ||
+                value.defaultValue != null) {
+              toMap += "'$propName': $dartName";
+            } else {
+              toMap += "'$propName': $dartName?";
+            }
+            toMap += '.map((k, v) => MapEntry(k, v.toMap())),\n';
           } else {
             toMap += "'$propName': $dartName,\n";
           }
