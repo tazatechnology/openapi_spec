@@ -22,8 +22,8 @@ class OpenApi with _$OpenApi {
     /// This string must be the version number of the
     /// OpenAPI Specification that the OpenAPI document uses.
     /// This is not related to the API [Info.version] string.
-    /// By default, this generator uses `3.1.0`.
-    @Default('3.1.0') @JsonKey(name: 'openapi') String version,
+    /// By default, this generator uses `3.0.3`.
+    @Default('3.0.3') @JsonKey(name: 'openapi') String version,
 
     /// Provides metadata about the API.
     /// The metadata MAY be used by tooling as required.
