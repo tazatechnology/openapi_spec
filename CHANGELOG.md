@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.7
+
+* Remove OpenAPI spec version from generated code
+* Change the default spec version value to 3.0.3
+
 ## 0.3.6
 
 * Add onBadRequest and onException server callbacks
