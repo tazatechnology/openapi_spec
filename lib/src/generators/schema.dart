@@ -303,7 +303,6 @@ class SchemaGenerator extends BaseGenerator {
     final propNames = props?.keys.toList() ?? <String>[];
     bool firstPass = true;
     List<SchemaValidation> validations = [];
-    final schemaNames = (spec.components?.schemas?.keys ?? []).toList();
     for (final propName in propNames) {
       var dartName = propName.camelCase;
       dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
@@ -322,50 +321,7 @@ class SchemaGenerator extends BaseGenerator {
         validations.add(v);
       }
 
-      prop.maybeMap(
-        object: (value) {
-          if (schemaNames.contains(prop.toDartType(unions: _unions))) {
-            if (s.required?.contains(propName) == true ||
-                value.defaultValue != null) {
-              toMap += "'$propName': $dartName.toMap(),\n";
-            } else {
-              toMap += "'$propName': $dartName?.toMap(),\n";
-            }
-          } else {
-            toMap += "'$propName': $dartName,\n";
-          }
-        },
-        array: (value) {
-          if (schemaNames.contains(value.items.toDartType(unions: _unions))) {
-            if (s.required?.contains(propName) == true ||
-                value.defaultValue != null) {
-              toMap += "'$propName': $dartName";
-            } else {
-              toMap += "'$propName': $dartName?";
-            }
-            toMap += '.map((e) => e.toMap()).toList(),\n';
-          } else {
-            toMap += "'$propName': $dartName,\n";
-          }
-        },
-        map: (value) {
-          if (schemaNames
-              .contains(value.valueSchema?.toDartType(unions: _unions))) {
-            if (s.required?.contains(propName) == true ||
-                value.defaultValue != null) {
-              toMap += "'$propName': $dartName";
-            } else {
-              toMap += "'$propName': $dartName?";
-            }
-            toMap += '.map((k, v) => MapEntry(k, v.toMap())),\n';
-          } else {
-            toMap += "'$propName': $dartName,\n";
-          }
-        },
-        orElse: () {
-          toMap += "'$propName': $dartName,\n";
-        },
-      );
+      toMap += "'$propName': $dartName,\n";
     }
 
     String validationConstants = '';

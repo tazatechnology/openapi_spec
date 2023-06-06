@@ -12886,7 +12886,7 @@ mixin _$OpenApi {
   /// This string must be the version number of the
   /// OpenAPI Specification that the OpenAPI document uses.
   /// This is not related to the API [Info.version] string.
-  /// By default, this generator uses `3.1.0`.
+  /// By default, this generator uses `3.0.3`.
   @JsonKey(name: 'openapi')
   String get version => throw _privateConstructorUsedError;
 
@@ -13174,7 +13174,7 @@ class __$$_OpenApiCopyWithImpl<$Res>
 
 class _$_OpenApi extends _OpenApi {
   const _$_OpenApi(
-      {@JsonKey(name: 'openapi') this.version = '3.1.0',
+      {@JsonKey(name: 'openapi') this.version = '3.0.3',
       required this.info,
       this.externalDocs,
       this.jsonSchemaDialect,
@@ -13194,7 +13194,7 @@ class _$_OpenApi extends _OpenApi {
   /// This string must be the version number of the
   /// OpenAPI Specification that the OpenAPI document uses.
   /// This is not related to the API [Info.version] string.
-  /// By default, this generator uses `3.1.0`.
+  /// By default, this generator uses `3.0.3`.
   @override
   @JsonKey(name: 'openapi')
   final String version;
@@ -13402,7 +13402,7 @@ abstract class _OpenApi extends OpenApi {
   /// This string must be the version number of the
   /// OpenAPI Specification that the OpenAPI document uses.
   /// This is not related to the API [Info.version] string.
-  /// By default, this generator uses `3.1.0`.
+  /// By default, this generator uses `3.0.3`.
   @JsonKey(name: 'openapi')
   String get version;
   @override
