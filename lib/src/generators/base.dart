@@ -7,10 +7,8 @@ part of openapi_generators;
 abstract class BaseGeneratorOptions {
   const BaseGeneratorOptions({
     required this.enabled,
-    this.includeVersion = false,
   });
   final bool enabled;
-  final bool includeVersion;
 }
 
 // ==========================================
@@ -36,18 +34,10 @@ abstract class BaseGenerator {
 
   /// Method to generate file(s)
   String getHeader() {
-    String version = '';
-    if (options.includeVersion) {
-      version = "// API VERSION: ${spec.info.version.replaceAll('\n', '//')}\n";
-    }
-
     String header = """
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-
-// API TITLE: ${spec.info.title}
-$version
 """;
     return header;
   }

@@ -112,22 +112,24 @@ import 'schema/schema.dart';
 // CLASS: $serverException
 // ==========================================
 
-/// HTTP exception handler for GrokServer
-class $serverException {
+/// HTTP exception handler for $serverName
+class $serverException extends HttpException {
   $serverException({
-    required this.message,
+    required String message,
+    this.type = 'ERROR',
     this.code = 500,
     this.data = const {},
-  });
-  final String message;
+  }) : super(message);
+  final String type;
   final int code;
   final Map<String, dynamic>? data;
 
   Map<String, dynamic> toJson() {
     return {
+      'type': type,
       'message': message,
       'code': code,
-      'data': data,
+      'data': data ?? {},
     };
   }
 
@@ -153,6 +155,8 @@ class $serverName {
   $serverName({
     this.onBadRequest,
     this.onException,
+    this.badRequestStatus = 'BAD_REQUEST',
+    this.internalErrorStatus = 'INTERNAL_SERVER_ERROR',
     $operationInputCode
   }) {
     $operationRouterCode
@@ -163,6 +167,12 @@ class $serverName {
 
   /// Intercept any server errors
   final Future<Response> Function(Object, StackTrace)? onException;
+
+  /// Status string to use for bad request errors
+  final String badRequestStatus;
+
+  /// Status string to use for bad request errors
+  final String internalErrorStatus;
 
   /// The router for the server
   final Router router = Router();
@@ -236,11 +246,12 @@ class $serverName {
     if (onException != null) {
       return await onException!(e, s);
     }
-    if (e is GrokServerException) {
+    if (e is $serverException) {
       return e.toResponse();
     } else {
-      return GrokServerException(
-        message: 'Unexpected server error',
+      return $serverException(
+        type: internalErrorStatus,
+        message: 'Internal server error',
         code: HttpStatus.internalServerError,
       ).toResponse();
     }
@@ -254,10 +265,11 @@ class $serverName {
     if (onBadRequest != null) {
       return await onBadRequest!(e, s);
     }
-    if (e is GrokServerException) {
+    if (e is $serverException) {
       return e.toResponse();
     } else {
-      return GrokServerException(
+      return $serverException(
+        type: badRequestStatus,
         message: 'Failed to parse request',
         code: HttpStatus.badRequest,
       ).toResponse();

@@ -7,7 +7,6 @@ part of openapi_generators;
 class ServerGeneratorOptions extends BaseGeneratorOptions {
   const ServerGeneratorOptions({
     super.enabled = false,
-    super.includeVersion,
     this.onMethodName,
   });
 
