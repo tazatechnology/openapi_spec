@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.8
+
+* Improved server error handling
+* Simplify toMap() generator logic
+
 ## 0.3.7
 
 * Remove OpenAPI spec version from generated code
