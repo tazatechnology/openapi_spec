@@ -184,6 +184,7 @@ class OpenApi with _$OpenApi {
     String? favicon16x16,
     String? favicon32x32,
     bool quiet = false,
+    String? url = '/openapi.json',
   }) async {
     final dir = Directory(destination);
     final dirPath = p.normalize(dir.absolute.path);
@@ -222,15 +223,27 @@ class OpenApi with _$OpenApi {
     // Create a Javascript object for local parsing
     // Avoids the need to spin up a server to simply view the Swagger UI output
     final init = File(p.join(dirPath, 'swagger-initializer.js'));
-    init.writeAsStringSync(
-      'let spec = ${_encoder.convert(toJson())}',
-      mode: FileMode.append,
-    );
+    if (url == null) {
+      init.writeAsStringSync(
+        'let spec = ${_encoder.convert(toJson())}',
+        mode: FileMode.append,
+      );
+    } else {
+      init.writeAsStringSync(
+        init.readAsStringSync().replaceAll(
+              'spec: spec,',
+              "url: '$url',",
+            ),
+        mode: FileMode.write,
+      );
+    }
 
     // Apply the index.html customizations
     final index = File(p.join(dirPath, 'index.html'));
-    var indexText =
-        index.readAsStringSync().replaceAll('OAS_HTML_TITLE', info.title);
+    var indexText = index.readAsStringSync().replaceAll(
+          'OAS_HTML_TITLE',
+          info.title,
+        );
     index.writeAsStringSync(indexText);
 
     // Replace the favicons

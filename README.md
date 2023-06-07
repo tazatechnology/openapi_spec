@@ -12,7 +12,7 @@
   * Component schema library
   * Client code library
   * Server code library
-  * Swagger UI static documentation
+  * Swagger UI static documentation ([v4.19.0](https://github.com/swagger-api/swagger-ui/releases/tag/v4.19.0))
 
 ## Is this package actively maintained?
 
