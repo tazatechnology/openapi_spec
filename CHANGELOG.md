@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.9
+
+* Update to Swagger-UI v4.19.0
+
 ## 0.3.8
 
 * Improved server error handling
