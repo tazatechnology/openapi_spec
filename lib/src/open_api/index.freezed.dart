@@ -5971,7 +5971,7 @@ mixin _$Parameter {
   bool? get explode => throw _privateConstructorUsedError;
   bool? get allowReserved => throw _privateConstructorUsedError;
   String? get example => throw _privateConstructorUsedError;
-  Schema? get schema => throw _privateConstructorUsedError;
+  Schema get schema => throw _privateConstructorUsedError;
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref => throw _privateConstructorUsedError;
@@ -6020,10 +6020,10 @@ abstract class $ParameterCopyWith<$Res> {
       bool? explode,
       bool? allowReserved,
       String? example,
-      Schema? schema,
+      Schema schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
-  $SchemaCopyWith<$Res>? get schema;
+  $SchemaCopyWith<$Res> get schema;
 }
 
 /// @nodoc
@@ -6046,7 +6046,7 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? example = freezed,
-    Object? schema = freezed,
+    Object? schema = null,
     Object? ref = freezed,
   }) {
     return _then(_value.copyWith(
@@ -6078,10 +6078,10 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
-      schema: freezed == schema
+      schema: null == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
-              as Schema?,
+              as Schema,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -6091,12 +6091,8 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
 
   @override
   @pragma('vm:prefer-inline')
-  $SchemaCopyWith<$Res>? get schema {
-    if (_value.schema == null) {
-      return null;
-    }
-
-    return $SchemaCopyWith<$Res>(_value.schema!, (value) {
+  $SchemaCopyWith<$Res> get schema {
+    return $SchemaCopyWith<$Res>(_value.schema, (value) {
       return _then(_value.copyWith(schema: value) as $Val);
     });
   }
@@ -6119,11 +6115,11 @@ abstract class _$$_ParameterCookieCopyWith<$Res>
       bool? explode,
       bool? allowReserved,
       String? example,
-      Schema? schema,
+      Schema schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
-  $SchemaCopyWith<$Res>? get schema;
+  $SchemaCopyWith<$Res> get schema;
 }
 
 /// @nodoc
@@ -6145,7 +6141,7 @@ class __$$_ParameterCookieCopyWithImpl<$Res>
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? example = freezed,
-    Object? schema = freezed,
+    Object? schema = null,
     Object? ref = freezed,
   }) {
     return _then(_$_ParameterCookie(
@@ -6181,10 +6177,10 @@ class __$$_ParameterCookieCopyWithImpl<$Res>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
-      schema: freezed == schema
+      schema: null == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
-              as Schema?,
+              as Schema,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -6205,7 +6201,7 @@ class _$_ParameterCookie extends _ParameterCookie {
       this.explode,
       this.allowReserved,
       this.example,
-      this.schema,
+      required this.schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
@@ -6235,7 +6231,7 @@ class _$_ParameterCookie extends _ParameterCookie {
   @override
   final String? example;
   @override
-  final Schema? schema;
+  final Schema schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -6336,7 +6332,7 @@ abstract class _ParameterCookie extends Parameter {
           final bool? explode,
           final bool? allowReserved,
           final String? example,
-          final Schema? schema,
+          required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$_ParameterCookie;
   const _ParameterCookie._() : super._();
@@ -6360,7 +6356,7 @@ abstract class _ParameterCookie extends Parameter {
   @override
   String? get example;
   @override
-  Schema? get schema;
+  Schema get schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -6388,11 +6384,11 @@ abstract class _$$_ParameterHeaderCopyWith<$Res>
       bool? explode,
       bool? allowReserved,
       String? example,
-      Schema? schema,
+      Schema schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
-  $SchemaCopyWith<$Res>? get schema;
+  $SchemaCopyWith<$Res> get schema;
 }
 
 /// @nodoc
@@ -6414,7 +6410,7 @@ class __$$_ParameterHeaderCopyWithImpl<$Res>
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? example = freezed,
-    Object? schema = freezed,
+    Object? schema = null,
     Object? ref = freezed,
   }) {
     return _then(_$_ParameterHeader(
@@ -6450,10 +6446,10 @@ class __$$_ParameterHeaderCopyWithImpl<$Res>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
-      schema: freezed == schema
+      schema: null == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
-              as Schema?,
+              as Schema,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -6474,7 +6470,7 @@ class _$_ParameterHeader extends _ParameterHeader {
       this.explode,
       this.allowReserved,
       this.example,
-      this.schema,
+      required this.schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
@@ -6504,7 +6500,7 @@ class _$_ParameterHeader extends _ParameterHeader {
   @override
   final String? example;
   @override
-  final Schema? schema;
+  final Schema schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -6605,7 +6601,7 @@ abstract class _ParameterHeader extends Parameter {
           final bool? explode,
           final bool? allowReserved,
           final String? example,
-          final Schema? schema,
+          required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$_ParameterHeader;
   const _ParameterHeader._() : super._();
@@ -6629,7 +6625,7 @@ abstract class _ParameterHeader extends Parameter {
   @override
   String? get example;
   @override
-  Schema? get schema;
+  Schema get schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -6657,11 +6653,11 @@ abstract class _$$_ParameterQueryCopyWith<$Res>
       bool? explode,
       bool? allowReserved,
       String? example,
-      Schema? schema,
+      Schema schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
-  $SchemaCopyWith<$Res>? get schema;
+  $SchemaCopyWith<$Res> get schema;
 }
 
 /// @nodoc
@@ -6683,7 +6679,7 @@ class __$$_ParameterQueryCopyWithImpl<$Res>
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? example = freezed,
-    Object? schema = freezed,
+    Object? schema = null,
     Object? ref = freezed,
   }) {
     return _then(_$_ParameterQuery(
@@ -6719,10 +6715,10 @@ class __$$_ParameterQueryCopyWithImpl<$Res>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
-      schema: freezed == schema
+      schema: null == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
-              as Schema?,
+              as Schema,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -6743,7 +6739,7 @@ class _$_ParameterQuery extends _ParameterQuery {
       this.explode,
       this.allowReserved,
       this.example,
-      this.schema,
+      required this.schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
@@ -6773,7 +6769,7 @@ class _$_ParameterQuery extends _ParameterQuery {
   @override
   final String? example;
   @override
-  final Schema? schema;
+  final Schema schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -6874,7 +6870,7 @@ abstract class _ParameterQuery extends Parameter {
           final bool? explode,
           final bool? allowReserved,
           final String? example,
-          final Schema? schema,
+          required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$_ParameterQuery;
   const _ParameterQuery._() : super._();
@@ -6898,7 +6894,7 @@ abstract class _ParameterQuery extends Parameter {
   @override
   String? get example;
   @override
-  Schema? get schema;
+  Schema get schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -6925,11 +6921,11 @@ abstract class _$$_ParameterPathCopyWith<$Res>
       bool? explode,
       bool? allowReserved,
       String? example,
-      Schema? schema,
+      Schema schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
-  $SchemaCopyWith<$Res>? get schema;
+  $SchemaCopyWith<$Res> get schema;
 }
 
 /// @nodoc
@@ -6950,7 +6946,7 @@ class __$$_ParameterPathCopyWithImpl<$Res>
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? example = freezed,
-    Object? schema = freezed,
+    Object? schema = null,
     Object? ref = freezed,
   }) {
     return _then(_$_ParameterPath(
@@ -6982,10 +6978,10 @@ class __$$_ParameterPathCopyWithImpl<$Res>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
-      schema: freezed == schema
+      schema: null == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
-              as Schema?,
+              as Schema,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -7005,7 +7001,7 @@ class _$_ParameterPath extends _ParameterPath {
       this.explode,
       this.allowReserved,
       this.example,
-      this.schema,
+      required this.schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
@@ -7033,7 +7029,7 @@ class _$_ParameterPath extends _ParameterPath {
   @override
   final String? example;
   @override
-  final Schema? schema;
+  final Schema schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -7131,7 +7127,7 @@ abstract class _ParameterPath extends Parameter {
           final bool? explode,
           final bool? allowReserved,
           final String? example,
-          final Schema? schema,
+          required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$_ParameterPath;
   const _ParameterPath._() : super._();
@@ -7154,7 +7150,7 @@ abstract class _ParameterPath extends Parameter {
   @override
   String? get example;
   @override
-  Schema? get schema;
+  Schema get schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()

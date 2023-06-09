@@ -579,7 +579,7 @@ class $clientName {
         },
         header: (p) {
           String hCode = "'${p.name}': ${pName.camelCase}";
-          String pType = p.schema?.toDartType() ?? 'dynamic';
+          String pType = p.schema.toDartType();
           if (p.required == true) {
             pType = 'required $pType';
           } else {
@@ -594,8 +594,8 @@ class $clientName {
         },
         query: (p) {
           String qCode = "'${p.name}': ${pName.camelCase}";
-          String pType = p.schema?.toDartType() ?? 'dynamic';
-          Object? pDefaultValue = p.schema?.defaultValue;
+          String pType = p.schema.toDartType();
+          Object? pDefaultValue = p.schema.defaultValue;
           if (p.required == true) {
             pType = 'required $pType';
           } else {

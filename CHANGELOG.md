@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+* Make schema required for endpoint parameters
+
 ## 0.4.0
 
 * New server error response schema
