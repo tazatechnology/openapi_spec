@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+* New server error response schema
+
 ## 0.3.9
 
 * Update to Swagger-UI v4.19.0

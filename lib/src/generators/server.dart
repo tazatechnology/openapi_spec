@@ -115,21 +115,21 @@ import 'schema/schema.dart';
 /// HTTP exception handler for $serverName
 class $serverException extends HttpException {
   $serverException({
-    required String message,
-    this.type = 'ERROR',
     this.code = 500,
-    this.data = const {},
+    required String message,
+    this.status = 'ERROR',
+    this.data,
   }) : super(message);
-  final String type;
+  final String status;
   final int code;
   final Map<String, dynamic>? data;
 
   Map<String, dynamic> toJson() {
     return {
-      'type': type,
-      'message': message,
       'code': code,
-      'data': data ?? {},
+      'message': message,
+      'status': status,
+      if (data != null) 'data': data,
     };
   }
 
@@ -250,9 +250,9 @@ class $serverName {
       return e.toResponse();
     } else {
       return $serverException(
-        type: internalErrorStatus,
-        message: 'Internal server error',
         code: HttpStatus.internalServerError,
+        message: 'Internal server error',
+        status: internalErrorStatus,
       ).toResponse();
     }
   }
@@ -269,9 +269,9 @@ class $serverName {
       return e.toResponse();
     } else {
       return $serverException(
-        type: badRequestStatus,
-        message: 'Failed to parse request',
         code: HttpStatus.badRequest,
+        message: 'Failed to parse request',
+        status: badRequestStatus,
       ).toResponse();
     }
   }
