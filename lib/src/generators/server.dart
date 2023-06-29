@@ -133,13 +133,15 @@ class $serverException extends HttpException {
     };
   }
 
-  Response toResponse() {
+  Response toResponse({
+    Map<String, String>? headers,
+  }) {
     return Response(
       code,
       body: JsonEncoder.withIndent('  ').convert(toJson()),
       headers: {
         'content-type': 'application/json',
-      },
+      }..addAll(headers ?? {}),
     );
   }
 }
