@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.2
+
+* Allow custom headers to server exception response
+
 ## 0.4.1
 
 * Make schema required for endpoint parameters
