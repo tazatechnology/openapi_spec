@@ -308,7 +308,7 @@ class $clientName {
             method: method,
             message: 'Could not encode: \${body.runtimeType}',
             body: e,
-          ).toString();
+          );
         }
       }
 
@@ -330,7 +330,7 @@ class $clientName {
         method: method,
         message: 'Response error',
         body: e,
-      ).toString();
+      );
     }
 
     // Check for successful response
@@ -345,7 +345,7 @@ class $clientName {
       message: 'Unsuccessful response',
       code: response.statusCode,
       body: response.body,
-    ).toString();
+    );
   }\n
 """);
 
