@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.4
+
+* Reduce collection package version requirement
+
 ## 0.4.3
 
 * Ensure client exception returns object
