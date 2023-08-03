@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.5
+
+* Convert union types to sealed classes
+* Make union constructors public
+
 ## 0.4.4
 
 * Reduce collection package version requirement

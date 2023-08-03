@@ -173,7 +173,7 @@ class SchemaGenerator extends BaseGenerator {
     
     /// Union class for ${schemas.map((e) => '[$e]').join(', ')}
     @Freezed(unionKey: '$unionKey')
-    class $union with _\$$union  {
+    sealed class $union with _\$$union  {
       const $union._();\n
     """, mode: FileMode.append);
 
@@ -240,7 +240,7 @@ class SchemaGenerator extends BaseGenerator {
       }
 
       /// Class Footer
-      file.writeAsStringSync("}) = _$union$uSubClass;\n\n",
+      file.writeAsStringSync("}) = $union$uSubClass;\n\n",
           mode: FileMode.append);
     }
 
