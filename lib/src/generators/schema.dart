@@ -234,7 +234,7 @@ class SchemaGenerator extends BaseGenerator {
           property: props![propName]!,
           required: schema.required?.contains(propName) ?? false,
         );
-        if (v != null && v.operations.isNotEmpty) {
+        if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
           validations.add(v);
         }
       }
@@ -317,7 +317,7 @@ class SchemaGenerator extends BaseGenerator {
         property: prop,
         required: s.required?.contains(propName) ?? false,
       );
-      if (v != null && v.operations.isNotEmpty) {
+      if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
         validations.add(v);
       }
 
