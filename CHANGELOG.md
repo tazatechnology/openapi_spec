@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.6
+## 0.4.7
 
 * Add default value for schema validation constants
 

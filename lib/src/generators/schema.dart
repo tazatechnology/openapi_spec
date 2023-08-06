@@ -506,6 +506,7 @@ class SchemaGenerator extends BaseGenerator {
         validation = SchemaValidation.numeric(
           name: name,
           nullable: nullable,
+          defaultValue: p.defaultValue,
           minimum: p.minimum,
           maximum: p.maximum,
           exclusiveMinimum: p.exclusiveMinimum,
