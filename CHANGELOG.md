@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.6
+
+* Add default value for schema validation constants
+
 ## 0.4.5
 
 * Convert union types to sealed classes

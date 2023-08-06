@@ -13,6 +13,7 @@ class SchemaValidation {
   SchemaValidation._({
     required this.name,
     required this.type,
+    this.defaultValue,
     this.minimum,
     this.maximum,
     this.minLength,
@@ -33,6 +34,7 @@ class SchemaValidation {
 
   factory SchemaValidation.numeric({
     required String name,
+    num? defaultValue,
     num? minimum,
     num? maximum,
     num? multipleOf,
@@ -43,6 +45,7 @@ class SchemaValidation {
     return SchemaValidation._(
       name: name,
       type: SchemaValidationType.numeric,
+      defaultValue: defaultValue,
       minimum: minimum,
       maximum: maximum,
       multipleOf: multipleOf,
@@ -85,6 +88,9 @@ class SchemaValidation {
   /// The type of value being validated
   SchemaValidationType type;
 
+  /// Default value
+  num? defaultValue;
+
   /// Minimum value
   num? minimum;
 
@@ -119,9 +125,14 @@ class SchemaValidation {
   // METHOD: _defineValidations
   // ------------------------------------------
 
-  _defineValidations() {
+  void _defineValidations() {
     if (type == SchemaValidationType.numeric) {
       final nullName = nullable ? '$name != null && $name!' : name;
+
+      if (defaultValue != null) {
+        final conName = '${name}_default_value'.camelCase;
+        constants[conName] = defaultValue!;
+      }
 
       if (minimum != null) {
         final operator = exclusiveMinimum ?? false ? '<=' : '<';
