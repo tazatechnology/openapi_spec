@@ -441,7 +441,7 @@ class SchemaGenerator extends BaseGenerator {
               'dynamic';
           c += "$unionName ${nullable ? '?' : ''} $name,\n\n";
         } else {
-          c += "dynamic ${nullable ? '?' : ''} $name,\n\n";
+          c += "dynamic $name,\n\n";
         }
         file.writeAsStringSync(c, mode: FileMode.append);
       },

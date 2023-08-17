@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.9
+
+* Remove null check for dynamic type in schema generation
+
 ## 0.4.8
 
 * Add default value for schema validation constants
