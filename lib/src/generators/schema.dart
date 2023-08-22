@@ -397,7 +397,10 @@ class SchemaGenerator extends BaseGenerator {
 
     // Ensure description is free of new line characters
     property = property.copyWith(
-      description: property.description?.replaceAll('\n', '').trim(),
+      description: property.description
+          ?.replaceAll('\n', ' ')
+          .replaceAll(RegExp(r'\s+'), ' ')
+          .trim(),
     );
 
     property.map(

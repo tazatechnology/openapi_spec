@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.10
+
+* Better handling of whitespace in schema generation
+* Update package dependencies
+
 ## 0.4.9
 
 * Remove null check for dynamic type in schema generation
