@@ -232,11 +232,7 @@ class $clientName {
     Object? body,
   }) async {
     // Override with the user provided host
-    if (host.isEmpty) {
-      host = this.host ?? '';
-    } else if (host.isNotEmpty && this.host != null) {
-      host = this.host ?? host;
-    }
+    host = this.host ?? host;
 
     // Ensure a host is provided
     if (host.isEmpty) {
@@ -250,20 +246,17 @@ class $clientName {
         (key, value) => MapEntry(key, Uri.encodeComponent(value.toString())));
 
     // Determine the connection type
-    secure ??= Uri.parse(host).scheme == 'https';
-
+    final hostUri = Uri.parse(host);
+    secure ??= hostUri.scheme == 'https';
+    
     // Build the request URI
-    Uri uri;
-    if (host.contains('http')) {
-      host = Uri.parse(host).authority;
-    } else {
-      host = Uri.parse(Uri.https(host).toString()).authority;
-    }
-    if (secure) {
-      uri = Uri.https(host, path, queryParams.isEmpty ? null : queryParams);
-    } else {
-      uri = Uri.http(host, path, queryParams.isEmpty ? null : queryParams);
-    }
+    final uri = Uri(
+      scheme: secure ? 'https' : 'http',
+      host: hostUri.host,
+      port: hostUri.port,
+      path: path,
+      queryParameters: queryParams.isEmpty ? null : queryParams,
+    );
 
     // Build the headers
     Map<String, String> headers = {}..addAll(headerParams);
@@ -369,7 +362,11 @@ class $clientName {
           server = o.servers!.first;
         } else if (p.servers != null && (p.servers?.isNotEmpty ?? false)) {
           server = p.servers!.first;
+        } else if (spec.servers != null &&
+            (spec.servers?.isNotEmpty ?? false)) {
+          server = spec.servers!.first;
         }
+
         // Determine which parameters to apply
         // First add the path item parameters, then override with operation
         Map<String, Parameter> parameters = {};
@@ -532,18 +529,19 @@ class $clientName {
 
     // Determine the URL configuration from server definition
     final serverUri = Uri.parse(server?.url.toString() ?? '');
-    final host = serverUri.host;
-    String hostDecoded = Uri.decodeFull(host);
-    final uri = serverUri.scheme == 'https'
-        ? Uri.https(host, path)
-        : Uri.http(host, path);
+    final uri = Uri(
+      scheme: serverUri.scheme,
+      host: serverUri.host,
+      port: serverUri.port,
+      path: path,
+    );
+    String hostDecoded = Uri.decodeFull(uri.origin);
     String uriDecoded = Uri.decodeFull(uri.toString());
-    if (!uriDecoded.startsWith('http://') &&
-        !uriDecoded.startsWith('https://')) {
+    if (uri.scheme != 'http' && uri.scheme != 'https') {
       // Implies no host defined, make a better doc string
       uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
     }
-    final secure = host.isEmpty ? null : serverUri.scheme == 'https';
+    final secure = uri.scheme == 'https';
 
     // Determine if server contains dynamic variables
     if (server?.variables != null) {
