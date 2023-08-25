@@ -33,7 +33,7 @@ class ClientGenerator extends BaseGenerator {
 
   @override
   Future<void> generate() async {
-    final clientName = '${package.titleCase}Client';
+    final clientName = '${package.pascalCase}Client';
     final clientException = '${clientName}Exception';
 
     // Determine which security schemes are defined in API spec
