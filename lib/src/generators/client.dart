@@ -175,14 +175,14 @@ class $clientName {
     http.Client? client,
   }) {
     // Create a retry client
-    _client = RetryClient(client ?? http.Client());
+    this.client = RetryClient(client ?? http.Client());
   }
 
   /// User provided override for host URL
   late final String? host;
 
-  /// Internal HTTP client
-  late final http.Client _client;
+  /// HTTP client for requests
+  late final http.Client client;
   
   ${authVariables.isEmpty ? '' : '/// Authentication related variables'}
   ${authVariables.join('\n')}
@@ -192,7 +192,7 @@ class $clientName {
   // ------------------------------------------
 
   /// Close the HTTP client and end session
-  void endSession() => _client.close();
+  void endSession() => client.close();
 
   // ------------------------------------------
   // METHOD: onRequest
@@ -319,7 +319,7 @@ class $clientName {
       request = await onRequest(request);
 
       // Submit request
-      response = await http.Response.fromStream(await _client.send(request));
+      response = await http.Response.fromStream(await client.send(request));
 
       // Handle user response middleware
       response = await onResponse(response);
