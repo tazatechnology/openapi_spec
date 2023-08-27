@@ -74,7 +74,13 @@ class SchemaGenerator extends BaseGenerator {
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
       final filename = s.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
-      String name = s.pascalCase;
+      String name;
+      if (s == s.toUpperCase()) {
+        // Do not modify all uppercase schema names
+        name = s;
+      } else {
+        name = s.pascalCase;
+      }
 
       if (options.onSchemaName != null) {
         final userSchemaName = options.onSchemaName!(name);

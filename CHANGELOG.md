@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.11
+
+* Keep all caps class names in schema generation
+
 ## 0.4.10
 
 * Better handling of whitespace in schema generation
