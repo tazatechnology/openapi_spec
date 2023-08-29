@@ -47,7 +47,7 @@ class ServerGenerator extends BaseGenerator {
 
   @override
   Future<void> generate() async {
-    final serverName = '${package.titleCase}Server';
+    final serverName = '${package.pascalCase}Server';
     final serverException = '${serverName}Exception';
 
     // Get all API paths
