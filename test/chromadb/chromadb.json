@@ -1,0 +1,1100 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "ChromaDB API",
+    "description": "This is OpenAPI schema for ChromaDB API.",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/api/v1": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Root Api V1 Get",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reset": {
+      "post": {
+        "summary": "Reset",
+        "operationId": "reset",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Reset Api V1 Reset Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/version": {
+      "get": {
+        "summary": "Version",
+        "operationId": "version",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Version Api V1 Version Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heartbeat": {
+      "get": {
+        "summary": "Heartbeat",
+        "operationId": "heartbeat",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Heartbeat Api V1 Heartbeat Get",
+                  "additionalProperties": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections": {
+      "get": {
+        "summary": "List Collections",
+        "operationId": "list_collections",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "title": "Response List Collections Api V1 Collections Get",
+                  "items": {
+                    "$ref": "#/components/schemas/CollectionType"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Collection",
+        "operationId": "create_collection",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCollection"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionType"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/add": {
+      "post": {
+        "summary": "Add",
+        "operationId": "add",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddEmbedding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Add Api V1 Collections  Collection Id  Add Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/update": {
+      "post": {
+        "summary": "Update",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEmbedding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Update Api V1 Collections  Collection Id  Update Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/upsert": {
+      "post": {
+        "summary": "Upsert",
+        "operationId": "upsert",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddEmbedding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Upsert Api V1 Collections  Collection Id  Upsert Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/get": {
+      "post": {
+        "summary": "Get",
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetEmbedding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/delete": {
+      "post": {
+        "summary": "Delete",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteEmbedding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "title": "Response Delete Api V1 Collections  Collection Id  Delete Post",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/count": {
+      "get": {
+        "summary": "Count",
+        "operationId": "count",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "title": "Response Count Api V1 Collections  Collection Id  Count Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/query": {
+      "post": {
+        "summary": "Get Nearest Neighbors",
+        "operationId": "get_nearest_neighbors",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryEmbedding"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_name}": {
+      "get": {
+        "summary": "Get Collection",
+        "operationId": "get_collection",
+        "parameters": [
+          {
+            "name": "collection_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionType"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Collection",
+        "operationId": "delete_collection",
+        "parameters": [
+          {
+            "name": "collection_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}": {
+      "put": {
+        "summary": "Update Collection",
+        "operationId": "update_collection",
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Collection Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCollection"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddEmbedding": {
+        "required": [
+          "ids"
+        ],
+        "type": "object",
+        "title": "AddEmbedding",
+        "description": "Request model for add items to collection.",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "title": "Ids",
+            "description": "IDs of the items to add",
+            "items": {
+              "type": "string"
+            }
+          },
+          "embeddings": {
+            "type": "array",
+            "title": "Embeddings",
+            "description": "Optional embeddings of the items to add.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "metadatas": {
+            "type": "array",
+            "title": "Metadatas",
+            "description": "Optional metadatas of the items to add.",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "documents": {
+            "type": "array",
+            "title": "Documents",
+            "description": "Optional documents of the items to add.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CollectionType": {
+        "required": [
+          "name",
+          "id"
+        ],
+        "type": "object",
+        "title": "CollectionType",
+        "description": "A collection of items.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the collection."
+          },
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Id of the collection.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Metadata of the collection.",
+            "nullable": true,
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "CreateCollection": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "title": "CreateCollection",
+        "description": "Request model for create collection.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the collection."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Metadata of the collection.",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "get_or_create": {
+            "type": "boolean",
+            "title": "Get Or Create",
+            "description": "If true, will return existing collection if it exists.",
+            "default": false
+          }
+        }
+      },
+      "DeleteEmbedding": {
+        "type": "object",
+        "title": "DeleteEmbedding",
+        "description": "Request model for delete items from collection.",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "title": "Ids",
+            "description": "Optional IDs of the items to delete.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "type": "object",
+            "title": "Where",
+            "description": "Optional query condition to filter items to delete based on metadata values..",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "where_document": {
+            "type": "object",
+            "title": "Where Document",
+            "description": "Optional query condition to filter items to delete based on document content.",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "GetEmbedding": {
+        "type": "object",
+        "title": "GetEmbedding",
+        "description": "Request model for get items from collection.",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "title": "Ids",
+            "description": "Optional IDs of the items to get.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "where": {
+            "type": "object",
+            "title": "Where",
+            "description": "Optional where clause to filter items by."
+          },
+          "where_document": {
+            "type": "object",
+            "title": "Where Document",
+            "description": "Optional where clause to filter items by."
+          },
+          "sort": {
+            "type": "string",
+            "title": "Sort",
+            "description": "Sort items."
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "description": "Optional limit on the number of items to get."
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "description": "Optional offset on the items to get."
+          },
+          "include": {
+            "type": "array",
+            "title": "Include",
+            "description": "Optional list of items to include in the response.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "documents",
+                "embeddings",
+                "metadatas"
+              ]
+            }
+          }
+        }
+      },
+      "GetResponse": {
+        "required": [
+          "ids"
+        ],
+        "type": "object",
+        "title": "GetResponse",
+        "description": "Response model for get items from collection.",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "title": "Ids",
+            "description": "List of ids of the items.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "embeddings": {
+            "type": "array",
+            "title": "Embeddings",
+            "description": "List of embeddings of the items.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "metadatas": {
+            "type": "array",
+            "title": "Metadatas",
+            "description": "List of metadatas of the items.",
+            "items": {
+              "type": "object",
+              "nullable": true,
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "documents": {
+            "type": "array",
+            "title": "Documents",
+            "description": "List of documents of the items.",
+            "items": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        }
+      },
+      "QueryEmbedding": {
+        "required": [
+          "query_embeddings"
+        ],
+        "type": "object",
+        "title": "QueryEmbedding",
+        "description": "Request model for query items from collection.",
+        "properties": {
+          "query_embeddings": {
+            "type": "array",
+            "title": "Query Embeddings",
+            "description": "Optional query embeddings to use for the search.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "n_results": {
+            "type": "integer",
+            "title": "N Results",
+            "description": "Optional number of results to return",
+            "default": 10
+          },
+          "where": {
+            "type": "object",
+            "title": "Where",
+            "description": "Optional query condition to filter results based on metadata values.",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "where_document": {
+            "type": "object",
+            "title": "Where Document",
+            "description": "Optional query condition to filter results based on document content.",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "include": {
+            "type": "array",
+            "title": "Include",
+            "description": "Optional list of items to include in the response.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "documents",
+                "embeddings",
+                "metadatas",
+                "distances"
+              ]
+            }
+          }
+        }
+      },
+      "QueryResponse": {
+        "required": [
+          "ids"
+        ],
+        "type": "object",
+        "title": "QueryResponse",
+        "description": "Response model for query items from collection.",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "title": "Ids",
+            "description": "List of ids of the items.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "embeddings": {
+            "type": "array",
+            "title": "Embeddings",
+            "description": "List of embeddings of the items.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "metadatas": {
+            "type": "array",
+            "title": "Metadatas",
+            "description": "List of metadatas of the items.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "nullable": true,
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "documents": {
+            "type": "array",
+            "title": "Documents",
+            "description": "List of documents of the items.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          },
+          "distances": {
+            "type": "array",
+            "title": "Distances",
+            "description": "List of distances of the items.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "UpdateCollection": {
+        "type": "object",
+        "title": "UpdateCollection",
+        "description": "Request model for update collection.",
+        "properties": {
+          "new_name": {
+            "type": "string",
+            "title": "New Name",
+            "description": "New name of the collection."
+          },
+          "new_metadata": {
+            "type": "object",
+            "title": "New Metadata",
+            "description": "New metadata of the collection."
+          }
+        }
+      },
+      "UpdateEmbedding": {
+        "required": [
+          "ids"
+        ],
+        "type": "object",
+        "title": "UpdateEmbedding",
+        "description": "Request model for update items in collection.",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "title": "Ids",
+            "description": "IDs of the items to update",
+            "items": {
+              "type": "string"
+            }
+          },
+          "embeddings": {
+            "type": "array",
+            "title": "Embeddings",
+            "description": "Optional embeddings of the items to update.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "metadatas": {
+            "type": "array",
+            "title": "Metadatas",
+            "description": "Optional metadatas of the items to update.",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "documents": {
+            "type": "array",
+            "title": "Documents",
+            "description": "Optional documents of the items to update.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "type": "object",
+        "title": "HTTPValidationError",
+        "properties": {
+          "detail": {
+            "type": "array",
+            "title": "Detail",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "title": "ValidationError",
+        "description": "An error occurred during a request.",
+        "properties": {
+          "loc": {
+            "type": "object",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        }
+      }
+    }
+  }
+}

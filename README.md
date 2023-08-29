@@ -7,7 +7,7 @@
 [openapi_spec](https://pub.dev/packages/openapi_spec) is a Dart package for working with [OpenAPI specifications](https://swagger.io/specification/) to do a whole host of things, including:
 
 * Generate an OpenAPI specification from a `OpenApi` defined Dart object
-* Prase an OpenAPI specification into a `OpenApi` defined Dart object
+* Parse an OpenAPI specification into a `OpenApi` defined Dart object
 * Generate artifacts from an OpenAPI specification
   * Component schema library
   * Client code library
