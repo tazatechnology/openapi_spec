@@ -172,11 +172,13 @@ class $clientException implements io.HttpException {
 class $clientName {
   $clientName({
     $authInputCode
-    this.host,
+    String? host,
     http.Client? client,
   }) {
     // Create a retry client
     this.client = RetryClient(client ?? http.Client());
+    // Ensure trailing slash is removed from host
+    this.host = host?.replaceAll(RegExp(r'/\$'), '');
   }
 
   /// User provided override for host URL
@@ -243,21 +245,42 @@ class $clientName {
     }
 
     // Ensure query parameters are properly encoded
-    queryParams = queryParams.map(
-        (key, value) => MapEntry(key, Uri.encodeComponent(value.toString())));
+    queryParams = queryParams.map((key, value) {
+      if (value is List) {
+        return MapEntry(
+          key,
+          value.map((v) => Uri.encodeComponent(v.toString())).toList(),
+        );
+      } else {
+        return MapEntry(
+          key,
+          Uri.encodeComponent(value.toString()),
+        );
+      }
+    });
 
-    // Determine the connection type
-    final hostUri = Uri.parse(host);
-    secure ??= hostUri.scheme == 'https';
-    
     // Build the request URI
-    final uri = Uri(
-      scheme: secure ? 'https' : 'http',
-      host: hostUri.host,
-      port: hostUri.port,
-      path: path,
-      queryParameters: queryParams.isEmpty ? null : queryParams,
-    );
+    secure ??= Uri.parse(host).scheme == 'https';
+    Uri uri;
+    String authority;
+    if (host.contains('http')) {
+      authority = Uri.parse(host).authority;
+    } else {
+      authority = Uri.parse(Uri.https(host).toString()).authority;
+    }
+    if (secure) {
+      uri = Uri.https(
+        authority,
+        path,
+        queryParams.isEmpty ? null : queryParams,
+      );
+    } else {
+      uri = Uri.http(
+        authority,
+        path,
+        queryParams.isEmpty ? null : queryParams,
+      );
+    }
 
     // Build the headers
     Map<String, String> headers = {}..addAll(headerParams);
@@ -359,11 +382,14 @@ class $clientName {
         final o = e.value!;
         // Determine which server to use
         Server? server;
-        if (o.servers != null && (o.servers?.isNotEmpty ?? false)) {
+        if (o.servers?.isNotEmpty ?? false) {
           server = o.servers!.first;
-        } else if (p.servers != null && (p.servers?.isNotEmpty ?? false)) {
+        } else if (p.servers?.isNotEmpty ?? false) {
           server = p.servers!.first;
+        } else if (spec.servers?.isNotEmpty ?? false) {
+          server = spec.servers!.first;
         }
+
         // Determine which parameters to apply
         // First add the path item parameters, then override with operation
         Map<String, Parameter> parameters = {};
@@ -526,14 +552,21 @@ class $clientName {
 
     // Determine the URL configuration from server definition
     final serverUri = Uri.parse(server?.url.toString() ?? '');
-    final host = serverUri.host;
+    String host = serverUri.host;
+    final uri = Uri(
+      scheme: serverUri.scheme.isEmpty ? 'http' : serverUri.scheme,
+      host: host,
+      port: serverUri.port,
+      path: path,
+    );
+
     String hostDecoded = Uri.decodeFull(host);
-    final uri = serverUri.scheme == 'https'
-        ? Uri.https(host, path)
-        : Uri.http(host, path);
+    if (host.isNotEmpty) {
+      hostDecoded = Uri.decodeFull(uri.authority);
+    }
+
     String uriDecoded = Uri.decodeFull(uri.toString());
-    if (!uriDecoded.startsWith('http://') &&
-        !uriDecoded.startsWith('https://')) {
+    if (!serverUri.hasAuthority) {
       // Implies no host defined, make a better doc string
       uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
     }
@@ -563,10 +596,10 @@ class $clientName {
 
     // Determine if path contains dynamic variables
     for (var param in parameters) {
-      if (param.name == null) {
-        throw Exception('Parameter name is required: $param');
+      final pName = param.name ?? param.schema?.ref?.split('/').last ?? '';
+      if (pName.isEmpty) {
+        throw Exception('Parameter name or reference is required: $param');
       }
-      final pName = param.name!;
       param.map(
         cookie: (p) {
           // Do nothing

@@ -84,7 +84,7 @@ class Parameter with _$Parameter {
     bool? explode,
     bool? allowReserved,
     String? example,
-    required Schema schema,
+    Schema? schema,
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = _ParameterPath;
 

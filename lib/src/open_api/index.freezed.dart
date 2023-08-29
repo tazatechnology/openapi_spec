@@ -5971,7 +5971,7 @@ mixin _$Parameter {
   bool? get explode => throw _privateConstructorUsedError;
   bool? get allowReserved => throw _privateConstructorUsedError;
   String? get example => throw _privateConstructorUsedError;
-  Schema get schema => throw _privateConstructorUsedError;
+  Schema? get schema => throw _privateConstructorUsedError;
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
   String? get ref => throw _privateConstructorUsedError;
@@ -6023,7 +6023,7 @@ abstract class $ParameterCopyWith<$Res> {
       Schema schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
-  $SchemaCopyWith<$Res> get schema;
+  $SchemaCopyWith<$Res>? get schema;
 }
 
 /// @nodoc
@@ -6079,7 +6079,7 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
       schema: null == schema
-          ? _value.schema
+          ? _value.schema!
           : schema // ignore: cast_nullable_to_non_nullable
               as Schema,
       ref: freezed == ref
@@ -6091,8 +6091,12 @@ class _$ParameterCopyWithImpl<$Res, $Val extends Parameter>
 
   @override
   @pragma('vm:prefer-inline')
-  $SchemaCopyWith<$Res> get schema {
-    return $SchemaCopyWith<$Res>(_value.schema, (value) {
+  $SchemaCopyWith<$Res>? get schema {
+    if (_value.schema == null) {
+      return null;
+    }
+
+    return $SchemaCopyWith<$Res>(_value.schema!, (value) {
       return _then(_value.copyWith(schema: value) as $Val);
     });
   }
@@ -6186,6 +6190,14 @@ class __$$_ParameterCookieCopyWithImpl<$Res>
           : ref // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SchemaCopyWith<$Res> get schema {
+    return $SchemaCopyWith<$Res>(_value.schema, (value) {
+      return _then(_value.copyWith(schema: value));
+    });
   }
 }
 
@@ -6456,6 +6468,14 @@ class __$$_ParameterHeaderCopyWithImpl<$Res>
               as String?,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SchemaCopyWith<$Res> get schema {
+    return $SchemaCopyWith<$Res>(_value.schema, (value) {
+      return _then(_value.copyWith(schema: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -6725,6 +6745,14 @@ class __$$_ParameterQueryCopyWithImpl<$Res>
               as String?,
     ));
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SchemaCopyWith<$Res> get schema {
+    return $SchemaCopyWith<$Res>(_value.schema, (value) {
+      return _then(_value.copyWith(schema: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -6921,11 +6949,11 @@ abstract class _$$_ParameterPathCopyWith<$Res>
       bool? explode,
       bool? allowReserved,
       String? example,
-      Schema schema,
+      Schema? schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref});
 
   @override
-  $SchemaCopyWith<$Res> get schema;
+  $SchemaCopyWith<$Res>? get schema;
 }
 
 /// @nodoc
@@ -6946,7 +6974,7 @@ class __$$_ParameterPathCopyWithImpl<$Res>
     Object? explode = freezed,
     Object? allowReserved = freezed,
     Object? example = freezed,
-    Object? schema = null,
+    Object? schema = freezed,
     Object? ref = freezed,
   }) {
     return _then(_$_ParameterPath(
@@ -6978,10 +7006,10 @@ class __$$_ParameterPathCopyWithImpl<$Res>
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
               as String?,
-      schema: null == schema
+      schema: freezed == schema
           ? _value.schema
           : schema // ignore: cast_nullable_to_non_nullable
-              as Schema,
+              as Schema?,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -7001,7 +7029,7 @@ class _$_ParameterPath extends _ParameterPath {
       this.explode,
       this.allowReserved,
       this.example,
-      required this.schema,
+      this.schema,
       @JsonKey(name: '\$ref') @_ParamRefConverter() this.ref,
       final String? $type})
       : assert((name == null && ref == null) == false,
@@ -7029,7 +7057,7 @@ class _$_ParameterPath extends _ParameterPath {
   @override
   final String? example;
   @override
-  final Schema schema;
+  final Schema? schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()
@@ -7127,7 +7155,7 @@ abstract class _ParameterPath extends Parameter {
           final bool? explode,
           final bool? allowReserved,
           final String? example,
-          required final Schema schema,
+          final Schema? schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$_ParameterPath;
   const _ParameterPath._() : super._();
@@ -7150,7 +7178,7 @@ abstract class _ParameterPath extends Parameter {
   @override
   String? get example;
   @override
-  Schema get schema;
+  Schema? get schema;
   @override
   @JsonKey(name: '\$ref')
   @_ParamRefConverter()

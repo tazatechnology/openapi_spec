@@ -738,7 +738,9 @@ _$_ParameterPath _$$_ParameterPathFromJson(Map<String, dynamic> json) =>
       explode: json['explode'] as bool?,
       allowReserved: json['allowReserved'] as bool?,
       example: json['example'] as String?,
-      schema: Schema.fromJson(json['schema'] as Map<String, dynamic>),
+      schema: json['schema'] == null
+          ? null
+          : Schema.fromJson(json['schema'] as Map<String, dynamic>),
       ref: const _ParamRefConverter().fromJson(json[r'$ref'] as String?),
       $type: json['in'] as String?,
     );
@@ -759,7 +761,7 @@ Map<String, dynamic> _$$_ParameterPathToJson(_$_ParameterPath instance) {
   writeNotNull('explode', instance.explode);
   writeNotNull('allowReserved', instance.allowReserved);
   writeNotNull('example', instance.example);
-  val['schema'] = instance.schema.toJson();
+  writeNotNull('schema', instance.schema?.toJson());
   writeNotNull(r'$ref', const _ParamRefConverter().toJson(instance.ref));
   val['in'] = instance.$type;
   return val;
