@@ -233,11 +233,7 @@ class $clientName {
     Object? body,
   }) async {
     // Override with the user provided host
-    if (host.isEmpty) {
-      host = this.host ?? '';
-    } else if (host.isNotEmpty && this.host != null) {
-      host = this.host ?? host;
-    }
+    host = this.host ?? host;
 
     // Ensure a host is provided
     if (host.isEmpty) {
@@ -251,20 +247,17 @@ class $clientName {
         (key, value) => MapEntry(key, Uri.encodeComponent(value.toString())));
 
     // Determine the connection type
-    secure ??= Uri.parse(host).scheme == 'https';
-
+    final hostUri = Uri.parse(host);
+    secure ??= hostUri.scheme == 'https';
+    
     // Build the request URI
-    Uri uri;
-    if (host.contains('http')) {
-      host = Uri.parse(host).authority;
-    } else {
-      host = Uri.parse(Uri.https(host).toString()).authority;
-    }
-    if (secure) {
-      uri = Uri.https(host, path, queryParams.isEmpty ? null : queryParams);
-    } else {
-      uri = Uri.http(host, path, queryParams.isEmpty ? null : queryParams);
-    }
+    final uri = Uri(
+      scheme: secure ? 'https' : 'http',
+      host: hostUri.host,
+      port: hostUri.port,
+      path: path,
+      queryParameters: queryParams.isEmpty ? null : queryParams,
+    );
 
     // Build the headers
     Map<String, String> headers = {}..addAll(headerParams);
