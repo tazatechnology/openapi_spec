@@ -113,6 +113,7 @@ ${getHeader()}
 import 'dart:io' as io;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:typed_data';
 import 'package:http/retry.dart';
 import 'schema/schema.dart';
 
@@ -520,7 +521,7 @@ class $clientName {
 
     if (operation.description != null) {
       description +=
-          '\n///\n/// ${(operation.description ?? '').replaceAll('\n', ' ')}';
+          '\n///\n/// ${(operation.description ?? '').replaceAll('\n', '\n/// ')}';
     }
     if (description.isEmpty) {
       description = 'No description provided';
@@ -703,10 +704,21 @@ class $clientName {
         if (rSchema != null) {
           responseType = k;
           break;
+        } else {
+          responseType = k;
+          if (k.startsWith('text')) {
+            dType = 'String';
+          } else {
+            dType = 'Uint8List';
+          }
+          break;
         }
       }
-      rSchema?.dereference(components: spec.components?.schemas);
-      dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
+      if (rSchema != null) {
+        rSchema.dereference(components: spec.components?.schemas);
+        dType = rSchema.toDartType(unions: schemaGenerator?.unions);
+      }
+
       returnType = dType ?? returnType;
 
       // Determine the decode strategy
@@ -744,7 +756,11 @@ class $clientName {
       );
 
       if (decoder.isEmpty && returnType != 'void') {
-        if (returnType.contains('List') || returnType.contains('Map')) {
+        if (returnType == 'String') {
+          decoder = "return  r.body;";
+        } else if (returnType == 'Uint8List') {
+          decoder = "return  r.bodyBytes;";
+        } else if (returnType.contains('List') || returnType.contains('Map')) {
           decoder = "return  $returnType.from(json.decode(r.body));";
         } else {
           decoder = "return  json.decode(r.body);";

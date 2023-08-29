@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.13
+
+* Support more return types in auto-client generation
+
 ## 0.4.12
 
 * Make HTTP client public in auto client generation
