@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+* Improved client generation, honor global server
+* Honor port definition defined in host
+* Add ChromaDB as another test to exercise generation code
+
 ## 0.4.13
 
 * Support more return types in auto-client generation
