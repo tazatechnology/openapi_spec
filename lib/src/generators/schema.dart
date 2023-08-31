@@ -115,14 +115,14 @@ class SchemaGenerator extends BaseGenerator {
           _writeEnumeration(name: name, schema: schema);
         },
         array: (schema) {
-          final iType = schema.items.ref ?? 'dynamic';
+          final iType = schema.items.toDartType();
           file.writeAsStringSync(
             'typedef $name = List<$iType>;',
             mode: FileMode.append,
           );
         },
         map: (schema) {
-          final vType = schema.valueSchema?.ref ?? 'dynamic';
+          final vType = schema.valueSchema?.toDartType() ?? 'dynamic';
           file.writeAsStringSync(
             'typedef $name = Map<String,$vType>;',
             mode: FileMode.append,
@@ -443,7 +443,7 @@ class SchemaGenerator extends BaseGenerator {
         }
 
         if (p.ref != null) {
-          c += "${p.ref} ${nullable ? '?' : ''} $name,\n\n";
+          c += "${p.toDartType()} ${nullable ? '?' : ''} $name,\n\n";
         } else if (unionSchemas.isNotEmpty) {
           final unionName = _unions.keys
                   .firstWhereOrNull((e) => _unions[e]!.equals(unionSchemas)) ??
