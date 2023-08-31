@@ -284,18 +284,20 @@ class Schema with _$Schema {
             if (subSchemas.any((s) => !e.value.contains(s))) {
               continue;
             } else {
+              final type = e.key.pascalCase;
               if (s.nullable == true) {
-                return '${e.key}?';
+                return '$type?';
               } else {
-                return e.key;
+                return type;
               }
             }
           }
         } else if (s.ref != null) {
+          final type = s.ref!.pascalCase;
           if (s.nullable == true) {
-            return '${s.ref}?';
+            return '$type?';
           } else {
-            return s.ref!;
+            return type;
           }
         } else if (s.properties != null || s.anyOf != null) {
           return 'Map<String,dynamic>';
