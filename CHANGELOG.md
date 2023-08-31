@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.3
+
+* Maintain all caps schema names in schema/client generation
+
 ## 0.5.2
 
 * Fix Dart classes not using pascal case

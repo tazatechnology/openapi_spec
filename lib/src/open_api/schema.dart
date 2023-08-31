@@ -293,7 +293,13 @@ class Schema with _$Schema {
             }
           }
         } else if (s.ref != null) {
-          final type = s.ref!.pascalCase;
+          String type;
+          // Do not modify all uppercase schema names
+          if (s.ref == s.ref!.toUpperCase()) {
+            type = s.ref!;
+          } else {
+            type = s.ref!.pascalCase;
+          }
           if (s.nullable == true) {
             return '$type?';
           } else {
