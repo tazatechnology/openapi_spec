@@ -225,7 +225,6 @@ class $clientName {
   Future<http.Response> _request({
     required String host,
     required String path,
-    required bool? secure,
     required HttpMethod method,
     Map<String, dynamic> queryParams = const {},
     Map<String, String> headerParams = const {},
@@ -260,7 +259,7 @@ class $clientName {
     });
 
     // Build the request URI
-    secure ??= Uri.parse(host).scheme == 'https';
+    final secure = Uri.parse(host).scheme == 'https';
     Uri uri;
     String authority;
     if (host.contains('http')) {
@@ -570,7 +569,6 @@ class $clientName {
       // Implies no host defined, make a better doc string
       uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
     }
-    final secure = host.isEmpty ? null : serverUri.scheme == 'https';
 
     // Determine if server contains dynamic variables
     if (server?.variables != null) {
@@ -834,7 +832,6 @@ class $clientName {
         final ${returnType == 'void' ? '_' : 'r'} = await _request(
           host: '$hostDecoded',
           path: '$path',
-          secure: $secure,
           method: $method,
           isMultipart: ${requestType.contains('multipart')},
           requestType: ${requestType.isEmpty ? "''" : "'$requestType'"},

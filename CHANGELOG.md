@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+* Remove "secure" argument from client generation
+
 ## 0.5.0
 
 * Improved client generation, honor global server
