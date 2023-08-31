@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.2
+
+* Fix Dart classes not using pascal case
+
 ## 0.5.1
 
 * Remove "secure" argument from client generation
