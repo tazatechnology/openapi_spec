@@ -491,7 +491,8 @@ class $clientName {
     if (operation.id != null) {
       methodName = operation.id!.camelCase;
     } else {
-      methodName = '${method.name}_$path'.camelCase;
+      final cleanPath = path.replaceAll(RegExp(r'[{}]'), '');
+      methodName = '${method.name}_$cleanPath'.camelCase;
     }
 
     // Allow user to override the default name
