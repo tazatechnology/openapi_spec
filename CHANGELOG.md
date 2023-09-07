@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.4
+
+* Fix invalid method name generated if path contains parameters
+
 ## 0.5.3
 
 * Maintain all caps schema names in schema/client generation
