@@ -997,6 +997,7 @@ _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
       nullable: json['nullable'] as bool?,
       format: $enumDecodeNullable(_$StringFormatEnumMap, json['format'],
           unknownValue: JsonKey.nullForUndefinedEnumValue),
+      pattern: json['pattern'] as String?,
       example: json['example'] as String?,
       minLength: _fromJsonInt(json['minLength'] as num?),
       maxLength: _fromJsonInt(json['maxLength'] as num?),
@@ -1021,6 +1022,7 @@ Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
   writeNotNull('default', instance.defaultValue);
   writeNotNull('nullable', instance.nullable);
   writeNotNull('format', _$StringFormatEnumMap[instance.format]);
+  writeNotNull('pattern', instance.pattern);
   writeNotNull('example', instance.example);
   writeNotNull('minLength', instance.minLength);
   writeNotNull('maxLength', instance.maxLength);

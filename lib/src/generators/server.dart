@@ -54,7 +54,17 @@ class ServerGenerator extends BaseGenerator {
     for (final e in (spec.paths ?? {}).entries) {
       final p = e.value;
       final params = p.parameters ?? [];
-      final path = e.key.replaceAll('{', '<').replaceAll('}', '>');
+      var path = e.key;
+      for (final param in params) {
+        final pattern = param.schema
+            ?.mapOrNull(string: (s) => s.pattern)
+            ?.replaceAll(RegExp(r'[\^$]'), '');
+        path = path.replaceAll(
+          '{${param.name}}',
+          '<${param.name}${pattern != null ? '|$pattern' : ''}>',
+        );
+      }
+
       if (p.get != null) {
         OperationData data = OperationData(path, HttpMethod.get);
         _parse(data, p.get!, params);
@@ -301,7 +311,7 @@ class $serverName {
     if (operation.id != null) {
       methodName = operation.id!.camelCase;
     } else {
-      final cleanPath = data.path.replaceAll(RegExp(r'[<>]'), '');
+      final cleanPath = data.path.replaceAll(RegExp(r'\W'), '');
       methodName = '${data.method.name}_$cleanPath'.camelCase;
     }
 
