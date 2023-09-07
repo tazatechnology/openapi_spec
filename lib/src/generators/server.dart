@@ -311,7 +311,7 @@ class $serverName {
     if (operation.id != null) {
       methodName = operation.id!.camelCase;
     } else {
-      final cleanPath = data.path.replaceAll(RegExp(r'\W'), '');
+      final cleanPath = data.path.replaceAll(RegExp(r'\W'), '_');
       methodName = '${data.method.name}_$cleanPath'.camelCase;
     }
 
