@@ -1,8 +1,9 @@
 # Changelog
 
-## 0.5.4
+## 0.5.5
 
 * Fix invalid method name generated if path contains parameters
+* Add support for patterns in path params
 
 ## 0.5.3
 
