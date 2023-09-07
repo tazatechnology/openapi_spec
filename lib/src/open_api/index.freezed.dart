@@ -9324,6 +9324,7 @@ abstract class _$$_SchemaStringCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       bool? nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
       StringFormat? format,
+      String? pattern,
       String? example,
       @JsonKey(fromJson: _fromJsonInt) int? minLength,
       @JsonKey(fromJson: _fromJsonInt) int? maxLength,
@@ -9351,6 +9352,7 @@ class __$$_SchemaStringCopyWithImpl<$Res>
     Object? defaultValue = freezed,
     Object? nullable = freezed,
     Object? format = freezed,
+    Object? pattern = freezed,
     Object? example = freezed,
     Object? minLength = freezed,
     Object? maxLength = freezed,
@@ -9383,6 +9385,10 @@ class __$$_SchemaStringCopyWithImpl<$Res>
           ? _value.format
           : format // ignore: cast_nullable_to_non_nullable
               as StringFormat?,
+      pattern: freezed == pattern
+          ? _value.pattern
+          : pattern // ignore: cast_nullable_to_non_nullable
+              as String?,
       example: freezed == example
           ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
@@ -9433,6 +9439,7 @@ class _$_SchemaString extends _SchemaString {
       @JsonKey(name: 'default') this.defaultValue,
       this.nullable,
       @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue) this.format,
+      this.pattern,
       this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minLength,
       @JsonKey(fromJson: _fromJsonInt) this.maxLength,
@@ -9461,6 +9468,8 @@ class _$_SchemaString extends _SchemaString {
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final StringFormat? format;
   @override
+  final String? pattern;
+  @override
   final String? example;
   @override
   @JsonKey(fromJson: _fromJsonInt)
@@ -9482,7 +9491,7 @@ class _$_SchemaString extends _SchemaString {
 
   @override
   String toString() {
-    return 'Schema.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, format: $format, example: $example, minLength: $minLength, maxLength: $maxLength, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, ref: $ref)';
+    return 'Schema.string(xml: $xml, title: $title, description: $description, defaultValue: $defaultValue, nullable: $nullable, format: $format, pattern: $pattern, example: $example, minLength: $minLength, maxLength: $maxLength, exclusiveMinimum: $exclusiveMinimum, exclusiveMaximum: $exclusiveMaximum, ref: $ref)';
   }
 
   @override
@@ -9499,6 +9508,7 @@ class _$_SchemaString extends _SchemaString {
             (identical(other.nullable, nullable) ||
                 other.nullable == nullable) &&
             (identical(other.format, format) || other.format == format) &&
+            (identical(other.pattern, pattern) || other.pattern == pattern) &&
             (identical(other.example, example) || other.example == example) &&
             (identical(other.minLength, minLength) ||
                 other.minLength == minLength) &&
@@ -9521,6 +9531,7 @@ class _$_SchemaString extends _SchemaString {
       defaultValue,
       nullable,
       format,
+      pattern,
       example,
       minLength,
       maxLength,
@@ -9600,6 +9611,7 @@ abstract class _SchemaString extends Schema {
           final bool? nullable,
           @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
           final StringFormat? format,
+          final String? pattern,
           final String? example,
           @JsonKey(fromJson: _fromJsonInt) final int? minLength,
           @JsonKey(fromJson: _fromJsonInt) final int? maxLength,
@@ -9624,6 +9636,7 @@ abstract class _SchemaString extends Schema {
   bool? get nullable;
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   StringFormat? get format;
+  String? get pattern;
   String? get example;
   @JsonKey(fromJson: _fromJsonInt)
   int? get minLength;

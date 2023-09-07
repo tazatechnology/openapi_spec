@@ -87,6 +87,7 @@ class Schema with _$Schema {
     bool? nullable,
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
     StringFormat? format,
+    String? pattern,
     String? example,
     @JsonKey(fromJson: _fromJsonInt) int? minLength,
     @JsonKey(fromJson: _fromJsonInt) int? maxLength,
