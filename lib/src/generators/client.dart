@@ -560,10 +560,13 @@ class $clientName {
       path: path,
     );
 
-    String hostDecoded = Uri.decodeFull(host);
-    if (host.isNotEmpty) {
-      hostDecoded = Uri.decodeFull(uri.authority);
-    }
+    String hostDecoded = Uri.decodeFull(
+      Uri(
+        host: host,
+        port: uri.port,
+        scheme: uri.scheme,
+      ).toString(),
+    );
 
     String uriDecoded = Uri.decodeFull(uri.toString());
     if (!serverUri.hasAuthority) {
