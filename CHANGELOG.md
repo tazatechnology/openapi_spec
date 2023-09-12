@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.6
+
+* Fix issue with security scheme not added to host during client generation
+
 ## 0.5.5
 
 * Fix invalid method name generated if path contains parameters
