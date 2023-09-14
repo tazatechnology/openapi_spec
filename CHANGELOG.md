@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.7
+
+* Fix client generation when no default server host provided
+
 ## 0.5.6
 
 * Fix issue with security scheme not added to host during client generation
