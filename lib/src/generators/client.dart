@@ -571,6 +571,7 @@ class $clientName {
     String uriDecoded = Uri.decodeFull(uri.toString());
     if (!serverUri.hasAuthority) {
       // Implies no host defined, make a better doc string
+      hostDecoded = '';
       uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
     }
 
