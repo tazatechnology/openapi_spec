@@ -245,7 +245,7 @@ class $clientName {
 
     // Ensure query parameters are strings or iterable of strings
     queryParams = queryParams.map((key, value) {
-      if (value is List) {
+      if (value is Iterable) {
         return MapEntry(key, value.map((v) => v.toString()));
       } else {
         return MapEntry(key, value.toString());

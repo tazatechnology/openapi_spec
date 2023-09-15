@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.5.9
+## 0.5.10
 
 * Ensure query parameters are stringified
 * Allow URI construction to handle query parameter encoding
