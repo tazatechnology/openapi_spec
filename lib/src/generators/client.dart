@@ -243,21 +243,6 @@ class $clientName {
       );
     }
 
-    // Ensure query parameters are properly encoded
-    queryParams = queryParams.map((key, value) {
-      if (value is List) {
-        return MapEntry(
-          key,
-          value.map((v) => Uri.encodeComponent(v.toString())).toList(),
-        );
-      } else {
-        return MapEntry(
-          key,
-          Uri.encodeComponent(value.toString()),
-        );
-      }
-    });
-
     // Build the request URI
     final secure = Uri.parse(host).scheme == 'https';
     Uri uri;

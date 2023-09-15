@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.8
+
+* Allow URI construction to handle query parameter encoding
+
 ## 0.5.7
 
 * Fix client generation when no default server host provided
