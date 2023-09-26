@@ -620,6 +620,14 @@ class $clientName {
           String qCode = "'${p.name}': ${pName.camelCase}";
           String pType = p.schema.toDartType();
           Object? pDefaultValue = p.schema.defaultValue;
+          // Handle enumeration default values
+          p.schema.mapOrNull(
+            enumeration: (value) {
+              if (pDefaultValue != null && p.schema.ref != null) {
+                pDefaultValue = '${p.schema.ref}.$pDefaultValue';
+              }
+            },
+          );
           if (p.required == true) {
             pType = 'required $pType';
           } else {

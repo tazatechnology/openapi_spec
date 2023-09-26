@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.11
+
+* Better handle enumeration default values for client generation
+
 ## 0.5.10
 
 * Ensure query parameters are stringified
