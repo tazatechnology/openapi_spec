@@ -617,7 +617,15 @@ class $clientName {
           headerParams.add(hCode);
         },
         query: (p) {
-          String qCode = "'${p.name}': ${pName.camelCase}";
+          String qCode = p.schema.maybeMap(
+            enumeration: (o) {
+              // Convert enum to string for query parameter code
+              return "'${p.name}': ${pName.camelCase}.name";
+            },
+            orElse: () {
+              return "'${p.name}': ${pName.camelCase}";
+            },
+          );
           String pType = p.schema.toDartType();
           Object? pDefaultValue = p.schema.defaultValue;
           // Handle enumeration default values

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.12
+
+* Better handle enumeration query parameter values for client generation
+
 ## 0.5.11
 
 * Better handle enumeration default values for client generation
