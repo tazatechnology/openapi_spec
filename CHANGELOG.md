@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.13
+
+* Fix static analysis warning in generated files
+
 ## 0.5.12
 
 * Better handle enumeration query parameter values for client generation

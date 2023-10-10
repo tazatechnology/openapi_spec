@@ -6,8 +6,8 @@ part of 'index.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_OAuthFlows _$$_OAuthFlowsFromJson(Map<String, dynamic> json) =>
-    _$_OAuthFlows(
+_$OAuthFlowsImpl _$$OAuthFlowsImplFromJson(Map<String, dynamic> json) =>
+    _$OAuthFlowsImpl(
       implicit: json['implicit'] == null
           ? null
           : OAuthFlow.fromJson(json['implicit'] as Map<String, dynamic>),
@@ -24,7 +24,7 @@ _$_OAuthFlows _$$_OAuthFlowsFromJson(Map<String, dynamic> json) =>
               json['authorizationCode'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_OAuthFlowsToJson(_$_OAuthFlows instance) {
+Map<String, dynamic> _$$OAuthFlowsImplToJson(_$OAuthFlowsImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -40,16 +40,17 @@ Map<String, dynamic> _$$_OAuthFlowsToJson(_$_OAuthFlows instance) {
   return val;
 }
 
-_$_OAuthFlowImplicit _$$_OAuthFlowImplicitFromJson(Map<String, dynamic> json) =>
-    _$_OAuthFlowImplicit(
+_$OAuthFlowImplicitImpl _$$OAuthFlowImplicitImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OAuthFlowImplicitImpl(
       authorizationUrl: json['authorizationUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
       scopes: Map<String, String>.from(json['scopes'] as Map),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OAuthFlowImplicitToJson(
-    _$_OAuthFlowImplicit instance) {
+Map<String, dynamic> _$$OAuthFlowImplicitImplToJson(
+    _$OAuthFlowImplicitImpl instance) {
   final val = <String, dynamic>{
     'authorizationUrl': instance.authorizationUrl,
   };
@@ -66,16 +67,17 @@ Map<String, dynamic> _$$_OAuthFlowImplicitToJson(
   return val;
 }
 
-_$_OAuthFlowPassword _$$_OAuthFlowPasswordFromJson(Map<String, dynamic> json) =>
-    _$_OAuthFlowPassword(
+_$OAuthFlowPasswordImpl _$$OAuthFlowPasswordImplFromJson(
+        Map<String, dynamic> json) =>
+    _$OAuthFlowPasswordImpl(
       tokenUrl: json['tokenUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
       scopes: Map<String, String>.from(json['scopes'] as Map),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OAuthFlowPasswordToJson(
-    _$_OAuthFlowPassword instance) {
+Map<String, dynamic> _$$OAuthFlowPasswordImplToJson(
+    _$OAuthFlowPasswordImpl instance) {
   final val = <String, dynamic>{
     'tokenUrl': instance.tokenUrl,
   };
@@ -92,17 +94,17 @@ Map<String, dynamic> _$$_OAuthFlowPasswordToJson(
   return val;
 }
 
-_$_OAuthFlowClientCredentials _$$_OAuthFlowClientCredentialsFromJson(
+_$OAuthFlowClientCredentialsImpl _$$OAuthFlowClientCredentialsImplFromJson(
         Map<String, dynamic> json) =>
-    _$_OAuthFlowClientCredentials(
+    _$OAuthFlowClientCredentialsImpl(
       tokenUrl: json['tokenUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
       scopes: Map<String, String>.from(json['scopes'] as Map),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OAuthFlowClientCredentialsToJson(
-    _$_OAuthFlowClientCredentials instance) {
+Map<String, dynamic> _$$OAuthFlowClientCredentialsImplToJson(
+    _$OAuthFlowClientCredentialsImpl instance) {
   final val = <String, dynamic>{
     'tokenUrl': instance.tokenUrl,
   };
@@ -119,9 +121,9 @@ Map<String, dynamic> _$$_OAuthFlowClientCredentialsToJson(
   return val;
 }
 
-_$_OAuthFlowAuthorizationCode _$$_OAuthFlowAuthorizationCodeFromJson(
+_$OAuthFlowAuthorizationCodeImpl _$$OAuthFlowAuthorizationCodeImplFromJson(
         Map<String, dynamic> json) =>
-    _$_OAuthFlowAuthorizationCode(
+    _$OAuthFlowAuthorizationCodeImpl(
       authorizationUrl: json['authorizationUrl'] as String,
       tokenUrl: json['tokenUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
@@ -129,8 +131,8 @@ _$_OAuthFlowAuthorizationCode _$$_OAuthFlowAuthorizationCodeFromJson(
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$_OAuthFlowAuthorizationCodeToJson(
-    _$_OAuthFlowAuthorizationCode instance) {
+Map<String, dynamic> _$$OAuthFlowAuthorizationCodeImplToJson(
+    _$OAuthFlowAuthorizationCodeImpl instance) {
   final val = <String, dynamic>{
     'authorizationUrl': instance.authorizationUrl,
     'tokenUrl': instance.tokenUrl,
@@ -148,8 +150,8 @@ Map<String, dynamic> _$$_OAuthFlowAuthorizationCodeToJson(
   return val;
 }
 
-_$_Components _$$_ComponentsFromJson(Map<String, dynamic> json) =>
-    _$_Components(
+_$ComponentsImpl _$$ComponentsImplFromJson(Map<String, dynamic> json) =>
+    _$ComponentsImpl(
       schemas:
           _$JsonConverterFromJson<Map<String, dynamic>, Map<String, Schema>>(
               json['schemas'], const _SchemaMapConverter().fromJson),
@@ -183,7 +185,7 @@ _$_Components _$$_ComponentsFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$_ComponentsToJson(_$_Components instance) {
+Map<String, dynamic> _$$ComponentsImplToJson(_$ComponentsImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -230,13 +232,14 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$_Contact _$$_ContactFromJson(Map<String, dynamic> json) => _$_Contact(
+_$ContactImpl _$$ContactImplFromJson(Map<String, dynamic> json) =>
+    _$ContactImpl(
       name: json['name'] as String?,
       email: json['email'] as String?,
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$_ContactToJson(_$_Contact instance) {
+Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -251,15 +254,15 @@ Map<String, dynamic> _$$_ContactToJson(_$_Contact instance) {
   return val;
 }
 
-_$_Discriminator _$$_DiscriminatorFromJson(Map<String, dynamic> json) =>
-    _$_Discriminator(
+_$DiscriminatorImpl _$$DiscriminatorImplFromJson(Map<String, dynamic> json) =>
+    _$DiscriminatorImpl(
       propertyName: json['propertyName'] as String,
       mapping: (json['mapping'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
     );
 
-Map<String, dynamic> _$$_DiscriminatorToJson(_$_Discriminator instance) {
+Map<String, dynamic> _$$DiscriminatorImplToJson(_$DiscriminatorImpl instance) {
   final val = <String, dynamic>{
     'propertyName': instance.propertyName,
   };
@@ -274,11 +277,12 @@ Map<String, dynamic> _$$_DiscriminatorToJson(_$_Discriminator instance) {
   return val;
 }
 
-_$_Encoding _$$_EncodingFromJson(Map<String, dynamic> json) => _$_Encoding(
+_$EncodingImpl _$$EncodingImplFromJson(Map<String, dynamic> json) =>
+    _$EncodingImpl(
       contentType: json['contentType'] as String?,
     );
 
-Map<String, dynamic> _$$_EncodingToJson(_$_Encoding instance) {
+Map<String, dynamic> _$$EncodingImplToJson(_$EncodingImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -291,8 +295,8 @@ Map<String, dynamic> _$$_EncodingToJson(_$_Encoding instance) {
   return val;
 }
 
-_$ExampleObject _$$ExampleObjectFromJson(Map<String, dynamic> json) =>
-    _$ExampleObject(
+_$ExampleObjectImpl _$$ExampleObjectImplFromJson(Map<String, dynamic> json) =>
+    _$ExampleObjectImpl(
       summary: json['summary'] as String?,
       description: json['description'] as String?,
       value: json['value'],
@@ -300,7 +304,7 @@ _$ExampleObject _$$ExampleObjectFromJson(Map<String, dynamic> json) =>
       ref: const _ExampleRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$ExampleObjectToJson(_$ExampleObject instance) {
+Map<String, dynamic> _$$ExampleObjectImplToJson(_$ExampleObjectImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -317,13 +321,13 @@ Map<String, dynamic> _$$ExampleObjectToJson(_$ExampleObject instance) {
   return val;
 }
 
-_$_ExternalDocs _$$_ExternalDocsFromJson(Map<String, dynamic> json) =>
-    _$_ExternalDocs(
+_$ExternalDocsImpl _$$ExternalDocsImplFromJson(Map<String, dynamic> json) =>
+    _$ExternalDocsImpl(
       description: json['description'] as String?,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$$_ExternalDocsToJson(_$_ExternalDocs instance) {
+Map<String, dynamic> _$$ExternalDocsImplToJson(_$ExternalDocsImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -337,14 +341,14 @@ Map<String, dynamic> _$$_ExternalDocsToJson(_$_ExternalDocs instance) {
   return val;
 }
 
-_$_Header _$$_HeaderFromJson(Map<String, dynamic> json) => _$_Header(
+_$HeaderImpl _$$HeaderImplFromJson(Map<String, dynamic> json) => _$HeaderImpl(
       description: json['description'] as String?,
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_HeaderToJson(_$_Header instance) {
+Map<String, dynamic> _$$HeaderImplToJson(_$HeaderImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -358,7 +362,7 @@ Map<String, dynamic> _$$_HeaderToJson(_$_Header instance) {
   return val;
 }
 
-_$_Info _$$_InfoFromJson(Map<String, dynamic> json) => _$_Info(
+_$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
       title: json['title'] as String,
       summary: json['summary'] as String?,
       description: json['description'] as String?,
@@ -372,7 +376,7 @@ _$_Info _$$_InfoFromJson(Map<String, dynamic> json) => _$_Info(
       version: json['version'] as String,
     );
 
-Map<String, dynamic> _$$_InfoToJson(_$_Info instance) {
+Map<String, dynamic> _$$InfoImplToJson(_$InfoImpl instance) {
   final val = <String, dynamic>{
     'title': instance.title,
   };
@@ -392,13 +396,14 @@ Map<String, dynamic> _$$_InfoToJson(_$_Info instance) {
   return val;
 }
 
-_$_License _$$_LicenseFromJson(Map<String, dynamic> json) => _$_License(
+_$LicenseImpl _$$LicenseImplFromJson(Map<String, dynamic> json) =>
+    _$LicenseImpl(
       name: json['name'] as String,
       identifier: json['identifier'] as String?,
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$_LicenseToJson(_$_License instance) {
+Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };
@@ -414,7 +419,7 @@ Map<String, dynamic> _$$_LicenseToJson(_$_License instance) {
   return val;
 }
 
-_$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
+_$LinkImpl _$$LinkImplFromJson(Map<String, dynamic> json) => _$LinkImpl(
       ref: const _LinkRefConverter().fromJson(json[r'$ref'] as String?),
       operationId: json['operationId'] as String?,
       parameters: (json['parameters'] as Map<String, dynamic>?)?.map(
@@ -422,7 +427,7 @@ _$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
       ),
     );
 
-Map<String, dynamic> _$$_LinkToJson(_$_Link instance) {
+Map<String, dynamic> _$$LinkImplToJson(_$LinkImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -437,7 +442,8 @@ Map<String, dynamic> _$$_LinkToJson(_$_Link instance) {
   return val;
 }
 
-_$_MediaType _$$_MediaTypeFromJson(Map<String, dynamic> json) => _$_MediaType(
+_$MediaTypeImpl _$$MediaTypeImplFromJson(Map<String, dynamic> json) =>
+    _$MediaTypeImpl(
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
@@ -450,7 +456,7 @@ _$_MediaType _$$_MediaTypeFromJson(Map<String, dynamic> json) => _$_MediaType(
       ),
     );
 
-Map<String, dynamic> _$$_MediaTypeToJson(_$_MediaType instance) {
+Map<String, dynamic> _$$MediaTypeImplToJson(_$MediaTypeImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -468,7 +474,8 @@ Map<String, dynamic> _$$_MediaTypeToJson(_$_MediaType instance) {
   return val;
 }
 
-_$_Operation _$$_OperationFromJson(Map<String, dynamic> json) => _$_Operation(
+_$OperationImpl _$$OperationImplFromJson(Map<String, dynamic> json) =>
+    _$OperationImpl(
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       summary: json['summary'] as String?,
       description: json['description'] as String?,
@@ -497,7 +504,7 @@ _$_Operation _$$_OperationFromJson(Map<String, dynamic> json) => _$_Operation(
           .toList(),
     );
 
-Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
+Map<String, dynamic> _$$OperationImplToJson(_$OperationImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -526,7 +533,7 @@ Map<String, dynamic> _$$_OperationToJson(_$_Operation instance) {
   return val;
 }
 
-_$_OpenId _$$_OpenIdFromJson(Map<String, dynamic> json) => _$_OpenId(
+_$OpenIdImpl _$$OpenIdImplFromJson(Map<String, dynamic> json) => _$OpenIdImpl(
       issuer: json['issuer'] as String?,
       authorizationEndpoint: json['authorization_endpoint'] as String?,
       tokenEndpoint: json['token_endpoint'] as String?,
@@ -576,7 +583,7 @@ _$_OpenId _$$_OpenIdFromJson(Map<String, dynamic> json) => _$_OpenId(
               .toList(),
     );
 
-Map<String, dynamic> _$$_OpenIdToJson(_$_OpenId instance) {
+Map<String, dynamic> _$$OpenIdImplToJson(_$OpenIdImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -615,8 +622,9 @@ Map<String, dynamic> _$$_OpenIdToJson(_$_OpenId instance) {
   return val;
 }
 
-_$_ParameterCookie _$$_ParameterCookieFromJson(Map<String, dynamic> json) =>
-    _$_ParameterCookie(
+_$ParameterCookieImpl _$$ParameterCookieImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ParameterCookieImpl(
       name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
@@ -630,7 +638,8 @@ _$_ParameterCookie _$$_ParameterCookieFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_ParameterCookieToJson(_$_ParameterCookie instance) {
+Map<String, dynamic> _$$ParameterCookieImplToJson(
+    _$ParameterCookieImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -653,8 +662,9 @@ Map<String, dynamic> _$$_ParameterCookieToJson(_$_ParameterCookie instance) {
   return val;
 }
 
-_$_ParameterHeader _$$_ParameterHeaderFromJson(Map<String, dynamic> json) =>
-    _$_ParameterHeader(
+_$ParameterHeaderImpl _$$ParameterHeaderImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ParameterHeaderImpl(
       name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
@@ -668,7 +678,8 @@ _$_ParameterHeader _$$_ParameterHeaderFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_ParameterHeaderToJson(_$_ParameterHeader instance) {
+Map<String, dynamic> _$$ParameterHeaderImplToJson(
+    _$ParameterHeaderImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -691,8 +702,8 @@ Map<String, dynamic> _$$_ParameterHeaderToJson(_$_ParameterHeader instance) {
   return val;
 }
 
-_$_ParameterQuery _$$_ParameterQueryFromJson(Map<String, dynamic> json) =>
-    _$_ParameterQuery(
+_$ParameterQueryImpl _$$ParameterQueryImplFromJson(Map<String, dynamic> json) =>
+    _$ParameterQueryImpl(
       name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
@@ -706,7 +717,8 @@ _$_ParameterQuery _$$_ParameterQueryFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_ParameterQueryToJson(_$_ParameterQuery instance) {
+Map<String, dynamic> _$$ParameterQueryImplToJson(
+    _$ParameterQueryImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -729,8 +741,8 @@ Map<String, dynamic> _$$_ParameterQueryToJson(_$_ParameterQuery instance) {
   return val;
 }
 
-_$_ParameterPath _$$_ParameterPathFromJson(Map<String, dynamic> json) =>
-    _$_ParameterPath(
+_$ParameterPathImpl _$$ParameterPathImplFromJson(Map<String, dynamic> json) =>
+    _$ParameterPathImpl(
       name: json['name'] as String?,
       description: json['description'] as String?,
       deprecated: json['deprecated'] as bool?,
@@ -745,7 +757,7 @@ _$_ParameterPath _$$_ParameterPathFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$_ParameterPathToJson(_$_ParameterPath instance) {
+Map<String, dynamic> _$$ParameterPathImplToJson(_$ParameterPathImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -767,7 +779,8 @@ Map<String, dynamic> _$$_ParameterPathToJson(_$_ParameterPath instance) {
   return val;
 }
 
-_$_PathItem _$$_PathItemFromJson(Map<String, dynamic> json) => _$_PathItem(
+_$PathItemImpl _$$PathItemImplFromJson(Map<String, dynamic> json) =>
+    _$PathItemImpl(
       summary: json['summary'] as String?,
       description: json['description'] as String?,
       get: json['get'] == null
@@ -803,7 +816,7 @@ _$_PathItem _$$_PathItemFromJson(Map<String, dynamic> json) => _$_PathItem(
       ref: const _PathRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$_PathItemToJson(_$_PathItem instance) {
+Map<String, dynamic> _$$PathItemImplToJson(_$PathItemImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -829,8 +842,8 @@ Map<String, dynamic> _$$_PathItemToJson(_$_PathItem instance) {
   return val;
 }
 
-_$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
-    _$_RequestBody(
+_$RequestBodyImpl _$$RequestBodyImplFromJson(Map<String, dynamic> json) =>
+    _$RequestBodyImpl(
       description: json['description'] as String?,
       required: json['required'] as bool?,
       content: (json['content'] as Map<String, dynamic>?)?.map(
@@ -839,7 +852,7 @@ _$_RequestBody _$$_RequestBodyFromJson(Map<String, dynamic> json) =>
       ref: const _RequestRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
+Map<String, dynamic> _$$RequestBodyImplToJson(_$RequestBodyImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -856,7 +869,8 @@ Map<String, dynamic> _$$_RequestBodyToJson(_$_RequestBody instance) {
   return val;
 }
 
-_$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
+_$ResponseImpl _$$ResponseImplFromJson(Map<String, dynamic> json) =>
+    _$ResponseImpl(
       description: json['description'] as String? ?? '',
       headers: (json['headers'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Header.fromJson(e as Map<String, dynamic>)),
@@ -870,7 +884,7 @@ _$_Response _$$_ResponseFromJson(Map<String, dynamic> json) => _$_Response(
       ref: const _ResponseRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) {
+Map<String, dynamic> _$$ResponseImplToJson(_$ResponseImpl instance) {
   final val = <String, dynamic>{
     'description': instance.description,
   };
@@ -890,8 +904,8 @@ Map<String, dynamic> _$$_ResponseToJson(_$_Response instance) {
   return val;
 }
 
-_$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
-    _$_SchemaObject(
+_$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaObjectImpl(
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['defaultValue'] as String?,
@@ -920,7 +934,7 @@ _$_SchemaObject _$$_SchemaObjectFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
+Map<String, dynamic> _$$SchemaObjectImplToJson(_$SchemaObjectImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -952,8 +966,8 @@ Map<String, dynamic> _$$_SchemaObjectToJson(_$_SchemaObject instance) {
   return val;
 }
 
-_$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
-    _$_SchemaBoolean(
+_$SchemaBooleanImpl _$$SchemaBooleanImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaBooleanImpl(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -966,7 +980,7 @@ _$_SchemaBoolean _$$_SchemaBooleanFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaBooleanToJson(_$_SchemaBoolean instance) {
+Map<String, dynamic> _$$SchemaBooleanImplToJson(_$SchemaBooleanImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -986,8 +1000,8 @@ Map<String, dynamic> _$$_SchemaBooleanToJson(_$_SchemaBoolean instance) {
   return val;
 }
 
-_$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
-    _$_SchemaString(
+_$SchemaStringImpl _$$SchemaStringImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaStringImpl(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1007,7 +1021,7 @@ _$_SchemaString _$$_SchemaStringFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaStringToJson(_$_SchemaString instance) {
+Map<String, dynamic> _$$SchemaStringImplToJson(_$SchemaStringImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1048,8 +1062,8 @@ const _$StringFormatEnumMap = {
   StringFormat.uuid: 'uuid',
 };
 
-_$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
-    _$_SchemaInteger(
+_$SchemaIntegerImpl _$$SchemaIntegerImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaIntegerImpl(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1069,7 +1083,7 @@ _$_SchemaInteger _$$_SchemaIntegerFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaIntegerToJson(_$_SchemaInteger instance) {
+Map<String, dynamic> _$$SchemaIntegerImplToJson(_$SchemaIntegerImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1100,8 +1114,8 @@ const _$IntegerFormatEnumMap = {
   IntegerFormat.int64: 'int64',
 };
 
-_$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
-    _$_SchemaNumber(
+_$SchemaNumberImpl _$$SchemaNumberImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaNumberImpl(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1121,7 +1135,7 @@ _$_SchemaNumber _$$_SchemaNumberFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaNumberToJson(_$_SchemaNumber instance) {
+Map<String, dynamic> _$$SchemaNumberImplToJson(_$SchemaNumberImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1152,8 +1166,8 @@ const _$NumberFormatEnumMap = {
   NumberFormat.double: 'double',
 };
 
-_$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
-    _$_SchemaEnum(
+_$SchemaEnumImpl _$$SchemaEnumImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaEnumImpl(
       title: json['title'] as String?,
       description: json['description'] as String?,
       example: json['example'] as String?,
@@ -1165,7 +1179,7 @@ _$_SchemaEnum _$$_SchemaEnumFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
+Map<String, dynamic> _$$SchemaEnumImplToJson(_$SchemaEnumImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1185,8 +1199,8 @@ Map<String, dynamic> _$$_SchemaEnumToJson(_$_SchemaEnum instance) {
   return val;
 }
 
-_$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
-    _$_SchemaArray(
+_$SchemaArrayImpl _$$SchemaArrayImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaArrayImpl(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1202,7 +1216,7 @@ _$_SchemaArray _$$_SchemaArrayFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
+Map<String, dynamic> _$$SchemaArrayImplToJson(_$SchemaArrayImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1225,7 +1239,8 @@ Map<String, dynamic> _$$_SchemaArrayToJson(_$_SchemaArray instance) {
   return val;
 }
 
-_$_SchemaMap _$$_SchemaMapFromJson(Map<String, dynamic> json) => _$_SchemaMap(
+_$SchemaMapImpl _$$SchemaMapImplFromJson(Map<String, dynamic> json) =>
+    _$SchemaMapImpl(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1239,7 +1254,7 @@ _$_SchemaMap _$$_SchemaMapFromJson(Map<String, dynamic> json) => _$_SchemaMap(
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SchemaMapToJson(_$_SchemaMap instance) {
+Map<String, dynamic> _$$SchemaMapImplToJson(_$SchemaMapImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1260,17 +1275,17 @@ Map<String, dynamic> _$$_SchemaMapToJson(_$_SchemaMap instance) {
   return val;
 }
 
-_$_SecuritySchemeApiKey _$$_SecuritySchemeApiKeyFromJson(
+_$SecuritySchemeApiKeyImpl _$$SecuritySchemeApiKeyImplFromJson(
         Map<String, dynamic> json) =>
-    _$_SecuritySchemeApiKey(
+    _$SecuritySchemeApiKeyImpl(
       name: json['name'] as String,
       description: json['description'] as String?,
       location: $enumDecode(_$ApiKeyLocationEnumMap, json['in']),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SecuritySchemeApiKeyToJson(
-    _$_SecuritySchemeApiKey instance) {
+Map<String, dynamic> _$$SecuritySchemeApiKeyImplToJson(
+    _$SecuritySchemeApiKeyImpl instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };
@@ -1293,17 +1308,17 @@ const _$ApiKeyLocationEnumMap = {
   ApiKeyLocation.cookie: 'cookie',
 };
 
-_$_SecuritySchemeHttp _$$_SecuritySchemeHttpFromJson(
+_$SecuritySchemeHttpImpl _$$SecuritySchemeHttpImplFromJson(
         Map<String, dynamic> json) =>
-    _$_SecuritySchemeHttp(
+    _$SecuritySchemeHttpImpl(
       scheme: $enumDecode(_$HttpSecuritySchemeEnumMap, json['scheme']),
       bearerFormat: json['bearerFormat'] as String?,
       description: json['description'] as String?,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SecuritySchemeHttpToJson(
-    _$_SecuritySchemeHttp instance) {
+Map<String, dynamic> _$$SecuritySchemeHttpImplToJson(
+    _$SecuritySchemeHttpImpl instance) {
   final val = <String, dynamic>{
     'scheme': _$HttpSecuritySchemeEnumMap[instance.scheme]!,
   };
@@ -1325,15 +1340,15 @@ const _$HttpSecuritySchemeEnumMap = {
   HttpSecurityScheme.bearer: 'bearer',
 };
 
-_$_SecuritySchemeMutualTLS _$$_SecuritySchemeMutualTLSFromJson(
+_$SecuritySchemeMutualTLSImpl _$$SecuritySchemeMutualTLSImplFromJson(
         Map<String, dynamic> json) =>
-    _$_SecuritySchemeMutualTLS(
+    _$SecuritySchemeMutualTLSImpl(
       description: json['description'] as String?,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SecuritySchemeMutualTLSToJson(
-    _$_SecuritySchemeMutualTLS instance) {
+Map<String, dynamic> _$$SecuritySchemeMutualTLSImplToJson(
+    _$SecuritySchemeMutualTLSImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1347,16 +1362,16 @@ Map<String, dynamic> _$$_SecuritySchemeMutualTLSToJson(
   return val;
 }
 
-_$_SecuritySchemeOauth2 _$$_SecuritySchemeOauth2FromJson(
+_$SecuritySchemeOauth2Impl _$$SecuritySchemeOauth2ImplFromJson(
         Map<String, dynamic> json) =>
-    _$_SecuritySchemeOauth2(
+    _$SecuritySchemeOauth2Impl(
       description: json['description'] as String?,
       flows: OAuthFlows.fromJson(json['flows'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SecuritySchemeOauth2ToJson(
-    _$_SecuritySchemeOauth2 instance) {
+Map<String, dynamic> _$$SecuritySchemeOauth2ImplToJson(
+    _$SecuritySchemeOauth2Impl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1371,16 +1386,16 @@ Map<String, dynamic> _$$_SecuritySchemeOauth2ToJson(
   return val;
 }
 
-_$_SecuritySchemeOpenIdConnect _$$_SecuritySchemeOpenIdConnectFromJson(
+_$SecuritySchemeOpenIdConnectImpl _$$SecuritySchemeOpenIdConnectImplFromJson(
         Map<String, dynamic> json) =>
-    _$_SecuritySchemeOpenIdConnect(
+    _$SecuritySchemeOpenIdConnectImpl(
       description: json['description'] as String?,
       url: json['openIdConnectUrl'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$_SecuritySchemeOpenIdConnectToJson(
-    _$_SecuritySchemeOpenIdConnect instance) {
+Map<String, dynamic> _$$SecuritySchemeOpenIdConnectImplToJson(
+    _$SecuritySchemeOpenIdConnectImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1395,7 +1410,7 @@ Map<String, dynamic> _$$_SecuritySchemeOpenIdConnectToJson(
   return val;
 }
 
-_$_Server _$$_ServerFromJson(Map<String, dynamic> json) => _$_Server(
+_$ServerImpl _$$ServerImplFromJson(Map<String, dynamic> json) => _$ServerImpl(
       url: json['url'] as String?,
       description: json['description'] as String?,
       variables: (json['variables'] as Map<String, dynamic>?)?.map(
@@ -1404,7 +1419,7 @@ _$_Server _$$_ServerFromJson(Map<String, dynamic> json) => _$_Server(
       ),
     );
 
-Map<String, dynamic> _$$_ServerToJson(_$_Server instance) {
+Map<String, dynamic> _$$ServerImplToJson(_$ServerImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1420,15 +1435,16 @@ Map<String, dynamic> _$$_ServerToJson(_$_Server instance) {
   return val;
 }
 
-_$_ServerVariable _$$_ServerVariableFromJson(Map<String, dynamic> json) =>
-    _$_ServerVariable(
+_$ServerVariableImpl _$$ServerVariableImplFromJson(Map<String, dynamic> json) =>
+    _$ServerVariableImpl(
       enumValue:
           (json['enum'] as List<dynamic>?)?.map((e) => e as String).toList(),
       defaultValue: json['default'] as String,
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_ServerVariableToJson(_$_ServerVariable instance) {
+Map<String, dynamic> _$$ServerVariableImplToJson(
+    _$ServerVariableImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -1443,7 +1459,7 @@ Map<String, dynamic> _$$_ServerVariableToJson(_$_ServerVariable instance) {
   return val;
 }
 
-_$_Tag _$$_TagFromJson(Map<String, dynamic> json) => _$_Tag(
+_$TagImpl _$$TagImplFromJson(Map<String, dynamic> json) => _$TagImpl(
       name: json['name'] as String,
       description: json['description'] as String?,
       externalDocs: json['externalDocs'] == null
@@ -1451,7 +1467,7 @@ _$_Tag _$$_TagFromJson(Map<String, dynamic> json) => _$_Tag(
           : ExternalDocs.fromJson(json['externalDocs'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_TagToJson(_$_Tag instance) {
+Map<String, dynamic> _$$TagImplToJson(_$TagImpl instance) {
   final val = <String, dynamic>{
     'name': instance.name,
   };
@@ -1467,7 +1483,7 @@ Map<String, dynamic> _$$_TagToJson(_$_Tag instance) {
   return val;
 }
 
-_$_Xml _$$_XmlFromJson(Map<String, dynamic> json) => _$_Xml(
+_$XmlImpl _$$XmlImplFromJson(Map<String, dynamic> json) => _$XmlImpl(
       name: json['name'] as String?,
       namespace: json['namespace'] as String?,
       prefix: json['prefix'] as String?,
@@ -1475,7 +1491,7 @@ _$_Xml _$$_XmlFromJson(Map<String, dynamic> json) => _$_Xml(
       wrapped: json['wrapped'] as bool?,
     );
 
-Map<String, dynamic> _$$_XmlToJson(_$_Xml instance) {
+Map<String, dynamic> _$$XmlImplToJson(_$XmlImpl instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
