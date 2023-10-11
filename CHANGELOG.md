@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.14
+
+* Handle union types for array and map items schemas
+
 ## 0.5.13
 
 * Fix static analysis warning in generated files

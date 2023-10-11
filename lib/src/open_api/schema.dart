@@ -281,10 +281,9 @@ class Schema with _$Schema {
       object: (s) {
         if (s.anyOf != null && unions != null) {
           final subSchemas = s.anyOf!.map((e) => e.toDartType()).toList();
+          final leq = ListEquality();
           for (final e in unions.entries) {
-            if (subSchemas.any((s) => !e.value.contains(s))) {
-              continue;
-            } else {
+            if (leq.equals(subSchemas, e.value)) {
               final type = e.key.pascalCase;
               if (s.nullable == true) {
                 return '$type?';

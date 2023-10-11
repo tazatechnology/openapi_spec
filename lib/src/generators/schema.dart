@@ -529,7 +529,7 @@ class SchemaGenerator extends BaseGenerator {
               orElse: () => p,
             );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
-        var itemType = p.items.toDartType();
+        var itemType = p.items.toDartType(unions: _unions);
         c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
@@ -657,19 +657,36 @@ class SchemaGenerator extends BaseGenerator {
       }
     }
 
-    // Check for unions in component schemas
-    for (final s in (spec.components?.schemas?.keys ?? <String>[])) {
-      spec.components?.schemas?[s]?.mapOrNull(
+    void recursiveSchemaSearch(Schema? schema) {
+      if (schema == null) {
+        return;
+      }
+      schema.mapOrNull(
         object: (o) {
           final props = o.properties;
           final propNames = props?.keys.toList() ?? <String>[];
+          checkAnyOf(o.anyOf);
           for (final pName in propNames) {
             o.properties![pName]?.mapOrNull(
-              object: (p) => checkAnyOf(p.anyOf),
+              object: (p) {
+                checkAnyOf(p.anyOf);
+                recursiveSchemaSearch(p);
+              },
+              array: (a) => recursiveSchemaSearch(
+                a.items.mapOrNull(object: (o) => o),
+              ),
+              map: (m) => recursiveSchemaSearch(
+                m.valueSchema?.mapOrNull(object: (o) => o),
+              ),
             );
           }
         },
       );
+    }
+
+    // Check for unions in component schemas
+    for (final s in (spec.components?.schemas?.keys ?? <String>[])) {
+      recursiveSchemaSearch(spec.components?.schemas?[s]);
     }
 
     // Check for unions in component responses
@@ -692,7 +709,7 @@ class SchemaGenerator extends BaseGenerator {
       }
     }
 
-    // Check for unions in path rquests/responses
+    // Check for unions in path requests/responses
     for (final p in (spec.paths?.values ?? <PathItem>[])) {
       // Responses
       p.get?.responses?.forEach((_, r) {
