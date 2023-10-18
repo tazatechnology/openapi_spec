@@ -1,6 +1,7 @@
 part of openapi_generators;
 
 final apiKeyVar = 'apiKey';
+final bearerTokenVar = 'bearerToken';
 final accessTokenVar = 'accessToken';
 final usernameVar = 'username';
 final passwordVar = 'password';
@@ -85,13 +86,27 @@ class ClientGenerator extends BaseGenerator {
         authInputs.add("this.$passwordVar = ''");
         authVariables.add('final String $passwordVar;');
       }
+      if (security.keys.contains(AuthType.httpBearer)) {
+        await security[AuthType.httpBearer]?.mapOrNull(
+          http: (o) async {
+            authInputs.add("this.$bearerTokenVar = ''");
+            authVariables.add('String $bearerTokenVar;');
+            authRequestHeader = """
+            // Add bearer token to request headers
+            if ($bearerTokenVar.isNotEmpty){
+              headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$bearerTokenVar';
+            }
+            """;
+          },
+        );
+      }
       if (security.keys.contains(AuthType.openId)) {
         await security[AuthType.openId]?.mapOrNull(
           openIdConnect: (o) async {
             authInputs.add("this.$accessTokenVar = ''");
             authVariables.add('String $accessTokenVar;');
             authRequestHeader = """
-            /// Add access to token to request headers
+            // Add access token to request headers
             if ($accessTokenVar.isNotEmpty){
               headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$accessTokenVar';
             }
