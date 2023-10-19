@@ -531,6 +531,22 @@ Map<String, dynamic> _formatSpecFromJson(
       } else if (m['type'] == 'object' && m['additionalProperties'] != null) {
         m['type'] = 'map';
       }
+    } else if (m.containsKey('anyOf')) {
+      final anyOf = m['anyOf'];
+      if (anyOf is List) {
+        final typeSet = anyOf.map((e) => e['type']);
+        if (typeSet.toSet().length == 1) {
+          m['type'] = anyOf.first['type'];
+        }
+        if (m['type'] == 'string') {
+          for (final a in anyOf) {
+            if (a is Map && a.containsKey('enum')) {
+              final d = m['description'] ?? '';
+              m['description'] = '$d\nPossible values: ${a['enum']}';
+            }
+          }
+        }
+      }
     } else if (oAuthTypes.contains(parentKey)) {
       m[_unionKey] = parentKey;
     }
