@@ -21,6 +21,7 @@ class ClientGenerator extends BaseGenerator {
   }) {
     file = File(p.join(parentDirectory.path, 'client.dart'));
   }
+
   late File file;
 
   @override
@@ -181,23 +182,26 @@ class $clientException implements io.HttpException {
 
 /// Client for ${spec.info.title}
 /// 
-/// `host`: Override host URL - else defaults to server host defined in spec
+/// `baseUrl`: Override baseUrl URL - else defaults to server url defined in spec
 /// 
 /// `client`: Override HTTP client to use for requests
 class $clientName {
   $clientName({
     $authInputCode
-    String? host,
+    String? baseUrl,
     http.Client? client,
-  }) {
+  }) : assert(
+          baseUrl == null || baseUrl.startsWith('http'),
+          'baseUrl must start with http',
+        ) {
+    // Ensure trailing slash is removed from baseUrl
+    this.baseUrl = baseUrl?.replaceAll(RegExp(r'/\$'), '');
     // Create a retry client
     this.client = RetryClient(client ?? http.Client());
-    // Ensure trailing slash is removed from host
-    this.host = host?.replaceAll(RegExp(r'/\$'), '');
   }
 
-  /// User provided override for host URL
-  late final String? host;
+  /// User provided override for baseUrl URL
+  late final String? baseUrl;
 
   /// HTTP client for requests
   late final http.Client client;
@@ -238,7 +242,7 @@ class $clientName {
 
   /// Reusable request method
   Future<http.Response> _request({
-    required String host,
+    required String baseUrl,
     required String path,
     required HttpMethod method,
     Map<String, dynamic> queryParams = const {},
@@ -248,15 +252,14 @@ class $clientName {
     String responseType = '',
     Object? body,
   }) async {
-    // Override with the user provided host
-    host = this.host ?? host;
+    // Override with the user provided baseUrl
+    baseUrl = this.baseUrl ?? baseUrl;
 
-    // Ensure a host is provided
-    if (host.isEmpty) {
-      throw Exception(
-        '\\n\\nHost is required, but none defined in spec or provided by user\\n',
-      );
-    }
+    // Ensure a baseUrl is provided
+    assert(
+      baseUrl.isNotEmpty,
+      'baseUrl is required, but none defined in spec or provided by user',
+    );
 
     // Ensure query parameters are strings or iterable of strings
     queryParams = queryParams.map((key, value) {
@@ -268,30 +271,13 @@ class $clientName {
     });
 
     // Build the request URI
-    final secure = Uri.parse(host).scheme == 'https';
-    Uri uri;
-    String authority;
-    if (host.contains('http')) {
-      authority = Uri.parse(host).authority;
-    } else {
-      authority = Uri.parse(Uri.https(host).toString()).authority;
+    Uri uri = Uri.parse(baseUrl + path);
+    if (queryParams.isNotEmpty) {
+      uri = uri.replace(queryParameters: queryParams);
     }
-    if (secure) {
-      uri = Uri.https(
-        authority,
-        path,
-        queryParams.isEmpty ? null : queryParams,
-      );
-    } else {
-      uri = Uri.http(
-        authority,
-        path,
-        queryParams.isEmpty ? null : queryParams,
-      );
-    }
-
+    
     // Build the headers
-    Map<String, String> headers = {}..addAll(headerParams);
+    Map<String, String> headers = {...headerParams};
     
     $authRequestHeader
     
@@ -560,27 +546,19 @@ class $clientName {
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 
     // Determine the URL configuration from server definition
-    final serverUri = Uri.parse(server?.url.toString() ?? '');
-    String host = serverUri.host;
-    final uri = Uri(
-      scheme: serverUri.scheme.isEmpty ? 'http' : serverUri.scheme,
-      host: host,
-      port: serverUri.port,
-      path: path,
+    final serverUrl = server?.url?.replaceAll(RegExp(r'/$'), '') ?? '';
+    Uri baseUrl = Uri.parse(serverUrl);
+    Uri pathUri = Uri.parse(path);
+    Uri uri = baseUrl.replace(
+      pathSegments: [...baseUrl.pathSegments, ...pathUri.pathSegments],
     );
 
-    String hostDecoded = Uri.decodeFull(
-      Uri(
-        host: host,
-        port: uri.port,
-        scheme: uri.scheme,
-      ).toString(),
-    );
-
+    String baseUrlDecoded = Uri.decodeFull(baseUrl.toString());
     String uriDecoded = Uri.decodeFull(uri.toString());
-    if (!serverUri.hasAuthority) {
+
+    if (!baseUrl.hasAuthority) {
       // Implies no host defined, make a better doc string
-      hostDecoded = '';
+      baseUrlDecoded = '';
       uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
     }
 
@@ -597,8 +575,8 @@ class $clientName {
           "`${e.key.camelCase}`: ${e.value.description ?? 'No description'}",
         );
         // Update the host definition
-        hostDecoded =
-            hostDecoded.replaceAll('{${e.key}}', '\${${e.key.camelCase}}');
+        baseUrlDecoded =
+            baseUrlDecoded.replaceAll('{${e.key}}', '\${${e.key.camelCase}}');
       }
     }
 
@@ -860,7 +838,7 @@ class $clientName {
       Future<$returnType> $methodName($inputCode) async {
 
         final ${returnType == 'void' ? '_' : 'r'} = await _request(
-          host: '$hostDecoded',
+          baseUrl: '$baseUrlDecoded',
           path: '$path',
           method: $method,
           isMultipart: ${requestType.contains('multipart')},
