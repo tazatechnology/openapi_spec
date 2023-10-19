@@ -116,16 +116,18 @@ class SchemaGenerator extends BaseGenerator {
         },
         array: (schema) {
           final iType = schema.items.toDartType();
-          file.writeAsStringSync(
-            'typedef $name = List<$iType>;',
-            mode: FileMode.append,
+          _writeTypedef(
+            name: name,
+            description: schema.description,
+            def: 'List<$iType>',
           );
         },
         map: (schema) {
           final vType = schema.valueSchema?.toDartType() ?? 'dynamic';
-          file.writeAsStringSync(
-            'typedef $name = Map<String,$vType>;',
-            mode: FileMode.append,
+          _writeTypedef(
+            name: name,
+            description: schema.description,
+            def: 'Map<String,$vType>',
           );
         },
       );
@@ -636,6 +638,28 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     file.writeAsStringSync('}', mode: FileMode.append);
+  }
+
+  // ------------------------------------------
+  // METHOD: _writeTypedef
+  // ------------------------------------------
+
+  void _writeTypedef({
+    required String name,
+    required String? description,
+    required String def,
+  }) {
+    // Ensure description is free of new line characters
+    description = description?.replaceAll('\n', '\n/// ').trim();
+    file.writeAsStringSync("""
+    // ==========================================
+    // TYPE: $name
+    // ==========================================
+    
+    /// ${description ?? 'No Description'}
+    typedef $name = $def;
+    
+    """, mode: FileMode.append);
   }
 
   // ------------------------------------------

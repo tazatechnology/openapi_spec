@@ -2,7 +2,14 @@ part of openapi_models;
 
 /// Custom converters to handle numeric types
 /// In case JSON is not properly formatted
-int? _fromJsonInt(num? jsonValue) => jsonValue?.toInt();
+int? _fromJsonInt(dynamic jsonValue) {
+  if (jsonValue is num) {
+    return jsonValue.toInt();
+  } else {
+    return null;
+  }
+}
+
 double? _fromJsonDouble(num? jsonValue) => jsonValue?.toDouble();
 
 // ==========================================
@@ -218,7 +225,12 @@ class Schema with _$Schema {
       );
     }
 
-    _checkReferenceTypes(ref, sRef, this);
+    final isMatch = _checkReferenceTypes(ref, sRef, this);
+
+    if (!isMatch) {
+      // This is an object with a custom type definition
+      return Schema.object(ref: ref);
+    }
 
     return map(
       object: (s) {
@@ -228,24 +240,16 @@ class Schema with _$Schema {
         );
       },
       boolean: (s) {
-        return (sRef as _SchemaBoolean).copyWith(
-          ref: ref,
-        );
+        return (sRef as _SchemaBoolean).copyWith(ref: ref);
       },
       string: (s) {
-        return (sRef as _SchemaString).copyWith(
-          ref: ref,
-        );
+        return (sRef as _SchemaString).copyWith(ref: ref);
       },
       integer: (s) {
-        return (sRef as _SchemaInteger).copyWith(
-          ref: ref,
-        );
+        return (sRef as _SchemaInteger).copyWith(ref: ref);
       },
       number: (s) {
-        return (sRef as _SchemaNumber).copyWith(
-          ref: ref,
-        );
+        return (sRef as _SchemaNumber).copyWith(ref: ref);
       },
       enumeration: (s) {
         return (sRef as _SchemaEnum).copyWith(
@@ -257,14 +261,10 @@ class Schema with _$Schema {
         );
       },
       array: (s) {
-        return (sRef as _SchemaArray).copyWith(
-          ref: ref,
-        );
+        return (sRef as _SchemaArray).copyWith(ref: ref);
       },
       map: (s) {
-        return (sRef as _SchemaMap).copyWith(
-          ref: ref,
-        );
+        return (sRef as _SchemaMap).copyWith(ref: ref);
       },
     );
   }

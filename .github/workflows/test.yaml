@@ -21,3 +21,4 @@ jobs:
         run: |
           export TERM=xterm
           make test
+          make format

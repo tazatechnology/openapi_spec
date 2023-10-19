@@ -16,9 +16,6 @@ build:
 	dart format lib
 	dart pub get
 
-build-test:
-	dart run build_runner build test --delete-conflicting-outputs
-
 docs:
 	dart doc --validate-links --output build/docs
 
@@ -29,11 +26,15 @@ example:
 test: 
 	@dart pub get && \
 	rm -rf test/tmp && \
+	clear && \
+	dart test && \
+	dart run build_runner build test --delete-conflicting-outputs
+
+format:
 	dart format \
 		--set-exit-if-changed lib && \
 	dart analyze lib \
-		--fatal-infos && \
-	clear && dart test
+		--fatal-infos
 
 coverage: 
 	dart run test --coverage=./tmp/coverage
