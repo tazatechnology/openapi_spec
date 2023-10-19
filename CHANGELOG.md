@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.15
+
+* Add support for Bearer Authentication
+* Improved handling of description doc strings in schema generation
+* More robust handling of schema generation for custom type definitions
+
 ## 0.5.14
 
 * Handle union types for array and map items schemas
