@@ -1,4 +1,4 @@
-part of openapi_models;
+part of 'index.dart';
 
 /// Custom converters to handle numeric types
 /// In case JSON is not properly formatted

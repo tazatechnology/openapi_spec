@@ -1,4 +1,4 @@
-part of openapi_models;
+part of 'index.dart';
 
 // ==========================================
 // CLASS: Xml

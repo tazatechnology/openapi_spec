@@ -12,4 +12,3 @@ linter:
   rules:
     avoid_print: true
     always_use_package_imports: true
-    use_string_in_part_of_directives: false

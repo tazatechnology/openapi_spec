@@ -1,4 +1,4 @@
-part of openapi_models;
+part of 'index.dart';
 
 /// Standardized JSON encoder for the OpenAPI spec
 final _encoder = JsonEncoder.withIndent('  ');

@@ -1,4 +1,4 @@
-part of openapi_generators;
+part of 'index.dart';
 
 // ==========================================
 // CLASS: BaseGeneratorOptions

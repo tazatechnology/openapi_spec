@@ -1,4 +1,4 @@
-part of openapi_generators;
+part of 'index.dart';
 
 /// Enum of HTTP methods
 enum HttpMethod { get, put, post, delete, options, head, patch, trace }

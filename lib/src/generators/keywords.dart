@@ -1,4 +1,4 @@
-part of openapi_generators;
+part of 'index.dart';
 
 /// https://dart.dev/language/keywords
 const keywords = {
