@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+* Rename host to baseUrl and support paths
+
 ## 0.5.15
 
 * Add support for Bearer Authentication
