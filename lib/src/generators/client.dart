@@ -223,8 +223,8 @@ class $clientName {
   /// Middleware for HTTP requests (user can override)
   ///
   /// The request can be of type [http.Request] or [http.MultipartRequest]
-  Future<http.BaseRequest> onRequest(http.BaseRequest request) async {
-    return request;
+  Future<http.BaseRequest> onRequest(http.BaseRequest request) {
+    return Future.value(request);
   }
 
   // ------------------------------------------
@@ -232,8 +232,8 @@ class $clientName {
   // ------------------------------------------
 
   /// Middleware for HTTP responses (user can override)
-  Future<http.Response> onResponse(http.Response response) async {
-    return response;
+  Future<http.Response> onResponse(http.Response response) {
+    return Future.value(response);
   }
 
   // ------------------------------------------
