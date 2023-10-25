@@ -16,6 +16,7 @@ class SchemaGenerator extends BaseGenerator {
     file = File(p.join(schemaDirectory.path, 'schema.dart'));
     index = File(p.join(schemaDirectory.path, 'schema.dart'));
   }
+
   late File file;
   late final File index;
   late final Directory schemaDirectory;
@@ -292,7 +293,7 @@ class SchemaGenerator extends BaseGenerator {
     // CLASS: $name
     // ==========================================
     
-    /// ${s.description ?? 'No Description'}
+    /// ${s.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
     @freezed
     class $name with _\$$name  {
       
@@ -383,10 +384,16 @@ class SchemaGenerator extends BaseGenerator {
 
     final jsonKey = "@JsonKey(name: '$jsonName') ";
 
+    String formatDescription(String? description) {
+      // Ensure description is free of new line characters
+      return '/// ${description?.trim().replaceAll('\n', '\n/// ') ??
+          'No Description'}\n';
+    }
+
     (String, bool) propHeader(dynamic defaultValue, String? description) {
       bool hasDefault = defaultValue != null;
       bool nullable = (!hasDefault && !required) || property.nullable == true;
-      String c = "/// ${description ?? 'No Description'} \n";
+      String c = formatDescription(description);
       if (jsonName != name) {
         c += jsonKey;
       }
@@ -403,12 +410,6 @@ class SchemaGenerator extends BaseGenerator {
       return (c, nullable);
     }
 
-    // Ensure description is free of new line characters
-    property = property.copyWith(
-      description:
-          property.description?.trim().replaceAll('\n', '\n/// ').trim(),
-    );
-
     property.map(
       object: (p) {
         p = p.dereference(components: spec.components?.schemas).maybeMap(
@@ -416,7 +417,7 @@ class SchemaGenerator extends BaseGenerator {
               orElse: () => p,
             );
         bool nullable = !required && p.defaultValue == null;
-        String c = "/// ${p.description ?? 'No Description'}\n";
+        String c = formatDescription(p.description);
 
         List<String> unionSchemas = [];
         if (p.anyOf != null) {
@@ -551,7 +552,7 @@ class SchemaGenerator extends BaseGenerator {
 
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required;
-        String c = "/// ${p.description ?? 'No Description'} \n";
+        String c = formatDescription(p.description);
 
         // Ensure default value is valid
         if (hasDefault && !(p.values?.contains(p.defaultValue) ?? true)) {
@@ -623,7 +624,7 @@ class SchemaGenerator extends BaseGenerator {
     // ENUM: $name
     // ==========================================
     
-    /// ${s.description ?? 'No Description'}
+    /// ${s.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
     enum $name {
     """, mode: FileMode.append);
 
@@ -648,7 +649,7 @@ class SchemaGenerator extends BaseGenerator {
     required String def,
   }) {
     // Ensure description is free of new line characters
-    description = description?.replaceAll('\n', '\n/// ').trim();
+    description = description?.trim().replaceAll('\n', '\n/// ');
     file.writeAsStringSync("""
     // ==========================================
     // TYPE: $name
