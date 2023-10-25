@@ -714,7 +714,7 @@ class $clientName {
         }
       }
       inputDescription.add(
-        "`request`: ${request.description ?? 'No description'}",
+        "`request`: ${request.description ?? rSchema?.description ?? 'No description'}",
       );
 
       body = 'body: request,';
