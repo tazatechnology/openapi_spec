@@ -149,6 +149,7 @@ class $clientException implements io.HttpException {
     this.code,
     this.body,
   });
+  
   @override
   final String message;
   @override
@@ -180,31 +181,38 @@ class $clientException implements io.HttpException {
 // CLASS: $clientName
 // ==========================================
 
-/// Client for ${spec.info.title}
+/// Client for ${spec.info.title} (v.${spec.info.version})
 /// 
-/// `baseUrl`: Override baseUrl URL - else defaults to server url defined in spec
-/// 
-/// `client`: Override HTTP client to use for requests
+/// ${spec.info.description?.trim().replaceAll('\n', '\n/// ') ?? 'No description'}
 class $clientName {
+  /// Creates a new $clientName instance.
+  /// 
+  /// - [$clientName.baseUrl] Override base URL (default: server url defined in spec)
+  /// - [$clientName.headers] Global headers to be sent with every request
+  /// - [$clientName.client] Override HTTP client to use for requests
   $clientName({
     $authInputCode
-    String? baseUrl,
+    this.baseUrl,
+    this.headers = const {},
     http.Client? client,
   }) : assert(
           baseUrl == null || baseUrl.startsWith('http'),
           'baseUrl must start with http',
-        ) {
-    // Ensure trailing slash is removed from baseUrl
-    this.baseUrl = baseUrl?.replaceAll(RegExp(r'/\$'), '');
-    // Create a retry client
-    this.client = RetryClient(client ?? http.Client());
-  }
+        ),
+        assert(
+          baseUrl == null || !baseUrl.endsWith('/'),
+          'baseUrl must not end with /',
+        ),
+        client = RetryClient(client ?? http.Client());
 
-  /// User provided override for baseUrl URL
-  late final String? baseUrl;
+  /// Override base URL (default: server url defined in spec)
+  final String? baseUrl;
+  
+  /// Global headers to be sent with every request
+  final Map<String, String> headers;
 
   /// HTTP client for requests
-  late final http.Client client;
+  final http.Client client;
   
   ${authVariables.isEmpty ? '' : '/// Authentication related variables'}
   ${authVariables.join('\n')}
@@ -290,6 +298,9 @@ class $clientName {
     if (responseType.isNotEmpty){
       headers['${HttpHeaders.acceptHeader}'] = responseType;
     }
+    
+    // Add global headers
+    headers.addAll(this.headers);
 
     // Build the request object
     late http.Response response;

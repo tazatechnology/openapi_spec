@@ -386,8 +386,7 @@ class SchemaGenerator extends BaseGenerator {
 
     String formatDescription(String? description) {
       // Ensure description is free of new line characters
-      return '/// ${description?.trim().replaceAll('\n', '\n/// ') ??
-          'No Description'}\n';
+      return '/// ${description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}\n';
     }
 
     (String, bool) propHeader(dynamic defaultValue, String? description) {
@@ -446,7 +445,7 @@ class SchemaGenerator extends BaseGenerator {
 
         if (p.ref != null) {
           c += p.toDartType();
-          if(nullable && !c.endsWith('?')){
+          if (nullable && !c.endsWith('?')) {
             c += '?'; // Only add '?' if the type doesn't have it already
           }
           c += " $name,\n\n";
