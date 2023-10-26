@@ -236,7 +236,10 @@ class Schema with _$Schema {
       object: (s) {
         return (sRef as _SchemaObject).copyWith(
           ref: ref,
-          defaultValue: s.defaultValue,
+          title: s.title ?? sRef.title,
+          description: s.description ?? sRef.description,
+          defaultValue: s.defaultValue ?? sRef.defaultValue,
+          nullable: s.nullable ?? sRef.nullable,
         );
       },
       boolean: (s) {
@@ -258,6 +261,7 @@ class Schema with _$Schema {
           description: s.description ?? sRef.description,
           defaultValue: s.defaultValue ?? sRef.defaultValue,
           example: s.example ?? sRef.example,
+          nullable: s.nullable ?? sRef.nullable,
         );
       },
       array: (s) {

@@ -416,7 +416,8 @@ class SchemaGenerator extends BaseGenerator {
               object: (s) => s,
               orElse: () => p,
             );
-        bool nullable = !required && p.defaultValue == null;
+        bool hasDefault = p.defaultValue != null;
+        bool nullable = !hasDefault && !required || p.nullable == true;
         String c = formatDescription(p.description);
 
         List<String> unionSchemas = [];
@@ -435,7 +436,7 @@ class SchemaGenerator extends BaseGenerator {
           c += jsonKey;
         }
 
-        if (p.defaultValue != null) {
+        if (hasDefault) {
           c += "@Default(${p.defaultValue}) ";
         }
 
@@ -444,7 +445,11 @@ class SchemaGenerator extends BaseGenerator {
         }
 
         if (p.ref != null) {
-          c += "${p.toDartType()} ${nullable ? '?' : ''} $name,\n\n";
+          c += p.toDartType();
+          if(nullable && !c.endsWith('?')){
+            c += '?'; // Only add '?' if the type doesn't have it already
+          }
+          c += " $name,\n\n";
         } else if (unionSchemas.isNotEmpty) {
           final unionName = _unions.keys
                   .firstWhereOrNull((e) => _unions[e]!.equals(unionSchemas)) ??
@@ -551,7 +556,7 @@ class SchemaGenerator extends BaseGenerator {
             );
 
         bool hasDefault = p.defaultValue != null;
-        bool nullable = !hasDefault && !required;
+        bool nullable = !hasDefault && !required || p.nullable == true;
         String c = formatDescription(p.description);
 
         // Ensure default value is valid
