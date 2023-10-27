@@ -528,7 +528,9 @@ Map<String, dynamic> _formatSpecFromJson(
     if (m.containsKey('type')) {
       if (m['type'] == 'string' && m.containsKey('enum')) {
         m['type'] = 'enumeration';
-      } else if (m['type'] == 'object' && m['additionalProperties'] != null) {
+      } else if (m['type'] == 'object' &&
+          m['additionalProperties'] != null &&
+          m['additionalProperties'] != false) {
         m['type'] = 'map';
       }
     } else if (m.containsKey('anyOf')) {
