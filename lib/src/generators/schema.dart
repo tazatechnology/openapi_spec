@@ -557,7 +557,15 @@ class SchemaGenerator extends BaseGenerator {
 
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required || p.nullable == true;
-        String c = formatDescription(p.description);
+        String description = p.description?.trim() ?? '';
+
+        // Document possible values if no enum type defined
+        if (p.ref == null && p.values != null) {
+          description += '\n\nPossible values:\n'
+              '${p.values!.map((v) => '- `$v`\n').join()}';
+        }
+
+        String c = formatDescription(description);
 
         // Ensure default value is valid
         if (hasDefault && !(p.values?.contains(p.defaultValue) ?? true)) {
