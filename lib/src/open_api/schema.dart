@@ -233,6 +233,15 @@ class Schema with _$Schema {
 
     return map(
       object: (s) {
+        // Handle List and Map defined as typedefs
+        if (sRef is _SchemaArray || sRef is _SchemaMap) {
+          return copyWith(
+            title: s.title ?? sRef.title,
+            description: s.description ?? sRef.description,
+            nullable: s.nullable ?? sRef.nullable,
+          );
+        }
+
         return (sRef as _SchemaObject).copyWith(
           ref: ref,
           title: s.title ?? sRef.title,
@@ -267,7 +276,9 @@ class Schema with _$Schema {
         return (sRef as _SchemaArray).copyWith(ref: ref);
       },
       map: (s) {
-        return (sRef as _SchemaMap).copyWith(ref: ref);
+        return (sRef as _SchemaMap).copyWith(
+          ref: ref,
+        );
       },
     );
   }
