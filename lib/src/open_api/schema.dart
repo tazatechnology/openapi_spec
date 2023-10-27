@@ -151,7 +151,6 @@ class Schema with _$Schema {
   // FACTORY: Schema.enumeration
   // ------------------------------------------
 
-  @Assert('values == null || ref == null', 'Cannot define both values and ref')
   const factory Schema.enumeration({
     String? title,
     String? description,

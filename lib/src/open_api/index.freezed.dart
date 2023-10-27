@@ -10474,9 +10474,7 @@ class _$SchemaEnumImpl extends _SchemaEnum {
       @JsonKey(name: 'enum') final List<String>? values,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
-      : assert(
-            values == null || ref == null, 'Cannot define both values and ref'),
-        _values = values,
+      : _values = values,
         $type = $type ?? 'enumeration',
         super._();
 
