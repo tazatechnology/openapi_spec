@@ -16,6 +16,11 @@ build:
 	dart format lib
 	dart pub get
 
+build-test:
+	@dart run build_runner build test --delete-conflicting-outputs && \
+	dart format --set-exit-if-changed test/tmp && \
+	dart analyze test/tmp --fatal-infos
+
 docs:
 	dart doc --validate-links --output build/docs
 
@@ -28,7 +33,7 @@ test:
 	rm -rf test/tmp && \
 	clear && \
 	dart test && \
-	dart run build_runner build test --delete-conflicting-outputs
+	make build-test
 
 format:
 	dart format \

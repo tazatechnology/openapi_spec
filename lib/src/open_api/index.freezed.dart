@@ -13011,6 +13011,11 @@ mixin _$OpenApi {
   /// can be included in the array.
   List<Security>? get security => throw _privateConstructorUsedError;
 
+  /// A mapping of any extra schemas that this generator created and the parent schema
+  /// that they were created from. This is used to improve the generated schema library
+  Map<String, List<String>> get extraSchemaMapping =>
+      throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
     TResult Function(_OpenApi value) $default,
@@ -13047,7 +13052,8 @@ abstract class $OpenApiCopyWith<$Res> {
       Map<String, PathItem>? paths,
       Map<String, PathItem>? webhooks,
       Components? components,
-      List<Security>? security});
+      List<Security>? security,
+      Map<String, List<String>> extraSchemaMapping});
 
   $InfoCopyWith<$Res> get info;
   $ExternalDocsCopyWith<$Res>? get externalDocs;
@@ -13077,6 +13083,7 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
     Object? webhooks = freezed,
     Object? components = freezed,
     Object? security = freezed,
+    Object? extraSchemaMapping = null,
   }) {
     return _then(_value.copyWith(
       version: null == version
@@ -13119,6 +13126,10 @@ class _$OpenApiCopyWithImpl<$Res, $Val extends OpenApi>
           ? _value.security
           : security // ignore: cast_nullable_to_non_nullable
               as List<Security>?,
+      extraSchemaMapping: null == extraSchemaMapping
+          ? _value.extraSchemaMapping
+          : extraSchemaMapping // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
     ) as $Val);
   }
 
@@ -13172,7 +13183,8 @@ abstract class _$$OpenApiImplCopyWith<$Res> implements $OpenApiCopyWith<$Res> {
       Map<String, PathItem>? paths,
       Map<String, PathItem>? webhooks,
       Components? components,
-      List<Security>? security});
+      List<Security>? security,
+      Map<String, List<String>> extraSchemaMapping});
 
   @override
   $InfoCopyWith<$Res> get info;
@@ -13203,6 +13215,7 @@ class __$$OpenApiImplCopyWithImpl<$Res>
     Object? webhooks = freezed,
     Object? components = freezed,
     Object? security = freezed,
+    Object? extraSchemaMapping = null,
   }) {
     return _then(_$OpenApiImpl(
       version: null == version
@@ -13245,6 +13258,10 @@ class __$$OpenApiImplCopyWithImpl<$Res>
           ? _value._security
           : security // ignore: cast_nullable_to_non_nullable
               as List<Security>?,
+      extraSchemaMapping: null == extraSchemaMapping
+          ? _value._extraSchemaMapping
+          : extraSchemaMapping // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
     ));
   }
 }
@@ -13262,12 +13279,14 @@ class _$OpenApiImpl extends _OpenApi {
       final Map<String, PathItem>? paths,
       final Map<String, PathItem>? webhooks,
       this.components,
-      final List<Security>? security})
+      final List<Security>? security,
+      final Map<String, List<String>> extraSchemaMapping = const {}})
       : _servers = servers,
         _tags = tags,
         _paths = paths,
         _webhooks = webhooks,
         _security = security,
+        _extraSchemaMapping = extraSchemaMapping,
         super._();
 
   /// This string must be the version number of the
@@ -13388,9 +13407,24 @@ class _$OpenApiImpl extends _OpenApi {
     return EqualUnmodifiableListView(value);
   }
 
+  /// A mapping of any extra schemas that this generator created and the parent schema
+  /// that they were created from. This is used to improve the generated schema library
+  final Map<String, List<String>> _extraSchemaMapping;
+
+  /// A mapping of any extra schemas that this generator created and the parent schema
+  /// that they were created from. This is used to improve the generated schema library
+  @override
+  @JsonKey()
+  Map<String, List<String>> get extraSchemaMapping {
+    if (_extraSchemaMapping is EqualUnmodifiableMapView)
+      return _extraSchemaMapping;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_extraSchemaMapping);
+  }
+
   @override
   String toString() {
-    return 'OpenApi(version: $version, info: $info, externalDocs: $externalDocs, jsonSchemaDialect: $jsonSchemaDialect, servers: $servers, tags: $tags, paths: $paths, webhooks: $webhooks, components: $components, security: $security)';
+    return 'OpenApi(version: $version, info: $info, externalDocs: $externalDocs, jsonSchemaDialect: $jsonSchemaDialect, servers: $servers, tags: $tags, paths: $paths, webhooks: $webhooks, components: $components, security: $security, extraSchemaMapping: $extraSchemaMapping)';
   }
 
   @override
@@ -13410,7 +13444,9 @@ class _$OpenApiImpl extends _OpenApi {
             const DeepCollectionEquality().equals(other._webhooks, _webhooks) &&
             (identical(other.components, components) ||
                 other.components == components) &&
-            const DeepCollectionEquality().equals(other._security, _security));
+            const DeepCollectionEquality().equals(other._security, _security) &&
+            const DeepCollectionEquality()
+                .equals(other._extraSchemaMapping, _extraSchemaMapping));
   }
 
   @override
@@ -13425,7 +13461,8 @@ class _$OpenApiImpl extends _OpenApi {
       const DeepCollectionEquality().hash(_paths),
       const DeepCollectionEquality().hash(_webhooks),
       components,
-      const DeepCollectionEquality().hash(_security));
+      const DeepCollectionEquality().hash(_security),
+      const DeepCollectionEquality().hash(_extraSchemaMapping));
 
   @JsonKey(ignore: true)
   @override
@@ -13473,7 +13510,8 @@ abstract class _OpenApi extends OpenApi {
       final Map<String, PathItem>? paths,
       final Map<String, PathItem>? webhooks,
       final Components? components,
-      final List<Security>? security}) = _$OpenApiImpl;
+      final List<Security>? security,
+      final Map<String, List<String>> extraSchemaMapping}) = _$OpenApiImpl;
   const _OpenApi._() : super._();
 
   @override
@@ -13536,6 +13574,11 @@ abstract class _OpenApi extends OpenApi {
   /// this definition. To make security optional, an empty security requirement ({})
   /// can be included in the array.
   List<Security>? get security;
+  @override
+
+  /// A mapping of any extra schemas that this generator created and the parent schema
+  /// that they were created from. This is used to improve the generated schema library
+  Map<String, List<String>> get extraSchemaMapping;
   @override
   @JsonKey(ignore: true)
   _$$OpenApiImplCopyWith<_$OpenApiImpl> get copyWith =>

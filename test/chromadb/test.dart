@@ -19,10 +19,11 @@ void main() {
   final genSchemaSingleDir = p.join(tmp.path, 'gen_schema_single');
   final genClientDir = p.join(tmp.path, 'gen_client');
 
-  final spec = OpenApi.fromFile(source: truthJson);
+  late OpenApi spec;
 
   group('ChromaDB', () {
     setUp(() {
+      spec = OpenApi.fromFile(source: truthJson);
       if (!tmp.existsSync()) {
         tmp.createSync(recursive: true);
       }

@@ -72,8 +72,17 @@ class SchemaGenerator extends BaseGenerator {
     // Will check for unions in schemas, responses, and requests
     _searchForUnions();
 
+    // Get a list of all extra schemas
+    final extraSchemas =
+        spec.extraSchemaMapping.entries.fold([], (p, e) => p + e.value);
+
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
+      // Skip extra schemas, they will be written to the same file as the parent schema
+      if (extraSchemas.contains(s)) {
+        continue;
+      }
+
       final filename = s.snakeCase.replaceAll(RegExp(r'(?<=\w)_(?=\w_)'), '');
       String name;
       if (s == s.toUpperCase()) {
@@ -111,6 +120,19 @@ class SchemaGenerator extends BaseGenerator {
       schemas[s]?.mapOrNull(
         object: (schema) {
           _writeObject(name: name, schema: schema);
+          // Check if there are any extra schemas to write in this file
+          if (spec.extraSchemaMapping.containsKey(s)) {
+            for (final extra in spec.extraSchemaMapping[s]!) {
+              schemas[extra]?.mapOrNull(
+                object: (extraSchema) {
+                  _writeObject(name: extra, schema: extraSchema);
+                },
+                enumeration: (extraSchema) {
+                  _writeEnumeration(name: extra, schema: extraSchema);
+                },
+              );
+            }
+          }
         },
         enumeration: (schema) {
           _writeEnumeration(name: name, schema: schema);
@@ -202,16 +224,25 @@ class SchemaGenerator extends BaseGenerator {
       final uClass = "$union.$uSubClass";
 
       // Write each property of the union type
-      final schema = spec.components?.schemas?[s]?.mapOrNull(object: (o) => o);
+      var schema = spec.components?.schemas?[s]?.mapOrNull(object: (o) => o);
 
       if (schema == null) {
         throw Exception("\n\nUnion schema '$s' not found in components\n");
       }
+      final props = Map<String, Schema>.from(schema.properties ?? {});
 
       // Attempt to get the union value based on the key
-      String? unionValue = schema.properties?[unionKey]?.mapOrNull(
+      String? unionValue = props[unionKey]?.mapOrNull(
         string: (s) => s.defaultValue,
-        enumeration: (s) => s.defaultValue,
+        enumeration: (s) {
+          // Convert the union enum to a string
+          props[unionKey] = Schema.string(
+            description: s.description,
+            defaultValue: s.defaultValue,
+            nullable: s.nullable,
+          );
+          return s.defaultValue;
+        },
       );
       if (unionValue != null) {
         unionValues.add(unionValue);
@@ -231,8 +262,7 @@ class SchemaGenerator extends BaseGenerator {
       """, mode: FileMode.append);
 
       // Loop over all properties
-      final props = schema.properties;
-      final propNames = props?.keys.toList() ?? <String>[];
+      final propNames = props.keys.toList();
       List<SchemaValidation> validations = [];
       for (final propName in propNames) {
         var dartName = propName.camelCase;
@@ -240,7 +270,7 @@ class SchemaGenerator extends BaseGenerator {
         final v = _writeProperty(
           name: dartName,
           jsonName: propName,
-          property: props![propName]!,
+          property: props[propName]!,
           required: schema.required?.contains(propName) ?? false,
         );
         if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
@@ -592,15 +622,15 @@ class SchemaGenerator extends BaseGenerator {
         } else if (nullable) {
           unknownFallback = 'JsonKey.nullForUndefinedEnumValue';
         }
+        c += getJsonKey(nullable: nullable);
         if (unknownFallback != null && p.ref != null) {
-          if (jsonName != name) {
-            c +=
-                "@JsonKey(name: '$jsonName', unknownEnumValue: $unknownFallback,) ";
+          final cTrim = c.trim();
+          if (cTrim.endsWith(')')) {
+            c = cTrim.substring(0, cTrim.length - 1);
+            c += ", unknownEnumValue: $unknownFallback,) ";
           } else {
-            c += "@JsonKey(unknownEnumValue: $unknownFallback) ";
+            c += '@JsonKey(unknownEnumValue: $unknownFallback,) ';
           }
-        } else if (jsonName != name) {
-          c += getJsonKey(nullable: nullable);
         }
 
         if (p.ref == null) {
@@ -614,7 +644,7 @@ class SchemaGenerator extends BaseGenerator {
         } else {
           if (p.defaultValue != null && !required) {
             final value = p.defaultValue!.replaceAll('.', '').camelCase;
-            c += "@Default(${p.ref}.$value) ";
+            c += "@Default(${p.ref}.${_safeEnumValue(value)}) ";
           }
           if (required) {
             c += "required ";
@@ -627,6 +657,18 @@ class SchemaGenerator extends BaseGenerator {
       },
     );
     return validation;
+  }
+
+  // ------------------------------------------
+  // METHOD: _safeEnumValue
+  // ------------------------------------------
+
+  String _safeEnumValue(String value) {
+    // Dart enums cannot start with a number
+    if (value.startsWith(RegExp(r'[0-9]'))) {
+      value = 'v$value';
+    }
+    return value.replaceAll('.', '').camelCase;
   }
 
   // ------------------------------------------
@@ -655,13 +697,14 @@ class SchemaGenerator extends BaseGenerator {
 
     // Loop through enum values
     for (var v in values) {
+      // Write enum value
       file.writeAsStringSync("""
     @JsonValue('$v')
-    ${v.replaceAll('.', '').camelCase},
+    ${_safeEnumValue(v)},
     """, mode: FileMode.append);
     }
 
-    file.writeAsStringSync('}', mode: FileMode.append);
+    file.writeAsStringSync('}\n\n', mode: FileMode.append);
   }
 
   // ------------------------------------------

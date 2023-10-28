@@ -33,6 +33,13 @@ void main() {
         if (!isJson) {
           sourceJson = source.replaceAll('.yaml', '.json');
         }
+
+        // Use the Dart representation (if it exists) of the spec for comparison
+        final dartJsonFile = sourceJson.replaceAll('.json', '_dart.json');
+        if (File(dartJsonFile).existsSync()) {
+          sourceJson = dartJsonFile;
+        }
+
         // Read the spec file
         final spec = OpenApi.fromFile(source: source);
 
