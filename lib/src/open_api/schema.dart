@@ -151,7 +151,6 @@ class Schema with _$Schema {
   // FACTORY: Schema.enumeration
   // ------------------------------------------
 
-  @Assert('values == null || ref == null', 'Cannot define both values and ref')
   const factory Schema.enumeration({
     String? title,
     String? description,
@@ -234,9 +233,21 @@ class Schema with _$Schema {
 
     return map(
       object: (s) {
+        // Handle List and Map defined as typedefs
+        if (sRef is _SchemaArray || sRef is _SchemaMap) {
+          return copyWith(
+            title: s.title ?? sRef.title,
+            description: s.description ?? sRef.description,
+            nullable: s.nullable ?? sRef.nullable,
+          );
+        }
+
         return (sRef as _SchemaObject).copyWith(
           ref: ref,
-          defaultValue: s.defaultValue,
+          title: s.title ?? sRef.title,
+          description: s.description ?? sRef.description,
+          defaultValue: s.defaultValue ?? sRef.defaultValue,
+          nullable: s.nullable ?? sRef.nullable,
         );
       },
       boolean: (s) {
@@ -258,13 +269,16 @@ class Schema with _$Schema {
           description: s.description ?? sRef.description,
           defaultValue: s.defaultValue ?? sRef.defaultValue,
           example: s.example ?? sRef.example,
+          nullable: s.nullable ?? sRef.nullable,
         );
       },
       array: (s) {
         return (sRef as _SchemaArray).copyWith(ref: ref);
       },
       map: (s) {
-        return (sRef as _SchemaMap).copyWith(ref: ref);
+        return (sRef as _SchemaMap).copyWith(
+          ref: ref,
+        );
       },
     );
   }
