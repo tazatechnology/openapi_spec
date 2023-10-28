@@ -382,7 +382,24 @@ class SchemaGenerator extends BaseGenerator {
     // The validation to perform for this property
     SchemaValidation? validation;
 
-    final jsonKey = "@JsonKey(name: '$jsonName') ";
+    // Helper function to get the json key code
+    String getJsonKey({
+      required bool nullable,
+    }) {
+      List<String> jsonOpts = [];
+      if (jsonName != name) {
+        jsonOpts.add("name: '$jsonName'");
+      }
+      if (nullable && !required) {
+        jsonOpts.add("includeIfNull: false");
+      }
+      if (jsonOpts.isNotEmpty) {
+        String out = '@JsonKey(';
+        out += jsonOpts.join(', ');
+        return out += ") ";
+      }
+      return '';
+    }
 
     String formatDescription(String? description) {
       // Ensure description is free of new line characters
@@ -393,9 +410,7 @@ class SchemaGenerator extends BaseGenerator {
       bool hasDefault = defaultValue != null;
       bool nullable = (!hasDefault && !required) || property.nullable == true;
       String c = formatDescription(description);
-      if (jsonName != name) {
-        c += jsonKey;
-      }
+      c += getJsonKey(nullable: nullable);
       if (hasDefault && !required) {
         if (defaultValue is String) {
           c += "@Default('$defaultValue') ";
@@ -431,9 +446,7 @@ class SchemaGenerator extends BaseGenerator {
           }
         }
 
-        if (jsonName != name) {
-          c += jsonKey;
-        }
+        c += getJsonKey(nullable: nullable);
 
         if (hasDefault) {
           c += "@Default(${p.defaultValue}) ";
@@ -587,7 +600,7 @@ class SchemaGenerator extends BaseGenerator {
             c += "@JsonKey(unknownEnumValue: $unknownFallback) ";
           }
         } else if (jsonName != name) {
-          c += jsonKey;
+          c += getJsonKey(nullable: nullable);
         }
 
         if (p.ref == null) {
