@@ -20,7 +20,13 @@ assertFileLineByLine({
       actual[i],
       equals(truth[i]),
       reason: """
-Line ${i + 1} of ${actual.length} mismatch\nActual: ${actual[i]}\nTruth: ${truth[i]}\n\nFILE: $actualFile
+Line ${i + 1} of ${actual.length} mismatch
+
+Actual: ${actual[i]}
+Truth:  ${truth[i]}
+
+ACTUAL FILE: $actualFile
+TRUTH FILE:  $truthFile
 """
           .trim(),
     );

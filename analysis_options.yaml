@@ -2,7 +2,6 @@ include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-    - test/tmp/**
     - lib/src/**/*.freezed.dart
     - lib/src/**/*.g.dart
   errors:

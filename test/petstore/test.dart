@@ -15,7 +15,10 @@ void main() {
       p.join('test', 'tmp', 'petstore_$version'.snakeCase),
     );
 
-    final truthJson = p.join('test', 'petstore', version, 'petstore.json');
+    final sourceJson = p.join('test', 'petstore', version, 'petstore.json');
+    final outputJson =
+        p.join('test', 'petstore', version, 'petstore_dart.json');
+
     final testJson = p.join(tmp.path, 'openapi.json');
     final testDartJson = p.join(tmp.path, 'openapi_dart.json');
 
@@ -25,11 +28,11 @@ void main() {
     // final genServerDir = p.join(tmp.path, 'gen_serve');
     // final genAllDir = p.join(tmp.path, 'gen_all');
 
-    final OpenApi spec;
+    final OpenApi specDart;
     if (version == 'v3.0') {
-      spec = petstore3p0.spec;
+      specDart = petstore3p0.spec;
     } else {
-      spec = petstore3p1.spec;
+      specDart = petstore3p1.spec;
     }
 
     group('Pet Store: $version', () {
@@ -42,11 +45,11 @@ void main() {
       /// Test Dart [OpenApi] object to JSON conversion
       test('Dart -> JSON', () {
         // Write the Dart representation to a JSON OpenAPI spec file
-        spec.toJsonFile(destination: testJson);
+        specDart.toJsonFile(destination: testJson);
 
         // Load both files and compare line by line
         assertFileLineByLine(
-          truthFile: truthJson,
+          truthFile: sourceJson,
           actualFile: testJson,
         );
       });
@@ -54,22 +57,21 @@ void main() {
       /// Test JSON to Dart [OpenApi] object parsing
       test('JSON -> Dart', () {
         // Ensure generated file can be read back into Dart
-        final spec = OpenApi.fromFile(
-          source: truthJson,
-        );
+        final spec = OpenApi.fromFile(source: sourceJson);
 
         // Write the Dart representation (from JSON) back to JSON
         spec.toJsonFile(destination: testDartJson);
 
         // Load both files and compare line by line
         assertFileLineByLine(
-          truthFile: testDartJson,
-          actualFile: truthJson,
+          truthFile: outputJson,
+          actualFile: testDartJson,
         );
       });
 
       /// Test code generation of OpenAPI spec defined models
       test('Generate Schema Code', () async {
+        final spec = OpenApi.fromFile(source: sourceJson);
         await spec.generate(
           package: 'petstore',
           destination: genSchemaDir,
@@ -86,6 +88,7 @@ void main() {
 
       /// Test code generation of OpenAPI spec defined client
       test('Generate Client Code', () async {
+        final spec = OpenApi.fromFile(source: sourceJson);
         await spec.generate(
           package: 'petstore',
           destination: genClientDir,

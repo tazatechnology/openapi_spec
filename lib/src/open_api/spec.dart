@@ -3,8 +3,13 @@ part of 'index.dart';
 /// Standardized JSON encoder for the OpenAPI spec
 final _encoder = JsonEncoder.withIndent('  ');
 
-// Used as internal tracker of all schemas in the spec (for parsing purposes)
-Map<String, dynamic> _schema = {};
+/// OAuth 2.0 grant types
+final _oAuthTypes = [
+  'implicit',
+  'password',
+  'clientCredentials',
+  'authorizationCode'
+];
 
 // ==========================================
 // CLASS: OpenApi
@@ -67,6 +72,10 @@ class OpenApi with _$OpenApi {
     /// this definition. To make security optional, an empty security requirement ({})
     /// can be included in the array.
     List<Security>? security,
+
+    /// A mapping of any extra schemas that this generator created and the parent schema
+    /// that they were created from. This is used to improve the generated schema library
+    @Default({}) Map<String, List<String>> extraSchemaMapping,
   }) = _OpenApi;
 
   // ------------------------------------------
@@ -96,9 +105,36 @@ class OpenApi with _$OpenApi {
 
   /// Create an [OpenApi] object from a JSON representation of an OpenAPI
   factory OpenApi.fromJson(Map<String, dynamic> json) {
-    _schema = json['components']?['schemas'] ?? {};
-    final d = _formatSpecFromJson(json);
-    return OpenApi(
+    // Initialize the schemas, will be formatted in place below
+    Map<String, dynamic> schemas = json['components']?['schemas'] ?? {};
+    final d = _formatSpecFromJson(
+      json: json,
+      schemas: schemas,
+    );
+
+    // Search for any extra schemas created by this generator
+    // Used to improve the generated schema library
+    schemas = d['components']?['schemas'] ?? {};
+    final Map<String, dynamic> schemaExtra = {};
+    final Map<String, List<String>> extraSchemaMapping = {};
+    for (final s in schemas.keys) {
+      final (schemaOut, extraOut) = _extraComponentSchemas(
+        schemaKey: s,
+        schemaMap: schemas[s],
+      );
+      schemas[s] = schemaOut;
+      if (extraOut.isNotEmpty) {
+        schemaExtra.addAll(extraOut);
+        extraSchemaMapping[s] = extraOut.keys.toList();
+      }
+    }
+    // Add any extra schemas to the spec
+    schemas.addAll(schemaExtra);
+    if (schemas.isNotEmpty) {
+      d['components']?['schemas'] = schemas;
+    }
+
+    final out = OpenApi(
       version: d.containsKey('openapi') ? d['openapi'] : null,
       info: Info.fromJson(d['info']),
       jsonSchemaDialect: d['jsonSchemaDialect'],
@@ -119,7 +155,10 @@ class OpenApi with _$OpenApi {
       security: (d['security'] as List<dynamic>?)
           ?.map((e) => Security.fromJson(e))
           .toList(),
+      extraSchemaMapping: extraSchemaMapping,
     );
+
+    return out;
   }
 
   // ------------------------------------------
@@ -485,19 +524,13 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
 // METHOD: _formatSpecFromJson
 // ------------------------------------------
 
-Map<String, dynamic> _formatSpecFromJson(
-  Map<String, dynamic> json, {
+Map<String, dynamic> _formatSpecFromJson({
+  required Map<String, dynamic> json,
+  required Map<String, dynamic> schemas,
   String parentKey = '',
   String? unionKey,
 }) {
   final m = Map<String, dynamic>.from(json);
-
-  final oAuthTypes = [
-    'implicit',
-    'password',
-    'clientCredentials',
-    'authorizationCode'
-  ];
 
   // Handle allOf
   if (m.containsKey('allOf')) {
@@ -516,8 +549,8 @@ Map<String, dynamic> _formatSpecFromJson(
   // Return a parsable reference object
   if (m.containsKey('\$ref')) {
     final ref = m['\$ref'].toString().split('/').last;
-    if (_schema.containsKey(ref)) {
-      _SchemaConverter().fromJson(_schema[ref]).mapOrNull(
+    if (schemas.containsKey(ref)) {
+      _SchemaConverter().fromJson(schemas[ref]).mapOrNull(
         enumeration: (_) {
           m['type'] = 'enumeration';
         },
@@ -534,6 +567,7 @@ Map<String, dynamic> _formatSpecFromJson(
         m['type'] = 'map';
       }
     } else if (m.containsKey('anyOf')) {
+      // TODO - remove this logic after openapi_spec/issues/13
       final anyOf = m['anyOf'];
       if (anyOf is List) {
         final typeSet = anyOf.map((e) => e['type']);
@@ -549,7 +583,7 @@ Map<String, dynamic> _formatSpecFromJson(
           }
         }
       }
-    } else if (oAuthTypes.contains(parentKey)) {
+    } else if (_oAuthTypes.contains(parentKey)) {
       m[_unionKey] = parentKey;
     }
   }
@@ -563,7 +597,8 @@ Map<String, dynamic> _formatSpecFromJson(
       }
 
       m[k] = _formatSpecFromJson(
-        Map<String, dynamic>.from(m[k]),
+        json: m[k],
+        schemas: schemas,
         parentKey: k,
         unionKey: unionKey,
       );
@@ -576,7 +611,8 @@ Map<String, dynamic> _formatSpecFromJson(
             unionKey = _unionKeyParams;
           }
           l[i] = _formatSpecFromJson(
-            Map<String, dynamic>.from(l[i]),
+            json: l[i],
+            schemas: schemas,
             parentKey: k,
             unionKey: unionKey,
           );
@@ -587,4 +623,95 @@ Map<String, dynamic> _formatSpecFromJson(
   }
 
   return m;
+}
+
+// ------------------------------------------
+// METHOD: _extraComponentSchemas
+// ------------------------------------------
+
+(Map<String, dynamic>, Map<String, dynamic>) _extraComponentSchemas({
+  required String schemaKey,
+  required Map<String, dynamic> schemaMap,
+}) {
+  final schema = Schema.fromJson(schemaMap);
+  final Map<String, dynamic> schemaExtra = {};
+
+  Map<String, dynamic> props = {};
+  if (schemaMap['properties'] is Map) {
+    props = Map<String, dynamic>.from(schemaMap['properties']);
+  }
+
+  // Loop through the properties to find inner schemas
+  for (var entry in props.entries) {
+    if (entry.value is! Map) {
+      continue;
+    }
+    final p = Map<String, dynamic>.from(entry.value);
+
+    // Generate a new schema name
+    String newSchema = schemaKey;
+    if (schema.title != null) {
+      newSchema = schema.title!.pascalCase;
+    }
+    if (p['title'] != null) {
+      newSchema += (p['title']!).toString().pascalCase;
+    } else {
+      newSchema += entry.key.pascalCase;
+    }
+    newSchema = newSchema.pascalCase;
+
+    // Handle inner enum definitions
+    if (p['type'] == 'enumeration' && p.containsKey('enum')) {
+      props[entry.key] = Schema.enumeration(
+        description: p['description'],
+        defaultValue: p['default'],
+        nullable: p['nullable'],
+        ref: newSchema,
+      ).toJson();
+      schemaExtra[newSchema] = p;
+    }
+
+    // Handle inner object schemas
+    // Only add the schema if it has properties
+    if (p['type'] == 'object' && p['properties'] != null) {
+      props[entry.key] = Schema.object(
+        description: p['description'],
+        defaultValue: p['default'],
+        nullable: p['nullable'],
+        ref: newSchema,
+      ).toJson();
+      schemaExtra[newSchema] = p;
+    }
+
+    // Handle inner array schemas for object types
+    if (p['type'] == 'array' &&
+        p['items'] is Map &&
+        p['items']['type'] == 'object') {
+      newSchema = '${newSchema}Inner';
+      props[entry.key] = Schema.array(
+        description: p['description'],
+        defaultValue: p['default'],
+        nullable: p['nullable'],
+        items: Schema.object(ref: newSchema),
+      ).toJson();
+      schemaExtra[newSchema] = p['items'];
+    }
+  }
+
+  // Replace the modified properties
+  if (props.isNotEmpty) {
+    schemaMap['properties'] = props;
+  }
+
+  // Recursively check for inner schemas
+  for (final entry in schemaExtra.entries.toList()) {
+    final (schemaOut, schemaExtraInner) = _extraComponentSchemas(
+      schemaKey: entry.key,
+      schemaMap: entry.value,
+    );
+    schemaExtra[entry.key] = schemaOut;
+    schemaExtra.addAll(schemaExtraInner);
+  }
+
+  return (schemaMap, schemaExtra);
 }

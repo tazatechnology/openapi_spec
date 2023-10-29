@@ -16,10 +16,11 @@ void main() {
   final genSchemaSingleDir = p.join(tmp.path, 'gen_schema_single');
   final genClientDir = p.join(tmp.path, 'gen_client');
 
-  final spec = OpenApi.fromFile(source: truthYaml);
+  late OpenApi spec;
 
   group('OpenAI', () {
     setUp(() {
+      spec = OpenApi.fromFile(source: truthYaml);
       if (!tmp.existsSync()) {
         tmp.createSync(recursive: true);
       }

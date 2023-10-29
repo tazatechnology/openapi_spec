@@ -621,22 +621,31 @@ class $clientName {
           headerParams.add(hCode);
         },
         query: (p) {
+          String pType = p.schema.toDartType();
+          Object? pDefaultValue = p.schema.defaultValue;
           String qCode = p.schema.maybeMap(
             enumeration: (o) {
               // Convert enum to string for query parameter code
-              return "'${p.name}': ${pName.camelCase}.name";
+              if (pType == 'String') {
+                return "'${p.name}': ${pName.camelCase}";
+              } else {
+                return "'${p.name}': ${pName.camelCase}.name";
+              }
             },
             orElse: () {
               return "'${p.name}': ${pName.camelCase}";
             },
           );
-          String pType = p.schema.toDartType();
-          Object? pDefaultValue = p.schema.defaultValue;
+
           // Handle enumeration default values
           p.schema.mapOrNull(
             enumeration: (value) {
-              if (pDefaultValue != null && p.schema.ref != null) {
-                pDefaultValue = '${p.schema.ref}.$pDefaultValue';
+              if (pDefaultValue != null) {
+                if (p.schema.ref != null && pType != 'String') {
+                  pDefaultValue = '${p.schema.ref}.$pDefaultValue';
+                } else {
+                  pDefaultValue = "'$pDefaultValue'";
+                }
               }
             },
           );
