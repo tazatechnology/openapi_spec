@@ -567,20 +567,11 @@ Map<String, dynamic> _formatSpecFromJson({
         m['type'] = 'map';
       }
     } else if (m.containsKey('anyOf')) {
-      // TODO - remove this logic after openapi_spec/issues/13
       final anyOf = m['anyOf'];
       if (anyOf is List) {
         final typeSet = anyOf.map((e) => e['type']);
         if (typeSet.toSet().length == 1) {
           m['type'] = anyOf.first['type'];
-        }
-        if (m['type'] == 'string') {
-          for (final a in anyOf) {
-            if (a is Map && a.containsKey('enum')) {
-              final d = m['description'] ?? '';
-              m['description'] = '$d\nPossible values: ${a['enum']}';
-            }
-          }
         }
       }
     } else if (_oAuthTypes.contains(parentKey)) {
@@ -646,7 +637,7 @@ Map<String, dynamic> _formatSpecFromJson({
     if (entry.value is! Map) {
       continue;
     }
-    final p = Map<String, dynamic>.from(entry.value);
+    var p = Map<String, dynamic>.from(entry.value);
 
     // Generate a new schema name
     String newSchema = schemaKey;
@@ -660,8 +651,8 @@ Map<String, dynamic> _formatSpecFromJson({
     }
     newSchema = newSchema.pascalCase;
 
-    // Handle inner enum definitions
     if (p['type'] == 'enumeration' && p.containsKey('enum')) {
+      // Handle inner enum definitions
       props[entry.key] = Schema.enumeration(
         description: p['description'],
         defaultValue: p['default'],
@@ -669,11 +660,9 @@ Map<String, dynamic> _formatSpecFromJson({
         ref: newSchema,
       ).toJson();
       schemaExtra[newSchema] = p;
-    }
-
-    // Handle inner object schemas
-    // Only add the schema if it has properties
-    if (p['type'] == 'object' && p['properties'] != null) {
+    } else if (p['type'] == 'object' && p['properties'] != null) {
+      // Handle inner object schemas
+      // Only add the schema if it has properties
       props[entry.key] = Schema.object(
         description: p['description'],
         defaultValue: p['default'],
@@ -681,12 +670,10 @@ Map<String, dynamic> _formatSpecFromJson({
         ref: newSchema,
       ).toJson();
       schemaExtra[newSchema] = p;
-    }
-
-    // Handle inner array schemas for object types
-    if (p['type'] == 'array' &&
+    } else if (p['type'] == 'array' &&
         p['items'] is Map &&
         p['items']['type'] == 'object') {
+      // Handle inner array schemas for object types
       newSchema = '${newSchema}Inner';
       props[entry.key] = Schema.array(
         description: p['description'],
@@ -695,6 +682,18 @@ Map<String, dynamic> _formatSpecFromJson({
         items: Schema.object(ref: newSchema),
       ).toJson();
       schemaExtra[newSchema] = p['items'];
+    } else {
+      // No inner schemas found, check for unions in this property
+      final (newPropSchema, extraPropSchema) = _extraPrimitiveUnionSchemas(
+        newSchema: newSchema,
+        propertyKey: entry.key,
+        propertyMap: p,
+      );
+      if (extraPropSchema.isNotEmpty) {
+        props[entry.key] = newPropSchema;
+        //print(newPropSchema);
+        schemaExtra.addAll(extraPropSchema);
+      }
     }
   }
 
@@ -714,4 +713,87 @@ Map<String, dynamic> _formatSpecFromJson({
   }
 
   return (schemaMap, schemaExtra);
+}
+
+// ------------------------------------------
+// METHOD: _extraPrimitiveUnionSchemas
+// ------------------------------------------
+
+/// Search for and add primitive schemas in schema properties
+(Map<String, dynamic>, Map<String, dynamic>) _extraPrimitiveUnionSchemas({
+  required String newSchema,
+  required String propertyKey,
+  required Map<String, dynamic> propertyMap,
+}) {
+  final Map<String, dynamic> schemaExtra = {};
+  final p = Map<String, dynamic>.from(propertyMap);
+  var propertyMapOut = Map<String, dynamic>.from(propertyMap);
+
+  final newSchemaUnion = 'Union$newSchema';
+
+  // Package treats oneOf as anyOf under the hood
+  // Rename oneOf to anyOf to reuse the same logic
+  if (p.containsKey('oneOf') && !p.containsKey('anyOf')) {
+    p['anyOf'] = p['oneOf'];
+  }
+
+  if (p.containsKey('anyOf') && p['anyOf'] is List) {
+    List<Schema> anyOf = [];
+    for (final a in (p['anyOf'] as List)) {
+      final aMap = Map<String, dynamic>.from(a);
+
+      if (aMap.containsKey('\$ref') || aMap['type'] == 'object') {
+        continue;
+      }
+      final aType =
+          aMap['type'].toString().replaceAll('enumeration', 'enum').pascalCase;
+      final anyOfName = '$newSchema$aType';
+      aMap['title'] = anyOfName;
+
+      // Convert to schema
+      var aSchema = Schema.fromJson(aMap);
+      aSchema.mapOrNull(
+        array: (o) {
+          if (o.items.type == SchemaType.string) {
+            aSchema = aSchema.copyWith(
+              title: '${anyOfName}String',
+            );
+          } else if (o.items.type == SchemaType.integer) {
+            aSchema = aSchema.copyWith(
+              title: '${anyOfName}Integer',
+            );
+          } else if (o.items.type == SchemaType.number) {
+            aSchema = aSchema.copyWith(
+              title: '${anyOfName}Number',
+            );
+          } else if (o.items.type == SchemaType.boolean) {
+            aSchema = aSchema.copyWith(
+              title: '${anyOfName}Boolean',
+            );
+          }
+        },
+      );
+
+      schemaExtra[anyOfName] = aSchema.toJson();
+      anyOf.add(aSchema);
+    }
+
+    if (anyOf.isNotEmpty) {
+      // Create a custom union schema that is composed of the any of schemas
+      schemaExtra[newSchemaUnion] = Schema.object(
+        title: newSchemaUnion,
+        description: p['description'],
+        anyOf: anyOf,
+      ).toJson();
+
+      propertyMapOut = Schema.object(
+        description: p['description'],
+        defaultValue: p['default'] is Map ? null : p['default'],
+        nullable: p['nullable'],
+        ref: newSchemaUnion,
+      ).toJson();
+    }
+  }
+
+  return (propertyMapOut, schemaExtra);
 }

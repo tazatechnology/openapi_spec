@@ -8540,7 +8540,7 @@ mixin _$Schema {
   String? get description => throw _privateConstructorUsedError;
 
   /// The default value code to place into `@Default()`
-  Object? get defaultValue => throw _privateConstructorUsedError;
+  dynamic get defaultValue => throw _privateConstructorUsedError;
 
   /// Reference to a schema definition
   @JsonKey(name: '\$ref')
@@ -8654,7 +8654,7 @@ abstract class _$$SchemaObjectImplCopyWith<$Res>
   $Res call(
       {String? title,
       String? description,
-      String? defaultValue,
+      dynamic defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
       @_SchemaListConverter() List<Schema>? allOf,
       @_SchemaListConverter() List<Schema>? anyOf,
@@ -8706,7 +8706,7 @@ class __$$SchemaObjectImplCopyWithImpl<$Res>
       defaultValue: freezed == defaultValue
           ? _value.defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as dynamic,
       ref: freezed == ref
           ? _value.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -8820,7 +8820,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
 
   /// The default value code to place into `@Default()`
   @override
-  final String? defaultValue;
+  final dynamic defaultValue;
 
   /// Reference to a schema definition
   @override
@@ -8918,8 +8918,8 @@ class _$SchemaObjectImpl extends _SchemaObject {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.defaultValue, defaultValue) ||
-                other.defaultValue == defaultValue) &&
+            const DeepCollectionEquality()
+                .equals(other.defaultValue, defaultValue) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             const DeepCollectionEquality().equals(other._allOf, _allOf) &&
             const DeepCollectionEquality().equals(other._anyOf, _anyOf) &&
@@ -8941,7 +8941,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
       runtimeType,
       title,
       description,
-      defaultValue,
+      const DeepCollectionEquality().hash(defaultValue),
       ref,
       const DeepCollectionEquality().hash(_allOf),
       const DeepCollectionEquality().hash(_anyOf),
@@ -9019,7 +9019,7 @@ abstract class _SchemaObject extends Schema {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
-      final String? defaultValue,
+      final dynamic defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref,
       @_SchemaListConverter() final List<Schema>? allOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
@@ -9045,7 +9045,7 @@ abstract class _SchemaObject extends Schema {
   @override
 
   /// The default value code to place into `@Default()`
-  String? get defaultValue;
+  dynamic get defaultValue;
   @override
 
   /// Reference to a schema definition
@@ -10669,7 +10669,7 @@ abstract class _$$SchemaArrayImplCopyWith<$Res>
       String? description,
       @JsonKey(name: 'default') List<dynamic>? defaultValue,
       bool? nullable,
-      List<dynamic>? example,
+      dynamic example,
       @JsonKey(fromJson: _fromJsonInt) int? minItems,
       @JsonKey(fromJson: _fromJsonInt) int? maxItems,
       Schema items,
@@ -10723,9 +10723,9 @@ class __$$SchemaArrayImplCopyWithImpl<$Res>
           : nullable // ignore: cast_nullable_to_non_nullable
               as bool?,
       example: freezed == example
-          ? _value._example
+          ? _value.example
           : example // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as dynamic,
       minItems: freezed == minItems
           ? _value.minItems
           : minItems // ignore: cast_nullable_to_non_nullable
@@ -10775,14 +10775,13 @@ class _$SchemaArrayImpl extends _SchemaArray {
       this.description,
       @JsonKey(name: 'default') final List<dynamic>? defaultValue,
       this.nullable,
-      final List<dynamic>? example,
+      this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minItems,
       @JsonKey(fromJson: _fromJsonInt) this.maxItems,
       required this.items,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : _defaultValue = defaultValue,
-        _example = example,
         $type = $type ?? 'array',
         super._();
 
@@ -10808,16 +10807,8 @@ class _$SchemaArrayImpl extends _SchemaArray {
 
   @override
   final bool? nullable;
-  final List<dynamic>? _example;
   @override
-  List<dynamic>? get example {
-    final value = _example;
-    if (value == null) return null;
-    if (_example is EqualUnmodifiableListView) return _example;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final dynamic example;
   @override
   @JsonKey(fromJson: _fromJsonInt)
   final int? minItems;
@@ -10852,7 +10843,7 @@ class _$SchemaArrayImpl extends _SchemaArray {
                 .equals(other._defaultValue, _defaultValue) &&
             (identical(other.nullable, nullable) ||
                 other.nullable == nullable) &&
-            const DeepCollectionEquality().equals(other._example, _example) &&
+            const DeepCollectionEquality().equals(other.example, example) &&
             (identical(other.minItems, minItems) ||
                 other.minItems == minItems) &&
             (identical(other.maxItems, maxItems) ||
@@ -10870,7 +10861,7 @@ class _$SchemaArrayImpl extends _SchemaArray {
       description,
       const DeepCollectionEquality().hash(_defaultValue),
       nullable,
-      const DeepCollectionEquality().hash(_example),
+      const DeepCollectionEquality().hash(example),
       minItems,
       maxItems,
       items,
@@ -10946,7 +10937,7 @@ abstract class _SchemaArray extends Schema {
           final String? description,
           @JsonKey(name: 'default') final List<dynamic>? defaultValue,
           final bool? nullable,
-          final List<dynamic>? example,
+          final dynamic example,
           @JsonKey(fromJson: _fromJsonInt) final int? minItems,
           @JsonKey(fromJson: _fromJsonInt) final int? maxItems,
           required final Schema items,
@@ -10967,7 +10958,7 @@ abstract class _SchemaArray extends Schema {
   List<dynamic>? get defaultValue;
   @override
   bool? get nullable;
-  List<dynamic>? get example;
+  dynamic get example;
   @JsonKey(fromJson: _fromJsonInt)
   int? get minItems;
   @JsonKey(fromJson: _fromJsonInt)
