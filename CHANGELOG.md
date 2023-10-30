@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0
+
+* Support anyOf with primitive types and arrays
+* Dynamically create inner schemas derived from spec schemas
+* Ability to use `title` property to customize inner schema names
+* Handle include if null option at schema generation
+
 ## 0.6.0
 
 * Rename host to baseUrl and support paths
