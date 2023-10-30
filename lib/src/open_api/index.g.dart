@@ -908,7 +908,7 @@ _$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
     _$SchemaObjectImpl(
       title: json['title'] as String?,
       description: json['description'] as String?,
-      defaultValue: json['defaultValue'] as String?,
+      defaultValue: json['defaultValue'],
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
       allOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['allOf'], const _SchemaListConverter().fromJson),
@@ -1208,7 +1208,7 @@ _$SchemaArrayImpl _$$SchemaArrayImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       defaultValue: json['default'] as List<dynamic>?,
       nullable: json['nullable'] as bool?,
-      example: json['example'] as List<dynamic>?,
+      example: json['example'],
       minItems: _fromJsonInt(json['minItems']),
       maxItems: _fromJsonInt(json['maxItems']),
       items: Schema.fromJson(json['items'] as Map<String, dynamic>),

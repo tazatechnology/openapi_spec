@@ -125,7 +125,17 @@ class SchemaGenerator extends BaseGenerator {
             for (final extra in spec.extraSchemaMapping[s]!) {
               schemas[extra]?.mapOrNull(
                 object: (extraSchema) {
-                  _writeObject(name: extra, schema: extraSchema);
+                  if (extraSchema.anyOf?.isEmpty ?? true) {
+                    _writeObject(name: extra, schema: extraSchema);
+                  } else {
+                    final isPrimitive = extraSchema.anyOf!
+                        .map((e) => e.maybeMap(
+                            object: (_) => false, orElse: () => true))
+                        .any((e) => e);
+                    if (isPrimitive) {
+                      _writePrimitiveUnion(schema: extraSchema);
+                    }
+                  }
                 },
                 enumeration: (extraSchema) {
                   _writeEnumeration(name: extra, schema: extraSchema);
@@ -308,6 +318,113 @@ class SchemaGenerator extends BaseGenerator {
   }
 
   // ------------------------------------------
+  // METHOD: _writePrimitiveUnion
+  // ------------------------------------------
+
+  void _writePrimitiveUnion({
+    required Schema schema,
+  }) {
+    final union = schema.title;
+
+    // Union header
+    file.writeAsStringSync("""
+    // ==========================================
+    // CLASS: $union
+    // ==========================================
+    
+    /// ${schema.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
+    @freezed
+    sealed class $union with _\$$union  {
+      const $union._();\n
+
+    """, mode: FileMode.append);
+
+    // Keep track of the required converter logic
+    final List<String> converters = [];
+
+    schema.mapOrNull(
+      object: (s) {
+        for (final a in (s.anyOf ?? <Schema>[])) {
+          a.mapOrNull(
+            string: (o) {
+              final uName = '${union}String';
+              converters.add('$uName(value: final v) => v,');
+              file.writeAsStringSync(
+                'const factory $union.string(${o.toDartType()} value,) = $uName;\n\n',
+                mode: FileMode.append,
+              );
+            },
+            number: (o) {
+              final uName = '${union}Number';
+              converters.add('$uName(value: final v) => v,');
+              file.writeAsStringSync(
+                'const factory $union.number(${o.toDartType()} value,) = $uName;\n\n',
+                mode: FileMode.append,
+              );
+            },
+            integer: (o) {
+              final uName = '${union}Integer';
+              converters.add('$uName(value: final v) => v,');
+              file.writeAsStringSync(
+                'const factory $union.integer(${o.toDartType()} value,) = $uName;\n\n',
+                mode: FileMode.append,
+              );
+            },
+            enumeration: (o) {
+              final uName = '${union}Enum';
+              converters.add(
+                '$uName(value: final v) => _\$${o.title}EnumMap[v]!,',
+              );
+              file.writeAsStringSync(
+                'const factory $union.enumeration(${o.title} value,) = $uName;\n\n',
+                mode: FileMode.append,
+              );
+            },
+            array: (o) {
+              final factoryName = 'array${o.title?.split('Array').last}';
+              final uName = '$union${factoryName.pascalCase}';
+              converters.add('$uName(value: final v) => v,');
+              file.writeAsStringSync(
+                'const factory $union.$factoryName(${o.toDartType()} value,) = $uName;\n\n',
+                mode: FileMode.append,
+              );
+            },
+          );
+        }
+      },
+    );
+
+    // Union footer
+    file.writeAsStringSync("""
+    /// Object construction from a JSON representation
+    factory $union.fromJson(Map<String, dynamic> json) => _\$${union}FromJson(json);
+
+    }\n
+    """, mode: FileMode.append);
+
+    // Write converter
+    file.writeAsStringSync("""
+    /// Custom JSON converter for [$union]
+    class _${union}Converter
+        implements JsonConverter<$union, Object?> {
+      const _${union}Converter();
+
+      @override
+      $union fromJson(Object? json) {
+        throw UnimplementedError();
+      }
+
+      @override
+      Object? toJson($union data) {
+        return switch (data) {
+          ${converters.join('\n')}
+        };
+      }
+    }
+    """, mode: FileMode.append);
+  }
+
+  // ------------------------------------------
   // METHOD: _writeObject
   // ------------------------------------------
 
@@ -461,8 +578,59 @@ class SchemaGenerator extends BaseGenerator {
               orElse: () => p,
             );
         bool hasDefault = p.defaultValue != null;
+
+        String customConverter = '';
+
+        // Prefix with expected custom converter
+        if ((p.anyOf?.isNotEmpty ?? false) &&
+            (p.title?.toLowerCase().startsWith('union') ?? false)) {
+          customConverter =
+              '@_${p.toDartType().replaceAll('?', '')}Converter()';
+        }
+
+        // Handle union defaults
+        if (hasDefault && (p.anyOf?.isNotEmpty ?? false)) {
+          final aTypes = p.anyOf!.map((e) => e.type);
+          if (p.defaultValue is String &&
+              (aTypes.contains(SchemaType.string))) {
+            p = p.copyWith(
+              defaultValue: "${p.title}.string('${p.defaultValue}'),",
+            );
+          } else if (p.defaultValue is String &&
+              (aTypes.contains(SchemaType.enumeration))) {
+            final a = p.anyOf!.firstWhereOrNull(
+              (e) => e.type == SchemaType.enumeration,
+            );
+            p = p.copyWith(
+              defaultValue:
+                  "${p.title}.enumeration(${a?.title}.${p.defaultValue.toString().camelCase}),",
+            );
+          } else if (p.defaultValue is bool &&
+              (aTypes.contains(SchemaType.boolean))) {
+            p = p.copyWith(
+              defaultValue: "${p.title}.boolean(${p.defaultValue}),",
+            );
+          } else if (p.defaultValue is int &&
+              (aTypes.contains(SchemaType.integer))) {
+            p = p.copyWith(
+              defaultValue: "${p.title}.integer(${p.defaultValue}),",
+            );
+          } else if (p.defaultValue is num &&
+              (aTypes.contains(SchemaType.number))) {
+            p = p.copyWith(
+              defaultValue: "${p.title}.number(${p.defaultValue}),",
+            );
+          } else {
+            // All else fails, cannot ensure a default value is valid
+            // Force the field to be required
+            hasDefault = false;
+            required = true;
+          }
+        }
+
         bool nullable = !hasDefault && !required || p.nullable == true;
         String c = formatDescription(p.description);
+        c += '$customConverter ';
 
         List<String> unionSchemas = [];
         if (p.anyOf != null) {
@@ -478,7 +646,7 @@ class SchemaGenerator extends BaseGenerator {
 
         c += getJsonKey(nullable: nullable);
 
-        if (hasDefault) {
+        if (hasDefault & !required) {
           c += "@Default(${p.defaultValue}) ";
         }
 

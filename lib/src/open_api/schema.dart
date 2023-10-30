@@ -13,6 +13,21 @@ int? _fromJsonInt(dynamic jsonValue) {
 double? _fromJsonDouble(num? jsonValue) => jsonValue?.toDouble();
 
 // ==========================================
+// ENUM: SchemaType
+// ==========================================
+
+enum SchemaType {
+  object,
+  boolean,
+  string,
+  integer,
+  number,
+  enumeration,
+  array,
+  map,
+}
+
+// ==========================================
 // CLASS: Schema
 // ==========================================
 
@@ -33,7 +48,7 @@ class Schema with _$Schema {
     String? description,
 
     /// The default value code to place into `@Default()`
-    String? defaultValue,
+    dynamic defaultValue,
 
     /// Reference to a schema definition
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
@@ -67,6 +82,20 @@ class Schema with _$Schema {
     /// Adds additional metadata to describe the XML representation of this property.
     Xml? xml,
   }) = _SchemaObject;
+
+  /// Get the schema type based on the union type
+  SchemaType get type {
+    return map(
+      object: (_) => SchemaType.object,
+      boolean: (_) => SchemaType.boolean,
+      string: (_) => SchemaType.string,
+      integer: (_) => SchemaType.integer,
+      number: (_) => SchemaType.number,
+      enumeration: (_) => SchemaType.enumeration,
+      array: (_) => SchemaType.array,
+      map: (_) => SchemaType.map,
+    );
+  }
 
   // ------------------------------------------
   // FACTORY: Schema.boolean
@@ -173,7 +202,7 @@ class Schema with _$Schema {
     String? description,
     @JsonKey(name: 'default') List? defaultValue,
     bool? nullable,
-    List? example,
+    dynamic example,
     @JsonKey(fromJson: _fromJsonInt) int? minItems,
     @JsonKey(fromJson: _fromJsonInt) int? maxItems,
     required Schema items,
