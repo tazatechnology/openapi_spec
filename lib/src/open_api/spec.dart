@@ -799,6 +799,8 @@ Map<String, dynamic> _formatSpecFromJson({
       schemaExtra[newSchema] = Schema.object(
         title: newSchema,
         description: p['description'],
+        defaultValue: p['default'],
+        nullable: p['nullable'],
         anyOf: anyOf,
       ).toJson();
 
