@@ -324,7 +324,14 @@ class SchemaGenerator extends BaseGenerator {
   void _writePrimitiveUnion({
     required Schema schema,
   }) {
-    final union = schema.title;
+    // Should never happen, but just in case, throw a clear exception
+    if (schema.title == null) {
+      throw Exception(
+        "Cannot create union for schema without a title. This likely an issue with the package, please report to the package maintainer.",
+      );
+    }
+
+    final union = schema.title!;
 
     // Union header
     file.writeAsStringSync("""
@@ -340,10 +347,12 @@ class SchemaGenerator extends BaseGenerator {
     """, mode: FileMode.append);
 
     // Keep track of the required converter logic
-    final List<String> converters = [];
+    final List<String> toJson = [];
+    final List<String> fromJson = [];
 
     // Name of the union constructor
     final uNameConstr = '_Union$union';
+    String defaultFallback = '';
 
     schema.mapOrNull(
       object: (s) {
@@ -351,44 +360,86 @@ class SchemaGenerator extends BaseGenerator {
           a.mapOrNull(
             string: (o) {
               final uName = '${uNameConstr}String';
-              converters.add('$uName(value: final v) => v,');
+              final uFactory = '$union.string';
+              final uType = o.toDartType().replaceAll('?', '');
+              fromJson.add('if (data is $uType) {return $uFactory(data);}');
+              toJson.add('$uName(value: final v) => v,');
+              if (schema.defaultValue is String) {
+                defaultFallback = "return $uFactory('${schema.defaultValue}');";
+              }
               file.writeAsStringSync(
-                'const factory $union.string(${o.toDartType()} value,) = $uName;\n\n',
+                'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
             },
             number: (o) {
               final uName = '${uNameConstr}Number';
-              converters.add('$uName(value: final v) => v,');
+              final uFactory = '$union.number';
+              final uType = o.toDartType().replaceAll('?', '');
+              fromJson.add('if (data is $uType) {return $uFactory(data);}');
+              toJson.add('$uName(value: final v) => v,');
+              if (schema.defaultValue is num) {
+                defaultFallback = 'return $uFactory(${schema.defaultValue});';
+              }
               file.writeAsStringSync(
-                'const factory $union.number(${o.toDartType()} value,) = $uName;\n\n',
+                'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
             },
             integer: (o) {
               final uName = '${uNameConstr}Integer';
-              converters.add('$uName(value: final v) => v,');
+              final uFactory = '$union.integer';
+              final uType = o.toDartType().replaceAll('?', '');
+              fromJson.add('if (data is $uType) {return $uFactory(data);}');
+              toJson.add('$uName(value: final v) => v,');
               file.writeAsStringSync(
-                'const factory $union.integer(${o.toDartType()} value,) = $uName;\n\n',
+                'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
+              if (schema.defaultValue is int) {
+                defaultFallback = 'return $uFactory(${schema.defaultValue});';
+              }
             },
             enumeration: (o) {
+              // JSON generated enum map - expected name
+              String unionEnumMap = '_\$${o.title}EnumMap';
               final uName = '${uNameConstr}Enum';
-              converters.add(
-                '$uName(value: final v) => _\$${o.title}EnumMap[v]!,',
+              final uFactory = '$union.enumeration';
+              toJson.add(
+                '$uName(value: final v) => $unionEnumMap[v]!,',
+              );
+              if (schema.defaultValue is String &&
+                  (o.values?.contains(schema.defaultValue) ?? false)) {
+                defaultFallback =
+                    'return $uFactory(${o.title}.${schema.defaultValue.toString().camelCase},);';
+              }
+              // Place this as first check in fromJson
+              // So that it takes precedence over string constructor (if present)
+              fromJson.insert(
+                0,
+                """
+                if (data is String && $unionEnumMap.values.contains(data)) {
+                  return $uFactory($unionEnumMap.keys.elementAt(
+                  $unionEnumMap.values.toList().indexOf(data),),);
+                }""",
               );
               file.writeAsStringSync(
-                'const factory $union.enumeration(${o.title} value,) = $uName;\n\n',
+                'const factory $uFactory(${o.title} value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
             },
             array: (o) {
               final factoryName = 'array${o.title?.split('Array').last}';
               final uName = '$uNameConstr${factoryName.pascalCase}';
-              converters.add('$uName(value: final v) => v,');
+              final uType = o.toDartType().replaceAll('?', '');
+              final uFactory = '$union.$factoryName';
+              fromJson.add('if (data is $uType) {return $uFactory(data);}');
+              toJson.add('$uName(value: final v) => v,');
+              if (schema.defaultValue is List) {
+                defaultFallback = 'return $uFactory(${schema.defaultValue});';
+              }
               file.writeAsStringSync(
-                'const factory $union.$factoryName(${o.toDartType()} value,) = $uName;\n\n',
+                'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
             },
@@ -396,6 +447,20 @@ class SchemaGenerator extends BaseGenerator {
         }
       },
     );
+
+    // Nullable union type
+    String unionNullable = union;
+    if (schema.nullable == true) {
+      unionNullable += '?';
+      toJson.add('null => null,');
+    }
+
+    // Add fallback logic if no fromJson match found
+    String fromJsonFallback =
+        "throw Exception('Unexpected value for $union: \$data');";
+    if (defaultFallback.isNotEmpty) {
+      fromJsonFallback = defaultFallback;
+    }
 
     // Union footer
     file.writeAsStringSync("""
@@ -409,18 +474,20 @@ class SchemaGenerator extends BaseGenerator {
     file.writeAsStringSync("""
     /// Custom JSON converter for [$union]
     class _${union}Converter
-        implements JsonConverter<$union, Object?> {
+        implements JsonConverter<$unionNullable, Object?> {
       const _${union}Converter();
 
       @override
-      $union fromJson(Object? json) {
-        throw UnimplementedError();
+      $unionNullable fromJson(Object? data) {
+        ${schema.nullable == true ? 'if (data == null) {return null;}' : ''}
+        ${fromJson.join('\n')}
+        $fromJsonFallback
       }
 
       @override
-      Object? toJson($union data) {
+      Object? toJson($unionNullable data) {
         return switch (data) {
-          ${converters.join('\n')}
+          ${toJson.join('\n')}
         };
       }
     }
