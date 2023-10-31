@@ -121,6 +121,7 @@ class OpenApi with _$OpenApi {
       final (schemaOut, extraOut) = _extraComponentSchemas(
         schemaKey: s,
         schemaMap: schemas[s],
+        allSchemaNames: (schemas.keys.toList() + schemaExtra.keys.toList()),
       );
       schemas[s] = schemaOut;
       if (extraOut.isNotEmpty) {
@@ -623,6 +624,7 @@ Map<String, dynamic> _formatSpecFromJson({
 (Map<String, dynamic>, Map<String, dynamic>) _extraComponentSchemas({
   required String schemaKey,
   required Map<String, dynamic> schemaMap,
+  required List<String> allSchemaNames,
 }) {
   final schema = Schema.fromJson(schemaMap);
   final Map<String, dynamic> schemaExtra = {};
@@ -640,16 +642,25 @@ Map<String, dynamic> _formatSpecFromJson({
     var p = Map<String, dynamic>.from(entry.value);
 
     // Generate a new schema name
-    String newSchema = schemaKey;
+    String parentSchema = schemaKey;
     if (schema.title != null) {
-      newSchema = schema.title!.pascalCase;
+      parentSchema = schema.title!.pascalCase;
     }
+
+    // Fallback name - this is most likely to be unique/safe
+    final newSchemaFallback = '$parentSchema${entry.key.pascalCase}'.pascalCase;
+
+    String newSchema = '';
     if (p['title'] != null) {
-      newSchema += (p['title']!).toString().pascalCase;
+      // If the property has a title, use that
+      newSchema = (p['title']!).toString().pascalCase;
+      if (allSchemaNames.contains(newSchema)) {
+        newSchema = newSchemaFallback;
+      }
     } else {
-      newSchema += entry.key.pascalCase;
+      // Else, use the parent schema name and the property name as suffix
+      newSchema = newSchemaFallback;
     }
-    newSchema = newSchema.pascalCase;
 
     if (p['type'] == 'enumeration' && p.containsKey('enum')) {
       // Handle inner enum definitions
@@ -688,6 +699,7 @@ Map<String, dynamic> _formatSpecFromJson({
         newSchema: newSchema,
         propertyKey: entry.key,
         propertyMap: p,
+        allSchemaNames: allSchemaNames,
       );
       if (extraPropSchema.isNotEmpty) {
         props[entry.key] = newPropSchema;
@@ -707,6 +719,7 @@ Map<String, dynamic> _formatSpecFromJson({
     final (schemaOut, schemaExtraInner) = _extraComponentSchemas(
       schemaKey: entry.key,
       schemaMap: entry.value,
+      allSchemaNames: allSchemaNames,
     );
     schemaExtra[entry.key] = schemaOut;
     schemaExtra.addAll(schemaExtraInner);
@@ -724,12 +737,11 @@ Map<String, dynamic> _formatSpecFromJson({
   required String newSchema,
   required String propertyKey,
   required Map<String, dynamic> propertyMap,
+  required List<String> allSchemaNames,
 }) {
   final Map<String, dynamic> schemaExtra = {};
   final p = Map<String, dynamic>.from(propertyMap);
   var propertyMapOut = Map<String, dynamic>.from(propertyMap);
-
-  final newSchemaUnion = 'Union$newSchema';
 
   // Package treats oneOf as anyOf under the hood
   // Rename oneOf to anyOf to reuse the same logic
@@ -747,7 +759,11 @@ Map<String, dynamic> _formatSpecFromJson({
       }
       final aType =
           aMap['type'].toString().replaceAll('enumeration', 'enum').pascalCase;
-      final anyOfName = '$newSchema$aType';
+
+      String anyOfName = '$newSchema$aType';
+      if (aMap['title'] != null) {
+        anyOfName = aMap['title'].toString().pascalCase;
+      }
       aMap['title'] = anyOfName;
 
       // Convert to schema
@@ -780,8 +796,8 @@ Map<String, dynamic> _formatSpecFromJson({
 
     if (anyOf.isNotEmpty) {
       // Create a custom union schema that is composed of the any of schemas
-      schemaExtra[newSchemaUnion] = Schema.object(
-        title: newSchemaUnion,
+      schemaExtra[newSchema] = Schema.object(
+        title: newSchema,
         description: p['description'],
         anyOf: anyOf,
       ).toJson();
@@ -790,7 +806,7 @@ Map<String, dynamic> _formatSpecFromJson({
         description: p['description'],
         defaultValue: p['default'] is Map ? null : p['default'],
         nullable: p['nullable'],
-        ref: newSchemaUnion,
+        ref: newSchema,
       ).toJson();
     }
   }

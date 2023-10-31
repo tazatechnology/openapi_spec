@@ -342,12 +342,15 @@ class SchemaGenerator extends BaseGenerator {
     // Keep track of the required converter logic
     final List<String> converters = [];
 
+    // Name of the union constructor
+    final uNameConstr = '_Union$union';
+
     schema.mapOrNull(
       object: (s) {
         for (final a in (s.anyOf ?? <Schema>[])) {
           a.mapOrNull(
             string: (o) {
-              final uName = '${union}String';
+              final uName = '${uNameConstr}String';
               converters.add('$uName(value: final v) => v,');
               file.writeAsStringSync(
                 'const factory $union.string(${o.toDartType()} value,) = $uName;\n\n',
@@ -355,7 +358,7 @@ class SchemaGenerator extends BaseGenerator {
               );
             },
             number: (o) {
-              final uName = '${union}Number';
+              final uName = '${uNameConstr}Number';
               converters.add('$uName(value: final v) => v,');
               file.writeAsStringSync(
                 'const factory $union.number(${o.toDartType()} value,) = $uName;\n\n',
@@ -363,7 +366,7 @@ class SchemaGenerator extends BaseGenerator {
               );
             },
             integer: (o) {
-              final uName = '${union}Integer';
+              final uName = '${uNameConstr}Integer';
               converters.add('$uName(value: final v) => v,');
               file.writeAsStringSync(
                 'const factory $union.integer(${o.toDartType()} value,) = $uName;\n\n',
@@ -371,7 +374,7 @@ class SchemaGenerator extends BaseGenerator {
               );
             },
             enumeration: (o) {
-              final uName = '${union}Enum';
+              final uName = '${uNameConstr}Enum';
               converters.add(
                 '$uName(value: final v) => _\$${o.title}EnumMap[v]!,',
               );
@@ -382,7 +385,7 @@ class SchemaGenerator extends BaseGenerator {
             },
             array: (o) {
               final factoryName = 'array${o.title?.split('Array').last}';
-              final uName = '$union${factoryName.pascalCase}';
+              final uName = '$uNameConstr${factoryName.pascalCase}';
               converters.add('$uName(value: final v) => v,');
               file.writeAsStringSync(
                 'const factory $union.$factoryName(${o.toDartType()} value,) = $uName;\n\n',
@@ -581,11 +584,12 @@ class SchemaGenerator extends BaseGenerator {
 
         String customConverter = '';
 
-        // Prefix with expected custom converter
-        if ((p.anyOf?.isNotEmpty ?? false) &&
-            (p.title?.toLowerCase().startsWith('union') ?? false)) {
-          customConverter =
-              '@_${p.toDartType().replaceAll('?', '')}Converter()';
+        // Prefix with expected custom converter for primitive union types
+        if ((p.anyOf?.isNotEmpty ?? false)) {
+          if (!p.anyOf!.map((e) => e.type).contains(SchemaType.object)) {
+            customConverter =
+                '@_${p.toDartType().replaceAll('?', '')}Converter()';
+          }
         }
 
         // Handle union defaults
