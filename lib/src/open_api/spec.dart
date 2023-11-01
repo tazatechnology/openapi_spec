@@ -79,7 +79,7 @@ class OpenApi with _$OpenApi {
   }) = _OpenApi;
 
   // ------------------------------------------
-  // FACTORY: OpenApi.fromJsonFile
+  // FACTORY: OpenApi.fromFile
   // ------------------------------------------
 
   /// Create an [OpenApi] object from an existing JSON/YAML OpenAPI spec file

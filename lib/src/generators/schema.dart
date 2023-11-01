@@ -432,8 +432,10 @@ class SchemaGenerator extends BaseGenerator {
               final factoryName = 'array${o.title?.split('Array').last}';
               final uName = '$uNameConstr${factoryName.pascalCase}';
               final uType = o.toDartType().replaceAll('?', '');
+              final innerType = o.items.toDartType();
               final uFactory = '$union.$factoryName';
-              fromJson.add('if (data is $uType) {return $uFactory(data);}');
+              fromJson.add(
+                  'if (data is List && data.every((item) => item is $innerType)) {return $uFactory(data.cast());}');
               toJson.add('$uName(value: final v) => v,');
               if (schema.defaultValue is List) {
                 defaultFallback = 'return $uFactory(${schema.defaultValue});';
