@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.2
+
+* Fix deserialization of `anyOf` types with lists
+
+## 0.7.1
+
+* Implement deserialization logic for primitive unions
+
 ## 0.7.0
 
 * Support anyOf with primitive types and arrays
