@@ -129,9 +129,8 @@ class SchemaGenerator extends BaseGenerator {
                     _writeObject(name: extra, schema: extraSchema);
                   } else {
                     final isPrimitive = extraSchema.anyOf!
-                        .map((e) => e.maybeMap(
-                            object: (_) => false, orElse: () => true))
-                        .any((e) => e);
+                        .map((e) => e.type)
+                        .any((e) => e != SchemaType.object);
                     if (isPrimitive) {
                       _writePrimitiveUnion(schema: extraSchema);
                     }
@@ -356,8 +355,61 @@ class SchemaGenerator extends BaseGenerator {
 
     schema.mapOrNull(
       object: (s) {
-        for (final a in (s.anyOf ?? <Schema>[])) {
+        final subSchemas = (s.anyOf?.toList() ?? <Schema>[]);
+        subSchemas.sort(
+          (a, b) {
+            if (a.type == SchemaType.map) {
+              // Ensure that dynamic map type is always last
+              // Prevent conflicts with other object types
+              return 1;
+            } else if (a.type == SchemaType.string) {
+              // Ensure that string type is always last
+              // Prevent conflicts with enumeration types
+              return 1;
+            } else {
+              return subSchemas.indexOf(a).compareTo(subSchemas.indexOf(b));
+            }
+          },
+        );
+        for (final a in subSchemas) {
           a.mapOrNull(
+            object: (o) {
+              // Handle object reference
+              if (o.ref != null) {
+                final ref = o.dereference(components: spec.components?.schemas);
+                final uType = ref.toDartType().replaceAll('?', '');
+                final uFactory = '$union.${uType.camelCase}';
+                final uName = '$uNameConstr$uType';
+                toJson.add('$uName(value: final v) => v.toJson(),');
+                fromJson.add("""
+                if (data is Map<String, dynamic>) {
+                  try {
+                    return $uFactory(
+                      $uType.fromJson(data),
+                    );
+                  } catch (e) {}
+                }""");
+                file.writeAsStringSync(
+                  'const factory $uFactory($uType value,) = $uName;\n\n',
+                  mode: FileMode.append,
+                );
+              }
+            },
+            map: (o) {
+              final uName = '${uNameConstr}Map';
+              final uFactory = '$union.map';
+              final uType = o.toDartType().replaceAll('?', '');
+              fromJson.add('if (data is $uType) {return $uFactory(data);}');
+              toJson.add('$uName(value: final v) => v,');
+              if (schema.defaultValue is Map) {
+                defaultFallback =
+                    "return $uFactory(const ${schema.defaultValue});";
+              }
+              file.writeAsStringSync(
+                'const factory $uFactory($uType value,) = $uName;\n\n',
+                mode: FileMode.append,
+              );
+            },
             string: (o) {
               final uName = '${uNameConstr}String';
               final uFactory = '$union.string';
@@ -415,8 +467,7 @@ class SchemaGenerator extends BaseGenerator {
               }
               // Place this as first check in fromJson
               // So that it takes precedence over string constructor (if present)
-              fromJson.insert(
-                0,
+              fromJson.add(
                 """
                 if (data is String && $unionEnumMap.values.contains(data)) {
                   return $uFactory($unionEnumMap.keys.elementAt(
@@ -459,7 +510,7 @@ class SchemaGenerator extends BaseGenerator {
 
     // Add fallback logic if no fromJson match found
     String fromJsonFallback =
-        "throw Exception('Unexpected value for $union: \$data');";
+        "throw Exception('Unexpected value for $union: \$data',);";
     if (defaultFallback.isNotEmpty) {
       fromJsonFallback = defaultFallback;
     }
@@ -492,7 +543,7 @@ class SchemaGenerator extends BaseGenerator {
           ${toJson.join('\n')}
         };
       }
-    }
+    }\n
     """, mode: FileMode.append);
   }
 
@@ -655,7 +706,7 @@ class SchemaGenerator extends BaseGenerator {
 
         // Prefix with expected custom converter for primitive union types
         if ((p.anyOf?.isNotEmpty ?? false)) {
-          if (!p.anyOf!.map((e) => e.type).contains(SchemaType.object)) {
+          if (p.anyOf!.map((e) => e.type).any((e) => e != SchemaType.object)) {
             customConverter =
                 '@_${p.toDartType().replaceAll('?', '')}Converter()';
           }
@@ -703,10 +754,9 @@ class SchemaGenerator extends BaseGenerator {
 
         bool nullable = !hasDefault && !required || p.nullable == true;
         String c = formatDescription(p.description);
-        c += '$customConverter ';
 
         List<String> unionSchemas = [];
-        if (p.anyOf != null) {
+        if (p.anyOf != null && customConverter.isEmpty) {
           unionSchemas = p.anyOf!
               .map((e) => e.ref?.toString().split('/').last)
               .where((e) => e != null)
@@ -716,6 +766,8 @@ class SchemaGenerator extends BaseGenerator {
             c += "/// Any of: ${unionSchemas.map((e) => '[$e]').join(',')}\n";
           }
         }
+
+        c += '$customConverter ';
 
         c += getJsonKey(nullable: nullable);
 
