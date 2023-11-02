@@ -639,6 +639,7 @@ Map<String, dynamic> _formatSpecFromJson({
     if (entry.value is! Map) {
       continue;
     }
+
     var p = Map<String, dynamic>.from(entry.value);
 
     // Generate a new schema name
@@ -700,10 +701,18 @@ Map<String, dynamic> _formatSpecFromJson({
         propertyKey: entry.key,
         propertyMap: p,
         allSchemaNames: allSchemaNames,
+        nullable: schema.mapOrNull(object: (o) {
+          if (o.nullable != null) {
+            return o.nullable;
+          }
+          bool isRequired = o.required?.contains(entry.key) ?? false;
+          bool hasDefault = o.defaultValue != null;
+          return !hasDefault && !isRequired;
+        }),
       );
+
       if (extraPropSchema.isNotEmpty) {
         props[entry.key] = newPropSchema;
-        //print(newPropSchema);
         schemaExtra.addAll(extraPropSchema);
       }
     }
@@ -721,6 +730,7 @@ Map<String, dynamic> _formatSpecFromJson({
       schemaMap: entry.value,
       allSchemaNames: allSchemaNames,
     );
+
     schemaExtra[entry.key] = schemaOut;
     schemaExtra.addAll(schemaExtraInner);
   }
@@ -738,6 +748,7 @@ Map<String, dynamic> _formatSpecFromJson({
   required String propertyKey,
   required Map<String, dynamic> propertyMap,
   required List<String> allSchemaNames,
+  required bool? nullable,
 }) {
   final Map<String, dynamic> schemaExtra = {};
   final p = Map<String, dynamic>.from(propertyMap);
@@ -754,11 +765,22 @@ Map<String, dynamic> _formatSpecFromJson({
     for (final a in (p['anyOf'] as List)) {
       final aMap = Map<String, dynamic>.from(a);
 
-      if (aMap.containsKey('\$ref') || aMap['type'] == 'object') {
-        continue;
+      String aType;
+      if (aMap['type'] == null) {
+        if (aMap['\$ref'] != null) {
+          aType = aMap['\$ref'].toString().split('/').last.pascalCase;
+        } else if (aMap['title'] != null) {
+          aType = aMap['title'].toString().pascalCase;
+        } else {
+          // Cannot determine type, skip
+          continue;
+        }
+      } else {
+        aType = aMap['type']
+            .toString()
+            .replaceAll('enumeration', 'enum')
+            .pascalCase;
       }
-      final aType =
-          aMap['type'].toString().replaceAll('enumeration', 'enum').pascalCase;
 
       String anyOfName = '$newSchema$aType';
       if (aMap['title'] != null) {
@@ -768,6 +790,7 @@ Map<String, dynamic> _formatSpecFromJson({
 
       // Convert to schema
       var aSchema = Schema.fromJson(aMap);
+
       aSchema.mapOrNull(
         array: (o) {
           if (o.items.type == SchemaType.string) {
@@ -790,7 +813,10 @@ Map<String, dynamic> _formatSpecFromJson({
         },
       );
 
-      schemaExtra[anyOfName] = aSchema.toJson();
+      // Skip anyOf schemas that are references
+      if (aSchema.ref == null) {
+        schemaExtra[anyOfName] = aSchema.toJson();
+      }
       anyOf.add(aSchema);
     }
 
@@ -800,7 +826,7 @@ Map<String, dynamic> _formatSpecFromJson({
         title: newSchema,
         description: p['description'],
         defaultValue: p['default'],
-        nullable: p['nullable'],
+        nullable: nullable,
         anyOf: anyOf,
       ).toJson();
 
