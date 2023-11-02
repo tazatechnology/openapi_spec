@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.3
+
+* Support oneOf that contains primitive types and objects
+
 ## 0.7.2
 
 * Fix deserialization of `anyOf` types with lists
