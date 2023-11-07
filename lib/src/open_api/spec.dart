@@ -762,7 +762,15 @@ Map<String, dynamic> _formatSpecFromJson({
 
   if (p.containsKey('anyOf') && p['anyOf'] is List) {
     List<Schema> anyOf = [];
-    for (final a in (p['anyOf'] as List)) {
+
+    final propAnyOf = (p['anyOf'] as List).cast<Map<String, dynamic>>();
+
+    // Skip anyOf schemas that are references, not primitives
+    if (propAnyOf.map((e) => e.containsKey('\$ref')).every((e) => e)) {
+      return (propertyMapOut, schemaExtra);
+    }
+
+    for (final a in propAnyOf) {
       final aMap = Map<String, dynamic>.from(a);
 
       String aType;

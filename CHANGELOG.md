@@ -1,8 +1,12 @@
 # Changelog
 
+## 0.7.4
+
+* Fix minor bug in `anyOf` support for schema generation
+
 ## 0.7.3
 
-* Support oneOf that contains primitive types and objects
+* Support `oneOf` that contains primitive types and objects
 
 ## 0.7.2
 
