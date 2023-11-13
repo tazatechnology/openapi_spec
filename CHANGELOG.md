@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.6
+
+* Ensure that safe enum logic is propogated for all enum generation code
+
 ## 0.7.5
 
 * Add public `makeRequest` and `makeRequestStream` methods to generated client
