@@ -462,8 +462,8 @@ class SchemaGenerator extends BaseGenerator {
               );
               if (schema.defaultValue is String &&
                   (o.values?.contains(schema.defaultValue) ?? false)) {
-                defaultFallback =
-                    'return $uFactory(${o.title}.${schema.defaultValue.toString().camelCase},);';
+                final enumValue = _safeEnumValue(schema.defaultValue);
+                defaultFallback = 'return $uFactory(${o.title}.$enumValue,);';
               }
               // Place this as first check in fromJson
               // So that it takes precedence over string constructor (if present)
@@ -936,8 +936,7 @@ class SchemaGenerator extends BaseGenerator {
           c += "String ${nullable ? '?' : ''} $name,\n\n";
         } else {
           if (p.defaultValue != null && !required) {
-            final value = p.defaultValue!.replaceAll('.', '').camelCase;
-            c += "@Default(${p.ref}.${_safeEnumValue(value)}) ";
+            c += "@Default(${p.ref}.${_safeEnumValue(p.defaultValue!)}) ";
           }
           if (required) {
             c += "required ";
