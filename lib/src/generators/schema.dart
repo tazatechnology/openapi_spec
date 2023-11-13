@@ -961,7 +961,7 @@ class SchemaGenerator extends BaseGenerator {
     if (value.startsWith(RegExp(r'[0-9]'))) {
       value = 'v$value';
     }
-    return value.replaceAll('.', '').camelCase;
+    return value.replaceAll('.', '_').camelCase;
   }
 
   // ------------------------------------------
