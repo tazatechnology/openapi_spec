@@ -124,7 +124,7 @@ class ClientGenerator extends BaseGenerator {
 
     // Client header
     file.writeAsStringSync("""
-${getHeader()}
+${getHeader(ignoreForFile: 'invalid_annotation_target, unused_import')}
 
 import 'dart:io' as io;
 import 'dart:convert';
