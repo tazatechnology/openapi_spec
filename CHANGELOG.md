@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.5
+
+* Add public `makeRequest` and `makeRequestStream` methods to generated client
+* Ignore unused import warning in generated client
+* Improve safe enum naming logic
+
 ## 0.7.4
 
 * Fix minor bug in `anyOf` support for schema generation
