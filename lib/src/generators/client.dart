@@ -126,11 +126,14 @@ class ClientGenerator extends BaseGenerator {
     file.writeAsStringSync("""
 ${getHeader(ignoreForFile: 'invalid_annotation_target, unused_import')}
 
-import 'dart:io' as io;
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'dart:io' as io;
 import 'dart:typed_data';
+
+import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
+import 'package:meta/meta.dart';
+
 import 'schema/schema.dart';
 
 /// Enum of HTTP methods
@@ -234,6 +237,17 @@ class $clientName {
   Future<http.BaseRequest> onRequest(http.BaseRequest request) {
     return Future.value(request);
   }
+  
+  // ------------------------------------------
+  // METHOD: onStreamedResponse
+  // ------------------------------------------
+
+  /// Middleware for HTTP streamed responses (user can override)
+  Future<http.StreamedResponse> onStreamedResponse(
+      final http.StreamedResponse response,
+      ) {
+    return Future.value(response);
+  }
 
   // ------------------------------------------
   // METHOD: onResponse
@@ -243,13 +257,14 @@ class $clientName {
   Future<http.Response> onResponse(http.Response response) {
     return Future.value(response);
   }
-
+  
   // ------------------------------------------
-  // METHOD: _request
+  // METHOD: makeRequestStream
   // ------------------------------------------
 
-  /// Reusable request method
-  Future<http.Response> _request({
+  /// Reusable request stream method
+  @protected
+  Future<http.StreamedResponse> makeRequestStream({
     required String baseUrl,
     required String path,
     required HttpMethod method,
@@ -303,7 +318,7 @@ class $clientName {
     headers.addAll(this.headers);
 
     // Build the request object
-    late http.Response response;
+    late http.StreamedResponse response;
     try {
       http.BaseRequest request;
       if (isMultipart) {
@@ -341,10 +356,10 @@ class $clientName {
       request = await onRequest(request);
 
       // Submit request
-      response = await http.Response.fromStream(await client.send(request));
+      response = await client.send(request);
 
       // Handle user response middleware
-      response = await onResponse(response);
+      response = await onStreamedResponse(response);
     } catch (e) {
       // Handle request and response errors
       throw $clientException(
@@ -366,8 +381,53 @@ class $clientName {
       method: method,
       message: 'Unsuccessful response',
       code: response.statusCode,
-      body: response.body,
+      body: (await http.Response.fromStream(response)).body,
     );
+  }
+  
+  // ------------------------------------------
+  // METHOD: makeRequest
+  // ------------------------------------------
+  
+  /// Reusable request method
+  @protected
+  Future<http.Response> makeRequest({
+    required String baseUrl,
+    required String path,
+    required HttpMethod method,
+    Map<String, dynamic> queryParams = const {},
+    Map<String, String> headerParams = const {},
+    bool isMultipart = false,
+    String requestType = '',
+    String responseType = '',
+    Object? body,
+  }) async {
+    try {
+      final streamedResponse = await makeRequestStream(
+        baseUrl: baseUrl,
+        path: path,
+        method: method,
+        queryParams: queryParams,
+        headerParams: headerParams,
+        requestType: requestType,
+        responseType: responseType,
+        body: body,
+      );
+      final response = await http.Response.fromStream(streamedResponse);
+
+      // Handle user response middleware
+      return await onResponse(response);
+    } on $clientException {
+      rethrow;
+    } catch (e) {
+      // Handle request and response errors
+      throw $clientException(
+        uri: Uri.parse((this.baseUrl ?? baseUrl) + path),
+        method: method,
+        message: 'Response error',
+        body: e,
+      );
+    }
   }\n
 """);
 
@@ -857,7 +917,7 @@ class $clientName {
       /// `${method.name.toUpperCase()}` `$uriDecoded`
       Future<$returnType> $methodName($inputCode) async {
 
-        final ${returnType == 'void' ? '_' : 'r'} = await _request(
+        final ${returnType == 'void' ? '_' : 'r'} = await makeRequest(
           baseUrl: '$baseUrlDecoded',
           path: '$path',
           method: $method,
