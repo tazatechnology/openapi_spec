@@ -749,6 +749,11 @@ class $clientName {
 
           // Handle enumeration default values
           p.schema.mapOrNull(
+            string: (value) {
+              if (pDefaultValue != null) {
+                pDefaultValue = "'$pDefaultValue'";
+              }
+            },
             enumeration: (value) {
               if (pDefaultValue != null) {
                 if (p.schema.ref != null && pType != 'String') {
