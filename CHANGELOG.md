@@ -1,8 +1,12 @@
 # Changelog
 
+## 0.7.7
+
+* Improved request error handling in generated client
+
 ## 0.7.6
 
-* Ensure that safe enum logic is propogated for all enum generation code
+* Ensure that safe enum logic is propagated for all enum generation code
 
 ## 0.7.5
 

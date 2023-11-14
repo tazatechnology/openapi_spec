@@ -259,12 +259,12 @@ class $clientName {
   }
   
   // ------------------------------------------
-  // METHOD: makeRequestStream
+  // METHOD: _request
   // ------------------------------------------
 
-  /// Reusable request stream method
+  /// Reusable request method
   @protected
-  Future<http.StreamedResponse> makeRequestStream({
+  Future<http.StreamedResponse> _request({
     required String baseUrl,
     required String path,
     required HttpMethod method,
@@ -318,46 +318,75 @@ class $clientName {
     headers.addAll(this.headers);
 
     // Build the request object
+    http.BaseRequest request;
+    if (isMultipart) {
+      // Handle multipart request
+      request = http.MultipartRequest(method.name, uri);
+      request = request as http.MultipartRequest;
+      if (body is List<http.MultipartFile>) {
+        request.files.addAll(body);
+      } else {
+        request.files.add(body as http.MultipartFile);
+      }
+    } else {
+      // Handle normal request
+      request = http.Request(method.name, uri);
+      request = request as http.Request;
+      try {
+        if (body != null) {
+          request.body = json.encode(body);
+        }
+      } catch (e) {
+        // Handle request encoding error
+        throw $clientException(
+          uri: uri,
+          method: method,
+          message: 'Could not encode: \${body.runtimeType}',
+          body: e,
+        );
+      }
+    }
+
+    // Add request headers
+    request.headers.addAll(headers);
+
+    // Handle user request middleware
+    request = await onRequest(request);
+
+    // Submit request
+    return await client.send(request);
+  }
+  
+  // ------------------------------------------
+  // METHOD: makeRequestStream
+  // ------------------------------------------
+
+  /// Reusable request stream method
+  @protected
+  Future<http.StreamedResponse> makeRequestStream({
+    required String baseUrl,
+    required String path,
+    required HttpMethod method,
+    Map<String, dynamic> queryParams = const {},
+    Map<String, String> headerParams = const {},
+    bool isMultipart = false,
+    String requestType = '',
+    String responseType = '',
+    Object? body,
+  }) async {
+    final uri = Uri.parse((this.baseUrl ?? baseUrl) + path);
     late http.StreamedResponse response;
     try {
-      http.BaseRequest request;
-      if (isMultipart) {
-        // Handle multipart request
-        request = http.MultipartRequest(method.name, uri);
-        request = request as http.MultipartRequest;
-        if (body is List<http.MultipartFile>) {
-          request.files.addAll(body);
-        } else {
-          request.files.add(body as http.MultipartFile);
-        }
-      } else {
-        // Handle normal request
-        request = http.Request(method.name, uri);
-        request = request as http.Request;
-        try {
-          if (body != null) {
-            request.body = json.encode(body);
-          }
-        } catch (e) {
-          // Handle request encoding error
-          throw $clientException(
-            uri: uri,
-            method: method,
-            message: 'Could not encode: \${body.runtimeType}',
-            body: e,
-          );
-        }
-      }
-
-      // Add request headers
-      request.headers.addAll(headers);
-
-      // Handle user request middleware
-      request = await onRequest(request);
-
-      // Submit request
-      response = await client.send(request);
-
+      response = await _request(
+        baseUrl: baseUrl,
+        path: path,
+        method: method,
+        queryParams: queryParams,
+        headerParams: headerParams,
+        requestType: requestType,
+        responseType: responseType,
+        body: body,
+      );
       // Handle user response middleware
       response = await onStreamedResponse(response);
     } catch (e) {
@@ -384,11 +413,11 @@ class $clientName {
       body: (await http.Response.fromStream(response)).body,
     );
   }
-  
+
   // ------------------------------------------
   // METHOD: makeRequest
   // ------------------------------------------
-  
+
   /// Reusable request method
   @protected
   Future<http.Response> makeRequest({
@@ -402,8 +431,10 @@ class $clientName {
     String responseType = '',
     Object? body,
   }) async {
+    final uri = Uri.parse((this.baseUrl ?? baseUrl) + path);
+    late http.Response response;
     try {
-      final streamedResponse = await makeRequestStream(
+      final streamedResponse = await _request(
         baseUrl: baseUrl,
         path: path,
         method: method,
@@ -413,21 +444,32 @@ class $clientName {
         responseType: responseType,
         body: body,
       );
-      final response = await http.Response.fromStream(streamedResponse);
-
+      response = await http.Response.fromStream(streamedResponse);
       // Handle user response middleware
-      return await onResponse(response);
-    } on $clientException {
-      rethrow;
+      response = await onResponse(response);
     } catch (e) {
       // Handle request and response errors
       throw $clientException(
-        uri: Uri.parse((this.baseUrl ?? baseUrl) + path),
+        uri: uri,
         method: method,
         message: 'Response error',
         body: e,
       );
     }
+
+    // Check for successful response
+    if ((response.statusCode ~/ 100) == 2) {
+      return response;
+    }
+
+    // Handle unsuccessful response
+    throw $clientException(
+      uri: uri,
+      method: method,
+      message: 'Unsuccessful response',
+      code: response.statusCode,
+      body: response.body,
+    );
   }\n
 """);
 
