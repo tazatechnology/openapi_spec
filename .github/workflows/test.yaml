@@ -8,7 +8,7 @@ on:
 
 jobs:
   Test:
-    name: 'openapi_sec'
+    name: 'openapi_spec_tests'
     runs-on: ubuntu-22.04
 
     steps:

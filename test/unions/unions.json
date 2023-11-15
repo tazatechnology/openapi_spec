@@ -1,0 +1,265 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Unions schema",
+    "description": "Schema with lots of unions",
+    "version": "1.0.0"
+  },
+  "paths": {
+
+  },
+  "components": {
+    "schemas": {
+      "TrainingSetup": {
+        "title": "TrainingSetup",
+        "required": [
+          "name",
+          "training"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the training."
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Description of the training setup."
+          },
+          "training": {
+            "title": "Training",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlphaTraining"
+              },
+              {
+                "$ref": "#/components/schemas/BetaTraining"
+              }
+            ],
+            "description": "The type of training to perform."
+          }
+        }
+      },
+      "AlphaTraining": {
+        "title": "AlphaTraining",
+        "required": [
+          "data_ids"
+        ],
+        "type": "object",
+        "properties": {
+          "data_ids": {
+            "title": "Data Ids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Data sources."
+          },
+          "alpha_kind": {
+            "title": "Alpha Kind",
+            "enum": [
+              "alpha"
+            ],
+            "type": "string",
+            "description": "Alpha training kind",
+            "default": "alpha"
+          },
+          "x_transform": {
+            "title": "X Transform",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlphaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/BetaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GammaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GroupTransform"
+              }
+            ],
+            "description": "Transform to apply to X data.",
+            "default": {
+              "kind": "alpha"
+            }
+          },
+          "y_transform": {
+            "title": "Y Transform",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlphaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/BetaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GammaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GroupTransform"
+              }
+            ],
+            "description": "Transform to apply to Y data.",
+            "default": {
+              "kind": "alpha"
+            }
+          }
+        }
+      },
+      "BetaTraining": {
+        "title": "BetaTraining",
+        "required": [
+          "data_ids"
+        ],
+        "type": "object",
+        "properties": {
+          "data_ids": {
+            "title": "Data Ids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Data sources."
+          },
+          "beta_kind": {
+            "title": "Beta Kind",
+            "enum": [
+              "beta"
+            ],
+            "type": "string",
+            "description": "Beta training kind",
+            "default": "beta"
+          },
+          "x_transform": {
+            "title": "X Transform",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlphaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/BetaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GammaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GroupTransform"
+              }
+            ],
+            "description": "Transform to apply to X data.",
+            "default": {
+              "kind": "alpha"
+            }
+          },
+          "y_transform": {
+            "title": "Y Transform",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AlphaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/BetaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GammaTransform"
+              },
+              {
+                "$ref": "#/components/schemas/GroupTransform"
+              }
+            ],
+            "description": "Transform to apply to Y data.",
+            "default": {
+              "kind": "alpha"
+            }
+          }
+        }
+      },
+      "AlphaTransform": {
+        "title": "AlphaTransform",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "enum": [
+              "alpha"
+            ],
+            "type": "string",
+            "description": "Standard alpha transform",
+            "default": "alpha"
+          }
+        }
+      },
+      "BetaTransform": {
+        "title": "BetaTransform",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "enum": [
+              "beta"
+            ],
+            "type": "string",
+            "description": "Standard beta transform",
+            "default": "beta"
+          }
+        }
+      },
+      "GammaTransform": {
+        "title": "GammaTransform",
+        "type": "object",
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "enum": [
+              "gamma"
+            ],
+            "type": "string",
+            "description": "Standard gamma transform",
+            "default": "gamma"
+          }
+        }
+      },
+      "GroupTransform": {
+        "title": "GroupTransform",
+        "required": [
+          "transforms"
+        ],
+        "type": "object",
+        "properties": {
+          "kind": {
+            "title": "Transform Kind",
+            "enum": [
+              "group"
+            ],
+            "type": "string",
+            "description": "A group of transforms.",
+            "default": "group"
+          },
+          "transforms": {
+            "title": "Transforms",
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AlphaTransform"
+                },
+                {
+                  "$ref": "#/components/schemas/BetaTransform"
+                },
+                {
+                  "$ref": "#/components/schemas/GammaTransform"
+                }
+              ]
+            },
+            "description": "The group of transforms."
+          }
+        }
+      }
+    }
+  }
+}
