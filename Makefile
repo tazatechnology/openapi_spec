@@ -1,6 +1,8 @@
 .DEFAULT_TARGET: help
 .PHONY: build test coverage docs example
 
+TEST_ARGS ?=
+
 help:
 	@echo "Package Makefile"
 
@@ -28,11 +30,14 @@ example:
 	rm -rf build
 	dart run example/example.dart
 
+# Example use:
+#  make test
+#  make test TEST_ARGS="-n Unions"
 test: 
 	@dart pub get && \
 	rm -rf test/tmp && \
 	clear && \
-	dart test && \
+	dart test $(TEST_ARGS) && \
 	make build-test
 
 format:

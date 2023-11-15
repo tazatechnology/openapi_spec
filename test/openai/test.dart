@@ -37,7 +37,7 @@ void main() {
       spec.toJsonFile(destination: testJson);
     });
 
-    // / Test code generation of OpenAPI spec defined models
+    /// Test code generation of OpenAPI spec defined models
     test('Generate Schema Code', () async {
       await spec.generate(
         package: 'openai',
