@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.8
+
+* Decode JSON response as UTF-8 by default
+
 ## 0.7.7
 
 * Improved request error handling in generated client
