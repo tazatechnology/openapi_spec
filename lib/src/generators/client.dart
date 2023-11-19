@@ -259,6 +259,14 @@ class $clientName {
   }
   
   // ------------------------------------------
+  // METHOD: _jsonDecode
+  // ------------------------------------------
+
+  dynamic _jsonDecode(http.Response r) {
+    return json.decode(utf8.decode(r.bodyBytes));
+  }
+
+  // ------------------------------------------
   // METHOD: _request
   // ------------------------------------------
 
@@ -880,7 +888,7 @@ class $clientName {
         object: (s) {
           // Handle deserialization of single object
           if (s.ref != null || returnType.startsWith('Union')) {
-            decoder = "return $returnType.fromJson(json.decode(r.body));";
+            decoder = "return $returnType.fromJson(_jsonDecode(r));";
           } else {
             // Just return the whole response and allow user to handle
             if (returnType == 'dynamic') {
@@ -893,7 +901,7 @@ class $clientName {
           // Handle deserialization for array of objects
           if (s.items.ref != null) {
             decoder = """
-              final list = json.decode(r.body) as List;
+              final list = _jsonDecode(r) as List;
               return list.map((e) => ${s.items.ref}.fromJson(e)).toList();
             """;
           }
@@ -902,7 +910,7 @@ class $clientName {
           // Handle deserialization for map of objects
           if (s.valueSchema?.ref != null) {
             decoder = """
-              final map = json.decode(r.body) as Map<String, dynamic>;
+              final map = _jsonDecode(r) as Map<String, dynamic>;
               return map.map((k, v) => MapEntry(k, ${s.valueSchema?.ref}.fromJson(v)));
             """;
           }
@@ -915,9 +923,9 @@ class $clientName {
         } else if (returnType == 'Uint8List') {
           decoder = "return  r.bodyBytes;";
         } else if (returnType.contains('List') || returnType.contains('Map')) {
-          decoder = "return  $returnType.from(json.decode(r.body));";
+          decoder = "return  $returnType.from(_jsonDecode(r));";
         } else {
-          decoder = "return  json.decode(r.body);";
+          decoder = "return  _jsonDecode(r);";
         }
       }
     }
