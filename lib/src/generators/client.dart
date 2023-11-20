@@ -127,7 +127,6 @@ class ClientGenerator extends BaseGenerator {
 ${getHeader(ignoreForFile: 'invalid_annotation_target, unused_import')}
 
 import 'dart:convert';
-import 'dart:io' as io;
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
@@ -144,7 +143,7 @@ enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 // ==========================================
 
 /// HTTP exception handler for $clientName
-class $clientException implements io.HttpException {
+class $clientException implements Exception {
   $clientException({
     required this.message,
     required this.uri,
@@ -153,9 +152,7 @@ class $clientException implements io.HttpException {
     this.body,
   });
   
-  @override
   final String message;
-  @override
   final Uri uri;
   final HttpMethod method;
   final int? code;
@@ -192,11 +189,13 @@ class $clientName {
   /// 
   /// - [$clientName.baseUrl] Override base URL (default: server url defined in spec)
   /// - [$clientName.headers] Global headers to be sent with every request
+  /// - [$clientName.queryParams] Global query parameters to be sent with every request
   /// - [$clientName.client] Override HTTP client to use for requests
   $clientName({
     $authInputCode
     this.baseUrl,
     this.headers = const {},
+    this.queryParams = const {},
     http.Client? client,
   }) : assert(
           baseUrl == null || baseUrl.startsWith('http'),
@@ -213,6 +212,9 @@ class $clientName {
   
   /// Global headers to be sent with every request
   final Map<String, String> headers;
+  
+  /// Global query parameters to be sent with every request
+  final Map<String, dynamic> queryParams;
 
   /// HTTP client for requests
   final http.Client client;
@@ -291,6 +293,9 @@ class $clientName {
       baseUrl.isNotEmpty,
       'baseUrl is required, but none defined in spec or provided by user',
     );
+    
+    // Add global query parameters
+    queryParams = {...queryParams, ...this.queryParams};
 
     // Ensure query parameters are strings or iterable of strings
     queryParams = queryParams.map((key, value) {
