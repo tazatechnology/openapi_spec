@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.9
+
+* Fix query string default values
+* Remove dependency on io.HttpException
+
 ## 0.7.8
 
 * Decode JSON response as UTF-8 by default
