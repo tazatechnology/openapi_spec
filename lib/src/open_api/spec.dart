@@ -547,6 +547,12 @@ Map<String, dynamic> _formatSpecFromJson({
     }
   }
 
+  // Package treats oneOf as anyOf under the hood
+  // Rename oneOf to anyOf to reuse the same logic
+  if (m.containsKey('oneOf') && !m.containsKey('anyOf')) {
+    m['anyOf'] = m['oneOf'];
+  }
+
   // Return a parsable reference object
   if (m.containsKey('\$ref')) {
     final ref = m['\$ref'].toString().split('/').last;
@@ -723,6 +729,28 @@ Map<String, dynamic> _formatSpecFromJson({
     schemaMap['properties'] = props;
   }
 
+  // Handle union types
+  if (schemaMap['oneOf'] is List) {
+    final (newPropSchema, extraPropSchema) = _extraPrimitiveUnionSchemas(
+      newSchema: '',
+      propertyKey: schemaKey,
+      propertyMap: schemaMap,
+      allSchemaNames: allSchemaNames,
+      nullable: schema.mapOrNull(object: (o) {
+        if (o.nullable != null) {
+          return o.nullable;
+        }
+        bool hasDefault = o.defaultValue != null;
+        return !hasDefault;
+      }),
+    );
+
+    if (extraPropSchema.isNotEmpty) {
+      props[schemaKey] = newPropSchema;
+      schemaExtra.addAll(extraPropSchema);
+    }
+  }
+
   // Recursively check for inner schemas
   for (final entry in schemaExtra.entries.toList()) {
     final (schemaOut, schemaExtraInner) = _extraComponentSchemas(
@@ -753,12 +781,6 @@ Map<String, dynamic> _formatSpecFromJson({
   final Map<String, dynamic> schemaExtra = {};
   final p = Map<String, dynamic>.from(propertyMap);
   var propertyMapOut = Map<String, dynamic>.from(propertyMap);
-
-  // Package treats oneOf as anyOf under the hood
-  // Rename oneOf to anyOf to reuse the same logic
-  if (p.containsKey('oneOf') && !p.containsKey('anyOf')) {
-    p['anyOf'] = p['oneOf'];
-  }
 
   if (p.containsKey('anyOf') && p['anyOf'] is List) {
     List<Schema> anyOf = [];

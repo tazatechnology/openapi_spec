@@ -76,10 +76,18 @@ class SchemaGenerator extends BaseGenerator {
     final extraSchemas =
         spec.extraSchemaMapping.entries.fold([], (p, e) => p + e.value);
 
+    // Get a list of all union schemas
+    final unionSchemas =
+        unions.entries.fold([], (p, e) => [...p, e.key, ...e.value]);
+
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
       // Skip extra schemas, they will be written to the same file as the parent schema
       if (extraSchemas.contains(s)) {
+        continue;
+      }
+      // Skip union types, they will be written afterwords
+      if (unionSchemas.contains(s)) {
         continue;
       }
 
@@ -121,27 +129,7 @@ class SchemaGenerator extends BaseGenerator {
         object: (schema) {
           _writeObject(name: name, schema: schema);
           // Check if there are any extra schemas to write in this file
-          if (spec.extraSchemaMapping.containsKey(s)) {
-            for (final extra in spec.extraSchemaMapping[s]!) {
-              schemas[extra]?.mapOrNull(
-                object: (extraSchema) {
-                  if (extraSchema.anyOf?.isEmpty ?? true) {
-                    _writeObject(name: extra, schema: extraSchema);
-                  } else {
-                    final isPrimitive = extraSchema.anyOf!
-                        .map((e) => e.type)
-                        .any((e) => e != SchemaType.object);
-                    if (isPrimitive) {
-                      _writePrimitiveUnion(schema: extraSchema);
-                    }
-                  }
-                },
-                enumeration: (extraSchema) {
-                  _writeEnumeration(name: extra, schema: extraSchema);
-                },
-              );
-            }
-          }
+          _writeExtraSchemasIfAny(s);
         },
         enumeration: (schema) {
           _writeEnumeration(name: name, schema: schema);
@@ -189,6 +177,39 @@ class SchemaGenerator extends BaseGenerator {
         union: u,
         schemas: _unions[u]!,
       );
+
+      // Check if there are any extra schemas to write in this file
+      for (final s in [u, ...?_unions[u]]) {
+        _writeExtraSchemasIfAny(s);
+      }
+    }
+  }
+
+  // ------------------------------------------
+  // METHOD: _writeExtraSchemasIfAny
+  // ------------------------------------------
+
+  void _writeExtraSchemasIfAny(final String parentSchemaName) {
+    if (spec.extraSchemaMapping.containsKey(parentSchemaName)) {
+      for (final extra in spec.extraSchemaMapping[parentSchemaName]!) {
+        spec.components?.schemas?[extra]?.mapOrNull(
+          object: (extraSchema) {
+            if (extraSchema.anyOf?.isEmpty ?? true) {
+              _writeObject(name: extra, schema: extraSchema);
+            } else {
+              final isPrimitive = extraSchema.anyOf!
+                  .map((e) => e.type)
+                  .any((e) => e != SchemaType.object);
+              if (isPrimitive) {
+                _writePrimitiveUnion(schema: extraSchema);
+              }
+            }
+          },
+          enumeration: (extraSchema) {
+            _writeEnumeration(name: extra, schema: extraSchema);
+          },
+        );
+      }
     }
   }
 
@@ -202,8 +223,20 @@ class SchemaGenerator extends BaseGenerator {
   }) {
     printLog('Create Union Schema', union);
 
+    final unionParentSchema = spec.components?.schemas?[union];
+    String? discriminator = unionParentSchema?.mapOrNull(
+      object: (o) => o.discriminator?.propertyName,
+    );
+
     // Determine the schema union key
-    final unionKey = options.onSchemaUnionKey?.call(union, schemas) ?? 'type';
+    final unionKey = options.onSchemaUnionKey?.call(union, schemas) ??
+        discriminator ??
+        'type';
+
+    // Union description
+    final description =
+        unionParentSchema?.description?.trim().replaceAll('\n', '\n/// ') ??
+            'Union class for ${schemas.map((e) => '[$e]').join(', ')}';
 
     // Union header
     file.writeAsStringSync("""
@@ -211,7 +244,7 @@ class SchemaGenerator extends BaseGenerator {
     // CLASS: $union
     // ==========================================
     
-    /// Union class for ${schemas.map((e) => '[$e]').join(', ')}
+    /// $description
     @Freezed(unionKey: '$unionKey')
     sealed class $union with _\$$union  {
       const $union._();\n
@@ -229,8 +262,10 @@ class SchemaGenerator extends BaseGenerator {
 
     // Loop through each union
     for (final s in schemas) {
-      final uSubClass = s.replaceAll(unionBase, '').trim();
-      final uClass = "$union.$uSubClass";
+      final uSubClass = s.trim();
+      final uFactoryName =
+          options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+              uSubClass.replaceAll(unionBase, '').camelCase;
 
       // Write each property of the union type
       var schema = spec.components?.schemas?[s]?.mapOrNull(object: (o) => o);
@@ -243,15 +278,7 @@ class SchemaGenerator extends BaseGenerator {
       // Attempt to get the union value based on the key
       String? unionValue = props[unionKey]?.mapOrNull(
         string: (s) => s.defaultValue,
-        enumeration: (s) {
-          // Convert the union enum to a string
-          props[unionKey] = Schema.string(
-            description: s.description,
-            defaultValue: s.defaultValue,
-            nullable: s.nullable,
-          );
-          return s.defaultValue;
-        },
+        enumeration: (s) => s.defaultValue,
       );
       if (unionValue != null) {
         unionValues.add(unionValue);
@@ -260,14 +287,18 @@ class SchemaGenerator extends BaseGenerator {
         unionValue = '';
       }
 
+      final description =
+          schema.description?.trim().replaceAll('\n', '\n/// ') ??
+              'Union constructor for [$s] $unionValue';
+
       /// Class header
       file.writeAsStringSync("""
       // ------------------------------------------
       // UNION: $s
       // ------------------------------------------
       
-      /// Union constructor for [$s] $unionValue
-      const factory $uClass({
+      /// $description
+      const factory $union.$uFactoryName({
       """, mode: FileMode.append);
 
       // Loop over all properties
@@ -276,10 +307,11 @@ class SchemaGenerator extends BaseGenerator {
       for (final propName in propNames) {
         var dartName = propName.camelCase;
         dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
+        final prop = props[propName]!;
         final v = _writeProperty(
           name: dartName,
           jsonName: propName,
-          property: props[propName]!,
+          property: prop,
           required: schema.required?.contains(propName) ?? false,
         );
         if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
@@ -288,18 +320,17 @@ class SchemaGenerator extends BaseGenerator {
       }
 
       /// Class Footer
-      file.writeAsStringSync("}) = $union$uSubClass;\n\n",
-          mode: FileMode.append);
+      file.writeAsStringSync("}) = $uSubClass;\n\n", mode: FileMode.append);
     }
 
     String unionValuesEnum = '';
     if (unionValues.isNotEmpty) {
       unionValuesEnum = """
       // ==========================================
-      // ENUM: ${union}Type
+      // ENUM: ${union}EnumType
       // ==========================================
 
-      enum ${union}Type {
+      enum ${union}EnumType {
         ${unionValues.map((e) => "@JsonValue('$e')\n${e.camelCase},").join('\n')}
       }
       """;
@@ -330,7 +361,12 @@ class SchemaGenerator extends BaseGenerator {
       );
     }
 
-    final union = schema.title!;
+    // TODO allow renaming the union (but should be done as the non-primitive unions)
+    final union = schema.title!.trim().pascalCase;
+
+    // Union description
+    final description = schema.description?.trim().replaceAll('\n', '\n/// ') ??
+        'No Description';
 
     // Union header
     file.writeAsStringSync("""
@@ -338,11 +374,10 @@ class SchemaGenerator extends BaseGenerator {
     // CLASS: $union
     // ==========================================
     
-    /// ${schema.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
+    /// $description
     @freezed
     sealed class $union with _\$$union  {
       const $union._();\n
-
     """, mode: FileMode.append);
 
     // Keep track of the required converter logic
@@ -350,7 +385,6 @@ class SchemaGenerator extends BaseGenerator {
     final List<String> fromJson = [];
 
     // Name of the union constructor
-    final uNameConstr = '_Union$union';
     String defaultFallback = '';
 
     schema.mapOrNull(
@@ -372,127 +406,175 @@ class SchemaGenerator extends BaseGenerator {
           },
         );
         for (final a in subSchemas) {
+          final description =
+              a.description?.trim().replaceAll('\n', '\n/// ') ??
+                  'No Description';
           a.mapOrNull(
             object: (o) {
               // Handle object reference
               if (o.ref != null) {
                 final ref = o.dereference(components: spec.components?.schemas);
-                final uType = ref.toDartType().replaceAll('?', '');
-                final uFactory = '$union.${uType.camelCase}';
-                final uName = '$uNameConstr$uType';
-                toJson.add('$uName(value: final v) => v.toJson(),');
+                final uType = ref.toDartType();
+                final uTypeName = uType.replaceAll('?', '');
+                var uSubClass = '$union$uTypeName';
+                uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+                final uFactoryName =
+                    options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                        uTypeName.camelCase;
+                toJson.add('$uSubClass(value: final v) => v.toJson(),');
                 fromJson.add("""
                 if (data is Map<String, dynamic>) {
                   try {
-                    return $uFactory(
-                      $uType.fromJson(data),
+                    return $uSubClass(
+                      $uTypeName.fromJson(data),
                     );
                   } catch (e) {}
                 }""");
                 file.writeAsStringSync(
-                  'const factory $uFactory($uType value,) = $uName;\n\n',
+                  '/// $description\n'
+                  'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                   mode: FileMode.append,
                 );
               }
             },
             map: (o) {
-              final uName = '${uNameConstr}Map';
-              final uFactory = '$union.map';
-              final uType = o.toDartType().replaceAll('?', '');
-              fromJson.add('if (data is $uType) {return $uFactory(data);}');
-              toJson.add('$uName(value: final v) => v,');
+              final uType = o.toDartType();
+              final uTypeNonNullable = uType.replaceAll('?', '');
+              final uTypeName =
+                  uType.replaceAll(RegExp(r'[?<>,]'), '_').pascalCase;
+              var uSubClass = '$union$uTypeName';
+              uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+              final uFactoryName =
+                  options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                      uTypeName.camelCase;
+              fromJson.add(
+                  'if (data is $uTypeNonNullable) {return $uSubClass(data);}');
+              toJson.add('$uSubClass(value: final v) => v,');
               if (schema.defaultValue is Map) {
                 defaultFallback =
-                    "return $uFactory(const ${schema.defaultValue});";
+                    "return $uSubClass(const ${schema.defaultValue});";
               }
               file.writeAsStringSync(
-                'const factory $uFactory($uType value,) = $uName;\n\n',
+                '/// $description\n'
+                'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                 mode: FileMode.append,
               );
             },
             string: (o) {
-              final uName = '${uNameConstr}String';
-              final uFactory = '$union.string';
-              final uType = o.toDartType().replaceAll('?', '');
-              fromJson.add('if (data is $uType) {return $uFactory(data);}');
-              toJson.add('$uName(value: final v) => v,');
+              final uType = o.toDartType();
+              final uTypeNonNullable = uType.replaceAll('?', '');
+              final uTypeName = uTypeNonNullable.pascalCase;
+              var uSubClass = '$union$uTypeName';
+              uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+              final uFactoryName =
+                  options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                      uTypeName.camelCase;
+              fromJson.add(
+                  'if (data is $uTypeNonNullable) {return $uSubClass(data);}');
+              toJson.add('$uSubClass(value: final v) => v,');
               if (schema.defaultValue is String) {
-                defaultFallback = "return $uFactory('${schema.defaultValue}');";
+                defaultFallback =
+                    "return $uSubClass('${schema.defaultValue}');";
               }
               file.writeAsStringSync(
-                'const factory $uFactory($uType value,) = $uName;\n\n',
+                '/// $description\n'
+                'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                 mode: FileMode.append,
               );
             },
             number: (o) {
-              final uName = '${uNameConstr}Number';
-              final uFactory = '$union.number';
-              final uType = o.toDartType().replaceAll('?', '');
-              fromJson.add('if (data is $uType) {return $uFactory(data);}');
-              toJson.add('$uName(value: final v) => v,');
+              final uType = o.toDartType();
+              final uTypeNonNullable = uType.replaceAll('?', '');
+              final uTypeName = uTypeNonNullable.pascalCase;
+              var uSubClass = '$union$uTypeName';
+              uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+              final uFactoryName =
+                  options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                      uTypeName.camelCase;
+              fromJson.add(
+                  'if (data is $uTypeNonNullable) {return $uSubClass(data);}');
+              toJson.add('$uSubClass(value: final v) => v,');
               if (schema.defaultValue is num) {
-                defaultFallback = 'return $uFactory(${schema.defaultValue});';
+                defaultFallback = 'return $uSubClass(${schema.defaultValue});';
               }
               file.writeAsStringSync(
-                'const factory $uFactory($uType value,) = $uName;\n\n',
+                '/// $description\n'
+                'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                 mode: FileMode.append,
               );
             },
             integer: (o) {
-              final uName = '${uNameConstr}Integer';
-              final uFactory = '$union.integer';
-              final uType = o.toDartType().replaceAll('?', '');
-              fromJson.add('if (data is $uType) {return $uFactory(data);}');
-              toJson.add('$uName(value: final v) => v,');
+              final uType = o.toDartType();
+              final uTypeNonNullable = uType.replaceAll('?', '');
+              final uTypeName = uTypeNonNullable.pascalCase;
+              var uSubClass = '$union$uTypeName';
+              uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+              final uFactoryName =
+                  options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                      uTypeName.camelCase;
+              fromJson.add(
+                  'if (data is $uTypeNonNullable) {return $uSubClass(data);}');
+              toJson.add('$uSubClass(value: final v) => v,');
+              if (schema.defaultValue is int) {
+                defaultFallback = 'return $uSubClass(${schema.defaultValue});';
+              }
               file.writeAsStringSync(
-                'const factory $uFactory($uType value,) = $uName;\n\n',
+                '/// $description\n'
+                'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                 mode: FileMode.append,
               );
-              if (schema.defaultValue is int) {
-                defaultFallback = 'return $uFactory(${schema.defaultValue});';
-              }
             },
             enumeration: (o) {
               // JSON generated enum map - expected name
               String unionEnumMap = '_\$${o.title}EnumMap';
-              final uName = '${uNameConstr}Enum';
-              final uFactory = '$union.enumeration';
+              final uType = '${o.title}${(o.nullable ?? false) ? '?' : ''}';
+              var uSubClass = '${union}Enumeration';
+              uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+              final uFactoryName =
+                  options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                      'enumeration';
               toJson.add(
-                '$uName(value: final v) => $unionEnumMap[v]!,',
+                '$uSubClass(value: final v) => $unionEnumMap[v]!,',
               );
-              if (schema.defaultValue is String &&
-                  (o.values?.contains(schema.defaultValue) ?? false)) {
-                final enumValue = _safeEnumValue(schema.defaultValue);
-                defaultFallback = 'return $uFactory(${o.title}.$enumValue,);';
-              }
               // Place this as first check in fromJson
               // So that it takes precedence over string constructor (if present)
               fromJson.add(
                 """
                 if (data is String && $unionEnumMap.values.contains(data)) {
-                  return $uFactory($unionEnumMap.keys.elementAt(
+                  return $uSubClass($unionEnumMap.keys.elementAt(
                   $unionEnumMap.values.toList().indexOf(data),),);
                 }""",
               );
+              if (schema.defaultValue is String &&
+                  (o.values?.contains(schema.defaultValue) ?? false)) {
+                final enumValue = _safeEnumValue(schema.defaultValue);
+                defaultFallback = 'return $uSubClass(${o.title}.$enumValue,);';
+              }
               file.writeAsStringSync(
-                'const factory $uFactory(${o.title} value,) = $uName;\n\n',
+                '/// $description\n'
+                'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                 mode: FileMode.append,
               );
             },
             array: (o) {
-              final factoryName = 'array${o.title?.split('Array').last}';
-              final uName = '$uNameConstr${factoryName.pascalCase}';
-              final uType = o.toDartType().replaceAll('?', '');
+              final uType = o.toDartType();
+              final uTypeName =
+                  uType.replaceAll(RegExp(r'[?<>,]'), '_').pascalCase;
+              var uSubClass = '$union$uTypeName';
+              uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
+              final uFactoryName =
+                  options.onSchemaUnionFactoryName?.call(union, uSubClass) ??
+                      uTypeName.camelCase;
               final innerType = o.items.toDartType();
-              final uFactory = '$union.$factoryName';
               fromJson.add(
-                  'if (data is List && data.every((item) => item is $innerType)) {return $uFactory(data.cast());}');
-              toJson.add('$uName(value: final v) => v,');
+                  'if (data is List && data.every((item) => item is $innerType)) {return $uSubClass(data.cast());}');
+              toJson.add('$uSubClass(value: final v) => v,');
               if (schema.defaultValue is List) {
-                defaultFallback = 'return $uFactory(${schema.defaultValue});';
+                defaultFallback = 'return $uSubClass(${schema.defaultValue});';
               }
               file.writeAsStringSync(
-                'const factory $uFactory($uType value,) = $uName;\n\n',
+                '/// $description\n'
+                'const factory $union.$uFactoryName($uType value,) = $uSubClass;\n\n',
                 mode: FileMode.append,
               );
             },
@@ -717,32 +799,62 @@ class SchemaGenerator extends BaseGenerator {
           final aTypes = p.anyOf!.map((e) => e.type);
           if (p.defaultValue is String &&
               (aTypes.contains(SchemaType.string))) {
+            final uTypeName = p.anyOf!
+                .firstWhere((s) => s.type == SchemaType.string)
+                .toDartType()
+                .replaceAll('?', '')
+                .pascalCase;
+            var uSubClass = '${p.title}$uTypeName';
+            uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
             p = p.copyWith(
-              defaultValue: "${p.title}.string('${p.defaultValue}'),",
+              defaultValue: "$uSubClass('${p.defaultValue}'),",
             );
           } else if (p.defaultValue is String &&
               (aTypes.contains(SchemaType.enumeration))) {
+            var uSubClass = '${p.title}Enumeration';
+            uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
             final a = p.anyOf!.firstWhereOrNull(
               (e) => e.type == SchemaType.enumeration,
             );
             p = p.copyWith(
               defaultValue:
-                  "${p.title}.enumeration(${a?.title}.${p.defaultValue.toString().camelCase}),",
+                  "$uSubClass(${a?.title}.${p.defaultValue.toString().camelCase}),",
             );
           } else if (p.defaultValue is bool &&
               (aTypes.contains(SchemaType.boolean))) {
+            final uTypeName = p.anyOf!
+                .firstWhere((s) => s.type == SchemaType.boolean)
+                .toDartType()
+                .replaceAll('?', '')
+                .pascalCase;
+            var uSubClass = '${p.title}$uTypeName';
+            uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
             p = p.copyWith(
-              defaultValue: "${p.title}.boolean(${p.defaultValue}),",
+              defaultValue: "$uSubClass(${p.defaultValue}),",
             );
           } else if (p.defaultValue is int &&
               (aTypes.contains(SchemaType.integer))) {
+            final uTypeName = p.anyOf!
+                .firstWhere((s) => s.type == SchemaType.integer)
+                .toDartType()
+                .replaceAll('?', '')
+                .pascalCase;
+            var uSubClass = '${p.title}$uTypeName';
+            uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
             p = p.copyWith(
-              defaultValue: "${p.title}.integer(${p.defaultValue}),",
+              defaultValue: "$uSubClass(${p.defaultValue}),",
             );
           } else if (p.defaultValue is num &&
               (aTypes.contains(SchemaType.number))) {
+            final uTypeName = p.anyOf!
+                .firstWhere((s) => s.type == SchemaType.number)
+                .toDartType()
+                .replaceAll('?', '')
+                .pascalCase;
+            var uSubClass = '${p.title}$uTypeName';
+            uSubClass = options.onSchemaName?.call(uSubClass) ?? uSubClass;
             p = p.copyWith(
-              defaultValue: "${p.title}.number(${p.defaultValue}),",
+              defaultValue: "$uSubClass(${p.defaultValue}),",
             );
           } else {
             // All else fails, cannot ensure a default value is valid
@@ -763,7 +875,7 @@ class SchemaGenerator extends BaseGenerator {
               .map((e) => e.toString())
               .toList();
           if (unionSchemas.isNotEmpty) {
-            c += "/// Any of: ${unionSchemas.map((e) => '[$e]').join(',')}\n";
+            c += "/// Any of: ${unionSchemas.map((e) => '[$e]').join(', ')}\n";
           }
         }
 
@@ -1026,8 +1138,9 @@ class SchemaGenerator extends BaseGenerator {
   // ------------------------------------------
 
   void _searchForUnions() {
-    void checkAnyOf(List<Schema>? schemas) {
-      if (schemas == null) {
+    void checkAnyOf(List<Schema>? schemas, [String? parentName]) {
+      // Primitive unions are handled separately
+      if (schemas == null || schemas.any((s) => s.type != SchemaType.object)) {
         return;
       }
       final unionSchemas = schemas
@@ -1036,11 +1149,11 @@ class SchemaGenerator extends BaseGenerator {
           .map((e) => e.toString())
           .toList();
       if (unionSchemas.isNotEmpty) {
-        _updateUnionMap(unionSchemas);
+        _updateUnionMap(parentName, unionSchemas);
       }
     }
 
-    void recursiveSchemaSearch(Schema? schema) {
+    void recursiveSchemaSearch(String? parentSchemaName, Schema? schema) {
       if (schema == null) {
         return;
       }
@@ -1048,17 +1161,19 @@ class SchemaGenerator extends BaseGenerator {
         object: (o) {
           final props = o.properties;
           final propNames = props?.keys.toList() ?? <String>[];
-          checkAnyOf(o.anyOf);
+          checkAnyOf(o.anyOf, parentSchemaName);
           for (final pName in propNames) {
             o.properties![pName]?.mapOrNull(
               object: (p) {
                 checkAnyOf(p.anyOf);
-                recursiveSchemaSearch(p);
+                recursiveSchemaSearch(pName, p);
               },
               array: (a) => recursiveSchemaSearch(
+                null,
                 a.items.mapOrNull(object: (o) => o),
               ),
               map: (m) => recursiveSchemaSearch(
+                null,
                 m.valueSchema?.mapOrNull(object: (o) => o),
               ),
             );
@@ -1069,7 +1184,7 @@ class SchemaGenerator extends BaseGenerator {
 
     // Check for unions in component schemas
     for (final s in (spec.components?.schemas?.keys ?? <String>[])) {
-      recursiveSchemaSearch(spec.components?.schemas?[s]);
+      recursiveSchemaSearch(s, spec.components?.schemas?[s]);
     }
 
     // Check for unions in component responses
@@ -1121,7 +1236,7 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _updateUnionMap
   // ------------------------------------------
 
-  void _updateUnionMap(List<String> schemas) {
+  void _updateUnionMap(String? parentSchemaName, List<String> schemas) {
     // Simply find the longest common string, starting from the end
     // Naive approach to arrive at a union name - allow user to override
 
@@ -1133,27 +1248,31 @@ class SchemaGenerator extends BaseGenerator {
       }
     }
 
-    // Use the snake schema names to find a common name
-    final schemasSnake = schemas.map((e) => e.snakeCase.split('_'));
-    final minLength = schemasSnake.map((e) => e.length).reduce(math.min);
-    int? index;
-    for (var i = 1; i < minLength; i++) {
-      if (schemasSnake.map((e) => e[e.length - i]).toSet().length == 1) {
-        index = i;
-      } else {
-        break;
-      }
-    }
-
     String name;
-    if (index == null) {
-      // Could not arrive at a common name, use a default
-      name = 'UnionSchema';
+    if (parentSchemaName != null) {
+      name = parentSchemaName;
     } else {
-      final commonWords =
-          schemasSnake.first.sublist(schemasSnake.first.length - index);
-      final commonName = commonWords.map((e) => e.titleCase).join();
-      name = 'Union$commonName';
+      // Use the snake schema names to find a common name
+      final schemasSnake = schemas.map((e) => e.snakeCase.split('_'));
+      final minLength = schemasSnake.map((e) => e.length).reduce(math.min);
+      int? index;
+      for (var i = 1; i < minLength; i++) {
+        if (schemasSnake.map((e) => e[e.length - i]).toSet().length == 1) {
+          index = i;
+        } else {
+          break;
+        }
+      }
+
+      if (index == null) {
+        // Could not arrive at a common name, use a default
+        name = 'UnionSchema';
+      } else {
+        final commonWords =
+            schemasSnake.first.sublist(schemasSnake.first.length - index);
+        final commonName = commonWords.map((e) => e.titleCase).join();
+        name = 'Union$commonName';
+      }
     }
 
     bool alreadyDefined =
