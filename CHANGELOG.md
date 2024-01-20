@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.10
+
+* Remove version from generated client code
+* Upgrade dependencies
+
 ## 0.7.9
 
 * Fix query string default values

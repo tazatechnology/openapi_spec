@@ -181,7 +181,7 @@ class $clientException implements Exception {
 // CLASS: $clientName
 // ==========================================
 
-/// Client for ${spec.info.title} (v.${spec.info.version})
+/// Client for ${spec.info.title}
 /// 
 /// ${spec.info.description?.trim().replaceAll('\n', '\n/// ') ?? 'No description'}
 class $clientName {
