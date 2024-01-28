@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.11
+
+* Improved support for OpenAPI 3.10 nullable primitive unions
+
 ## 0.7.10
 
 * Remove version from generated client code
