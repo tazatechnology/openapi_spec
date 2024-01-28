@@ -240,7 +240,7 @@ class _$OAuthFlowsImpl implements _OAuthFlows {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OAuthFlowsImpl &&
@@ -498,7 +498,7 @@ class _$OAuthFlowImplicitImpl implements _OAuthFlowImplicit {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OAuthFlowImplicitImpl &&
@@ -666,7 +666,7 @@ class _$OAuthFlowPasswordImpl implements _OAuthFlowPassword {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OAuthFlowPasswordImpl &&
@@ -837,7 +837,7 @@ class _$OAuthFlowClientCredentialsImpl implements _OAuthFlowClientCredentials {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OAuthFlowClientCredentialsImpl &&
@@ -1021,7 +1021,7 @@ class _$OAuthFlowAuthorizationCodeImpl implements _OAuthFlowAuthorizationCode {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OAuthFlowAuthorizationCodeImpl &&
@@ -1250,7 +1250,7 @@ class _$ApiCallbackImpl implements _ApiCallback {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApiCallbackImpl &&
@@ -1721,7 +1721,7 @@ class _$ComponentsImpl implements _Components {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ComponentsImpl &&
@@ -2014,7 +2014,7 @@ class _$ContactImpl implements _Contact {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ContactImpl &&
@@ -2240,7 +2240,7 @@ class _$DiscriminatorImpl implements _Discriminator {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DiscriminatorImpl &&
@@ -2432,7 +2432,7 @@ class _$EncodingImpl implements _Encoding {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EncodingImpl &&
@@ -2703,7 +2703,7 @@ class _$ExampleObjectImpl extends ExampleObject {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExampleObjectImpl &&
@@ -2936,7 +2936,7 @@ class _$ExternalDocsImpl implements _ExternalDocs {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ExternalDocsImpl &&
@@ -3159,7 +3159,7 @@ class _$HeaderImpl implements _Header {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HeaderImpl &&
@@ -3502,7 +3502,7 @@ class _$InfoImpl implements _Info {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InfoImpl &&
@@ -3761,7 +3761,7 @@ class _$LicenseImpl implements _License {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LicenseImpl &&
@@ -4018,7 +4018,7 @@ class _$LinkImpl implements _Link {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LinkImpl &&
@@ -4317,7 +4317,7 @@ class _$MediaTypeImpl implements _MediaType {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MediaTypeImpl &&
@@ -4861,7 +4861,7 @@ class _$OperationImpl implements _Operation {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OperationImpl &&
@@ -5700,7 +5700,7 @@ class _$OpenIdImpl implements _OpenId {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OpenIdImpl &&
@@ -6279,7 +6279,7 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ParameterCookieImpl &&
@@ -6557,7 +6557,7 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ParameterHeaderImpl &&
@@ -6835,7 +6835,7 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ParameterQueryImpl &&
@@ -7096,7 +7096,7 @@ class _$ParameterPathImpl extends _ParameterPath {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ParameterPathImpl &&
@@ -7720,7 +7720,7 @@ class _$PathItemImpl extends _PathItem {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PathItemImpl &&
@@ -8076,7 +8076,7 @@ class _$RequestBodyImpl extends _RequestBody {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RequestBodyImpl &&
@@ -8404,7 +8404,7 @@ class _$ResponseImpl extends _Response {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ResponseImpl &&
@@ -8911,7 +8911,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaObjectImpl &&
@@ -9218,7 +9218,7 @@ class _$SchemaBooleanImpl extends _SchemaBoolean {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaBooleanImpl &&
@@ -9525,7 +9525,7 @@ class _$SchemaStringImpl extends _SchemaString {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaStringImpl &&
@@ -9873,7 +9873,7 @@ class _$SchemaIntegerImpl extends _SchemaInteger {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaIntegerImpl &&
@@ -10223,7 +10223,7 @@ class _$SchemaNumberImpl extends _SchemaNumber {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaNumberImpl &&
@@ -10520,7 +10520,7 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaEnumImpl &&
@@ -10831,7 +10831,7 @@ class _$SchemaArrayImpl extends _SchemaArray {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaArrayImpl &&
@@ -11154,7 +11154,7 @@ class _$SchemaMapImpl extends _SchemaMap {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SchemaMapImpl &&
@@ -11430,7 +11430,7 @@ class _$SecurityImpl extends _Security {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SecurityImpl &&
@@ -11669,7 +11669,7 @@ class _$SecuritySchemeApiKeyImpl implements _SecuritySchemeApiKey {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SecuritySchemeApiKeyImpl &&
@@ -11844,7 +11844,7 @@ class _$SecuritySchemeHttpImpl implements _SecuritySchemeHttp {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SecuritySchemeHttpImpl &&
@@ -11996,7 +11996,7 @@ class _$SecuritySchemeMutualTLSImpl implements _SecuritySchemeMutualTLS {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SecuritySchemeMutualTLSImpl &&
@@ -12155,7 +12155,7 @@ class _$SecuritySchemeOauth2Impl implements _SecuritySchemeOauth2 {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SecuritySchemeOauth2Impl &&
@@ -12319,7 +12319,7 @@ class _$SecuritySchemeOpenIdConnectImpl
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SecuritySchemeOpenIdConnectImpl &&
@@ -12585,7 +12585,7 @@ class _$ServerImpl implements _Server {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ServerImpl &&
@@ -12854,7 +12854,7 @@ class _$ServerVariableImpl implements _ServerVariable {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ServerVariableImpl &&
@@ -13419,7 +13419,7 @@ class _$OpenApiImpl extends _OpenApi {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OpenApiImpl &&
@@ -13735,7 +13735,7 @@ class _$TagImpl implements _Tag {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TagImpl &&
@@ -14007,7 +14007,7 @@ class _$XmlImpl implements _Xml {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$XmlImpl &&
