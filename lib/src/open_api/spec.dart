@@ -11,6 +11,8 @@ final _oAuthTypes = [
   'authorizationCode'
 ];
 
+final _primitiveTypes = ['string', 'integer', 'number', 'boolean'];
+
 // ==========================================
 // CLASS: OpenApi
 // ==========================================
@@ -570,9 +572,20 @@ Map<String, dynamic> _formatSpecFromJson({
     } else if (m.containsKey('anyOf')) {
       final anyOf = m['anyOf'];
       if (anyOf is List) {
-        final typeSet = anyOf.map((e) => e['type']);
-        if (typeSet.toSet().length == 1) {
+        final typeSet = anyOf.map((e) => e['type']).toSet();
+        if (typeSet.length == 1) {
           m['type'] = anyOf.first['type'];
+        } else if (typeSet.length == 2 && typeSet.contains('null')) {
+          // Starting in OpenAPI 3.1, anyOf is used to define unions for nullable properties
+          // We do not want to create a union schema for these properties
+          // If the property is nullable and the anyOf contains a null type and a primitive type
+          // Then we want to replace the property with the primitive type
+          final propType = typeSet.firstWhere((e) => e != 'null');
+          if (_primitiveTypes.contains(propType)) {
+            m['type'] = typeSet.firstWhere((e) => e != 'null');
+            m['nullable'] = true;
+            m.remove('anyOf');
+          }
         }
       }
     } else if (_oAuthTypes.contains(parentKey)) {
@@ -710,8 +723,8 @@ Map<String, dynamic> _formatSpecFromJson({
           return !hasDefault && !isRequired;
         }),
       );
-      props[entry.key] = newPropSchema;
       if (extraPropSchema.isNotEmpty) {
+        props[entry.key] = newPropSchema;
         schemaExtra.addAll(extraPropSchema);
       }
     }
@@ -767,23 +780,6 @@ Map<String, dynamic> _formatSpecFromJson({
     // Skip anyOf schemas that are references, not primitives
     if (propAnyOf.map((e) => e.containsKey('\$ref')).every((e) => e)) {
       return (propertyMapOut, schemaExtra);
-    }
-
-    // Starting in OpenAPI 3.1, anyOf is used to define unions for nullable properties
-    // We do not want to create a union schema for these properties
-    final propAnyOfTypes = propAnyOf.map((e) => e['type']).toSet();
-    final primitiveTypes = {'string', 'integer', 'number', 'boolean'};
-    if (nullable == true &&
-        propAnyOfTypes.length == 2 &&
-        propAnyOfTypes.contains('null')) {
-      // Get the primitive type - should be the last remaining type
-      final propType = propAnyOfTypes.firstWhere((e) => e != 'null');
-      if (primitiveTypes.contains(propType)) {
-        // Replace the property with the primitive type
-        propertyMapOut.remove('anyOf');
-        propertyMapOut['type'] = propType;
-        return (propertyMapOut, schemaExtra);
-      }
     }
 
     for (final a in propAnyOf) {

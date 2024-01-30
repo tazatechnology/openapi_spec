@@ -772,7 +772,7 @@ class $clientName {
           if (p.required == true) {
             pType = 'required $pType';
           } else {
-            if (pDefaultValue == null) {
+            if (pDefaultValue == null && !pType.contains('?')) {
               pType = '$pType?';
               qCode = 'if (${pName.camelCase} != null) $qCode';
             }
