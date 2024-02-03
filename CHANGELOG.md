@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.13
+
+* Ensure HTTP methods are uppercase in request
+
 ## 0.7.12
 
 * Improved support for OpenAPI 3.10 nullable primitive unions
