@@ -334,7 +334,7 @@ class $clientName {
     http.BaseRequest request;
     if (isMultipart) {
       // Handle multipart request
-      request = http.MultipartRequest(method.name, uri);
+      request = http.MultipartRequest(method.name.toUpperCase(), uri);
       request = request as http.MultipartRequest;
       if (body is List<http.MultipartFile>) {
         request.files.addAll(body);
@@ -343,7 +343,7 @@ class $clientName {
       }
     } else {
       // Handle normal request
-      request = http.Request(method.name, uri);
+      request = http.Request(method.name.toUpperCase(), uri);
       request = request as http.Request;
       try {
         if (body != null) {
