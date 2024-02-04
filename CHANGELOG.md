@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.14
+
+* Better handling of OpenAPI 3.1 nullable types
+
 ## 0.7.13
 
 * Ensure HTTP methods are uppercase in request
