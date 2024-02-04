@@ -11,8 +11,6 @@ final _oAuthTypes = [
   'authorizationCode'
 ];
 
-final _primitiveTypes = ['string', 'integer', 'number', 'boolean'];
-
 // ==========================================
 // CLASS: OpenApi
 // ==========================================
@@ -572,20 +570,27 @@ Map<String, dynamic> _formatSpecFromJson({
     } else if (m.containsKey('anyOf')) {
       final anyOf = m['anyOf'];
       if (anyOf is List) {
-        final typeSet = anyOf.map((e) => e['type']).toSet();
+        final typeSet = anyOf.map((e) {
+          if (e is Map && e.containsKey('type')) {
+            return e['type'];
+          } else if (e is Map && e.containsKey('\$ref')) {
+            return e['\$ref'].toString();
+          }
+          return null;
+        }).toSet();
         if (typeSet.length == 1) {
           m['type'] = anyOf.first['type'];
         } else if (typeSet.length == 2 && typeSet.contains('null')) {
           // Starting in OpenAPI 3.1, anyOf is used to define unions for nullable properties
           // We do not want to create a union schema for these properties
-          // If the property is nullable and the anyOf contains a null type and a primitive type
-          // Then we want to replace the property with the primitive type
           final propType = typeSet.firstWhere((e) => e != 'null');
-          if (_primitiveTypes.contains(propType)) {
-            m['type'] = typeSet.firstWhere((e) => e != 'null');
-            m['nullable'] = true;
-            m.remove('anyOf');
+          if (propType.toString().contains('#')) {
+            m['\$ref'] = propType;
+          } else {
+            m['type'] = propType;
           }
+          m['nullable'] = true;
+          m.remove('anyOf');
         }
       }
     } else if (_oAuthTypes.contains(parentKey)) {
