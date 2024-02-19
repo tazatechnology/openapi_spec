@@ -8540,6 +8540,7 @@ mixin _$Schema {
   String? get description => throw _privateConstructorUsedError;
 
   /// The default value code to place into `@Default()`
+  @JsonKey(name: 'default')
   dynamic get defaultValue => throw _privateConstructorUsedError;
 
   /// Reference to a schema definition
@@ -8654,7 +8655,7 @@ abstract class _$$SchemaObjectImplCopyWith<$Res>
   $Res call(
       {String? title,
       String? description,
-      dynamic defaultValue,
+      @JsonKey(name: 'default') dynamic defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
       @_SchemaListConverter() List<Schema>? allOf,
       @_SchemaListConverter() List<Schema>? anyOf,
@@ -8789,7 +8790,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
   const _$SchemaObjectImpl(
       {this.title,
       this.description,
-      this.defaultValue,
+      @JsonKey(name: 'default') this.defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       @_SchemaListConverter() final List<Schema>? allOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
@@ -8820,6 +8821,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
 
   /// The default value code to place into `@Default()`
   @override
+  @JsonKey(name: 'default')
   final dynamic defaultValue;
 
   /// Reference to a schema definition
@@ -9019,7 +9021,7 @@ abstract class _SchemaObject extends Schema {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
-      final dynamic defaultValue,
+      @JsonKey(name: 'default') final dynamic defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref,
       @_SchemaListConverter() final List<Schema>? allOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
@@ -9045,6 +9047,7 @@ abstract class _SchemaObject extends Schema {
   @override
 
   /// The default value code to place into `@Default()`
+  @JsonKey(name: 'default')
   dynamic get defaultValue;
   @override
 

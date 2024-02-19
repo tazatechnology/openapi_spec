@@ -772,7 +772,7 @@ class SchemaGenerator extends BaseGenerator {
         c += getJsonKey(nullable: nullable);
 
         if (hasDefault & !required) {
-          c += "@Default(${p.defaultValue}) ";
+          c += "@Default(${p.toDartType()}()) ";
         }
 
         if (required) {

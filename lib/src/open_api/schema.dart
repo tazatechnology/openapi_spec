@@ -48,7 +48,7 @@ class Schema with _$Schema {
     String? description,
 
     /// The default value code to place into `@Default()`
-    dynamic defaultValue,
+    @JsonKey(name: 'default') dynamic defaultValue,
 
     /// Reference to a schema definition
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
