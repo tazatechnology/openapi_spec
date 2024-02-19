@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.15
+
+* Protection for empty string enum values
+
 ## 0.7.14
 
 * Better handling of OpenAPI 3.1 nullable types
