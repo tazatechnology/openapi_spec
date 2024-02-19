@@ -462,7 +462,7 @@ class SchemaGenerator extends BaseGenerator {
               );
               if (schema.defaultValue is String &&
                   (o.values?.contains(schema.defaultValue) ?? false)) {
-                final enumValue = _safeEnumValue(schema.defaultValue);
+                final enumValue = _safeEnumValue(schema.defaultValue, schema);
                 defaultFallback = 'return $uFactory(${o.title}.$enumValue,);';
               }
               // Place this as first check in fromJson
@@ -936,7 +936,7 @@ class SchemaGenerator extends BaseGenerator {
           c += "String ${nullable ? '?' : ''} $name,\n\n";
         } else {
           if (p.defaultValue != null && !required) {
-            c += "@Default(${p.ref}.${_safeEnumValue(p.defaultValue!)}) ";
+            c += "@Default(${p.ref}.${_safeEnumValue(p.defaultValue!, p)}) ";
           }
           if (required) {
             c += "required ";
@@ -955,12 +955,29 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _safeEnumValue
   // ------------------------------------------
 
-  String _safeEnumValue(String value) {
+  String _safeEnumValue(String value, Schema schema) {
     // Dart enums cannot start with a number
     if (value.startsWith(RegExp(r'[0-9]'))) {
       value = 'v$value';
     }
-    return value.replaceAll('.', '_').camelCase;
+    value = value.replaceAll('.', '_').camelCase;
+    if (value.isEmpty) {
+      schema.mapOrNull(enumeration: (s) {
+        // List of potential names for empty enum value
+        const List<String> emptyEnumValues = ['empty', 'none', 'unknown'];
+        // Ensure that the enum value is not empty
+        value = emptyEnumValues.firstWhere(
+          (e) => !s.values!.contains(e),
+          orElse: () => '',
+        );
+        if (value.isEmpty) {
+          throw Exception(
+            "\n\nEmpty enum value found in schema '${schema.title}'\n",
+          );
+        }
+      });
+    }
+    return value;
   }
 
   // ------------------------------------------
@@ -992,7 +1009,7 @@ class SchemaGenerator extends BaseGenerator {
       // Write enum value
       file.writeAsStringSync("""
     @JsonValue('$v')
-    ${_safeEnumValue(v)},
+    ${_safeEnumValue(v, s)},
     """, mode: FileMode.append);
     }
 
