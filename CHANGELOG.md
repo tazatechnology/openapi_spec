@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.17
+
+* Null protection for nullable default object types
+
 ## 0.7.16
 
 * Improved default value code generation for object types
