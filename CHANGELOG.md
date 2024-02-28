@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.18
+
+* Pass isMultipart option to request
+
 ## 0.7.17
 
 * Null protection for nullable default object types
