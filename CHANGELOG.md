@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.19
+
+* Better handling of OpenAPI 3.1 nullable array types
+
 ## 0.7.18
 
 * Pass isMultipart option to request
