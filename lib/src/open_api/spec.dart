@@ -590,6 +590,9 @@ Map<String, dynamic> _formatSpecFromJson({
             m['type'] = propType;
           }
           m['nullable'] = true;
+          if (propType == 'array') {
+            m['items'] = anyOf.firstWhere((e) => e['type'] == 'array')['items'];
+          }
           m.remove('anyOf');
         }
       }
