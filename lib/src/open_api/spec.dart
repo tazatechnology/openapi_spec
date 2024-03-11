@@ -11,6 +11,23 @@ final _oAuthTypes = [
   'authorizationCode'
 ];
 
+// Formats of OpenAPI files
+enum OpenApiFormat {
+  json,
+  yaml;
+
+  static OpenApiFormat? fromExtention(String extention) {
+    final ext = extention.toLowerCase();
+    if (ext.contains('json')) {
+      return OpenApiFormat.json;
+    } else if (ext.contains('yaml')) {
+      return OpenApiFormat.yaml;
+    } else {
+      return null;
+    }
+  }
+}
+
 // ==========================================
 // CLASS: OpenApi
 // ==========================================
@@ -86,17 +103,63 @@ class OpenApi with _$OpenApi {
   factory OpenApi.fromFile({required String source}) {
     final file = File(source);
     final ext = p.extension(source).toLowerCase();
-    dynamic raw;
-    if (ext.contains('json')) {
-      raw = json.decode((file.readAsStringSync()));
-    } else if (ext.contains('yaml')) {
-      raw = yaml.loadYaml((file.readAsStringSync()));
-      raw = json.decode(json.encode(raw));
-    } else {
+
+    final format = OpenApiFormat.fromExtention(ext);
+    if (format == null) {
       throw Exception('Unsupported file type: $ext');
     }
 
-    return OpenApi.fromJson(Map<String, dynamic>.from(raw));
+    return OpenApi.fromString(
+      source: file.readAsStringSync(),
+      format: format,
+    );
+  }
+
+  // ------------------------------------------
+  // FACTORY: OpenApi.fromString
+  // ------------------------------------------
+
+  /// Create an [OpenApi] object from a JSON/YAML string
+  /// The format will be inferred from the file extension
+  /// When the format is not provided, we will try both JSON and YAML
+  factory OpenApi.fromString(
+      {required String source, required OpenApiFormat? format}) {
+    Map<String, dynamic> parseJson(String source) {
+      return json.decode(source);
+    }
+
+    Map<String, dynamic> parseYaml(String source) {
+      final yamlMap = yaml.loadYaml(source);
+      // We must recursivly set all keys to strings to avoid issues with the json encoder
+      return json.decode(json.encode(
+        yamlMap,
+        toEncodable: (object) {
+          // This item is most likely a map with a key that is not a string
+          if (object is Map) {
+            return object.map((k, v) => MapEntry(k.toString(), v));
+          }
+          return object.toJson();
+        },
+      ));
+    }
+
+    Map<String, dynamic> raw;
+    if (format == OpenApiFormat.json) {
+      raw = parseJson(source);
+    } else if (format == OpenApiFormat.yaml) {
+      raw = parseYaml(source);
+    } else {
+      try {
+        raw = parseJson(source);
+      } catch (e) {
+        try {
+          raw = parseYaml(source);
+        } catch (e) {
+          throw Exception('Could not parse the source as JSON or YAML');
+        }
+      }
+    }
+    return OpenApi.fromJson(raw);
   }
 
   // ------------------------------------------
