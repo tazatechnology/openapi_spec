@@ -1,0 +1,60 @@
+components:
+  schemas:
+    EventType:
+      properties:
+        attribute1:
+          type: string
+      type: object
+info:
+  description: SSE test cases
+  title: SSE test
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /path/variant1:
+    post:
+      operationId: sseVariant1
+      responses:
+        '200':
+          content:
+            text/event-stream:
+              schema:
+                format: event-stream
+                items:
+                  type: string
+                type: array
+          description: acknowledged
+      tags:
+      - sse
+  /path/variant2:
+    post:
+      operationId: sseVariant2
+      responses:
+        '200':
+          content:
+            text/event-stream:
+              schema:
+                format: event-stream
+                items:
+                  $ref: '#/components/schemas/EventType'
+                type: array
+          description: acknowledged
+      tags:
+      - sse
+  /path/variant3:
+    post:
+      operationId: nonSSE
+      responses:
+        '200':
+          content:
+            text/event-stream:
+              schema:
+                format: event-stream
+                type: string
+          description: acknowledged
+      tags:
+      - sse
+servers:
+- url: https
+tags:
+- name: sse

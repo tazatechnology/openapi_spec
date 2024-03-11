@@ -1,0 +1,229 @@
+components:
+  schemas:
+    EnumPatternObject:
+      properties:
+        nullable-number-enum:
+          allOf:
+          - $ref: '#/components/schemas/NumberEnum'
+          nullable: true
+        nullable-string-enum:
+          allOf:
+          - $ref: '#/components/schemas/StringEnum'
+          nullable: true
+        number-enum:
+          $ref: '#/components/schemas/NumberEnum'
+        string-enum:
+          $ref: '#/components/schemas/StringEnum'
+      type: object
+    NumberEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      type: number
+    StringEnum:
+      enum:
+      - one
+      - two
+      - three
+      type: string
+info:
+  title: Enum test
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /fake/enum-request-inline:
+    get:
+      operationId: fake-enum-request-get-inline
+      parameters:
+      - in: query
+        name: string-enum
+        schema:
+          enum:
+          - one
+          - two
+          - three
+          type: string
+      - in: query
+        name: nullable-string-enum
+        schema:
+          allOf:
+          - enum:
+            - one
+            - two
+            - three
+            type: string
+          nullable: true
+      - in: query
+        name: number-enum
+        schema:
+          enum:
+          - 1
+          - 2
+          - 3
+          type: number
+      - in: query
+        name: nullable-number-enum
+        schema:
+          allOf:
+          - enum:
+            - 1
+            - 2
+            - 3
+            type: number
+          nullable: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  nullable-number-enum:
+                    allOf:
+                    - enum:
+                      - 1
+                      - 2
+                      - 3
+                      type: number
+                    nullable: true
+                  nullable-string-enum:
+                    allOf:
+                    - enum:
+                      - one
+                      - two
+                      - three
+                      type: string
+                    nullable: true
+                  number-enum:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    type: number
+                  string-enum:
+                    enum:
+                    - one
+                    - two
+                    - three
+                    type: string
+                type: object
+          description: OK
+    post:
+      operationId: fake-enum-request-post-inline
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                nullable-number-enum:
+                  allOf:
+                  - enum:
+                    - 1
+                    - 2
+                    - 3
+                    type: number
+                  nullable: true
+                nullable-string-enum:
+                  allOf:
+                  - enum:
+                    - one
+                    - two
+                    - three
+                    type: string
+                  nullable: true
+                number-enum:
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  type: number
+                string-enum:
+                  enum:
+                  - one
+                  - two
+                  - three
+                  type: string
+              type: object
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  nullable-number-enum:
+                    allOf:
+                    - enum:
+                      - 1
+                      - 2
+                      - 3
+                      type: number
+                    nullable: true
+                  nullable-string-enum:
+                    allOf:
+                    - enum:
+                      - one
+                      - two
+                      - three
+                      type: string
+                    nullable: true
+                  number-enum:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    type: number
+                  string-enum:
+                    enum:
+                    - one
+                    - two
+                    - three
+                    type: string
+                type: object
+          description: OK
+  /fake/enum-request-ref:
+    get:
+      operationId: fake-enum-request-get-ref
+      parameters:
+      - in: query
+        name: string-enum
+        schema:
+          $ref: '#/components/schemas/StringEnum'
+      - in: query
+        name: nullable-string-enum
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/StringEnum'
+          nullable: true
+      - in: query
+        name: number-enum
+        schema:
+          $ref: '#/components/schemas/NumberEnum'
+      - in: query
+        name: nullable-number-enum
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/NumberEnum'
+          nullable: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnumPatternObject'
+          description: OK
+    post:
+      operationId: fake-enum-request-post-ref
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnumPatternObject'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnumPatternObject'
+          description: OK
+servers:
+- url: http://localhost:3000

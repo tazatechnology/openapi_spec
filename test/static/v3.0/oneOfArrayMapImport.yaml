@@ -1,0 +1,56 @@
+components:
+  schemas:
+    apple:
+      properties:
+        kind:
+          type: string
+      title: apple
+      type: object
+    apples:
+      additionalProperties:
+        $ref: '#/components/schemas/apple'
+      title: apples
+      type: object
+    fruit:
+      oneOf:
+      - $ref: '#/components/schemas/apples'
+      - $ref: '#/components/schemas/grapes'
+      properties:
+        color:
+          type: string
+      title: fruit
+    grape:
+      properties:
+        color:
+          type: string
+      title: grape
+      type: object
+    grapes:
+      items:
+        $ref: '#/components/schemas/grape'
+      title: grapes
+      type: array
+info:
+  title: fruity
+  version: 0.0.1
+openapi: 3.0.1
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fruit'
+          description: desc
+    put:
+      operationId: test
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+      responses:
+        '204':
+          description: Success

@@ -1,0 +1,54 @@
+components:
+  schemas:
+    Animal:
+      discriminator:
+        propertyName: type
+      properties:
+        age:
+          example: 15
+          type: integer
+        alias:
+          description: The stripy one
+          example: Stripy
+          nullable: true
+          type: string
+        name:
+          example: Marty
+          type: string
+        type:
+          enum:
+          - zebra
+          type: string
+      type: object
+    Zebra:
+      allOf:
+      - $ref: '#/components/schemas/Animal'
+      - properties:
+          stripePattern:
+            enum:
+            - horizontal
+            - vertical
+            type: string
+        type: object
+info:
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Zoo
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /zebras:
+    get:
+      operationId: getZebras
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Zebra'
+                type: array
+          description: OK
+servers:
+- url: localhost:8080

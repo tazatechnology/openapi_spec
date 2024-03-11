@@ -1,0 +1,21 @@
+components: {}
+info:
+  description: API under test
+  title: My title
+  version: 1.0.7
+openapi: 3.0.1
+paths:
+  /issue677:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+      responses:
+        201:
+          description: OK
+servers:
+- url: https://localhost:9999/root

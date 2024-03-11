@@ -1,0 +1,50 @@
+components:
+  schemas:
+    FormParameters:
+      properties:
+        id:
+          format: int64
+          readOnly: true
+          type: integer
+      type: object
+  securitySchemes:
+    oAuthConfig:
+      flows:
+        implicit:
+          authorizationUrl: ../backend/login/openid
+          scopes: {}
+      type: oauth2
+info:
+  description: Minimal OpenAPI spec file to showcase duplicated params for formData.
+  title: FormData Test Api Documentation
+  version: 0.0.1
+openapi: 3.0.1
+paths:
+  /form-param-poc/{id}:
+    put:
+      operationId: form-param-poc_update
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FormParameters'
+      responses:
+        '200':
+          description: OK.
+      security:
+      - oAuthConfig: []
+      summary: fullUpdate
+      tags:
+      - form-param-poc
+servers:
+- url: /backend/rest
+tags:
+- description: File storage resource for Fiscalization France standard
+  name: form-param-poc

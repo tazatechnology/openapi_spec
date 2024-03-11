@@ -1,0 +1,89 @@
+components:
+  schemas:
+    MultipartMixedStatus:
+      description: additional field as Enum
+      enum:
+      - ALLOWED
+      - IN_PROGRESS
+      - REJECTED
+      example: REJECTED
+      type: string
+info:
+  title: MultipartFile test
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /multipart-array:
+    post:
+      description: MultipartFile array test
+      operationId: multipartArray
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                files:
+                  description: Many files
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+              type: object
+      responses:
+        '204':
+          description: Successful operation
+      tags:
+      - multipart
+  /multipart-mixed:
+    post:
+      description: Mixed MultipartFile test
+      operationId: multipartMixed
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  description: a file
+                  format: binary
+                  type: string
+                marker:
+                  description: additional object
+                  properties:
+                    name:
+                      type: string
+                  type: object
+                status:
+                  $ref: '#/components/schemas/MultipartMixedStatus'
+                statusArray:
+                  items:
+                    $ref: '#/components/schemas/MultipartMixedStatus'
+                  type: array
+              required:
+              - status
+              - file
+              type: object
+      responses:
+        '204':
+          description: Successful operation
+      tags:
+      - multipart
+  /multipart-single:
+    post:
+      description: Single MultipartFile test
+      operationId: multipartSingle
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  description: One file
+                  format: binary
+                  type: string
+              type: object
+      responses:
+        '204':
+          description: Successful operation
+      tags:
+      - multipart

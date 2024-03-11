@@ -1,0 +1,29 @@
+info:
+  description: Google custom methods syntax
+  title: Custom methods
+  version: 0.0.1
+openapi: 3.0.1
+paths:
+  /events/{event_id}:undelete:
+    post:
+      operationId: undeleteOperation
+      parameters:
+      - description: Event Id
+        in: path
+        name: event_id
+        required: true
+        schema:
+          type: number
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                some_file:
+                  description: another file to upload
+                  format: binary
+                  type: string
+              type: object
+      responses:
+        200:
+          description: success

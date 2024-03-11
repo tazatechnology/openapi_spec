@@ -1,0 +1,25 @@
+components:
+  schemas:
+    ParentType:
+      properties:
+        typeAlias:
+          $ref: '#/components/schemas/TypeAlias'
+      title: ParentType
+      type: object
+    TypeAlias:
+      type: string
+info:
+  description: See https://github.com/OpenAPITools/openapi-generator/issues/3589
+  title: API using a typeAlias mapped with importMapping
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /type-alias:
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParentType'
+          description: OK

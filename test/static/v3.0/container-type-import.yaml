@@ -1,0 +1,64 @@
+components:
+  schemas:
+    ModelWithArrayProperty:
+      properties:
+        array_property:
+          items:
+            $ref: '#/components/schemas/SimpleModel'
+          type: array
+        id:
+          type: string
+      type: object
+    ModelWithMapProperty:
+      properties:
+        id:
+          type: string
+        map_property:
+          additionalProperties:
+            $ref: '#/components/schemas/SimpleModel'
+      type: object
+    ModelWithSetProperty:
+      properties:
+        id:
+          type: string
+        set_property:
+          items:
+            $ref: '#/components/schemas/SimpleModel'
+          type: array
+          uniqueItems: true
+      type: object
+    SimpleModel:
+      example:
+        id: 1
+        name: Puma
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+      required:
+      - name
+      type: object
+info:
+  title: Example API
+  version: 3.0.0
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ModelWithArrayProperty'
+                type: array
+                uniqueItems: true
+          description: Good Request.
+        '400':
+          description: Bad Request.
+        '403':
+          description: Forbidden. Access denied.
+      summary: Empty Route

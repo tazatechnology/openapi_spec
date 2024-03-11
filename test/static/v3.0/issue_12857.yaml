@@ -1,0 +1,17 @@
+components:
+  schemas:
+    FooOptional:
+      properties:
+        foo: {}
+    FooRequired:
+      properties:
+        foo: {}
+      required:
+      - foo
+info:
+  description: sample spec for testing openapi functionality, built from json schema
+    tests for draft6
+  title: openapi 3.0.3 sample spec
+  version: 0.0.1
+openapi: 3.0.3
+paths: {}

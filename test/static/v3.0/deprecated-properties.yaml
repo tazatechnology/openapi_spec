@@ -1,0 +1,59 @@
+components:
+  schemas:
+    Animal:
+      discriminator:
+        propertyName: className
+      properties:
+        className:
+          type: string
+        color:
+          default: red
+          type: string
+      required:
+      - className
+      type: object
+    BigDog:
+      allOf:
+      - $ref: '#/components/schemas/Dog'
+      - discriminator:
+          propertyName: dogType
+          required:
+          - dogType
+        properties:
+          declawed:
+            deprecated: true
+            type: boolean
+          dogType:
+            type: string
+        type: object
+    Cat:
+      allOf:
+      - $ref: '#/components/schemas/Animal'
+      - properties:
+          breed:
+            type: string
+        type: object
+    Dog:
+      allOf:
+      - $ref: '#/components/schemas/Animal'
+      - properties:
+          breed:
+            type: string
+        type: object
+info:
+  description: API description in Markdown.
+  title: Sample API
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /animals:
+    get:
+      description: Optional extended description in Markdown.
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
+          description: OK
+      summary: Returns all animals.

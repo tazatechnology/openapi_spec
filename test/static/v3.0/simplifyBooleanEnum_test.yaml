@@ -1,0 +1,61 @@
+components:
+  schemas:
+    BooleanEnumTest:
+      description: a model to with boolean enum property
+      properties:
+        boolean_enum:
+          enum:
+          - true
+          - false
+          type: boolean
+        id:
+          format: int64
+          type: integer
+        name:
+          pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9\.\-_]*[a-zA-Z0-9]+$
+          type: string
+      type: object
+    ComposedSchemaBooleanEnumTest:
+      description: a model to with boolean enum property
+      oneOf:
+      - type: string
+      - type: integer
+      properties:
+        boolean_enum:
+          enum:
+          - true
+          - false
+          type: boolean
+        id:
+          format: int64
+          type: integer
+        name:
+          pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9\.\-_]*[a-zA-Z0-9]+$
+          type: string
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooleanEnumTest'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

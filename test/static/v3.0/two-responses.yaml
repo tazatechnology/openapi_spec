@@ -1,0 +1,29 @@
+info:
+  title: Test
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  test:
+                    type: string
+                type: object
+          description: Success
+        '422':
+          content:
+            application/json:
+              schema:
+                properties:
+                  test:
+                    type: string
+                type: object
+          description: Validation failed
+      summary: Test
+servers:
+- url: http://test/

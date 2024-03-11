@@ -1,0 +1,35 @@
+components:
+  schemas:
+    Input:
+      properties:
+        age:
+          format: int32
+          type: integer
+        dt:
+          format: date-time
+          type: string
+        id:
+          type: string
+      type: object
+info:
+  title: ''
+  version: ''
+openapi: 3.0.0
+paths:
+  /examples:
+    post:
+      operationId: getFilteredTransactions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/Input'
+              type: array
+        description: subscription payload
+      responses:
+        default:
+          description: successful operation
+      summary: Get a list of transactions
+      tags:
+      - Examples

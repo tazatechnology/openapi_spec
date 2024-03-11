@@ -1,0 +1,50 @@
+components:
+  parameters:
+    x-client-ismobile:
+      description: 'blabla
+
+        '
+      in: header
+      name: x-client-ismobile
+      required: false
+      schema:
+        type: boolean
+  schemas:
+    ListResponseResponseAgreement:
+      properties:
+        list:
+          items:
+            $ref: '#/components/schemas/ResponseAgreement'
+          type: array
+      type: object
+    ResponseAgreement:
+      properties:
+        agreementId:
+          type: string
+      type: object
+info:
+  description: '## TEST'
+  title: TEST
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /agreements:
+    get:
+      operationId: readAgreements
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ListResponseResponseAgreement'
+          description: OK
+      tags:
+      - consent-controller
+    parameters:
+    - $ref: '#/components/parameters/x-client-ismobile'
+servers:
+- description: Major version of service
+  url: /v3
+tags:
+- description: Consent API
+  name: consent-controller

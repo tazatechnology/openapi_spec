@@ -1,0 +1,28 @@
+components:
+  schemas:
+    TestObject:
+      properties:
+        notNullableProperty:
+          readOnly: true
+          type: string
+        notNullablePropertyNotRO:
+          type: integer
+        nullableProperty:
+          nullable: true
+          readOnly: true
+          type: string
+      type: object
+info:
+  title: Title
+  version: '1'
+openapi: 3.0.3
+paths:
+  /test:
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestObject'
+          description: Success

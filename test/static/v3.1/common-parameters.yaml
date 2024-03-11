@@ -1,0 +1,226 @@
+components:
+  requestBodies:
+    Pet:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Pet'
+      description: Pet object that needs to be added to the store
+      required: true
+  schemas:
+    ApiResponse:
+      description: Describes the result of uploading an image resource
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+        type:
+          type: string
+      title: An uploaded response
+      type: object
+    Category:
+      description: A category for a pet
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9\.\-_]*[a-zA-Z0-9]+$
+          type: string
+      title: Pet category
+      type: object
+      xml:
+        name: Category
+    Order:
+      description: An order for a pets from the pet store
+      properties:
+        complete:
+          default: false
+          type: boolean
+        id:
+          format: int64
+          type: integer
+        petId:
+          format: int64
+          type: integer
+        quantity:
+          format: int32
+          type: integer
+        shipDate:
+          format: date-time
+          type: string
+        status:
+          description: Order Status
+          enum:
+          - placed
+          - approved
+          - delivered
+          type: string
+      title: Pet Order
+      type: object
+      xml:
+        name: Order
+    Pet:
+      description: A pet for sale in the pet store
+      properties:
+        category:
+          $ref: '#/components/schemas/Category'
+        id:
+          format: int64
+          type: integer
+        name:
+          example: doggie
+          type: string
+        photoUrls:
+          items:
+            type: string
+          type: array
+          xml:
+            name: photoUrl
+            wrapped: true
+        status:
+          deprecated: true
+          description: pet status in the store
+          enum:
+          - available
+          - pending
+          - sold
+          type: string
+        tags:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          xml:
+            name: tag
+            wrapped: true
+      required:
+      - name
+      - photoUrls
+      title: a Pet
+      type: object
+      xml:
+        name: Pet
+    Tag:
+      description: A tag for a pet
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+      title: Pet Tag
+      type: object
+      xml:
+        name: Tag
+    User:
+      description: A User who is purchasing from the pet store
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        id:
+          format: int64
+          type: integer
+        lastName:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        userStatus:
+          description: User Status
+          format: int32
+          type: integer
+        username:
+          type: string
+      title: a User
+      type: object
+      xml:
+        name: User
+  securitySchemes:
+    api_key:
+      in: header
+      name: api_key
+      type: apiKey
+info:
+  description: This is a sample server Petstore server. For this sample, you can use
+    the api key `special-key` to test the authorization filters.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.1.0
+paths:
+  /pet/{petId}:
+    delete:
+      description: ''
+      operationId: deletePet
+      parameters:
+      - in: header
+        name: api_key
+        required: false
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Invalid pet value
+      security:
+      - api_key: []
+      summary: Deletes a pet
+      tags:
+      - pet
+    get:
+      description: Returns a single pet
+      operationId: getPetById
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+      security:
+      - api_key: []
+      summary: Find pet by ID
+      tags:
+      - pet
+    parameters:
+    - description: ID of pet to return
+      in: path
+      name: petId
+      required: true
+      schema:
+        format: int64
+        type: integer
+    patch:
+      description: ''
+      operationId: updatePet
+      requestBody:
+        $ref: '#/components/requestBodies/Pet'
+      responses:
+        '400':
+          description: Invalid pet value
+      security:
+      - api_key: []
+      summary: Updates a pet
+      tags:
+      - pet
+servers:
+- url: http://petstore.swagger.io/v2
+tags:
+- description: Everything about your Pets
+  name: pet

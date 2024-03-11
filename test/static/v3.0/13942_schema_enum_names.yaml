@@ -1,0 +1,12 @@
+components:
+  schemas:
+    StringEnum:
+      enum:
+      - '#367B9C'
+      - '#FFA5A4'
+      type: string
+info:
+  title: Test
+  version: 1.0.0-SNAPSHOT
+openapi: 3.0.3
+paths: {}

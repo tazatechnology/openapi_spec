@@ -1,0 +1,115 @@
+components:
+  schemas:
+    AppleSpecificFields:
+      allOf:
+      - $ref: '#/components/schemas/SpecificFields'
+      - properties:
+          evseType:
+            enum:
+            - ONE
+            - TWO
+            - THREE
+            type: string
+        type: object
+      type: object
+    CherrySpecificFields:
+      allOf:
+      - $ref: '#/components/schemas/SpecificFields'
+      - properties:
+          chargeCapacity:
+            format: double
+            type: number
+          dischargeCapacity:
+            format: double
+            type: number
+          storageCapacity:
+            format: double
+            type: number
+        type: object
+      type: object
+    FruitInfo:
+      properties:
+        fruitType:
+          enum:
+          - CHERRY
+          - APPLE
+          - GENERIC
+          type: string
+        fruitTypeSpecificFields:
+          $ref: '#/components/schemas/SpecificFields'
+        installDate:
+          format: date-time
+          type: string
+        manufacturer:
+          maxLength: 255
+          minLength: 0
+          type: string
+        model:
+          maxLength: 255
+          minLength: 0
+          type: string
+        uuid:
+          maxLength: 36
+          minLength: 0
+          type: string
+      type: object
+      xml:
+        name: fruitInfo
+    GenericFruitFields:
+      allOf:
+      - $ref: '#/components/schemas/SpecificFields'
+      - properties:
+          category:
+            maxLength: 255
+            minLength: 0
+            type: string
+        type: object
+      type: object
+    SpecificFields:
+      discriminator:
+        mapping:
+          AppleSpecificFields: '#/components/schemas/AppleSpecificFields'
+          CherrySpecificFields: '#/components/schemas/CherrySpecificFields'
+          GenericFruitFields: '#/components/schemas/GenericFruitFields'
+        propertyName: name
+      oneOf:
+      - $ref: '#/components/schemas/AppleSpecificFields'
+      - $ref: '#/components/schemas/CherrySpecificFields'
+      - $ref: '#/components/schemas/GenericFruitFields'
+      type: object
+info:
+  title: test
+  version: '1'
+openapi: 3.0.1
+paths:
+  /v1/program/{programId}/enrollment/{sourceAccountNumber}/fruits:
+    post:
+      operationId: addFruit
+      parameters:
+      - in: path
+        name: programId
+        required: true
+        schema:
+          pattern: ^[a-z0-9-]*$
+          type: string
+      - in: path
+        name: sourceAccountNumber
+        required: true
+        schema:
+          pattern: ^[a-z0-9_-]*$
+          type: string
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FruitInfo'
+        required: true
+      responses:
+        '401':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: OK
+servers:
+- url: /

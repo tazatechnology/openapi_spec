@@ -1,0 +1,29 @@
+components:
+  schemas:
+    personWithEmail:
+      properties:
+        email:
+          format: email
+          type: string
+        name:
+          maxLength: 255
+          type: string
+info:
+  license:
+    name: MIT
+  title: EmailExample
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person:
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/personWithEmail'
+      responses:
+        '204':
+          description: No Content
+servers:
+- url: http://api.example.xyz/v1

@@ -1,0 +1,29 @@
+components:
+  schemas:
+    Example:
+      oneOf:
+      - format: uuid
+        type: string
+      - format: date-time
+        type: string
+      - type: integer
+      - type: number
+info:
+  license:
+    name: MIT
+  title: Example - oneOf data type
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /example:
+    get:
+      operationId: list
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Example'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

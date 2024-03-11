@@ -1,0 +1,130 @@
+components:
+  schemas:
+    TestResponse:
+      description: Object
+      properties:
+        enabled:
+          description: Default value is false.
+          example: false
+          type: boolean
+      required:
+      - enabled
+      title: TestResponse
+      type: object
+  securitySchemes:
+    bearerAuth:
+      in: header
+      name: Authorization
+      type: apiKey
+info:
+  contact:
+    email: xyz@xyz.com
+    name: Test Svc
+  description: Metadata Service
+  title: metadata-svc
+  version: 3.1.2
+openapi: 3.0.1
+paths:
+  /v1/array-of-objects:
+    get:
+      description: Get the list of groups for this example.
+      operationId: getWithArrayOfObjects
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TestResponse'
+                type: array
+          description: List of groups.
+      summary: Get groups.
+      tags:
+      - metadata
+  /v1/array-of-string:
+    get:
+      description: Get the list of groups for this example.
+      operationId: getWithArrayOfString
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: List of groups.
+      summary: Get groups.
+      tags:
+      - metadata
+  /v1/map-of-objects:
+    get:
+      description: Get the map of groups for this example.
+      operationId: getWithMapOfObjects
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  $ref: '#/components/schemas/TestResponse'
+                type: object
+          description: Map of groups.
+      summary: Get groups.
+      tags:
+      - metadata
+  /v1/map-of-strings:
+    get:
+      description: Get the map of strings for this example.
+      operationId: getWithMapOfStrings
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+          description: Map of strings.
+      summary: Get groups.
+      tags:
+      - metadata
+  /v1/set-of-objects:
+    get:
+      description: Get the set of groups for this example.
+      operationId: getWithSetOfObjects
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TestResponse'
+                type: array
+                uniqueItems: true
+          description: Set of groups.
+      summary: Get groups.
+      tags:
+      - metadata
+  /v1/set-of-strings:
+    get:
+      description: Get the set of strings for this example.
+      operationId: getWithSetOfStrings
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                uniqueItems: true
+          description: Set of strings.
+      summary: Get groups.
+      tags:
+      - metadata
+servers:
+- url: https://localhost:8080/
+tags:
+- description: APIs to get metadata.
+  name: metadata

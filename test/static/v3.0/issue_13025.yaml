@@ -1,0 +1,44 @@
+components:
+  schemas:
+    Body:
+      properties:
+        arrayThatIsNull:
+          items:
+            type: string
+          nullable: true
+          type: array
+      type: object
+    BodyWithRequired:
+      properties:
+        arrayThatIsNotNull:
+          items:
+            type: string
+          type: array
+      required:
+      - arrayThatIsNotNull
+      type: object
+    BodyWithRequiredNullable:
+      properties:
+        arrayThatIsNull:
+          items:
+            type: string
+          nullable: true
+          type: array
+      required:
+      - arrayThatIsNull
+      type: object
+info:
+  title: Array Not Null
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /array/not/null:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body'
+      responses:
+        '200':
+          description: Success

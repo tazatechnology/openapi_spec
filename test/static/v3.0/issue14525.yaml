@@ -1,0 +1,18 @@
+info:
+  title: Demo app
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /demo:
+    get:
+      operationId: demo
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+          description: Demo response
+      summary: Demo

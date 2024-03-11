@@ -1,0 +1,84 @@
+components:
+  schemas:
+    Hero:
+      description: Hero
+      properties:
+        origin:
+          type: string
+        reward:
+          format: int64
+          type: integer
+      required:
+      - origin
+      type: object
+    Human:
+      description: Human
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          example: Tom
+          type: string
+      required:
+      - id
+      type: object
+    SuperBaby:
+      allOf:
+      - $ref: '#/components/schemas/Human'
+      - properties:
+          age:
+            type: integer
+          gender:
+            type: string
+        required:
+        - level
+    SuperBoy:
+      allOf:
+      - $ref: '#/components/schemas/Human'
+      - properties:
+          category:
+            type: string
+          level:
+            type: integer
+        required:
+        - level
+        type: object
+    SuperMan:
+      allOf:
+      - $ref: '#/components/schemas/Human'
+      - $ref: '#/components/schemas/Hero'
+      - properties:
+          category:
+            type: string
+          level:
+            type: integer
+        required:
+        - level
+        type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuperMan'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

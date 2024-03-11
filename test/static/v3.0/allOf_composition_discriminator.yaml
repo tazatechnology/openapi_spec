@@ -1,0 +1,101 @@
+components:
+  schemas:
+    A:
+      discriminator:
+        mapping:
+          b: '#/components/schemas/B'
+        propertyName: petType
+      properties:
+        petType:
+          type: string
+      required:
+      - petType
+      type: object
+    B:
+      allOf:
+      - $ref: '#/components/schemas/A'
+    C:
+      allOf:
+      - $ref: '#/components/schemas/B'
+    Cat:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          name:
+            type: string
+        type: object
+    Dog:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          bark:
+            type: string
+        type: object
+    Lizard:
+      allOf:
+      - $ref: '#/components/schemas/Reptile'
+      - properties:
+          lovesRocks:
+            type: boolean
+        type: object
+    MyPets:
+      discriminator:
+        propertyName: petType
+      oneOf:
+      - $ref: '#/components/schemas/Cat'
+      - $ref: '#/components/schemas/Lizard'
+    MyPetsNoDisc:
+      oneOf:
+      - $ref: '#/components/schemas/Cat'
+      - $ref: '#/components/schemas/Lizard'
+    Pet:
+      discriminator:
+        propertyName: petType
+      properties:
+        petType:
+          type: string
+      required:
+      - petType
+      type: object
+    Reptile:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+    Snake:
+      allOf:
+      - $ref: '#/components/schemas/Reptile'
+      - properties:
+          hasLegs:
+            type: boolean
+        type: object
+info:
+  title: OAI Specification example for Polymorphism
+  version: 1.0.0
+openapi: 3.0.2
+paths:
+  /mypets:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MyPets'
+          description: desc
+  /pet:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: desc
+  /reptile:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reptile'
+          description: desc

@@ -1,0 +1,75 @@
+components:
+  schemas:
+    Person:
+      description: person
+      properties:
+        int32:
+          format: int32
+          type: integer
+        int32_max:
+          format: int32
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+        int64:
+          format: int64
+          type: integer
+        int64_max:
+          format: int64
+          maximum: 18446744073709551615
+          minimum: 0
+          type: integer
+        integer:
+          type: integer
+        integer_max:
+          maximum: 4294967295
+          minimum: 0
+          type: integer
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    delete:
+      operationId: delete
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+      tags:
+      - person
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+      tags:
+      - person
+      - basic
+servers:
+- url: http://api.example.xyz/v1

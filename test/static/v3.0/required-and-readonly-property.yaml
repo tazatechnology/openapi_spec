@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ReadonlyAndRequiredProperties:
+      properties:
+        requiredNoReadonlyNo:
+          type: string
+        requiredNoReadonlyYes:
+          readOnly: true
+          type: string
+        requiredYesReadonlyNo:
+          type: string
+        requiredYesReadonlyYes:
+          readOnly: true
+          type: string
+      required:
+      - requiredYesReadonlyYes
+      - requiredYesReadonlyNo
+      type: object
+info:
+  description: Title
+  title: Title
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /user:
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadonlyAndRequiredProperties'
+          description: success
+servers:
+- url: https

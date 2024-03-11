@@ -1,0 +1,143 @@
+components:
+  schemas:
+    Object:
+      additionalProperties: false
+      properties:
+        ArrayOfStrings:
+          items:
+            example: string
+            type: string
+          type: array
+        BinaryFormat:
+          format: binary
+          type: string
+        Boolean:
+          example: true
+          type: boolean
+        ByteFormat:
+          example: QG1pY2hhZWxncmFoYW1ldmFucw==
+          format: byte
+          type: string
+        CharFormat:
+          format: char
+          type: string
+        DateFormat:
+          example: '2021-06-10'
+          format: date
+          type: string
+        DateTimeFormat:
+          example: '2021-06-10T12:47:27'
+          format: date-time
+          type: string
+        DecimalFormat:
+          example: '3.14159'
+          format: decimal
+          type: string
+        DoubleFormat:
+          example: '3.14159'
+          format: double
+          type: string
+        EmailFormat:
+          example: user@example.com
+          format: email
+          type: string
+        FloatFormat:
+          example: '3.14159'
+          format: float
+          type: string
+        HostnameFormat:
+          example: example.com
+          format: hostname
+          type: string
+        InlinedObject:
+          additionalProperties: false
+          properties:
+            String:
+              example: A string
+              type: string
+          type: object
+        Int32Format:
+          example: '123'
+          format: int32
+          type: string
+        Int64Format:
+          example: '123'
+          format: int64
+          type: string
+        IntFormat:
+          example: '123'
+          format: int
+          type: string
+        Integer:
+          example: 123
+          type: integer
+        IntegerFormat:
+          example: '123'
+          format: integer
+          type: string
+        Ipv4Format:
+          example: 127.0.0.1
+          format: ipv4
+          type: string
+        Ipv6Format:
+          example: ::1
+          format: ipv4
+          type: string
+        LongFormat:
+          example: '123'
+          format: long
+          type: string
+        Map:
+          additionalProperties: true
+          type: object
+        Number:
+          example: 3.14159
+          type: number
+        PasswordFormat:
+          example: hunter2
+          format: password
+          type: string
+        ReferencedObject:
+          $ref: '#/components/schemas/ReferencedObject'
+        ShortFormat:
+          example: '123'
+          format: short
+          type: string
+        String:
+          example: A string
+          type: string
+        StringObject:
+          $ref: '#/components/schemas/String'
+        UriFormat:
+          example: https://example.com
+          format: uri
+          type: string
+        UuidFormat:
+          example: 7db1c07f-8f63-41ff-8f94-056b4a9ce96d
+          format: uuid
+          type: string
+      type: object
+    ReferencedObject:
+      additionalProperties: false
+      properties:
+        String:
+          example: A string
+          type: string
+      type: object
+    String:
+      additionalProperties: false
+      properties:
+        String:
+          example: A string
+          type: string
+      type: object
+info:
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: Example
+  version: 1.0.0
+openapi: 3.0.0
+paths: {}
+servers:
+- url: localhost:8080

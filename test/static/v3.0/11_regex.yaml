@@ -1,0 +1,27 @@
+components:
+  schemas:
+    StringWithRegexWithThreeFlags:
+      format: uuid
+      pattern: /a./sim
+      type: string
+    UUID:
+      format: uuid
+      pattern: '[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
+      type: string
+info:
+  title: Test
+  version: 1.0.0-SNAPSHOT
+openapi: 3.0.3
+paths:
+  /test:
+    get:
+      parameters:
+      - in: query
+        name: uuid
+        schema:
+          $ref: '#/components/schemas/UUID'
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Test Resource

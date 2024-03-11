@@ -1,0 +1,25 @@
+components:
+  schemas:
+    Annotation:
+      properties:
+        id:
+          format: uuid
+          type: string
+      type: object
+info:
+  title: title
+  version: 0.0.1
+openapi: 3.0.7
+paths:
+  /annotations:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annotation'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: annotate

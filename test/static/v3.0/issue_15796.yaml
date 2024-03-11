@@ -1,0 +1,98 @@
+components:
+  schemas:
+    Cat:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      discriminator:
+        mapping:
+          MAINE_COON: '#/components/schemas/MaineCoon'
+          PERSIAN: '#/components/schemas/Persian'
+        propertyName: race
+      properties:
+        paws:
+          type: integer
+        race:
+          type: string
+      required:
+      - race
+      type: object
+    Dog:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      discriminator:
+        mapping:
+          LABRADOR: '#/components/schemas/Labrador'
+          POODLE: '#/components/schemas/Poodle'
+        propertyName: race
+      properties:
+        race:
+          type: string
+        tails:
+          type: integer
+      required:
+      - race
+      type: object
+    Labrador:
+      allOf:
+      - $ref: '#/components/schemas/Dog'
+      properties:
+        hairColor:
+          type: string
+      required:
+      - race
+      type: object
+    MaineCoon:
+      allOf:
+      - $ref: '#/components/schemas/Cat'
+      properties:
+        hairColor:
+          type: string
+      required:
+      - race
+      type: object
+    Persian:
+      allOf:
+      - $ref: '#/components/schemas/Cat'
+      properties:
+        hairType:
+          type: string
+      required:
+      - race
+      type: object
+    Pet:
+      discriminator:
+        mapping:
+          CAT: '#/components/schemas/Cat'
+          DOG: '#/components/schemas/Dog'
+        propertyName: type
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    Poodle:
+      allOf:
+      - $ref: '#/components/schemas/Dog'
+      properties:
+        hairType:
+          type: string
+      required:
+      - race
+      type: object
+info:
+  description: My service
+  title: My service
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /generator/test:
+    get:
+      responses:
+        200:
+          description: Everything is fine
+      summary: Get test generator models
+servers:
+- url: https://localhost

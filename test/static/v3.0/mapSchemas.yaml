@@ -1,0 +1,70 @@
+components:
+  schemas:
+    ComplexModel:
+      example:
+        id: 1
+        name: Puma
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    ExampleModel:
+      properties:
+        id:
+          type: string
+        withAdditionalProperties:
+          $ref: '#/components/schemas/ModelWithAdditionalProperties'
+      type: object
+    FreeformObjectTypes:
+      properties:
+        ComplexModel:
+          $ref: '#/components/schemas/ComplexModel'
+        ExampleModel:
+          $ref: '#/components/schemas/ExampleModel'
+        ModelWithAdditionalProperties:
+          $ref: '#/components/schemas/ModelWithAdditionalProperties'
+        ModelWithStringToModelMapping:
+          $ref: '#/components/schemas/ModelWithStringToModelMapping'
+        ModelWithStringToStringMapping:
+          $ref: '#/components/schemas/ModelWithStringToStringMapping'
+      type: object
+    ModelWithAdditionalProperties:
+      additionalProperties: {}
+      properties:
+        id:
+          type: string
+      type: object
+    ModelWithStringToModelMapping:
+      additionalProperties:
+        $ref: '#/components/schemas/ComplexModel'
+      type: object
+    ModelWithStringToStringMapping:
+      additionalProperties:
+        type: string
+      type: object
+info:
+  title: Example API
+  version: 3.0.0
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FreeformObjectTypes'
+                type: array
+          description: Good Request.
+        '400':
+          description: Bad Request.
+        '403':
+          description: Forbidden. Access denied.
+      summary: Empty Route

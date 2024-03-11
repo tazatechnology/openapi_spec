@@ -1,0 +1,59 @@
+components:
+  responses:
+    Parent:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Parent'
+      description: The saved account definition.
+  schemas:
+    Foo:
+      allOf:
+      - $ref: '#/components/schemas/Parent'
+      - properties:
+          fooType:
+            type: string
+        type: object
+    Parent:
+      description: Defines an account by name.
+      discriminator:
+        mapping:
+          foo: '#/components/schemas/Foo'
+        propertyName: type
+      properties:
+        name:
+          description: The account name.
+          type: string
+        type:
+          description: The account type discriminator.
+          type: string
+      required:
+      - name
+      - type
+      type: object
+info:
+  title: FooService
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /parent:
+    put:
+      operationId: putParent
+      parameters:
+      - description: Name of the account being updated.
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Parent'
+        description: The updated account definition to save.
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/Parent'
+      summary: put parent

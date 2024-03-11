@@ -1,0 +1,33 @@
+info:
+  description: sample to vet integer handling
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /request:
+    get:
+      operationId: wildcardSubTypeForContentType
+      requestBody:
+        content:
+          application/*:
+            schema:
+              format: binary
+              type: string
+          application/octet-stream:
+            schema:
+              format: binary
+              type: string
+        description: The attachment
+      responses:
+        '200':
+          content:
+            application/*:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: response
+      tags:
+      - users
+tags: []

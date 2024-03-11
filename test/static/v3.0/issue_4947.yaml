@@ -1,0 +1,176 @@
+components:
+  schemas:
+    Foo:
+      properties:
+        intMax:
+          items:
+            maximum: 10
+            type: integer
+          type: array
+        intMaxNullable:
+          items:
+            maximum: 10
+            type: integer
+          nullable: true
+          type: array
+        intMin:
+          items:
+            minimum: 1
+            type: integer
+          type: array
+        intMinMax:
+          items:
+            maximum: 10
+            minimum: 1
+            type: integer
+          type: array
+        intMinMaxNullable:
+          items:
+            maximum: 10
+            minimum: 1
+            type: integer
+          nullable: true
+          type: array
+        intMinNullable:
+          items:
+            minimum: 1
+            type: integer
+          nullable: true
+          type: array
+        numberMax:
+          items:
+            maximum: 10
+            type: number
+          type: array
+        numberMaxNullable:
+          items:
+            exclusiveMaximum: true
+            maximum: 10
+            type: number
+          nullable: true
+          type: array
+        numberMin:
+          items:
+            minimum: 1
+            type: number
+          type: array
+        numberMinMax:
+          items:
+            maximum: 10
+            minimum: 1
+            type: number
+          type: array
+        numberMinMaxNullable:
+          items:
+            maximum: 10
+            minimum: 1
+            type: number
+          nullable: true
+          type: array
+        numberMinNullable:
+          items:
+            minimum: 1
+            type: number
+          nullable: true
+          type: array
+        stringEmail:
+          items:
+            format: email
+            type: string
+          type: array
+        stringEmailNullable:
+          items:
+            format: email
+            type: string
+          nullable: true
+          type: array
+        stringMaxLength:
+          items:
+            maxLength: 1
+            type: string
+          maxItems: 10
+          type: array
+          uniqueItems: true
+        stringMaxLengthNullable:
+          items:
+            maxLength: 1
+            type: string
+          maxItems: 10
+          nullable: true
+          type: array
+          uniqueItems: true
+        stringMaxMinLength:
+          items:
+            maxLength: 10
+            minLength: 1
+            type: string
+          maxItems: 10
+          type: array
+          uniqueItems: true
+        stringMaxMinLengthNullable:
+          items:
+            maxLength: 10
+            minLength: 1
+            type: string
+          maxItems: 10
+          nullable: true
+          type: array
+          uniqueItems: true
+        stringMinLength:
+          items:
+            minLength: 1
+            type: string
+          maxItems: 10
+          type: array
+        stringMinLengthNullable:
+          items:
+            minLength: 1
+            type: string
+          maxItems: 10
+          nullable: true
+          type: array
+        stringNumbers:
+          items:
+            format: number
+            maximum: 10
+            minimum: 1
+            type: string
+          maxItems: 10
+          type: array
+          uniqueItems: true
+        stringPattern:
+          items:
+            pattern: '[a-z]'
+            type: string
+          type: array
+          uniqueItems: true
+        stringPatternNullable:
+          items:
+            pattern: ^\d{3}-\d{2}-\d{4}$
+            type: string
+          nullable: true
+          type: array
+          uniqueItems: true
+        stringPatternWithMin:
+          items:
+            minLength: 10
+            pattern: ^\d{3}-\d{2}-\d{4}$
+            type: string
+          nullable: true
+          type: array
+          uniqueItems: true
+      type: object
+info:
+  title: Test Issue
+  version: v1
+openapi: 3.0.3
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Foo'
+          description: default response

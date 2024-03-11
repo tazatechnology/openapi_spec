@@ -1,0 +1,106 @@
+components:
+  schemas:
+    Int32:
+      format: int32
+      type: integer
+    Int64:
+      format: int64
+      type: integer
+    ObjectModelWithIntegerProps:
+      properties:
+        Int32:
+          format: int32
+          type: integer
+        Int64:
+          format: int64
+          type: integer
+        UnboundedInteger:
+          type: integer
+      type: object
+    UnboundedInteger:
+      type: integer
+  securitySchemes: {}
+info:
+  description: sample to vet integer handling
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /Int32:
+    post:
+      operationId: Int32
+      parameters:
+      - in: path
+        name: Int32
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              format: int32
+              type: integer
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: success
+  /Int64:
+    post:
+      operationId: Int64
+      parameters:
+      - in: path
+        name: Int64
+        required: true
+        schema:
+          format: int64
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              format: int64
+              type: integer
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                format: int64
+                type: integer
+          description: success
+  /UnboundedInteger:
+    post:
+      operationId: UnboundedInteger
+      parameters:
+      - in: path
+        name: UnboundedInteger
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: integer
+          description: success
+servers:
+- url: http://petstore.swagger.io:80/v2
+tags: []

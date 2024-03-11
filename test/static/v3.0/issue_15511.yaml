@@ -1,0 +1,149 @@
+components:
+  schemas:
+    AuthErrorDescription:
+      properties:
+        description:
+          type: string
+      type: object
+    AuthResponseError:
+      properties:
+        error:
+          enum:
+          - invalid_request
+          - invalid_client
+          - invalid_grant
+          - invalid_scope
+          - unauthorized_client
+          - unsupported_grant_type
+          type: string
+          x-enum-descriptions:
+          - Request is missing a parameter or contains an unsupported parameter of
+            repeats parameters.
+          - Client authentication fails due to an invalid client id or secret.
+          - Authorization code or password is invalid or expired.
+          - Invalid scope for the given access token.
+          - Client is not authorized for requested grant type.
+          - Given grant type is unsupported.
+          x-enum-varnames:
+          - INVALID_REQUEST
+          - INVALID_CLIENT
+          - INVALID_GRANT
+          - INVALID_SCOPE
+          - UNAUTHORIZED_CLIENT
+          - UNSUPPORTED_GRANT_TYPE
+        error_description:
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/AuthErrorDescription'
+          type: array
+      required:
+      - error_description
+      - error
+      type: object
+    LoginRequestModel:
+      properties:
+        client_id:
+          type: string
+        grant_type:
+          enum:
+          - refresh_token
+          - password
+          type: string
+        password:
+          type: string
+        scope:
+          type: string
+        username:
+          type: string
+      required:
+      - client_id
+      - grant_type
+      - password
+      - scope
+      - username
+      type: object
+    LoginResponseModel:
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          format: int32
+          type: integer
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+      required:
+      - expires_in
+      - access_token
+      - refresh_token
+      type: object
+    TokenRefreshRequestModel:
+      properties:
+        grant_type:
+          enum:
+          - refresh_token
+          - password
+          type: string
+        refresh_token:
+          type: string
+      required:
+      - grant_type
+      - refresh_token
+      type: object
+    TokenRefreshResponseModel:
+      description: Be aware, that we may either receive a new refresh token in the
+        response or not. In case where we do not receive a new refresh token we must
+        use the refresh token from the old token for subsequent token refreshs.
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          format: int32
+          type: integer
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+      required:
+      - expires_in
+      - access_token
+      type: object
+info:
+  description: foobarbaz
+  title: Auth Server Client API
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /as/token.oauth2:
+    post:
+      requestBody:
+        content:
+          application/x-www-form-urlencoded; charset=utf-8:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/LoginRequestModel'
+              - $ref: '#/components/schemas/TokenRefreshRequestModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/LoginResponseModel'
+                - $ref: '#/components/schemas/TokenRefreshResponseModel'
+          description: Successful operation
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponseError'
+          description: An error occured
+      summary: Obtains a new token from Auth server
+      tags:
+      - auth
+tags:
+- description: Auth Server Client APIs for obtaining, refreshing and revoking a token
+  name: auth

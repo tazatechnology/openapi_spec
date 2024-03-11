@@ -1,0 +1,127 @@
+components:
+  requestBodies:
+    Foo:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/Foo'
+      description: The Foo to be created
+  responses:
+    200FooArray:
+      content:
+        application/json;charset=utf-8:
+          schema:
+            items:
+              $ref: '#/components/schemas/FooRefOrValue'
+            type: array
+      description: Success
+    201Foo:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FooRefOrValue'
+      description: Error
+    '204':
+      content: {}
+      description: Deleted
+  schemas:
+    Addressable:
+      description: Base schema for addressable entities
+      properties:
+        href:
+          description: Hyperlink reference
+          type: string
+        id:
+          description: unique identifier
+          type: string
+      type: object
+    Entity:
+      allOf:
+      - $ref: '#/components/schemas/Addressable'
+      - $ref: '#/components/schemas/Extensible'
+      type: object
+    EntityRef:
+      allOf:
+      - $ref: '#/components/schemas/Addressable'
+      - $ref: '#/components/schemas/Extensible'
+      description: Entity reference schema to be use for all entityRef class.
+      properties:
+        '@referredType':
+          description: The actual type of the target instance when needed for disambiguation.
+          type: string
+        name:
+          description: Name of the related entity.
+          type: string
+      type: object
+    Extensible:
+      properties:
+        '@baseType':
+          description: When sub-classing, this defines the super-class
+          type: string
+        '@schemaLocation':
+          description: A URI to a JSON-Schema file that defines additional attributes
+            and relationships
+          type: string
+        '@type':
+          description: When sub-classing, this defines the sub-class Extensible name
+          type: string
+      required:
+      - '@type'
+      type: object
+    Foo:
+      allOf:
+      - $ref: '#/components/schemas/Entity'
+      properties:
+        fooPropA:
+          type: string
+        fooPropB:
+          type: string
+      type: object
+    FooRef:
+      allOf:
+      - $ref: '#/components/schemas/EntityRef'
+      properties:
+        foorefPropA:
+          type: string
+      type: object
+    FooRefOrValue:
+      discriminator:
+        mapping:
+          Foo: '#/components/schemas/Foo'
+          FooRef: '#/components/schemas/FooRef'
+        propertyName: '@type'
+      oneOf:
+      - $ref: '#/components/schemas/Foo'
+      - $ref: '#/components/schemas/FooRef'
+      type: object
+info:
+  description: 'This tests for a oneOf interface representation
+
+    '
+  title: ByRefOrValue
+  version: 0.0.1
+openapi: 3.0.1
+paths:
+  /foo:
+    get:
+      operationId: getAllFoos
+      responses:
+        '200':
+          $ref: '#/components/responses/200FooArray'
+      summary: GET all Foos
+      tags:
+      - Foo
+    post:
+      operationId: createFoo
+      requestBody:
+        $ref: '#/components/requestBodies/Foo'
+      responses:
+        '201':
+          $ref: '#/components/responses/201Foo'
+      summary: Create a Foo
+      tags:
+      - Foo
+servers:
+- url: http://localhost:8080
+tags:
+- name: Foo

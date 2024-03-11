@@ -1,0 +1,16 @@
+components:
+  schemas:
+    NullOne:
+      enum:
+      - null
+    SomeData:
+      anyOf:
+      - anyOf:
+        - type: string
+        - type: integer
+      - $ref: '#/components/schemas/NullOne'
+info:
+  title: Problem example with nested anyOf
+  version: 1.0.0
+openapi: 3.0.0
+paths: {}

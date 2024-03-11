@@ -1,0 +1,57 @@
+components:
+  schemas:
+    animal:
+      discriminator:
+        mapping:
+          BIRD: '#/components/schemas/bird'
+        propertyName: type
+      properties:
+        id:
+          format: uuid
+          type: string
+      required:
+      - id
+      title: An animal
+      type: object
+    bird:
+      allOf:
+      - $ref: '#/components/schemas/animal'
+      - properties:
+          featherType:
+            type: string
+        required:
+        - featherType
+      title: A bird
+      type: object
+info:
+  contact:
+    email: contact@example.org
+    url: https://example.org
+  description: An example
+  title: Example
+  version: '0.1'
+openapi: 3.0.1
+paths:
+  /v1/bird/{id}:
+    get:
+      operationId: get-bird
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bird'
+          description: OK
+      tags:
+      - bird
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        format: uuid
+        type: string
+servers:
+- url: http://example.org
+tags:
+- name: bird

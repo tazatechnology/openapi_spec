@@ -1,0 +1,103 @@
+components:
+  schemas:
+    GeoJsonGeometry:
+      description: GeoJSON geometry
+      discriminator:
+        mapping:
+          GeometryCollection: '#/components/schemas/GeometryCollection'
+          Point: '#/components/schemas/Point'
+        propertyName: type
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#geometry-objects
+      oneOf:
+      - $ref: '#/components/schemas/Point'
+      - $ref: '#/components/schemas/GeometryCollection'
+      title: GeoJsonGeometry
+    GeometryCollection:
+      description: GeoJSon geometry collection
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#geometrycollection
+      properties:
+        geometries:
+          items:
+            $ref: '#/components/schemas/GeoJsonGeometry'
+          type: array
+        type:
+          default: GeometryCollection
+          type: string
+      required:
+      - type
+      - geometries
+      title: GeometryCollection
+      type: object
+    Point:
+      description: GeoJSON geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id2
+      properties:
+        coordinates:
+          description: Point in 3D space
+          externalDocs:
+            url: http://geojson.org/geojson-spec.html#id2
+          items:
+            format: double
+            type: number
+          maxItems: 3
+          minItems: 2
+          title: Point3D
+          type: array
+        type:
+          default: Point
+          type: string
+      required:
+      - type
+      title: Point
+      type: object
+info:
+  termsOfService: http://api.apitest.com/party/tos/
+  title: APITest API documentation.
+  version: 01.01.00
+openapi: 3.0.0
+paths:
+  /geojson:
+    post:
+      operationId: post-geojson
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeoJsonGeometry'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                description: GeoJson ID
+                type: string
+          description: Created
+        '400':
+          description: Bad Request
+      summary: Add a GeoJson Object
+  /geojson_geometry_collection:
+    post:
+      operationId: post-geojson-geometry-collection
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeometryCollection'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                description: GeoJson ID
+                type: string
+          description: Created
+        '400':
+          description: Bad Request
+      summary: Add a GeoJson GeometryCollection Object
+servers:
+- url: https://api.apitest.com/v1

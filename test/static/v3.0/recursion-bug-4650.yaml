@@ -1,0 +1,64 @@
+components:
+  schemas:
+    AndFilter:
+      allOf:
+      - $ref: '#/components/schemas/Filter'
+      - properties:
+          filters:
+            items:
+              $ref: '#/components/schemas/Filter'
+            type: array
+          operator:
+            default: and
+            enum:
+            - and
+            - or
+            type: string
+        type: object
+      type: object
+    Filter:
+      discriminator:
+        mapping:
+          and: '#/components/schemas/AndFilter'
+          or: '#/components/schemas/OrFilter'
+        propertyName: operator
+      example:
+        field: name
+        operator: eq
+        value: john
+      oneOf:
+      - $ref: '#/components/schemas/AndFilter'
+      - $ref: '#/components/schemas/OrFilter'
+      properties:
+        operator:
+          enum:
+          - and
+          - or
+          type: string
+      type: object
+    OrFilter:
+      allOf:
+      - $ref: '#/components/schemas/Filter'
+      - properties:
+          operator:
+            default: or
+            enum:
+            - and
+            - or
+            type: string
+        type: object
+      type: object
+info:
+  title: Test
+  version: v1
+openapi: 3.0.1
+paths:
+  /api/v1/filters:
+    get:
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Filter'
+          description: default response

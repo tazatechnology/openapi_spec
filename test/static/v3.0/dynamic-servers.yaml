@@ -1,0 +1,92 @@
+info:
+  description: This specification shows how to use dynamic servers.
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Extension with dynamic servers
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /custom:
+    get:
+      description: Use custom server
+      operationId: customServer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: successful operation
+      servers:
+      - url: https://{server}.swagger.io:{port}/v2
+        variables:
+          port:
+            default: '8080'
+            enum:
+            - '80'
+            - '8080'
+          server:
+            default: custom-petstore
+            enum:
+            - custom-petstore
+            - custom-qa-petstore
+            - custom-dev-petstore
+      - description: The local custom server
+        url: https://localhost:8081/{version}
+        variables:
+          version:
+            default: v2
+            enum:
+            - v1
+            - v2
+            - v3
+      - description: The local custom server
+        url: https://third.example.com/{prefix}
+        variables:
+          prefix:
+            default: custom
+      summary: Use custom server
+      tags:
+      - usage
+  /default:
+    get:
+      description: Use default server
+      operationId: defaultServer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: successful operation
+      summary: Use default server
+      tags:
+      - usage
+servers:
+- description: petstore server
+  url: http://{server}.swagger.io:{port}/v2
+  variables:
+    port:
+      default: '80'
+      enum:
+      - '80'
+      - '8080'
+    server:
+      default: petstore
+      enum:
+      - petstore
+      - qa-petstore
+      - dev-petstore
+- description: The local server
+  url: https://localhost:8080/{version}
+  variables:
+    version:
+      default: v1
+      enum:
+      - v1
+      - v2
+      - v3
+tags:
+- description: Show usage of dynamic servers
+  name: usage

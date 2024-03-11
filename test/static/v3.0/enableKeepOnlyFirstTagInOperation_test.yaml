@@ -1,0 +1,85 @@
+components:
+  schemas:
+    Dummy:
+      description: to test x-internal
+      properties:
+        test:
+          type: string
+      type: object
+      x-internal: true
+    Person:
+      description: person
+      properties:
+        $_type:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    delete:
+      operationId: delete
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+      tags:
+      - person
+      x-internal: true
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+      tags:
+      - person
+      - basic
+    put:
+      operationId: put
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+      tags:
+      - person
+servers:
+- url: http://api.example.xyz/v1

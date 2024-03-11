@@ -1,0 +1,50 @@
+components:
+  schemas:
+    nonUniqueArray:
+      properties:
+        array:
+          items:
+            type: string
+          type: array
+          uniqueItems: false
+      type: object
+    uniqueArray:
+      properties:
+        array:
+          items:
+            type: string
+          type: array
+          uniqueItems: true
+      type: object
+info:
+  description: sample spec
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /nonUniqueTypes:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nonUniqueArray'
+          description: non-unique array
+  /uniqueTypes:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uniqueArray'
+          description: unique array
+servers:
+- url: http://petstore.swagger.io:80/v2
+tags:
+- description: an api that ensures that isX properties are present on Schema classes
+  name: isX

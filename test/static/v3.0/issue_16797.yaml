@@ -1,0 +1,82 @@
+components:
+  schemas:
+    Object1:
+      discriminator:
+        propertyName: responseType
+      properties:
+        requestId:
+          type: string
+        responseType:
+          type: string
+        success:
+          default: true
+          type: boolean
+      required:
+      - responseType
+      - requestId
+      - success
+      type: object
+    Object2:
+      allOf:
+      - $ref: '#/components/schemas/Object1'
+      - type: object
+    Object3:
+      allOf:
+      - $ref: '#/components/schemas/Object2'
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/Type1'
+      required:
+      - pageInfo
+    Object4:
+      allOf:
+      - $ref: '#/components/schemas/Object3'
+      - properties:
+          data:
+            type: string
+        type: object
+    Type1:
+      properties:
+        pageSize:
+          format: int32
+          minimum: 1
+          type: integer
+        rowCount:
+          format: int32
+          minimum: 0
+          type: integer
+      required:
+      - pageSize
+      - rowCount
+      type: object
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /user:
+    get:
+      operationId: getUserById
+      parameters:
+      - description: Unique Id of an User
+        in: query
+        name: id
+        schema:
+          default: 10
+          type: integer
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object4'
+          description: successful operation
+      summary: Get User By Id
+      tags:
+      - user
+servers:
+- url: /
+- url: '{protocolAndBaseURL}'
+  variables:
+    protocolAndBaseURL:
+      default: https://localhost
