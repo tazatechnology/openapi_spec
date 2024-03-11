@@ -18,43 +18,52 @@ import 'package:recase/recase.dart';
 /// - Maps
 /// - Enumerations
 class SchemaCentralizer {
-  final OpenApi _spec;
-  Map<String, Schema> components;
+  /// The original OpenAPI spec.
+  final OpenApi _originalSpec;
+
+  /// A map that stores schemas with their corresponding names.
+  Map<String, Schema> schemas;
+
+  /// A map that represents the paths in the OpenAPI specification.
+  /// The keys are the path strings and the values are the corresponding PathItem objects.
   Map<String, PathItem> paths;
-  SchemaCentralizer(this._spec)
-      : components = _spec.components?.schemas ?? <String, Schema>{},
-        paths = _spec.paths ?? {};
+  SchemaCentralizer(this._originalSpec)
+      : schemas = _originalSpec.components?.schemas ?? {},
+        paths = _originalSpec.paths ?? {};
+
+  /// Returns the centralized OpenAPI spec.
   OpenApi centralizedSpec() {
     paths = paths.map((path, pathItem) {
       pathItem = _convertPathItem(path, pathItem);
       return MapEntry(path, pathItem);
     });
 
-    return _spec.copyWith(
-      components: _spec.components?.copyWith(
-        schemas: components,
-      ),
+    var components = (_originalSpec.components ?? Components()).copyWith(
+      schemas: schemas,
+    );
+
+    return _originalSpec.copyWith(
+      components: components,
       paths: paths,
     );
   }
 
   /// This will add a schema to the components and return a Schema
   /// with a ref to the component
-  Schema _addSchemaToComponents(
-      _ComponentNameSuggester suggester, Schema component) {
-    final suggestedName = suggester.suggestName();
-
+  Schema _addSchema(Schema component, String suggestedName) {
     // If the name already exists, append a number to it
     // Do this until the name is unique
     var counter = 1;
     var name = suggestedName;
-    while (components.containsKey(name)) {
+    while (schemas.containsKey(name)) {
       name = suggestedName + counter.toString();
       counter++;
     }
-    // Add the schema to the components
-    components = {...components, name: component};
 
+    // Add the schema to the components
+    schemas[name] = component;
+
+    // Return a schema with a ref to the component
     return Schema.object(ref: name);
   }
 
@@ -66,13 +75,13 @@ class SchemaCentralizer {
     Schema originalSchema,
     _ComponentNameSuggester suggester,
   ) {
+    final suggestedName = suggester.suggestName();
     switch (originalSchema.type) {
       case (SchemaType.object ||
             SchemaType.enumeration ||
             SchemaType.array ||
             SchemaType.map):
-        final refSchema =
-            _addSchemaToComponents(suggester.copyWith(), originalSchema);
+        final refSchema = _addSchema(originalSchema, suggestedName);
         return refSchema;
 
       case (SchemaType.boolean ||
@@ -85,49 +94,9 @@ class SchemaCentralizer {
 
   /// Converts the given parameter to use a schema reference and adds the schema to the components.
   Parameter _convertParameter(
-    Parameter parameter,
-    _ComponentNameSuggester suggester,
-  ) {
+      Parameter parameter, _ComponentNameSuggester suggester) {
     return parameter.copyWith(
       schema: _convertToSchemaRef(parameter.schema!, suggester),
-    );
-  }
-
-  /// Converts the given response to use schema references and adds the schemas to the components.
-  Response _convertResponse(
-    Response response,
-    _ComponentNameSuggester suggester,
-  ) {
-    return response.copyWith(
-      content: response.content?.map((key, mediaType) {
-        return MapEntry(
-          key,
-          mediaType.copyWith(
-            schema: mediaType.schema == null
-                ? null
-                : _convertToSchemaRef(mediaType.schema!, suggester),
-          ),
-        );
-      }),
-    );
-  }
-
-  /// Converts the given request body to use schema references and adds the schemas to the components.
-  RequestBody _convertRequestBody(
-    RequestBody requestBody,
-    _ComponentNameSuggester suggester,
-  ) {
-    return requestBody.copyWith(
-      content: requestBody.content?.map((key, mediaType) {
-        return MapEntry(
-          key,
-          mediaType.copyWith(
-            schema: mediaType.schema == null
-                ? null
-                : _convertToSchemaRef(mediaType.schema!, suggester),
-          ),
-        );
-      }),
     );
   }
 
@@ -140,20 +109,39 @@ class SchemaCentralizer {
       return operation;
     }
     return operation.copyWith(
-      requestBody: operation.requestBody == null
-          ? null
-          : _convertRequestBody(operation.requestBody!,
-              suggester.copyWith(type: SchemaType.object)),
+      requestBody: operation.requestBody?.copyWith(
+        content: operation.requestBody?.content?.map((key, mediaType) {
+          return MapEntry(
+            key,
+            mediaType.copyWith(
+              schema: mediaType.schema == null
+                  ? null
+                  : _convertToSchemaRef(mediaType.schema!,
+                      suggester.copyWith(type: _ComponentType.requestBody)),
+            ),
+          );
+        }),
+      ),
       responses: operation.responses?.map((key, response) {
-        return MapEntry(
-          key,
-          _convertResponse(
-              response, suggester.copyWith(type: SchemaType.object)),
-        );
+        return MapEntry(key, response.copyWith(
+          content: response.content?.map((key, mediaType) {
+            return MapEntry(
+              key,
+              mediaType.copyWith(
+                schema: mediaType.schema == null
+                    ? null
+                    : _convertToSchemaRef(mediaType.schema!,
+                        suggester.copyWith(type: _ComponentType.response)),
+              ),
+            );
+          }),
+        ));
       }),
       parameters: operation.parameters?.map((parameter) {
         return _convertParameter(
-            parameter, suggester.copyWith(suffix: parameter.name));
+            parameter,
+            suggester.copyWith(
+                suffix: parameter.name, type: _ComponentType.parameter));
       }).toList(),
     );
   }
@@ -231,13 +219,30 @@ class SchemaCentralizer {
   }
 }
 
+enum _ComponentType {
+  parameter,
+  requestBody,
+  response;
+
+  String get name {
+    switch (this) {
+      case _ComponentType.parameter:
+        return 'parameter';
+      case _ComponentType.requestBody:
+        return 'request body';
+      case _ComponentType.response:
+        return 'response';
+    }
+  }
+}
+
 class _ComponentNameSuggester {
   final String path;
   final PathItem pathItem;
   final Operation? operation;
   final HttpMethod? method;
   final String? suffix;
-  final SchemaType? type;
+  final _ComponentType? type;
   _ComponentNameSuggester({
     required this.path,
     required this.pathItem,
@@ -253,7 +258,7 @@ class _ComponentNameSuggester {
     Operation? operation,
     HttpMethod? method,
     String? suffix,
-    SchemaType? type,
+    _ComponentType? type,
   }) {
     return _ComponentNameSuggester(
       path: path ?? this.path,
@@ -266,8 +271,6 @@ class _ComponentNameSuggester {
   }
 
   String suggestName() {
-    String result = '';
-
     // Method
     final methodName = method?.name.toString().toLowerCase() ?? '';
 
@@ -278,9 +281,9 @@ class _ComponentNameSuggester {
     final operationName = operation?.id ?? "$methodName $pathName";
 
     // Name used to describe the actual item
-    final String itemName = suffix ?? type?.name ?? '';
+    final itemName = suffix ?? type?.name ?? '';
 
-    result = '$operationName $itemName';
+    var result = '$operationName $itemName';
 
     // Remove all non-alphanumeric characters
     result = result.replaceAll(RegExp(r'[^a-zA-Z0-9 ]'), '');
