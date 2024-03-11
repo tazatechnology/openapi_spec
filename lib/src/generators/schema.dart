@@ -772,7 +772,13 @@ class SchemaGenerator extends BaseGenerator {
         c += getJsonKey(nullable: nullable);
 
         if (hasDefault & !required & !nullable) {
-          c += "@Default(${p.toDartType()}()) ";
+          if (p.defaultValue.toString().contains('(')) {
+            // Implies some sort of union type constructor
+            c += "@Default(${p.defaultValue}) ";
+          } else {
+            // Implies a constant class constructor
+            c += "@Default(${p.toDartType()}()) ";
+          }
         }
 
         if (required) {
