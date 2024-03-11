@@ -586,7 +586,7 @@ class SchemaGenerator extends BaseGenerator {
       newKey = newKey.replaceAll(RegExp(r'^[0-9_]+'), '');
       // Ensure the key is not empty
       if (newKey.isEmpty) {
-        newKey = 'prop';
+        newKey = '_prop';
       }
       // Add key while ensuring it is unique
       while (propNames.contains(newKey)) {
@@ -1012,11 +1012,26 @@ class SchemaGenerator extends BaseGenerator {
     required Schema schema,
   }) {
     final s = schema.mapOrNull(enumeration: (s) => s)!;
-    final values = s.values;
 
-    if (values == null) {
-      return;
-    }
+    // Collect all enum values and ensure they are valid
+    final valuesMap = <({String jsonKey, String dartName})>[];
+
+    s.values?.forEach((originalName) {
+      // Remove bad characters from the name
+      var newName = originalName.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '');
+      // Remove leading numbers and underscores
+      newName = newName.replaceAll(RegExp(r'^[0-9_]+'), '');
+      // Ensure the name is not empty
+      if (newName.isEmpty) {
+        newName = 'Value';
+      }
+
+      // Add key while ensuring it is unique
+      while (valuesMap.map((e) => e.dartName).contains(newName)) {
+        newName += '_';
+      }
+      valuesMap.add((jsonKey: originalName, dartName: newName));
+    });
 
     file.writeAsStringSync("""
     // ==========================================
@@ -1028,11 +1043,11 @@ class SchemaGenerator extends BaseGenerator {
     """, mode: FileMode.append);
 
     // Loop through enum values
-    for (var v in values) {
+    for (var v in valuesMap) {
       // Write enum value
       file.writeAsStringSync("""
-    @JsonValue(r'$v')
-    ${_safeEnumValue(v, s)},
+    @JsonValue(r'${v.jsonKey}')
+    ${_safeEnumValue(v.dartName, s)},
     """, mode: FileMode.append);
     }
 
