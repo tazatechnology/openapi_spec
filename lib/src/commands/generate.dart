@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:openapi_spec/openapi_spec.dart';
-import 'package:openapi_spec/src/commands/utils/schema_centralizer.dart';
+import 'package:openapi_spec/src/utils/schema_centralizer.dart';
 import 'package:path/path.dart' as p;
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
@@ -132,9 +132,7 @@ class GenerateCommand extends Command<int> {
       return ExitCode.usage.code;
     }
 
-    var spec = OpenApi.fromJson(schema);
-    final centralizer = SchemaCentralizer(spec);
-    spec = centralizer.centralizedSpec();
+    var spec = OpenApi.fromJson(schema).centralizedSpec();
 
     await spec.generate(
       destination: destination,
