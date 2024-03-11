@@ -212,7 +212,7 @@ class SchemaGenerator extends BaseGenerator {
     // ==========================================
     
     /// Union class for ${schemas.map((e) => '[$e]').join(', ')}
-    @Freezed(unionKey: '$unionKey')
+    @Freezed(unionKey: r'$unionKey')
     sealed class $union with _\$$union  {
       const $union._();\n
     """, mode: FileMode.append);
@@ -255,7 +255,7 @@ class SchemaGenerator extends BaseGenerator {
       );
       if (unionValue != null) {
         unionValues.add(unionValue);
-        unionValue = "\n@FreezedUnionValue('$unionValue')";
+        unionValue = "\n@FreezedUnionValue(r'$unionValue')";
       } else {
         unionValue = '';
       }
@@ -300,7 +300,7 @@ class SchemaGenerator extends BaseGenerator {
       // ==========================================
 
       enum ${union}Type {
-        ${unionValues.map((e) => "@JsonValue('$e')\n${e.camelCase},").join('\n')}
+        ${unionValues.map((e) => "@JsonValue(r'$e')\n${e.camelCase},").join('\n')}
       }
       """;
     }
@@ -577,9 +577,26 @@ class SchemaGenerator extends BaseGenerator {
     // Store the toMap string for later
     String toMap = '';
 
+    // Clean up the properties
+    final propNames = <String>[];
+    final props = s.properties?.map((name, prop) {
+      // Remove bad characters from the key
+      var newKey = name.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '');
+      // Remove leading numbers and underscores
+      newKey = newKey.replaceAll(RegExp(r'^[0-9_]+'), '');
+      // Ensure the key is not empty
+      if (newKey.isEmpty) {
+        newKey = 'prop';
+      }
+      // Add key while ensuring it is unique
+      while (propNames.contains(newKey)) {
+        newKey += '_';
+      }
+      propNames.add(newKey);
+      return MapEntry(newKey, prop);
+    });
+
     // Loop through properties
-    final props = s.properties;
-    final propNames = props?.keys.toList() ?? <String>[];
     bool firstPass = true;
     List<SchemaValidation> validations = [];
     for (final propName in propNames) {
@@ -600,7 +617,7 @@ class SchemaGenerator extends BaseGenerator {
         validations.add(v);
       }
 
-      toMap += "'$propName': $dartName,\n";
+      toMap += "r'$propName': $dartName,\n";
     }
 
     String validationConstants = '';
@@ -621,7 +638,7 @@ class SchemaGenerator extends BaseGenerator {
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
 
     /// List of all property names of schema
-    static const List<String> propertyNames = ${json.encode(propNames).replaceAll('"', "'")};
+    static const List<String> propertyNames = ${json.encode(propNames).replaceAll('"', "'").escaped()};
 
     $validationConstants
 
@@ -658,7 +675,7 @@ class SchemaGenerator extends BaseGenerator {
     }) {
       List<String> jsonOpts = [];
       if (jsonName != name) {
-        jsonOpts.add("name: '$jsonName'");
+        jsonOpts.add("name: r'$jsonName'");
       }
       if (nullable && !required) {
         jsonOpts.add("includeIfNull: false");
@@ -683,7 +700,7 @@ class SchemaGenerator extends BaseGenerator {
       c += getJsonKey(nullable: nullable);
       if (hasDefault && !required) {
         if (defaultValue is String) {
-          c += "@Default('$defaultValue') ";
+          c += "@Default(r'$defaultValue') ";
         } else {
           c += "@Default($defaultValue) ";
         }
@@ -934,7 +951,7 @@ class SchemaGenerator extends BaseGenerator {
 
         if (p.ref == null) {
           if (p.defaultValue != null && !required) {
-            c += "@Default('${p.defaultValue}') ";
+            c += "@Default(r'${p.defaultValue}') ";
           }
           if (required) {
             c += "required ";
@@ -1014,7 +1031,7 @@ class SchemaGenerator extends BaseGenerator {
     for (var v in values) {
       // Write enum value
       file.writeAsStringSync("""
-    @JsonValue('$v')
+    @JsonValue(r'$v')
     ${_safeEnumValue(v, s)},
     """, mode: FileMode.append);
     }
@@ -1200,5 +1217,11 @@ class SchemaGenerator extends BaseGenerator {
       // Write to union map
       _unions[name] = schemas;
     }
+  }
+}
+
+extension on String {
+  String escaped() {
+    return replaceAll(r'\', r'\\').replaceAll(r'$', r'\$');
   }
 }
