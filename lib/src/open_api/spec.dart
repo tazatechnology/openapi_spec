@@ -122,15 +122,17 @@ class OpenApi with _$OpenApi {
   /// Create an [OpenApi] object from a JSON/YAML string
   /// The format will be inferred from the file extension
   /// When the format is not provided, we will try both JSON and YAML
-  factory OpenApi.fromString(
-      {required String source, required OpenApiFormat? format}) {
+  factory OpenApi.fromString({
+    required String source,
+    required OpenApiFormat? format,
+  }) {
     Map<String, dynamic> parseJson(String source) {
       return json.decode(source);
     }
 
     Map<String, dynamic> parseYaml(String source) {
       final yamlMap = yaml.loadYaml(source);
-      // We must recursivly set all keys to strings to avoid issues with the json encoder
+      // We must set all keys to strings to avoid issues with the json encoder
       return json.decode(json.encode(
         yamlMap,
         toEncodable: (object) {
