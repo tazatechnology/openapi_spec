@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:openapi_spec/openapi_spec.dart';
@@ -6,7 +5,6 @@ import 'package:path/path.dart' as p;
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:http/http.dart' as http;
-import 'package:yaml/yaml.dart' as yaml;
 
 /// {@template sample_command}
 ///
@@ -118,20 +116,10 @@ class GenerateCommand extends Command<int> {
       return ExitCode.usage.code;
     }
 
-    final schema =
-        parseRawSchemaFromString(rawSchemaText, fileExtension, _logger);
-
-    if (schema == null) {
-      _logger.err('The content of the file is not a valid JSON or YAML');
-      return ExitCode.usage.code;
-    }
-
-    if (schema.containsKey("swagger")) {
-      _logger.err('The OpenAPI version 2.0 is not supported');
-      return ExitCode.usage.code;
-    }
-
-    var spec = OpenApi.fromJson(schema).centralizedSpec();
+    var spec = OpenApi.fromString(
+            source: rawSchemaText,
+            format: OpenApiFormat.fromExtention(fileExtension))
+        .centralizedSpec();
 
     await spec.generate(
       destination: destination,
@@ -145,41 +133,4 @@ class GenerateCommand extends Command<int> {
 
     return ExitCode.success.code;
   }
-}
-
-Map<String, dynamic>? parseRawSchemaFromString(
-    String text, String? fileExtension, Logger logger) {
-  final Map<String, dynamic>? result;
-
-  /// Try to parse the text as JSON
-  Map<String, dynamic>? tryParseJson(String text) {
-    try {
-      return json.decode(text);
-    } on FormatException catch (e) {
-      logger.err('Error parsing JSON: $e');
-      return null;
-    }
-  }
-
-  /// Try to parse the text as YAML
-  Map<String, dynamic>? tryParseYaml(String text) {
-    try {
-      return json.decode(json.encode(yaml.loadYaml(text)));
-    } on FormatException catch (e) {
-      logger.err('Error parsing YAML: $e');
-      return null;
-    }
-  }
-
-  switch (fileExtension) {
-    case ('.yaml' || '.yml'):
-      result = tryParseYaml(text)!;
-    case '.json':
-      result = tryParseJson(text)!;
-    default:
-      var r = tryParseJson(text);
-      r ??= tryParseYaml(text);
-      result = r;
-  }
-  return result;
 }
