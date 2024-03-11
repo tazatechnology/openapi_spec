@@ -28,7 +28,7 @@ class SchemaCentralizer {
   /// The keys are the path strings and the values are the corresponding PathItem objects.
   Map<String, PathItem> paths;
   SchemaCentralizer(this._originalSpec)
-      : schemas = _originalSpec.components?.schemas ?? {},
+      : schemas = {..._originalSpec.components?.schemas ?? {}},
         paths = _originalSpec.paths ?? {};
 
   /// Returns the centralized OpenAPI spec.
