@@ -9,6 +9,7 @@ import 'package:yaml/yaml.dart' as yaml;
 import 'package:path/path.dart' as p;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'package:openapi_spec/src/utils/schema_centralizer.dart';
 import 'package:openapi_spec/src/generators/index.dart';
 
 part 'index.g.dart';

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:openapi_spec/openapi_spec.dart';
-import 'package:openapi_spec/src/utils/schema_centralizer.dart';
 import 'package:path/path.dart' as p;
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
