@@ -413,6 +413,20 @@ class OpenApi with _$OpenApi {
       }
     }
   }
+
+  // ------------------------------------------
+  // METHOD: centralizedSpec
+  // ------------------------------------------
+  ///
+  /// Return a centralized OpenAPI spec.
+  ///
+  /// This will convert all complex schemas that are found in the paths to references
+  /// and move the complex schemas to the components section.
+  OpenApi centralizedSpec() {
+    final centralizer = SchemaCentralizer(this);
+    final centralizedSpec = centralizer.centralizedSpec();
+    return centralizedSpec;
+  }
 }
 
 const String _unionKey = 'unionType';

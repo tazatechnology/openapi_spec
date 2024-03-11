@@ -21,6 +21,12 @@ dependencies:
   intl: ">=0.17.0 <1.0.0"
   http: ">=0.13.0 <2.0.0"
   recase: ^4.1.0
+
+  # For CLI
+  args: ^2.4.2
+  mason_logger: ^0.2.12
+  pub_updater: ^0.4.0
+  cli_completion: ^0.5.0
   
 dev_dependencies:
   build_runner: ^2.4.8
@@ -28,3 +34,8 @@ dev_dependencies:
   freezed: ^2.4.7
   json_serializable: ^6.7.1
   test: ^1.25.2
+  build_verify: ^3.1.0
+  build_version: ^2.1.1
+
+executables:
+  openapi_spec:
