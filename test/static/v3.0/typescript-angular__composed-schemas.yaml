@@ -1,0 +1,103 @@
+components:
+  schemas:
+    CatComposed:
+      allOf:
+      - $ref: '#/components/schemas/PetWithoutDiscriminator'
+      - properties:
+          hunts:
+            type: boolean
+        type: object
+    CatInherited:
+      allOf:
+      - $ref: '#/components/schemas/PetWithSimpleDiscriminator'
+      - properties:
+          hunts:
+            type: boolean
+        type: object
+    CatMapped:
+      allOf:
+      - $ref: '#/components/schemas/PetWithMappedDiscriminator'
+      - properties:
+          hunts:
+            type: boolean
+        type: object
+    DogBreed:
+      enum:
+      - Dingo
+      - Husky
+      type: string
+    DogComposed:
+      allOf:
+      - $ref: '#/components/schemas/PetWithoutDiscriminator'
+      - properties:
+          inlineBreed:
+            enum:
+            - Dingo
+            - Husky
+            type: string
+        type: object
+    DogInherited:
+      allOf:
+      - $ref: '#/components/schemas/PetWithSimpleDiscriminator'
+      - properties:
+          breed:
+            $ref: '#/components/schemas/DogBreed'
+        type: object
+    DogMapped:
+      allOf:
+      - $ref: '#/components/schemas/PetWithMappedDiscriminator'
+      - properties:
+          breed:
+            $ref: '#/components/schemas/DogBreed'
+        type: object
+    PetWithMappedDiscriminator:
+      discriminator:
+        mapping:
+          cat: '#/components/schemas/CatMapped'
+          dog: '#/components/schemas/DogMapped'
+        propertyName: petType
+      properties:
+        petType:
+          type: string
+      required:
+      - petType
+      type: object
+    PetWithSimpleDiscriminator:
+      discriminator:
+        propertyName: petType
+      properties:
+        petType:
+          type: string
+      required:
+      - petType
+      type: object
+    PetWithoutDiscriminator:
+      properties:
+        petType:
+          type: string
+      required:
+      - petType
+      type: object
+info:
+  license:
+    name: MIT
+  title: Schemas with different types of composition for testing models generation
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /pet/mapped:
+    get:
+      operationId: getPets
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PetWithMappedDiscriminator'
+                type: array
+          description: OK
+      tags:
+      - pet
+servers:
+- url: http://api.example.xyz/v1

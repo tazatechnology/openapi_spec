@@ -1,0 +1,21 @@
+info:
+  title: test
+  version: '1.0'
+openapi: 3.0.1
+paths:
+  /api/v1/test:
+    get:
+      operationId: test1
+      responses:
+        200:
+          description: OK
+      tags:
+      - Test v1
+  /api/v2/test:
+    get:
+      operationId: test2
+      responses:
+        200:
+          description: OK
+      tags:
+      - Test v2

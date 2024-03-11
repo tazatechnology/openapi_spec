@@ -1,0 +1,62 @@
+components:
+  schemas:
+    AllPets:
+      properties:
+        pets:
+          items:
+            $ref: '#/components/schemas/Pet'
+          type: array
+      type: object
+    Cat:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          name:
+            type: string
+        type: object
+    Dog:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          bark:
+            type: string
+        type: object
+    Lizard:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          lovesRocks:
+            type: boolean
+        type: object
+    Pet:
+      discriminator:
+        mapping:
+          cat: '#/components/schemas/Cat'
+          dog: '#/components/schemas/Dog'
+          lizard: '#/components/schemas/Lizard'
+        propertyName: petType
+      properties:
+        petType:
+          type: string
+      required:
+      - petType
+      type: object
+info:
+  description: test schema
+  title: test
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /demo:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: Success
+      summary: placeholder summary
+servers:
+- description: stage
+  url: http://test.com

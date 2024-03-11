@@ -1,0 +1,51 @@
+components:
+  parameters:
+    departmentIdParam:
+      description: ID of the department to search
+      in: path
+      name: departmentId
+      required: true
+      schema:
+        type: string
+    teamQueryParam:
+      allowEmptyValue: true
+      description: Fetch teams query
+      in: query
+      name: filter
+      required: false
+      schema:
+        $ref: '#/components/schemas/TeamCriteriaDTO'
+  schemas:
+    TeamCriteriaDTO:
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+      title: TeamCriteriaDTO
+      type: object
+info:
+  description: My description
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /api/department/{departmentId}/teams:
+    get:
+      description: Find Department Teams
+      operationId: findDepartmentTeams
+      parameters:
+      - $ref: '#/components/parameters/departmentIdParam'
+      - $ref: '#/components/parameters/teamQueryParam'
+      responses:
+        '200':
+          description: OK
+      summary: Find Department Teams
+      tags:
+      - Department
+tags:
+- description: Everything about your Department
+  name: department

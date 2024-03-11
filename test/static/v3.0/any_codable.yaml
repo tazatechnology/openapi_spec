@@ -1,0 +1,45 @@
+components:
+  schemas:
+    Pet:
+      properties:
+        testProperty:
+          type: string
+      required:
+      - testProperty
+      type: object
+info:
+  title: Swagger Petstore
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /pets:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: Expected response to a valid request
+      tags:
+      - pets
+  /pets/{petId}:
+    get:
+      operationId: showPetById
+      parameters:
+      - description: The id of the pet to retrieve
+        in: path
+        name: petId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Expected response to a valid request
+      summary: Info for a specific pet
+      tags:
+      - pets

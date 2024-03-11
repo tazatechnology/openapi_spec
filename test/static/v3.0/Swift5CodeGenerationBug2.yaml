@@ -1,0 +1,101 @@
+components:
+  schemas:
+    Cat:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          catFood:
+            type: string
+        type: object
+      description: Cat
+      required:
+      - type
+      type: object
+    Dog:
+      allOf:
+      - $ref: '#/components/schemas/Pet'
+      - properties:
+          dogFood:
+            type: string
+        type: object
+      description: Dog
+      required:
+      - type
+      type: object
+    Pet:
+      description: Base Pet
+      discriminator:
+        mapping:
+          Cat: '#/components/schemas/Cat'
+          Dog: '#/components/schemas/Dog'
+        propertyName: type
+      properties:
+        father:
+          $ref: '#/components/schemas/Pet'
+        mother:
+          $ref: '#/components/schemas/Pet'
+        name:
+          description: Name
+          type: string
+        store:
+          $ref: '#/components/schemas/PetStore'
+        type:
+          description: Type Diskriminator
+          type: string
+      required:
+      - type
+      type: object
+    PetStore:
+      description: PetStore
+      properties:
+        pets:
+          items:
+            $ref: '#/components/schemas/Pet'
+          type: array
+      type: object
+info:
+  contact:
+    email: XXX.XXX@XXX.de
+  description: Das ist jetzt der erste OpenAPI 3.0 Endpoint
+  title: XXX
+  version: '1.0'
+openapi: 3.0.1
+paths:
+  /api/v1/petresource/pet:
+    post:
+      description: Save a Pet.
+      operationId: savePet
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: PetResponse
+      summary: Save a Pet.
+      tags:
+      - v1/petresource
+  /api/v1/petresource/petstore:
+    post:
+      description: Save a Petstore.
+      operationId: savePetStore
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/PetStore'
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetStore'
+          description: PetStore
+      summary: Save a Petstore.
+      tags:
+      - v1/petresource

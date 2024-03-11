@@ -1,0 +1,81 @@
+components:
+  schemas:
+    JSONPatchRequestAddReplaceTest:
+      additionalProperties: false
+      properties:
+        path:
+          description: A JSON Pointer path.
+          type: string
+        value:
+          description: The value to add, replace or test.
+      required:
+      - value
+      - op
+      - path
+      type: object
+    JSONPatchRequestMoveCopy:
+      additionalProperties: false
+      properties:
+        op:
+          description: The operation to perform.
+          enum:
+          - move
+          - copy
+          type: string
+        path:
+          description: A JSON Pointer path.
+          type: string
+      required:
+      - from
+      - op
+      - path
+      type: object
+    JSONPatchRequestRemove:
+      additionalProperties: false
+      properties:
+        op:
+          description: The operation to perform.
+          enum:
+          - remove
+          type: string
+        path:
+          description: A JSON Pointer path.
+          type: string
+      required:
+      - op
+      - path
+      type: object
+    PatchRequest:
+      items:
+        oneOf:
+        - $ref: '#/components/schemas/JSONPatchRequestAddReplaceTest'
+        - $ref: '#/components/schemas/JSONPatchRequestRemove'
+        - $ref: '#/components/schemas/JSONPatchRequestMoveCopy'
+      type: array
+info:
+  description: xxx
+  title: x
+  version: 0.0.1
+  x-audience: company-internal
+openapi: 3.0.3
+paths:
+  /users/{id}:
+    patch:
+      description: Returns an organization
+      operationId: GetOrganization
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+      responses:
+        '200':
+          description: Successful response.

@@ -1,0 +1,114 @@
+components:
+  schemas:
+    multipart_related_request:
+      properties:
+        object_field:
+          properties:
+            field_a:
+              type: string
+            field_b:
+              items:
+                type: string
+              type: array
+          required:
+          - field_a
+          type: object
+        optional_binary_field:
+          format: binary
+          type: string
+        required_binary_field:
+          format: binary
+          type: string
+      required:
+      - required_binary_field
+      type: object
+    multipart_request:
+      properties:
+        binary_field:
+          format: byte
+          type: string
+        object_field:
+          properties:
+            field_a:
+              type: string
+            field_b:
+              items:
+                type: string
+              type: array
+          required:
+          - field_a
+          type: object
+        optional_string_field:
+          type: string
+        string_field:
+          type: string
+      required:
+      - string_field
+      - binary_field
+      type: object
+info:
+  description: API under test
+  title: Multipart OpenAPI V3 Rust Server Test
+  version: 1.0.7
+openapi: 3.0.1
+paths:
+  /multipart_related_request:
+    post:
+      requestBody:
+        content:
+          multipart/related:
+            encoding:
+              object_field:
+                contentType: application/json
+              optional_binary_field:
+                contentType: application/zip
+                headers:
+                  Content-Id:
+                    schema:
+                      type: string
+              required_binary_field:
+                contentType: image/png
+                headers:
+                  Content-Id:
+                    schema:
+                      type: string
+            schema:
+              $ref: '#/components/schemas/multipart_related_request'
+        required: true
+      responses:
+        '201':
+          description: OK
+  /multipart_request:
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/multipart_request'
+        required: true
+      responses:
+        '201':
+          description: OK
+  /multiple-identical-mime-types:
+    post:
+      requestBody:
+        content:
+          multipart/related:
+            encoding:
+              binary1:
+                contentType: application/octet-stream
+              binary2:
+                contentType: application/octet-stream
+            schema:
+              properties:
+                binary1:
+                  format: binary
+                  type: string
+                binary2:
+                  format: binary
+                  type: string
+              type: object
+        required: true
+      responses:
+        200:
+          description: OK

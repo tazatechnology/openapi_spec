@@ -1,0 +1,33 @@
+components:
+  schemas:
+    PetEnum:
+      description: An enum with complex-ish naming
+      enum:
+      - myFirstValue
+      - MY_SECOND_VALUE
+      type: string
+info:
+  description: Test for issue 4062
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /enum:
+    get:
+      description: ''
+      operationId: getEnum
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetEnum'
+          description: success
+      summary: Get enums
+      tags:
+      - enum
+servers:
+- url: http://petstore.swagger.io/v2

@@ -1,0 +1,37 @@
+components:
+  schemas:
+    apple:
+      properties:
+        kind:
+          type: string
+      title: apple
+      type: object
+    banana:
+      properties:
+        count:
+          type: number
+      title: banana
+      type: object
+    fruit:
+      anyOf:
+      - $ref: '#/components/schemas/apple'
+      - $ref: '#/components/schemas/banana'
+      properties:
+        color:
+          type: string
+      title: fruit
+      type: object
+info:
+  title: fruity
+  version: 0.0.1
+openapi: 3.0.1
+paths:
+  /:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fruit'
+          description: desc

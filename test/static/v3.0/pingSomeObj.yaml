@@ -1,0 +1,43 @@
+components:
+  schemas:
+    SomeObj:
+      properties:
+        $_type:
+          default: SomeObjIdentifier
+          enum:
+          - SomeObjIdentifier
+          type: string
+        active:
+          type: boolean
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+info:
+  title: ping some object
+  version: '1.0'
+openapi: 3.0.1
+paths:
+  /ping:
+    post:
+      operationId: postPing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SomeObj'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SomeObj'
+          description: OK
+      tags:
+      - ping
+servers:
+- url: http://localhost:8082/

@@ -1,0 +1,47 @@
+components:
+  schemas:
+    User:
+      allOf:
+      - $ref: '#/components/schemas/UserDetail'
+      - description: The User
+        required:
+        - userid
+        - username
+        type: object
+    UserDetail:
+      description: Detail of a User
+      properties:
+        name:
+          description: the name of the user
+          type: string
+      type: object
+info:
+  contact:
+    email: my@mail.com
+  description: test
+  title: myTest
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /users/create/{username}:
+    post:
+      operationId: createUser
+      parameters:
+      - in: path
+        name: username
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: The User just created
+      tags:
+      - user
+servers:
+- url: http://localhost:9998/v1
+tags:
+- name: users

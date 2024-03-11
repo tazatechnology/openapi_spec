@@ -1,0 +1,44 @@
+components:
+  schemas:
+    Request:
+      properties:
+        user1:
+          $ref: '#/components/schemas/User'
+      title: Request
+      type: object
+    User:
+      description: ''
+      properties:
+        integerValue:
+          type: integer
+      title: User
+      type: object
+      x-examples: {}
+info:
+  title: test
+  version: '1.0'
+openapi: 3.0.0
+paths:
+  /postModel:
+    parameters: []
+    post:
+      description: Create a new user.
+      operationId: post-user
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '200':
+          content:
+            application/json:
+              examples: {}
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User Created
+        '400':
+          description: Missing Required Information
+      summary: Create New User
+servers:
+- url: http://localhost:3000

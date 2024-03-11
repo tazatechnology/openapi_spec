@@ -1,0 +1,45 @@
+components:
+  schemas:
+    TestEntity:
+      additionalProperties: false
+      properties:
+        name:
+          nullable: true
+          type: string
+      type: object
+info:
+  description: Web API
+  title: Bug
+  version: v1
+openapi: 3.0.1
+paths:
+  /v1/MyRequest:
+    put:
+      operationId: test
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TestEntity'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestEntity'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TestEntity'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestEntity'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TestEntity'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TestEntity'
+          description: Success
+      summary: Update the test
+      tags:
+      - MyRequest

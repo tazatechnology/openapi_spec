@@ -1,0 +1,104 @@
+components:
+  schemas:
+    Adult:
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      - properties:
+          children:
+            items:
+              $ref: '#/components/schemas/Child'
+            type: array
+        type: object
+      description: A representation of an adult
+    AnotherChild:
+      allOf:
+      - properties:
+          age:
+            format: int32
+            type: integer
+        type: object
+      - $ref: '#/components/schemas/AnotherPerson'
+      description: another child class that does NOT extend/inherit AnotherPerson
+    AnotherParent:
+      description: parent object without x-parent extension
+      properties:
+        isParent:
+          type: boolean
+        mum_or_dad:
+          type: string
+      type: object
+    AnotherPerson:
+      allOf:
+      - properties:
+          $_type:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+      - $ref: '#/components/schemas/AnotherParent'
+      description: person object without x-parent extension
+      type: object
+    Child:
+      allOf:
+      - properties:
+          age:
+            format: int32
+            type: integer
+        type: object
+      - $ref: '#/components/schemas/Person'
+      description: A representation of a child
+    Person:
+      description: person using x-parent (abstract) to indicate it's a parent class
+      properties:
+        $_type:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      type: object
+      x-parent: abstract
+    allOfWithProperties:
+      allOf:
+      - $ref: '#/components/schemas/AnotherParent'
+      description: parent object without x-parent extension
+      properties:
+        isParent:
+          type: boolean
+        mum_or_dad:
+          type: string
+      required:
+      - isParent
+      type: object
+    allOfWithSingleItem:
+      allOf:
+      - $ref: '#/components/schemas/AnotherParent'
+      description: allOf with a single item
+      nullable: true
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

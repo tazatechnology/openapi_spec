@@ -1,0 +1,121 @@
+components:
+  schemas:
+    Adult:
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      - properties:
+          children:
+            items:
+              $ref: '#/components/schemas/Child'
+            type: array
+          nullableChildren:
+            items:
+              $ref: '#/components/schemas/Child'
+            type:
+            - array
+            - 'null'
+          nullableChildrenVariant2:
+            oneOf:
+            - type: 'null'
+            - items:
+                $ref: '#/components/schemas/Child'
+              type: array
+        type: object
+      description: A representation of an adult
+    Child:
+      allOf:
+      - properties:
+          age:
+            format: int32
+            type: integer
+        type: object
+      - $ref: '#/components/schemas/Person'
+      description: A representation of a child
+    Nullable.Address:
+      description: A representation of an address whose value can be null.
+      nullable: true
+      properties:
+        city:
+          type: string
+        street:
+          type: string
+      type: object
+    Person:
+      discriminator:
+        mapping:
+          a: '#/components/schemas/Adult'
+          c: Child
+        propertyName: $_type
+      properties:
+        $_type:
+          type: string
+        address:
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+          type: object
+        firstName:
+          type: string
+        lastName:
+          type: string
+        maidenName:
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+        nullableSkills:
+          items:
+            properties:
+              name:
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+        nullableSkillsVariant2:
+          oneOf:
+          - type: 'null'
+          - items:
+              properties:
+                name:
+                  type: string
+              type: object
+            type: array
+        secondHomeAddress:
+          $ref: '#/components/schemas/Nullable.Address'
+        skills:
+          items:
+            properties:
+              name:
+                type: string
+            type: object
+          type: array
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.1.0
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

@@ -1,0 +1,47 @@
+components:
+  schemas:
+    Apple:
+      nullable: true
+      properties:
+        cultivar:
+          pattern: ^[a-zA-Z\s]*$
+          type: string
+        origin:
+          pattern: /^[A-Z\s]*$/i
+          type: string
+      type: object
+    Banana:
+      properties:
+        lengthCm:
+          type: number
+      type: object
+    Fruit:
+      discriminator:
+        mapping:
+          banana: '#/components/schemas/Banana'
+          green_apple: '#/components/schemas/Apple'
+          red_apple: '#/components/schemas/Apple'
+        propertyName: fruitType
+      oneOf:
+      - $ref: '#/components/schemas/Apple'
+      - $ref: '#/components/schemas/Apple'
+      - $ref: '#/components/schemas/Banana'
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /example:
+    get:
+      operationId: get_fruit
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fruit'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

@@ -1,0 +1,41 @@
+components:
+  schemas:
+    clubForCreation:
+      allOf:
+      - $ref: '#/components/schemas/clubForUpdate'
+      required:
+      - name
+    clubForUpdate:
+      properties:
+        name:
+          maxLength: 255
+          type: string
+        shortName:
+          maxLength: 255
+          type: string
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clubForCreation'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

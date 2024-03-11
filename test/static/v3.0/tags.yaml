@@ -1,0 +1,99 @@
+components:
+  schemas:
+    SomeObj:
+      properties:
+        someProp:
+          type: string
+      type: object
+info:
+  description: Tags Test
+  title: OpenAPI Test API
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /:
+    get:
+      operationId: op0
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - tag0
+  /group1/op1:
+    get:
+      operationId: op1
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - tag1
+  /group1/op2:
+    get:
+      operationId: op2
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - tag2
+  /group2/op3:
+    get:
+      operationId: op3
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - tag2
+  /group3/op4:
+    get:
+      operationId: op4
+      responses:
+        '200':
+          description: Ok
+  /group4/op5:
+    get:
+      operationId: op5
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - group4
+  /group4/op6:
+    get:
+      operationId: op6
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - group4
+  /group5/op7:
+    get:
+      operationId: op7
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - group5
+  /group6/op8:
+    get:
+      operationId: op8
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - group5
+  /{id}:
+    get:
+      operationId: opId
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Ok
+      tags:
+      - tag0
+servers:
+- url: http://api.company.xyz/v2

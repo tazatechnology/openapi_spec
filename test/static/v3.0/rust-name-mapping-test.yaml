@@ -1,0 +1,66 @@
+components:
+  schemas:
+    PropertyNameMapping:
+      properties:
+        -type:
+          type: string
+        _type:
+          type: string
+        http_debug_operation:
+          type: string
+        type:
+          type: string
+        type_:
+          type: string
+info:
+  description: rust name mapping test
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: rust test
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /fake/parameter-name-mapping:
+    get:
+      operationId: getParameterNameMapping
+      parameters:
+      - description: _type
+        in: header
+        name: _type
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - description: type
+        in: query
+        name: type
+        required: true
+        schema:
+          type: string
+      - description: type_
+        in: header
+        name: type_
+        required: true
+        schema:
+          type: string
+      - description: -type
+        in: header
+        name: -type
+        required: true
+        schema:
+          type: string
+      - description: http debug option (to test parameter naming option)
+        in: query
+        name: http_debug_option
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+      summary: parameter name mapping test
+      tags:
+      - fake
+servers:
+- url: http://petstore.swagger.io/v2

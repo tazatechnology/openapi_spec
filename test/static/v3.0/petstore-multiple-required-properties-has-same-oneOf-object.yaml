@@ -1,0 +1,63 @@
+components:
+  schemas:
+    cat:
+      properties:
+        attr:
+          enum:
+          - CAT
+          type: string
+      required:
+      - attr
+      type: object
+    dog:
+      properties:
+        attr:
+          enum:
+          - DOG
+          type: string
+      required:
+      - attr
+      type: object
+    pet:
+      discriminator:
+        mapping:
+          CAT: '#/components/schemas/cat'
+          DOG: '#/components/schemas/dog'
+        propertyName: attr
+      oneOf:
+      - $ref: '#/components/schemas/dog'
+      - $ref: '#/components/schemas/cat'
+    petPreference:
+      properties:
+        pet1:
+          $ref: '#/components/schemas/pet'
+        pet2:
+          $ref: '#/components/schemas/pet'
+        pet3:
+          $ref: '#/components/schemas/pet'
+      required:
+      - pet1
+      - pet2
+      - pet3
+      type: object
+info:
+  description: API under test
+  title: My title
+  version: 1.0.7
+openapi: 3.0.1
+paths:
+  /pet_preference:
+    post:
+      operationId: postPreference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/petPreference'
+      responses:
+        201:
+          description: OK
+      tags:
+      - pet
+servers:
+- url: https://localhost:9999/root

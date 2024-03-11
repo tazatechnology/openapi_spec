@@ -1,0 +1,48 @@
+components:
+  schemas:
+    AnyOfTest:
+      anyOf:
+      - type: string
+      - $ref: '#/components/schemas/EnumString'
+      - $ref: '#/components/schemas/EnumNullString'
+      - $ref: '#/components/schemas/EnumNull'
+      description: to test anyOf (string, enum string)
+    EnumNull:
+      enum:
+      - null
+      type: string
+    EnumNullString:
+      enum:
+      - 'null'
+      type: string
+    EnumString:
+      enum:
+      - A
+      - B
+      type: string
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyOfTest'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

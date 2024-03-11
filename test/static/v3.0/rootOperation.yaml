@@ -1,0 +1,11 @@
+info:
+  title: Root Operation
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      responses:
+        204:
+          description: No response body
+      summary: Simple root endpoint

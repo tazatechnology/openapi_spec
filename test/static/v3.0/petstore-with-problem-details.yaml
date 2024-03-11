@@ -1,0 +1,61 @@
+components:
+  schemas:
+    Foo:
+      default: foo
+      type: string
+    RestServiceError:
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of
+            the problem.
+          type: string
+        instance:
+          description: A unique URI that identifies the specific occurrence of the
+            problem.
+          type: string
+        status:
+          description: The HTTP Status Code
+          type: integer
+        title:
+          description: A short, human-readable summary of the problem type.
+          type: string
+        type:
+          description: ' A URI reference that identifies the problem type'
+          type: string
+info:
+  description: 'This spec is mainly for testing Petstore server and contains fake
+    endpoints, models. Please do not use this for any other purpose. Special characters:
+    " \'
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /foo:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Foo'
+          description: response
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestServiceError'
+          description: not found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestServiceError'
+          description: validation error
+      tags:
+      - pet
+tags:
+- description: Everything about your Pets
+  name: pet

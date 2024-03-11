@@ -1,0 +1,23 @@
+components:
+  securitySchemes:
+    OAuth_2.0_Client_Credentials:
+      description: OAuth 2.0 - Client Credentials
+      flows:
+        clientCredentials:
+          scopes:
+            scope: scope description
+          tokenUrl: https://example.com/token
+      type: oauth2
+info:
+  description: info
+  title: info
+  version: 0.1.0
+openapi: 3.0.2
+paths:
+  /example/api:
+    get:
+      description: description
+      responses:
+        200:
+          description: response
+      summary: summary

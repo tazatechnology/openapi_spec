@@ -1,0 +1,52 @@
+info:
+  title: test useAbstractionForFiles for jaxrs-cxf
+  version: 0.0.1
+openapi: 3.0.0
+paths:
+  /files/upload:
+    post:
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              format: binary
+              type: string
+        description: The file content to upload
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                type: object
+          description: id
+  /files/{id}:
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: File content
+        500:
+          content:
+            application/json:
+              schema:
+                properties:
+                  errormsg:
+                    type: string
+                type: object
+          description: error message
+servers:
+- url: http://localhost

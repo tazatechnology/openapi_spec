@@ -1,0 +1,94 @@
+components:
+  schemas:
+    Adult:
+      allOf:
+      - $ref: '#/components/schemas/Person'
+      - $ref: '#/components/schemas/Human'
+      - properties:
+          adult_required:
+            type: boolean
+          children:
+            items:
+              $ref: '#/components/schemas/Child'
+            type: array
+          duplicated_optional:
+            type: integer
+          duplicated_required:
+            type: integer
+        required:
+        - duplicated_required
+        - child_required
+        type: object
+      description: A representation of an adult
+    Child:
+      allOf:
+      - properties:
+          age:
+            format: int32
+            type: integer
+          firstName:
+            type: string
+        type: object
+      - $ref: '#/components/schemas/Person'
+      description: A representation of a child
+    Human:
+      discriminator:
+        propertyName: $_type
+      properties:
+        $_type:
+          type: string
+        body:
+          type: string
+      required:
+      - body
+      type: object
+    Person:
+      discriminator:
+        mapping:
+          a: '#/components/schemas/Adult'
+          c: '#/components/schemas/Child'
+        propertyName: $_type
+      properties:
+        $_type:
+          type: string
+        duplicated_optional:
+          type: integer
+        duplicated_required:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        person_required:
+          format: date-time
+          type: string
+      required:
+      - duplicated_required
+      - person_required
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1

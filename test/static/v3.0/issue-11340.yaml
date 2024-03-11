@@ -1,0 +1,29 @@
+info:
+  description: With Bean Validation @NotNull and type of parameter must be separated
+    by space.
+  title: Issue 11340 - Bean Validation Breaks Generated Java Code
+  version: 1.0.2
+openapi: 3.0.3
+paths:
+  /configuration:
+    put:
+      description: Operation with required header and required request body
+      operationId: operation
+      parameters:
+      - in: header
+        name: x-non-null-header-parameter
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties:
+                type: object
+              minProperties: 1
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK

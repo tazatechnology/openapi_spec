@@ -1,0 +1,51 @@
+components:
+  schemas:
+    ModelWithPropertyHavingDefault:
+      properties:
+        propertyDouble1:
+          default: 0
+          format: double
+          type: number
+        propertyDouble2:
+          default: 0.0
+          format: double
+          type: number
+        propertyDouble3:
+          default: 0.01
+          format: double
+          type: number
+        propertyFloat1:
+          default: 0
+          format: float
+          type: number
+        propertyFloat2:
+          default: 0.0
+          format: float
+          type: number
+        propertyFloat3:
+          default: 0.01
+          format: float
+          type: number
+        propertyInt:
+          default: 0
+          format: int32
+          type: integer
+        propertyLong:
+          default: 0
+          format: int64
+          type: integer
+info:
+  title: Issue X default value number with format
+  version: latest
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: operation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelWithPropertyHavingDefault'
+          description: Success

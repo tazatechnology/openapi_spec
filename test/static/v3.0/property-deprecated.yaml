@@ -1,0 +1,46 @@
+components:
+  schemas:
+    Request:
+      properties:
+        customerCode:
+          example: '0001'
+          type: string
+        firstName:
+          deprecated: true
+          example: first
+          type: string
+      type: object
+    Response:
+      properties:
+        customerCode:
+          example: '0001'
+          type: string
+        firstName:
+          deprecated: true
+          example: first
+          type: string
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /deprecated-test:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+          description: responses
+    x-swagger-router-controller: /deprecated-test
+servers:
+- url: http://api.example.xyz/v1

@@ -1,0 +1,110 @@
+components:
+  schemas:
+    Pet:
+      description: A pet for sale in the pet store
+      properties:
+        id:
+          format: int64
+          type: integer
+        name:
+          example: doggie
+          type: string
+        photoUrls:
+          items:
+            type: string
+          type: array
+        status:
+          description: pet status in the store
+          enum:
+          - available
+          - pending
+          - sold
+          type: string
+      required:
+      - name
+      - photoUrls
+      title: a Pet
+      type: object
+  securitySchemes:
+    petstore_auth:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://petstore.swagger.io/oauth2/auth
+          scopes:
+            read:pets: read your pets
+            write:pets: modify pets in your account
+          tokenUrl: https://petstore.swagger.io/oauth2/token
+      type: oauth2
+    petstore_beta_auth:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://petstore.beta.swagger.io/oauth2/auth
+          scopes:
+            read:pets: read your pets
+            write:pets: modify pets in your account
+          tokenUrl: https://petstore.beta.swagger.io/oauth2/token
+      type: oauth2
+info:
+  description: Used for verification of AuthorizationScope resolution issue
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Petstore
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /pet:
+    post:
+      description: ''
+      operationId: addPet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '405':
+          description: Invalid input
+      security:
+      - petstore_auth:
+        - write:pets
+        - read:pets
+      - petstore_beta_auth:
+        - write:pets
+        - read:pets
+      summary: Add a new pet to the store
+      tags:
+      - pet
+  /pet/{petId}:
+    get:
+      description: Returns a single pet
+      operationId: getPetById
+      parameters:
+      - description: ID of pet to return
+        in: path
+        name: petId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+      security:
+      - petstore_auth:
+        - read:pets
+      - petstore_beta_auth:
+        - read:pets
+      summary: Find pet by ID
+      tags:
+      - pet
+servers:
+- url: http://petstore.swagger.io/v2

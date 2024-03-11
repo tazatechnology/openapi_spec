@@ -1,0 +1,25 @@
+info:
+  description: Thic spec contains endpoints with dates in different formats
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: OpenAPI Dates
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /now:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  now:
+                    format: date-time
+                    type: string
+                  today:
+                    format: date
+                    type: string
+                type: object
+          description: now dates

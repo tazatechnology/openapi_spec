@@ -1,0 +1,49 @@
+components:
+  schemas:
+    Person:
+      anyOf:
+      - required:
+        - specialName
+      - required:
+        - hiddenName
+      description: person using anyOf with required properties
+      properties:
+        firstName:
+          type: string
+        hiddenName:
+          type: string
+        id:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        specialName:
+          type: string
+      type: object
+info:
+  license:
+    name: MIT
+  title: Example
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /person/display/{personId}:
+    get:
+      operationId: list
+      parameters:
+      - description: The id of the person to retrieve
+        in: path
+        name: personId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: OK
+servers:
+- url: http://api.example.xyz/v1
