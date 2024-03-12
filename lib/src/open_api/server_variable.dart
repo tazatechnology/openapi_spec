@@ -23,5 +23,5 @@ class ServerVariable with _$ServerVariable {
   }) = _ServerVariable;
 
   factory ServerVariable.fromJson(Map<String, dynamic> json) =>
-      _$ServerVariableFromJson(json);
+      fromJsonWithLogging(json, _$ServerVariableFromJson);
 }

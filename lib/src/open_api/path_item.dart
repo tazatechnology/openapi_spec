@@ -58,7 +58,7 @@ class PathItem with _$PathItem {
   }) = _PathItem;
 
   factory PathItem.fromJson(Map<String, dynamic> json) =>
-      _$PathItemFromJson(json);
+      fromJsonWithLogging(json, _$PathItemFromJson);
 
   // ------------------------------------------
   // METHOD: dereference
@@ -101,7 +101,7 @@ class _PathRefConverter implements JsonConverter<String?, String?> {
   }
 
   @override
-  String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
-  }
+  String? fromJson(String? ref) => fromJsonWithLogging(ref, (ref) {
+        return ref == null ? ref : ref.split('/').last;
+      });
 }

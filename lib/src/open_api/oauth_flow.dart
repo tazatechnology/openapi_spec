@@ -14,7 +14,7 @@ class OAuthFlows with _$OAuthFlows {
   }) = _OAuthFlows;
 
   factory OAuthFlows.fromJson(Map<String, dynamic> json) =>
-      _$OAuthFlowsFromJson(json);
+      fromJsonWithLogging(json, _$OAuthFlowsFromJson);
 }
 
 // ==========================================
@@ -49,5 +49,5 @@ class OAuthFlow with _$OAuthFlow {
   }) = _OAuthFlowAuthorizationCode;
 
   factory OAuthFlow.fromJson(Map<String, dynamic> json) =>
-      _$OAuthFlowFromJson(json);
+      fromJsonWithLogging(json, _$OAuthFlowFromJson);
 }

@@ -15,5 +15,6 @@ class Header with _$Header {
     Schema? schema,
   }) = _Header;
 
-  factory Header.fromJson(Map<String, dynamic> json) => _$HeaderFromJson(json);
+  factory Header.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$HeaderFromJson);
 }

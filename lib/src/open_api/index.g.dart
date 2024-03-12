@@ -1275,6 +1275,29 @@ Map<String, dynamic> _$$SchemaMapImplToJson(_$SchemaMapImpl instance) {
   return val;
 }
 
+_$SecurityImpl _$$SecurityImplFromJson(Map<String, dynamic> json) =>
+    _$SecurityImpl(
+      name: json['name'] as String?,
+      scopes: (json['scopes'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$$SecurityImplToJson(_$SecurityImpl instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  val['scopes'] = instance.scopes;
+  return val;
+}
+
 _$SecuritySchemeApiKeyImpl _$$SecuritySchemeApiKeyImplFromJson(
         Map<String, dynamic> json) =>
     _$SecuritySchemeApiKeyImpl(
@@ -1456,6 +1479,65 @@ Map<String, dynamic> _$$ServerVariableImplToJson(
   writeNotNull('enum', instance.enumValue);
   val['default'] = instance.defaultValue;
   writeNotNull('description', instance.description);
+  return val;
+}
+
+_$OpenApiImpl _$$OpenApiImplFromJson(Map<String, dynamic> json) =>
+    _$OpenApiImpl(
+      version: json['openapi'] as String? ?? '3.0.3',
+      info: Info.fromJson(json['info'] as Map<String, dynamic>),
+      externalDocs: json['externalDocs'] == null
+          ? null
+          : ExternalDocs.fromJson(json['externalDocs'] as Map<String, dynamic>),
+      jsonSchemaDialect: json['jsonSchemaDialect'] as String?,
+      servers: (json['servers'] as List<dynamic>?)
+          ?.map((e) => Server.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      tags: (json['tags'] as List<dynamic>?)
+          ?.map((e) => Tag.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      paths: (json['paths'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, PathItem.fromJson(e as Map<String, dynamic>)),
+      ),
+      webhooks: (json['webhooks'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, PathItem.fromJson(e as Map<String, dynamic>)),
+      ),
+      components: json['components'] == null
+          ? null
+          : Components.fromJson(json['components'] as Map<String, dynamic>),
+      security: (json['security'] as List<dynamic>?)
+          ?.map((e) => Security.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      extraSchemaMapping:
+          (json['extraSchemaMapping'] as Map<String, dynamic>?)?.map(
+                (k, e) => MapEntry(
+                    k, (e as List<dynamic>).map((e) => e as String).toList()),
+              ) ??
+              const {},
+    );
+
+Map<String, dynamic> _$$OpenApiImplToJson(_$OpenApiImpl instance) {
+  final val = <String, dynamic>{
+    'openapi': instance.version,
+    'info': instance.info.toJson(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('externalDocs', instance.externalDocs?.toJson());
+  writeNotNull('jsonSchemaDialect', instance.jsonSchemaDialect);
+  writeNotNull('servers', instance.servers?.map((e) => e.toJson()).toList());
+  writeNotNull('tags', instance.tags?.map((e) => e.toJson()).toList());
+  writeNotNull('paths', instance.paths?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull(
+      'webhooks', instance.webhooks?.map((k, e) => MapEntry(k, e.toJson())));
+  writeNotNull('components', instance.components?.toJson());
+  writeNotNull('security', instance.security?.map((e) => e.toJson()).toList());
+  val['extraSchemaMapping'] = instance.extraSchemaMapping;
   return val;
 }
 

@@ -31,7 +31,7 @@ class Example with _$Example {
   }) = ExampleObject;
 
   factory Example.fromJson(Map<String, dynamic> json) =>
-      _$ExampleFromJson(json);
+      fromJsonWithLogging(json, _$ExampleFromJson);
 
   // ------------------------------------------
   // METHOD: dereference
@@ -74,7 +74,7 @@ class _ExampleRefConverter implements JsonConverter<String?, String?> {
   }
 
   @override
-  String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
-  }
+  String? fromJson(String? ref) => fromJsonWithLogging(ref, (ref) {
+        return ref == null ? ref : ref.split('/').last;
+      });
 }

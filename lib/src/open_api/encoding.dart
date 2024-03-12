@@ -13,5 +13,5 @@ class Encoding with _$Encoding {
   }) = _Encoding;
 
   factory Encoding.fromJson(Map<String, dynamic> json) =>
-      _$EncodingFromJson(json);
+      fromJsonWithLogging(json, _$EncodingFromJson);
 }

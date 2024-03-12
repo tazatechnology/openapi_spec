@@ -25,5 +25,6 @@ class Xml with _$Xml {
     bool? wrapped,
   }) = _Xml;
 
-  factory Xml.fromJson(Map<String, dynamic> json) => _$XmlFromJson(json);
+  factory Xml.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$XmlFromJson);
 }

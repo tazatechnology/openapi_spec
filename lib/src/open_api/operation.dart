@@ -55,5 +55,5 @@ class Operation with _$Operation {
   }) = _Operation;
 
   factory Operation.fromJson(Map<String, dynamic> json) =>
-      _$OperationFromJson(json);
+      fromJsonWithLogging(json, _$OperationFromJson);
 }

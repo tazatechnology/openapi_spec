@@ -22,5 +22,6 @@ class Server with _$Server {
     final Map<String, ServerVariable>? variables,
   }) = _Server;
 
-  factory Server.fromJson(Map<String, dynamic> json) => _$ServerFromJson(json);
+  factory Server.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$ServerFromJson);
 }

@@ -17,5 +17,5 @@ class ExternalDocs with _$ExternalDocs {
   }) = _ExternalDocs;
 
   factory ExternalDocs.fromJson(Map<String, dynamic> json) =>
-      _$ExternalDocsFromJson(json);
+      fromJsonWithLogging(json, _$ExternalDocsFromJson);
 }

@@ -20,7 +20,8 @@ class Link with _$Link {
     Map<String, String>? parameters,
   }) = _Link;
 
-  factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);
+  factory Link.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$LinkFromJson);
 }
 
 /// Custom converter to handle schema references
@@ -37,7 +38,7 @@ class _LinkRefConverter implements JsonConverter<String?, String?> {
   }
 
   @override
-  String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
-  }
+  String? fromJson(String? ref) => fromJsonWithLogging(ref, (ref) {
+        return ref == null ? ref : ref.split('/').last;
+      });
 }

@@ -33,7 +33,7 @@ class RequestBody with _$RequestBody {
 
   /// Construct an instance of [RequestBody] from a JSON map
   factory RequestBody.fromJson(Map<String, dynamic> json) =>
-      _$RequestBodyFromJson(json);
+      fromJsonWithLogging(json, _$RequestBodyFromJson);
 
   // ------------------------------------------
   // METHOD: dereference
@@ -72,7 +72,7 @@ class _RequestRefConverter implements JsonConverter<String?, String?> {
   }
 
   @override
-  String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
-  }
+  String? fromJson(String? ref) => fromJsonWithLogging(ref, (ref) {
+        return ref == null ? ref : ref.split('/').last;
+      });
 }
