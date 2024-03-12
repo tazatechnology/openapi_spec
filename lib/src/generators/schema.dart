@@ -212,7 +212,7 @@ class SchemaGenerator extends BaseGenerator {
     // ==========================================
     
     /// Union class for ${schemas.map((e) => '[$e]').join(', ')}
-    @Freezed(unionKey: '$unionKey')
+    @Freezed(unionKey: r'$unionKey')
     sealed class $union with _\$$union  {
       const $union._();\n
     """, mode: FileMode.append);
@@ -255,7 +255,7 @@ class SchemaGenerator extends BaseGenerator {
       );
       if (unionValue != null) {
         unionValues.add(unionValue);
-        unionValue = "\n@FreezedUnionValue('$unionValue')";
+        unionValue = "\n@FreezedUnionValue(r'$unionValue')";
       } else {
         unionValue = '';
       }
@@ -300,7 +300,7 @@ class SchemaGenerator extends BaseGenerator {
       // ==========================================
 
       enum ${union}Type {
-        ${unionValues.map((e) => "@JsonValue('$e')\n${e.camelCase},").join('\n')}
+        ${unionValues.map((e) => "@JsonValue(r'$e')\n${e.camelCase},").join('\n')}
       }
       """;
     }
@@ -600,7 +600,7 @@ class SchemaGenerator extends BaseGenerator {
         validations.add(v);
       }
 
-      toMap += "'$propName': $dartName,\n";
+      toMap += "r'$propName': $dartName,\n";
     }
 
     String validationConstants = '';
@@ -613,6 +613,9 @@ class SchemaGenerator extends BaseGenerator {
           .join('\n');
     }
 
+    final encodedPropertyNames =
+        '[${propNames.map((e) => "r'$e',").fold('', (previousValue, element) => previousValue + element)}]';
+
     // Class footer
     file.writeAsStringSync("""
     ${firstPass ? '' : '}'}) = _$name;
@@ -621,7 +624,7 @@ class SchemaGenerator extends BaseGenerator {
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
 
     /// List of all property names of schema
-    static const List<String> propertyNames = ${json.encode(propNames).replaceAll('"', "'")};
+    static const List<String> propertyNames = $encodedPropertyNames;
 
     $validationConstants
 
@@ -658,7 +661,7 @@ class SchemaGenerator extends BaseGenerator {
     }) {
       List<String> jsonOpts = [];
       if (jsonName != name) {
-        jsonOpts.add("name: '$jsonName'");
+        jsonOpts.add("name: r'$jsonName'");
       }
       if (nullable && !required) {
         jsonOpts.add("includeIfNull: false");
@@ -683,7 +686,7 @@ class SchemaGenerator extends BaseGenerator {
       c += getJsonKey(nullable: nullable);
       if (hasDefault && !required) {
         if (defaultValue is String) {
-          c += "@Default('$defaultValue') ";
+          c += "@Default(r'$defaultValue') ";
         } else {
           c += "@Default($defaultValue) ";
         }
@@ -934,7 +937,7 @@ class SchemaGenerator extends BaseGenerator {
 
         if (p.ref == null) {
           if (p.defaultValue != null && !required) {
-            c += "@Default('${p.defaultValue}') ";
+            c += "@Default(r'${p.defaultValue}') ";
           }
           if (required) {
             c += "required ";
@@ -1014,7 +1017,7 @@ class SchemaGenerator extends BaseGenerator {
     for (var v in values) {
       // Write enum value
       file.writeAsStringSync("""
-    @JsonValue('$v')
+    @JsonValue(r'$v')
     ${_safeEnumValue(v, s)},
     """, mode: FileMode.append);
     }
