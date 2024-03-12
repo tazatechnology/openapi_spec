@@ -6,7 +6,6 @@ T fromJsonWithLogging<T, B>(B json, T Function(B) getJson) {
     if (e is _ParsingJsonException) {
       rethrow;
     } else {
-      // ignore: avoid_print
       throw _ParsingJsonException("Failed to parse $T: $json\n$e");
     }
   }
