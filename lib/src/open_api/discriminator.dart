@@ -16,5 +16,5 @@ class Discriminator with _$Discriminator {
   }) = _Discriminator;
 
   factory Discriminator.fromJson(Map<String, dynamic> json) =>
-      _$DiscriminatorFromJson(json);
+      fromJsonWithLogging(json, _$DiscriminatorFromJson);
 }

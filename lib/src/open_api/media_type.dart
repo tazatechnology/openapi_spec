@@ -22,5 +22,5 @@ class MediaType with _$MediaType {
   }) = _MediaType;
 
   factory MediaType.fromJson(Map<String, dynamic> json) =>
-      _$MediaTypeFromJson(json);
+      fromJsonWithLogging(json, _$MediaTypeFromJson);
 }

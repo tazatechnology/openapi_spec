@@ -21,15 +21,17 @@ class Security with _$Security {
   }) = _Security;
 
   factory Security.fromJson(Map<String, dynamic> json) {
-    if (json.isEmpty) {
-      return const Security();
-    } else {
-      final name = json.keys.first;
-      return Security(
-        name: name,
-        scopes: List<String>.from(json[name] ?? []),
-      );
-    }
+    return fromJsonWithLogging(json, (json) {
+      if (json.isEmpty) {
+        return const Security();
+      } else {
+        final name = json.keys.first;
+        return Security(
+          name: name,
+          scopes: List<String>.from(json[name] ?? []),
+        );
+      }
+    });
   }
 
   Map<String, dynamic> toJson() {

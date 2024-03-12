@@ -47,5 +47,5 @@ class Components with _$Components {
   // ------------------------------------------
 
   factory Components.fromJson(Map<String, dynamic> json) =>
-      _$ComponentsFromJson(json);
+      fromJsonWithLogging(json, _$ComponentsFromJson);
 }

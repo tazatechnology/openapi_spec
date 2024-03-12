@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:collection/collection.dart';
+import 'package:openapi_spec/src/utils/json_logging.dart';
 import 'package:recase/recase.dart';
 import 'package:yaml/yaml.dart' as yaml;
 import 'package:path/path.dart' as p;

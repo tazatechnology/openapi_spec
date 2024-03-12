@@ -95,5 +95,5 @@ class SecurityScheme with _$SecurityScheme {
   // ------------------------------------------
 
   factory SecurityScheme.fromJson(Map<String, dynamic> json) =>
-      _$SecuritySchemeFromJson(json);
+      fromJsonWithLogging(json, _$SecuritySchemeFromJson);
 }

@@ -22,5 +22,6 @@ class Tag with _$Tag {
     ExternalDocs? externalDocs,
   }) = _Tag;
 
-  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+  factory Tag.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$TagFromJson);
 }

@@ -31,5 +31,6 @@ class Info with _$Info {
     required String version,
   }) = _Info;
 
-  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
+  factory Info.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$InfoFromJson);
 }
