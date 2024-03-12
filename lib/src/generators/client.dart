@@ -109,7 +109,7 @@ class ClientGenerator extends BaseGenerator {
             authRequestHeader = """
             // Add access token to request headers
             if ($accessTokenVar.isNotEmpty){
-              headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$accessTokenVar';
+              headers[r'${HttpHeaders.authorizationHeader}'] = 'Bearer \$$accessTokenVar';
             }
             """;
           },
@@ -319,12 +319,12 @@ class $clientName {
     
     // Define the request type being sent to server
     if (requestType.isNotEmpty){
-      headers['${HttpHeaders.contentTypeHeader}'] = requestType;
+      headers[r'${HttpHeaders.contentTypeHeader}'] = requestType;
     }
     
     // Define the response type expected to receive from server
     if (responseType.isNotEmpty){
-      headers['${HttpHeaders.acceptHeader}'] = responseType;
+      headers[r'${HttpHeaders.acceptHeader}'] = responseType;
     }
     
     // Add global headers
@@ -641,16 +641,16 @@ class $clientName {
       );
 
       if (a == AuthType.keyQuery) {
-        queryParams.add("if ($apiKeyVar.isNotEmpty) '$name': $apiKeyVar");
+        queryParams.add("if ($apiKeyVar.isNotEmpty) r'$name': $apiKeyVar");
       }
       if (a == AuthType.keyHeader) {
-        headerParams.add("if ($apiKeyVar.isNotEmpty) '$name': $apiKeyVar");
+        headerParams.add("if ($apiKeyVar.isNotEmpty) r'$name': $apiKeyVar");
       }
       if (a == AuthType.httpBasic) {
         final creds =
             r"'Basic ${base64Encode(utf8.encode('$username:$password'))}'";
         headerParams.add(
-            "if ($usernameVar.isNotEmpty && $passwordVar.isNotEmpty) '${HttpHeaders.authorizationHeader}': $creds");
+            "if ($usernameVar.isNotEmpty && $passwordVar.isNotEmpty) r'${HttpHeaders.authorizationHeader}': $creds");
       }
     }
 
@@ -758,7 +758,7 @@ class $clientName {
           p.schema.mapOrNull(
             string: (value) {
               if (pDefaultValue != null) {
-                pDefaultValue = "'$pDefaultValue'";
+                pDefaultValue = "r'$pDefaultValue'";
               }
             },
             enumeration: (value) {
@@ -984,8 +984,8 @@ class $clientName {
           path: '$path',
           method: $method,
           isMultipart: ${requestType.contains('multipart')},
-          requestType: ${requestType.isEmpty ? "''" : "'$requestType'"},
-          responseType: ${responseType.isEmpty ? "''" : "'$responseType'"},
+          requestType: ${requestType.isEmpty ? "''" : "r'$requestType'"},
+          responseType: ${responseType.isEmpty ? "''" : "r'$responseType'"},
           $body
           $headerCode
           $queryCode

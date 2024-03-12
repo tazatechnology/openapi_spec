@@ -102,7 +102,7 @@ class ServerGenerator extends BaseGenerator {
         final M = m.toUpperCase();
         final p = o.path;
         final h = o.handler;
-        operationRouterCode += "router.$m('$p', $h,);\n";
+        operationRouterCode += "router.$m(r'$p', $h,);\n";
         operationDocs += '\n/// $d\n///\n/// `$M $p`\n///\n/// `$s`\n///';
       }
     }
