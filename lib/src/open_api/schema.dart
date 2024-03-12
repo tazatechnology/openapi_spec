@@ -515,4 +515,6 @@ abstract class PropertyNameProtector {
 
 abstract class EnumValueProtector {
   List<String>? values;
+  Iterable<PropertyWithNames<void>> get namedEnumValues =>
+      nameEnumValues(values: values);
 }

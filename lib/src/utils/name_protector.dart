@@ -1,5 +1,4 @@
 import 'package:openapi_spec/src/generators/index.dart';
-import 'package:openapi_spec/src/open_api/index.dart';
 import 'package:recase/recase.dart';
 
 class PropertyWithNames<T> {
@@ -88,31 +87,8 @@ String _uniqueName(String name, List<String> names) {
   return tempName;
 }
 
-Iterable<PropertyWithNames<void>> _namedEnumValues(
+Iterable<PropertyWithNames<void>> nameEnumValues(
     {required List<String>? values, String Function(String)? onName}) {
   return nameProperties(
       properties: {for (final i in values ?? <String>[]) i: null});
 }
-
-
-// // ------------------------------------------
-// // METHOD: _safeEnumValue
-// // ------------------------------------------
-
-// String _safeEnumValue(String value, Schema schema) {
-//   final safeValue = schema.mapOrNull(
-//     enumeration: (o) {
-//       return _namedEnumValues(values: o.values)
-//           .firstWhere(
-//             (e) => e.jsonName == value,
-//           )
-//           .dartName;
-//     },
-//   );
-//   if (safeValue == null) {
-//     throw Exception(
-//       "\n\n'$value' is not a valid enumeration for '${schema.title}'\n",
-//     );
-//   }
-//   return safeValue;
-// }
