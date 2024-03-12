@@ -39,7 +39,7 @@ class Response with _$Response {
   // ------------------------------------------
 
   factory Response.fromJson(Map<String, dynamic> json) =>
-      _$ResponseFromJson(json);
+      fromJsonWithLogging(json, _$ResponseFromJson);
 
   // ------------------------------------------
   // METHOD: dereference
@@ -82,6 +82,8 @@ class _ResponseRefConverter implements JsonConverter<String?, String?> {
 
   @override
   String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
+    return fromJsonWithLogging(ref, (ref) {
+      return ref == null ? ref : ref.split('/').last;
+    });
   }
 }

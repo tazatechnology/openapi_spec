@@ -21,5 +21,5 @@ class License with _$License {
   }) = _License;
 
   factory License.fromJson(Map<String, dynamic> json) =>
-      _$LicenseFromJson(json);
+      fromJsonWithLogging(json, _$LicenseFromJson);
 }

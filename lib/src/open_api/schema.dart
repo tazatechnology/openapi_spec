@@ -234,7 +234,8 @@ class Schema with _$Schema {
   // ------------------------------------------
 
   /// Convert from JSON representation
-  factory Schema.fromJson(Map<String, dynamic> json) => _$SchemaFromJson(json);
+  factory Schema.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$SchemaFromJson);
 
   // ------------------------------------------
   // METHOD: dereference
@@ -413,7 +414,9 @@ class _SchemaRefConverter implements JsonConverter<String?, String?> {
 
   @override
   String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
+    return fromJsonWithLogging(ref, (ref) {
+      return ref == null ? ref : ref.split('/').last;
+    });
   }
 }
 
@@ -449,11 +452,13 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
 
   @override
   Schema fromJson(Map<String, dynamic> json) {
-    if (json.containsKey('enum') && json['enum'].isNotEmpty) {
-      return _SchemaEnum.fromJson(json);
-    } else {
-      return Schema.fromJson(json);
-    }
+    return fromJsonWithLogging(json, (json) {
+      if (json.containsKey('enum') && json['enum'].isNotEmpty) {
+        return _SchemaEnum.fromJson(json);
+      } else {
+        return Schema.fromJson(json);
+      }
+    });
   }
 }
 
@@ -468,11 +473,13 @@ class _SchemaMapConverter
 
   @override
   Map<String, Schema> fromJson(Map<String, dynamic> json) {
-    Map<String, Schema> out = {};
-    for (final key in json.keys) {
-      out[key] = _SchemaConverter().fromJson(json[key]);
-    }
-    return out;
+    return fromJsonWithLogging(json, (json) {
+      Map<String, Schema> out = {};
+      for (final key in json.keys) {
+        out[key] = _SchemaConverter().fromJson(json[key]);
+      }
+      return out;
+    });
   }
 
   @override
@@ -497,7 +504,8 @@ class _SchemaListConverter
   @override
   List<Schema> fromJson(List<dynamic> json) {
     return json
-        .map((e) => _SchemaConverter().fromJson(Map<String, dynamic>.from(e)))
+        .map((e) => fromJsonWithLogging(
+            Map<String, dynamic>.from(e), _SchemaConverter().fromJson))
         .toList();
   }
 

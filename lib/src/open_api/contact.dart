@@ -21,5 +21,5 @@ class Contact with _$Contact {
   }) = _Contact;
 
   factory Contact.fromJson(Map<String, dynamic> json) =>
-      _$ContactFromJson(json);
+      fromJsonWithLogging(json, _$ContactFromJson);
 }

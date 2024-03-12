@@ -93,7 +93,7 @@ class Parameter with _$Parameter {
   // ------------------------------------------
 
   factory Parameter.fromJson(Map<String, dynamic> json) =>
-      _$ParameterFromJson(json);
+      fromJsonWithLogging(json, _$ParameterFromJson);
 
   // ------------------------------------------
   // METHOD: dereference
@@ -135,7 +135,9 @@ class _ParamRefConverter implements JsonConverter<String?, String?> {
 
   @override
   String? fromJson(String? ref) {
-    return ref == null ? ref : ref.split('/').last;
+    return fromJsonWithLogging(ref, (ref) {
+      return ref == null ? ref : ref.split('/').last;
+    });
   }
 }
 

@@ -27,25 +27,27 @@ class _ApiCallbackMapConverter
 
   @override
   Map<String, ApiCallback> fromJson(Map<String, dynamic> json) {
-    Map<String, ApiCallback> out = {};
+    return fromJsonWithLogging(json, (Map<String, dynamic> json) {
+      Map<String, ApiCallback> out = {};
 
-    for (final key in json.keys) {
-      final name = key;
-      final expression = json[key];
-      if (expression is! Map) {
-        continue;
+      for (final key in json.keys) {
+        final name = key;
+        final expression = json[key];
+        if (expression is! Map) {
+          continue;
+        }
+        if (expression.isEmpty) {
+          continue;
+        }
+        out[key] = ApiCallback(
+          name: name,
+          expression: {
+            expression.keys.first: PathItem.fromJson(expression.values.first),
+          },
+        );
       }
-      if (expression.isEmpty) {
-        continue;
-      }
-      out[key] = ApiCallback(
-        name: name,
-        expression: {
-          expression.keys.first: PathItem.fromJson(expression.values.first),
-        },
-      );
-    }
-    return out;
+      return out;
+    });
   }
 
   @override

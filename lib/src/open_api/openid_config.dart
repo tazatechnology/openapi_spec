@@ -79,5 +79,6 @@ class OpenId with _$OpenId {
     List<String>? tokenEndpointAuthSigningAlgValuesSupported,
   }) = _OpenId;
 
-  factory OpenId.fromJson(Map<String, dynamic> json) => _$OpenIdFromJson(json);
+  factory OpenId.fromJson(Map<String, dynamic> json) =>
+      fromJsonWithLogging(json, _$OpenIdFromJson);
 }
