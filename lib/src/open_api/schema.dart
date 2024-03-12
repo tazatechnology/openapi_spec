@@ -509,6 +509,8 @@ class _SchemaListConverter
 
 abstract class PropertyNameProtector {
   Map<String, Schema>? properties;
+  Iterable<PropertyWithNames<Schema>>? get namedProperties =>
+      properties == null ? null : nameProperties(properties: properties!);
 }
 
 abstract class EnumValueProtector {
