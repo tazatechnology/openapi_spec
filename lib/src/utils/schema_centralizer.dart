@@ -75,6 +75,10 @@ class SchemaCentralizer {
     Schema originalSchema,
     _ComponentNameSuggester suggester,
   ) {
+    if (originalSchema.ref != null) {
+      return originalSchema;
+    }
+
     final suggestedName = suggester.suggestName();
     switch (originalSchema.type) {
       case (SchemaType.object ||
