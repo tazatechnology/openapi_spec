@@ -169,73 +169,72 @@ class OpenApi with _$OpenApi {
   // ------------------------------------------
 
   /// Create an [OpenApi] object from a JSON representation of an OpenAPI
-  factory OpenApi.fromJson(Map<String, dynamic> json) =>
-      fromJsonWithLogging(json, (json) {
-        // Initialize the schemas, will be formatted in place below
-        Map<String, dynamic> schemas = json['components']?['schemas'] ?? {};
-        final d = _formatSpecFromJson(
-          json: json,
-          schemas: schemas,
+  factory OpenApi.fromJson(Map<String, dynamic> json) {
+    return fromJsonWithLogging(json, (json) {
+      // Initialize the schemas, will be formatted in place below
+      Map<String, dynamic> schemas = json['components']?['schemas'] ?? {};
+      final d = _formatSpecFromJson(
+        json: json,
+        schemas: schemas,
+      );
+
+      // Search for any extra schemas created by this generator
+      // Used to improve the generated schema library
+      schemas = d['components']?['schemas'] ?? {};
+      final Map<String, dynamic> schemaExtra = {};
+      final Map<String, List<String>> extraSchemaMapping = {};
+      for (final s in schemas.keys) {
+        final (schemaOut, extraOut) = _extraComponentSchemas(
+          schemaKey: s,
+          schemaMap: schemas[s],
+          allSchemaNames: (schemas.keys.toList() + schemaExtra.keys.toList()),
         );
-
-        // Search for any extra schemas created by this generator
-        // Used to improve the generated schema library
-        schemas = d['components']?['schemas'] ?? {};
-        final Map<String, dynamic> schemaExtra = {};
-        final Map<String, List<String>> extraSchemaMapping = {};
-        for (final s in schemas.keys) {
-          final (schemaOut, extraOut) = _extraComponentSchemas(
-            schemaKey: s,
-            schemaMap: schemas[s],
-            allSchemaNames: (schemas.keys.toList() + schemaExtra.keys.toList()),
-          );
-          schemas[s] = schemaOut;
-          if (extraOut.isNotEmpty) {
-            schemaExtra.addAll(extraOut);
-            extraSchemaMapping[s] = extraOut.keys.toList();
-          }
+        schemas[s] = schemaOut;
+        if (extraOut.isNotEmpty) {
+          schemaExtra.addAll(extraOut);
+          extraSchemaMapping[s] = extraOut.keys.toList();
         }
-        // Add any extra schemas to the spec
-        schemas.addAll(schemaExtra);
-        if (schemas.isNotEmpty) {
-          d['components']?['schemas'] = schemas;
-        }
+      }
+      // Add any extra schemas to the spec
+      schemas.addAll(schemaExtra);
+      if (schemas.isNotEmpty) {
+        d['components']?['schemas'] = schemas;
+      }
 
-        final out = OpenApi(
-          version: d.containsKey('openapi') ? d['openapi'] : null,
-          info: Info.fromJson(d['info']),
-          jsonSchemaDialect: d['jsonSchemaDialect'],
-          externalDocs: d.containsKey('externalDocs')
-              ? ExternalDocs.fromJson(d['externalDocs'])
-              : null,
-          servers: (d['servers'] as List<dynamic>?)
-              ?.map((e) => Server.fromJson(e))
-              .toList(),
-          tags: (d['tags'] as List<dynamic>?)
-              ?.map((e) => Tag.fromJson(e))
-              .toList(),
-          paths: (d['paths'] as Map<String, dynamic>?)
-              ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
-          webhooks: (d['webhooks'] as Map<String, dynamic>?)
-              ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
-          components: d.containsKey('components')
-              ? Components.fromJson(d['components'])
-              : null,
-          security: (d['security'] as List<dynamic>?)
-              ?.map((e) => Security.fromJson(e))
-              .toList(),
-          extraSchemaMapping: extraSchemaMapping,
-        );
+      final out = OpenApi(
+        version: d.containsKey('openapi') ? d['openapi'] : null,
+        info: Info.fromJson(d['info']),
+        jsonSchemaDialect: d['jsonSchemaDialect'],
+        externalDocs: d.containsKey('externalDocs')
+            ? ExternalDocs.fromJson(d['externalDocs'])
+            : null,
+        servers: (d['servers'] as List<dynamic>?)
+            ?.map((e) => Server.fromJson(e))
+            .toList(),
+        tags:
+            (d['tags'] as List<dynamic>?)?.map((e) => Tag.fromJson(e)).toList(),
+        paths: (d['paths'] as Map<String, dynamic>?)
+            ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
+        webhooks: (d['webhooks'] as Map<String, dynamic>?)
+            ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
+        components: d.containsKey('components')
+            ? Components.fromJson(d['components'])
+            : null,
+        security: (d['security'] as List<dynamic>?)
+            ?.map((e) => Security.fromJson(e))
+            .toList(),
+        extraSchemaMapping: extraSchemaMapping,
+      );
 
-        return out;
-      });
+      return out;
+    });
+  }
 
   // ------------------------------------------
   // METHOD: toJson
   // ------------------------------------------
 
   /// Convert the [OpenApi] object to a JSON spec representation
-  @override
   Map<String, dynamic> toJson() {
     if (paths == null && components == null && webhooks == null) {
       throw Exception(

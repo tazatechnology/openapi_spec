@@ -20,20 +20,20 @@ class Security with _$Security {
     @Default([]) List<String> scopes,
   }) = _Security;
 
-  factory Security.fromJson(Map<String, dynamic> json) =>
-      fromJsonWithLogging(json, (json) {
-        if (json.isEmpty) {
-          return const Security();
-        } else {
-          final name = json.keys.first;
-          return Security(
-            name: name,
-            scopes: List<String>.from(json[name] ?? []),
-          );
-        }
-      });
+  factory Security.fromJson(Map<String, dynamic> json) {
+    return fromJsonWithLogging(json, (json) {
+      if (json.isEmpty) {
+        return const Security();
+      } else {
+        final name = json.keys.first;
+        return Security(
+          name: name,
+          scopes: List<String>.from(json[name] ?? []),
+        );
+      }
+    });
+  }
 
-  @override
   Map<String, dynamic> toJson() {
     if (name == null) {
       return {};

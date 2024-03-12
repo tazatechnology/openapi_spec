@@ -72,7 +72,7 @@ class _RequestRefConverter implements JsonConverter<String?, String?> {
   }
 
   @override
-  String? fromJson(String? ref) => fromJsonWithLogging(ref, (ref) {
+  String? fromJson(String? ref) {return  fromJsonWithLogging(ref, (ref) {
         return ref == null ? ref : ref.split('/').last;
-      });
+      });}
 }

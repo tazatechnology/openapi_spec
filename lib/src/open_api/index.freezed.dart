@@ -11297,10 +11297,6 @@ abstract class _SchemaMap extends Schema {
       throw _privateConstructorUsedError;
 }
 
-Security _$SecurityFromJson(Map<String, dynamic> json) {
-  return _Security.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Security {
   /// Each name must correspond to a security scheme which is declared
@@ -11326,7 +11322,7 @@ mixin _$Security {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $SecurityCopyWith<Security> get copyWith =>
       throw _privateConstructorUsedError;
@@ -11408,14 +11404,11 @@ class __$$SecurityImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$SecurityImpl extends _Security {
   const _$SecurityImpl({this.name, final List<String> scopes = const []})
       : _scopes = scopes,
         super._();
-
-  factory _$SecurityImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SecurityImplFromJson(json);
 
   /// Each name must correspond to a security scheme which is declared
   /// in the [Components.securitySchemes] list
@@ -11448,7 +11441,6 @@ class _$SecurityImpl extends _Security {
             const DeepCollectionEquality().equals(other._scopes, _scopes));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, name, const DeepCollectionEquality().hash(_scopes));
@@ -11486,22 +11478,12 @@ class _$SecurityImpl extends _Security {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SecurityImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _Security extends Security {
   const factory _Security({final String? name, final List<String> scopes}) =
       _$SecurityImpl;
   const _Security._() : super._();
-
-  factory _Security.fromJson(Map<String, dynamic> json) =
-      _$SecurityImpl.fromJson;
 
   @override
 
@@ -12971,10 +12953,6 @@ abstract class _ServerVariable implements ServerVariable {
       throw _privateConstructorUsedError;
 }
 
-OpenApi _$OpenApiFromJson(Map<String, dynamic> json) {
-  return _OpenApi.fromJson(json);
-}
-
 /// @nodoc
 mixin _$OpenApi {
   /// This string must be the version number of the
@@ -13048,7 +13026,7 @@ mixin _$OpenApi {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $OpenApiCopyWith<OpenApi> get copyWith => throw _privateConstructorUsedError;
 }
@@ -13283,7 +13261,7 @@ class __$$OpenApiImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$OpenApiImpl extends _OpenApi {
   const _$OpenApiImpl(
       {@JsonKey(name: 'openapi') this.version = '3.0.3',
@@ -13304,9 +13282,6 @@ class _$OpenApiImpl extends _OpenApi {
         _security = security,
         _extraSchemaMapping = extraSchemaMapping,
         super._();
-
-  factory _$OpenApiImpl.fromJson(Map<String, dynamic> json) =>
-      _$$OpenApiImplFromJson(json);
 
   /// This string must be the version number of the
   /// OpenAPI Specification that the OpenAPI document uses.
@@ -13468,7 +13443,6 @@ class _$OpenApiImpl extends _OpenApi {
                 .equals(other._extraSchemaMapping, _extraSchemaMapping));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -13517,13 +13491,6 @@ class _$OpenApiImpl extends _OpenApi {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$OpenApiImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _OpenApi extends OpenApi {
@@ -13540,8 +13507,6 @@ abstract class _OpenApi extends OpenApi {
       final List<Security>? security,
       final Map<String, List<String>> extraSchemaMapping}) = _$OpenApiImpl;
   const _OpenApi._() : super._();
-
-  factory _OpenApi.fromJson(Map<String, dynamic> json) = _$OpenApiImpl.fromJson;
 
   @override
 
