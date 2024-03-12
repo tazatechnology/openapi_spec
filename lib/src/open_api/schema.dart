@@ -39,7 +39,7 @@ enum SchemaType {
 @Freezed(unionKey: 'type', fallbackUnion: 'object')
 class Schema with _$Schema {
   const Schema._();
-
+  @Implements<PropertyNameProtector>()
   const factory Schema.object({
     /// A summary title of the schema
     String? title,
@@ -179,7 +179,7 @@ class Schema with _$Schema {
   // ------------------------------------------
   // FACTORY: Schema.enumeration
   // ------------------------------------------
-
+  @Implements<EnumValueProtector>()
   const factory Schema.enumeration({
     String? title,
     String? description,
@@ -505,4 +505,12 @@ class _SchemaListConverter
   List<Map<String, dynamic>> toJson(List<Schema> data) {
     return data.map((e) => _SchemaConverter().toJson(e)).toList();
   }
+}
+
+abstract class PropertyNameProtector {
+  Map<String, Schema>? properties;
+}
+
+abstract class EnumValueProtector {
+  List<String>? values;
 }

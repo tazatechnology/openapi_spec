@@ -9017,7 +9017,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
   }
 }
 
-abstract class _SchemaObject extends Schema {
+abstract class _SchemaObject extends Schema implements PropertyNameProtector {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
@@ -10617,7 +10617,7 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   }
 }
 
-abstract class _SchemaEnum extends Schema {
+abstract class _SchemaEnum extends Schema implements EnumValueProtector {
   const factory _SchemaEnum(
           {final String? title,
           final String? description,
