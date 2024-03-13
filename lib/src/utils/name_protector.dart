@@ -1,43 +1,47 @@
+import 'package:collection/collection.dart';
 import 'package:openapi_spec/src/generators/index.dart';
 import 'package:recase/recase.dart';
 
-class PropertyWithNames<T> {
+/// A class that provides protection for names.
+class ProtectedNames {
   final String jsonName;
-
   final String dartName;
 
-  final T value;
-  PropertyWithNames(
-      {required this.jsonName, required this.dartName, required this.value});
+  ProtectedNames({required this.jsonName, required this.dartName});
+  String get originalName => jsonName;
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is PropertyWithNames &&
-        other.jsonName == jsonName &&
-        other.dartName == dartName;
+    return other is ProtectedNames && other.jsonName == jsonName;
   }
 
   @override
-  int get hashCode => jsonName.hashCode ^ dartName.hashCode;
-
-  String get originalName => jsonName;
+  int get hashCode => jsonName.hashCode;
 }
 
-/// Returns an iterable of [PropertyWithNames] objects representing named properties of type [T].
-
-Iterable<PropertyWithNames<T>> nameProperties<T>(
-    {required Map<String, T> properties}) {
-  final results = <PropertyWithNames<T>>[];
+/// A utility function that maps protected names to their corresponding properties.
+///
+/// The [nameProperties] function takes a generic type `T` and returns a `Map` that associates
+/// instances of the [ProtectedNames] enum with values of type `T`.
+/// ```
+Map<ProtectedNames, T> nameProperties<T>(
+    {required Map<String, T> properties,
+    required String Function(String) onName}) {
+  final results = <ProtectedNames, T>{};
   for (final MapEntry(key: jsonName, value: value) in properties.entries) {
+    var dartName = onName(jsonName);
+
     // Convert to a valid dart name
-    var dartName = _safeDartName(jsonName);
+    dartName = _safeDartName(jsonName);
 
     // Ensure the dart name is unique
-    dartName = _uniqueName(dartName, results.map((e) => e.dartName).toList());
+    dartName = _uniqueName(
+        dartName, results.entries.map((e) => e.key.dartName).toList());
 
-    results.add(PropertyWithNames(
-        jsonName: jsonName, dartName: dartName, value: value));
+    // Add the property to the results
+    results[ProtectedNames(jsonName: jsonName, dartName: dartName)] = value;
   }
   return results;
 }
@@ -63,7 +67,7 @@ String _safeDartName(String name) {
 
   // Ensure the key is not empty
   if (dartName.isEmpty) {
-    dartName = 'unnamed';
+    dartName = 'value';
   }
 
   // Ensure the name is'nt a reserved keyword
@@ -87,8 +91,44 @@ String _uniqueName(String name, List<String> names) {
   return tempName;
 }
 
-Iterable<PropertyWithNames<void>> nameEnumValues(
-    {required List<String>? values, String Function(String)? onName}) {
+/// Returns a list of enum values for the [ProtectedNames] enum.
+///
+/// The [ProtectedNames] enum represents a collection of protected names.
+/// This function retrieves all the values of the enum and returns them as a list.
+List<ProtectedNames>? nameEnumValues({required List<String>? values}) {
+  if (values == null) {
+    return null;
+  }
   return nameProperties(
-      properties: {for (final i in values ?? <String>[]) i: null});
+      properties: {for (final i in values) i: null},
+      onName: (s) => s).keys.toList();
+}
+
+extension ProtectedNamesMapX<T> on Map<ProtectedNames, T> {
+  /// Returns a map of the protected names and their corresponding values.
+  T? getByOriginalName(String name) {
+    return entries.firstWhereOrNull((e) => e.key.jsonName == name)?.value;
+  }
+
+  void setByOriginalName(String name, T value) {
+    var key = entries.firstWhereOrNull((e) => e.key.jsonName == name)?.key;
+    if (key != null) {
+      this[key] = value;
+    }
+  }
+
+  /// Dart name for the original name
+  String dartNameForOriginalName(String name) {
+    return entries.firstWhere((e) => e.key.jsonName == name).key.dartName;
+  }
+}
+
+extension ProtectedNamesListX<T> on List<ProtectedNames> {
+  /// Returns a list of the original names of the protected names.
+  List<String> get originalNames => map((e) => e.originalName).toList();
+
+  /// Get's the dart name for the original name
+  String dartNameForOriginalName(String name) {
+    return firstWhere((e) => e.jsonName == name).dartName;
+  }
 }

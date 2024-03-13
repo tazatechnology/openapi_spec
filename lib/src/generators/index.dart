@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 import 'package:collection/collection.dart';
+import 'package:openapi_spec/src/utils/name_protector.dart';
 import 'package:path/path.dart' as p;
 import 'package:openapi_spec/src/open_api/index.dart';
 import 'package:recase/recase.dart';

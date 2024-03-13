@@ -39,7 +39,7 @@ enum SchemaType {
 @Freezed(unionKey: 'type', fallbackUnion: 'object')
 class Schema with _$Schema {
   const Schema._();
-  @Implements<PropertyNameProtector>()
+  // @Implements<PropertyNameProtector>()
   const factory Schema.object({
     /// A summary title of the schema
     String? title,
@@ -71,6 +71,7 @@ class Schema with _$Schema {
     ExternalDocs? externalDocs,
 
     /// The properties of the schema
+    @Deprecated("Please use namedProperties to get validated properties")
     Map<String, Schema>? properties,
 
     /// Define if this scheme is nullable
@@ -179,7 +180,7 @@ class Schema with _$Schema {
   // ------------------------------------------
   // FACTORY: Schema.enumeration
   // ------------------------------------------
-  @Implements<EnumValueProtector>()
+  // @Implements<EnumValueProtector>()
   const factory Schema.enumeration({
     String? title,
     String? description,
@@ -187,7 +188,9 @@ class Schema with _$Schema {
     @JsonKey(name: 'default') String? defaultValue,
     bool? nullable,
     @JsonKey(includeToJson: false, includeFromJson: false) String? unknownValue,
-    @JsonKey(name: 'enum') List<String>? values,
+    @Deprecated("Please use namedEnumValues to get validated values")
+    @JsonKey(name: 'enum')
+    List<String>? values,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = _SchemaEnum;
 
@@ -348,6 +351,7 @@ class Schema with _$Schema {
           } else {
             return type;
           }
+          // ignore: deprecated_member_use_from_same_package
         } else if (s.properties != null || s.anyOf != null) {
           return 'Map<String,dynamic>';
         }
@@ -507,14 +511,30 @@ class _SchemaListConverter
   }
 }
 
-abstract class PropertyNameProtector {
-  Map<String, Schema>? properties;
-  Iterable<PropertyWithNames<Schema>>? get namedProperties =>
-      properties == null ? null : nameProperties(properties: properties!);
+// abstract class PropertyNameProtector {
+//   Map<String, Schema>? get properties;
+//   Map<ProtectedNames, Schema>? protectedProperties(
+//           String Function(String) onName) =>
+//       properties == null
+//           ? null
+//           : nameProperties(properties: properties!, onName: onName);
+// }
+
+// abstract class EnumValueProtector {
+//   List<String>? get values;
+//   List<ProtectedNames>? protectedEnumValues() => nameEnumValues(values: values);
+// }
+
+extension SchemaObjectX on _SchemaObject {
+  Map<ProtectedNames, Schema>? protectedProperties(
+      String Function(String) onName) {
+    if (properties == null) {
+      return null;
+    }
+    return nameProperties(properties: properties!, onName: onName);
+  }
 }
 
-abstract class EnumValueProtector {
-  List<String>? values;
-  Iterable<PropertyWithNames<void>> get namedEnumValues =>
-      nameEnumValues(values: values);
+extension SchemaEnumX on _SchemaEnum {
+  List<ProtectedNames>? protectedEnumValues() => nameEnumValues(values: values);
 }

@@ -8662,6 +8662,7 @@ abstract class _$$SchemaObjectImplCopyWith<$Res>
       List<String>? required,
       Discriminator? discriminator,
       ExternalDocs? externalDocs,
+      @Deprecated("Please use namedProperties to get validated properties")
       Map<String, Schema>? properties,
       bool? nullable,
       Xml? xml});
@@ -8797,6 +8798,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
       final List<String>? required,
       this.discriminator,
       this.externalDocs,
+      @Deprecated("Please use namedProperties to get validated properties")
       final Map<String, Schema>? properties,
       this.nullable,
       this.xml,
@@ -8886,6 +8888,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
 
   /// The properties of the schema
   @override
+  @Deprecated("Please use namedProperties to get validated properties")
   Map<String, Schema>? get properties {
     final value = _properties;
     if (value == null) return null;
@@ -9017,7 +9020,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
   }
 }
 
-abstract class _SchemaObject extends Schema implements PropertyNameProtector {
+abstract class _SchemaObject extends Schema {
   const factory _SchemaObject(
       {final String? title,
       final String? description,
@@ -9028,6 +9031,7 @@ abstract class _SchemaObject extends Schema implements PropertyNameProtector {
       final List<String>? required,
       final Discriminator? discriminator,
       final ExternalDocs? externalDocs,
+      @Deprecated("Please use namedProperties to get validated properties")
       final Map<String, Schema>? properties,
       final bool? nullable,
       final Xml? xml}) = _$SchemaObjectImpl;
@@ -9076,6 +9080,7 @@ abstract class _SchemaObject extends Schema implements PropertyNameProtector {
   ExternalDocs? get externalDocs;
 
   /// The properties of the schema
+  @Deprecated("Please use namedProperties to get validated properties")
   Map<String, Schema>? get properties;
   @override
 
@@ -10403,7 +10408,9 @@ abstract class _$$SchemaEnumImplCopyWith<$Res>
       bool? nullable,
       @JsonKey(includeToJson: false, includeFromJson: false)
       String? unknownValue,
-      @JsonKey(name: 'enum') List<String>? values,
+      @Deprecated("Please use namedEnumValues to get validated values")
+      @JsonKey(name: 'enum')
+      List<String>? values,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 }
 
@@ -10474,7 +10481,9 @@ class _$SchemaEnumImpl extends _SchemaEnum {
       @JsonKey(name: 'default') this.defaultValue,
       this.nullable,
       @JsonKey(includeToJson: false, includeFromJson: false) this.unknownValue,
-      @JsonKey(name: 'enum') final List<String>? values,
+      @Deprecated("Please use namedEnumValues to get validated values")
+      @JsonKey(name: 'enum')
+      final List<String>? values,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : _values = values,
@@ -10500,6 +10509,7 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   final String? unknownValue;
   final List<String>? _values;
   @override
+  @Deprecated("Please use namedEnumValues to get validated values")
   @JsonKey(name: 'enum')
   List<String>? get values {
     final value = _values;
@@ -10617,7 +10627,7 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   }
 }
 
-abstract class _SchemaEnum extends Schema implements EnumValueProtector {
+abstract class _SchemaEnum extends Schema {
   const factory _SchemaEnum(
           {final String? title,
           final String? description,
@@ -10626,7 +10636,9 @@ abstract class _SchemaEnum extends Schema implements EnumValueProtector {
           final bool? nullable,
           @JsonKey(includeToJson: false, includeFromJson: false)
           final String? unknownValue,
-          @JsonKey(name: 'enum') final List<String>? values,
+          @Deprecated("Please use namedEnumValues to get validated values")
+          @JsonKey(name: 'enum')
+          final List<String>? values,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaEnumImpl;
   const _SchemaEnum._() : super._();
@@ -10646,6 +10658,7 @@ abstract class _SchemaEnum extends Schema implements EnumValueProtector {
   bool? get nullable;
   @JsonKey(includeToJson: false, includeFromJson: false)
   String? get unknownValue;
+  @Deprecated("Please use namedEnumValues to get validated values")
   @JsonKey(name: 'enum')
   List<String>? get values;
   @override

@@ -238,21 +238,25 @@ class SchemaGenerator extends BaseGenerator {
       if (schema == null) {
         throw Exception("\n\nUnion schema '$s' not found in components\n");
       }
-      final props = Map<String, Schema>.from(schema.properties ?? {});
+      final props = Map<ProtectedNames, Schema>.from(schema
+              .protectedProperties(options.onSchemaPropertyName ?? (s) => s) ??
+          {});
 
       // Attempt to get the union value based on the key
-      String? unionValue = props[unionKey]?.mapOrNull(
-        string: (s) => s.defaultValue,
-        enumeration: (s) {
-          // Convert the union enum to a string
-          props[unionKey] = Schema.string(
-            description: s.description,
-            defaultValue: s.defaultValue,
-            nullable: s.nullable,
+      String? unionValue = props.getByOriginalName(unionKey)?.mapOrNull(
+            string: (s) => s.defaultValue,
+            enumeration: (s) {
+              // Convert the union enum to a string
+              props.setByOriginalName(
+                  unionKey,
+                  Schema.string(
+                    description: s.description,
+                    defaultValue: s.defaultValue,
+                    nullable: s.nullable,
+                  ));
+              return s.defaultValue;
+            },
           );
-          return s.defaultValue;
-        },
-      );
       if (unionValue != null) {
         unionValues.add(unionValue);
         unionValue = "\n@FreezedUnionValue('$unionValue')";
@@ -274,13 +278,11 @@ class SchemaGenerator extends BaseGenerator {
       final propNames = props.keys.toList();
       List<SchemaValidation> validations = [];
       for (final propName in propNames) {
-        var dartName = propName.camelCase;
-        dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
         final v = _writeProperty(
-          name: dartName,
-          jsonName: propName,
+          name: propName.dartName,
+          jsonName: propName.jsonName,
           property: props[propName]!,
-          required: schema.required?.contains(propName) ?? false,
+          required: schema.required?.contains(propName.originalName) ?? false,
         );
         if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
           validations.add(v);
@@ -461,8 +463,15 @@ class SchemaGenerator extends BaseGenerator {
                 '$uName(value: final v) => $unionEnumMap[v]!,',
               );
               if (schema.defaultValue is String &&
-                  (o.values?.contains(schema.defaultValue) ?? false)) {
-                final enumValue = _safeEnumValue(schema.defaultValue, schema);
+                  (o
+                          .protectedEnumValues()
+                          ?.originalNames
+                          .contains(schema.defaultValue) ??
+                      false)) {
+                final enumValue = schema.mapOrNull(
+                    enumeration: (e) => e
+                        .protectedEnumValues()!
+                        .dartNameForOriginalName(schema.defaultValue!));
                 defaultFallback = 'return $uFactory(${o.title}.$enumValue,);';
               }
               // Place this as first check in fromJson
@@ -578,29 +587,28 @@ class SchemaGenerator extends BaseGenerator {
     String toMap = '';
 
     // Loop through properties
-    final props = s.properties;
-    final propNames = props?.keys.toList() ?? <String>[];
+    final props =
+        s.protectedProperties(options.onSchemaPropertyName ?? (s) => s);
+    final propNames = props?.keys.toList() ?? [];
     bool firstPass = true;
     List<SchemaValidation> validations = [];
     for (final propName in propNames) {
-      var dartName = propName.camelCase;
-      dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
       if (firstPass) {
         firstPass = false;
         file.writeAsStringSync('{', mode: FileMode.append);
       }
       final prop = props![propName]!;
       final v = _writeProperty(
-        name: dartName,
-        jsonName: propName,
+        name: propName.dartName,
+        jsonName: propName.jsonName,
         property: prop,
-        required: s.required?.contains(propName) ?? false,
+        required: s.required?.contains(propName.originalName) ?? false,
       );
       if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
         validations.add(v);
       }
 
-      toMap += "'$propName': $dartName,\n";
+      toMap += "'$propName': ${propName.dartName},\n";
     }
 
     String validationConstants = '';
@@ -901,16 +909,20 @@ class SchemaGenerator extends BaseGenerator {
         String description = p.description?.trim() ?? '';
 
         // Document possible values if no enum type defined
+        // ignore: deprecated_member_use_from_same_package
         if (p.ref == null && p.values != null) {
           description += '\n\nPossible values:\n'
+              // ignore: deprecated_member_use_from_same_package
               '${p.values!.map((v) => '- `$v`\n').join()}';
         }
 
         String c = formatDescription(description);
 
         // Ensure default value is valid
+        // ignore: deprecated_member_use_from_same_package
         if (hasDefault && !(p.values?.contains(p.defaultValue) ?? true)) {
           throw Exception(
+            // ignore: deprecated_member_use_from_same_package
             "\n\n'${p.defaultValue}' is not a valid enumeration for '$name' (${p.values}).\n",
           );
         }
@@ -942,7 +954,8 @@ class SchemaGenerator extends BaseGenerator {
           c += "String ${nullable ? '?' : ''} $name,\n\n";
         } else {
           if (p.defaultValue != null && !required) {
-            c += "@Default(${p.ref}.${_safeEnumValue(p.defaultValue!, p)}) ";
+            c +=
+                "@Default(${p.ref}.${p.protectedEnumValues()!.dartNameForOriginalName(p.defaultValue!)}) ";
           }
           if (required) {
             c += "required ";
@@ -958,35 +971,6 @@ class SchemaGenerator extends BaseGenerator {
   }
 
   // ------------------------------------------
-  // METHOD: _safeEnumValue
-  // ------------------------------------------
-
-  String _safeEnumValue(String value, Schema schema) {
-    // Dart enums cannot start with a number
-    if (value.startsWith(RegExp(r'[0-9]'))) {
-      value = 'v$value';
-    }
-    value = value.replaceAll('.', '_').camelCase;
-    if (value.isEmpty) {
-      schema.mapOrNull(enumeration: (s) {
-        // List of potential names for empty enum value
-        const List<String> emptyEnumValues = ['empty', 'none', 'unknown'];
-        // Ensure that the enum value is not empty
-        value = emptyEnumValues.firstWhere(
-          (e) => !s.values!.contains(e),
-          orElse: () => '',
-        );
-        if (value.isEmpty) {
-          throw Exception(
-            "\n\nEmpty enum value found in schema '${schema.title}'\n",
-          );
-        }
-      });
-    }
-    return value;
-  }
-
-  // ------------------------------------------
   // METHOD: _writeEnumeration
   // ------------------------------------------
 
@@ -995,7 +979,7 @@ class SchemaGenerator extends BaseGenerator {
     required Schema schema,
   }) {
     final s = schema.mapOrNull(enumeration: (s) => s)!;
-    final values = s.values;
+    final values = s.protectedEnumValues();
 
     if (values == null) {
       return;
@@ -1014,8 +998,8 @@ class SchemaGenerator extends BaseGenerator {
     for (var v in values) {
       // Write enum value
       file.writeAsStringSync("""
-    @JsonValue('$v')
-    ${_safeEnumValue(v, s)},
+    @JsonValue('${v.originalName}')
+    ${v.dartName},
     """, mode: FileMode.append);
     }
 
@@ -1069,10 +1053,12 @@ class SchemaGenerator extends BaseGenerator {
       }
       schema.mapOrNull(
         object: (o) {
+          // ignore: deprecated_member_use_from_same_package
           final props = o.properties;
           final propNames = props?.keys.toList() ?? <String>[];
           checkAnyOf(o.anyOf);
           for (final pName in propNames) {
+            // ignore: deprecated_member_use_from_same_package
             o.properties![pName]?.mapOrNull(
               object: (p) {
                 checkAnyOf(p.anyOf);

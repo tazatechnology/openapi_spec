@@ -833,6 +833,7 @@ class $clientName {
       // If a schema is an empty object, ignore
       rSchema?.mapOrNull(
         object: (s) {
+          // ignore: deprecated_member_use_from_same_package
           if ((s.properties?.isEmpty ?? false)) {
             isRequestRequired = false;
           }

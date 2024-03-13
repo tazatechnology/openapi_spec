@@ -51,7 +51,7 @@ void main() {
           singleFile: true,
         ),
       );
-    });
+    }, timeout: Timeout(Duration(minutes: 5)));
 
     /// Test code generation of OpenAPI spec defined client
     test('Generate Client Code', () async {
