@@ -238,9 +238,8 @@ class SchemaGenerator extends BaseGenerator {
       if (schema == null) {
         throw Exception("\n\nUnion schema '$s' not found in components\n");
       }
-      final props = Map<ProtectedNames, Schema>.from(schema
-              .protectedProperties(options.onSchemaPropertyName ?? (s) => s) ??
-          {});
+      final props = Map<ProtectedNames, Schema>.from(
+          schema.protectedProperties(options.onSchemaPropertyName) ?? {});
 
       // Attempt to get the union value based on the key
       String? unionValue = props.getByOriginalName(unionKey)?.mapOrNull(
@@ -469,9 +468,12 @@ class SchemaGenerator extends BaseGenerator {
                           .contains(schema.defaultValue) ??
                       false)) {
                 final enumValue = schema.mapOrNull(
-                    enumeration: (e) => e
-                        .protectedEnumValues()!
-                        .dartNameForOriginalName(schema.defaultValue!));
+                  enumeration: (e) => e
+                      .protectedEnumValues()!
+                      .dartNameForOriginalName(schema.defaultValue!),
+                );
+                print(schema.type);
+                print(enumValue);
                 defaultFallback = 'return $uFactory(${o.title}.$enumValue,);';
               }
               // Place this as first check in fromJson
@@ -587,8 +589,7 @@ class SchemaGenerator extends BaseGenerator {
     String toMap = '';
 
     // Loop through properties
-    final props =
-        s.protectedProperties(options.onSchemaPropertyName ?? (s) => s);
+    final props = s.protectedProperties(options.onSchemaPropertyName);
     final propNames = props?.keys.toList() ?? [];
     bool firstPass = true;
     List<SchemaValidation> validations = [];
@@ -608,7 +609,7 @@ class SchemaGenerator extends BaseGenerator {
         validations.add(v);
       }
 
-      toMap += "'$propName': ${propName.dartName},\n";
+      toMap += "'${propName.originalName}': ${propName.dartName},\n";
     }
 
     String validationConstants = '';
@@ -621,6 +622,9 @@ class SchemaGenerator extends BaseGenerator {
           .join('\n');
     }
 
+    final encodedPropertyNames =
+        '[${propNames.map((e) => "r'${e.originalName}',").fold('', (previousValue, element) => previousValue + element)}]';
+
     // Class footer
     file.writeAsStringSync("""
     ${firstPass ? '' : '}'}) = _$name;
@@ -629,7 +633,7 @@ class SchemaGenerator extends BaseGenerator {
     factory $name.fromJson(Map<String, dynamic> json) => _\$${name}FromJson(json);
 
     /// List of all property names of schema
-    static const List<String> propertyNames = ${json.encode(propNames).replaceAll('"', "'")};
+    static const List<String> propertyNames = $encodedPropertyNames;
 
     $validationConstants
 

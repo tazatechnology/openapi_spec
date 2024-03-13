@@ -527,11 +527,11 @@ class _SchemaListConverter
 
 extension SchemaObjectX on _SchemaObject {
   Map<ProtectedNames, Schema>? protectedProperties(
-      String Function(String) onName) {
+      String Function(String)? onName) {
     if (properties == null) {
       return null;
     }
-    return nameProperties(properties: properties!, onName: onName);
+    return nameProperties(properties: properties!, onName: onName ?? (s) => s);
   }
 }
 
