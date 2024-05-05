@@ -347,7 +347,24 @@ class $clientName {
       request = request as http.Request;
       try {
         if (body != null) {
-          request.body = json.encode(body);
+          switch (requestType) {
+            case 'application/x-www-form-urlencoded':
+              var parts = [];
+              Map<String, String> bodyMap =
+                  Map<String, String>.from(body as Map<dynamic, dynamic>);
+
+              bodyMap.forEach((key, value) {
+                String encodedPart =
+                    '\${Uri.encodeQueryComponent(key)}=\${Uri.encodeQueryComponent(value)}';
+                parts.add(encodedPart);
+              });
+              request.body = parts.join('&');
+
+              break;
+            default:
+              request.body = json.encode(body);
+              break;
+          }
         }
       } catch (e) {
         // Handle request encoding error
