@@ -700,6 +700,9 @@ class $clientName {
 
     String baseUrlDecoded = Uri.decodeFull(baseUrl.toString());
     String uriPath = Uri.decodeFull(uri.path);
+    if (uriPath.isEmpty) {
+      uriPath = '/';
+    }
 
     if (!baseUrl.hasAuthority) {
       // Implies no host defined, make a better doc string

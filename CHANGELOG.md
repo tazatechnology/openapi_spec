@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.7.20
+## 0.7.21
 
 * Remove host URL from generated client docs
 * Handle deserialization of arrays and maps
