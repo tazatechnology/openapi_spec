@@ -48,12 +48,26 @@ class SchemaGenerator extends BaseGenerator {
       schemaDirectory.createSync();
     }
 
-    final importCode = """
+    String importCode = """
       import 'package:freezed_annotation/freezed_annotation.dart';
+    """;
+
+    // Check if code generation required
+    final codeGenerationRequired = schemas.values.any((s) {
+      final isObject = s.mapOrNull(
+        object: (value) => true,
+      );
+      return isObject ?? false;
+    });
+
+    // Add expected part imports if code generation is required
+    if (codeGenerationRequired) {
+      importCode += """
 
       part 'schema.g.dart';
       part 'schema.freezed.dart';\n
-    """;
+""";
+    }
 
     if (options.singleFile) {
       file.writeAsStringSync(getHeader());

@@ -918,6 +918,18 @@ class $clientName {
           // Handle deserialization of single object
           if (s.ref != null || returnType.startsWith('Union')) {
             decoder = "return $returnType.fromJson(_jsonDecode(r));";
+            // Handle deserialization of arrays and maps
+            final sRef = spec.components?.schemas?[s.ref];
+            if (sRef != null) {
+              sRef.mapOrNull(
+                array: (value) {
+                  decoder = "return $returnType.from(_jsonDecode(r));";
+                },
+                map: (value) {
+                  decoder = "return $returnType.from(_jsonDecode(r));";
+                },
+              );
+            }
           } else {
             // Just return the whole response and allow user to handle
             if (returnType == 'dynamic') {
