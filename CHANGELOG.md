@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.20
+
+* Remove host URL from generated client docs
+* Handle deserialization of arrays and maps
+* Upgrade dependencies
+
 ## 0.7.19
 
 * Better handling of OpenAPI 3.1 nullable array types
