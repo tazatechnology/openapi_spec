@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "An API with all kinds of endpoints and schemas for testing",
+    "description": "Testing API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/map-endpoint": {
+      "post": {
+        "summary": "Map Endpoint Example",
+        "operationId": "map-endpoint",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MapResult": {
+        "properties": {},
+        "additionalProperties": true,
+        "type": "object",
+        "title": "MapResult",
+        "description": "A MapResult"
+      }
+    }
+  }
+}
