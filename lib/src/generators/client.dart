@@ -699,12 +699,11 @@ class $clientName {
     );
 
     String baseUrlDecoded = Uri.decodeFull(baseUrl.toString());
-    String uriDecoded = Uri.decodeFull(uri.toString());
+    String uriPath = Uri.decodeFull(uri.path);
 
     if (!baseUrl.hasAuthority) {
       // Implies no host defined, make a better doc string
       baseUrlDecoded = '';
-      uriDecoded = 'https://{host}${Uri.decodeFull(uri.path)}';
     }
 
     // Determine if server contains dynamic variables
@@ -1005,7 +1004,7 @@ class $clientName {
 
       /// $description
       /// $inputDescriptionStr
-      /// `${method.name.toUpperCase()}` `$uriDecoded`
+      /// `${method.name.toUpperCase()}` `$uriPath`
       Future<$returnType> $methodName($inputCode) async {
 
         final ${returnType == 'void' ? '_' : 'r'} = await makeRequest(
