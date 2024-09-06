@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.22
+
+* Ignore null values in client query parameters
+
 ## 0.7.21
 
 * Remove host URL from generated client docs

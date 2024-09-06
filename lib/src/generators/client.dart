@@ -734,6 +734,7 @@ class $clientName {
     // Determine if path contains dynamic variables
     for (var param in parameters) {
       final pName = param.name ?? param.schema?.ref?.split('/').last ?? '';
+      final pNameCamel = pName.camelCase;
       if (pName.isEmpty) {
         throw Exception('Parameter name or reference is required: $param');
       }
@@ -742,34 +743,40 @@ class $clientName {
           // Do nothing
         },
         header: (p) {
-          String hCode = "'${p.name}': ${pName.camelCase}";
+          String hCode = "'${p.name}': $pNameCamel";
           String pType = p.schema.toDartType();
           if (p.required == true) {
             pType = 'required $pType';
           } else {
             pType = '$pType?';
-            hCode = 'if (${pName.camelCase} != null) $hCode';
+            hCode = 'if ($pNameCamel != null) $hCode';
           }
-          input.add('$pType ${pName.camelCase}');
+          input.add('$pType $pNameCamel');
           inputDescription.add(
-            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+            "`$pNameCamel`: ${p.description ?? 'No description'}",
           );
           headerParams.add(hCode);
         },
         query: (p) {
           String pType = p.schema.toDartType();
           Object? pDefaultValue = p.schema.defaultValue;
+          // Handle nullable types
+          if (pDefaultValue == null &&
+              p.required != true &&
+              !pType.contains('?')) {
+            pType = '$pType?';
+          }
           String qCode = p.schema.maybeMap(
             enumeration: (o) {
               // Convert enum to string for query parameter code
               if (pType == 'String') {
-                return "'${p.name}': ${pName.camelCase}";
+                return "'${p.name}': $pNameCamel";
               } else {
-                return "'${p.name}': ${pName.camelCase}.name";
+                return "'${p.name}': $pNameCamel.name";
               }
             },
             orElse: () {
-              return "'${p.name}': ${pName.camelCase}";
+              return "'${p.name}': $pNameCamel";
             },
           );
 
@@ -793,28 +800,27 @@ class $clientName {
           if (p.required == true) {
             pType = 'required $pType';
           } else {
-            if (pDefaultValue == null && !pType.contains('?')) {
-              pType = '$pType?';
-              qCode = 'if (${pName.camelCase} != null) $qCode';
+            if (pType.contains('?')) {
+              qCode = 'if ($pNameCamel != null) $qCode';
             }
           }
           if (pDefaultValue != null) {
-            input.add('$pType ${pName.camelCase} = $pDefaultValue');
+            input.add('$pType $pNameCamel = $pDefaultValue');
           } else {
-            input.add('$pType ${pName.camelCase}');
+            input.add('$pType $pNameCamel');
           }
           inputDescription.add(
-            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+            "`$pNameCamel`: ${p.description ?? 'No description'}",
           );
           queryParams.add(qCode);
         },
         path: (p) {
-          input.add('required String ${pName.camelCase}');
+          input.add('required String $pNameCamel');
           inputDescription.add(
-            "`${pName.camelCase}`: ${p.description ?? 'No description'}",
+            "`$pNameCamel`: ${p.description ?? 'No description'}",
           );
           // Update the path definition
-          path = path.replaceAll('{${p.name}}', '\$${pName.camelCase}');
+          path = path.replaceAll('{${p.name}}', '\$$pNameCamel');
         },
       );
     }
