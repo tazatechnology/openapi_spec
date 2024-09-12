@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.23
+
+* Improved support for nullable `Map` types
+
 ## 0.7.22
 
 * Ignore null values in client query parameters

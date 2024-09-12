@@ -650,9 +650,10 @@ Map<String, dynamic> _formatSpecFromJson({
         m['type'] = 'map';
       }
     } else if (m.containsKey('anyOf')) {
-      final anyOf = m['anyOf'];
+      dynamic anyOf = m['anyOf'];
       if (anyOf is List) {
-        final typeSet = anyOf.map((e) {
+        final anyOfList = List<dynamic>.from(anyOf);
+        final typeSet = anyOfList.map((e) {
           if (e is Map && e.containsKey('type')) {
             return e['type'];
           } else if (e is Map && e.containsKey('\$ref')) {
@@ -661,7 +662,7 @@ Map<String, dynamic> _formatSpecFromJson({
           return null;
         }).toSet();
         if (typeSet.length == 1) {
-          m['type'] = anyOf.first['type'];
+          m['type'] = anyOfList.first['type'];
         } else if (typeSet.length == 2 && typeSet.contains('null')) {
           // Starting in OpenAPI 3.1, anyOf is used to define unions for nullable properties
           // We do not want to create a union schema for these properties
@@ -669,7 +670,17 @@ Map<String, dynamic> _formatSpecFromJson({
           if (propType.toString().contains('#')) {
             m['\$ref'] = propType;
           } else {
-            m['type'] = propType;
+            // One final check to see if this is a map type
+            for (final a in anyOfList) {
+              if (a['type'] == propType &&
+                  propType == 'object' &&
+                  a['additionalProperties'] != null) {
+                m['type'] = 'map';
+              }
+            }
+            if (!m.containsKey('type')) {
+              m['type'] = propType;
+            }
           }
           m['nullable'] = true;
           if (propType == 'array') {
