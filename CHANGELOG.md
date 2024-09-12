@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.24
+
+* If map is not required and is not explicitly nullable, default to empty map
+
 ## 0.7.23
 
 * Improved support for nullable `Map` types

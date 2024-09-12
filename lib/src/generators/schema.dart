@@ -899,8 +899,13 @@ class SchemaGenerator extends BaseGenerator {
               map: (s) => s,
               orElse: () => p,
             );
+        // If map is not required and is not explicitly nullable, default to empty map
+        if (!required && p.nullable != true) {
+          p = p.copyWith(defaultValue: {}, nullable: false);
+        }
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         var valueType = p.valueSchema?.toDartType(unions: _unions) ?? 'dynamic';
+
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
