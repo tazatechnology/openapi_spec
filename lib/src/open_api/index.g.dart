@@ -747,6 +747,8 @@ _$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
       allOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['allOf'], const _SchemaListConverter().fromJson),
+      oneOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
+          json['oneOf'], const _SchemaListConverter().fromJson),
       anyOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['anyOf'], const _SchemaListConverter().fromJson),
       required: (json['required'] as List<dynamic>?)
@@ -780,6 +782,10 @@ Map<String, dynamic> _$$SchemaObjectImplToJson(_$SchemaObjectImpl instance) =>
               instance.allOf, const _SchemaListConverter().toJson)
           case final value?)
         'allOf': value,
+      if (_$JsonConverterToJson<List<dynamic>, List<Schema>>(
+              instance.oneOf, const _SchemaListConverter().toJson)
+          case final value?)
+        'oneOf': value,
       if (_$JsonConverterToJson<List<dynamic>, List<Schema>>(
               instance.anyOf, const _SchemaListConverter().toJson)
           case final value?)

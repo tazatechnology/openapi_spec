@@ -56,6 +56,9 @@ class Schema with _$Schema {
     /// The allOf definition
     @_SchemaListConverter() List<Schema>? allOf,
 
+    /// The allOf definition
+    @_SchemaListConverter() List<Schema>? oneOf,
+
     /// The anyOf definition
     @_SchemaListConverter() List<Schema>? anyOf,
 
@@ -81,7 +84,7 @@ class Schema with _$Schema {
 
     /// Adds additional metadata to describe the XML representation of this property.
     Xml? xml,
-  }) = _SchemaObject;
+  }) = SchemaObject;
 
   /// Get the schema type based on the union type
   SchemaType get type {
@@ -109,7 +112,7 @@ class Schema with _$Schema {
     bool? nullable,
     bool? example,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaBoolean;
+  }) = SchemaBoolean;
 
   // ------------------------------------------
   // FACTORY: Schema.string
@@ -130,7 +133,7 @@ class Schema with _$Schema {
     bool? exclusiveMinimum,
     bool? exclusiveMaximum,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaString;
+  }) = SchemaString;
 
   // ------------------------------------------
   // FACTORY: Schema.integer
@@ -152,7 +155,7 @@ class Schema with _$Schema {
     bool? exclusiveMaximum,
     @JsonKey(fromJson: _fromJsonInt) int? multipleOf,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaInteger;
+  }) = SchemaInteger;
 
   // ------------------------------------------
   // FACTORY: Schema.number
@@ -174,7 +177,7 @@ class Schema with _$Schema {
     bool? exclusiveMaximum,
     @JsonKey(fromJson: _fromJsonDouble) double? multipleOf,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaNumber;
+  }) = SchemaNumber;
 
   // ------------------------------------------
   // FACTORY: Schema.enumeration
@@ -189,7 +192,7 @@ class Schema with _$Schema {
     @JsonKey(includeToJson: false, includeFromJson: false) String? unknownValue,
     @JsonKey(name: 'enum') List<String>? values,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaEnum;
+  }) = SchemaEnum;
 
   // ------------------------------------------
   // FACTORY: Schema.array
@@ -207,7 +210,7 @@ class Schema with _$Schema {
     @JsonKey(fromJson: _fromJsonInt) int? maxItems,
     required Schema items,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaArray;
+  }) = SchemaArray;
 
   // ------------------------------------------
   // FACTORY: Schema.map
@@ -227,7 +230,7 @@ class Schema with _$Schema {
         fromJson: _fromMapProps)
     Schema? valueSchema,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
-  }) = _SchemaMap;
+  }) = SchemaMap;
 
   // ------------------------------------------
   // FACTORY: Schema.fromJson
@@ -264,7 +267,7 @@ class Schema with _$Schema {
     return map(
       object: (s) {
         // Handle List and Map defined as typedefs
-        if (sRef is _SchemaArray || sRef is _SchemaMap) {
+        if (sRef is SchemaArray || sRef is SchemaMap) {
           return copyWith(
             title: s.title ?? sRef.title,
             description: s.description ?? sRef.description,
@@ -272,7 +275,7 @@ class Schema with _$Schema {
           );
         }
 
-        return (sRef as _SchemaObject).copyWith(
+        return (sRef as SchemaObject).copyWith(
           ref: ref,
           title: s.title ?? sRef.title,
           description: s.description ?? sRef.description,
@@ -281,19 +284,19 @@ class Schema with _$Schema {
         );
       },
       boolean: (s) {
-        return (sRef as _SchemaBoolean).copyWith(ref: ref);
+        return (sRef as SchemaBoolean).copyWith(ref: ref);
       },
       string: (s) {
-        return (sRef as _SchemaString).copyWith(ref: ref);
+        return (sRef as SchemaString).copyWith(ref: ref);
       },
       integer: (s) {
-        return (sRef as _SchemaInteger).copyWith(ref: ref);
+        return (sRef as SchemaInteger).copyWith(ref: ref);
       },
       number: (s) {
-        return (sRef as _SchemaNumber).copyWith(ref: ref);
+        return (sRef as SchemaNumber).copyWith(ref: ref);
       },
       enumeration: (s) {
-        return (sRef as _SchemaEnum).copyWith(
+        return (sRef as SchemaEnum).copyWith(
           ref: ref,
           title: s.title ?? sRef.title,
           description: s.description ?? sRef.description,
@@ -303,10 +306,10 @@ class Schema with _$Schema {
         );
       },
       array: (s) {
-        return (sRef as _SchemaArray).copyWith(ref: ref);
+        return (sRef as SchemaArray).copyWith(ref: ref);
       },
       map: (s) {
-        return (sRef as _SchemaMap).copyWith(
+        return (sRef as SchemaMap).copyWith(
           ref: ref,
         );
       },
@@ -454,7 +457,7 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
   Schema fromJson(Map<String, dynamic> json) {
     return fromJsonWithLogging(json, (json) {
       if (json.containsKey('enum') && json['enum'].isNotEmpty) {
-        return _SchemaEnum.fromJson(json);
+        return SchemaEnum.fromJson(json);
       } else {
         return Schema.fromJson(json);
       }
