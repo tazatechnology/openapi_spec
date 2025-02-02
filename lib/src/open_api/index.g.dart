@@ -24,21 +24,15 @@ _$OAuthFlowsImpl _$$OAuthFlowsImplFromJson(Map<String, dynamic> json) =>
               json['authorizationCode'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$OAuthFlowsImplToJson(_$OAuthFlowsImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('implicit', instance.implicit?.toJson());
-  writeNotNull('password', instance.password?.toJson());
-  writeNotNull('clientCredentials', instance.clientCredentials?.toJson());
-  writeNotNull('authorizationCode', instance.authorizationCode?.toJson());
-  return val;
-}
+Map<String, dynamic> _$$OAuthFlowsImplToJson(_$OAuthFlowsImpl instance) =>
+    <String, dynamic>{
+      if (instance.implicit?.toJson() case final value?) 'implicit': value,
+      if (instance.password?.toJson() case final value?) 'password': value,
+      if (instance.clientCredentials?.toJson() case final value?)
+        'clientCredentials': value,
+      if (instance.authorizationCode?.toJson() case final value?)
+        'authorizationCode': value,
+    };
 
 _$OAuthFlowImplicitImpl _$$OAuthFlowImplicitImplFromJson(
         Map<String, dynamic> json) =>
@@ -50,22 +44,13 @@ _$OAuthFlowImplicitImpl _$$OAuthFlowImplicitImplFromJson(
     );
 
 Map<String, dynamic> _$$OAuthFlowImplicitImplToJson(
-    _$OAuthFlowImplicitImpl instance) {
-  final val = <String, dynamic>{
-    'authorizationUrl': instance.authorizationUrl,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('refreshUrl', instance.refreshUrl);
-  val['scopes'] = instance.scopes;
-  val['unionType'] = instance.$type;
-  return val;
-}
+        _$OAuthFlowImplicitImpl instance) =>
+    <String, dynamic>{
+      'authorizationUrl': instance.authorizationUrl,
+      if (instance.refreshUrl case final value?) 'refreshUrl': value,
+      'scopes': instance.scopes,
+      'unionType': instance.$type,
+    };
 
 _$OAuthFlowPasswordImpl _$$OAuthFlowPasswordImplFromJson(
         Map<String, dynamic> json) =>
@@ -77,22 +62,13 @@ _$OAuthFlowPasswordImpl _$$OAuthFlowPasswordImplFromJson(
     );
 
 Map<String, dynamic> _$$OAuthFlowPasswordImplToJson(
-    _$OAuthFlowPasswordImpl instance) {
-  final val = <String, dynamic>{
-    'tokenUrl': instance.tokenUrl,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('refreshUrl', instance.refreshUrl);
-  val['scopes'] = instance.scopes;
-  val['unionType'] = instance.$type;
-  return val;
-}
+        _$OAuthFlowPasswordImpl instance) =>
+    <String, dynamic>{
+      'tokenUrl': instance.tokenUrl,
+      if (instance.refreshUrl case final value?) 'refreshUrl': value,
+      'scopes': instance.scopes,
+      'unionType': instance.$type,
+    };
 
 _$OAuthFlowClientCredentialsImpl _$$OAuthFlowClientCredentialsImplFromJson(
         Map<String, dynamic> json) =>
@@ -104,22 +80,13 @@ _$OAuthFlowClientCredentialsImpl _$$OAuthFlowClientCredentialsImplFromJson(
     );
 
 Map<String, dynamic> _$$OAuthFlowClientCredentialsImplToJson(
-    _$OAuthFlowClientCredentialsImpl instance) {
-  final val = <String, dynamic>{
-    'tokenUrl': instance.tokenUrl,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('refreshUrl', instance.refreshUrl);
-  val['scopes'] = instance.scopes;
-  val['unionType'] = instance.$type;
-  return val;
-}
+        _$OAuthFlowClientCredentialsImpl instance) =>
+    <String, dynamic>{
+      'tokenUrl': instance.tokenUrl,
+      if (instance.refreshUrl case final value?) 'refreshUrl': value,
+      'scopes': instance.scopes,
+      'unionType': instance.$type,
+    };
 
 _$OAuthFlowAuthorizationCodeImpl _$$OAuthFlowAuthorizationCodeImplFromJson(
         Map<String, dynamic> json) =>
@@ -132,23 +99,14 @@ _$OAuthFlowAuthorizationCodeImpl _$$OAuthFlowAuthorizationCodeImplFromJson(
     );
 
 Map<String, dynamic> _$$OAuthFlowAuthorizationCodeImplToJson(
-    _$OAuthFlowAuthorizationCodeImpl instance) {
-  final val = <String, dynamic>{
-    'authorizationUrl': instance.authorizationUrl,
-    'tokenUrl': instance.tokenUrl,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('refreshUrl', instance.refreshUrl);
-  val['scopes'] = instance.scopes;
-  val['unionType'] = instance.$type;
-  return val;
-}
+        _$OAuthFlowAuthorizationCodeImpl instance) =>
+    <String, dynamic>{
+      'authorizationUrl': instance.authorizationUrl,
+      'tokenUrl': instance.tokenUrl,
+      if (instance.refreshUrl case final value?) 'refreshUrl': value,
+      'scopes': instance.scopes,
+      'unionType': instance.$type,
+    };
 
 _$ComponentsImpl _$$ComponentsImplFromJson(Map<String, dynamic> json) =>
     _$ComponentsImpl(
@@ -185,40 +143,41 @@ _$ComponentsImpl _$$ComponentsImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$ComponentsImplToJson(_$ComponentsImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'schemas',
-      _$JsonConverterToJson<Map<String, dynamic>, Map<String, Schema>>(
-          instance.schemas, const _SchemaMapConverter().toJson));
-  writeNotNull(
-      'responses', instance.responses?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('parameters',
-      instance.parameters?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(
-      'examples', instance.examples?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('requestBodies',
-      instance.requestBodies?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(
-      'headers', instance.headers?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('securitySchemes',
-      instance.securitySchemes?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('links', instance.links?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(
-      'callbacks',
-      _$JsonConverterToJson<Map<String, dynamic>, Map<String, ApiCallback>>(
-          instance.callbacks, const _ApiCallbackMapConverter().toJson));
-  writeNotNull(
-      'pathItems', instance.pathItems?.map((k, e) => MapEntry(k, e.toJson())));
-  return val;
-}
+Map<String, dynamic> _$$ComponentsImplToJson(_$ComponentsImpl instance) =>
+    <String, dynamic>{
+      if (_$JsonConverterToJson<Map<String, dynamic>, Map<String, Schema>>(
+              instance.schemas, const _SchemaMapConverter().toJson)
+          case final value?)
+        'schemas': value,
+      if (instance.responses?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'responses': value,
+      if (instance.parameters?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'parameters': value,
+      if (instance.examples?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'examples': value,
+      if (instance.requestBodies?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'requestBodies': value,
+      if (instance.headers?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'headers': value,
+      if (instance.securitySchemes?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'securitySchemes': value,
+      if (instance.links?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'links': value,
+      if (_$JsonConverterToJson<Map<String, dynamic>, Map<String, ApiCallback>>(
+              instance.callbacks, const _ApiCallbackMapConverter().toJson)
+          case final value?)
+        'callbacks': value,
+      if (instance.pathItems?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'pathItems': value,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
@@ -239,20 +198,12 @@ _$ContactImpl _$$ContactImplFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('email', instance.email);
-  writeNotNull('url', instance.url);
-  return val;
-}
+Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.email case final value?) 'email': value,
+      if (instance.url case final value?) 'url': value,
+    };
 
 _$DiscriminatorImpl _$$DiscriminatorImplFromJson(Map<String, dynamic> json) =>
     _$DiscriminatorImpl(
@@ -262,38 +213,21 @@ _$DiscriminatorImpl _$$DiscriminatorImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$DiscriminatorImplToJson(_$DiscriminatorImpl instance) {
-  final val = <String, dynamic>{
-    'propertyName': instance.propertyName,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('mapping', instance.mapping);
-  return val;
-}
+Map<String, dynamic> _$$DiscriminatorImplToJson(_$DiscriminatorImpl instance) =>
+    <String, dynamic>{
+      'propertyName': instance.propertyName,
+      if (instance.mapping case final value?) 'mapping': value,
+    };
 
 _$EncodingImpl _$$EncodingImplFromJson(Map<String, dynamic> json) =>
     _$EncodingImpl(
       contentType: json['contentType'] as String?,
     );
 
-Map<String, dynamic> _$$EncodingImplToJson(_$EncodingImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('contentType', instance.contentType);
-  return val;
-}
+Map<String, dynamic> _$$EncodingImplToJson(_$EncodingImpl instance) =>
+    <String, dynamic>{
+      if (instance.contentType case final value?) 'contentType': value,
+    };
 
 _$ExampleObjectImpl _$$ExampleObjectImplFromJson(Map<String, dynamic> json) =>
     _$ExampleObjectImpl(
@@ -304,22 +238,15 @@ _$ExampleObjectImpl _$$ExampleObjectImplFromJson(Map<String, dynamic> json) =>
       ref: const _ExampleRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$ExampleObjectImplToJson(_$ExampleObjectImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('summary', instance.summary);
-  writeNotNull('description', instance.description);
-  writeNotNull('value', instance.value);
-  writeNotNull('externalValue', instance.externalValue);
-  writeNotNull(r'$ref', const _ExampleRefConverter().toJson(instance.ref));
-  return val;
-}
+Map<String, dynamic> _$$ExampleObjectImplToJson(_$ExampleObjectImpl instance) =>
+    <String, dynamic>{
+      if (instance.summary case final value?) 'summary': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.value case final value?) 'value': value,
+      if (instance.externalValue case final value?) 'externalValue': value,
+      if (const _ExampleRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+    };
 
 _$ExternalDocsImpl _$$ExternalDocsImplFromJson(Map<String, dynamic> json) =>
     _$ExternalDocsImpl(
@@ -327,19 +254,11 @@ _$ExternalDocsImpl _$$ExternalDocsImplFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$$ExternalDocsImplToJson(_$ExternalDocsImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['url'] = instance.url;
-  return val;
-}
+Map<String, dynamic> _$$ExternalDocsImplToJson(_$ExternalDocsImpl instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      'url': instance.url,
+    };
 
 _$HeaderImpl _$$HeaderImplFromJson(Map<String, dynamic> json) => _$HeaderImpl(
       description: json['description'] as String?,
@@ -348,19 +267,11 @@ _$HeaderImpl _$$HeaderImplFromJson(Map<String, dynamic> json) => _$HeaderImpl(
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$HeaderImplToJson(_$HeaderImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('schema', instance.schema?.toJson());
-  return val;
-}
+Map<String, dynamic> _$$HeaderImplToJson(_$HeaderImpl instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      if (instance.schema?.toJson() case final value?) 'schema': value,
+    };
 
 _$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
       title: json['title'] as String,
@@ -376,25 +287,16 @@ _$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
       version: json['version'] as String,
     );
 
-Map<String, dynamic> _$$InfoImplToJson(_$InfoImpl instance) {
-  final val = <String, dynamic>{
-    'title': instance.title,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('summary', instance.summary);
-  writeNotNull('description', instance.description);
-  writeNotNull('termsOfService', instance.termsOfService);
-  writeNotNull('contact', instance.contact?.toJson());
-  writeNotNull('license', instance.license?.toJson());
-  val['version'] = instance.version;
-  return val;
-}
+Map<String, dynamic> _$$InfoImplToJson(_$InfoImpl instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      if (instance.summary case final value?) 'summary': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.termsOfService case final value?) 'termsOfService': value,
+      if (instance.contact?.toJson() case final value?) 'contact': value,
+      if (instance.license?.toJson() case final value?) 'license': value,
+      'version': instance.version,
+    };
 
 _$LicenseImpl _$$LicenseImplFromJson(Map<String, dynamic> json) =>
     _$LicenseImpl(
@@ -403,21 +305,12 @@ _$LicenseImpl _$$LicenseImplFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('identifier', instance.identifier);
-  writeNotNull('url', instance.url);
-  return val;
-}
+Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      if (instance.identifier case final value?) 'identifier': value,
+      if (instance.url case final value?) 'url': value,
+    };
 
 _$LinkImpl _$$LinkImplFromJson(Map<String, dynamic> json) => _$LinkImpl(
       ref: const _LinkRefConverter().fromJson(json[r'$ref'] as String?),
@@ -427,20 +320,13 @@ _$LinkImpl _$$LinkImplFromJson(Map<String, dynamic> json) => _$LinkImpl(
       ),
     );
 
-Map<String, dynamic> _$$LinkImplToJson(_$LinkImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(r'$ref', const _LinkRefConverter().toJson(instance.ref));
-  writeNotNull('operationId', instance.operationId);
-  writeNotNull('parameters', instance.parameters);
-  return val;
-}
+Map<String, dynamic> _$$LinkImplToJson(_$LinkImpl instance) =>
+    <String, dynamic>{
+      if (const _LinkRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      if (instance.operationId case final value?) 'operationId': value,
+      if (instance.parameters case final value?) 'parameters': value,
+    };
 
 _$MediaTypeImpl _$$MediaTypeImplFromJson(Map<String, dynamic> json) =>
     _$MediaTypeImpl(
@@ -456,23 +342,17 @@ _$MediaTypeImpl _$$MediaTypeImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$MediaTypeImplToJson(_$MediaTypeImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('schema', instance.schema?.toJson());
-  writeNotNull('example', instance.example);
-  writeNotNull(
-      'examples', instance.examples?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(
-      'encoding', instance.encoding?.map((k, e) => MapEntry(k, e.toJson())));
-  return val;
-}
+Map<String, dynamic> _$$MediaTypeImplToJson(_$MediaTypeImpl instance) =>
+    <String, dynamic>{
+      if (instance.schema?.toJson() case final value?) 'schema': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.examples?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'examples': value,
+      if (instance.encoding?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'encoding': value,
+    };
 
 _$OperationImpl _$$OperationImplFromJson(Map<String, dynamic> json) =>
     _$OperationImpl(
@@ -504,34 +384,32 @@ _$OperationImpl _$$OperationImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$OperationImplToJson(_$OperationImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('tags', instance.tags);
-  writeNotNull('summary', instance.summary);
-  writeNotNull('description', instance.description);
-  writeNotNull('externalDocs', instance.externalDocs?.toJson());
-  writeNotNull('operationId', instance.id);
-  writeNotNull(
-      'parameters', instance.parameters?.map((e) => e.toJson()).toList());
-  writeNotNull('requestBody', instance.requestBody?.toJson());
-  writeNotNull(
-      'responses', instance.responses?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(
-      'callbacks',
-      _$JsonConverterToJson<Map<String, dynamic>, Map<String, ApiCallback>>(
-          instance.callbacks, const _ApiCallbackMapConverter().toJson));
-  writeNotNull('deprecated', instance.deprecated);
-  writeNotNull('security', instance.security?.map((e) => e.toJson()).toList());
-  writeNotNull('servers', instance.servers?.map((e) => e.toJson()).toList());
-  return val;
-}
+Map<String, dynamic> _$$OperationImplToJson(_$OperationImpl instance) =>
+    <String, dynamic>{
+      if (instance.tags case final value?) 'tags': value,
+      if (instance.summary case final value?) 'summary': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.externalDocs?.toJson() case final value?)
+        'externalDocs': value,
+      if (instance.id case final value?) 'operationId': value,
+      if (instance.parameters?.map((e) => e.toJson()).toList()
+          case final value?)
+        'parameters': value,
+      if (instance.requestBody?.toJson() case final value?)
+        'requestBody': value,
+      if (instance.responses?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'responses': value,
+      if (_$JsonConverterToJson<Map<String, dynamic>, Map<String, ApiCallback>>(
+              instance.callbacks, const _ApiCallbackMapConverter().toJson)
+          case final value?)
+        'callbacks': value,
+      if (instance.deprecated case final value?) 'deprecated': value,
+      if (instance.security?.map((e) => e.toJson()).toList() case final value?)
+        'security': value,
+      if (instance.servers?.map((e) => e.toJson()).toList() case final value?)
+        'servers': value,
+    };
 
 _$OpenIdImpl _$$OpenIdImplFromJson(Map<String, dynamic> json) => _$OpenIdImpl(
       issuer: json['issuer'] as String?,
@@ -583,44 +461,44 @@ _$OpenIdImpl _$$OpenIdImplFromJson(Map<String, dynamic> json) => _$OpenIdImpl(
               .toList(),
     );
 
-Map<String, dynamic> _$$OpenIdImplToJson(_$OpenIdImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('issuer', instance.issuer);
-  writeNotNull('authorization_endpoint', instance.authorizationEndpoint);
-  writeNotNull('token_endpoint', instance.tokenEndpoint);
-  writeNotNull(
-      'device_authorization_endpoint', instance.deviceAuthorizationEndpoint);
-  writeNotNull('userinfo_endpoint', instance.userinfoEndpoint);
-  writeNotNull('mfa_challenge_endpoint', instance.mfaChallengeEndpoint);
-  writeNotNull('jwks_uri', instance.jwksUri);
-  writeNotNull('registration_endpoint', instance.registrationEndpoint);
-  writeNotNull('revocation_endpoint', instance.revocationEndpoint);
-  writeNotNull('scopes_supported', instance.scopesSupported);
-  writeNotNull('response_types_supported', instance.responseTypesSupported);
-  writeNotNull('code_challenge_methods_supported',
-      instance.codeChallengeMethodsSupported);
-  writeNotNull('response_modes_supported', instance.responseModesSupported);
-  writeNotNull('subject_types_supported', instance.subjectTypesSupported);
-  writeNotNull('id_token_signing_alg_values_supported',
-      instance.idTokenSigningAlgValuesSupported);
-  writeNotNull('token_endpoint_auth_methods_supported',
-      instance.tokenEndpointAuthMethodsSupported);
-  writeNotNull('claims_supported', instance.claimsSupported);
-  writeNotNull(
-      'request_uri_parameter_supported', instance.requestUriParameterSupported);
-  writeNotNull(
-      'request_parameter_supported', instance.requestParameterSupported);
-  writeNotNull('token_endpoint_auth_signing_alg_values_supported',
-      instance.tokenEndpointAuthSigningAlgValuesSupported);
-  return val;
-}
+Map<String, dynamic> _$$OpenIdImplToJson(_$OpenIdImpl instance) =>
+    <String, dynamic>{
+      if (instance.issuer case final value?) 'issuer': value,
+      if (instance.authorizationEndpoint case final value?)
+        'authorization_endpoint': value,
+      if (instance.tokenEndpoint case final value?) 'token_endpoint': value,
+      if (instance.deviceAuthorizationEndpoint case final value?)
+        'device_authorization_endpoint': value,
+      if (instance.userinfoEndpoint case final value?)
+        'userinfo_endpoint': value,
+      if (instance.mfaChallengeEndpoint case final value?)
+        'mfa_challenge_endpoint': value,
+      if (instance.jwksUri case final value?) 'jwks_uri': value,
+      if (instance.registrationEndpoint case final value?)
+        'registration_endpoint': value,
+      if (instance.revocationEndpoint case final value?)
+        'revocation_endpoint': value,
+      if (instance.scopesSupported case final value?) 'scopes_supported': value,
+      if (instance.responseTypesSupported case final value?)
+        'response_types_supported': value,
+      if (instance.codeChallengeMethodsSupported case final value?)
+        'code_challenge_methods_supported': value,
+      if (instance.responseModesSupported case final value?)
+        'response_modes_supported': value,
+      if (instance.subjectTypesSupported case final value?)
+        'subject_types_supported': value,
+      if (instance.idTokenSigningAlgValuesSupported case final value?)
+        'id_token_signing_alg_values_supported': value,
+      if (instance.tokenEndpointAuthMethodsSupported case final value?)
+        'token_endpoint_auth_methods_supported': value,
+      if (instance.claimsSupported case final value?) 'claims_supported': value,
+      if (instance.requestUriParameterSupported case final value?)
+        'request_uri_parameter_supported': value,
+      if (instance.requestParameterSupported case final value?)
+        'request_parameter_supported': value,
+      if (instance.tokenEndpointAuthSigningAlgValuesSupported case final value?)
+        'token_endpoint_auth_signing_alg_values_supported': value,
+    };
 
 _$ParameterCookieImpl _$$ParameterCookieImplFromJson(
         Map<String, dynamic> json) =>
@@ -639,28 +517,21 @@ _$ParameterCookieImpl _$$ParameterCookieImplFromJson(
     );
 
 Map<String, dynamic> _$$ParameterCookieImplToJson(
-    _$ParameterCookieImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('description', instance.description);
-  writeNotNull('required', instance.required);
-  writeNotNull('deprecated', instance.deprecated);
-  writeNotNull('style', instance.style);
-  writeNotNull('explode', instance.explode);
-  writeNotNull('allowReserved', instance.allowReserved);
-  writeNotNull('example', instance.example);
-  val['schema'] = instance.schema.toJson();
-  writeNotNull(r'$ref', const _ParamRefConverter().toJson(instance.ref));
-  val['in'] = instance.$type;
-  return val;
-}
+        _$ParameterCookieImpl instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.required case final value?) 'required': value,
+      if (instance.deprecated case final value?) 'deprecated': value,
+      if (instance.style case final value?) 'style': value,
+      if (instance.explode case final value?) 'explode': value,
+      if (instance.allowReserved case final value?) 'allowReserved': value,
+      if (instance.example case final value?) 'example': value,
+      'schema': instance.schema.toJson(),
+      if (const _ParamRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'in': instance.$type,
+    };
 
 _$ParameterHeaderImpl _$$ParameterHeaderImplFromJson(
         Map<String, dynamic> json) =>
@@ -679,28 +550,21 @@ _$ParameterHeaderImpl _$$ParameterHeaderImplFromJson(
     );
 
 Map<String, dynamic> _$$ParameterHeaderImplToJson(
-    _$ParameterHeaderImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('description', instance.description);
-  writeNotNull('required', instance.required);
-  writeNotNull('deprecated', instance.deprecated);
-  writeNotNull('style', instance.style);
-  writeNotNull('explode', instance.explode);
-  writeNotNull('allowReserved', instance.allowReserved);
-  writeNotNull('example', instance.example);
-  val['schema'] = instance.schema.toJson();
-  writeNotNull(r'$ref', const _ParamRefConverter().toJson(instance.ref));
-  val['in'] = instance.$type;
-  return val;
-}
+        _$ParameterHeaderImpl instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.required case final value?) 'required': value,
+      if (instance.deprecated case final value?) 'deprecated': value,
+      if (instance.style case final value?) 'style': value,
+      if (instance.explode case final value?) 'explode': value,
+      if (instance.allowReserved case final value?) 'allowReserved': value,
+      if (instance.example case final value?) 'example': value,
+      'schema': instance.schema.toJson(),
+      if (const _ParamRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'in': instance.$type,
+    };
 
 _$ParameterQueryImpl _$$ParameterQueryImplFromJson(Map<String, dynamic> json) =>
     _$ParameterQueryImpl(
@@ -718,28 +582,21 @@ _$ParameterQueryImpl _$$ParameterQueryImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$ParameterQueryImplToJson(
-    _$ParameterQueryImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('description', instance.description);
-  writeNotNull('required', instance.required);
-  writeNotNull('deprecated', instance.deprecated);
-  writeNotNull('style', instance.style);
-  writeNotNull('explode', instance.explode);
-  writeNotNull('allowReserved', instance.allowReserved);
-  writeNotNull('example', instance.example);
-  val['schema'] = instance.schema.toJson();
-  writeNotNull(r'$ref', const _ParamRefConverter().toJson(instance.ref));
-  val['in'] = instance.$type;
-  return val;
-}
+        _$ParameterQueryImpl instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.required case final value?) 'required': value,
+      if (instance.deprecated case final value?) 'deprecated': value,
+      if (instance.style case final value?) 'style': value,
+      if (instance.explode case final value?) 'explode': value,
+      if (instance.allowReserved case final value?) 'allowReserved': value,
+      if (instance.example case final value?) 'example': value,
+      'schema': instance.schema.toJson(),
+      if (const _ParamRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'in': instance.$type,
+    };
 
 _$ParameterPathImpl _$$ParameterPathImplFromJson(Map<String, dynamic> json) =>
     _$ParameterPathImpl(
@@ -757,27 +614,20 @@ _$ParameterPathImpl _$$ParameterPathImplFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$ParameterPathImplToJson(_$ParameterPathImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('description', instance.description);
-  writeNotNull('deprecated', instance.deprecated);
-  writeNotNull('style', instance.style);
-  writeNotNull('explode', instance.explode);
-  writeNotNull('allowReserved', instance.allowReserved);
-  writeNotNull('example', instance.example);
-  writeNotNull('schema', instance.schema?.toJson());
-  writeNotNull(r'$ref', const _ParamRefConverter().toJson(instance.ref));
-  val['in'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$ParameterPathImplToJson(_$ParameterPathImpl instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.deprecated case final value?) 'deprecated': value,
+      if (instance.style case final value?) 'style': value,
+      if (instance.explode case final value?) 'explode': value,
+      if (instance.allowReserved case final value?) 'allowReserved': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.schema?.toJson() case final value?) 'schema': value,
+      if (const _ParamRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'in': instance.$type,
+    };
 
 _$PathItemImpl _$$PathItemImplFromJson(Map<String, dynamic> json) =>
     _$PathItemImpl(
@@ -816,31 +666,26 @@ _$PathItemImpl _$$PathItemImplFromJson(Map<String, dynamic> json) =>
       ref: const _PathRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$PathItemImplToJson(_$PathItemImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('summary', instance.summary);
-  writeNotNull('description', instance.description);
-  writeNotNull('get', instance.get?.toJson());
-  writeNotNull('put', instance.put?.toJson());
-  writeNotNull('post', instance.post?.toJson());
-  writeNotNull('delete', instance.delete?.toJson());
-  writeNotNull('options', instance.options?.toJson());
-  writeNotNull('head', instance.head?.toJson());
-  writeNotNull('patch', instance.patch?.toJson());
-  writeNotNull('trace', instance.trace?.toJson());
-  writeNotNull('servers', instance.servers?.map((e) => e.toJson()).toList());
-  writeNotNull(
-      'parameters', instance.parameters?.map((e) => e.toJson()).toList());
-  writeNotNull(r'$ref', const _PathRefConverter().toJson(instance.ref));
-  return val;
-}
+Map<String, dynamic> _$$PathItemImplToJson(_$PathItemImpl instance) =>
+    <String, dynamic>{
+      if (instance.summary case final value?) 'summary': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.get?.toJson() case final value?) 'get': value,
+      if (instance.put?.toJson() case final value?) 'put': value,
+      if (instance.post?.toJson() case final value?) 'post': value,
+      if (instance.delete?.toJson() case final value?) 'delete': value,
+      if (instance.options?.toJson() case final value?) 'options': value,
+      if (instance.head?.toJson() case final value?) 'head': value,
+      if (instance.patch?.toJson() case final value?) 'patch': value,
+      if (instance.trace?.toJson() case final value?) 'trace': value,
+      if (instance.servers?.map((e) => e.toJson()).toList() case final value?)
+        'servers': value,
+      if (instance.parameters?.map((e) => e.toJson()).toList()
+          case final value?)
+        'parameters': value,
+      if (const _PathRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+    };
 
 _$RequestBodyImpl _$$RequestBodyImplFromJson(Map<String, dynamic> json) =>
     _$RequestBodyImpl(
@@ -852,22 +697,16 @@ _$RequestBodyImpl _$$RequestBodyImplFromJson(Map<String, dynamic> json) =>
       ref: const _RequestRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$RequestBodyImplToJson(_$RequestBodyImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('required', instance.required);
-  writeNotNull(
-      'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(r'$ref', const _RequestRefConverter().toJson(instance.ref));
-  return val;
-}
+Map<String, dynamic> _$$RequestBodyImplToJson(_$RequestBodyImpl instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      if (instance.required case final value?) 'required': value,
+      if (instance.content?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'content': value,
+      if (const _RequestRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+    };
 
 _$ResponseImpl _$$ResponseImplFromJson(Map<String, dynamic> json) =>
     _$ResponseImpl(
@@ -884,25 +723,21 @@ _$ResponseImpl _$$ResponseImplFromJson(Map<String, dynamic> json) =>
       ref: const _ResponseRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$ResponseImplToJson(_$ResponseImpl instance) {
-  final val = <String, dynamic>{
-    'description': instance.description,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'headers', instance.headers?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(
-      'content', instance.content?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('links', instance.links?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull(r'$ref', const _ResponseRefConverter().toJson(instance.ref));
-  return val;
-}
+Map<String, dynamic> _$$ResponseImplToJson(_$ResponseImpl instance) =>
+    <String, dynamic>{
+      'description': instance.description,
+      if (instance.headers?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'headers': value,
+      if (instance.content?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'content': value,
+      if (instance.links?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'links': value,
+      if (const _ResponseRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+    };
 
 _$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
     _$SchemaObjectImpl(
@@ -912,6 +747,8 @@ _$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
       ref: const _SchemaRefConverter().fromJson(json[r'$ref'] as String?),
       allOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['allOf'], const _SchemaListConverter().fromJson),
+      oneOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
+          json['oneOf'], const _SchemaListConverter().fromJson),
       anyOf: _$JsonConverterFromJson<List<dynamic>, List<Schema>>(
           json['anyOf'], const _SchemaListConverter().fromJson),
       required: (json['required'] as List<dynamic>?)
@@ -934,37 +771,37 @@ _$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaObjectImplToJson(_$SchemaObjectImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  writeNotNull(
-      'allOf',
-      _$JsonConverterToJson<List<dynamic>, List<Schema>>(
-          instance.allOf, const _SchemaListConverter().toJson));
-  writeNotNull(
-      'anyOf',
-      _$JsonConverterToJson<List<dynamic>, List<Schema>>(
-          instance.anyOf, const _SchemaListConverter().toJson));
-  writeNotNull('required', instance.required);
-  writeNotNull('discriminator', instance.discriminator?.toJson());
-  writeNotNull('externalDocs', instance.externalDocs?.toJson());
-  writeNotNull('properties',
-      instance.properties?.map((k, e) => MapEntry(k, e.toJson())));
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('xml', instance.xml?.toJson());
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaObjectImplToJson(_$SchemaObjectImpl instance) =>
+    <String, dynamic>{
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      if (_$JsonConverterToJson<List<dynamic>, List<Schema>>(
+              instance.allOf, const _SchemaListConverter().toJson)
+          case final value?)
+        'allOf': value,
+      if (_$JsonConverterToJson<List<dynamic>, List<Schema>>(
+              instance.oneOf, const _SchemaListConverter().toJson)
+          case final value?)
+        'oneOf': value,
+      if (_$JsonConverterToJson<List<dynamic>, List<Schema>>(
+              instance.anyOf, const _SchemaListConverter().toJson)
+          case final value?)
+        'anyOf': value,
+      if (instance.required case final value?) 'required': value,
+      if (instance.discriminator?.toJson() case final value?)
+        'discriminator': value,
+      if (instance.externalDocs?.toJson() case final value?)
+        'externalDocs': value,
+      if (instance.properties?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'properties': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      'type': instance.$type,
+    };
 
 _$SchemaBooleanImpl _$$SchemaBooleanImplFromJson(Map<String, dynamic> json) =>
     _$SchemaBooleanImpl(
@@ -980,25 +817,18 @@ _$SchemaBooleanImpl _$$SchemaBooleanImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaBooleanImplToJson(_$SchemaBooleanImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('example', instance.example);
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaBooleanImplToJson(_$SchemaBooleanImpl instance) =>
+    <String, dynamic>{
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (instance.example case final value?) 'example': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 _$SchemaStringImpl _$$SchemaStringImplFromJson(Map<String, dynamic> json) =>
     _$SchemaStringImpl(
@@ -1021,31 +851,27 @@ _$SchemaStringImpl _$$SchemaStringImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaStringImplToJson(_$SchemaStringImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('format', _$StringFormatEnumMap[instance.format]);
-  writeNotNull('pattern', instance.pattern);
-  writeNotNull('example', instance.example);
-  writeNotNull('minLength', instance.minLength);
-  writeNotNull('maxLength', instance.maxLength);
-  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
-  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaStringImplToJson(_$SchemaStringImpl instance) =>
+    <String, dynamic>{
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (_$StringFormatEnumMap[instance.format] case final value?)
+        'format': value,
+      if (instance.pattern case final value?) 'pattern': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.minLength case final value?) 'minLength': value,
+      if (instance.maxLength case final value?) 'maxLength': value,
+      if (instance.exclusiveMinimum case final value?)
+        'exclusiveMinimum': value,
+      if (instance.exclusiveMaximum case final value?)
+        'exclusiveMaximum': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 const _$StringFormatEnumMap = {
   StringFormat.byte: 'byte',
@@ -1083,31 +909,27 @@ _$SchemaIntegerImpl _$$SchemaIntegerImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaIntegerImplToJson(_$SchemaIntegerImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('format', _$IntegerFormatEnumMap[instance.format]);
-  writeNotNull('example', instance.example);
-  writeNotNull('minimum', instance.minimum);
-  writeNotNull('maximum', instance.maximum);
-  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
-  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  writeNotNull('multipleOf', instance.multipleOf);
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaIntegerImplToJson(_$SchemaIntegerImpl instance) =>
+    <String, dynamic>{
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (_$IntegerFormatEnumMap[instance.format] case final value?)
+        'format': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.minimum case final value?) 'minimum': value,
+      if (instance.maximum case final value?) 'maximum': value,
+      if (instance.exclusiveMinimum case final value?)
+        'exclusiveMinimum': value,
+      if (instance.exclusiveMaximum case final value?)
+        'exclusiveMaximum': value,
+      if (instance.multipleOf case final value?) 'multipleOf': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 const _$IntegerFormatEnumMap = {
   IntegerFormat.int32: 'int32',
@@ -1135,31 +957,27 @@ _$SchemaNumberImpl _$$SchemaNumberImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaNumberImplToJson(_$SchemaNumberImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('format', _$NumberFormatEnumMap[instance.format]);
-  writeNotNull('example', instance.example);
-  writeNotNull('minimum', instance.minimum);
-  writeNotNull('maximum', instance.maximum);
-  writeNotNull('exclusiveMinimum', instance.exclusiveMinimum);
-  writeNotNull('exclusiveMaximum', instance.exclusiveMaximum);
-  writeNotNull('multipleOf', instance.multipleOf);
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaNumberImplToJson(_$SchemaNumberImpl instance) =>
+    <String, dynamic>{
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (_$NumberFormatEnumMap[instance.format] case final value?)
+        'format': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.minimum case final value?) 'minimum': value,
+      if (instance.maximum case final value?) 'maximum': value,
+      if (instance.exclusiveMinimum case final value?)
+        'exclusiveMinimum': value,
+      if (instance.exclusiveMaximum case final value?)
+        'exclusiveMaximum': value,
+      if (instance.multipleOf case final value?) 'multipleOf': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 const _$NumberFormatEnumMap = {
   NumberFormat.float: 'float',
@@ -1179,25 +997,18 @@ _$SchemaEnumImpl _$$SchemaEnumImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaEnumImplToJson(_$SchemaEnumImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('example', instance.example);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('enum', instance.values);
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaEnumImplToJson(_$SchemaEnumImpl instance) =>
+    <String, dynamic>{
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (instance.values case final value?) 'enum': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 _$SchemaArrayImpl _$$SchemaArrayImplFromJson(Map<String, dynamic> json) =>
     _$SchemaArrayImpl(
@@ -1216,28 +1027,21 @@ _$SchemaArrayImpl _$$SchemaArrayImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaArrayImplToJson(_$SchemaArrayImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('example', instance.example);
-  writeNotNull('minItems', instance.minItems);
-  writeNotNull('maxItems', instance.maxItems);
-  val['items'] = instance.items.toJson();
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaArrayImplToJson(_$SchemaArrayImpl instance) =>
+    <String, dynamic>{
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (instance.example case final value?) 'example': value,
+      if (instance.minItems case final value?) 'minItems': value,
+      if (instance.maxItems case final value?) 'maxItems': value,
+      'items': instance.items.toJson(),
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 _$SchemaMapImpl _$$SchemaMapImplFromJson(Map<String, dynamic> json) =>
     _$SchemaMapImpl(
@@ -1254,26 +1058,20 @@ _$SchemaMapImpl _$$SchemaMapImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaMapImplToJson(_$SchemaMapImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('xml', instance.xml?.toJson());
-  writeNotNull('title', instance.title);
-  writeNotNull('description', instance.description);
-  writeNotNull('default', instance.defaultValue);
-  writeNotNull('nullable', instance.nullable);
-  writeNotNull('example', instance.example);
-  writeNotNull('additionalProperties', _toMapProps(instance.valueSchema));
-  writeNotNull(r'$ref', const _SchemaRefConverter().toJson(instance.ref));
-  val['type'] = instance.$type;
-  return val;
-}
+Map<String, dynamic> _$$SchemaMapImplToJson(_$SchemaMapImpl instance) =>
+    <String, dynamic>{
+      if (instance.xml?.toJson() case final value?) 'xml': value,
+      if (instance.title case final value?) 'title': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.defaultValue case final value?) 'default': value,
+      if (instance.nullable case final value?) 'nullable': value,
+      if (instance.example case final value?) 'example': value,
+      if (_toMapProps(instance.valueSchema) case final value?)
+        'additionalProperties': value,
+      if (const _SchemaRefConverter().toJson(instance.ref) case final value?)
+        r'$ref': value,
+      'type': instance.$type,
+    };
 
 _$SecuritySchemeApiKeyImpl _$$SecuritySchemeApiKeyImplFromJson(
         Map<String, dynamic> json) =>
@@ -1285,22 +1083,13 @@ _$SecuritySchemeApiKeyImpl _$$SecuritySchemeApiKeyImplFromJson(
     );
 
 Map<String, dynamic> _$$SecuritySchemeApiKeyImplToJson(
-    _$SecuritySchemeApiKeyImpl instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['in'] = _$ApiKeyLocationEnumMap[instance.location]!;
-  val['type'] = instance.$type;
-  return val;
-}
+        _$SecuritySchemeApiKeyImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      'in': _$ApiKeyLocationEnumMap[instance.location]!,
+      'type': instance.$type,
+    };
 
 const _$ApiKeyLocationEnumMap = {
   ApiKeyLocation.query: 'query',
@@ -1318,22 +1107,13 @@ _$SecuritySchemeHttpImpl _$$SecuritySchemeHttpImplFromJson(
     );
 
 Map<String, dynamic> _$$SecuritySchemeHttpImplToJson(
-    _$SecuritySchemeHttpImpl instance) {
-  final val = <String, dynamic>{
-    'scheme': _$HttpSecuritySchemeEnumMap[instance.scheme]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('bearerFormat', instance.bearerFormat);
-  writeNotNull('description', instance.description);
-  val['type'] = instance.$type;
-  return val;
-}
+        _$SecuritySchemeHttpImpl instance) =>
+    <String, dynamic>{
+      'scheme': _$HttpSecuritySchemeEnumMap[instance.scheme]!,
+      if (instance.bearerFormat case final value?) 'bearerFormat': value,
+      if (instance.description case final value?) 'description': value,
+      'type': instance.$type,
+    };
 
 const _$HttpSecuritySchemeEnumMap = {
   HttpSecurityScheme.basic: 'basic',
@@ -1348,19 +1128,11 @@ _$SecuritySchemeMutualTLSImpl _$$SecuritySchemeMutualTLSImplFromJson(
     );
 
 Map<String, dynamic> _$$SecuritySchemeMutualTLSImplToJson(
-    _$SecuritySchemeMutualTLSImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['type'] = instance.$type;
-  return val;
-}
+        _$SecuritySchemeMutualTLSImpl instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      'type': instance.$type,
+    };
 
 _$SecuritySchemeOauth2Impl _$$SecuritySchemeOauth2ImplFromJson(
         Map<String, dynamic> json) =>
@@ -1371,20 +1143,12 @@ _$SecuritySchemeOauth2Impl _$$SecuritySchemeOauth2ImplFromJson(
     );
 
 Map<String, dynamic> _$$SecuritySchemeOauth2ImplToJson(
-    _$SecuritySchemeOauth2Impl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['flows'] = instance.flows.toJson();
-  val['type'] = instance.$type;
-  return val;
-}
+        _$SecuritySchemeOauth2Impl instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      'flows': instance.flows.toJson(),
+      'type': instance.$type,
+    };
 
 _$SecuritySchemeOpenIdConnectImpl _$$SecuritySchemeOpenIdConnectImplFromJson(
         Map<String, dynamic> json) =>
@@ -1395,20 +1159,12 @@ _$SecuritySchemeOpenIdConnectImpl _$$SecuritySchemeOpenIdConnectImplFromJson(
     );
 
 Map<String, dynamic> _$$SecuritySchemeOpenIdConnectImplToJson(
-    _$SecuritySchemeOpenIdConnectImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['openIdConnectUrl'] = instance.url;
-  val['type'] = instance.$type;
-  return val;
-}
+        _$SecuritySchemeOpenIdConnectImpl instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      'openIdConnectUrl': instance.url,
+      'type': instance.$type,
+    };
 
 _$ServerImpl _$$ServerImplFromJson(Map<String, dynamic> json) => _$ServerImpl(
       url: json['url'] as String?,
@@ -1419,21 +1175,14 @@ _$ServerImpl _$$ServerImplFromJson(Map<String, dynamic> json) => _$ServerImpl(
       ),
     );
 
-Map<String, dynamic> _$$ServerImplToJson(_$ServerImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('url', instance.url);
-  writeNotNull('description', instance.description);
-  writeNotNull(
-      'variables', instance.variables?.map((k, e) => MapEntry(k, e.toJson())));
-  return val;
-}
+Map<String, dynamic> _$$ServerImplToJson(_$ServerImpl instance) =>
+    <String, dynamic>{
+      if (instance.url case final value?) 'url': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.variables?.map((k, e) => MapEntry(k, e.toJson()))
+          case final value?)
+        'variables': value,
+    };
 
 _$ServerVariableImpl _$$ServerVariableImplFromJson(Map<String, dynamic> json) =>
     _$ServerVariableImpl(
@@ -1444,20 +1193,12 @@ _$ServerVariableImpl _$$ServerVariableImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$ServerVariableImplToJson(
-    _$ServerVariableImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('enum', instance.enumValue);
-  val['default'] = instance.defaultValue;
-  writeNotNull('description', instance.description);
-  return val;
-}
+        _$ServerVariableImpl instance) =>
+    <String, dynamic>{
+      if (instance.enumValue case final value?) 'enum': value,
+      'default': instance.defaultValue,
+      if (instance.description case final value?) 'description': value,
+    };
 
 _$TagImpl _$$TagImplFromJson(Map<String, dynamic> json) => _$TagImpl(
       name: json['name'] as String,
@@ -1467,21 +1208,12 @@ _$TagImpl _$$TagImplFromJson(Map<String, dynamic> json) => _$TagImpl(
           : ExternalDocs.fromJson(json['externalDocs'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$TagImplToJson(_$TagImpl instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('externalDocs', instance.externalDocs?.toJson());
-  return val;
-}
+Map<String, dynamic> _$$TagImplToJson(_$TagImpl instance) => <String, dynamic>{
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.externalDocs?.toJson() case final value?)
+        'externalDocs': value,
+    };
 
 _$XmlImpl _$$XmlImplFromJson(Map<String, dynamic> json) => _$XmlImpl(
       name: json['name'] as String?,
@@ -1491,19 +1223,10 @@ _$XmlImpl _$$XmlImplFromJson(Map<String, dynamic> json) => _$XmlImpl(
       wrapped: json['wrapped'] as bool?,
     );
 
-Map<String, dynamic> _$$XmlImplToJson(_$XmlImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('namespace', instance.namespace);
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('attribute', instance.attribute);
-  writeNotNull('wrapped', instance.wrapped);
-  return val;
-}
+Map<String, dynamic> _$$XmlImplToJson(_$XmlImpl instance) => <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.namespace case final value?) 'namespace': value,
+      if (instance.prefix case final value?) 'prefix': value,
+      if (instance.attribute case final value?) 'attribute': value,
+      if (instance.wrapped case final value?) 'wrapped': value,
+    };

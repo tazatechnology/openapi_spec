@@ -51,13 +51,13 @@ bool _checkReferenceTypes(name, ref, self) {
   final sType = self.runtimeType.toString().replaceAll(r'_$_', '');
 
   if (ref.runtimeType != self.runtimeType) {
-    if (ref is _SchemaMap && self is _SchemaObject) {
+    if (ref is SchemaMap && self is SchemaObject) {
       // Map is defined with typedef
       return true;
-    } else if (ref is _SchemaArray && self is _SchemaMap) {
+    } else if (ref is SchemaArray && self is SchemaMap) {
       // Array is defined with typedef
       return true;
-    } else if (self is _SchemaObject) {
+    } else if (self is SchemaObject) {
       // Reference types can be different if the reference is a SchemaObject
       return false;
     } else {
