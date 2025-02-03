@@ -6217,13 +6217,13 @@ abstract class _OpenId implements OpenId {
 Parameter _$ParameterFromJson(Map<String, dynamic> json) {
   switch (json['in']) {
     case 'cookie':
-      return _ParameterCookie.fromJson(json);
+      return ParameterCookie.fromJson(json);
     case 'header':
-      return _ParameterHeader.fromJson(json);
+      return ParameterHeader.fromJson(json);
     case 'query':
-      return _ParameterQuery.fromJson(json);
+      return ParameterQuery.fromJson(json);
     case 'path':
-      return _ParameterPath.fromJson(json);
+      return ParameterPath.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -6247,26 +6247,26 @@ mixin _$Parameter {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -6485,7 +6485,7 @@ class __$$ParameterCookieImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterCookieImpl extends _ParameterCookie {
+class _$ParameterCookieImpl extends ParameterCookie {
   const _$ParameterCookieImpl(
       {this.name,
       this.description,
@@ -6577,10 +6577,10 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return cookie(this);
   }
@@ -6588,10 +6588,10 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return cookie?.call(this);
   }
@@ -6599,10 +6599,10 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (cookie != null) {
@@ -6619,8 +6619,8 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   }
 }
 
-abstract class _ParameterCookie extends Parameter {
-  const factory _ParameterCookie(
+abstract class ParameterCookie extends Parameter {
+  const factory ParameterCookie(
           {final String? name,
           final String? description,
           final bool? required,
@@ -6632,9 +6632,9 @@ abstract class _ParameterCookie extends Parameter {
           required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterCookieImpl;
-  const _ParameterCookie._() : super._();
+  const ParameterCookie._() : super._();
 
-  factory _ParameterCookie.fromJson(Map<String, dynamic> json) =
+  factory ParameterCookie.fromJson(Map<String, dynamic> json) =
       _$ParameterCookieImpl.fromJson;
 
   @override
@@ -6772,7 +6772,7 @@ class __$$ParameterHeaderImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterHeaderImpl extends _ParameterHeader {
+class _$ParameterHeaderImpl extends ParameterHeader {
   const _$ParameterHeaderImpl(
       {this.name,
       this.description,
@@ -6864,10 +6864,10 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return header(this);
   }
@@ -6875,10 +6875,10 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return header?.call(this);
   }
@@ -6886,10 +6886,10 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (header != null) {
@@ -6906,8 +6906,8 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   }
 }
 
-abstract class _ParameterHeader extends Parameter {
-  const factory _ParameterHeader(
+abstract class ParameterHeader extends Parameter {
+  const factory ParameterHeader(
           {final String? name,
           final String? description,
           final bool? required,
@@ -6919,9 +6919,9 @@ abstract class _ParameterHeader extends Parameter {
           required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterHeaderImpl;
-  const _ParameterHeader._() : super._();
+  const ParameterHeader._() : super._();
 
-  factory _ParameterHeader.fromJson(Map<String, dynamic> json) =
+  factory ParameterHeader.fromJson(Map<String, dynamic> json) =
       _$ParameterHeaderImpl.fromJson;
 
   @override
@@ -7059,7 +7059,7 @@ class __$$ParameterQueryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterQueryImpl extends _ParameterQuery {
+class _$ParameterQueryImpl extends ParameterQuery {
   const _$ParameterQueryImpl(
       {this.name,
       this.description,
@@ -7151,10 +7151,10 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return query(this);
   }
@@ -7162,10 +7162,10 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return query?.call(this);
   }
@@ -7173,10 +7173,10 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (query != null) {
@@ -7193,8 +7193,8 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   }
 }
 
-abstract class _ParameterQuery extends Parameter {
-  const factory _ParameterQuery(
+abstract class ParameterQuery extends Parameter {
+  const factory ParameterQuery(
           {final String? name,
           final String? description,
           final bool? required,
@@ -7206,9 +7206,9 @@ abstract class _ParameterQuery extends Parameter {
           required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterQueryImpl;
-  const _ParameterQuery._() : super._();
+  const ParameterQuery._() : super._();
 
-  factory _ParameterQuery.fromJson(Map<String, dynamic> json) =
+  factory ParameterQuery.fromJson(Map<String, dynamic> json) =
       _$ParameterQueryImpl.fromJson;
 
   @override
@@ -7330,7 +7330,7 @@ class __$$ParameterPathImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterPathImpl extends _ParameterPath {
+class _$ParameterPathImpl extends ParameterPath {
   const _$ParameterPathImpl(
       {this.name,
       this.description,
@@ -7416,10 +7416,10 @@ class _$ParameterPathImpl extends _ParameterPath {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return path(this);
   }
@@ -7427,10 +7427,10 @@ class _$ParameterPathImpl extends _ParameterPath {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return path?.call(this);
   }
@@ -7438,10 +7438,10 @@ class _$ParameterPathImpl extends _ParameterPath {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (path != null) {
@@ -7458,8 +7458,8 @@ class _$ParameterPathImpl extends _ParameterPath {
   }
 }
 
-abstract class _ParameterPath extends Parameter {
-  const factory _ParameterPath(
+abstract class ParameterPath extends Parameter {
+  const factory ParameterPath(
           {final String? name,
           final String? description,
           final bool? deprecated,
@@ -7470,9 +7470,9 @@ abstract class _ParameterPath extends Parameter {
           final Schema? schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterPathImpl;
-  const _ParameterPath._() : super._();
+  const ParameterPath._() : super._();
 
-  factory _ParameterPath.fromJson(Map<String, dynamic> json) =
+  factory ParameterPath.fromJson(Map<String, dynamic> json) =
       _$ParameterPathImpl.fromJson;
 
   @override
