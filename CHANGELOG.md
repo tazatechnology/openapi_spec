@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.25
+
+* Makes schema subtypes public, adds oneOf field support
+* Update dependencies
+
 ## 0.7.24
 
 * If map is not required and is not explicitly nullable, default to empty map
