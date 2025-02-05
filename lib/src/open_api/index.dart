@@ -1,4 +1,4 @@
-library openapi_models;
+library;
 
 import 'dart:convert';
 import 'dart:io';

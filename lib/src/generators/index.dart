@@ -1,4 +1,4 @@
-library openapi_generators;
+library;
 
 import 'dart:convert';
 import 'dart:io';
