@@ -27,7 +27,7 @@ class Parameter with _$Parameter {
     String? example,
     required Schema schema,
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
-  }) = _ParameterCookie;
+  }) = ParameterCookie;
 
   // ------------------------------------------
   // FACTORY: Parameter.header
@@ -47,7 +47,7 @@ class Parameter with _$Parameter {
     String? example,
     required Schema schema,
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
-  }) = _ParameterHeader;
+  }) = ParameterHeader;
 
   // ------------------------------------------
   // FACTORY: Parameter.query
@@ -67,7 +67,7 @@ class Parameter with _$Parameter {
     String? example,
     required Schema schema,
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
-  }) = _ParameterQuery;
+  }) = ParameterQuery;
 
   // ------------------------------------------
   // FACTORY: Parameter.path
@@ -86,7 +86,7 @@ class Parameter with _$Parameter {
     String? example,
     Schema? schema,
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
-  }) = _ParameterPath;
+  }) = ParameterPath;
 
   // ------------------------------------------
   // FACTORY: Parameter.fromJson

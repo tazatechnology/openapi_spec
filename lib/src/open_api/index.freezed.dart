@@ -6217,13 +6217,13 @@ abstract class _OpenId implements OpenId {
 Parameter _$ParameterFromJson(Map<String, dynamic> json) {
   switch (json['in']) {
     case 'cookie':
-      return _ParameterCookie.fromJson(json);
+      return ParameterCookie.fromJson(json);
     case 'header':
-      return _ParameterHeader.fromJson(json);
+      return ParameterHeader.fromJson(json);
     case 'query':
-      return _ParameterQuery.fromJson(json);
+      return ParameterQuery.fromJson(json);
     case 'path':
-      return _ParameterPath.fromJson(json);
+      return ParameterPath.fromJson(json);
 
     default:
       throw CheckedFromJsonException(
@@ -6247,26 +6247,26 @@ mixin _$Parameter {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -6485,7 +6485,7 @@ class __$$ParameterCookieImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterCookieImpl extends _ParameterCookie {
+class _$ParameterCookieImpl extends ParameterCookie {
   const _$ParameterCookieImpl(
       {this.name,
       this.description,
@@ -6577,10 +6577,10 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return cookie(this);
   }
@@ -6588,10 +6588,10 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return cookie?.call(this);
   }
@@ -6599,10 +6599,10 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (cookie != null) {
@@ -6619,8 +6619,8 @@ class _$ParameterCookieImpl extends _ParameterCookie {
   }
 }
 
-abstract class _ParameterCookie extends Parameter {
-  const factory _ParameterCookie(
+abstract class ParameterCookie extends Parameter {
+  const factory ParameterCookie(
           {final String? name,
           final String? description,
           final bool? required,
@@ -6632,9 +6632,9 @@ abstract class _ParameterCookie extends Parameter {
           required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterCookieImpl;
-  const _ParameterCookie._() : super._();
+  const ParameterCookie._() : super._();
 
-  factory _ParameterCookie.fromJson(Map<String, dynamic> json) =
+  factory ParameterCookie.fromJson(Map<String, dynamic> json) =
       _$ParameterCookieImpl.fromJson;
 
   @override
@@ -6772,7 +6772,7 @@ class __$$ParameterHeaderImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterHeaderImpl extends _ParameterHeader {
+class _$ParameterHeaderImpl extends ParameterHeader {
   const _$ParameterHeaderImpl(
       {this.name,
       this.description,
@@ -6864,10 +6864,10 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return header(this);
   }
@@ -6875,10 +6875,10 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return header?.call(this);
   }
@@ -6886,10 +6886,10 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (header != null) {
@@ -6906,8 +6906,8 @@ class _$ParameterHeaderImpl extends _ParameterHeader {
   }
 }
 
-abstract class _ParameterHeader extends Parameter {
-  const factory _ParameterHeader(
+abstract class ParameterHeader extends Parameter {
+  const factory ParameterHeader(
           {final String? name,
           final String? description,
           final bool? required,
@@ -6919,9 +6919,9 @@ abstract class _ParameterHeader extends Parameter {
           required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterHeaderImpl;
-  const _ParameterHeader._() : super._();
+  const ParameterHeader._() : super._();
 
-  factory _ParameterHeader.fromJson(Map<String, dynamic> json) =
+  factory ParameterHeader.fromJson(Map<String, dynamic> json) =
       _$ParameterHeaderImpl.fromJson;
 
   @override
@@ -7059,7 +7059,7 @@ class __$$ParameterQueryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterQueryImpl extends _ParameterQuery {
+class _$ParameterQueryImpl extends ParameterQuery {
   const _$ParameterQueryImpl(
       {this.name,
       this.description,
@@ -7151,10 +7151,10 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return query(this);
   }
@@ -7162,10 +7162,10 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return query?.call(this);
   }
@@ -7173,10 +7173,10 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (query != null) {
@@ -7193,8 +7193,8 @@ class _$ParameterQueryImpl extends _ParameterQuery {
   }
 }
 
-abstract class _ParameterQuery extends Parameter {
-  const factory _ParameterQuery(
+abstract class ParameterQuery extends Parameter {
+  const factory ParameterQuery(
           {final String? name,
           final String? description,
           final bool? required,
@@ -7206,9 +7206,9 @@ abstract class _ParameterQuery extends Parameter {
           required final Schema schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterQueryImpl;
-  const _ParameterQuery._() : super._();
+  const ParameterQuery._() : super._();
 
-  factory _ParameterQuery.fromJson(Map<String, dynamic> json) =
+  factory ParameterQuery.fromJson(Map<String, dynamic> json) =
       _$ParameterQueryImpl.fromJson;
 
   @override
@@ -7330,7 +7330,7 @@ class __$$ParameterPathImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ParameterPathImpl extends _ParameterPath {
+class _$ParameterPathImpl extends ParameterPath {
   const _$ParameterPathImpl(
       {this.name,
       this.description,
@@ -7416,10 +7416,10 @@ class _$ParameterPathImpl extends _ParameterPath {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_ParameterCookie value) cookie,
-    required TResult Function(_ParameterHeader value) header,
-    required TResult Function(_ParameterQuery value) query,
-    required TResult Function(_ParameterPath value) path,
+    required TResult Function(ParameterCookie value) cookie,
+    required TResult Function(ParameterHeader value) header,
+    required TResult Function(ParameterQuery value) query,
+    required TResult Function(ParameterPath value) path,
   }) {
     return path(this);
   }
@@ -7427,10 +7427,10 @@ class _$ParameterPathImpl extends _ParameterPath {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_ParameterCookie value)? cookie,
-    TResult? Function(_ParameterHeader value)? header,
-    TResult? Function(_ParameterQuery value)? query,
-    TResult? Function(_ParameterPath value)? path,
+    TResult? Function(ParameterCookie value)? cookie,
+    TResult? Function(ParameterHeader value)? header,
+    TResult? Function(ParameterQuery value)? query,
+    TResult? Function(ParameterPath value)? path,
   }) {
     return path?.call(this);
   }
@@ -7438,10 +7438,10 @@ class _$ParameterPathImpl extends _ParameterPath {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_ParameterCookie value)? cookie,
-    TResult Function(_ParameterHeader value)? header,
-    TResult Function(_ParameterQuery value)? query,
-    TResult Function(_ParameterPath value)? path,
+    TResult Function(ParameterCookie value)? cookie,
+    TResult Function(ParameterHeader value)? header,
+    TResult Function(ParameterQuery value)? query,
+    TResult Function(ParameterPath value)? path,
     required TResult orElse(),
   }) {
     if (path != null) {
@@ -7458,8 +7458,8 @@ class _$ParameterPathImpl extends _ParameterPath {
   }
 }
 
-abstract class _ParameterPath extends Parameter {
-  const factory _ParameterPath(
+abstract class ParameterPath extends Parameter {
+  const factory ParameterPath(
           {final String? name,
           final String? description,
           final bool? deprecated,
@@ -7470,9 +7470,9 @@ abstract class _ParameterPath extends Parameter {
           final Schema? schema,
           @JsonKey(name: '\$ref') @_ParamRefConverter() final String? ref}) =
       _$ParameterPathImpl;
-  const _ParameterPath._() : super._();
+  const ParameterPath._() : super._();
 
-  factory _ParameterPath.fromJson(Map<String, dynamic> json) =
+  factory ParameterPath.fromJson(Map<String, dynamic> json) =
       _$ParameterPathImpl.fromJson;
 
   @override
@@ -8858,22 +8858,22 @@ abstract class _Response extends Response {
 Schema _$SchemaFromJson(Map<String, dynamic> json) {
   switch (json['type']) {
     case 'boolean':
-      return _SchemaBoolean.fromJson(json);
+      return SchemaBoolean.fromJson(json);
     case 'string':
-      return _SchemaString.fromJson(json);
+      return SchemaString.fromJson(json);
     case 'integer':
-      return _SchemaInteger.fromJson(json);
+      return SchemaInteger.fromJson(json);
     case 'number':
-      return _SchemaNumber.fromJson(json);
+      return SchemaNumber.fromJson(json);
     case 'enumeration':
-      return _SchemaEnum.fromJson(json);
+      return SchemaEnum.fromJson(json);
     case 'array':
-      return _SchemaArray.fromJson(json);
+      return SchemaArray.fromJson(json);
     case 'map':
-      return _SchemaMap.fromJson(json);
+      return SchemaMap.fromJson(json);
 
     default:
-      return _SchemaObject.fromJson(json);
+      return SchemaObject.fromJson(json);
   }
 }
 
@@ -8899,38 +8899,38 @@ mixin _$Schema {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -9011,6 +9011,7 @@ abstract class _$$SchemaObjectImplCopyWith<$Res>
       @JsonKey(name: 'default') dynamic defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
       @_SchemaListConverter() List<Schema>? allOf,
+      @_SchemaListConverter() List<Schema>? oneOf,
       @_SchemaListConverter() List<Schema>? anyOf,
       List<String>? required,
       Discriminator? discriminator,
@@ -9042,6 +9043,7 @@ class __$$SchemaObjectImplCopyWithImpl<$Res>
     Object? defaultValue = freezed,
     Object? ref = freezed,
     Object? allOf = freezed,
+    Object? oneOf = freezed,
     Object? anyOf = freezed,
     Object? required = freezed,
     Object? discriminator = freezed,
@@ -9070,6 +9072,10 @@ class __$$SchemaObjectImplCopyWithImpl<$Res>
       allOf: freezed == allOf
           ? _value._allOf
           : allOf // ignore: cast_nullable_to_non_nullable
+              as List<Schema>?,
+      oneOf: freezed == oneOf
+          ? _value._oneOf
+          : oneOf // ignore: cast_nullable_to_non_nullable
               as List<Schema>?,
       anyOf: freezed == anyOf
           ? _value._anyOf
@@ -9147,13 +9153,14 @@ class __$$SchemaObjectImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaObjectImpl extends _SchemaObject {
+class _$SchemaObjectImpl extends SchemaObject {
   const _$SchemaObjectImpl(
       {this.title,
       this.description,
       @JsonKey(name: 'default') this.defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       @_SchemaListConverter() final List<Schema>? allOf,
+      @_SchemaListConverter() final List<Schema>? oneOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
       final List<String>? required,
       this.discriminator,
@@ -9163,6 +9170,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
       this.xml,
       final String? $type})
       : _allOf = allOf,
+        _oneOf = oneOf,
         _anyOf = anyOf,
         _required = required,
         _properties = properties,
@@ -9201,6 +9209,20 @@ class _$SchemaObjectImpl extends _SchemaObject {
     final value = _allOf;
     if (value == null) return null;
     if (_allOf is EqualUnmodifiableListView) return _allOf;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// The allOf definition
+  final List<Schema>? _oneOf;
+
+  /// The allOf definition
+  @override
+  @_SchemaListConverter()
+  List<Schema>? get oneOf {
+    final value = _oneOf;
+    if (value == null) return null;
+    if (_oneOf is EqualUnmodifiableListView) return _oneOf;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -9270,7 +9292,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
 
   @override
   String toString() {
-    return 'Schema.object(title: $title, description: $description, defaultValue: $defaultValue, ref: $ref, allOf: $allOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, nullable: $nullable, xml: $xml)';
+    return 'Schema.object(title: $title, description: $description, defaultValue: $defaultValue, ref: $ref, allOf: $allOf, oneOf: $oneOf, anyOf: $anyOf, required: $required, discriminator: $discriminator, externalDocs: $externalDocs, properties: $properties, nullable: $nullable, xml: $xml)';
   }
 
   @override
@@ -9285,6 +9307,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
                 .equals(other.defaultValue, defaultValue) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             const DeepCollectionEquality().equals(other._allOf, _allOf) &&
+            const DeepCollectionEquality().equals(other._oneOf, _oneOf) &&
             const DeepCollectionEquality().equals(other._anyOf, _anyOf) &&
             const DeepCollectionEquality().equals(other._required, _required) &&
             (identical(other.discriminator, discriminator) ||
@@ -9307,6 +9330,7 @@ class _$SchemaObjectImpl extends _SchemaObject {
       const DeepCollectionEquality().hash(defaultValue),
       ref,
       const DeepCollectionEquality().hash(_allOf),
+      const DeepCollectionEquality().hash(_oneOf),
       const DeepCollectionEquality().hash(_anyOf),
       const DeepCollectionEquality().hash(_required),
       discriminator,
@@ -9326,14 +9350,14 @@ class _$SchemaObjectImpl extends _SchemaObject {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return object(this);
   }
@@ -9341,14 +9365,14 @@ class _$SchemaObjectImpl extends _SchemaObject {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return object?.call(this);
   }
@@ -9356,14 +9380,14 @@ class _$SchemaObjectImpl extends _SchemaObject {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (object != null) {
@@ -9380,13 +9404,14 @@ class _$SchemaObjectImpl extends _SchemaObject {
   }
 }
 
-abstract class _SchemaObject extends Schema {
-  const factory _SchemaObject(
+abstract class SchemaObject extends Schema {
+  const factory SchemaObject(
       {final String? title,
       final String? description,
       @JsonKey(name: 'default') final dynamic defaultValue,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref,
       @_SchemaListConverter() final List<Schema>? allOf,
+      @_SchemaListConverter() final List<Schema>? oneOf,
       @_SchemaListConverter() final List<Schema>? anyOf,
       final List<String>? required,
       final Discriminator? discriminator,
@@ -9394,9 +9419,9 @@ abstract class _SchemaObject extends Schema {
       final Map<String, Schema>? properties,
       final bool? nullable,
       final Xml? xml}) = _$SchemaObjectImpl;
-  const _SchemaObject._() : super._();
+  const SchemaObject._() : super._();
 
-  factory _SchemaObject.fromJson(Map<String, dynamic> json) =
+  factory SchemaObject.fromJson(Map<String, dynamic> json) =
       _$SchemaObjectImpl.fromJson;
 
   /// A summary title of the schema
@@ -9421,6 +9446,10 @@ abstract class _SchemaObject extends Schema {
   /// The allOf definition
   @_SchemaListConverter()
   List<Schema>? get allOf;
+
+  /// The allOf definition
+  @_SchemaListConverter()
+  List<Schema>? get oneOf;
 
   /// The anyOf definition
   @_SchemaListConverter()
@@ -9547,7 +9576,7 @@ class __$$SchemaBooleanImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaBooleanImpl extends _SchemaBoolean {
+class _$SchemaBooleanImpl extends SchemaBoolean {
   const _$SchemaBooleanImpl(
       {this.xml,
       this.title,
@@ -9622,14 +9651,14 @@ class _$SchemaBooleanImpl extends _SchemaBoolean {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return boolean(this);
   }
@@ -9637,14 +9666,14 @@ class _$SchemaBooleanImpl extends _SchemaBoolean {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return boolean?.call(this);
   }
@@ -9652,14 +9681,14 @@ class _$SchemaBooleanImpl extends _SchemaBoolean {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (boolean != null) {
@@ -9676,8 +9705,8 @@ class _$SchemaBooleanImpl extends _SchemaBoolean {
   }
 }
 
-abstract class _SchemaBoolean extends Schema {
-  const factory _SchemaBoolean(
+abstract class SchemaBoolean extends Schema {
+  const factory SchemaBoolean(
           {final Xml? xml,
           final String? title,
           final String? description,
@@ -9686,9 +9715,9 @@ abstract class _SchemaBoolean extends Schema {
           final bool? example,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaBooleanImpl;
-  const _SchemaBoolean._() : super._();
+  const SchemaBoolean._() : super._();
 
-  factory _SchemaBoolean.fromJson(Map<String, dynamic> json) =
+  factory SchemaBoolean.fromJson(Map<String, dynamic> json) =
       _$SchemaBooleanImpl.fromJson;
 
   Xml? get xml;
@@ -9842,7 +9871,7 @@ class __$$SchemaStringImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaStringImpl extends _SchemaString {
+class _$SchemaStringImpl extends SchemaString {
   const _$SchemaStringImpl(
       {this.xml,
       this.title,
@@ -9961,14 +9990,14 @@ class _$SchemaStringImpl extends _SchemaString {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return string(this);
   }
@@ -9976,14 +10005,14 @@ class _$SchemaStringImpl extends _SchemaString {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return string?.call(this);
   }
@@ -9991,14 +10020,14 @@ class _$SchemaStringImpl extends _SchemaString {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (string != null) {
@@ -10015,8 +10044,8 @@ class _$SchemaStringImpl extends _SchemaString {
   }
 }
 
-abstract class _SchemaString extends Schema {
-  const factory _SchemaString(
+abstract class SchemaString extends Schema {
+  const factory SchemaString(
           {final Xml? xml,
           final String? title,
           final String? description,
@@ -10032,9 +10061,9 @@ abstract class _SchemaString extends Schema {
           final bool? exclusiveMaximum,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaStringImpl;
-  const _SchemaString._() : super._();
+  const SchemaString._() : super._();
 
-  factory _SchemaString.fromJson(Map<String, dynamic> json) =
+  factory SchemaString.fromJson(Map<String, dynamic> json) =
       _$SchemaStringImpl.fromJson;
 
   Xml? get xml;
@@ -10197,7 +10226,7 @@ class __$$SchemaIntegerImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaIntegerImpl extends _SchemaInteger {
+class _$SchemaIntegerImpl extends SchemaInteger {
   const _$SchemaIntegerImpl(
       {this.xml,
       this.title,
@@ -10317,14 +10346,14 @@ class _$SchemaIntegerImpl extends _SchemaInteger {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return integer(this);
   }
@@ -10332,14 +10361,14 @@ class _$SchemaIntegerImpl extends _SchemaInteger {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return integer?.call(this);
   }
@@ -10347,14 +10376,14 @@ class _$SchemaIntegerImpl extends _SchemaInteger {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (integer != null) {
@@ -10371,8 +10400,8 @@ class _$SchemaIntegerImpl extends _SchemaInteger {
   }
 }
 
-abstract class _SchemaInteger extends Schema {
-  const factory _SchemaInteger(
+abstract class SchemaInteger extends Schema {
+  const factory SchemaInteger(
       {final Xml? xml,
       final String? title,
       final String? description,
@@ -10389,9 +10418,9 @@ abstract class _SchemaInteger extends Schema {
       @JsonKey(name: '\$ref')
       @_SchemaRefConverter()
       final String? ref}) = _$SchemaIntegerImpl;
-  const _SchemaInteger._() : super._();
+  const SchemaInteger._() : super._();
 
-  factory _SchemaInteger.fromJson(Map<String, dynamic> json) =
+  factory SchemaInteger.fromJson(Map<String, dynamic> json) =
       _$SchemaIntegerImpl.fromJson;
 
   Xml? get xml;
@@ -10556,7 +10585,7 @@ class __$$SchemaNumberImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaNumberImpl extends _SchemaNumber {
+class _$SchemaNumberImpl extends SchemaNumber {
   const _$SchemaNumberImpl(
       {this.xml,
       this.title,
@@ -10676,14 +10705,14 @@ class _$SchemaNumberImpl extends _SchemaNumber {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return number(this);
   }
@@ -10691,14 +10720,14 @@ class _$SchemaNumberImpl extends _SchemaNumber {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return number?.call(this);
   }
@@ -10706,14 +10735,14 @@ class _$SchemaNumberImpl extends _SchemaNumber {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (number != null) {
@@ -10730,8 +10759,8 @@ class _$SchemaNumberImpl extends _SchemaNumber {
   }
 }
 
-abstract class _SchemaNumber extends Schema {
-  const factory _SchemaNumber(
+abstract class SchemaNumber extends Schema {
+  const factory SchemaNumber(
           {final Xml? xml,
           final String? title,
           final String? description,
@@ -10748,9 +10777,9 @@ abstract class _SchemaNumber extends Schema {
           @JsonKey(fromJson: _fromJsonDouble) final double? multipleOf,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaNumberImpl;
-  const _SchemaNumber._() : super._();
+  const SchemaNumber._() : super._();
 
-  factory _SchemaNumber.fromJson(Map<String, dynamic> json) =
+  factory SchemaNumber.fromJson(Map<String, dynamic> json) =
       _$SchemaNumberImpl.fromJson;
 
   Xml? get xml;
@@ -10869,7 +10898,7 @@ class __$$SchemaEnumImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaEnumImpl extends _SchemaEnum {
+class _$SchemaEnumImpl extends SchemaEnum {
   const _$SchemaEnumImpl(
       {this.title,
       this.description,
@@ -10968,14 +10997,14 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return enumeration(this);
   }
@@ -10983,14 +11012,14 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return enumeration?.call(this);
   }
@@ -10998,14 +11027,14 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (enumeration != null) {
@@ -11022,8 +11051,8 @@ class _$SchemaEnumImpl extends _SchemaEnum {
   }
 }
 
-abstract class _SchemaEnum extends Schema {
-  const factory _SchemaEnum(
+abstract class SchemaEnum extends Schema {
+  const factory SchemaEnum(
           {final String? title,
           final String? description,
           final String? example,
@@ -11034,9 +11063,9 @@ abstract class _SchemaEnum extends Schema {
           @JsonKey(name: 'enum') final List<String>? values,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaEnumImpl;
-  const _SchemaEnum._() : super._();
+  const SchemaEnum._() : super._();
 
-  factory _SchemaEnum.fromJson(Map<String, dynamic> json) =
+  factory SchemaEnum.fromJson(Map<String, dynamic> json) =
       _$SchemaEnumImpl.fromJson;
 
   @override
@@ -11185,7 +11214,7 @@ class __$$SchemaArrayImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaArrayImpl extends _SchemaArray {
+class _$SchemaArrayImpl extends SchemaArray {
   const _$SchemaArrayImpl(
       {this.xml,
       this.title,
@@ -11295,14 +11324,14 @@ class _$SchemaArrayImpl extends _SchemaArray {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return array(this);
   }
@@ -11310,14 +11339,14 @@ class _$SchemaArrayImpl extends _SchemaArray {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return array?.call(this);
   }
@@ -11325,14 +11354,14 @@ class _$SchemaArrayImpl extends _SchemaArray {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (array != null) {
@@ -11349,8 +11378,8 @@ class _$SchemaArrayImpl extends _SchemaArray {
   }
 }
 
-abstract class _SchemaArray extends Schema {
-  const factory _SchemaArray(
+abstract class SchemaArray extends Schema {
+  const factory SchemaArray(
           {final Xml? xml,
           final String? title,
           final String? description,
@@ -11362,9 +11391,9 @@ abstract class _SchemaArray extends Schema {
           required final Schema items,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaArrayImpl;
-  const _SchemaArray._() : super._();
+  const SchemaArray._() : super._();
 
-  factory _SchemaArray.fromJson(Map<String, dynamic> json) =
+  factory SchemaArray.fromJson(Map<String, dynamic> json) =
       _$SchemaArrayImpl.fromJson;
 
   Xml? get xml;
@@ -11510,7 +11539,7 @@ class __$$SchemaMapImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SchemaMapImpl extends _SchemaMap {
+class _$SchemaMapImpl extends SchemaMap {
   const _$SchemaMapImpl(
       {this.xml,
       this.title,
@@ -11624,14 +11653,14 @@ class _$SchemaMapImpl extends _SchemaMap {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SchemaObject value) object,
-    required TResult Function(_SchemaBoolean value) boolean,
-    required TResult Function(_SchemaString value) string,
-    required TResult Function(_SchemaInteger value) integer,
-    required TResult Function(_SchemaNumber value) number,
-    required TResult Function(_SchemaEnum value) enumeration,
-    required TResult Function(_SchemaArray value) array,
-    required TResult Function(_SchemaMap value) map,
+    required TResult Function(SchemaObject value) object,
+    required TResult Function(SchemaBoolean value) boolean,
+    required TResult Function(SchemaString value) string,
+    required TResult Function(SchemaInteger value) integer,
+    required TResult Function(SchemaNumber value) number,
+    required TResult Function(SchemaEnum value) enumeration,
+    required TResult Function(SchemaArray value) array,
+    required TResult Function(SchemaMap value) map,
   }) {
     return map(this);
   }
@@ -11639,14 +11668,14 @@ class _$SchemaMapImpl extends _SchemaMap {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_SchemaObject value)? object,
-    TResult? Function(_SchemaBoolean value)? boolean,
-    TResult? Function(_SchemaString value)? string,
-    TResult? Function(_SchemaInteger value)? integer,
-    TResult? Function(_SchemaNumber value)? number,
-    TResult? Function(_SchemaEnum value)? enumeration,
-    TResult? Function(_SchemaArray value)? array,
-    TResult? Function(_SchemaMap value)? map,
+    TResult? Function(SchemaObject value)? object,
+    TResult? Function(SchemaBoolean value)? boolean,
+    TResult? Function(SchemaString value)? string,
+    TResult? Function(SchemaInteger value)? integer,
+    TResult? Function(SchemaNumber value)? number,
+    TResult? Function(SchemaEnum value)? enumeration,
+    TResult? Function(SchemaArray value)? array,
+    TResult? Function(SchemaMap value)? map,
   }) {
     return map?.call(this);
   }
@@ -11654,14 +11683,14 @@ class _$SchemaMapImpl extends _SchemaMap {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SchemaObject value)? object,
-    TResult Function(_SchemaBoolean value)? boolean,
-    TResult Function(_SchemaString value)? string,
-    TResult Function(_SchemaInteger value)? integer,
-    TResult Function(_SchemaNumber value)? number,
-    TResult Function(_SchemaEnum value)? enumeration,
-    TResult Function(_SchemaArray value)? array,
-    TResult Function(_SchemaMap value)? map,
+    TResult Function(SchemaObject value)? object,
+    TResult Function(SchemaBoolean value)? boolean,
+    TResult Function(SchemaString value)? string,
+    TResult Function(SchemaInteger value)? integer,
+    TResult Function(SchemaNumber value)? number,
+    TResult Function(SchemaEnum value)? enumeration,
+    TResult Function(SchemaArray value)? array,
+    TResult Function(SchemaMap value)? map,
     required TResult orElse(),
   }) {
     if (map != null) {
@@ -11678,8 +11707,8 @@ class _$SchemaMapImpl extends _SchemaMap {
   }
 }
 
-abstract class _SchemaMap extends Schema {
-  const factory _SchemaMap(
+abstract class SchemaMap extends Schema {
+  const factory SchemaMap(
           {final Xml? xml,
           final String? title,
           final String? description,
@@ -11693,9 +11722,9 @@ abstract class _SchemaMap extends Schema {
           final Schema? valueSchema,
           @JsonKey(name: '\$ref') @_SchemaRefConverter() final String? ref}) =
       _$SchemaMapImpl;
-  const _SchemaMap._() : super._();
+  const SchemaMap._() : super._();
 
-  factory _SchemaMap.fromJson(Map<String, dynamic> json) =
+  factory SchemaMap.fromJson(Map<String, dynamic> json) =
       _$SchemaMapImpl.fromJson;
 
   Xml? get xml;
