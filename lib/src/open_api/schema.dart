@@ -257,6 +257,7 @@ class Schema with _$Schema {
       );
     }
 
+    // schema alias issue is caused by _checkReferenceTypes returning false
     final isMatch = _checkReferenceTypes(ref, sRef, this);
 
     if (!isMatch) {

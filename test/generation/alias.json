@@ -1,0 +1,25 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "schema",
+    "description": "Schema",
+    "version": "1.0.0"
+  },
+  "paths": {
+  },
+  "components": {
+    "schemas": {
+      "MyAlias": {
+        "type": "string"
+      },
+      "MyObject": {
+        "type": "object",
+        "properties": {
+          "myField": {
+            "$ref": "#/components/schemas/MyAlias"
+          }
+        }
+      }
+    }
+  }
+}
