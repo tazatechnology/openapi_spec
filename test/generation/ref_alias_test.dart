@@ -34,7 +34,7 @@ void main() {
 
       final dereferenced = field.dereference(components: spec.components!.schemas);
 
-      // the deferenced schema should now be a string
+      // the dereferenced schema should now be a string
       expect(dereferenced.type, equals(SchemaType.string));
       expect(dereferenced.ref, isNull);
     });

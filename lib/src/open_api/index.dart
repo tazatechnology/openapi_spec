@@ -59,8 +59,7 @@ bool _checkReferenceTypes(name, ref, self) {
       return true;
     } else if (self is SchemaObject) {
       // Reference types can be different if the reference is a SchemaObject
-      // should this return true?
-      return false;
+      return true;
     } else {
       throw Exception(
         "\n\n'$name' type mismatch\n\nSchema component type: $sRefType\n\nUser specified reference type: $sType\n",

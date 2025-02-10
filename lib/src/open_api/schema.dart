@@ -267,21 +267,47 @@ class Schema with _$Schema {
 
     return map(
       object: (s) {
-        // Handle List and Map defined as typedefs
-        if (sRef is SchemaArray || sRef is SchemaMap) {
-          return copyWith(
-            title: s.title ?? sRef.title,
-            description: s.description ?? sRef.description,
-            nullable: s.nullable ?? sRef.nullable,
-          );
-        }
-
-        return (sRef as SchemaObject).copyWith(
-          ref: ref,
-          title: s.title ?? sRef.title,
-          description: s.description ?? sRef.description,
-          defaultValue: s.defaultValue ?? sRef.defaultValue,
-          nullable: s.nullable ?? sRef.nullable,
+        return sRef.maybeMap(
+          array: (a) {
+            return copyWith(
+              title: s.title ?? sRef.title,
+              description: s.description ?? sRef.description,
+              nullable: s.nullable ?? sRef.nullable,
+            );
+          },
+          map: (m) {
+            return copyWith(
+              title: s.title ?? sRef.title,
+              description: s.description ?? sRef.description,
+              nullable: s.nullable ?? sRef.nullable,
+            );
+          },
+          enumeration: (e){
+            return e.copyWith(
+              ref: ref,
+              title: s.title ?? sRef.title,
+              description: s.description ?? sRef.description,
+              defaultValue: s.defaultValue ?? sRef.defaultValue,
+              nullable: s.nullable ?? sRef.nullable,
+            );
+          },
+          object: (o) {
+            return o.copyWith(
+              ref: ref,
+              title: s.title ?? sRef.title,
+              description: s.description ?? sRef.description,
+              defaultValue: s.defaultValue ?? sRef.defaultValue,
+              nullable: s.nullable ?? sRef.nullable,
+            );
+          },
+          orElse: () {
+            return sRef.copyWith(
+              // ref: ref,
+              title: s.title ?? sRef.title,
+              description: s.description ?? sRef.description,
+              nullable: s.nullable ?? sRef.nullable,
+            );
+          },
         );
       },
       boolean: (s) {
