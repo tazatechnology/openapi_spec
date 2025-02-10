@@ -59,6 +59,7 @@ bool _checkReferenceTypes(name, ref, self) {
       return true;
     } else if (self is SchemaObject) {
       // Reference types can be different if the reference is a SchemaObject
+      // should this return true?
       return false;
     } else {
       throw Exception(
