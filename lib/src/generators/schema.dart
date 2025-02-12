@@ -160,6 +160,13 @@ class SchemaGenerator extends BaseGenerator {
         enumeration: (schema) {
           _writeEnumeration(name: name, schema: schema);
         },
+        string: (value) {
+          _writeTypedef(
+            name: name,
+            description: value.description,
+            def: 'String',
+          );
+        },
         array: (schema) {
           final iType = schema.items.toDartType();
           _writeTypedef(
