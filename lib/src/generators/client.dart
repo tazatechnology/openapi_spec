@@ -160,20 +160,25 @@ class $clientException implements Exception {
 
   @override
   String toString() {
+    final s = JsonEncoder.withIndent(' ').convert(toJson());
+    return 'GeminusClientException(\$s)';
+  }
+
+  /// Convert exception to JSON
+  Map<String, dynamic> toJson() {
     Object? data;
     try {
       data = body is String ? jsonDecode(body as String) : body.toString();
     } catch (e) {
       data = body.toString();
     }
-    final s = JsonEncoder.withIndent('  ').convert({
+    return {
       'uri': uri.toString(),
       'method': method.name.toUpperCase(),
       'code': code,
       'message': message,
       'body': data,
-    });
-    return '$clientException(\$s)';
+    };
   }
 }
 
