@@ -670,6 +670,7 @@ class SchemaGenerator extends BaseGenerator {
     required Schema property,
     required bool required,
   }) {
+    property = property.dereference(components: spec.components?.schemas);
     // The validation to perform for this property
     SchemaValidation? validation;
 
@@ -717,10 +718,6 @@ class SchemaGenerator extends BaseGenerator {
 
     property.map(
       object: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              object: (s) => s,
-              orElse: () => p,
-            );
         bool hasDefault = p.defaultValue != null;
 
         String customConverter = '';
@@ -823,19 +820,11 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       boolean: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              boolean: (s) => s,
-              orElse: () => p,
-            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "bool ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       string: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              string: (s) => s,
-              orElse: () => p,
-            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -850,10 +839,6 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       integer: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              integer: (s) => s,
-              orElse: () => p,
-            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "int ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -871,10 +856,6 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       number: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              number: (s) => s,
-              orElse: () => p,
-            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "double ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -892,20 +873,12 @@ class SchemaGenerator extends BaseGenerator {
         );
       },
       array: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              array: (s) => s,
-              orElse: () => p,
-            );
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         var itemType = p.items.toDartType(unions: _unions);
         c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       map: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              map: (s) => s,
-              orElse: () => p,
-            );
         // If map is not required and is not explicitly nullable, default to empty map
         if (!required && p.nullable != true) {
           p = p.copyWith(defaultValue: {}, nullable: false);
@@ -917,11 +890,6 @@ class SchemaGenerator extends BaseGenerator {
         file.writeAsStringSync(c, mode: FileMode.append);
       },
       enumeration: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              enumeration: (s) => s,
-              orElse: () => p,
-            );
-
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required || p.nullable == true;
         String description = p.description?.trim() ?? '';
