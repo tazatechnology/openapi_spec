@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.26
+
+* Fix dereference of alias schemas for `String` primitive
+* Add a toJSON method to client exception class
+
 ## 0.7.25
 
 * Makes schema subtypes public, adds oneOf field support
