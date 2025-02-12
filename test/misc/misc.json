@@ -31,6 +31,12 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
     "schemas": {
       "MapResult": {
         "properties": {},
@@ -38,6 +44,17 @@
         "type": "object",
         "title": "MapResult",
         "description": "A MapResult"
+      },
+      "StringAlias": {
+        "type": "string"
+      },
+      "MyObject": {
+        "type": "object",
+        "properties": {
+          "myField": {
+            "$ref": "#/components/schemas/StringAlias"
+          }
+        }
       }
     }
   }
