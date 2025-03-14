@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Open ID protocol configuration
 @freezed
-class OpenId with _$OpenId {
+abstract class OpenId with _$OpenId {
   const factory OpenId({
     /// Text
     String? issuer,

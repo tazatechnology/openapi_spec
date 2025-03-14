@@ -46,7 +46,7 @@ abstract class BaseGenerator {
   }
 
   /// Method to generate file(s)
-  Future<void> generate();
+  void generate();
 
   void printLog(String title, String message) {
     if (!quiet) {

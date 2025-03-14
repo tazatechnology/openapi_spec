@@ -9,7 +9,7 @@ part of 'index.dart';
 /// unless they are explicitly referenced from properties outside the components object.
 /// https://swagger.io/specification/#components-object
 @freezed
-class Components with _$Components {
+abstract class Components with _$Components {
   const factory Components({
     /// A set of reusable [Schema] objects.
     @_SchemaMapConverter() Map<String, Schema>? schemas,

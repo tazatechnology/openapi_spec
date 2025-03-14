@@ -37,7 +37,7 @@ enum SchemaType {
 /// https://swagger.io/specification/#schema-object
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md
 @Freezed(unionKey: 'type', fallbackUnion: 'object')
-class Schema with _$Schema {
+abstract class Schema with _$Schema {
   const Schema._();
 
   const factory Schema.object({
@@ -88,16 +88,17 @@ class Schema with _$Schema {
 
   /// Get the schema type based on the union type
   SchemaType get type {
-    return map(
-      object: (_) => SchemaType.object,
-      boolean: (_) => SchemaType.boolean,
-      string: (_) => SchemaType.string,
-      integer: (_) => SchemaType.integer,
-      number: (_) => SchemaType.number,
-      enumeration: (_) => SchemaType.enumeration,
-      array: (_) => SchemaType.array,
-      map: (_) => SchemaType.map,
-    );
+    return switch (this) {
+      SchemaObject() => SchemaType.object,
+      SchemaBoolean() => SchemaType.boolean,
+      SchemaString() => SchemaType.string,
+      SchemaInteger() => SchemaType.integer,
+      SchemaNumber() => SchemaType.number,
+      SchemaEnum() => SchemaType.enumeration,
+      SchemaArray() => SchemaType.array,
+      SchemaMap() => SchemaType.map,
+      _ => throw StateError('Unknown schema type'),
+    };
   }
 
   // ------------------------------------------
@@ -264,56 +265,63 @@ class Schema with _$Schema {
       return Schema.object(ref: ref);
     }
 
-    return map(
-      object: (s) {
+    late Schema result;
+    switch (this) {
+      case SchemaObject(
+          title: final title,
+          description: final description,
+          nullable: final nullable,
+          defaultValue: final defaultValue
+        ):
         // Handle List and Map defined as typedefs
         if (sRef is SchemaArray || sRef is SchemaMap) {
-          return copyWith(
-            title: s.title ?? sRef.title,
-            description: s.description ?? sRef.description,
-            nullable: s.nullable ?? sRef.nullable,
+          result = copyWith(
+            title: title ?? sRef.title,
+            description: description ?? sRef.description,
+            nullable: nullable ?? sRef.nullable,
           );
+          break;
         }
 
-        return (sRef as SchemaObject).copyWith(
+        result = (sRef as SchemaObject).copyWith(
           ref: ref,
-          title: s.title ?? sRef.title,
-          description: s.description ?? sRef.description,
-          defaultValue: s.defaultValue ?? sRef.defaultValue,
-          nullable: s.nullable ?? sRef.nullable,
+          title: title ?? sRef.title,
+          description: description ?? sRef.description,
+          defaultValue: defaultValue ?? sRef.defaultValue,
+          nullable: nullable ?? sRef.nullable,
         );
-      },
-      boolean: (s) {
-        return (sRef as SchemaBoolean).copyWith(ref: ref);
-      },
-      string: (s) {
-        return (sRef as SchemaString).copyWith(ref: ref);
-      },
-      integer: (s) {
-        return (sRef as SchemaInteger).copyWith(ref: ref);
-      },
-      number: (s) {
-        return (sRef as SchemaNumber).copyWith(ref: ref);
-      },
-      enumeration: (s) {
-        return (sRef as SchemaEnum).copyWith(
+      case SchemaBoolean():
+        result = (sRef as SchemaBoolean).copyWith(ref: ref);
+      case SchemaString():
+        result = (sRef as SchemaString).copyWith(ref: ref);
+      case SchemaInteger():
+        result = (sRef as SchemaInteger).copyWith(ref: ref);
+      case SchemaNumber():
+        result = (sRef as SchemaNumber).copyWith(ref: ref);
+      case SchemaEnum(
+          title: final title,
+          description: final description,
+          example: final example,
+          defaultValue: final defaultValue,
+          nullable: final nullable
+        ):
+        result = (sRef as SchemaEnum).copyWith(
           ref: ref,
-          title: s.title ?? sRef.title,
-          description: s.description ?? sRef.description,
-          defaultValue: s.defaultValue ?? sRef.defaultValue,
-          example: s.example ?? sRef.example,
-          nullable: s.nullable ?? sRef.nullable,
+          title: title ?? sRef.title,
+          description: description ?? sRef.description,
+          defaultValue: defaultValue ?? sRef.defaultValue,
+          example: example ?? sRef.example,
+          nullable: nullable ?? sRef.nullable,
         );
-      },
-      array: (s) {
-        return (sRef as SchemaArray).copyWith(ref: ref);
-      },
-      map: (s) {
-        return (sRef as SchemaMap).copyWith(
+      case SchemaArray():
+        result = (sRef as SchemaArray).copyWith(ref: ref);
+      case SchemaMap():
+        result = (sRef as SchemaMap).copyWith(
           ref: ref,
         );
-      },
-    );
+    }
+
+    return result;
   }
 
   // ------------------------------------------
@@ -324,68 +332,73 @@ class Schema with _$Schema {
   String toDartType({
     Map<String, List<String>>? unions,
   }) {
-    return map(
-      object: (s) {
-        if (s.anyOf != null && unions != null) {
-          final subSchemas = s.anyOf!.map((e) => e.toDartType()).toList();
+    late String result;
+    switch (this) {
+      case SchemaObject(
+          anyOf: final anyOf,
+          nullable: final nullable,
+          ref: final ref,
+          properties: final properties,
+        ):
+        if (anyOf != null && unions != null) {
+          final subSchemas = anyOf.map((e) => e.toDartType()).toList();
           final leq = ListEquality();
           for (final e in unions.entries) {
             if (leq.equals(subSchemas, e.value)) {
               final type = e.key.pascalCase;
-              if (s.nullable == true) {
-                return '$type?';
+              if (nullable == true) {
+                result = '$type?';
               } else {
-                return type;
+                result = type;
               }
             }
           }
-        } else if (s.ref != null) {
+          break;
+        } else if (ref != null) {
           String type;
           // Do not modify all uppercase schema names
-          if (s.ref == s.ref!.toUpperCase()) {
-            type = s.ref!;
+          if (ref == ref.toUpperCase()) {
+            type = ref;
           } else {
-            type = s.ref!.pascalCase;
+            type = ref.pascalCase;
           }
-          if (s.nullable == true) {
-            return '$type?';
+          if (nullable == true) {
+            result = '$type?';
           } else {
-            return type;
+            result = type;
           }
-        } else if (s.properties != null || s.anyOf != null) {
-          return 'Map<String,dynamic>';
+          break;
+        } else if (properties != null || anyOf != null) {
+          result = 'Map<String,dynamic>';
+          break;
         }
-        return 'dynamic';
-      },
-      boolean: (s) {
-        return s.nullable == true ? 'bool?' : 'bool';
-      },
-      string: (s) {
-        return s.nullable == true ? 'String?' : 'String';
-      },
-      integer: (s) {
-        return s.nullable == true ? 'int?' : 'int';
-      },
-      number: (s) {
-        return s.nullable == true ? 'double?' : 'double';
-      },
-      enumeration: (s) {
-        return s.ref ?? 'String';
-      },
-      array: (s) {
-        final itemType = s.items.toDartType();
-        return s.nullable == true ? 'List<$itemType>?' : 'List<$itemType>';
-      },
-      map: (s) {
-        String valueType = s.valueSchema?.toDartType() ?? 'dynamic';
-        if (valueType != 'dynamic' && s.valueSchema?.nullable == true) {
+        result = 'dynamic';
+        break;
+      case SchemaBoolean():
+        result = nullable == true ? 'bool?' : 'bool';
+        break;
+      case SchemaString():
+        result = nullable == true ? 'String?' : 'String';
+      case SchemaInteger():
+        result = nullable == true ? 'int?' : 'int';
+      case SchemaNumber():
+        result = nullable == true ? 'double?' : 'double';
+      case SchemaEnum():
+        result = ref ?? 'String';
+      case SchemaArray(items: final items):
+        final itemType = items.toDartType();
+        result = nullable == true ? 'List<$itemType>?' : 'List<$itemType>';
+      case SchemaMap(valueSchema: final valueSchema, nullable: final nullable):
+        String valueType = valueSchema?.toDartType() ?? 'dynamic';
+        if (valueType != 'dynamic' && valueSchema?.nullable == true) {
           valueType = '$valueType?';
         }
-        return s.nullable == true
+        result = nullable == true
             ? 'Map<String,$valueType>?'
             : 'Map<String,$valueType>';
-      },
-    );
+    }
+
+    return result;
   }
 }
 
@@ -436,21 +449,21 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
     // Handle references
     if (s.ref != null) {
       final refMap = {'\$ref': _SchemaRefConverter().toJson(s.ref)};
-      return s.maybeMap(
-        object: (i) {
-          if (i.allOf == null && i.anyOf == null) {
-            return refMap;
+      late Map<String, dynamic> result;
+      switch (s) {
+        case SchemaObject(allOf: final allOf, anyOf: final anyOf):
+          if (allOf == null && anyOf == null) {
+            result = refMap;
           } else {
-            return s.toJson();
+            result = s.toJson();
           }
-        },
-        orElse: () => refMap,
-      );
+        case _:
+          result = refMap;
+      }
+      return result;
     }
     // Conditional handling of scheme types
-    return s.maybeMap(
-      orElse: () => s.toJson(),
-    );
+    return s.toJson();
   }
 
   @override

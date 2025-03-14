@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Header with _$Header {
+abstract class Header with _$Header {
   const factory Header({
     /// Text
     String? description,

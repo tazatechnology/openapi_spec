@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Discriminator with _$Discriminator {
+abstract class Discriminator with _$Discriminator {
   const factory Discriminator({
     /// The name of the property in the payload that will hold the discriminator value.
     required String propertyName,

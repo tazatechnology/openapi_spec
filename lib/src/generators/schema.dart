@@ -36,7 +36,7 @@ class SchemaGenerator extends BaseGenerator {
   // ------------------------------------------
 
   @override
-  Future<void> generate() async {
+  void generate() {
     final schemas = spec.components?.schemas;
     if (schemas == null) {
       return;
@@ -54,10 +54,10 @@ class SchemaGenerator extends BaseGenerator {
 
     // Check if code generation required
     final codeGenerationRequired = schemas.values.any((s) {
-      final isObject = s.mapOrNull(
-        object: (value) => true,
-      );
-      return isObject ?? false;
+      return switch (s) {
+        SchemaObject() => true,
+        _ => false,
+      };
     });
 
     // Add expected part imports if code generation is required
@@ -131,14 +131,15 @@ class SchemaGenerator extends BaseGenerator {
       }
 
       // Write individual schema definitions
-      schemas[s]?.mapOrNull(
-        object: (schema) {
-          _writeObject(name: name, schema: schema);
+      switch (schemas[s]) {
+        case SchemaObject():
+          _writeObject(name: name, schema: schemas[s]!);
           // Check if there are any extra schemas to write in this file
           if (spec.extraSchemaMapping.containsKey(s)) {
             for (final extra in spec.extraSchemaMapping[s]!) {
-              schemas[extra]?.mapOrNull(
-                object: (extraSchema) {
+              switch (schemas[extra]) {
+                case SchemaObject():
+                  final extraSchema = schemas[extra]! as SchemaObject;
                   if (extraSchema.anyOf?.isEmpty ?? true) {
                     _writeObject(name: extra, schema: extraSchema);
                   } else {
@@ -149,41 +150,37 @@ class SchemaGenerator extends BaseGenerator {
                       _writePrimitiveUnion(schema: extraSchema);
                     }
                   }
-                },
-                enumeration: (extraSchema) {
-                  _writeEnumeration(name: extra, schema: extraSchema);
-                },
-              );
+                case SchemaEnum():
+                  _writeEnumeration(name: extra, schema: schemas[extra]!);
+              }
             }
           }
-        },
-        enumeration: (schema) {
-          _writeEnumeration(name: name, schema: schema);
-        },
-        string: (value) {
+        case SchemaEnum():
+          _writeEnumeration(name: name, schema: schemas[s]!);
+        case SchemaString(description: final description):
           _writeTypedef(
             name: name,
-            description: value.description,
+            description: description,
             def: 'String',
           );
-        },
-        array: (schema) {
-          final iType = schema.items.toDartType();
+        case SchemaArray(items: final items, description: final description):
+          final iType = items.toDartType();
           _writeTypedef(
             name: name,
-            description: schema.description,
+            description: description,
             def: 'List<$iType>',
           );
-        },
-        map: (schema) {
-          final vType = schema.valueSchema?.toDartType() ?? 'dynamic';
+        case SchemaMap(
+            valueSchema: final valueSchema,
+            description: final description
+          ):
+          final vType = valueSchema?.toDartType() ?? 'dynamic';
           _writeTypedef(
             name: name,
-            description: schema.description,
+            description: description,
             def: 'Map<String,$vType>',
           );
-        },
-      );
+      }
     }
 
     // Write union schema definitions
@@ -254,7 +251,11 @@ class SchemaGenerator extends BaseGenerator {
       final uClass = "$union.$uSubClass";
 
       // Write each property of the union type
-      var schema = spec.components?.schemas?[s]?.mapOrNull(object: (o) => o);
+      final componentSchema = spec.components?.schemas?[s];
+      final schema = switch (componentSchema) {
+        SchemaObject() => componentSchema,
+        _ => null,
+      };
 
       if (schema == null) {
         throw Exception("\n\nUnion schema '$s' not found in components\n");
@@ -262,18 +263,24 @@ class SchemaGenerator extends BaseGenerator {
       final props = Map<String, Schema>.from(schema.properties ?? {});
 
       // Attempt to get the union value based on the key
-      String? unionValue = props[unionKey]?.mapOrNull(
-        string: (s) => s.defaultValue,
-        enumeration: (s) {
-          // Convert the union enum to a string
-          props[unionKey] = Schema.string(
-            description: s.description,
-            defaultValue: s.defaultValue,
-            nullable: s.nullable,
-          );
-          return s.defaultValue;
-        },
-      );
+      String? unionValue = switch (props[unionKey]) {
+        SchemaString(defaultValue: final defaultValue) => defaultValue,
+        SchemaEnum(
+          description: final description,
+          defaultValue: final defaultValue,
+          nullable: final nullable
+        ) =>
+          (() {
+            // Convert the union enum to a string
+            props[unionKey] = Schema.string(
+              description: description,
+              defaultValue: defaultValue,
+              nullable: nullable,
+            );
+            return defaultValue;
+          })(),
+        _ => null,
+      };
       if (unionValue != null) {
         unionValues.add(unionValue);
         unionValue = "\n@FreezedUnionValue('$unionValue')";
@@ -374,9 +381,9 @@ class SchemaGenerator extends BaseGenerator {
     final uNameConstr = '_Union$union';
     String defaultFallback = '';
 
-    schema.mapOrNull(
-      object: (s) {
-        final subSchemas = (s.anyOf?.toList() ?? <Schema>[]);
+    switch (schema) {
+      case SchemaObject(anyOf: final anyOf):
+        final subSchemas = (anyOf?.toList() ?? <Schema>[]);
         subSchemas.sort(
           (a, b) {
             if (a.type == SchemaType.map) {
@@ -393,11 +400,11 @@ class SchemaGenerator extends BaseGenerator {
           },
         );
         for (final a in subSchemas) {
-          a.mapOrNull(
-            object: (o) {
+          switch (a) {
+            case SchemaObject(ref: final ref):
               // Handle object reference
-              if (o.ref != null) {
-                final ref = o.dereference(components: spec.components?.schemas);
+              if (ref != null) {
+                final ref = a.dereference(components: spec.components?.schemas);
                 final uType = ref.toDartType().replaceAll('?', '');
                 final uFactory = '$union.${uType.camelCase}';
                 final uName = '$uNameConstr$uType';
@@ -415,11 +422,10 @@ class SchemaGenerator extends BaseGenerator {
                   mode: FileMode.append,
                 );
               }
-            },
-            map: (o) {
+            case SchemaMap():
               final uName = '${uNameConstr}Map';
               final uFactory = '$union.map';
-              final uType = o.toDartType().replaceAll('?', '');
+              final uType = a.toDartType().replaceAll('?', '');
               fromJson.add('if (data is $uType) {return $uFactory(data);}');
               toJson.add('$uName(value: final v) => v,');
               if (schema.defaultValue is Map) {
@@ -430,11 +436,10 @@ class SchemaGenerator extends BaseGenerator {
                 'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
-            },
-            string: (o) {
+            case SchemaString():
               final uName = '${uNameConstr}String';
               final uFactory = '$union.string';
-              final uType = o.toDartType().replaceAll('?', '');
+              final uType = a.toDartType().replaceAll('?', '');
               fromJson.add('if (data is $uType) {return $uFactory(data);}');
               toJson.add('$uName(value: final v) => v,');
               if (schema.defaultValue is String) {
@@ -444,11 +449,10 @@ class SchemaGenerator extends BaseGenerator {
                 'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
-            },
-            number: (o) {
+            case SchemaNumber():
               final uName = '${uNameConstr}Number';
               final uFactory = '$union.number';
-              final uType = o.toDartType().replaceAll('?', '');
+              final uType = a.toDartType().replaceAll('?', '');
               fromJson.add('if (data is $uType) {return $uFactory(data);}');
               toJson.add('$uName(value: final v) => v,');
               if (schema.defaultValue is num) {
@@ -458,11 +462,10 @@ class SchemaGenerator extends BaseGenerator {
                 'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
-            },
-            integer: (o) {
+            case SchemaInteger():
               final uName = '${uNameConstr}Integer';
               final uFactory = '$union.integer';
-              final uType = o.toDartType().replaceAll('?', '');
+              final uType = a.toDartType().replaceAll('?', '');
               fromJson.add('if (data is $uType) {return $uFactory(data);}');
               toJson.add('$uName(value: final v) => v,');
               file.writeAsStringSync(
@@ -472,19 +475,18 @@ class SchemaGenerator extends BaseGenerator {
               if (schema.defaultValue is int) {
                 defaultFallback = 'return $uFactory(${schema.defaultValue});';
               }
-            },
-            enumeration: (o) {
+            case SchemaEnum(title: final title, values: final values):
               // JSON generated enum map - expected name
-              String unionEnumMap = '_\$${o.title}EnumMap';
+              String unionEnumMap = '_\$${title}EnumMap';
               final uName = '${uNameConstr}Enum';
               final uFactory = '$union.enumeration';
               toJson.add(
                 '$uName(value: final v) => $unionEnumMap[v]!,',
               );
               if (schema.defaultValue is String &&
-                  (o.values?.contains(schema.defaultValue) ?? false)) {
+                  (values?.contains(schema.defaultValue) ?? false)) {
                 final enumValue = _safeEnumValue(schema.defaultValue, schema);
-                defaultFallback = 'return $uFactory(${o.title}.$enumValue,);';
+                defaultFallback = 'return $uFactory($title.$enumValue,);';
               }
               // Place this as first check in fromJson
               // So that it takes precedence over string constructor (if present)
@@ -496,15 +498,14 @@ class SchemaGenerator extends BaseGenerator {
                 }""",
               );
               file.writeAsStringSync(
-                'const factory $uFactory(${o.title} value,) = $uName;\n\n',
+                'const factory $uFactory($title value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
-            },
-            array: (o) {
-              final factoryName = 'array${o.title?.split('Array').last}';
+            case SchemaArray(title: final title, items: final items):
+              final factoryName = 'array${title?.split('Array').last}';
               final uName = '$uNameConstr${factoryName.pascalCase}';
-              final uType = o.toDartType().replaceAll('?', '');
-              final innerType = o.items.toDartType();
+              final uType = a.toDartType().replaceAll('?', '');
+              final innerType = items.toDartType();
               final uFactory = '$union.$factoryName';
               fromJson.add(
                   'if (data is List && data.every((item) => item is $innerType)) {return $uFactory(data.cast());}');
@@ -516,11 +517,9 @@ class SchemaGenerator extends BaseGenerator {
                 'const factory $uFactory($uType value,) = $uName;\n\n',
                 mode: FileMode.append,
               );
-            },
-          );
+          }
         }
-      },
-    );
+    }
 
     // Nullable union type
     String unionNullable = union;
@@ -576,7 +575,10 @@ class SchemaGenerator extends BaseGenerator {
     required String name,
     required Schema schema,
   }) {
-    final s = schema.mapOrNull(object: (s) => s)!;
+    final s = switch (schema) {
+      SchemaObject() => schema,
+      _ => null,
+    }!;
 
     // Class header
     file.writeAsStringSync("""
@@ -586,7 +588,7 @@ class SchemaGenerator extends BaseGenerator {
     
     /// ${s.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
     @freezed
-    class $name with _\$$name  {
+    abstract class $name with _\$$name  {
       
       
       const $name._();
@@ -715,12 +717,14 @@ class SchemaGenerator extends BaseGenerator {
       return (c, nullable);
     }
 
-    property.map(
-      object: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              object: (s) => s,
-              orElse: () => p,
-            );
+    switch (property) {
+      case SchemaObject():
+        final dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        var p = switch (dereferencedProperty) {
+          SchemaObject() => dereferencedProperty,
+          _ => property,
+        };
         bool hasDefault = p.defaultValue != null;
 
         String customConverter = '';
@@ -821,21 +825,23 @@ class SchemaGenerator extends BaseGenerator {
           c += "dynamic $name,\n\n";
         }
         file.writeAsStringSync(c, mode: FileMode.append);
-      },
-      boolean: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              boolean: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaBoolean():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        final p = switch (dereferencedProperty) {
+          SchemaBoolean() => dereferencedProperty,
+          _ => property,
+        };
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "bool ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
-      },
-      string: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              string: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaString():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        final p = switch (dereferencedProperty) {
+          SchemaString() => dereferencedProperty,
+          _ => property,
+        };
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "String ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -848,12 +854,13 @@ class SchemaGenerator extends BaseGenerator {
           exclusiveMaximum: p.exclusiveMaximum,
           nullable: nullable,
         );
-      },
-      integer: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              integer: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaInteger():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        final p = switch (dereferencedProperty) {
+          SchemaInteger() => dereferencedProperty,
+          _ => property,
+        };
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "int ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -869,12 +876,13 @@ class SchemaGenerator extends BaseGenerator {
           exclusiveMaximum: p.exclusiveMaximum,
           multipleOf: p.multipleOf,
         );
-      },
-      number: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              number: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaNumber():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        final p = switch (dereferencedProperty) {
+          SchemaNumber() => dereferencedProperty,
+          _ => property,
+        };
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         c += "double ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
@@ -890,22 +898,24 @@ class SchemaGenerator extends BaseGenerator {
           exclusiveMaximum: p.exclusiveMaximum,
           multipleOf: p.multipleOf,
         );
-      },
-      array: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              array: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaArray():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        final p = switch (dereferencedProperty) {
+          SchemaArray() => dereferencedProperty,
+          _ => property,
+        };
         var (c, nullable) = propHeader(p.defaultValue, p.description);
         var itemType = p.items.toDartType(unions: _unions);
         c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
-      },
-      map: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              map: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaMap():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        var p = switch (dereferencedProperty) {
+          SchemaMap() => dereferencedProperty,
+          _ => property,
+        };
         // If map is not required and is not explicitly nullable, default to empty map
         if (!required && p.nullable != true) {
           p = p.copyWith(defaultValue: {}, nullable: false);
@@ -915,12 +925,13 @@ class SchemaGenerator extends BaseGenerator {
 
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
-      },
-      enumeration: (p) {
-        p = p.dereference(components: spec.components?.schemas).maybeMap(
-              enumeration: (s) => s,
-              orElse: () => p,
-            );
+      case SchemaEnum():
+        var dereferencedProperty =
+            property.dereference(components: spec.components?.schemas);
+        final p = switch (dereferencedProperty) {
+          SchemaEnum() => dereferencedProperty,
+          _ => property,
+        };
 
         bool hasDefault = p.defaultValue != null;
         bool nullable = !hasDefault && !required || p.nullable == true;
@@ -952,9 +963,9 @@ class SchemaGenerator extends BaseGenerator {
           final cTrim = c.trim();
           if (cTrim.endsWith(')')) {
             c = cTrim.substring(0, cTrim.length - 1);
-            c += ", unknownEnumValue: $unknownFallback,) ";
+            c += ", unknownEnumValue: $unknownFallback) ";
           } else {
-            c += '@JsonKey(unknownEnumValue: $unknownFallback,) ';
+            c += '@JsonKey(unknownEnumValue: $unknownFallback) ';
           }
         }
 
@@ -978,8 +989,7 @@ class SchemaGenerator extends BaseGenerator {
         }
 
         file.writeAsStringSync(c, mode: FileMode.append);
-      },
-    );
+    }
     return validation;
   }
 
@@ -994,20 +1004,21 @@ class SchemaGenerator extends BaseGenerator {
     }
     value = value.replaceAll('.', '_').camelCase;
     if (value.isEmpty) {
-      schema.mapOrNull(enumeration: (s) {
-        // List of potential names for empty enum value
-        const List<String> emptyEnumValues = ['empty', 'none', 'unknown'];
-        // Ensure that the enum value is not empty
-        value = emptyEnumValues.firstWhere(
-          (e) => !s.values!.contains(e),
-          orElse: () => '',
-        );
-        if (value.isEmpty) {
-          throw Exception(
-            "\n\nEmpty enum value found in schema '${schema.title}'\n",
+      switch (schema) {
+        case SchemaEnum():
+          // List of potential names for empty enum value
+          const List<String> emptyEnumValues = ['empty', 'none', 'unknown'];
+          // Ensure that the enum value is not empty
+          value = emptyEnumValues.firstWhere(
+            (e) => !schema.values!.contains(e),
+            orElse: () => '',
           );
-        }
-      });
+          if (value.isEmpty) {
+            throw Exception(
+              "\n\nEmpty enum value found in schema '${schema.title}'\n",
+            );
+          }
+      }
     }
     return value;
   }
@@ -1020,7 +1031,10 @@ class SchemaGenerator extends BaseGenerator {
     required String name,
     required Schema schema,
   }) {
-    final s = schema.mapOrNull(enumeration: (s) => s)!;
+    final s = switch (schema) {
+      SchemaEnum() => schema,
+      _ => null,
+    }!;
     final values = s.values;
 
     if (values == null) {
@@ -1093,27 +1107,30 @@ class SchemaGenerator extends BaseGenerator {
       if (schema == null) {
         return;
       }
-      schema.mapOrNull(
-        object: (o) {
-          final props = o.properties;
-          final propNames = props?.keys.toList() ?? <String>[];
-          checkAnyOf(o.anyOf);
+      switch (schema) {
+        case SchemaObject(properties: final properties, anyOf: final anyOf):
+          final propNames = properties?.keys.toList() ?? <String>[];
+          checkAnyOf(anyOf);
           for (final pName in propNames) {
-            o.properties![pName]?.mapOrNull(
-              object: (p) {
-                checkAnyOf(p.anyOf);
-                recursiveSchemaSearch(p);
-              },
-              array: (a) => recursiveSchemaSearch(
-                a.items.mapOrNull(object: (o) => o),
-              ),
-              map: (m) => recursiveSchemaSearch(
-                m.valueSchema?.mapOrNull(object: (o) => o),
-              ),
-            );
+            final propertySchema = properties![pName];
+            switch (propertySchema) {
+              case SchemaObject(anyOf: final anyOf):
+                checkAnyOf(anyOf);
+                recursiveSchemaSearch(propertySchema);
+              case SchemaArray(items: final items):
+                recursiveSchemaSearch(
+                  switch (items) { SchemaObject() => items, _ => null },
+                );
+              case SchemaMap(valueSchema: final valueSchema):
+                recursiveSchemaSearch(
+                  switch (valueSchema) {
+                    SchemaObject() => valueSchema,
+                    _ => null
+                  },
+                );
+            }
           }
-        },
-      );
+      }
     }
 
     // Check for unions in component schemas
@@ -1125,9 +1142,10 @@ class SchemaGenerator extends BaseGenerator {
     for (final key in (spec.components?.responses?.keys ?? <String>[])) {
       final r = spec.components?.responses?[key];
       for (final c in (r?.content?.values ?? <MediaType>[])) {
-        c.schema?.mapOrNull(
-          object: (p) => checkAnyOf(p.anyOf),
-        );
+        switch (c.schema) {
+          case SchemaObject(anyOf: final anyOf):
+            checkAnyOf(anyOf);
+        }
       }
     }
 
@@ -1135,9 +1153,10 @@ class SchemaGenerator extends BaseGenerator {
     for (final key in (spec.components?.requestBodies?.keys ?? <String>[])) {
       final r = spec.components?.requestBodies?[key];
       for (final c in (r?.content?.values ?? <MediaType>[])) {
-        c.schema?.mapOrNull(
-          object: (p) => checkAnyOf(p.anyOf),
-        );
+        switch (c.schema) {
+          case SchemaObject(anyOf: final anyOf):
+            checkAnyOf(anyOf);
+        }
       }
     }
 
@@ -1145,24 +1164,48 @@ class SchemaGenerator extends BaseGenerator {
     for (final p in (spec.paths?.values ?? <PathItem>[])) {
       // Responses
       p.get?.responses?.forEach((_, r) {
-        r.content?.values.toList().forEach(
-            (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+        r.content?.values.toList().forEach((c) {
+          switch (c.schema) {
+            case SchemaObject(anyOf: final anyOf):
+              checkAnyOf(anyOf);
+          }
+        });
       });
       p.put?.responses?.forEach((_, r) {
-        r.content?.values.toList().forEach(
-            (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+        r.content?.values.toList().forEach((c) {
+          switch (c.schema) {
+            case SchemaObject(anyOf: final anyOf):
+              checkAnyOf(anyOf);
+          }
+        });
       });
       p.post?.responses?.forEach((_, r) {
-        r.content?.values.toList().forEach(
-            (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+        r.content?.values.toList().forEach((c) {
+          switch (c.schema) {
+            case SchemaObject(anyOf: final anyOf):
+              checkAnyOf(anyOf);
+          }
+        });
       });
       // Requests
-      p.get?.requestBody?.content?.values.toList().forEach(
-          (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
-      p.put?.requestBody?.content?.values.toList().forEach(
-          (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
-      p.post?.requestBody?.content?.values.toList().forEach(
-          (c) => c.schema?.mapOrNull(object: (p) => checkAnyOf(p.anyOf)));
+      p.get?.requestBody?.content?.values.toList().forEach((c) {
+        switch (c.schema) {
+          case SchemaObject(anyOf: final anyOf):
+            checkAnyOf(anyOf);
+        }
+      });
+      p.put?.requestBody?.content?.values.toList().forEach((c) {
+        switch (c.schema) {
+          case SchemaObject(anyOf: final anyOf):
+            checkAnyOf(anyOf);
+        }
+      });
+      p.post?.requestBody?.content?.values.toList().forEach((c) {
+        switch (c.schema) {
+          case SchemaObject(anyOf: final anyOf):
+            checkAnyOf(anyOf);
+        }
+      });
     }
   }
 

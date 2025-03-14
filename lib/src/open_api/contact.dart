@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Contact with _$Contact {
+abstract class Contact with _$Contact {
   const factory Contact({
     /// The identifying name of the contact person/organization.
     String? name,

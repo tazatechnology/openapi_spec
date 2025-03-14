@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class RequestBody with _$RequestBody {
+abstract class RequestBody with _$RequestBody {
   const RequestBody._();
 
   // ------------------------------------------

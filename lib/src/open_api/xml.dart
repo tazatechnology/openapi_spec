@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Xml with _$Xml {
+abstract class Xml with _$Xml {
   const factory Xml({
     /// Replaces the name of the element/attribute used for the described schema property
     String? name,

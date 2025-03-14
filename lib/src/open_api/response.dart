@@ -10,7 +10,7 @@ part of 'index.dart';
 ///
 /// https://swagger.io/specification/#response-object
 @freezed
-class Response with _$Response {
+abstract class Response with _$Response {
   const Response._();
 
   // ------------------------------------------

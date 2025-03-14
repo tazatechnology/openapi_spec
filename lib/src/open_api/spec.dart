@@ -37,7 +37,7 @@ enum OpenApiFormat {
 /// This Dart class is a container around the spec in order to parse
 /// and generate clients, servers, component schemas, and documentation
 @freezed
-class OpenApi with _$OpenApi {
+abstract class OpenApi with _$OpenApi {
   const OpenApi._();
 
   const factory OpenApi({
@@ -422,7 +422,7 @@ class OpenApi with _$OpenApi {
         quiet: quiet,
         options: schemaOptions,
       );
-      await schemaGenerator.generate();
+      schemaGenerator.generate();
     } else {
       // ignore: avoid_print
       print(
@@ -445,7 +445,7 @@ class OpenApi with _$OpenApi {
           options: clientOptions,
           schemaGenerator: schemaGenerator,
         );
-        await clientGenerator.generate();
+        clientGenerator.generate();
       }
     }
 
@@ -617,9 +617,12 @@ Map<String, dynamic> _formatSpecFromJson({
 
   // Handle allOf
   if (m.containsKey('allOf')) {
-    var s = _SchemaConverter().fromJson(m).mapOrNull(object: (s) {
-      return s.copyWith(ref: s.allOf?.firstOrNull?.ref);
-    });
+    final schema = _SchemaConverter().fromJson(m);
+    var s = switch (schema) {
+      SchemaObject(allOf: final allOf) =>
+        schema.copyWith(ref: allOf?.firstOrNull?.ref),
+      _ => null,
+    };
     if (s != null) {
       final newData = s.toJson();
       newData['default'] = m['default'];
@@ -633,11 +636,11 @@ Map<String, dynamic> _formatSpecFromJson({
   if (m.containsKey('\$ref')) {
     final ref = m['\$ref'].toString().split('/').last;
     if (schemas.containsKey(ref)) {
-      _SchemaConverter().fromJson(schemas[ref]).mapOrNull(
-        enumeration: (_) {
+      final schema = _SchemaConverter().fromJson(schemas[ref]);
+      switch (schema) {
+        case SchemaEnum():
           m['type'] = 'enumeration';
-        },
-      );
+      }
     }
     return m;
   } else {
@@ -815,14 +818,22 @@ Map<String, dynamic> _formatSpecFromJson({
         propertyKey: entry.key,
         propertyMap: p,
         allSchemaNames: allSchemaNames,
-        nullable: schema.mapOrNull(object: (o) {
-          if (o.nullable != null) {
-            return o.nullable;
-          }
-          bool isRequired = o.required?.contains(entry.key) ?? false;
-          bool hasDefault = o.defaultValue != null;
-          return !hasDefault && !isRequired;
-        }),
+        nullable: switch (schema) {
+          SchemaObject(
+            nullable: final nullable,
+            required: final required,
+            defaultValue: final defaultValue
+          ) =>
+            (() {
+              if (nullable != null) {
+                return nullable;
+              }
+              bool isRequired = required?.contains(entry.key) ?? false;
+              bool hasDefault = defaultValue != null;
+              return !hasDefault && !isRequired;
+            })(),
+          _ => null,
+        },
       );
       if (extraPropSchema.isNotEmpty) {
         props[entry.key] = newPropSchema;
@@ -912,27 +923,26 @@ Map<String, dynamic> _formatSpecFromJson({
       // Convert to schema
       var aSchema = Schema.fromJson(aMap);
 
-      aSchema.mapOrNull(
-        array: (o) {
-          if (o.items.type == SchemaType.string) {
+      switch (aSchema) {
+        case SchemaArray(items: final items):
+          if (items.type == SchemaType.string) {
             aSchema = aSchema.copyWith(
               title: '${anyOfName}String',
             );
-          } else if (o.items.type == SchemaType.integer) {
+          } else if (items.type == SchemaType.integer) {
             aSchema = aSchema.copyWith(
               title: '${anyOfName}Integer',
             );
-          } else if (o.items.type == SchemaType.number) {
+          } else if (items.type == SchemaType.number) {
             aSchema = aSchema.copyWith(
               title: '${anyOfName}Number',
             );
-          } else if (o.items.type == SchemaType.boolean) {
+          } else if (items.type == SchemaType.boolean) {
             aSchema = aSchema.copyWith(
               title: '${anyOfName}Boolean',
             );
           }
-        },
-      );
+      }
 
       // Skip anyOf schemas that are references
       if (aSchema.ref == null) {

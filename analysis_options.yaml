@@ -6,6 +6,8 @@ analyzer:
     - lib/src/**/*.g.dart
   errors:
     invalid_annotation_target: ignore
+    # Should be removed after the following issue is fixed: https://github.com/rrousselGit/freezed/issues/1204
+    unnecessary_non_null_assertion: ignore
 
 linter:
   rules:

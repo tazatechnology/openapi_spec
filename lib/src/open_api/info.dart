@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Info with _$Info {
+abstract class Info with _$Info {
   const factory Info({
     /// The title of the API.
     required String title,
