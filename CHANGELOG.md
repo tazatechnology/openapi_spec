@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0
+
+* Upgrade to Freezed 3.0
+
 ## 0.7.26
 
 * Fix dereference of alias schemas for `String` primitive
