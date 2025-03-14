@@ -34,7 +34,7 @@ class ClientGenerator extends BaseGenerator {
   // ------------------------------------------
 
   @override
-  Future<void> generate() async {
+  void generate() {
     final clientName = '${package.pascalCase}Client';
     final clientException = '${clientName}Exception';
 
@@ -43,9 +43,9 @@ class ClientGenerator extends BaseGenerator {
     for (final e
         in (spec.components?.securitySchemes ?? <String, SecurityScheme>{})
             .entries) {
-      e.value.mapOrNull(
-        apiKey: (a) {
-          switch (a.location) {
+      switch (e.value) {
+        case SecuritySchemeApiKey(location: final location):
+          switch (location) {
             case ApiKeyLocation.cookie:
               security[AuthType.keyCookie] = e.value;
             case ApiKeyLocation.header:
@@ -53,18 +53,15 @@ class ClientGenerator extends BaseGenerator {
             case ApiKeyLocation.query:
               security[AuthType.keyQuery] = e.value;
           }
-        },
-        http: (o) {
-          if (o.scheme == HttpSecurityScheme.basic) {
+        case SecuritySchemeHttp(scheme: final scheme):
+          if (scheme == HttpSecurityScheme.basic) {
             security[AuthType.httpBasic] = e.value;
-          } else if (o.scheme == HttpSecurityScheme.bearer) {
+          } else if (scheme == HttpSecurityScheme.bearer) {
             security[AuthType.httpBearer] = e.value;
           }
-        },
-        openIdConnect: (o) {
+        case SecuritySchemeOpenIdConnect():
           security[AuthType.openId] = e.value;
-        },
-      );
+      }
     }
 
     // Check if there is a global security scheme to apply to all endpoints
@@ -88,8 +85,8 @@ class ClientGenerator extends BaseGenerator {
         authVariables.add('final String $passwordVar;');
       }
       if (security.keys.contains(AuthType.httpBearer)) {
-        await security[AuthType.httpBearer]?.mapOrNull(
-          http: (o) async {
+        switch (security[AuthType.httpBearer]) {
+          case SecuritySchemeHttp():
             authInputs.add("this.$bearerTokenVar = ''");
             authVariables.add('String $bearerTokenVar;');
             authRequestHeader = """
@@ -98,12 +95,11 @@ class ClientGenerator extends BaseGenerator {
               headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$bearerTokenVar';
             }
             """;
-          },
-        );
+        }
       }
       if (security.keys.contains(AuthType.openId)) {
-        await security[AuthType.openId]?.mapOrNull(
-          openIdConnect: (o) async {
+        switch (security[AuthType.openId]) {
+          case SecuritySchemeOpenIdConnect():
             authInputs.add("this.$accessTokenVar = ''");
             authVariables.add('String $accessTokenVar;');
             authRequestHeader = """
@@ -112,8 +108,7 @@ class ClientGenerator extends BaseGenerator {
               headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$accessTokenVar';
             }
             """;
-          },
-        );
+        }
       }
     }
     // Generate auth input code
@@ -580,9 +575,9 @@ class $clientName {
     for (final s in security) {
       if (schemes.containsKey(s.name)) {
         final scheme = schemes[s.name];
-        scheme?.mapOrNull(
-          apiKey: (a) {
-            switch (a.location) {
+        switch (scheme) {
+          case SecuritySchemeApiKey(location: final location):
+            switch (location) {
               case ApiKeyLocation.query:
                 auth[AuthType.keyQuery] = scheme;
               case ApiKeyLocation.header:
@@ -590,19 +585,16 @@ class $clientName {
               case ApiKeyLocation.cookie:
                 auth[AuthType.keyCookie] = scheme;
             }
-          },
-          http: (a) {
-            switch (a.scheme) {
+          case SecuritySchemeHttp(scheme: final securityScheme):
+            switch (securityScheme) {
               case HttpSecurityScheme.basic:
                 auth[AuthType.httpBasic] = scheme;
               case HttpSecurityScheme.bearer:
                 auth[AuthType.httpBearer] = scheme;
             }
-          },
-          openIdConnect: (a) {
+          case SecuritySchemeOpenIdConnect():
             auth[AuthType.openId] = scheme;
-          },
-        );
+        }
       }
     }
     return auth;
@@ -658,9 +650,10 @@ class $clientName {
 
     for (final a in auth.keys) {
       final s = auth[a];
-      final name = s?.mapOrNull(
-        apiKey: (value) => value.name,
-      );
+      final name = switch (s) {
+        SecuritySchemeApiKey(name: final name) => name,
+        _ => null,
+      };
 
       if (a == AuthType.keyQuery) {
         queryParams.add("if ($apiKeyVar.isNotEmpty) '$name': $apiKeyVar");
@@ -743,14 +736,19 @@ class $clientName {
       if (pName.isEmpty) {
         throw Exception('Parameter name or reference is required: $param');
       }
-      param.map(
-        cookie: (p) {
+      switch (param) {
+        case ParameterCookie():
           // Do nothing
-        },
-        header: (p) {
-          String hCode = "'${p.name}': $pNameCamel";
-          String pType = p.schema.toDartType();
-          if (p.required == true) {
+          break;
+        case ParameterHeader(
+            name: final name,
+            schema: final schema,
+            required: final required,
+            description: final description
+          ):
+          String hCode = "'$name': $pNameCamel";
+          String pType = schema.toDartType();
+          if (required == true) {
             pType = 'required $pType';
           } else {
             pType = '$pType?';
@@ -758,51 +756,49 @@ class $clientName {
           }
           input.add('$pType $pNameCamel');
           inputDescription.add(
-            "`$pNameCamel`: ${p.description ?? 'No description'}",
+            "`$pNameCamel`: ${description ?? 'No description'}",
           );
           headerParams.add(hCode);
-        },
-        query: (p) {
-          String pType = p.schema.toDartType();
-          Object? pDefaultValue = p.schema.defaultValue;
+        case ParameterQuery(
+            name: final name,
+            schema: final schema,
+            required: final required,
+            description: final description
+          ):
+          String pType = schema.toDartType();
+          Object? pDefaultValue = schema.defaultValue;
           // Handle nullable types
           if (pDefaultValue == null &&
-              p.required != true &&
+              required != true &&
               !pType.contains('?')) {
             pType = '$pType?';
           }
-          String qCode = p.schema.maybeMap(
-            enumeration: (o) {
-              // Convert enum to string for query parameter code
-              if (pType == 'String') {
-                return "'${p.name}': $pNameCamel";
-              } else {
-                return "'${p.name}': $pNameCamel.name";
-              }
-            },
-            orElse: () {
-              return "'${p.name}': $pNameCamel";
-            },
-          );
+          String qCode = switch (schema) {
+            // Convert enum to string for query parameter code
+            SchemaEnum() => pType == 'String'
+                ? "'$name': $pNameCamel"
+                : "'$name': $pNameCamel.name",
+            _ => "'$name': $pNameCamel",
+          };
 
           // Handle enumeration default values
-          p.schema.mapOrNull(
-            string: (value) {
+          switch (schema) {
+            case SchemaString():
               if (pDefaultValue != null) {
                 pDefaultValue = "'$pDefaultValue'";
               }
-            },
-            enumeration: (value) {
+            case SchemaEnum():
               if (pDefaultValue != null) {
-                if (p.schema.ref != null && pType != 'String') {
-                  pDefaultValue = '${p.schema.ref}.$pDefaultValue';
+                if (schema.ref != null && pType != 'String') {
+                  pDefaultValue = '${schema.ref}.$pDefaultValue';
                 } else {
                   pDefaultValue = "'$pDefaultValue'";
                 }
               }
-            },
-          );
-          if (p.required == true) {
+            default:
+            // Do nothing
+          }
+          if (required == true) {
             pType = 'required $pType';
           } else {
             if (pType.contains('?')) {
@@ -815,19 +811,17 @@ class $clientName {
             input.add('$pType $pNameCamel');
           }
           inputDescription.add(
-            "`$pNameCamel`: ${p.description ?? 'No description'}",
+            "`$pNameCamel`: ${description ?? 'No description'}",
           );
           queryParams.add(qCode);
-        },
-        path: (p) {
+        case ParameterPath(name: final name, description: final description):
           input.add('required String $pNameCamel');
           inputDescription.add(
-            "`$pNameCamel`: ${p.description ?? 'No description'}",
+            "`$pNameCamel`: ${description ?? 'No description'}",
           );
           // Update the path definition
-          path = path.replaceAll('{${p.name}}', '\$$pNameCamel');
-        },
-      );
+          path = path.replaceAll('{$name}', '\$$pNameCamel');
+      }
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -861,13 +855,11 @@ class $clientName {
       bool isRequestRequired = request.required == true;
 
       // If a schema is an empty object, ignore
-      rSchema?.mapOrNull(
-        object: (s) {
-          if ((s.properties?.isEmpty ?? false)) {
-            isRequestRequired = false;
-          }
-        },
-      );
+      switch (rSchema) {
+        case SchemaObject(properties: final properties)
+            when (properties?.isEmpty ?? false):
+          isRequestRequired = false;
+      }
 
       dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
 
@@ -926,22 +918,20 @@ class $clientName {
       returnType = dType ?? returnType;
 
       // Determine the decode strategy
-      rSchema?.mapOrNull(
-        object: (s) {
+      switch (rSchema) {
+        case SchemaObject(ref: final ref):
           // Handle deserialization of single object
-          if (s.ref != null || returnType.startsWith('Union')) {
+          if (ref != null || returnType.startsWith('Union')) {
             decoder = "return $returnType.fromJson(_jsonDecode(r));";
             // Handle deserialization of arrays and maps
-            final sRef = spec.components?.schemas?[s.ref];
+            final sRef = spec.components?.schemas?[ref];
             if (sRef != null) {
-              sRef.mapOrNull(
-                array: (value) {
+              switch (sRef) {
+                case SchemaArray():
                   decoder = "return $returnType.from(_jsonDecode(r));";
-                },
-                map: (value) {
+                case SchemaMap():
                   decoder = "return $returnType.from(_jsonDecode(r));";
-                },
-              );
+              }
             }
           } else {
             // Just return the whole response and allow user to handle
@@ -950,26 +940,23 @@ class $clientName {
               decoder = "return r;";
             }
           }
-        },
-        array: (s) {
+        case SchemaArray(items: final items):
           // Handle deserialization for array of objects
-          if (s.items.ref != null) {
+          if (items.ref != null) {
             decoder = """
               final list = _jsonDecode(r) as List;
-              return list.map((e) => ${s.items.ref}.fromJson(e)).toList();
+              return list.map((e) => ${items.ref}.fromJson(e)).toList();
             """;
           }
-        },
-        map: (s) {
+        case SchemaMap(valueSchema: final valueSchema):
           // Handle deserialization for map of objects
-          if (s.valueSchema?.ref != null) {
+          if (valueSchema?.ref != null) {
             decoder = """
               final map = _jsonDecode(r) as Map<String, dynamic>;
-              return map.map((k, v) => MapEntry(k, ${s.valueSchema?.ref}.fromJson(v)));
+              return map.map((k, v) => MapEntry(k, ${valueSchema?.ref}.fromJson(v)));
             """;
           }
-        },
-      );
+      }
 
       if (decoder.isEmpty && returnType != 'void') {
         if (returnType == 'String') {

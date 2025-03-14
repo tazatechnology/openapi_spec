@@ -23,11 +23,3 @@ targets:
       freezed:
         options:
           union_key: unionType
-          map:
-            map: true
-            map_or_null: true
-            maybe_map: true
-          when:
-            when: false
-            when_or_null: false
-            maybe_when: false

@@ -7,7 +7,7 @@ part of 'index.dart';
 /// Allows referencing an external resource for extended documentation.
 /// https://swagger.io/specification/#external-documentation-object
 @freezed
-class ExternalDocs with _$ExternalDocs {
+abstract class ExternalDocs with _$ExternalDocs {
   const factory ExternalDocs({
     /// A description of the target documentation.
     String? description,

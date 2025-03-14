@@ -8,7 +8,7 @@ part of 'index.dart';
 ///
 /// https://swagger.io/specification/#operation-object
 @freezed
-class Operation with _$Operation {
+abstract class Operation with _$Operation {
   const factory Operation({
     /// A list of tags for API documentation control.
     List<String>? tags,

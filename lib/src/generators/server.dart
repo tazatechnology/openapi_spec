@@ -56,8 +56,10 @@ class ServerGenerator extends BaseGenerator {
       final params = p.parameters ?? [];
       var path = e.key;
       for (final param in params) {
-        final pattern = param.schema
-            ?.mapOrNull(string: (s) => s.pattern)
+        final pattern = switch (param.schema) {
+          SchemaString(pattern: final pattern) => pattern,
+          _ => null
+        }
             ?.replaceAll(RegExp(r'[\^$]'), '');
         path = path.replaceAll(
           '{${param.name}}',
@@ -403,13 +405,14 @@ class $serverName {
     String inputTypes = 'Request';
 
     for (final p in parameters + (operation.parameters ?? <Parameter>[])) {
-      p.mapOrNull(path: (p) {
-        if (p.name != null) {
-          inputs += ', ${p.name}';
-          inputsWrapper += ',String ${p.name}';
-          inputTypes += ',String';
-        }
-      });
+      switch (p) {
+        case ParameterPath(name: final name):
+          if (name != null) {
+            inputs += ', $name';
+            inputsWrapper += ',String $name';
+            inputTypes += ',String';
+          }
+      }
     }
 
     if (requestRef != null && request?.required == true) {

@@ -26,7 +26,7 @@ enum HttpSecurityScheme {
 
 /// Text
 @Freezed(unionKey: 'type')
-class SecurityScheme with _$SecurityScheme {
+abstract class SecurityScheme with _$SecurityScheme {
   // ------------------------------------------
   // FACTORY: SecurityScheme.apiKey
   // ------------------------------------------
@@ -40,7 +40,7 @@ class SecurityScheme with _$SecurityScheme {
 
     /// The location of the API key.
     @JsonKey(name: 'in') required ApiKeyLocation location,
-  }) = _SecuritySchemeApiKey;
+  }) = SecuritySchemeApiKey;
 
   // ------------------------------------------
   // FACTORY: SecurityScheme.http
@@ -55,7 +55,7 @@ class SecurityScheme with _$SecurityScheme {
 
     /// A description for security scheme.
     String? description,
-  }) = _SecuritySchemeHttp;
+  }) = SecuritySchemeHttp;
 
   // ------------------------------------------
   // FACTORY: SecurityScheme.mutualTLS
@@ -64,7 +64,7 @@ class SecurityScheme with _$SecurityScheme {
   const factory SecurityScheme.mutualTLS({
     /// A description for security scheme.
     String? description,
-  }) = _SecuritySchemeMutualTLS;
+  }) = SecuritySchemeMutualTLS;
 
   // ------------------------------------------
   // FACTORY: SecurityScheme.oauth2
@@ -76,7 +76,7 @@ class SecurityScheme with _$SecurityScheme {
 
     /// An object containing configuration information for the flow types supported.
     required OAuthFlows flows,
-  }) = _SecuritySchemeOauth2;
+  }) = SecuritySchemeOauth2;
 
   // ------------------------------------------
   // FACTORY: SecurityScheme.openIdConnect
@@ -88,7 +88,7 @@ class SecurityScheme with _$SecurityScheme {
 
     /// OpenId Connect URL to discover OAuth2 configuration values.
     @JsonKey(name: 'openIdConnectUrl') required String url,
-  }) = _SecuritySchemeOpenIdConnect;
+  }) = SecuritySchemeOpenIdConnect;
 
   // ------------------------------------------
   // FACTORY: SecurityScheme.fromJson

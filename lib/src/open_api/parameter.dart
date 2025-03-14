@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @Freezed(unionKey: _unionKeyParams)
-class Parameter with _$Parameter {
+abstract class Parameter with _$Parameter {
   const Parameter._();
 
   // ------------------------------------------

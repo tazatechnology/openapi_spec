@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Example with _$Example {
+abstract class Example with _$Example {
   const Example._();
 
   // ------------------------------------------

@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class MediaType with _$MediaType {
+abstract class MediaType with _$MediaType {
   const factory MediaType({
     /// The schema defining the content of the request, response, or parameter.
     Schema? schema,

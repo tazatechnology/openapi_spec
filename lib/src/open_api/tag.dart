@@ -10,7 +10,7 @@ part of 'index.dart';
 ///
 /// https://swagger.io/specification/#tag-object
 @freezed
-class Tag with _$Tag {
+abstract class Tag with _$Tag {
   const factory Tag({
     /// The name of the tag.
     required String name,

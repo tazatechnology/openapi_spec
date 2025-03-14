@@ -8,7 +8,7 @@ part of 'index.dart';
 ///
 /// https://swagger.io/specification/#security-requirement-object
 @freezed
-class Security with _$Security {
+abstract class Security with _$Security {
   const Security._();
 
   const factory Security({

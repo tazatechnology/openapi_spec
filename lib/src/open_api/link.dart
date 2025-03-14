@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// The [Link] object represents a possible design-time link for a response
 @freezed
-class Link with _$Link {
+abstract class Link with _$Link {
   const factory Link({
     /// A relative or absolute URI reference to an OAS operation.
     @JsonKey(name: '\$ref') @_LinkRefConverter() String? ref,

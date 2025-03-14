@@ -5,7 +5,7 @@ part of 'index.dart';
 // ==========================================
 
 @freezed
-class OAuthFlows with _$OAuthFlows {
+abstract class OAuthFlows with _$OAuthFlows {
   const factory OAuthFlows({
     OAuthFlow? implicit,
     OAuthFlow? password,
@@ -22,7 +22,7 @@ class OAuthFlows with _$OAuthFlows {
 // ==========================================
 
 @freezed
-class OAuthFlow with _$OAuthFlow {
+abstract class OAuthFlow with _$OAuthFlow {
   const factory OAuthFlow.implicit({
     required String authorizationUrl,
     String? refreshUrl,

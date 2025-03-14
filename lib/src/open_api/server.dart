@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class Server with _$Server {
+abstract class Server with _$Server {
   const factory Server({
     /// A URL to the target host. This URL supports Server Variables and may
     /// be relative, to indicate that the host location is relative to the

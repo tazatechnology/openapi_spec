@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class ServerVariable with _$ServerVariable {
+abstract class ServerVariable with _$ServerVariable {
   const factory ServerVariable({
     /// An enumeration of string values to be used if the substitution
     /// options are from a limited set. The array must not be empty.

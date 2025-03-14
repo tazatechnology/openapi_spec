@@ -6,8 +6,7 @@ part of 'index.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$OAuthFlowsImpl _$$OAuthFlowsImplFromJson(Map<String, dynamic> json) =>
-    _$OAuthFlowsImpl(
+_OAuthFlows _$OAuthFlowsFromJson(Map<String, dynamic> json) => _OAuthFlows(
       implicit: json['implicit'] == null
           ? null
           : OAuthFlow.fromJson(json['implicit'] as Map<String, dynamic>),
@@ -24,7 +23,7 @@ _$OAuthFlowsImpl _$$OAuthFlowsImplFromJson(Map<String, dynamic> json) =>
               json['authorizationCode'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$OAuthFlowsImplToJson(_$OAuthFlowsImpl instance) =>
+Map<String, dynamic> _$OAuthFlowsToJson(_OAuthFlows instance) =>
     <String, dynamic>{
       if (instance.implicit?.toJson() case final value?) 'implicit': value,
       if (instance.password?.toJson() case final value?) 'password': value,
@@ -34,17 +33,15 @@ Map<String, dynamic> _$$OAuthFlowsImplToJson(_$OAuthFlowsImpl instance) =>
         'authorizationCode': value,
     };
 
-_$OAuthFlowImplicitImpl _$$OAuthFlowImplicitImplFromJson(
-        Map<String, dynamic> json) =>
-    _$OAuthFlowImplicitImpl(
+_OAuthFlowImplicit _$OAuthFlowImplicitFromJson(Map<String, dynamic> json) =>
+    _OAuthFlowImplicit(
       authorizationUrl: json['authorizationUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
       scopes: Map<String, String>.from(json['scopes'] as Map),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$OAuthFlowImplicitImplToJson(
-        _$OAuthFlowImplicitImpl instance) =>
+Map<String, dynamic> _$OAuthFlowImplicitToJson(_OAuthFlowImplicit instance) =>
     <String, dynamic>{
       'authorizationUrl': instance.authorizationUrl,
       if (instance.refreshUrl case final value?) 'refreshUrl': value,
@@ -52,17 +49,15 @@ Map<String, dynamic> _$$OAuthFlowImplicitImplToJson(
       'unionType': instance.$type,
     };
 
-_$OAuthFlowPasswordImpl _$$OAuthFlowPasswordImplFromJson(
-        Map<String, dynamic> json) =>
-    _$OAuthFlowPasswordImpl(
+_OAuthFlowPassword _$OAuthFlowPasswordFromJson(Map<String, dynamic> json) =>
+    _OAuthFlowPassword(
       tokenUrl: json['tokenUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
       scopes: Map<String, String>.from(json['scopes'] as Map),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$OAuthFlowPasswordImplToJson(
-        _$OAuthFlowPasswordImpl instance) =>
+Map<String, dynamic> _$OAuthFlowPasswordToJson(_OAuthFlowPassword instance) =>
     <String, dynamic>{
       'tokenUrl': instance.tokenUrl,
       if (instance.refreshUrl case final value?) 'refreshUrl': value,
@@ -70,17 +65,17 @@ Map<String, dynamic> _$$OAuthFlowPasswordImplToJson(
       'unionType': instance.$type,
     };
 
-_$OAuthFlowClientCredentialsImpl _$$OAuthFlowClientCredentialsImplFromJson(
+_OAuthFlowClientCredentials _$OAuthFlowClientCredentialsFromJson(
         Map<String, dynamic> json) =>
-    _$OAuthFlowClientCredentialsImpl(
+    _OAuthFlowClientCredentials(
       tokenUrl: json['tokenUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
       scopes: Map<String, String>.from(json['scopes'] as Map),
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$OAuthFlowClientCredentialsImplToJson(
-        _$OAuthFlowClientCredentialsImpl instance) =>
+Map<String, dynamic> _$OAuthFlowClientCredentialsToJson(
+        _OAuthFlowClientCredentials instance) =>
     <String, dynamic>{
       'tokenUrl': instance.tokenUrl,
       if (instance.refreshUrl case final value?) 'refreshUrl': value,
@@ -88,9 +83,9 @@ Map<String, dynamic> _$$OAuthFlowClientCredentialsImplToJson(
       'unionType': instance.$type,
     };
 
-_$OAuthFlowAuthorizationCodeImpl _$$OAuthFlowAuthorizationCodeImplFromJson(
+_OAuthFlowAuthorizationCode _$OAuthFlowAuthorizationCodeFromJson(
         Map<String, dynamic> json) =>
-    _$OAuthFlowAuthorizationCodeImpl(
+    _OAuthFlowAuthorizationCode(
       authorizationUrl: json['authorizationUrl'] as String,
       tokenUrl: json['tokenUrl'] as String,
       refreshUrl: json['refreshUrl'] as String?,
@@ -98,8 +93,8 @@ _$OAuthFlowAuthorizationCodeImpl _$$OAuthFlowAuthorizationCodeImplFromJson(
       $type: json['unionType'] as String?,
     );
 
-Map<String, dynamic> _$$OAuthFlowAuthorizationCodeImplToJson(
-        _$OAuthFlowAuthorizationCodeImpl instance) =>
+Map<String, dynamic> _$OAuthFlowAuthorizationCodeToJson(
+        _OAuthFlowAuthorizationCode instance) =>
     <String, dynamic>{
       'authorizationUrl': instance.authorizationUrl,
       'tokenUrl': instance.tokenUrl,
@@ -108,8 +103,7 @@ Map<String, dynamic> _$$OAuthFlowAuthorizationCodeImplToJson(
       'unionType': instance.$type,
     };
 
-_$ComponentsImpl _$$ComponentsImplFromJson(Map<String, dynamic> json) =>
-    _$ComponentsImpl(
+_Components _$ComponentsFromJson(Map<String, dynamic> json) => _Components(
       schemas:
           _$JsonConverterFromJson<Map<String, dynamic>, Map<String, Schema>>(
               json['schemas'], const _SchemaMapConverter().fromJson),
@@ -143,7 +137,7 @@ _$ComponentsImpl _$$ComponentsImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$ComponentsImplToJson(_$ComponentsImpl instance) =>
+Map<String, dynamic> _$ComponentsToJson(_Components instance) =>
     <String, dynamic>{
       if (_$JsonConverterToJson<Map<String, dynamic>, Map<String, Schema>>(
               instance.schemas, const _SchemaMapConverter().toJson)
@@ -191,46 +185,42 @@ Json? _$JsonConverterToJson<Json, Value>(
 ) =>
     value == null ? null : toJson(value);
 
-_$ContactImpl _$$ContactImplFromJson(Map<String, dynamic> json) =>
-    _$ContactImpl(
+_Contact _$ContactFromJson(Map<String, dynamic> json) => _Contact(
       name: json['name'] as String?,
       email: json['email'] as String?,
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ContactToJson(_Contact instance) => <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       if (instance.email case final value?) 'email': value,
       if (instance.url case final value?) 'url': value,
     };
 
-_$DiscriminatorImpl _$$DiscriminatorImplFromJson(Map<String, dynamic> json) =>
-    _$DiscriminatorImpl(
+_Discriminator _$DiscriminatorFromJson(Map<String, dynamic> json) =>
+    _Discriminator(
       propertyName: json['propertyName'] as String,
       mapping: (json['mapping'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
     );
 
-Map<String, dynamic> _$$DiscriminatorImplToJson(_$DiscriminatorImpl instance) =>
+Map<String, dynamic> _$DiscriminatorToJson(_Discriminator instance) =>
     <String, dynamic>{
       'propertyName': instance.propertyName,
       if (instance.mapping case final value?) 'mapping': value,
     };
 
-_$EncodingImpl _$$EncodingImplFromJson(Map<String, dynamic> json) =>
-    _$EncodingImpl(
+_Encoding _$EncodingFromJson(Map<String, dynamic> json) => _Encoding(
       contentType: json['contentType'] as String?,
     );
 
-Map<String, dynamic> _$$EncodingImplToJson(_$EncodingImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$EncodingToJson(_Encoding instance) => <String, dynamic>{
       if (instance.contentType case final value?) 'contentType': value,
     };
 
-_$ExampleObjectImpl _$$ExampleObjectImplFromJson(Map<String, dynamic> json) =>
-    _$ExampleObjectImpl(
+ExampleObject _$ExampleObjectFromJson(Map<String, dynamic> json) =>
+    ExampleObject(
       summary: json['summary'] as String?,
       description: json['description'] as String?,
       value: json['value'],
@@ -238,7 +228,7 @@ _$ExampleObjectImpl _$$ExampleObjectImplFromJson(Map<String, dynamic> json) =>
       ref: const _ExampleRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$ExampleObjectImplToJson(_$ExampleObjectImpl instance) =>
+Map<String, dynamic> _$ExampleObjectToJson(ExampleObject instance) =>
     <String, dynamic>{
       if (instance.summary case final value?) 'summary': value,
       if (instance.description case final value?) 'description': value,
@@ -248,32 +238,31 @@ Map<String, dynamic> _$$ExampleObjectImplToJson(_$ExampleObjectImpl instance) =>
         r'$ref': value,
     };
 
-_$ExternalDocsImpl _$$ExternalDocsImplFromJson(Map<String, dynamic> json) =>
-    _$ExternalDocsImpl(
+_ExternalDocs _$ExternalDocsFromJson(Map<String, dynamic> json) =>
+    _ExternalDocs(
       description: json['description'] as String?,
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$$ExternalDocsImplToJson(_$ExternalDocsImpl instance) =>
+Map<String, dynamic> _$ExternalDocsToJson(_ExternalDocs instance) =>
     <String, dynamic>{
       if (instance.description case final value?) 'description': value,
       'url': instance.url,
     };
 
-_$HeaderImpl _$$HeaderImplFromJson(Map<String, dynamic> json) => _$HeaderImpl(
+_Header _$HeaderFromJson(Map<String, dynamic> json) => _Header(
       description: json['description'] as String?,
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$HeaderImplToJson(_$HeaderImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$HeaderToJson(_Header instance) => <String, dynamic>{
       if (instance.description case final value?) 'description': value,
       if (instance.schema?.toJson() case final value?) 'schema': value,
     };
 
-_$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
+_Info _$InfoFromJson(Map<String, dynamic> json) => _Info(
       title: json['title'] as String,
       summary: json['summary'] as String?,
       description: json['description'] as String?,
@@ -287,8 +276,7 @@ _$InfoImpl _$$InfoImplFromJson(Map<String, dynamic> json) => _$InfoImpl(
       version: json['version'] as String,
     );
 
-Map<String, dynamic> _$$InfoImplToJson(_$InfoImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$InfoToJson(_Info instance) => <String, dynamic>{
       'title': instance.title,
       if (instance.summary case final value?) 'summary': value,
       if (instance.description case final value?) 'description': value,
@@ -298,21 +286,19 @@ Map<String, dynamic> _$$InfoImplToJson(_$InfoImpl instance) =>
       'version': instance.version,
     };
 
-_$LicenseImpl _$$LicenseImplFromJson(Map<String, dynamic> json) =>
-    _$LicenseImpl(
+_License _$LicenseFromJson(Map<String, dynamic> json) => _License(
       name: json['name'] as String,
       identifier: json['identifier'] as String?,
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$LicenseToJson(_License instance) => <String, dynamic>{
       'name': instance.name,
       if (instance.identifier case final value?) 'identifier': value,
       if (instance.url case final value?) 'url': value,
     };
 
-_$LinkImpl _$$LinkImplFromJson(Map<String, dynamic> json) => _$LinkImpl(
+_Link _$LinkFromJson(Map<String, dynamic> json) => _Link(
       ref: const _LinkRefConverter().fromJson(json[r'$ref'] as String?),
       operationId: json['operationId'] as String?,
       parameters: (json['parameters'] as Map<String, dynamic>?)?.map(
@@ -320,16 +306,14 @@ _$LinkImpl _$$LinkImplFromJson(Map<String, dynamic> json) => _$LinkImpl(
       ),
     );
 
-Map<String, dynamic> _$$LinkImplToJson(_$LinkImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$LinkToJson(_Link instance) => <String, dynamic>{
       if (const _LinkRefConverter().toJson(instance.ref) case final value?)
         r'$ref': value,
       if (instance.operationId case final value?) 'operationId': value,
       if (instance.parameters case final value?) 'parameters': value,
     };
 
-_$MediaTypeImpl _$$MediaTypeImplFromJson(Map<String, dynamic> json) =>
-    _$MediaTypeImpl(
+_MediaType _$MediaTypeFromJson(Map<String, dynamic> json) => _MediaType(
       schema: json['schema'] == null
           ? null
           : Schema.fromJson(json['schema'] as Map<String, dynamic>),
@@ -342,7 +326,7 @@ _$MediaTypeImpl _$$MediaTypeImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$MediaTypeImplToJson(_$MediaTypeImpl instance) =>
+Map<String, dynamic> _$MediaTypeToJson(_MediaType instance) =>
     <String, dynamic>{
       if (instance.schema?.toJson() case final value?) 'schema': value,
       if (instance.example case final value?) 'example': value,
@@ -354,8 +338,7 @@ Map<String, dynamic> _$$MediaTypeImplToJson(_$MediaTypeImpl instance) =>
         'encoding': value,
     };
 
-_$OperationImpl _$$OperationImplFromJson(Map<String, dynamic> json) =>
-    _$OperationImpl(
+_Operation _$OperationFromJson(Map<String, dynamic> json) => _Operation(
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
       summary: json['summary'] as String?,
       description: json['description'] as String?,
@@ -384,7 +367,7 @@ _$OperationImpl _$$OperationImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$OperationImplToJson(_$OperationImpl instance) =>
+Map<String, dynamic> _$OperationToJson(_Operation instance) =>
     <String, dynamic>{
       if (instance.tags case final value?) 'tags': value,
       if (instance.summary case final value?) 'summary': value,
@@ -411,7 +394,7 @@ Map<String, dynamic> _$$OperationImplToJson(_$OperationImpl instance) =>
         'servers': value,
     };
 
-_$OpenIdImpl _$$OpenIdImplFromJson(Map<String, dynamic> json) => _$OpenIdImpl(
+_OpenId _$OpenIdFromJson(Map<String, dynamic> json) => _OpenId(
       issuer: json['issuer'] as String?,
       authorizationEndpoint: json['authorization_endpoint'] as String?,
       tokenEndpoint: json['token_endpoint'] as String?,
@@ -461,8 +444,7 @@ _$OpenIdImpl _$$OpenIdImplFromJson(Map<String, dynamic> json) => _$OpenIdImpl(
               .toList(),
     );
 
-Map<String, dynamic> _$$OpenIdImplToJson(_$OpenIdImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$OpenIdToJson(_OpenId instance) => <String, dynamic>{
       if (instance.issuer case final value?) 'issuer': value,
       if (instance.authorizationEndpoint case final value?)
         'authorization_endpoint': value,
@@ -500,9 +482,8 @@ Map<String, dynamic> _$$OpenIdImplToJson(_$OpenIdImpl instance) =>
         'token_endpoint_auth_signing_alg_values_supported': value,
     };
 
-_$ParameterCookieImpl _$$ParameterCookieImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ParameterCookieImpl(
+ParameterCookie _$ParameterCookieFromJson(Map<String, dynamic> json) =>
+    ParameterCookie(
       name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
@@ -516,8 +497,7 @@ _$ParameterCookieImpl _$$ParameterCookieImplFromJson(
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$ParameterCookieImplToJson(
-        _$ParameterCookieImpl instance) =>
+Map<String, dynamic> _$ParameterCookieToJson(ParameterCookie instance) =>
     <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       if (instance.description case final value?) 'description': value,
@@ -533,9 +513,8 @@ Map<String, dynamic> _$$ParameterCookieImplToJson(
       'in': instance.$type,
     };
 
-_$ParameterHeaderImpl _$$ParameterHeaderImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ParameterHeaderImpl(
+ParameterHeader _$ParameterHeaderFromJson(Map<String, dynamic> json) =>
+    ParameterHeader(
       name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
@@ -549,8 +528,7 @@ _$ParameterHeaderImpl _$$ParameterHeaderImplFromJson(
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$ParameterHeaderImplToJson(
-        _$ParameterHeaderImpl instance) =>
+Map<String, dynamic> _$ParameterHeaderToJson(ParameterHeader instance) =>
     <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       if (instance.description case final value?) 'description': value,
@@ -566,8 +544,8 @@ Map<String, dynamic> _$$ParameterHeaderImplToJson(
       'in': instance.$type,
     };
 
-_$ParameterQueryImpl _$$ParameterQueryImplFromJson(Map<String, dynamic> json) =>
-    _$ParameterQueryImpl(
+ParameterQuery _$ParameterQueryFromJson(Map<String, dynamic> json) =>
+    ParameterQuery(
       name: json['name'] as String?,
       description: json['description'] as String?,
       required: json['required'] as bool?,
@@ -581,8 +559,7 @@ _$ParameterQueryImpl _$$ParameterQueryImplFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$ParameterQueryImplToJson(
-        _$ParameterQueryImpl instance) =>
+Map<String, dynamic> _$ParameterQueryToJson(ParameterQuery instance) =>
     <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       if (instance.description case final value?) 'description': value,
@@ -598,8 +575,8 @@ Map<String, dynamic> _$$ParameterQueryImplToJson(
       'in': instance.$type,
     };
 
-_$ParameterPathImpl _$$ParameterPathImplFromJson(Map<String, dynamic> json) =>
-    _$ParameterPathImpl(
+ParameterPath _$ParameterPathFromJson(Map<String, dynamic> json) =>
+    ParameterPath(
       name: json['name'] as String?,
       description: json['description'] as String?,
       deprecated: json['deprecated'] as bool?,
@@ -614,7 +591,7 @@ _$ParameterPathImpl _$$ParameterPathImplFromJson(Map<String, dynamic> json) =>
       $type: json['in'] as String?,
     );
 
-Map<String, dynamic> _$$ParameterPathImplToJson(_$ParameterPathImpl instance) =>
+Map<String, dynamic> _$ParameterPathToJson(ParameterPath instance) =>
     <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       if (instance.description case final value?) 'description': value,
@@ -629,8 +606,7 @@ Map<String, dynamic> _$$ParameterPathImplToJson(_$ParameterPathImpl instance) =>
       'in': instance.$type,
     };
 
-_$PathItemImpl _$$PathItemImplFromJson(Map<String, dynamic> json) =>
-    _$PathItemImpl(
+_PathItem _$PathItemFromJson(Map<String, dynamic> json) => _PathItem(
       summary: json['summary'] as String?,
       description: json['description'] as String?,
       get: json['get'] == null
@@ -666,8 +642,7 @@ _$PathItemImpl _$$PathItemImplFromJson(Map<String, dynamic> json) =>
       ref: const _PathRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$PathItemImplToJson(_$PathItemImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PathItemToJson(_PathItem instance) => <String, dynamic>{
       if (instance.summary case final value?) 'summary': value,
       if (instance.description case final value?) 'description': value,
       if (instance.get?.toJson() case final value?) 'get': value,
@@ -687,8 +662,7 @@ Map<String, dynamic> _$$PathItemImplToJson(_$PathItemImpl instance) =>
         r'$ref': value,
     };
 
-_$RequestBodyImpl _$$RequestBodyImplFromJson(Map<String, dynamic> json) =>
-    _$RequestBodyImpl(
+_RequestBody _$RequestBodyFromJson(Map<String, dynamic> json) => _RequestBody(
       description: json['description'] as String?,
       required: json['required'] as bool?,
       content: (json['content'] as Map<String, dynamic>?)?.map(
@@ -697,7 +671,7 @@ _$RequestBodyImpl _$$RequestBodyImplFromJson(Map<String, dynamic> json) =>
       ref: const _RequestRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$RequestBodyImplToJson(_$RequestBodyImpl instance) =>
+Map<String, dynamic> _$RequestBodyToJson(_RequestBody instance) =>
     <String, dynamic>{
       if (instance.description case final value?) 'description': value,
       if (instance.required case final value?) 'required': value,
@@ -708,8 +682,7 @@ Map<String, dynamic> _$$RequestBodyImplToJson(_$RequestBodyImpl instance) =>
         r'$ref': value,
     };
 
-_$ResponseImpl _$$ResponseImplFromJson(Map<String, dynamic> json) =>
-    _$ResponseImpl(
+_Response _$ResponseFromJson(Map<String, dynamic> json) => _Response(
       description: json['description'] as String? ?? '',
       headers: (json['headers'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, Header.fromJson(e as Map<String, dynamic>)),
@@ -723,8 +696,7 @@ _$ResponseImpl _$$ResponseImplFromJson(Map<String, dynamic> json) =>
       ref: const _ResponseRefConverter().fromJson(json[r'$ref'] as String?),
     );
 
-Map<String, dynamic> _$$ResponseImplToJson(_$ResponseImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ResponseToJson(_Response instance) => <String, dynamic>{
       'description': instance.description,
       if (instance.headers?.map((k, e) => MapEntry(k, e.toJson()))
           case final value?)
@@ -739,8 +711,7 @@ Map<String, dynamic> _$$ResponseImplToJson(_$ResponseImpl instance) =>
         r'$ref': value,
     };
 
-_$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaObjectImpl(
+SchemaObject _$SchemaObjectFromJson(Map<String, dynamic> json) => SchemaObject(
       title: json['title'] as String?,
       description: json['description'] as String?,
       defaultValue: json['default'],
@@ -771,7 +742,7 @@ _$SchemaObjectImpl _$$SchemaObjectImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaObjectImplToJson(_$SchemaObjectImpl instance) =>
+Map<String, dynamic> _$SchemaObjectToJson(SchemaObject instance) =>
     <String, dynamic>{
       if (instance.title case final value?) 'title': value,
       if (instance.description case final value?) 'description': value,
@@ -803,8 +774,8 @@ Map<String, dynamic> _$$SchemaObjectImplToJson(_$SchemaObjectImpl instance) =>
       'type': instance.$type,
     };
 
-_$SchemaBooleanImpl _$$SchemaBooleanImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaBooleanImpl(
+SchemaBoolean _$SchemaBooleanFromJson(Map<String, dynamic> json) =>
+    SchemaBoolean(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -817,7 +788,7 @@ _$SchemaBooleanImpl _$$SchemaBooleanImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaBooleanImplToJson(_$SchemaBooleanImpl instance) =>
+Map<String, dynamic> _$SchemaBooleanToJson(SchemaBoolean instance) =>
     <String, dynamic>{
       if (instance.xml?.toJson() case final value?) 'xml': value,
       if (instance.title case final value?) 'title': value,
@@ -830,8 +801,7 @@ Map<String, dynamic> _$$SchemaBooleanImplToJson(_$SchemaBooleanImpl instance) =>
       'type': instance.$type,
     };
 
-_$SchemaStringImpl _$$SchemaStringImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaStringImpl(
+SchemaString _$SchemaStringFromJson(Map<String, dynamic> json) => SchemaString(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -851,7 +821,7 @@ _$SchemaStringImpl _$$SchemaStringImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaStringImplToJson(_$SchemaStringImpl instance) =>
+Map<String, dynamic> _$SchemaStringToJson(SchemaString instance) =>
     <String, dynamic>{
       if (instance.xml?.toJson() case final value?) 'xml': value,
       if (instance.title case final value?) 'title': value,
@@ -888,8 +858,8 @@ const _$StringFormatEnumMap = {
   StringFormat.uuid: 'uuid',
 };
 
-_$SchemaIntegerImpl _$$SchemaIntegerImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaIntegerImpl(
+SchemaInteger _$SchemaIntegerFromJson(Map<String, dynamic> json) =>
+    SchemaInteger(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -909,7 +879,7 @@ _$SchemaIntegerImpl _$$SchemaIntegerImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaIntegerImplToJson(_$SchemaIntegerImpl instance) =>
+Map<String, dynamic> _$SchemaIntegerToJson(SchemaInteger instance) =>
     <String, dynamic>{
       if (instance.xml?.toJson() case final value?) 'xml': value,
       if (instance.title case final value?) 'title': value,
@@ -936,8 +906,7 @@ const _$IntegerFormatEnumMap = {
   IntegerFormat.int64: 'int64',
 };
 
-_$SchemaNumberImpl _$$SchemaNumberImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaNumberImpl(
+SchemaNumber _$SchemaNumberFromJson(Map<String, dynamic> json) => SchemaNumber(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -957,7 +926,7 @@ _$SchemaNumberImpl _$$SchemaNumberImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaNumberImplToJson(_$SchemaNumberImpl instance) =>
+Map<String, dynamic> _$SchemaNumberToJson(SchemaNumber instance) =>
     <String, dynamic>{
       if (instance.xml?.toJson() case final value?) 'xml': value,
       if (instance.title case final value?) 'title': value,
@@ -984,8 +953,7 @@ const _$NumberFormatEnumMap = {
   NumberFormat.double: 'double',
 };
 
-_$SchemaEnumImpl _$$SchemaEnumImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaEnumImpl(
+SchemaEnum _$SchemaEnumFromJson(Map<String, dynamic> json) => SchemaEnum(
       title: json['title'] as String?,
       description: json['description'] as String?,
       example: json['example'] as String?,
@@ -997,7 +965,7 @@ _$SchemaEnumImpl _$$SchemaEnumImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaEnumImplToJson(_$SchemaEnumImpl instance) =>
+Map<String, dynamic> _$SchemaEnumToJson(SchemaEnum instance) =>
     <String, dynamic>{
       if (instance.title case final value?) 'title': value,
       if (instance.description case final value?) 'description': value,
@@ -1010,8 +978,7 @@ Map<String, dynamic> _$$SchemaEnumImplToJson(_$SchemaEnumImpl instance) =>
       'type': instance.$type,
     };
 
-_$SchemaArrayImpl _$$SchemaArrayImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaArrayImpl(
+SchemaArray _$SchemaArrayFromJson(Map<String, dynamic> json) => SchemaArray(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1027,7 +994,7 @@ _$SchemaArrayImpl _$$SchemaArrayImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaArrayImplToJson(_$SchemaArrayImpl instance) =>
+Map<String, dynamic> _$SchemaArrayToJson(SchemaArray instance) =>
     <String, dynamic>{
       if (instance.xml?.toJson() case final value?) 'xml': value,
       if (instance.title case final value?) 'title': value,
@@ -1043,8 +1010,7 @@ Map<String, dynamic> _$$SchemaArrayImplToJson(_$SchemaArrayImpl instance) =>
       'type': instance.$type,
     };
 
-_$SchemaMapImpl _$$SchemaMapImplFromJson(Map<String, dynamic> json) =>
-    _$SchemaMapImpl(
+SchemaMap _$SchemaMapFromJson(Map<String, dynamic> json) => SchemaMap(
       xml: json['xml'] == null
           ? null
           : Xml.fromJson(json['xml'] as Map<String, dynamic>),
@@ -1058,8 +1024,7 @@ _$SchemaMapImpl _$$SchemaMapImplFromJson(Map<String, dynamic> json) =>
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SchemaMapImplToJson(_$SchemaMapImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$SchemaMapToJson(SchemaMap instance) => <String, dynamic>{
       if (instance.xml?.toJson() case final value?) 'xml': value,
       if (instance.title case final value?) 'title': value,
       if (instance.description case final value?) 'description': value,
@@ -1073,17 +1038,17 @@ Map<String, dynamic> _$$SchemaMapImplToJson(_$SchemaMapImpl instance) =>
       'type': instance.$type,
     };
 
-_$SecuritySchemeApiKeyImpl _$$SecuritySchemeApiKeyImplFromJson(
+SecuritySchemeApiKey _$SecuritySchemeApiKeyFromJson(
         Map<String, dynamic> json) =>
-    _$SecuritySchemeApiKeyImpl(
+    SecuritySchemeApiKey(
       name: json['name'] as String,
       description: json['description'] as String?,
       location: $enumDecode(_$ApiKeyLocationEnumMap, json['in']),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SecuritySchemeApiKeyImplToJson(
-        _$SecuritySchemeApiKeyImpl instance) =>
+Map<String, dynamic> _$SecuritySchemeApiKeyToJson(
+        SecuritySchemeApiKey instance) =>
     <String, dynamic>{
       'name': instance.name,
       if (instance.description case final value?) 'description': value,
@@ -1097,17 +1062,15 @@ const _$ApiKeyLocationEnumMap = {
   ApiKeyLocation.cookie: 'cookie',
 };
 
-_$SecuritySchemeHttpImpl _$$SecuritySchemeHttpImplFromJson(
-        Map<String, dynamic> json) =>
-    _$SecuritySchemeHttpImpl(
+SecuritySchemeHttp _$SecuritySchemeHttpFromJson(Map<String, dynamic> json) =>
+    SecuritySchemeHttp(
       scheme: $enumDecode(_$HttpSecuritySchemeEnumMap, json['scheme']),
       bearerFormat: json['bearerFormat'] as String?,
       description: json['description'] as String?,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SecuritySchemeHttpImplToJson(
-        _$SecuritySchemeHttpImpl instance) =>
+Map<String, dynamic> _$SecuritySchemeHttpToJson(SecuritySchemeHttp instance) =>
     <String, dynamic>{
       'scheme': _$HttpSecuritySchemeEnumMap[instance.scheme]!,
       if (instance.bearerFormat case final value?) 'bearerFormat': value,
@@ -1120,53 +1083,53 @@ const _$HttpSecuritySchemeEnumMap = {
   HttpSecurityScheme.bearer: 'bearer',
 };
 
-_$SecuritySchemeMutualTLSImpl _$$SecuritySchemeMutualTLSImplFromJson(
+SecuritySchemeMutualTLS _$SecuritySchemeMutualTLSFromJson(
         Map<String, dynamic> json) =>
-    _$SecuritySchemeMutualTLSImpl(
+    SecuritySchemeMutualTLS(
       description: json['description'] as String?,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SecuritySchemeMutualTLSImplToJson(
-        _$SecuritySchemeMutualTLSImpl instance) =>
+Map<String, dynamic> _$SecuritySchemeMutualTLSToJson(
+        SecuritySchemeMutualTLS instance) =>
     <String, dynamic>{
       if (instance.description case final value?) 'description': value,
       'type': instance.$type,
     };
 
-_$SecuritySchemeOauth2Impl _$$SecuritySchemeOauth2ImplFromJson(
+SecuritySchemeOauth2 _$SecuritySchemeOauth2FromJson(
         Map<String, dynamic> json) =>
-    _$SecuritySchemeOauth2Impl(
+    SecuritySchemeOauth2(
       description: json['description'] as String?,
       flows: OAuthFlows.fromJson(json['flows'] as Map<String, dynamic>),
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SecuritySchemeOauth2ImplToJson(
-        _$SecuritySchemeOauth2Impl instance) =>
+Map<String, dynamic> _$SecuritySchemeOauth2ToJson(
+        SecuritySchemeOauth2 instance) =>
     <String, dynamic>{
       if (instance.description case final value?) 'description': value,
       'flows': instance.flows.toJson(),
       'type': instance.$type,
     };
 
-_$SecuritySchemeOpenIdConnectImpl _$$SecuritySchemeOpenIdConnectImplFromJson(
+SecuritySchemeOpenIdConnect _$SecuritySchemeOpenIdConnectFromJson(
         Map<String, dynamic> json) =>
-    _$SecuritySchemeOpenIdConnectImpl(
+    SecuritySchemeOpenIdConnect(
       description: json['description'] as String?,
       url: json['openIdConnectUrl'] as String,
       $type: json['type'] as String?,
     );
 
-Map<String, dynamic> _$$SecuritySchemeOpenIdConnectImplToJson(
-        _$SecuritySchemeOpenIdConnectImpl instance) =>
+Map<String, dynamic> _$SecuritySchemeOpenIdConnectToJson(
+        SecuritySchemeOpenIdConnect instance) =>
     <String, dynamic>{
       if (instance.description case final value?) 'description': value,
       'openIdConnectUrl': instance.url,
       'type': instance.$type,
     };
 
-_$ServerImpl _$$ServerImplFromJson(Map<String, dynamic> json) => _$ServerImpl(
+_Server _$ServerFromJson(Map<String, dynamic> json) => _Server(
       url: json['url'] as String?,
       description: json['description'] as String?,
       variables: (json['variables'] as Map<String, dynamic>?)?.map(
@@ -1175,8 +1138,7 @@ _$ServerImpl _$$ServerImplFromJson(Map<String, dynamic> json) => _$ServerImpl(
       ),
     );
 
-Map<String, dynamic> _$$ServerImplToJson(_$ServerImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ServerToJson(_Server instance) => <String, dynamic>{
       if (instance.url case final value?) 'url': value,
       if (instance.description case final value?) 'description': value,
       if (instance.variables?.map((k, e) => MapEntry(k, e.toJson()))
@@ -1184,23 +1146,22 @@ Map<String, dynamic> _$$ServerImplToJson(_$ServerImpl instance) =>
         'variables': value,
     };
 
-_$ServerVariableImpl _$$ServerVariableImplFromJson(Map<String, dynamic> json) =>
-    _$ServerVariableImpl(
+_ServerVariable _$ServerVariableFromJson(Map<String, dynamic> json) =>
+    _ServerVariable(
       enumValue:
           (json['enum'] as List<dynamic>?)?.map((e) => e as String).toList(),
       defaultValue: json['default'] as String,
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$ServerVariableImplToJson(
-        _$ServerVariableImpl instance) =>
+Map<String, dynamic> _$ServerVariableToJson(_ServerVariable instance) =>
     <String, dynamic>{
       if (instance.enumValue case final value?) 'enum': value,
       'default': instance.defaultValue,
       if (instance.description case final value?) 'description': value,
     };
 
-_$TagImpl _$$TagImplFromJson(Map<String, dynamic> json) => _$TagImpl(
+_Tag _$TagFromJson(Map<String, dynamic> json) => _Tag(
       name: json['name'] as String,
       description: json['description'] as String?,
       externalDocs: json['externalDocs'] == null
@@ -1208,14 +1169,14 @@ _$TagImpl _$$TagImplFromJson(Map<String, dynamic> json) => _$TagImpl(
           : ExternalDocs.fromJson(json['externalDocs'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$TagImplToJson(_$TagImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$TagToJson(_Tag instance) => <String, dynamic>{
       'name': instance.name,
       if (instance.description case final value?) 'description': value,
       if (instance.externalDocs?.toJson() case final value?)
         'externalDocs': value,
     };
 
-_$XmlImpl _$$XmlImplFromJson(Map<String, dynamic> json) => _$XmlImpl(
+_Xml _$XmlFromJson(Map<String, dynamic> json) => _Xml(
       name: json['name'] as String?,
       namespace: json['namespace'] as String?,
       prefix: json['prefix'] as String?,
@@ -1223,7 +1184,7 @@ _$XmlImpl _$$XmlImplFromJson(Map<String, dynamic> json) => _$XmlImpl(
       wrapped: json['wrapped'] as bool?,
     );
 
-Map<String, dynamic> _$$XmlImplToJson(_$XmlImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$XmlToJson(_Xml instance) => <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       if (instance.namespace case final value?) 'namespace': value,
       if (instance.prefix case final value?) 'prefix': value,

@@ -6,7 +6,7 @@ part of 'index.dart';
 
 /// Text
 @freezed
-class License with _$License {
+abstract class License with _$License {
   const factory License({
     /// The license name used for the API.
     required String name,
