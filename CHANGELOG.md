@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+
+* Fix typo in ClientGenerator
+
 ## 0.8.0
 
 * Upgrade to Freezed 3.0
