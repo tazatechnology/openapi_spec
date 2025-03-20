@@ -156,7 +156,7 @@ class $clientException implements Exception {
   @override
   String toString() {
     final s = JsonEncoder.withIndent(' ').convert(toJson());
-    return 'GeminusClientException(\$s)';
+    return '$clientException(\$s)';
   }
 
   /// Convert exception to JSON
