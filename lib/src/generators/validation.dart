@@ -38,8 +38,8 @@ class SchemaValidation {
     num? minimum,
     num? maximum,
     num? multipleOf,
-    bool? exclusiveMinimum,
-    bool? exclusiveMaximum,
+    num? exclusiveMinimum,
+    num? exclusiveMaximum,
     bool nullable = false,
   }) {
     return SchemaValidation._(
@@ -63,8 +63,6 @@ class SchemaValidation {
     required String name,
     num? minLength,
     num? maxLength,
-    bool? exclusiveMinimum,
-    bool? exclusiveMaximum,
     bool nullable = false,
   }) {
     return SchemaValidation._(
@@ -72,8 +70,6 @@ class SchemaValidation {
       type: SchemaValidationType.string,
       minLength: minLength,
       maxLength: maxLength,
-      exclusiveMinimum: exclusiveMinimum,
-      exclusiveMaximum: exclusiveMaximum,
       nullable: nullable,
     );
   }
@@ -107,10 +103,10 @@ class SchemaValidation {
   num? multipleOf;
 
   /// Exclusive minimum value
-  bool? exclusiveMinimum;
+  num? exclusiveMinimum;
 
   /// Exclusive maximum value
-  bool? exclusiveMaximum;
+  num? exclusiveMaximum;
 
   /// Is nullable
   bool nullable;
@@ -134,8 +130,16 @@ class SchemaValidation {
         constants[conName] = defaultValue!;
       }
 
-      if (minimum != null) {
-        final operator = exclusiveMinimum ?? false ? '<=' : '<';
+      if (minimum != null || exclusiveMinimum != null) {
+        String operator;
+        num minValue;
+        if (exclusiveMinimum != null) {
+          operator = '<';
+          minValue = exclusiveMinimum!;
+        } else {
+          operator = '<=';
+          minValue = minimum!;
+        }
         final conName = '${name}_min_value'.camelCase;
         final message = "The value of '$name' cannot be $operator \$$conName";
         operations.add(
@@ -144,10 +148,18 @@ class SchemaValidation {
             return "$message";
           }""",
         );
-        constants[conName] = minimum!;
+        constants[conName] = minValue;
       }
-      if (maximum != null) {
-        final operator = exclusiveMaximum ?? false ? '>=' : '>';
+      if (maximum != null || exclusiveMaximum != null) {
+        String operator;
+        num maxValue;
+        if (exclusiveMaximum != null) {
+          operator = '>';
+          maxValue = exclusiveMaximum!;
+        } else {
+          operator = '>=';
+          maxValue = maximum!;
+        }
         final conName = '${name}_max_value'.camelCase;
         final message = "The value of '$name' cannot be $operator \$$conName";
         operations.add(
@@ -156,7 +168,7 @@ class SchemaValidation {
             return "$message";
           }""",
         );
-        constants[conName] = maximum!;
+        constants[conName] = maxValue;
       }
       if (multipleOf != null) {
         final conName = '${name}_multiple_value'.camelCase;
@@ -174,7 +186,7 @@ class SchemaValidation {
           nullable ? '$name != null && $name!.length' : '$name.length';
 
       if (minLength != null) {
-        final operator = exclusiveMinimum ?? false ? '<=' : '<';
+        final operator = '<';
         final conName = '${name}_minLength_value'.camelCase;
         operations.add(
           """
@@ -185,7 +197,7 @@ class SchemaValidation {
         constants[conName] = minLength!;
       }
       if (maxLength != null) {
-        final operator = exclusiveMaximum ?? false ? '>=' : '>';
+        final operator = '>';
         final conName = '${name}_maxLength_value'.camelCase;
         operations.add(
           """

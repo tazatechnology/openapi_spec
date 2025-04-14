@@ -850,8 +850,6 @@ class SchemaGenerator extends BaseGenerator {
           name: name,
           minLength: p.minLength,
           maxLength: p.maxLength,
-          exclusiveMinimum: p.exclusiveMinimum,
-          exclusiveMaximum: p.exclusiveMaximum,
           nullable: nullable,
         );
       case SchemaInteger():

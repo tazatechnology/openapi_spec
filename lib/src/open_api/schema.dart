@@ -131,8 +131,8 @@ abstract class Schema with _$Schema {
     String? example,
     @JsonKey(fromJson: _fromJsonInt) int? minLength,
     @JsonKey(fromJson: _fromJsonInt) int? maxLength,
-    bool? exclusiveMinimum,
-    bool? exclusiveMaximum,
+    @JsonKey(fromJson: _fromJsonInt) int? exclusiveMinimum,
+    @JsonKey(fromJson: _fromJsonInt) int? exclusiveMaximum,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaString;
 
@@ -152,8 +152,8 @@ abstract class Schema with _$Schema {
     @JsonKey(fromJson: _fromJsonInt) int? example,
     @JsonKey(fromJson: _fromJsonInt) int? minimum,
     @JsonKey(fromJson: _fromJsonInt) int? maximum,
-    bool? exclusiveMinimum,
-    bool? exclusiveMaximum,
+    @JsonKey(fromJson: _fromJsonInt) int? exclusiveMinimum,
+    @JsonKey(fromJson: _fromJsonInt) int? exclusiveMaximum,
     @JsonKey(fromJson: _fromJsonInt) int? multipleOf,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaInteger;
@@ -174,8 +174,8 @@ abstract class Schema with _$Schema {
     @JsonKey(fromJson: _fromJsonDouble) double? example,
     @JsonKey(fromJson: _fromJsonDouble) double? minimum,
     @JsonKey(fromJson: _fromJsonDouble) double? maximum,
-    bool? exclusiveMinimum,
-    bool? exclusiveMaximum,
+    @JsonKey(fromJson: _fromJsonInt) int? exclusiveMinimum,
+    @JsonKey(fromJson: _fromJsonInt) int? exclusiveMaximum,
     @JsonKey(fromJson: _fromJsonDouble) double? multipleOf,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaNumber;

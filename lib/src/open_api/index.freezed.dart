@@ -7915,8 +7915,8 @@ class SchemaString extends Schema {
       this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minLength,
       @JsonKey(fromJson: _fromJsonInt) this.maxLength,
-      this.exclusiveMinimum,
-      this.exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) this.exclusiveMinimum,
+      @JsonKey(fromJson: _fromJsonInt) this.exclusiveMaximum,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
       : $type = $type ?? 'string',
@@ -7942,8 +7942,10 @@ class SchemaString extends Schema {
   final int? minLength;
   @JsonKey(fromJson: _fromJsonInt)
   final int? maxLength;
-  final bool? exclusiveMinimum;
-  final bool? exclusiveMaximum;
+  @JsonKey(fromJson: _fromJsonInt)
+  final int? exclusiveMinimum;
+  @JsonKey(fromJson: _fromJsonInt)
+  final int? exclusiveMaximum;
   @override
   @JsonKey(name: '\$ref')
   @_SchemaRefConverter()
@@ -8038,8 +8040,8 @@ abstract mixin class $SchemaStringCopyWith<$Res>
       String? example,
       @JsonKey(fromJson: _fromJsonInt) int? minLength,
       @JsonKey(fromJson: _fromJsonInt) int? maxLength,
-      bool? exclusiveMinimum,
-      bool? exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) int? exclusiveMinimum,
+      @JsonKey(fromJson: _fromJsonInt) int? exclusiveMaximum,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
   $XmlCopyWith<$Res>? get xml;
@@ -8115,11 +8117,11 @@ class _$SchemaStringCopyWithImpl<$Res> implements $SchemaStringCopyWith<$Res> {
       exclusiveMinimum: freezed == exclusiveMinimum
           ? _self.exclusiveMinimum
           : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as int?,
       exclusiveMaximum: freezed == exclusiveMaximum
           ? _self.exclusiveMaximum
           : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as int?,
       ref: freezed == ref
           ? _self.ref
           : ref // ignore: cast_nullable_to_non_nullable
@@ -8155,8 +8157,8 @@ class SchemaInteger extends Schema {
       @JsonKey(fromJson: _fromJsonInt) this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minimum,
       @JsonKey(fromJson: _fromJsonInt) this.maximum,
-      this.exclusiveMinimum,
-      this.exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) this.exclusiveMinimum,
+      @JsonKey(fromJson: _fromJsonInt) this.exclusiveMaximum,
       @JsonKey(fromJson: _fromJsonInt) this.multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
@@ -8183,8 +8185,10 @@ class SchemaInteger extends Schema {
   final int? minimum;
   @JsonKey(fromJson: _fromJsonInt)
   final int? maximum;
-  final bool? exclusiveMinimum;
-  final bool? exclusiveMaximum;
+  @JsonKey(fromJson: _fromJsonInt)
+  final int? exclusiveMinimum;
+  @JsonKey(fromJson: _fromJsonInt)
+  final int? exclusiveMaximum;
   @JsonKey(fromJson: _fromJsonInt)
   final int? multipleOf;
   @override
@@ -8279,8 +8283,8 @@ abstract mixin class $SchemaIntegerCopyWith<$Res>
       @JsonKey(fromJson: _fromJsonInt) int? example,
       @JsonKey(fromJson: _fromJsonInt) int? minimum,
       @JsonKey(fromJson: _fromJsonInt) int? maximum,
-      bool? exclusiveMinimum,
-      bool? exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) int? exclusiveMinimum,
+      @JsonKey(fromJson: _fromJsonInt) int? exclusiveMaximum,
       @JsonKey(fromJson: _fromJsonInt) int? multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
@@ -8354,11 +8358,11 @@ class _$SchemaIntegerCopyWithImpl<$Res>
       exclusiveMinimum: freezed == exclusiveMinimum
           ? _self.exclusiveMinimum
           : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as int?,
       exclusiveMaximum: freezed == exclusiveMaximum
           ? _self.exclusiveMaximum
           : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as int?,
       multipleOf: freezed == multipleOf
           ? _self.multipleOf
           : multipleOf // ignore: cast_nullable_to_non_nullable
@@ -8398,8 +8402,8 @@ class SchemaNumber extends Schema {
       @JsonKey(fromJson: _fromJsonDouble) this.example,
       @JsonKey(fromJson: _fromJsonDouble) this.minimum,
       @JsonKey(fromJson: _fromJsonDouble) this.maximum,
-      this.exclusiveMinimum,
-      this.exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) this.exclusiveMinimum,
+      @JsonKey(fromJson: _fromJsonInt) this.exclusiveMaximum,
       @JsonKey(fromJson: _fromJsonDouble) this.multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() this.ref,
       final String? $type})
@@ -8426,8 +8430,10 @@ class SchemaNumber extends Schema {
   final double? minimum;
   @JsonKey(fromJson: _fromJsonDouble)
   final double? maximum;
-  final bool? exclusiveMinimum;
-  final bool? exclusiveMaximum;
+  @JsonKey(fromJson: _fromJsonInt)
+  final int? exclusiveMinimum;
+  @JsonKey(fromJson: _fromJsonInt)
+  final int? exclusiveMaximum;
   @JsonKey(fromJson: _fromJsonDouble)
   final double? multipleOf;
   @override
@@ -8522,8 +8528,8 @@ abstract mixin class $SchemaNumberCopyWith<$Res>
       @JsonKey(fromJson: _fromJsonDouble) double? example,
       @JsonKey(fromJson: _fromJsonDouble) double? minimum,
       @JsonKey(fromJson: _fromJsonDouble) double? maximum,
-      bool? exclusiveMinimum,
-      bool? exclusiveMaximum,
+      @JsonKey(fromJson: _fromJsonInt) int? exclusiveMinimum,
+      @JsonKey(fromJson: _fromJsonInt) int? exclusiveMaximum,
       @JsonKey(fromJson: _fromJsonDouble) double? multipleOf,
       @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref});
 
@@ -8596,11 +8602,11 @@ class _$SchemaNumberCopyWithImpl<$Res> implements $SchemaNumberCopyWith<$Res> {
       exclusiveMinimum: freezed == exclusiveMinimum
           ? _self.exclusiveMinimum
           : exclusiveMinimum // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as int?,
       exclusiveMaximum: freezed == exclusiveMaximum
           ? _self.exclusiveMaximum
           : exclusiveMaximum // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as int?,
       multipleOf: freezed == multipleOf
           ? _self.multipleOf
           : multipleOf // ignore: cast_nullable_to_non_nullable
@@ -8814,7 +8820,7 @@ class SchemaArray extends Schema {
       {this.xml,
       this.title,
       this.description,
-      @JsonKey(name: 'default') final List<dynamic>? defaultValue,
+      @JsonKey(name: 'default') final List? defaultValue,
       this.nullable,
       this.example,
       @JsonKey(fromJson: _fromJsonInt) this.minItems,
@@ -8833,10 +8839,10 @@ class SchemaArray extends Schema {
   final String? title;
   @override
   final String? description;
-  final List<dynamic>? _defaultValue;
+  final List? _defaultValue;
   @override
   @JsonKey(name: 'default')
-  List<dynamic>? get defaultValue {
+  List? get defaultValue {
     final value = _defaultValue;
     if (value == null) return null;
     if (_defaultValue is EqualUnmodifiableListView) return _defaultValue;
@@ -8930,7 +8936,7 @@ abstract mixin class $SchemaArrayCopyWith<$Res>
       {Xml? xml,
       String? title,
       String? description,
-      @JsonKey(name: 'default') List<dynamic>? defaultValue,
+      @JsonKey(name: 'default') List? defaultValue,
       bool? nullable,
       dynamic example,
       @JsonKey(fromJson: _fromJsonInt) int? minItems,
@@ -8981,7 +8987,7 @@ class _$SchemaArrayCopyWithImpl<$Res> implements $SchemaArrayCopyWith<$Res> {
       defaultValue: freezed == defaultValue
           ? _self._defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>?,
+              as List?,
       nullable: freezed == nullable
           ? _self.nullable
           : nullable // ignore: cast_nullable_to_non_nullable
@@ -9041,9 +9047,9 @@ class SchemaMap extends Schema {
       {this.xml,
       this.title,
       this.description,
-      @JsonKey(name: 'default') final Map<dynamic, dynamic>? defaultValue,
+      @JsonKey(name: 'default') final Map? defaultValue,
       this.nullable,
-      final Map<dynamic, dynamic>? example,
+      final Map? example,
       @JsonKey(
           name: 'additionalProperties',
           toJson: _toMapProps,
@@ -9063,10 +9069,10 @@ class SchemaMap extends Schema {
   final String? title;
   @override
   final String? description;
-  final Map<dynamic, dynamic>? _defaultValue;
+  final Map? _defaultValue;
   @override
   @JsonKey(name: 'default')
-  Map<dynamic, dynamic>? get defaultValue {
+  Map? get defaultValue {
     final value = _defaultValue;
     if (value == null) return null;
     if (_defaultValue is EqualUnmodifiableMapView) return _defaultValue;
@@ -9076,8 +9082,8 @@ class SchemaMap extends Schema {
 
   @override
   final bool? nullable;
-  final Map<dynamic, dynamic>? _example;
-  Map<dynamic, dynamic>? get example {
+  final Map? _example;
+  Map? get example {
     final value = _example;
     if (value == null) return null;
     if (_example is EqualUnmodifiableMapView) return _example;
@@ -9161,9 +9167,9 @@ abstract mixin class $SchemaMapCopyWith<$Res> implements $SchemaCopyWith<$Res> {
       {Xml? xml,
       String? title,
       String? description,
-      @JsonKey(name: 'default') Map<dynamic, dynamic>? defaultValue,
+      @JsonKey(name: 'default') Map? defaultValue,
       bool? nullable,
-      Map<dynamic, dynamic>? example,
+      Map? example,
       @JsonKey(
           name: 'additionalProperties',
           toJson: _toMapProps,
@@ -9212,7 +9218,7 @@ class _$SchemaMapCopyWithImpl<$Res> implements $SchemaMapCopyWith<$Res> {
       defaultValue: freezed == defaultValue
           ? _self._defaultValue
           : defaultValue // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
+              as Map?,
       nullable: freezed == nullable
           ? _self.nullable
           : nullable // ignore: cast_nullable_to_non_nullable
@@ -9220,7 +9226,7 @@ class _$SchemaMapCopyWithImpl<$Res> implements $SchemaMapCopyWith<$Res> {
       example: freezed == example
           ? _self._example
           : example // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
+              as Map?,
       valueSchema: freezed == valueSchema
           ? _self.valueSchema
           : valueSchema // ignore: cast_nullable_to_non_nullable
