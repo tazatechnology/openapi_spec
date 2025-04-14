@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0
+
+* Fix exclusive minimum/maximum handling (should be `int` not `bool` in OpenAPI 3.0+)
+
 ## 0.8.2
 
 * Fix typo in ClientGenerator
