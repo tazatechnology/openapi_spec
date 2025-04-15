@@ -311,10 +311,10 @@ class $serverName {
     // Attempt to arrive at a default method name
     String methodName;
     if (operation.id != null) {
-      methodName = operation.id!.camelCase;
+      methodName = operation.id!.specCase;
     } else {
       final cleanPath = data.path.replaceAll(RegExp(r'\W'), '_');
-      methodName = '${data.method.name}_$cleanPath'.camelCase;
+      methodName = '${data.method.name}_$cleanPath'.specCase;
     }
 
     // Allow user to override the default name
@@ -325,7 +325,7 @@ class $serverName {
         printLog('Skip Server Method', methodName);
         return;
       } else {
-        methodName = userMethodName.camelCase;
+        methodName = userMethodName.specCase;
       }
     }
 

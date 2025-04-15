@@ -55,3 +55,23 @@ abstract class BaseGenerator {
     }
   }
 }
+
+// =============================================================================
+// CLASS: GeneratorStringExtension
+// =============================================================================
+
+// ignore: non_constant_identifier_names
+GeneratorCase GENERATOR_CASE_OPTION = GeneratorCase.camelCase;
+
+enum GeneratorCase { camelCase, snakeCase }
+
+extension GeneratorStringExtension on String {
+  String get specCase {
+    switch (GENERATOR_CASE_OPTION) {
+      case GeneratorCase.camelCase:
+        return camelCase;
+      case GeneratorCase.snakeCase:
+        return snakeCase;
+    }
+  }
+}

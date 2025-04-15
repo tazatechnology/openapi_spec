@@ -302,7 +302,7 @@ class SchemaGenerator extends BaseGenerator {
       final propNames = props.keys.toList();
       List<SchemaValidation> validations = [];
       for (final propName in propNames) {
-        var dartName = propName.camelCase;
+        var dartName = propName.specCase;
         dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
         final v = _writeProperty(
           name: dartName,
@@ -328,7 +328,7 @@ class SchemaGenerator extends BaseGenerator {
       // ==========================================
 
       enum ${union}Type {
-        ${unionValues.map((e) => "@JsonValue('$e')\n${e.camelCase},").join('\n')}
+        ${unionValues.map((e) => "@JsonValue('$e')\n${e.specCase},").join('\n')}
       }
       """;
     }
@@ -406,7 +406,7 @@ class SchemaGenerator extends BaseGenerator {
               if (ref != null) {
                 final ref = a.dereference(components: spec.components?.schemas);
                 final uType = ref.toDartType().replaceAll('?', '');
-                final uFactory = '$union.${uType.camelCase}';
+                final uFactory = '$union.${uType.specCase}';
                 final uName = '$uNameConstr$uType';
                 toJson.add('$uName(value: final v) => v.toJson(),');
                 fromJson.add("""
@@ -606,7 +606,7 @@ class SchemaGenerator extends BaseGenerator {
     bool firstPass = true;
     List<SchemaValidation> validations = [];
     for (final propName in propNames) {
-      var dartName = propName.camelCase;
+      var dartName = propName.specCase;
       dartName = options.onSchemaPropertyName?.call(dartName) ?? dartName;
       if (firstPass) {
         firstPass = false;
@@ -752,7 +752,7 @@ class SchemaGenerator extends BaseGenerator {
             );
             p = p.copyWith(
               defaultValue:
-                  "${p.title}.enumeration(${a?.title}.${p.defaultValue.toString().camelCase}),",
+                  "${p.title}.enumeration(${a?.title}.${p.defaultValue.toString().specCase}),",
             );
           } else if (p.defaultValue is bool &&
               (aTypes.contains(SchemaType.boolean))) {
@@ -952,7 +952,7 @@ class SchemaGenerator extends BaseGenerator {
 
         String? unknownFallback;
         if (p.unknownValue != null) {
-          unknownFallback = '${p.ref}.${p.unknownValue?.camelCase}';
+          unknownFallback = '${p.ref}.${p.unknownValue?.specCase}';
         } else if (nullable) {
           unknownFallback = 'JsonKey.nullForUndefinedEnumValue';
         }
@@ -1000,7 +1000,7 @@ class SchemaGenerator extends BaseGenerator {
     if (value.startsWith(RegExp(r'[0-9]'))) {
       value = 'v$value';
     }
-    value = value.replaceAll('.', '_').camelCase;
+    value = value.replaceAll('.', '_').specCase;
     if (value.isEmpty) {
       switch (schema) {
         case SchemaEnum():

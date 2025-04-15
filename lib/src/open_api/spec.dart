@@ -393,7 +393,11 @@ abstract class OpenApi with _$OpenApi {
     SchemaGeneratorOptions schemaOptions = const SchemaGeneratorOptions(),
     ClientGeneratorOptions clientOptions = const ClientGeneratorOptions(),
     ServerGeneratorOptions serverOptions = const ServerGeneratorOptions(),
+    GeneratorCase generatorCase = GeneratorCase.camelCase,
   }) async {
+    // Update the global generator case
+    GENERATOR_CASE_OPTION = generatorCase;
+
     // Ensure that the folder exists
     final dir = Directory(destination);
     final dirPath = p.normalize(dir.absolute.path);
@@ -466,6 +470,9 @@ abstract class OpenApi with _$OpenApi {
         await serverGenerator.generate();
       }
     }
+
+    // Revert the global generator case
+    GENERATOR_CASE_OPTION = GeneratorCase.camelCase;
 
     // Apply the Dart formatting and fix logic
     if (formatOutput) {

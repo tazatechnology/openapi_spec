@@ -626,10 +626,10 @@ class $clientName {
     // Attempt to arrive at a default method name
     String methodName;
     if (operation.id != null) {
-      methodName = operation.id!.camelCase;
+      methodName = operation.id!.specCase;
     } else {
       final cleanPath = path.replaceAll(RegExp(r'\W'), '_');
-      methodName = '${method.name}_$cleanPath'.camelCase;
+      methodName = '${method.name}_$cleanPath'.specCase;
     }
 
     // Allow user to override the default name
@@ -640,7 +640,7 @@ class $clientName {
         printLog('Skip Client Method', methodName);
         return;
       } else {
-        methodName = userMethodName.camelCase;
+        methodName = userMethodName.specCase;
       }
     }
 
@@ -712,16 +712,16 @@ class $clientName {
       final entries = (server?.variables ?? <String, ServerVariable>{}).entries;
       for (final e in entries) {
         if (e.value.defaultValue.isEmpty) {
-          input.add('required String ${e.key.camelCase}');
+          input.add('required String ${e.key.specCase}');
         } else {
-          input.add("String ${e.key.camelCase} = '${e.value.defaultValue}'");
+          input.add("String ${e.key.specCase} = '${e.value.defaultValue}'");
         }
         inputDescription.add(
-          "`${e.key.camelCase}`: ${e.value.description ?? 'No description'}",
+          "`${e.key.specCase}`: ${e.value.description ?? 'No description'}",
         );
         // Update the host definition
         baseUrlDecoded =
-            baseUrlDecoded.replaceAll('{${e.key}}', '\${${e.key.camelCase}}');
+            baseUrlDecoded.replaceAll('{${e.key}}', '\${${e.key.specCase}}');
       }
     }
 
@@ -732,7 +732,7 @@ class $clientName {
     // Determine if path contains dynamic variables
     for (var param in parameters) {
       final pName = param.name ?? param.schema?.ref?.split('/').last ?? '';
-      final pNameCamel = pName.camelCase;
+      final pNameCamel = pName.specCase;
       if (pName.isEmpty) {
         throw Exception('Parameter name or reference is required: $param');
       }

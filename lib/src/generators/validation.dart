@@ -126,7 +126,7 @@ class SchemaValidation {
       final nullName = nullable ? '$name != null && $name!' : name;
 
       if (defaultValue != null) {
-        final conName = '${name}_default_value'.camelCase;
+        final conName = '${name}_default_value'.specCase;
         constants[conName] = defaultValue!;
       }
 
@@ -140,7 +140,7 @@ class SchemaValidation {
           operator = '<=';
           minValue = minimum!;
         }
-        final conName = '${name}_min_value'.camelCase;
+        final conName = '${name}_min_value'.specCase;
         final message = "The value of '$name' cannot be $operator \$$conName";
         operations.add(
           """
@@ -160,7 +160,7 @@ class SchemaValidation {
           operator = '>=';
           maxValue = maximum!;
         }
-        final conName = '${name}_max_value'.camelCase;
+        final conName = '${name}_max_value'.specCase;
         final message = "The value of '$name' cannot be $operator \$$conName";
         operations.add(
           """
@@ -171,7 +171,7 @@ class SchemaValidation {
         constants[conName] = maxValue;
       }
       if (multipleOf != null) {
-        final conName = '${name}_multiple_value'.camelCase;
+        final conName = '${name}_multiple_value'.specCase;
         final message = "The value of '$name' must be a multiple of \$$conName";
         operations.add(
           """
@@ -187,7 +187,7 @@ class SchemaValidation {
 
       if (minLength != null) {
         final operator = '<';
-        final conName = '${name}_minLength_value'.camelCase;
+        final conName = '${name}_minLength_value'.specCase;
         operations.add(
           """
           if ($nullName $operator $conName) {
@@ -198,7 +198,7 @@ class SchemaValidation {
       }
       if (maxLength != null) {
         final operator = '>';
-        final conName = '${name}_maxLength_value'.camelCase;
+        final conName = '${name}_maxLength_value'.specCase;
         operations.add(
           """
           if ($nullName $operator $conName) {
