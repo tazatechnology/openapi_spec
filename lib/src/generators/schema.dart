@@ -725,6 +725,14 @@ class SchemaGenerator extends BaseGenerator {
           SchemaObject() => dereferencedProperty,
           _ => property,
         };
+
+        // If a reference, be sure to keep some required property values
+        p = p.copyWith(
+          title: property.title ?? p.title,
+          description: property.description?.trim() ?? p.description,
+          nullable: property.nullable ?? p.nullable,
+        );
+
         bool hasDefault = p.defaultValue != null;
 
         String customConverter = '';
