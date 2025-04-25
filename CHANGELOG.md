@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0
+
+* Fix issue for nullable enum references schemas
+* Add GeneratorCase option when generating code
+
 ## 0.9.0
 
 * Fix exclusive minimum/maximum handling (should be `int` not `bool` in OpenAPI 3.0+)
