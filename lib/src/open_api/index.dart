@@ -57,6 +57,9 @@ bool _checkReferenceTypes(name, ref, self) {
     } else if (ref is SchemaArray && self is SchemaMap) {
       // Array is defined with typedef
       return true;
+    } else if (ref is SchemaEnum && self is SchemaObject) {
+      // Schemas can be nullable objects
+      return true;
     } else if (self is SchemaObject) {
       // Reference types can be different if the reference is a SchemaObject
       return false;

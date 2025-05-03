@@ -765,15 +765,20 @@ class $clientName {
             required: final required,
             description: final description
           ):
-          String pType = schema.toDartType();
-          Object? pDefaultValue = schema.defaultValue;
+          final qSchema =
+              schema.dereference(components: spec.components?.schemas);
+
+          String pType = qSchema.toDartType();
+
+          Object? pDefaultValue = qSchema.defaultValue;
           // Handle nullable types
           if (pDefaultValue == null &&
               required != true &&
               !pType.contains('?')) {
             pType = '$pType?';
           }
-          String qCode = switch (schema) {
+
+          String qCode = switch (qSchema) {
             // Convert enum to string for query parameter code
             SchemaEnum() => pType == 'String'
                 ? "'$name': $pNameCamel"
@@ -782,15 +787,15 @@ class $clientName {
           };
 
           // Handle enumeration default values
-          switch (schema) {
+          switch (qSchema) {
             case SchemaString():
               if (pDefaultValue != null) {
                 pDefaultValue = "'$pDefaultValue'";
               }
             case SchemaEnum():
               if (pDefaultValue != null) {
-                if (schema.ref != null && pType != 'String') {
-                  pDefaultValue = '${schema.ref}.$pDefaultValue';
+                if (qSchema.ref != null && pType != 'String') {
+                  pDefaultValue = '${qSchema.ref}.$pDefaultValue';
                 } else {
                   pDefaultValue = "'$pDefaultValue'";
                 }

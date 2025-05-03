@@ -283,6 +283,18 @@ abstract class Schema with _$Schema {
           break;
         }
 
+        // Enums represented as objects
+        if (sRef is SchemaEnum) {
+          result = sRef.copyWith(
+            title: title ?? sRef.title,
+            description: description ?? sRef.description,
+            defaultValue: defaultValue ?? sRef.defaultValue,
+            nullable: nullable ?? sRef.nullable,
+            ref: ref,
+          );
+          break;
+        }
+
         result = (sRef as SchemaObject).copyWith(
           ref: ref,
           title: title ?? sRef.title,
@@ -385,6 +397,9 @@ abstract class Schema with _$Schema {
         result = nullable == true ? 'double?' : 'double';
       case SchemaEnum():
         result = ref ?? 'String';
+        if (nullable == true) {
+          result = '$result?';
+        }
       case SchemaArray(items: final items):
         final itemType = items.toDartType();
         result = nullable == true ? 'List<$itemType>?' : 'List<$itemType>';
