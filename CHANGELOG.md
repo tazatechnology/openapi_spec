@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0
+
+* Better handling of enums in query parameters for client gen
+
 ## 0.10.0
 
 * Fix issue for nullable enum references schemas
