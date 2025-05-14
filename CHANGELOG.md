@@ -1,8 +1,12 @@
 # Changelog
 
+## 0.12.0
+
+* Improved handling of multipart/form-data for client generation
+
 ## 0.11.0
 
-* Better handling of enums in query parameters for client gen
+* Improved handling of enums in query parameters for client generation
 
 ## 0.10.0
 
