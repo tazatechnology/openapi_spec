@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: Components
-// ==========================================
+// =============================================================================
 
 /// Holds a set of reusable objects for different aspects of the OAS.
 /// All objects defined within the components object will have no effect on the API
@@ -42,9 +42,9 @@ abstract class Components with _$Components {
     Map<String, PathItem>? pathItems,
   }) = _Components;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Components.fromJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   factory Components.fromJson(Map<String, dynamic> json) =>
       fromJsonWithLogging(json, _$ComponentsFromJson);

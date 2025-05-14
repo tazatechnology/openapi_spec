@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: ExternalDocs
-// ==========================================
+// =============================================================================
 
 /// Allows referencing an external resource for extended documentation.
 /// https://swagger.io/specification/#external-documentation-object

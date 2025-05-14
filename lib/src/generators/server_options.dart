@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: ServerGeneratorOptions
-// ==========================================
+// =============================================================================
 
 class ServerGeneratorOptions extends BaseGeneratorOptions {
   const ServerGeneratorOptions({

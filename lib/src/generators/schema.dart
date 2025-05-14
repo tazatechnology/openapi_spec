@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: SchemaGenerator
-// ==========================================
+// =============================================================================
 
 class SchemaGenerator extends BaseGenerator {
   SchemaGenerator({
@@ -31,9 +31,9 @@ class SchemaGenerator extends BaseGenerator {
   Map<String, List<String>> get unions =>
       Map<String, List<String>>.unmodifiable(_unions);
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: generate
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   void generate() {
@@ -210,9 +210,9 @@ class SchemaGenerator extends BaseGenerator {
     }
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writeUnion
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _writeUnion({
     required String union,
@@ -225,9 +225,9 @@ class SchemaGenerator extends BaseGenerator {
 
     // Union header
     file.writeAsStringSync("""
-    // ==========================================
+    // =============================================================================
     // CLASS: $union
-    // ==========================================
+    // =============================================================================
     
     /// Union class for ${schemas.map((e) => '[$e]').join(', ')}
     @Freezed(unionKey: '$unionKey')
@@ -290,9 +290,9 @@ class SchemaGenerator extends BaseGenerator {
 
       /// Class header
       file.writeAsStringSync("""
-      // ------------------------------------------
+      // ---------------------------------------------------------------------------
       // UNION: $s
-      // ------------------------------------------
+      // ---------------------------------------------------------------------------
       
       /// Union constructor for [$s] $unionValue
       const factory $uClass({
@@ -323,9 +323,9 @@ class SchemaGenerator extends BaseGenerator {
     String unionValuesEnum = '';
     if (unionValues.isNotEmpty) {
       unionValuesEnum = """
-      // ==========================================
+      // =============================================================================
       // ENUM: ${union}Type
-      // ==========================================
+      // =============================================================================
 
       enum ${union}Type {
         ${unionValues.map((e) => "@JsonValue('$e')\n${e.specCase},").join('\n')}
@@ -344,9 +344,9 @@ class SchemaGenerator extends BaseGenerator {
     """, mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writePrimitiveUnion
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _writePrimitiveUnion({
     required Schema schema,
@@ -362,9 +362,9 @@ class SchemaGenerator extends BaseGenerator {
 
     // Union header
     file.writeAsStringSync("""
-    // ==========================================
+    // =============================================================================
     // CLASS: $union
-    // ==========================================
+    // =============================================================================
     
     /// ${schema.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
     @freezed
@@ -567,9 +567,9 @@ class SchemaGenerator extends BaseGenerator {
     """, mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writeObject
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _writeObject({
     required String name,
@@ -582,9 +582,9 @@ class SchemaGenerator extends BaseGenerator {
 
     // Class header
     file.writeAsStringSync("""
-    // ==========================================
+    // =============================================================================
     // CLASS: $name
-    // ==========================================
+    // =============================================================================
     
     /// ${s.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
     @freezed
@@ -662,9 +662,9 @@ class SchemaGenerator extends BaseGenerator {
     """, mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writeProperty
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   SchemaValidation? _writeProperty({
     required String jsonName,
@@ -999,9 +999,9 @@ class SchemaGenerator extends BaseGenerator {
     return validation;
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _safeEnumValue
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   String _safeEnumValue(String value, Schema schema) {
     // Dart enums cannot start with a number
@@ -1029,9 +1029,9 @@ class SchemaGenerator extends BaseGenerator {
     return value;
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writeEnumeration
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _writeEnumeration({
     required String name,
@@ -1048,9 +1048,9 @@ class SchemaGenerator extends BaseGenerator {
     }
 
     file.writeAsStringSync("""
-    // ==========================================
+    // =============================================================================
     // ENUM: $name
-    // ==========================================
+    // =============================================================================
     
     /// ${s.description?.trim().replaceAll('\n', '\n/// ') ?? 'No Description'}
     enum $name {
@@ -1068,9 +1068,9 @@ class SchemaGenerator extends BaseGenerator {
     file.writeAsStringSync('}\n\n', mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writeTypedef
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _writeTypedef({
     required String name,
@@ -1080,9 +1080,9 @@ class SchemaGenerator extends BaseGenerator {
     // Ensure description is free of new line characters
     description = description?.trim().replaceAll('\n', '\n/// ');
     file.writeAsStringSync("""
-    // ==========================================
+    // =============================================================================
     // TYPE: $name
-    // ==========================================
+    // =============================================================================
     
     /// ${description ?? 'No Description'}
     typedef $name = $def;
@@ -1090,9 +1090,9 @@ class SchemaGenerator extends BaseGenerator {
     """, mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _searchForUnions
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _searchForUnions() {
     void checkAnyOf(List<Schema>? schemas) {
@@ -1215,9 +1215,9 @@ class SchemaGenerator extends BaseGenerator {
     }
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _updateUnionMap
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _updateUnionMap(List<String> schemas) {
     // Simply find the longest common string, starting from the end

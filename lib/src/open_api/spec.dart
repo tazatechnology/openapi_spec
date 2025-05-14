@@ -28,9 +28,9 @@ enum OpenApiFormat {
   }
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: OpenApi
-// ==========================================
+// =============================================================================
 /// The [OpenAPI Specification](https://swagger.io/specification/) (OAS)
 /// defines a standard,language-agnostic interface to RESTful APIs
 ///
@@ -95,9 +95,9 @@ abstract class OpenApi with _$OpenApi {
     @Default({}) Map<String, List<String>> extraSchemaMapping,
   }) = _OpenApi;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: OpenApi.fromFile
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Create an [OpenApi] object from an existing JSON/YAML OpenAPI spec file
   factory OpenApi.fromFile({required String source}) {
@@ -115,9 +115,9 @@ abstract class OpenApi with _$OpenApi {
     );
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: OpenApi.fromString
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Create an [OpenApi] object from a JSON/YAML string
   /// The format will be inferred from the file extension
@@ -164,15 +164,37 @@ abstract class OpenApi with _$OpenApi {
     return OpenApi.fromJson(raw);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: OpenApi.fromJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Create an [OpenApi] object from a JSON representation of an OpenAPI
   factory OpenApi.fromJson(Map<String, dynamic> json) {
     return fromJsonWithLogging(json, (json) {
       // Initialize the schemas, will be formatted in place below
       Map<String, dynamic> schemas = json['components']?['schemas'] ?? {};
+
+      // Before starting, look for multipart requests and handle separately
+      // Multipart requests are built directly, not as a schema
+      if (json.containsKey('paths')) {
+        final paths = json['paths'] as Map<String, dynamic>;
+        for (final path in paths.entries) {
+          final pathItem = PathItem.fromJson(path.value);
+          final requestBody = pathItem.post?.requestBody;
+          final mediaType = requestBody?.content?['multipart/form-data'];
+          if (requestBody != null && mediaType != null) {
+            final ref = mediaType.schema?.ref;
+            if (ref != null && schemas.containsKey(ref)) {
+              // Remove from schemas and copy to the request body
+              final schema = schemas[ref];
+              schemas.remove(ref);
+              paths[path.key]['post']['requestBody']['content']
+                  ['multipart/form-data']['schema'] = schema;
+            }
+          }
+        }
+      }
+
       final d = _formatSpecFromJson(
         json: json,
         schemas: schemas,
@@ -230,9 +252,9 @@ abstract class OpenApi with _$OpenApi {
     });
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: toJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Convert the [OpenApi] object to a JSON spec representation
   Map<String, dynamic> toJson() {
@@ -257,9 +279,9 @@ abstract class OpenApi with _$OpenApi {
     return _formatSpecToJson(out);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: toJsonFile
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Convert the [OpenApi] object to a JSON spec file
   /// Will overwrite the existing file if it exists
@@ -267,9 +289,9 @@ abstract class OpenApi with _$OpenApi {
     File(destination).writeAsStringSync(_encoder.convert(toJson()));
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: toSwaggerUI
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Generate a static Swagger UI website from [OpenApi] object
   ///
@@ -376,9 +398,9 @@ abstract class OpenApi with _$OpenApi {
     if (!quiet) print('Static HTML generated in:\n  - $dirPath');
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: generate
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Generate code from the [OpenApi] object
   ///
@@ -489,9 +511,9 @@ abstract class OpenApi with _$OpenApi {
     }
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: centralizedSpec
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   ///
   /// Return a centralized OpenAPI spec.
   ///
@@ -507,9 +529,9 @@ abstract class OpenApi with _$OpenApi {
 const String _unionKey = 'unionType';
 const String _unionKeyParams = 'in';
 
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 // METHOD: _formatSpecToJson
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 
 Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
   // Remove the unionType field from the map (freezed union key)
@@ -610,9 +632,9 @@ Map<String, dynamic> _formatSpecToJson(Map<String, dynamic> json) {
   return m;
 }
 
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 // METHOD: _formatSpecFromJson
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 
 Map<String, dynamic> _formatSpecFromJson({
   required Map<String, dynamic> json,
@@ -621,7 +643,6 @@ Map<String, dynamic> _formatSpecFromJson({
   String? unionKey,
 }) {
   final m = Map<String, dynamic>.from(json);
-
   // Handle allOf
   if (m.containsKey('allOf')) {
     final schema = _SchemaConverter().fromJson(m);
@@ -661,10 +682,14 @@ Map<String, dynamic> _formatSpecFromJson({
       }
     } else if (m.containsKey('anyOf')) {
       dynamic anyOf = m['anyOf'];
+      String format = '';
       if (anyOf is List) {
         final anyOfList = List<dynamic>.from(anyOf);
         final typeSet = anyOfList.map((e) {
           if (e is Map && e.containsKey('type')) {
+            if (e.containsKey('format')) {
+              format = e['format'];
+            }
             return e['type'];
           } else if (e is Map && e.containsKey('\$ref')) {
             return e['\$ref'].toString();
@@ -693,6 +718,9 @@ Map<String, dynamic> _formatSpecFromJson({
             }
           }
           m['nullable'] = true;
+          if (format.isNotEmpty) {
+            m['format'] = format;
+          }
           if (propType == 'array') {
             m['items'] = anyOf.firstWhere((e) => e['type'] == 'array')['items'];
           }
@@ -741,9 +769,9 @@ Map<String, dynamic> _formatSpecFromJson({
   return m;
 }
 
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 // METHOD: _extraComponentSchemas
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 
 (Map<String, dynamic>, Map<String, dynamic>) _extraComponentSchemas({
   required String schemaKey,
@@ -869,9 +897,9 @@ Map<String, dynamic> _formatSpecFromJson({
   return (schemaMap, schemaExtra);
 }
 
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 // METHOD: _extraPrimitiveUnionSchemas
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 
 /// Search for and add primitive schemas in schema properties
 (Map<String, dynamic>, Map<String, dynamic>) _extraPrimitiveUnionSchemas({

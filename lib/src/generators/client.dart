@@ -6,9 +6,9 @@ final accessTokenVar = 'accessToken';
 final usernameVar = 'username';
 final passwordVar = 'password';
 
-// ==========================================
+// =============================================================================
 // CLASS: ClientGenerator
-// ==========================================
+// =============================================================================
 
 class ClientGenerator extends BaseGenerator {
   ClientGenerator({
@@ -29,9 +29,9 @@ class ClientGenerator extends BaseGenerator {
 
   final SchemaGenerator? schemaGenerator;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: generate
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   @override
   void generate() {
@@ -133,9 +133,9 @@ import 'schema/schema.dart';
 /// Enum of HTTP methods
 enum HttpMethod { get, put, post, delete, options, head, patch, trace }
 
-// ==========================================
+// =============================================================================
 // CLASS: $clientException
-// ==========================================
+// =============================================================================
 
 /// HTTP exception handler for $clientName
 class $clientException implements Exception {
@@ -177,9 +177,9 @@ class $clientException implements Exception {
   }
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: $clientName
-// ==========================================
+// =============================================================================
 
 /// Client for ${spec.info.title}
 /// 
@@ -222,16 +222,16 @@ class $clientName {
   ${authVariables.isEmpty ? '' : '/// Authentication related variables'}
   ${authVariables.join('\n')}
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: endSession
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Close the HTTP client and end session
   void endSession() => client.close();
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: onRequest
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Middleware for HTTP requests (user can override)
   ///
@@ -240,9 +240,9 @@ class $clientName {
     return Future.value(request);
   }
   
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: onStreamedResponse
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Middleware for HTTP streamed responses (user can override)
   Future<http.StreamedResponse> onStreamedResponse(
@@ -251,26 +251,26 @@ class $clientName {
     return Future.value(response);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: onResponse
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Middleware for HTTP responses (user can override)
   Future<http.Response> onResponse(http.Response response) {
     return Future.value(response);
   }
   
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _jsonDecode
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   dynamic _jsonDecode(http.Response r) {
     return json.decode(utf8.decode(r.bodyBytes));
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _request
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Reusable request method
   @protected
@@ -280,7 +280,7 @@ class $clientName {
     required HttpMethod method,
     Map<String, dynamic> queryParams = const {},
     Map<String, String> headerParams = const {},
-    bool isMultipart = false,
+    Map<String, String> multipartFields = const {},
     String requestType = '',
     String responseType = '',
     Object? body,
@@ -332,7 +332,7 @@ class $clientName {
 
     // Build the request object
     http.BaseRequest request;
-    if (isMultipart) {
+    if (requestType.contains('multipart')) {
       // Handle multipart request
       request = http.MultipartRequest(method.name.toUpperCase(), uri);
       request = request as http.MultipartRequest;
@@ -341,6 +341,7 @@ class $clientName {
       } else {
         request.files.add(body as http.MultipartFile);
       }
+      request.fields.addAll(multipartFields);
     } else {
       // Handle normal request
       request = http.Request(method.name.toUpperCase(), uri);
@@ -387,9 +388,9 @@ class $clientName {
     return await client.send(request);
   }
   
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: makeRequestStream
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Reusable request stream method
   @protected
@@ -399,7 +400,7 @@ class $clientName {
     required HttpMethod method,
     Map<String, dynamic> queryParams = const {},
     Map<String, String> headerParams = const {},
-    bool isMultipart = false,
+    Map<String, String> multipartFields = const {},
     String requestType = '',
     String responseType = '',
     Object? body,
@@ -413,7 +414,7 @@ class $clientName {
         method: method,
         queryParams: queryParams,
         headerParams: headerParams,
-        isMultipart: isMultipart,
+        multipartFields: multipartFields,
         requestType: requestType,
         responseType: responseType,
         body: body,
@@ -445,9 +446,9 @@ class $clientName {
     );
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: makeRequest
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Reusable request method
   @protected
@@ -457,7 +458,7 @@ class $clientName {
     required HttpMethod method,
     Map<String, dynamic> queryParams = const {},
     Map<String, String> headerParams = const {},
-    bool isMultipart = false,
+    Map<String, String> multipartFields = const {},
     String requestType = '',
     String responseType = '',
     Object? body,
@@ -471,7 +472,7 @@ class $clientName {
         method: method,
         queryParams: queryParams,
         headerParams: headerParams,
-        isMultipart: isMultipart,
+        multipartFields: multipartFields,
         requestType: requestType,
         responseType: responseType,
         body: body,
@@ -560,9 +561,9 @@ class $clientName {
     file.writeAsStringSync('}\n', mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _determineAuth
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   Map<AuthType, SecurityScheme>? _determineGlobalAuth(
     List<Security>? security,
@@ -600,9 +601,9 @@ class $clientName {
     return auth;
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _writeMethod
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   void _writeMethod({
     required String path,
@@ -618,6 +619,7 @@ class $clientName {
     List<String> queryParams = [];
     List<String> headerParams = [];
     String decoder = '';
+    List<String> multipartFields = [];
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
     // Method Name
@@ -841,18 +843,20 @@ class $clientName {
     );
 
     String body = '';
+    bool isMultipart = false;
     if (request != null) {
       String? dType;
-      Schema? rSchema;
+      Schema? reqSchema;
       for (final k in request.content?.keys ?? <String>[]) {
-        rSchema = request.content?[k]?.schema;
-        if (rSchema != null || k.contains('multipart')) {
+        reqSchema = request.content?[k]?.schema;
+        if (reqSchema != null || k.contains('multipart')) {
           requestType = k;
           break;
         }
       }
       try {
-        rSchema = rSchema?.dereference(components: spec.components?.schemas);
+        reqSchema =
+            reqSchema?.dereference(components: spec.components?.schemas);
       } catch (e) {
         // Skip - might need to gracefully handle this some other way
       }
@@ -860,33 +864,117 @@ class $clientName {
       bool isRequestRequired = request.required == true;
 
       // If a schema is an empty object, ignore
-      switch (rSchema) {
+      switch (reqSchema) {
         case SchemaObject(properties: final properties)
             when (properties?.isEmpty ?? false):
           isRequestRequired = false;
       }
 
-      dType = rSchema?.toDartType(unions: schemaGenerator?.unions);
+      dType = reqSchema?.toDartType(unions: schemaGenerator?.unions);
 
       // Check for multipart
-      if (requestType.contains('multipart')) {
-        dType = 'List<http.MultipartFile>';
-      }
+      isMultipart = requestType.contains('multipart');
+      if (isMultipart) {
+        List<String> multipartFiles = [];
+        // Add any form fields as method inputs
+        if (reqSchema != null && reqSchema is SchemaObject) {
+          final props = reqSchema.properties ?? <String, Schema>{};
+          for (final p in props.entries) {
+            bool isFieldValue = true;
+            String pDartType =
+                p.value.toDartType(unions: schemaGenerator?.unions);
+            bool nullable = false;
+            if (p.value is SchemaArray) {
+              final pa = (p.value as SchemaArray);
+              if (pa.items is SchemaString &&
+                  (pa.items as SchemaString).format == StringFormat.binary) {
+                isFieldValue = false;
+                pDartType = 'List<http.MultipartFile>';
+                if (pa.items.nullable == true) {
+                  pDartType = '$pDartType?';
+                }
+              } else {
+                continue;
+              }
+            } else if (p.value.type != SchemaType.string) {
+              continue;
+            } else if (p.value.type == SchemaType.string) {
+              final ps = (p.value as SchemaString);
+              if (ps.format == StringFormat.binary) {
+                isFieldValue = false;
+                pDartType = 'http.MultipartFile';
+                if (ps.nullable == true) {
+                  pDartType = '$pDartType?';
+                }
+              }
+              nullable = ps.nullable == true;
+            }
 
-      if (dType != null && isRequestRequired) {
-        input.add('required $dType request');
-      } else {
-        if (dType == null) {
-          input.add("dynamic request");
-        } else {
-          input.add("$dType? request");
+            final isPropRequired =
+                (reqSchema.required?.contains(p.key) ?? false) && !nullable;
+            final pDartName = p.key.specCase;
+
+            final pDescription = p.value.description ?? p.value.title;
+            inputDescription.add(
+              "`$pDartName`: ${pDescription ?? 'No description'}",
+            );
+
+            if (isPropRequired) {
+              input.add('required $pDartType $pDartName');
+              if (isFieldValue) {
+                multipartFields.add("'$pDartName': $pDartName");
+              }
+            } else {
+              final pDefault = p.value.defaultValue;
+
+              if (pDefault != null) {
+                input.add("$pDartType $pDartName = '$pDefault'");
+                if (isFieldValue) {
+                  multipartFields.add("'$pDartName': $pDartName");
+                }
+              } else {
+                if (!pDartType.contains('?')) {
+                  pDartType = '$pDartType?';
+                }
+                input.add('$pDartType $pDartName');
+                if (isFieldValue) {
+                  multipartFields
+                      .add("if ($pDartName != null) '$pDartName': $pDartName");
+                }
+              }
+            }
+
+            if (pDartType.contains('MultipartFile')) {
+              String pDartNameValue = pDartName;
+              if (pDartType.contains('List')) {
+                pDartNameValue = '...$pDartNameValue';
+              }
+              if (pDartType.contains('?')) {
+                multipartFiles.add("if ($pDartName != null) $pDartNameValue");
+              } else {
+                multipartFiles.add(pDartNameValue);
+              }
+            }
+          }
         }
+        if (multipartFiles.isEmpty) {
+          body = 'body: <http.MultipartFile>[],';
+        }
+        body = 'body: <http.MultipartFile>[${multipartFiles.join(',')},],';
+      } else {
+        if (dType != null && isRequestRequired) {
+          input.add('required $dType request');
+        } else {
+          if (dType == null) {
+            input.add("dynamic request");
+          } else {
+            input.add("$dType? request");
+          }
+        }
+        String? description = request.description ?? reqSchema?.description;
+        inputDescription.add("`request`: ${description ?? 'No description'}");
+        body = 'body: request,';
       }
-      inputDescription.add(
-        "`request`: ${request.description ?? rSchema?.description ?? 'No description'}",
-      );
-
-      body = 'body: request,';
     }
 
     // -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
@@ -899,10 +987,10 @@ class $clientName {
     final response = _getSuccessResponse(operation);
     if (response != null) {
       String? dType;
-      Schema? rSchema;
+      Schema? resSchema;
       for (final k in response.content?.keys ?? <String>[]) {
-        rSchema = response.content?[k]?.schema;
-        if (rSchema != null) {
+        resSchema = response.content?[k]?.schema;
+        if (resSchema != null) {
           responseType = k;
           break;
         } else {
@@ -915,15 +1003,15 @@ class $clientName {
           break;
         }
       }
-      if (rSchema != null) {
-        rSchema.dereference(components: spec.components?.schemas);
-        dType = rSchema.toDartType(unions: schemaGenerator?.unions);
+      if (resSchema != null) {
+        resSchema.dereference(components: spec.components?.schemas);
+        dType = resSchema.toDartType(unions: schemaGenerator?.unions);
       }
 
       returnType = dType ?? returnType;
 
       // Determine the decode strategy
-      switch (rSchema) {
+      switch (resSchema) {
         case SchemaObject(ref: final ref):
           // Handle deserialization of single object
           if (ref != null || returnType.startsWith('Union')) {
@@ -1002,11 +1090,20 @@ class $clientName {
       inputDescriptionStr = '\n/// $inputDescriptionStr\n///';
     }
 
+    String multipart = '';
+    if (isMultipart && multipartFields.isNotEmpty) {
+      multipart = "multipartFields: {";
+      for (final e in multipartFields) {
+        multipart += "$e,";
+      }
+      multipart += "},";
+    }
+
     // Write the client method
     file.writeAsStringSync("""
-      // ------------------------------------------
+      // ---------------------------------------------------------------------------
       // METHOD: $methodName
-      // ------------------------------------------
+      // ---------------------------------------------------------------------------
 
       /// $description
       /// $inputDescriptionStr
@@ -1017,7 +1114,7 @@ class $clientName {
           baseUrl: '$baseUrlDecoded',
           path: '$path',
           method: $method,
-          isMultipart: ${requestType.contains('multipart')},
+          $multipart
           requestType: ${requestType.isEmpty ? "''" : "'$requestType'"},
           responseType: ${responseType.isEmpty ? "''" : "'$responseType'"},
           $body
@@ -1029,9 +1126,9 @@ class $clientName {
       """, mode: FileMode.append);
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: _getSuccessResponse
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   Response? _getSuccessResponse(Operation o) {
     final code = o.responses?.keys.firstWhereOrNull(

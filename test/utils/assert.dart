@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'package:test/test.dart';
 
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 // METHOD: assertFileLineByLine
-// ------------------------------------------
+// ---------------------------------------------------------------------------
 
 assertFileLineByLine({
   required String truthFile,

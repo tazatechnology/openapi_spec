@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: Tag
-// ==========================================
+// =============================================================================
 
 /// Adds metadata to a single tag that is used by the [Operation] object.
 /// It is not mandatory to have a [Tag] object per tag defined in

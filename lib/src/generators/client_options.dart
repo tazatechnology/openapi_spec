@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: ClientGeneratorOptions
-// ==========================================
+// =============================================================================
 
 class ClientGeneratorOptions extends BaseGeneratorOptions {
   const ClientGeneratorOptions({

@@ -12,9 +12,9 @@ int? _fromJsonInt(dynamic jsonValue) {
 
 double? _fromJsonDouble(num? jsonValue) => jsonValue?.toDouble();
 
-// ==========================================
+// =============================================================================
 // ENUM: SchemaType
-// ==========================================
+// =============================================================================
 
 enum SchemaType {
   object,
@@ -27,9 +27,9 @@ enum SchemaType {
   map,
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: Schema
-// ==========================================
+// =============================================================================
 
 /// The [Schema] object allows the definition of input and output data types.
 /// These types can be objects, but also primitives and arrays
@@ -101,9 +101,9 @@ abstract class Schema with _$Schema {
     };
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.boolean
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory Schema.boolean({
     Xml? xml,
@@ -115,9 +115,9 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaBoolean;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.string
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory Schema.string({
     Xml? xml,
@@ -136,9 +136,9 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaString;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.integer
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// An integer schema property
   const factory Schema.integer({
@@ -158,9 +158,9 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaInteger;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.number
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// A number schema property
   const factory Schema.number({
@@ -180,9 +180,9 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaNumber;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.enumeration
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory Schema.enumeration({
     String? title,
@@ -195,9 +195,9 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaEnum;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.array
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// A generic [Schema] of array type
   const factory Schema.array({
@@ -213,9 +213,9 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaArray;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.map
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// A generic [Schema] of map type
   const factory Schema.map({
@@ -233,17 +233,17 @@ abstract class Schema with _$Schema {
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaMap;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Schema.fromJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Convert from JSON representation
   factory Schema.fromJson(Map<String, dynamic> json) =>
       fromJsonWithLogging(json, _$SchemaFromJson);
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: dereference
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   Schema dereference({
     required Map<String, Schema>? components,
@@ -336,9 +336,9 @@ abstract class Schema with _$Schema {
     return result;
   }
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: toDartType
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Return a proper Dart type for this schema
   String toDartType({
@@ -426,9 +426,9 @@ Schema? _fromMapProps(dynamic props) {
   return props is Map<String, dynamic> ? Schema.fromJson(props) : null;
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: SchemaRefConverter
-// ==========================================
+// =============================================================================
 
 /// Custom converter to handle schema references
 class _SchemaRefConverter implements JsonConverter<String?, String?> {
@@ -451,9 +451,9 @@ class _SchemaRefConverter implements JsonConverter<String?, String?> {
   }
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: SchemaConverter
-// ==========================================
+// =============================================================================
 
 /// Custom converter to handle schema references
 class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
@@ -493,9 +493,9 @@ class _SchemaConverter implements JsonConverter<Schema, Map<String, dynamic>> {
   }
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: SchemaMapConverter
-// ==========================================
+// =============================================================================
 
 /// Custom converter to handle dynamic key names
 class _SchemaMapConverter
@@ -523,9 +523,9 @@ class _SchemaMapConverter
   }
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: SchemaListConverter
-// ==========================================
+// =============================================================================
 
 /// Custom converter to handle dynamic key names
 class _SchemaListConverter

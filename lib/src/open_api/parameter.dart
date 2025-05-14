@@ -1,17 +1,17 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: Parameter
-// ==========================================
+// =============================================================================
 
 /// Text
 @Freezed(unionKey: _unionKeyParams)
 abstract class Parameter with _$Parameter {
   const Parameter._();
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Parameter.cookie
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Cookie parameter in request
   @Assert(_assertParamOrEval, _assertParamOrMsg)
@@ -29,9 +29,9 @@ abstract class Parameter with _$Parameter {
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = ParameterCookie;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Parameter.header
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Header parameter in request
   @Assert(_assertParamOrEval, _assertParamOrMsg)
@@ -49,9 +49,9 @@ abstract class Parameter with _$Parameter {
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = ParameterHeader;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Parameter.query
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Query parameter in request
   @Assert(_assertParamOrEval, _assertParamOrMsg)
@@ -69,9 +69,9 @@ abstract class Parameter with _$Parameter {
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = ParameterQuery;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Parameter.path
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Path parameter in request
   @Assert(_assertParamOrEval, _assertParamOrMsg)
@@ -88,16 +88,16 @@ abstract class Parameter with _$Parameter {
     @JsonKey(name: '\$ref') @_ParamRefConverter() String? ref,
   }) = ParameterPath;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: Parameter.fromJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   factory Parameter.fromJson(Map<String, dynamic> json) =>
       fromJsonWithLogging(json, _$ParameterFromJson);
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: dereference
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   Parameter dereference({
     required Map<String, Parameter>? components,

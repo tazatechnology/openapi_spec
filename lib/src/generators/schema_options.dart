@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: SchemaGeneratorOptions
-// ==========================================
+// =============================================================================
 
 class SchemaGeneratorOptions extends BaseGeneratorOptions {
   const SchemaGeneratorOptions({

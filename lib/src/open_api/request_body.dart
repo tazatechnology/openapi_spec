@@ -1,17 +1,17 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: RequestBody
-// ==========================================
+// =============================================================================
 
 /// Text
 @freezed
 abstract class RequestBody with _$RequestBody {
   const RequestBody._();
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: RequestBody
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory RequestBody({
     /// A brief description of the request body.
@@ -27,17 +27,17 @@ abstract class RequestBody with _$RequestBody {
     @JsonKey(name: '\$ref') @_RequestRefConverter() String? ref,
   }) = _RequestBody;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: RequestBody.fromJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   /// Construct an instance of [RequestBody] from a JSON map
   factory RequestBody.fromJson(Map<String, dynamic> json) =>
       fromJsonWithLogging(json, _$RequestBodyFromJson);
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: dereference
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   RequestBody dereference({
     required Map<String, RequestBody>? components,

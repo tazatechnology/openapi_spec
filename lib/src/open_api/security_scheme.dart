@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // ENUM: ApiKeyLocation
-// ==========================================
+// =============================================================================
 
 enum ApiKeyLocation {
   @JsonValue('query')
@@ -20,16 +20,16 @@ enum HttpSecurityScheme {
   bearer,
 }
 
-// ==========================================
+// =============================================================================
 // CLASS: SecurityScheme
-// ==========================================
+// =============================================================================
 
 /// Text
 @Freezed(unionKey: 'type')
 abstract class SecurityScheme with _$SecurityScheme {
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: SecurityScheme.apiKey
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory SecurityScheme.apiKey({
     /// The name for security scheme.
@@ -42,9 +42,9 @@ abstract class SecurityScheme with _$SecurityScheme {
     @JsonKey(name: 'in') required ApiKeyLocation location,
   }) = SecuritySchemeApiKey;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: SecurityScheme.http
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory SecurityScheme.http({
     /// The name of the HTTP Authorization scheme to be used in the Authorization header
@@ -57,18 +57,18 @@ abstract class SecurityScheme with _$SecurityScheme {
     String? description,
   }) = SecuritySchemeHttp;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: SecurityScheme.mutualTLS
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory SecurityScheme.mutualTLS({
     /// A description for security scheme.
     String? description,
   }) = SecuritySchemeMutualTLS;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: SecurityScheme.oauth2
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory SecurityScheme.oauth2({
     /// A description for security scheme.
@@ -78,9 +78,9 @@ abstract class SecurityScheme with _$SecurityScheme {
     required OAuthFlows flows,
   }) = SecuritySchemeOauth2;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: SecurityScheme.openIdConnect
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory SecurityScheme.openIdConnect({
     /// A description for security scheme.
@@ -90,9 +90,9 @@ abstract class SecurityScheme with _$SecurityScheme {
     @JsonKey(name: 'openIdConnectUrl') required String url,
   }) = SecuritySchemeOpenIdConnect;
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: SecurityScheme.fromJson
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   factory SecurityScheme.fromJson(Map<String, dynamic> json) =>
       fromJsonWithLogging(json, _$SecuritySchemeFromJson);

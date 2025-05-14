@@ -1,8 +1,8 @@
 part of 'index.dart';
 
-// ==========================================
+// =============================================================================
 // CLASS: Path
-// ==========================================
+// =============================================================================
 
 /// Describes the operations available on a single Path.
 ///
@@ -11,9 +11,9 @@ part of 'index.dart';
 abstract class PathItem with _$PathItem {
   const PathItem._();
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // FACTORY: PathItem
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   const factory PathItem({
     /// An optional, string summary, intended to apply to all operations in this Path.
@@ -60,9 +60,9 @@ abstract class PathItem with _$PathItem {
   factory PathItem.fromJson(Map<String, dynamic> json) =>
       fromJsonWithLogging(json, _$PathItemFromJson);
 
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
   // METHOD: dereference
-  // ------------------------------------------
+  // ---------------------------------------------------------------------------
 
   PathItem dereference({
     required Map<String, PathItem>? components,
