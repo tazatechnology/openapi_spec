@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.12.0
+## 0.13.0
 
 * Improved handling of multipart/form-data for client generation
 

@@ -922,7 +922,7 @@ class $clientName {
             if (isPropRequired) {
               input.add('required $pDartType $pDartName');
               if (isFieldValue) {
-                multipartFields.add("'$pDartName': $pDartName");
+                multipartFields.add("'${p.key}': $pDartName");
               }
             } else {
               final pDefault = p.value.defaultValue;
@@ -930,7 +930,7 @@ class $clientName {
               if (pDefault != null) {
                 input.add("$pDartType $pDartName = '$pDefault'");
                 if (isFieldValue) {
-                  multipartFields.add("'$pDartName': $pDartName");
+                  multipartFields.add("'${p.key}': $pDartName");
                 }
               } else {
                 if (!pDartType.contains('?')) {
@@ -939,7 +939,7 @@ class $clientName {
                 input.add('$pDartType $pDartName');
                 if (isFieldValue) {
                   multipartFields
-                      .add("if ($pDartName != null) '$pDartName': $pDartName");
+                      .add("if ($pDartName != null) '${p.key}': $pDartName");
                 }
               }
             }
