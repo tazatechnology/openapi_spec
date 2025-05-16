@@ -622,8 +622,12 @@ class SchemaGenerator extends BaseGenerator {
       if (v != null && (v.constants.isNotEmpty || v.operations.isNotEmpty)) {
         validations.add(v);
       }
-
-      toMap += "'$propName': $dartName,\n";
+      // Directly access the property name to avoid lint errors
+      String prefix = '';
+      if (keywords.contains(dartName)) {
+        prefix = 'this.';
+      }
+      toMap += "'$propName': $prefix$dartName,\n";
     }
 
     String validationConstants = '';

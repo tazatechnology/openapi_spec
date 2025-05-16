@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.14.0
+
+* Improved handling of Dart keywords in `toMap` method
+
 ## 0.13.0
 
 * Improved handling of multipart/form-data for client generation
