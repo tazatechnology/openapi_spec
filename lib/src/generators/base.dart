@@ -5,9 +5,7 @@ part of 'index.dart';
 // =============================================================================
 
 abstract class BaseGeneratorOptions {
-  const BaseGeneratorOptions({
-    required this.enabled,
-  });
+  const BaseGeneratorOptions({required this.enabled});
   final bool enabled;
 }
 
@@ -33,10 +31,9 @@ abstract class BaseGenerator {
   BaseGeneratorOptions get options;
 
   /// Method to generate file(s)
-  String getHeader({
-    String ignoreForFile = 'invalid_annotation_target',
-  }) {
-    String header = """
+  String getHeader({String ignoreForFile = 'invalid_annotation_target'}) {
+    String header =
+        """
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint

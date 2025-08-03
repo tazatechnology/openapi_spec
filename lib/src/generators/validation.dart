@@ -1,9 +1,6 @@
 part of 'index.dart';
 
-enum SchemaValidationType {
-  numeric,
-  string,
-}
+enum SchemaValidationType { numeric, string }
 
 // =============================================================================
 // CLASS: SchemaValidation
@@ -142,12 +139,10 @@ class SchemaValidation {
         }
         final conName = '${name}_min_value'.specCase;
         final message = "The value of '$name' cannot be $operator \$$conName";
-        operations.add(
-          """
+        operations.add("""
           if ($nullName $operator $conName) {
             return "$message";
-          }""",
-        );
+          }""");
         constants[conName] = minValue;
       }
       if (maximum != null || exclusiveMaximum != null) {
@@ -162,49 +157,42 @@ class SchemaValidation {
         }
         final conName = '${name}_max_value'.specCase;
         final message = "The value of '$name' cannot be $operator \$$conName";
-        operations.add(
-          """
+        operations.add("""
           if ($nullName $operator $conName) {
             return "$message";
-          }""",
-        );
+          }""");
         constants[conName] = maxValue;
       }
       if (multipleOf != null) {
         final conName = '${name}_multiple_value'.specCase;
         final message = "The value of '$name' must be a multiple of \$$conName";
-        operations.add(
-          """
+        operations.add("""
           if ($nullName % $conName != 0) {
             return "$message";
-          }""",
-        );
+          }""");
         constants[conName] = multipleOf!;
       }
     } else if (type == SchemaValidationType.string) {
-      final nullName =
-          nullable ? '$name != null && $name!.length' : '$name.length';
+      final nullName = nullable
+          ? '$name != null && $name!.length'
+          : '$name.length';
 
       if (minLength != null) {
         final operator = '<';
         final conName = '${name}_minLength_value'.specCase;
-        operations.add(
-          """
+        operations.add("""
           if ($nullName $operator $conName) {
             return "The value of '$name' cannot be $operator \$$conName characters";
-          }""",
-        );
+          }""");
         constants[conName] = minLength!;
       }
       if (maxLength != null) {
         final operator = '>';
         final conName = '${name}_maxLength_value'.specCase;
-        operations.add(
-          """
+        operations.add("""
           if ($nullName $operator $conName) {
             return "The length of '$name' cannot be $operator \$$conName characters";
-          }""",
-        );
+          }""");
         constants[conName] = maxLength!;
       }
     }

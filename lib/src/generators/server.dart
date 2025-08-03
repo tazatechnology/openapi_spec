@@ -5,10 +5,7 @@ part of 'index.dart';
 // =============================================================================
 
 class OperationData {
-  OperationData(
-    this.path,
-    this.method,
-  );
+  OperationData(this.path, this.method);
   final String path;
   final HttpMethod method;
   String name = '';
@@ -58,9 +55,8 @@ class ServerGenerator extends BaseGenerator {
       for (final param in params) {
         final pattern = switch (param.schema) {
           SchemaString(pattern: final pattern) => pattern,
-          _ => null
-        }
-            ?.replaceAll(RegExp(r'[\^$]'), '');
+          _ => null,
+        }?.replaceAll(RegExp(r'[\^$]'), '');
         path = path.replaceAll(
           '{${param.name}}',
           '<${param.name}${pattern != null ? '|$pattern' : ''}>',
@@ -331,7 +327,8 @@ class $serverName {
 
     data.name = methodName;
 
-    data.description = operation.summary ??
+    data.description =
+        operation.summary ??
         operation.description ??
         'No description for $methodName';
 
@@ -354,7 +351,8 @@ class $serverName {
 
     String decodeRequest = '';
     if (requestRef != null) {
-      decodeRequest = """
+      decodeRequest =
+          """
       $requestRef requestBody;
       try{
         requestBody = $requestRef.fromJson(await _decodeRequest(request),);
@@ -447,7 +445,8 @@ class $serverName {
       bodyReturn = 'body: _encodeResponse(request,result),';
     }
 
-    data.handler = """
+    data.handler =
+        """
       ($inputsWrapper) async {
         try {
           $bodyCall

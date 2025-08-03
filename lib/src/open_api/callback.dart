@@ -55,9 +55,7 @@ class _ApiCallbackMapConverter
     return data.values.toList().asMap().map((_, v) {
       final expression = v.expression.keys.first;
       final operation = v.expression.values.first.toJson();
-      return MapEntry(v.name, {
-        expression: operation,
-      });
+      return MapEntry(v.name, {expression: operation});
     });
   }
 }

@@ -99,9 +99,7 @@ abstract class Parameter with _$Parameter {
   // METHOD: dereference
   // ---------------------------------------------------------------------------
 
-  Parameter dereference({
-    required Map<String, Parameter>? components,
-  }) {
+  Parameter dereference({required Map<String, Parameter>? components}) {
     if (ref == null) {
       return this;
     }
@@ -114,9 +112,7 @@ abstract class Parameter with _$Parameter {
 
     _checkReferenceTypes(ref, pRef, this);
 
-    return pRef.copyWith(
-      description: description ?? pRef.description,
-    );
+    return pRef.copyWith(description: description ?? pRef.description);
   }
 }
 

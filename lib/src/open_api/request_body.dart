@@ -39,9 +39,7 @@ abstract class RequestBody with _$RequestBody {
   // METHOD: dereference
   // ---------------------------------------------------------------------------
 
-  RequestBody dereference({
-    required Map<String, RequestBody>? components,
-  }) {
+  RequestBody dereference({required Map<String, RequestBody>? components}) {
     if (ref == null) {
       return this;
     }

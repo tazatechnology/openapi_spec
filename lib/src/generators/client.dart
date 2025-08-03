@@ -89,7 +89,8 @@ class ClientGenerator extends BaseGenerator {
           case SecuritySchemeHttp():
             authInputs.add("this.$bearerTokenVar = ''");
             authVariables.add('String $bearerTokenVar;');
-            authRequestHeader = """
+            authRequestHeader =
+                """
             // Add bearer token to request headers
             if ($bearerTokenVar.isNotEmpty){
               headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$bearerTokenVar';
@@ -102,7 +103,8 @@ class ClientGenerator extends BaseGenerator {
           case SecuritySchemeOpenIdConnect():
             authInputs.add("this.$accessTokenVar = ''");
             authVariables.add('String $accessTokenVar;');
-            authRequestHeader = """
+            authRequestHeader =
+                """
             // Add access token to request headers
             if ($accessTokenVar.isNotEmpty){
               headers['${HttpHeaders.authorizationHeader}'] = 'Bearer \$$accessTokenVar';
@@ -667,7 +669,8 @@ class $clientName {
         final creds =
             r"'Basic ${base64Encode(utf8.encode('$username:$password'))}'";
         headerParams.add(
-            "if ($usernameVar.isNotEmpty && $passwordVar.isNotEmpty) '${HttpHeaders.authorizationHeader}': $creds");
+          "if ($usernameVar.isNotEmpty && $passwordVar.isNotEmpty) '${HttpHeaders.authorizationHeader}': $creds",
+        );
       }
     }
 
@@ -722,8 +725,10 @@ class $clientName {
           "`${e.key.specCase}`: ${e.value.description ?? 'No description'}",
         );
         // Update the host definition
-        baseUrlDecoded =
-            baseUrlDecoded.replaceAll('{${e.key}}', '\${${e.key.specCase}}');
+        baseUrlDecoded = baseUrlDecoded.replaceAll(
+          '{${e.key}}',
+          '\${${e.key.specCase}}',
+        );
       }
     }
 
@@ -743,11 +748,11 @@ class $clientName {
           // Do nothing
           break;
         case ParameterHeader(
-            name: final name,
-            schema: final schema,
-            required: final required,
-            description: final description
-          ):
+          name: final name,
+          schema: final schema,
+          required: final required,
+          description: final description,
+        ):
           String hCode = "'$name': $pNameCamel";
           String pType = schema.toDartType();
           if (required == true) {
@@ -762,13 +767,14 @@ class $clientName {
           );
           headerParams.add(hCode);
         case ParameterQuery(
-            name: final name,
-            schema: final schema,
-            required: final required,
-            description: final description
-          ):
-          final qSchema =
-              schema.dereference(components: spec.components?.schemas);
+          name: final name,
+          schema: final schema,
+          required: final required,
+          description: final description,
+        ):
+          final qSchema = schema.dereference(
+            components: spec.components?.schemas,
+          );
 
           String pType = qSchema.toDartType();
 
@@ -782,9 +788,10 @@ class $clientName {
 
           String qCode = switch (qSchema) {
             // Convert enum to string for query parameter code
-            SchemaEnum() => pType == 'String'
-                ? "'$name': $pNameCamel"
-                : "'$name': $pNameCamel.name",
+            SchemaEnum() =>
+              pType == 'String'
+                  ? "'$name': $pNameCamel"
+                  : "'$name': $pNameCamel.name",
             _ => "'$name': $pNameCamel",
           };
 
@@ -855,8 +862,9 @@ class $clientName {
         }
       }
       try {
-        reqSchema =
-            reqSchema?.dereference(components: spec.components?.schemas);
+        reqSchema = reqSchema?.dereference(
+          components: spec.components?.schemas,
+        );
       } catch (e) {
         // Skip - might need to gracefully handle this some other way
       }
@@ -881,8 +889,9 @@ class $clientName {
           final props = reqSchema.properties ?? <String, Schema>{};
           for (final p in props.entries) {
             bool isFieldValue = true;
-            String pDartType =
-                p.value.toDartType(unions: schemaGenerator?.unions);
+            String pDartType = p.value.toDartType(
+              unions: schemaGenerator?.unions,
+            );
             bool nullable = false;
             if (p.value is SchemaArray) {
               final pa = (p.value as SchemaArray);
@@ -938,8 +947,9 @@ class $clientName {
                 }
                 input.add('$pDartType $pDartName');
                 if (isFieldValue) {
-                  multipartFields
-                      .add("if ($pDartName != null) '${p.key}': $pDartName");
+                  multipartFields.add(
+                    "if ($pDartName != null) '${p.key}': $pDartName",
+                  );
                 }
               }
             }
@@ -1036,7 +1046,8 @@ class $clientName {
         case SchemaArray(items: final items):
           // Handle deserialization for array of objects
           if (items.ref != null) {
-            decoder = """
+            decoder =
+                """
               final list = _jsonDecode(r) as List;
               return list.map((e) => ${items.ref}.fromJson(e)).toList();
             """;
@@ -1044,7 +1055,8 @@ class $clientName {
         case SchemaMap(valueSchema: final valueSchema):
           // Handle deserialization for map of objects
           if (valueSchema?.ref != null) {
-            decoder = """
+            decoder =
+                """
               final map = _jsonDecode(r) as Map<String, dynamic>;
               return map.map((k, v) => MapEntry(k, ${valueSchema?.ref}.fromJson(v)));
             """;
@@ -1100,7 +1112,8 @@ class $clientName {
     }
 
     // Write the client method
-    file.writeAsStringSync("""
+    final methodCode =
+        """
       // ---------------------------------------------------------------------------
       // METHOD: $methodName
       // ---------------------------------------------------------------------------
@@ -1123,7 +1136,15 @@ class $clientName {
         );
         $decoder
       }\n
-      """, mode: FileMode.append);
+      """;
+
+    // Remove empty lines from the generated method code
+    final cleanedMethodCode = methodCode
+        .split('\n')
+        .where((line) => line.trim().isNotEmpty)
+        .join('\n');
+
+    file.writeAsStringSync('$cleanedMethodCode\n', mode: FileMode.append);
   }
 
   // ---------------------------------------------------------------------------
@@ -1131,9 +1152,7 @@ class $clientName {
   // ---------------------------------------------------------------------------
 
   Response? _getSuccessResponse(Operation o) {
-    final code = o.responses?.keys.firstWhereOrNull(
-      (c) => c.startsWith('2'),
-    );
+    final code = o.responses?.keys.firstWhereOrNull((c) => c.startsWith('2'));
     if (code != null) {
       return o.responses?[code]?.dereference(
         components: spec.components?.responses,

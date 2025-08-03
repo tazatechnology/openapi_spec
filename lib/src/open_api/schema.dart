@@ -226,9 +226,10 @@ abstract class Schema with _$Schema {
     bool? nullable,
     Map? example,
     @JsonKey(
-        name: 'additionalProperties',
-        toJson: _toMapProps,
-        fromJson: _fromMapProps)
+      name: 'additionalProperties',
+      toJson: _toMapProps,
+      fromJson: _fromMapProps,
+    )
     Schema? valueSchema,
     @JsonKey(name: '\$ref') @_SchemaRefConverter() String? ref,
   }) = SchemaMap;
@@ -245,9 +246,7 @@ abstract class Schema with _$Schema {
   // METHOD: dereference
   // ---------------------------------------------------------------------------
 
-  Schema dereference({
-    required Map<String, Schema>? components,
-  }) {
+  Schema dereference({required Map<String, Schema>? components}) {
     if (ref == null) {
       return this;
     }
@@ -268,11 +267,11 @@ abstract class Schema with _$Schema {
     late Schema result;
     switch (this) {
       case SchemaObject(
-          title: final title,
-          description: final description,
-          nullable: final nullable,
-          defaultValue: final defaultValue
-        ):
+        title: final title,
+        description: final description,
+        nullable: final nullable,
+        defaultValue: final defaultValue,
+      ):
         // Handle List and Map defined as typedefs
         if (sRef is SchemaArray || sRef is SchemaMap) {
           result = copyWith(
@@ -311,12 +310,12 @@ abstract class Schema with _$Schema {
       case SchemaNumber():
         result = (sRef as SchemaNumber).copyWith(ref: ref);
       case SchemaEnum(
-          title: final title,
-          description: final description,
-          example: final example,
-          defaultValue: final defaultValue,
-          nullable: final nullable
-        ):
+        title: final title,
+        description: final description,
+        example: final example,
+        defaultValue: final defaultValue,
+        nullable: final nullable,
+      ):
         result = (sRef as SchemaEnum).copyWith(
           ref: ref,
           title: title ?? sRef.title,
@@ -328,9 +327,7 @@ abstract class Schema with _$Schema {
       case SchemaArray():
         result = (sRef as SchemaArray).copyWith(ref: ref);
       case SchemaMap():
-        result = (sRef as SchemaMap).copyWith(
-          ref: ref,
-        );
+        result = (sRef as SchemaMap).copyWith(ref: ref);
     }
 
     return result;
@@ -341,17 +338,15 @@ abstract class Schema with _$Schema {
   // ---------------------------------------------------------------------------
 
   /// Return a proper Dart type for this schema
-  String toDartType({
-    Map<String, List<String>>? unions,
-  }) {
+  String toDartType({Map<String, List<String>>? unions}) {
     late String result;
     switch (this) {
       case SchemaObject(
-          anyOf: final anyOf,
-          nullable: final nullable,
-          ref: final ref,
-          properties: final properties,
-        ):
+        anyOf: final anyOf,
+        nullable: final nullable,
+        ref: final ref,
+        properties: final properties,
+      ):
         if (anyOf != null && unions != null) {
           final subSchemas = anyOf.map((e) => e.toDartType()).toList();
           final leq = ListEquality();
@@ -535,8 +530,12 @@ class _SchemaListConverter
   @override
   List<Schema> fromJson(List<dynamic> json) {
     return json
-        .map((e) => fromJsonWithLogging(
-            Map<String, dynamic>.from(e), _SchemaConverter().fromJson))
+        .map(
+          (e) => fromJsonWithLogging(
+            Map<String, dynamic>.from(e),
+            _SchemaConverter().fromJson,
+          ),
+        )
         .toList();
   }
 

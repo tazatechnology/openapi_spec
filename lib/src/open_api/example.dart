@@ -37,9 +37,7 @@ abstract class Example with _$Example {
   // METHOD: dereference
   // ---------------------------------------------------------------------------
 
-  Example dereference({
-    required Map<String, Example>? components,
-  }) {
+  Example dereference({required Map<String, Example>? components}) {
     if (ref == null) {
       return this;
     }

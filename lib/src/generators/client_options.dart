@@ -5,10 +5,7 @@ part of 'index.dart';
 // =============================================================================
 
 class ClientGeneratorOptions extends BaseGeneratorOptions {
-  const ClientGeneratorOptions({
-    super.enabled = false,
-    this.onMethodName,
-  });
+  const ClientGeneratorOptions({super.enabled = false, this.onMethodName});
 
   final String? Function(String)? onMethodName;
 }

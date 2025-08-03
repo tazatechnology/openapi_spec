@@ -13,24 +13,31 @@ import 'package:http/http.dart' as http;
 /// {@endtemplate}
 class GenerateCommand extends Command<int> {
   /// {@macro sample_command}
-  GenerateCommand({
-    required Logger logger,
-  }) : _logger = logger {
-    argParser.addOption('path',
-        aliases: ['file', 'f'],
-        abbr: 'p',
-        help: 'Path to the OpenAPI spec file');
+  GenerateCommand({required Logger logger}) : _logger = logger {
+    argParser.addOption(
+      'path',
+      aliases: ['file', 'f'],
+      abbr: 'p',
+      help: 'Path to the OpenAPI spec file',
+    );
     argParser.addOption('url', abbr: 'u', help: 'URL to the OpenAPI spec file');
-    argParser.addOption('destination',
-        abbr: 'd',
-        help: 'Destination directory for the generated code',
-        defaultsTo: './lib/src/api');
-    argParser.addOption('package_name',
-        abbr: 'n',
-        help: 'The name of the generated package',
-        defaultsTo: "my_api");
-    argParser.addFlag('force',
-        help: 'Force overwrite of existing files', defaultsTo: false);
+    argParser.addOption(
+      'destination',
+      abbr: 'd',
+      help: 'Destination directory for the generated code',
+      defaultsTo: './lib/src/api',
+    );
+    argParser.addOption(
+      'package_name',
+      abbr: 'n',
+      help: 'The name of the generated package',
+      defaultsTo: "my_api",
+    );
+    argParser.addFlag(
+      'force',
+      help: 'Force overwrite of existing files',
+      defaultsTo: false,
+    );
     argParser.addFlag('client', help: 'Generate a client', defaultsTo: true);
     argParser.addFlag('server', help: 'Generate a server');
   }
@@ -62,7 +69,8 @@ class GenerateCommand extends Command<int> {
     final destDirectory = Directory(destination);
     if (destDirectory.existsSync() && !force) {
       _logger.err(
-          'The destination directory already exists. Use --force to overwrite');
+        'The destination directory already exists. Use --force to overwrite',
+      );
       return ExitCode.usage.code;
     } else if (destDirectory.existsSync()) {
       destDirectory.deleteSync(recursive: true);
@@ -117,9 +125,9 @@ class GenerateCommand extends Command<int> {
     }
 
     var spec = OpenApi.fromString(
-            source: rawSchemaText,
-            format: OpenApiFormat.fromExtention(fileExtension))
-        .centralizedSpec();
+      source: rawSchemaText,
+      format: OpenApiFormat.fromExtention(fileExtension),
+    ).centralizedSpec();
 
     await spec.generate(
       destination: destination,

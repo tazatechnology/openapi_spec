@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.15.0
+
+* Bump minimum Dart SDK version to 3.8 for null-aware-elements
+* Minor formatting improvements in generated client code
+
 ## 0.14.0
 
 * Improved handling of Dart keywords in `toMap` method

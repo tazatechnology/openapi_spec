@@ -8,7 +8,7 @@ final _oAuthTypes = [
   'implicit',
   'password',
   'clientCredentials',
-  'authorizationCode'
+  'authorizationCode',
 ];
 
 // Formats of OpenAPI files
@@ -109,10 +109,7 @@ abstract class OpenApi with _$OpenApi {
       throw Exception('Unsupported file type: $ext');
     }
 
-    return OpenApi.fromString(
-      source: file.readAsStringSync(),
-      format: format,
-    );
+    return OpenApi.fromString(source: file.readAsStringSync(), format: format);
   }
 
   // ---------------------------------------------------------------------------
@@ -133,16 +130,18 @@ abstract class OpenApi with _$OpenApi {
     Map<String, dynamic> parseYaml(String source) {
       final yamlMap = yaml.loadYaml(source);
       // We must set all keys to strings to avoid issues with the json encoder
-      return json.decode(json.encode(
-        yamlMap,
-        toEncodable: (object) {
-          // This item is most likely a map with a key that is not a string
-          if (object is Map) {
-            return object.map((k, v) => MapEntry(k.toString(), v));
-          }
-          return object.toJson();
-        },
-      ));
+      return json.decode(
+        json.encode(
+          yamlMap,
+          toEncodable: (object) {
+            // This item is most likely a map with a key that is not a string
+            if (object is Map) {
+              return object.map((k, v) => MapEntry(k.toString(), v));
+            }
+            return object.toJson();
+          },
+        ),
+      );
     }
 
     Map<String, dynamic> raw;
@@ -188,17 +187,15 @@ abstract class OpenApi with _$OpenApi {
               // Remove from schemas and copy to the request body
               final schema = schemas[ref];
               schemas.remove(ref);
-              paths[path.key]['post']['requestBody']['content']
-                  ['multipart/form-data']['schema'] = schema;
+              paths[path
+                      .key]['post']['requestBody']['content']['multipart/form-data']['schema'] =
+                  schema;
             }
           }
         }
       }
 
-      final d = _formatSpecFromJson(
-        json: json,
-        schemas: schemas,
-      );
+      final d = _formatSpecFromJson(json: json, schemas: schemas);
 
       // Search for any extra schemas created by this generator
       // Used to improve the generated schema library
@@ -233,12 +230,15 @@ abstract class OpenApi with _$OpenApi {
         servers: (d['servers'] as List<dynamic>?)
             ?.map((e) => Server.fromJson(e))
             .toList(),
-        tags:
-            (d['tags'] as List<dynamic>?)?.map((e) => Tag.fromJson(e)).toList(),
-        paths: (d['paths'] as Map<String, dynamic>?)
-            ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
-        webhooks: (d['webhooks'] as Map<String, dynamic>?)
-            ?.map((k, e) => MapEntry(k, PathItem.fromJson(e))),
+        tags: (d['tags'] as List<dynamic>?)
+            ?.map((e) => Tag.fromJson(e))
+            .toList(),
+        paths: (d['paths'] as Map<String, dynamic>?)?.map(
+          (k, e) => MapEntry(k, PathItem.fromJson(e)),
+        ),
+        webhooks: (d['webhooks'] as Map<String, dynamic>?)?.map(
+          (k, e) => MapEntry(k, PathItem.fromJson(e)),
+        ),
         components: d.containsKey('components')
             ? Components.fromJson(d['components'])
             : null,
@@ -360,10 +360,7 @@ abstract class OpenApi with _$OpenApi {
       );
     } else {
       init.writeAsStringSync(
-        init.readAsStringSync().replaceAll(
-              'spec: spec,',
-              "url: '$url',",
-            ),
+        init.readAsStringSync().replaceAll('spec: spec,', "url: '$url',"),
         mode: FileMode.write,
       );
     }
@@ -371,9 +368,9 @@ abstract class OpenApi with _$OpenApi {
     // Apply the index.html customizations
     final index = File(p.join(dirPath, 'index.html'));
     var indexText = index.readAsStringSync().replaceAll(
-          'OAS_HTML_TITLE',
-          info.title,
-        );
+      'OAS_HTML_TITLE',
+      info.title,
+    );
     index.writeAsStringSync(indexText);
 
     // Replace the favicons
@@ -498,10 +495,15 @@ abstract class OpenApi with _$OpenApi {
 
     // Apply the Dart formatting and fix logic
     if (formatOutput) {
-      final resultFix =
-          await Process.run('dart', ['fix', '--apply', dir.absolute.path]);
-      final resultFormat =
-          await Process.run('dart', ['format', dir.absolute.path]);
+      final resultFix = await Process.run('dart', [
+        'fix',
+        '--apply',
+        dir.absolute.path,
+      ]);
+      final resultFormat = await Process.run('dart', [
+        'format',
+        dir.absolute.path,
+      ]);
       if (resultFix.exitCode != 0) {
         throw ('\n\nError running dart fix:\n${resultFix.stderr}\n');
       }
@@ -647,8 +649,9 @@ Map<String, dynamic> _formatSpecFromJson({
   if (m.containsKey('allOf')) {
     final schema = _SchemaConverter().fromJson(m);
     var s = switch (schema) {
-      SchemaObject(allOf: final allOf) =>
-        schema.copyWith(ref: allOf?.firstOrNull?.ref),
+      SchemaObject(allOf: final allOf) => schema.copyWith(
+        ref: allOf?.firstOrNull?.ref,
+      ),
       _ => null,
     };
     if (s != null) {
@@ -857,7 +860,7 @@ Map<String, dynamic> _formatSpecFromJson({
           SchemaObject(
             nullable: final nullable,
             required: final required,
-            defaultValue: final defaultValue
+            defaultValue: final defaultValue,
           ) =>
             (() {
               if (nullable != null) {
@@ -961,21 +964,13 @@ Map<String, dynamic> _formatSpecFromJson({
       switch (aSchema) {
         case SchemaArray(items: final items):
           if (items.type == SchemaType.string) {
-            aSchema = aSchema.copyWith(
-              title: '${anyOfName}String',
-            );
+            aSchema = aSchema.copyWith(title: '${anyOfName}String');
           } else if (items.type == SchemaType.integer) {
-            aSchema = aSchema.copyWith(
-              title: '${anyOfName}Integer',
-            );
+            aSchema = aSchema.copyWith(title: '${anyOfName}Integer');
           } else if (items.type == SchemaType.number) {
-            aSchema = aSchema.copyWith(
-              title: '${anyOfName}Number',
-            );
+            aSchema = aSchema.copyWith(title: '${anyOfName}Number');
           } else if (items.type == SchemaType.boolean) {
-            aSchema = aSchema.copyWith(
-              title: '${anyOfName}Boolean',
-            );
+            aSchema = aSchema.copyWith(title: '${anyOfName}Boolean');
           }
       }
 

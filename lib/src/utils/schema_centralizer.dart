@@ -28,8 +28,8 @@ class SchemaCentralizer {
   /// The keys are the path strings and the values are the corresponding PathItem objects.
   Map<String, PathItem> paths;
   SchemaCentralizer(this._originalSpec)
-      : schemas = {..._originalSpec.components?.schemas ?? {}},
-        paths = _originalSpec.paths ?? {};
+    : schemas = {..._originalSpec.components?.schemas ?? {}},
+      paths = _originalSpec.paths ?? {};
 
   /// Returns the centralized OpenAPI spec.
   OpenApi centralizedSpec() {
@@ -42,10 +42,7 @@ class SchemaCentralizer {
       schemas: schemas,
     );
 
-    return _originalSpec.copyWith(
-      components: components,
-      paths: paths,
-    );
+    return _originalSpec.copyWith(components: components, paths: paths);
   }
 
   /// This will add a schema to the components and return a Schema
@@ -82,23 +79,25 @@ class SchemaCentralizer {
     final suggestedName = suggester.suggestName();
     switch (originalSchema.type) {
       case (SchemaType.object ||
-            SchemaType.enumeration ||
-            SchemaType.array ||
-            SchemaType.map):
+          SchemaType.enumeration ||
+          SchemaType.array ||
+          SchemaType.map):
         final refSchema = _addSchema(originalSchema, suggestedName);
         return refSchema;
 
       case (SchemaType.boolean ||
-            SchemaType.string ||
-            SchemaType.integer ||
-            SchemaType.number):
+          SchemaType.string ||
+          SchemaType.integer ||
+          SchemaType.number):
         return originalSchema;
     }
   }
 
   /// Converts the given parameter to use a schema reference and adds the schema to the components.
   Parameter _convertParameter(
-      Parameter parameter, _ComponentNameSuggester suggester) {
+    Parameter parameter,
+    _ComponentNameSuggester suggester,
+  ) {
     return parameter.copyWith(
       schema: _convertToSchemaRef(parameter.schema!, suggester),
     );
@@ -120,32 +119,42 @@ class SchemaCentralizer {
             mediaType.copyWith(
               schema: mediaType.schema == null
                   ? null
-                  : _convertToSchemaRef(mediaType.schema!,
-                      suggester.copyWith(type: _ComponentType.requestBody)),
+                  : _convertToSchemaRef(
+                      mediaType.schema!,
+                      suggester.copyWith(type: _ComponentType.requestBody),
+                    ),
             ),
           );
         }),
       ),
       responses: operation.responses?.map((key, response) {
-        return MapEntry(key, response.copyWith(
-          content: response.content?.map((key, mediaType) {
-            return MapEntry(
-              key,
-              mediaType.copyWith(
-                schema: mediaType.schema == null
-                    ? null
-                    : _convertToSchemaRef(mediaType.schema!,
-                        suggester.copyWith(type: _ComponentType.response)),
-              ),
-            );
-          }),
-        ));
+        return MapEntry(
+          key,
+          response.copyWith(
+            content: response.content?.map((key, mediaType) {
+              return MapEntry(
+                key,
+                mediaType.copyWith(
+                  schema: mediaType.schema == null
+                      ? null
+                      : _convertToSchemaRef(
+                          mediaType.schema!,
+                          suggester.copyWith(type: _ComponentType.response),
+                        ),
+                ),
+              );
+            }),
+          ),
+        );
       }),
       parameters: operation.parameters?.map((parameter) {
         return _convertParameter(
-            parameter,
-            suggester.copyWith(
-                suffix: parameter.name, type: _ComponentType.parameter));
+          parameter,
+          suggester.copyWith(
+            suffix: parameter.name,
+            type: _ComponentType.parameter,
+          ),
+        );
       }).toList(),
     );
   }
@@ -161,65 +170,82 @@ class SchemaCentralizer {
       type: null,
     );
     return pathItem.copyWith(
-        parameters: pathItem.parameters?.map((parameter) {
-          return _convertParameter(parameter, suggester);
-        }).toList(),
-        get: pathItem.get == null
-            ? null
-            : _convertOperation(
-                pathItem.get!,
-                suggester.copyWith(
-                    method: HttpMethod.get, operation: pathItem.get!),
+      parameters: pathItem.parameters?.map((parameter) {
+        return _convertParameter(parameter, suggester);
+      }).toList(),
+      get: pathItem.get == null
+          ? null
+          : _convertOperation(
+              pathItem.get!,
+              suggester.copyWith(
+                method: HttpMethod.get,
+                operation: pathItem.get!,
               ),
-        post: pathItem.post == null
-            ? null
-            : _convertOperation(
-                pathItem.post!,
-                suggester.copyWith(
-                    method: HttpMethod.post, operation: pathItem.post!),
+            ),
+      post: pathItem.post == null
+          ? null
+          : _convertOperation(
+              pathItem.post!,
+              suggester.copyWith(
+                method: HttpMethod.post,
+                operation: pathItem.post!,
               ),
-        put: pathItem.put == null
-            ? null
-            : _convertOperation(
-                pathItem.put!,
-                suggester.copyWith(
-                    method: HttpMethod.put, operation: pathItem.put!),
+            ),
+      put: pathItem.put == null
+          ? null
+          : _convertOperation(
+              pathItem.put!,
+              suggester.copyWith(
+                method: HttpMethod.put,
+                operation: pathItem.put!,
               ),
-        delete: pathItem.delete == null
-            ? null
-            : _convertOperation(
-                pathItem.delete!,
-                suggester.copyWith(
-                    method: HttpMethod.delete, operation: pathItem.delete!),
+            ),
+      delete: pathItem.delete == null
+          ? null
+          : _convertOperation(
+              pathItem.delete!,
+              suggester.copyWith(
+                method: HttpMethod.delete,
+                operation: pathItem.delete!,
               ),
-        patch: pathItem.patch == null
-            ? null
-            : _convertOperation(
-                pathItem.patch!,
-                suggester.copyWith(
-                    method: HttpMethod.patch, operation: pathItem.patch!),
+            ),
+      patch: pathItem.patch == null
+          ? null
+          : _convertOperation(
+              pathItem.patch!,
+              suggester.copyWith(
+                method: HttpMethod.patch,
+                operation: pathItem.patch!,
               ),
-        head: pathItem.head == null
-            ? null
-            : _convertOperation(
-                pathItem.head!,
-                suggester.copyWith(
-                    method: HttpMethod.head, operation: pathItem.head!),
+            ),
+      head: pathItem.head == null
+          ? null
+          : _convertOperation(
+              pathItem.head!,
+              suggester.copyWith(
+                method: HttpMethod.head,
+                operation: pathItem.head!,
               ),
-        options: pathItem.options == null
-            ? null
-            : _convertOperation(
-                pathItem.options!,
-                suggester.copyWith(
-                    method: HttpMethod.options, operation: pathItem.options!),
+            ),
+      options: pathItem.options == null
+          ? null
+          : _convertOperation(
+              pathItem.options!,
+              suggester.copyWith(
+                method: HttpMethod.options,
+                operation: pathItem.options!,
               ),
-        trace: pathItem.trace == null
-            ? null
-            : _convertOperation(
-                pathItem.trace!,
-                suggester.copyWith(
-                    method: HttpMethod.trace, operation: pathItem.trace!),
-              ));
+            ),
+      trace: pathItem.trace == null
+          ? null
+          : _convertOperation(
+              pathItem.trace!,
+              suggester.copyWith(
+                method: HttpMethod.trace,
+                operation: pathItem.trace!,
+              ),
+            ),
+    );
   }
 }
 

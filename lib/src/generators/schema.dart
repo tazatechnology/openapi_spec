@@ -87,8 +87,10 @@ class SchemaGenerator extends BaseGenerator {
     _searchForUnions();
 
     // Get a list of all extra schemas
-    final extraSchemas =
-        spec.extraSchemaMapping.entries.fold([], (p, e) => p + e.value);
+    final extraSchemas = spec.extraSchemaMapping.entries.fold(
+      [],
+      (p, e) => p + e.value,
+    );
 
     // Loop through all the schemas and write
     for (final s in schemas.keys) {
@@ -158,11 +160,7 @@ class SchemaGenerator extends BaseGenerator {
         case SchemaEnum():
           _writeEnumeration(name: name, schema: schemas[s]!);
         case SchemaString(description: final description):
-          _writeTypedef(
-            name: name,
-            description: description,
-            def: 'String',
-          );
+          _writeTypedef(name: name, description: description, def: 'String');
         case SchemaArray(items: final items, description: final description):
           final iType = items.toDartType();
           _writeTypedef(
@@ -171,9 +169,9 @@ class SchemaGenerator extends BaseGenerator {
             def: 'List<$iType>',
           );
         case SchemaMap(
-            valueSchema: final valueSchema,
-            description: final description
-          ):
+          valueSchema: final valueSchema,
+          description: final description,
+        ):
           final vType = valueSchema?.toDartType() ?? 'dynamic';
           _writeTypedef(
             name: name,
@@ -203,10 +201,7 @@ class SchemaGenerator extends BaseGenerator {
         );
       }
 
-      _writeUnion(
-        union: u,
-        schemas: _unions[u]!,
-      );
+      _writeUnion(union: u, schemas: _unions[u]!);
     }
   }
 
@@ -214,10 +209,7 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _writeUnion
   // ---------------------------------------------------------------------------
 
-  void _writeUnion({
-    required String union,
-    required List<String> schemas,
-  }) {
+  void _writeUnion({required String union, required List<String> schemas}) {
     printLog('Create Union Schema', union);
 
     // Determine the schema union key
@@ -268,7 +260,7 @@ class SchemaGenerator extends BaseGenerator {
         SchemaEnum(
           description: final description,
           defaultValue: final defaultValue,
-          nullable: final nullable
+          nullable: final nullable,
         ) =>
           (() {
             // Convert the union enum to a string
@@ -316,13 +308,16 @@ class SchemaGenerator extends BaseGenerator {
       }
 
       /// Class Footer
-      file.writeAsStringSync("}) = $union$uSubClass;\n\n",
-          mode: FileMode.append);
+      file.writeAsStringSync(
+        "}) = $union$uSubClass;\n\n",
+        mode: FileMode.append,
+      );
     }
 
     String unionValuesEnum = '';
     if (unionValues.isNotEmpty) {
-      unionValuesEnum = """
+      unionValuesEnum =
+          """
       // =============================================================================
       // ENUM: ${union}Type
       // =============================================================================
@@ -348,9 +343,7 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _writePrimitiveUnion
   // ---------------------------------------------------------------------------
 
-  void _writePrimitiveUnion({
-    required Schema schema,
-  }) {
+  void _writePrimitiveUnion({required Schema schema}) {
     // Should never happen, but just in case, throw a clear exception
     if (schema.title == null) {
       throw Exception(
@@ -384,21 +377,19 @@ class SchemaGenerator extends BaseGenerator {
     switch (schema) {
       case SchemaObject(anyOf: final anyOf):
         final subSchemas = (anyOf?.toList() ?? <Schema>[]);
-        subSchemas.sort(
-          (a, b) {
-            if (a.type == SchemaType.map) {
-              // Ensure that dynamic map type is always last
-              // Prevent conflicts with other object types
-              return 1;
-            } else if (a.type == SchemaType.string) {
-              // Ensure that string type is always last
-              // Prevent conflicts with enumeration types
-              return 1;
-            } else {
-              return subSchemas.indexOf(a).compareTo(subSchemas.indexOf(b));
-            }
-          },
-        );
+        subSchemas.sort((a, b) {
+          if (a.type == SchemaType.map) {
+            // Ensure that dynamic map type is always last
+            // Prevent conflicts with other object types
+            return 1;
+          } else if (a.type == SchemaType.string) {
+            // Ensure that string type is always last
+            // Prevent conflicts with enumeration types
+            return 1;
+          } else {
+            return subSchemas.indexOf(a).compareTo(subSchemas.indexOf(b));
+          }
+        });
         for (final a in subSchemas) {
           switch (a) {
             case SchemaObject(ref: final ref):
@@ -480,9 +471,7 @@ class SchemaGenerator extends BaseGenerator {
               String unionEnumMap = '_\$${title}EnumMap';
               final uName = '${uNameConstr}Enum';
               final uFactory = '$union.enumeration';
-              toJson.add(
-                '$uName(value: final v) => $unionEnumMap[v]!,',
-              );
+              toJson.add('$uName(value: final v) => $unionEnumMap[v]!,');
               if (schema.defaultValue is String &&
                   (values?.contains(schema.defaultValue) ?? false)) {
                 final enumValue = _safeEnumValue(schema.defaultValue, schema);
@@ -490,13 +479,11 @@ class SchemaGenerator extends BaseGenerator {
               }
               // Place this as first check in fromJson
               // So that it takes precedence over string constructor (if present)
-              fromJson.add(
-                """
+              fromJson.add("""
                 if (data is String && $unionEnumMap.values.contains(data)) {
                   return $uFactory($unionEnumMap.keys.elementAt(
                   $unionEnumMap.values.toList().indexOf(data),),);
-                }""",
-              );
+                }""");
               file.writeAsStringSync(
                 'const factory $uFactory($title value,) = $uName;\n\n',
                 mode: FileMode.append,
@@ -508,7 +495,8 @@ class SchemaGenerator extends BaseGenerator {
               final innerType = items.toDartType();
               final uFactory = '$union.$factoryName';
               fromJson.add(
-                  'if (data is List && data.every((item) => item is $innerType)) {return $uFactory(data.cast());}');
+                'if (data is List && data.every((item) => item is $innerType)) {return $uFactory(data.cast());}',
+              );
               toJson.add('$uName(value: final v) => v,');
               if (schema.defaultValue is List) {
                 defaultFallback = 'return $uFactory(${schema.defaultValue});';
@@ -571,10 +559,7 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _writeObject
   // ---------------------------------------------------------------------------
 
-  void _writeObject({
-    required String name,
-    required Schema schema,
-  }) {
+  void _writeObject({required String name, required Schema schema}) {
     final s = switch (schema) {
       SchemaObject() => schema,
       _ => null,
@@ -680,9 +665,7 @@ class SchemaGenerator extends BaseGenerator {
     SchemaValidation? validation;
 
     // Helper function to get the json key code
-    String getJsonKey({
-      required bool nullable,
-    }) {
+    String getJsonKey({required bool nullable}) {
       List<String> jsonOpts = [];
       if (jsonName != name) {
         jsonOpts.add("name: '$jsonName'");
@@ -723,8 +706,9 @@ class SchemaGenerator extends BaseGenerator {
 
     switch (property) {
       case SchemaObject():
-        final dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        final dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         var p = switch (dereferencedProperty) {
           SchemaObject() => dereferencedProperty,
           _ => property,
@@ -829,8 +813,10 @@ class SchemaGenerator extends BaseGenerator {
           }
           c += " $name,\n\n";
         } else if (unionSchemas.isNotEmpty) {
-          final unionName = _unions.keys
-                  .firstWhereOrNull((e) => _unions[e]!.equals(unionSchemas)) ??
+          final unionName =
+              _unions.keys.firstWhereOrNull(
+                (e) => _unions[e]!.equals(unionSchemas),
+              ) ??
               'dynamic';
           c += "$unionName ${nullable ? '?' : ''} $name,\n\n";
         } else {
@@ -838,8 +824,9 @@ class SchemaGenerator extends BaseGenerator {
         }
         file.writeAsStringSync(c, mode: FileMode.append);
       case SchemaBoolean():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         final p = switch (dereferencedProperty) {
           SchemaBoolean() => dereferencedProperty,
           _ => property,
@@ -848,8 +835,9 @@ class SchemaGenerator extends BaseGenerator {
         c += "bool ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       case SchemaString():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         final p = switch (dereferencedProperty) {
           SchemaString() => dereferencedProperty,
           _ => property,
@@ -865,8 +853,9 @@ class SchemaGenerator extends BaseGenerator {
           nullable: nullable,
         );
       case SchemaInteger():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         final p = switch (dereferencedProperty) {
           SchemaInteger() => dereferencedProperty,
           _ => property,
@@ -887,8 +876,9 @@ class SchemaGenerator extends BaseGenerator {
           multipleOf: p.multipleOf,
         );
       case SchemaNumber():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         final p = switch (dereferencedProperty) {
           SchemaNumber() => dereferencedProperty,
           _ => property,
@@ -909,8 +899,9 @@ class SchemaGenerator extends BaseGenerator {
           multipleOf: p.multipleOf,
         );
       case SchemaArray():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         final p = switch (dereferencedProperty) {
           SchemaArray() => dereferencedProperty,
           _ => property,
@@ -920,8 +911,9 @@ class SchemaGenerator extends BaseGenerator {
         c += "List<$itemType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       case SchemaMap():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         var p = switch (dereferencedProperty) {
           SchemaMap() => dereferencedProperty,
           _ => property,
@@ -936,8 +928,9 @@ class SchemaGenerator extends BaseGenerator {
         c += "Map<String,$valueType> ${nullable ? '?' : ''} $name,\n\n";
         file.writeAsStringSync(c, mode: FileMode.append);
       case SchemaEnum():
-        var dereferencedProperty =
-            property.dereference(components: spec.components?.schemas);
+        var dereferencedProperty = property.dereference(
+          components: spec.components?.schemas,
+        );
         final p = switch (dereferencedProperty) {
           SchemaEnum() => dereferencedProperty,
           _ => property,
@@ -949,7 +942,8 @@ class SchemaGenerator extends BaseGenerator {
 
         // Document possible values if no enum type defined
         if (p.ref == null && p.values != null) {
-          description += '\n\nPossible values:\n'
+          description +=
+              '\n\nPossible values:\n'
               '${p.values!.map((v) => '- `$v`\n').join()}';
         }
 
@@ -1037,10 +1031,7 @@ class SchemaGenerator extends BaseGenerator {
   // METHOD: _writeEnumeration
   // ---------------------------------------------------------------------------
 
-  void _writeEnumeration({
-    required String name,
-    required Schema schema,
-  }) {
+  void _writeEnumeration({required String name, required Schema schema}) {
     final s = switch (schema) {
       SchemaEnum() => schema,
       _ => null,
@@ -1128,16 +1119,15 @@ class SchemaGenerator extends BaseGenerator {
                 checkAnyOf(anyOf);
                 recursiveSchemaSearch(propertySchema);
               case SchemaArray(items: final items):
-                recursiveSchemaSearch(
-                  switch (items) { SchemaObject() => items, _ => null },
-                );
+                recursiveSchemaSearch(switch (items) {
+                  SchemaObject() => items,
+                  _ => null,
+                });
               case SchemaMap(valueSchema: final valueSchema):
-                recursiveSchemaSearch(
-                  switch (valueSchema) {
-                    SchemaObject() => valueSchema,
-                    _ => null
-                  },
-                );
+                recursiveSchemaSearch(switch (valueSchema) {
+                  SchemaObject() => valueSchema,
+                  _ => null,
+                });
             }
           }
       }
@@ -1252,14 +1242,16 @@ class SchemaGenerator extends BaseGenerator {
       // Could not arrive at a common name, use a default
       name = 'UnionSchema';
     } else {
-      final commonWords =
-          schemasSnake.first.sublist(schemasSnake.first.length - index);
+      final commonWords = schemasSnake.first.sublist(
+        schemasSnake.first.length - index,
+      );
       final commonName = commonWords.map((e) => e.titleCase).join();
       name = 'Union$commonName';
     }
 
-    bool alreadyDefined =
-        _unions.values.map((e) => e.equals(schemas)).any((e) => e);
+    bool alreadyDefined = _unions.values
+        .map((e) => e.equals(schemas))
+        .any((e) => e);
 
     if (!alreadyDefined) {
       final userUnionName = options.onSchemaUnionName?.call(name, schemas);

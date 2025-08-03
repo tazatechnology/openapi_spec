@@ -38,9 +38,7 @@ abstract class Security with _$Security {
     if (name == null) {
       return {};
     } else {
-      return {
-        name!: scopes,
-      };
+      return {name!: scopes};
     }
   }
 }

@@ -45,9 +45,7 @@ abstract class Response with _$Response {
   // METHOD: dereference
   // ---------------------------------------------------------------------------
 
-  Response dereference({
-    required Map<String, Response>? components,
-  }) {
+  Response dereference({required Map<String, Response>? components}) {
     if (ref == null) {
       return this;
     }
